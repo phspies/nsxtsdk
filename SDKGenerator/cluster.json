@@ -1,0 +1,2054 @@
+﻿{
+  "management_cluster": [
+    {
+      "role_config": {
+        "api_listen_addr": {
+          "ip_address": "192.168.0.231",
+          "port": 443,
+          "certificate": "-----BEGIN CERTIFICATE-----\nMIIDsTCCApmgAwIBAgIEC8xSRTANBgkqhkiG9w0BAQsFADBvMQswCQYDVQQGEwJV\nUzELMAkGA1UECBMCQ0ExEjAQBgNVBAcTCVBhbG8gQWx0bzEUMBIGA1UEChMLVk13\nYXJlIEluYy4xDDAKBgNVBAsTA05TWDEbMBkGA1UEAxMSbnN4bWdyMDEubGFiLmxv\nY2FsMB4XDTIxMDcyMTE2NTI0N1oXDTIzMTAyNDE2NTI0N1owbzELMAkGA1UEBhMC\nVVMxCzAJBgNVBAgTAkNBMRIwEAYDVQQHEwlQYWxvIEFsdG8xFDASBgNVBAoTC1ZN\nd2FyZSBJbmMuMQwwCgYDVQQLEwNOU1gxGzAZBgNVBAMTEm5zeG1ncjAxLmxhYi5s\nb2NhbDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAOYjr6gEc3w+jgCr\nk31J6rpkO8W8V7peCSQryGswgTQU+k+JYUGX24s+TMBU+M5Vt7LzeI6XiCkItC/K\nubwiHpg/WHGwYKcZBw1tgVhPFgcA3elIo/1eFunCYEoCGdhXXQsWhhTnCo7/Bhn8\nUBlxblqxUVKv4bqP7uZKT3ICOEFaiPP3CiuTiK6m+1PjmjVyaPgsVCbN949zl8a/\nF0JQ7J/IHp74VelCezp5I/MMQtbtXNPbefqkmfBvuTqX7FeTX6zll66O8yGuFO4n\ngK9ixVSIu55NTZlCf6a2b8Qym3gCL1YeRoZFu9KvFfOXrqkPQOxHguZWOT4gLyYW\nFtDpqRECAwEAAaNVMFMwEwYDVR0lBAwwCgYIKwYBBQUHAwEwHQYDVR0RBBYwFIIS\nbnN4bWdyMDEubGFiLmxvY2FsMB0GA1UdDgQWBBT1sVg7gKAgWUwq1TGUlwZJqL2G\n6jANBgkqhkiG9w0BAQsFAAOCAQEA4TqKZpwDZkwUw2KhdtW4em9xVn/OY8VZsvs8\nDVFA8IXFhmdI6reHSks7i7R2HYf1dbWR2lQc5g3Pe8LnN7VWSLHxz1GEH0LxqaKR\nLBGJtTN9a+Mwk+MoOfKyNrwIyQ3OxoBW59Bgt/Jk+gqzWbTgSK+hdbZjaMLrIyZu\nQKUfoJGreseJnvWV+nbmtQ305OM9e/IX4dtuMGh58CCQdSTaZbpPtrlnAXlNDCYm\nIyVy8BM2yiMEjwYwhFVN/lipfGgPf2hRPtGvfSySvrfSX6whe2jXEUlupyUTN71x\n5q0EpUxgEqvhbRUTxsm5rgDln1AJVU3SpT+6zlUtSwZf0j0hKA==\n-----END CERTIFICATE-----",
+          "certificate_sha256_thumbprint": "078532208c26753177acb8dff0c50d1d49bfb086c4e1f83a090702a4d7aa7801"
+        },
+        "mgmt_plane_listen_addr": {
+          "ip_address": "192.168.0.231",
+          "port": 5671,
+          "certificate": "-----BEGIN CERTIFICATE-----\nMIIDRjCCAi4CCQDSXQ+o920xRTANBgkqhkiG9w0BAQsFADBlMREwDwYDVQQDDAhu\nc3htZ3IwMTEMMAoGA1UECwwDTlNYMRQwEgYDVQQKDAtWTXdhcmUgSW5jLjESMBAG\nA1UEBwwJUGFsbyBBbHRvMQswCQYDVQQIDAJDQTELMAkGA1UEBhMCVVMwHhcNMjEw\nNzIxMTY1MTU5WhcNMjMxMDI0MTY1MTU5WjBlMREwDwYDVQQDDAhuc3htZ3IwMTEM\nMAoGA1UECwwDTlNYMRQwEgYDVQQKDAtWTXdhcmUgSW5jLjESMBAGA1UEBwwJUGFs\nbyBBbHRvMQswCQYDVQQIDAJDQTELMAkGA1UEBhMCVVMwggEiMA0GCSqGSIb3DQEB\nAQUAA4IBDwAwggEKAoIBAQDJkAmxuv1HwJ13aquwLhb6pNMkch+1JGwMzlPVeVRj\n3A4ttutoCZWeqDQPUlObzFUfHh9+6lmBR1s413671yv0ia1a/u4L68CNrXb1OqIV\nYZhZ2v+5rdGgnzoE/rT31cI33kDqD6GmrirR9vUiDt7nSuSnpNPGyiescoUB8jaS\n5bHV5ikDErrPa/YrWcsPCqU5JUg+4jBO0vHBvAX/5FyUl921Ozn3ksVuKUCEwirZ\nV4Q7PcXkXTLw3jAZgKreaCuJIMs5sIjOxWuHdRBB4g0F9++48+GXLwsHMI1guHPf\nEC/ZJLH5UbjeS2y6ptsABebccvxeDyUtzMdUkjAyvtA5AgMBAAEwDQYJKoZIhvcN\nAQELBQADggEBAERe1JcqfY1+18HAHBwGE+B1320jguTlDfR/tZrnrlOqEYNcFn/X\nz9Y8K0mC+nl54nN8rBfuzhKBznPwyg/+0gw1ZgbGd2wQSeO9w0HSrMFC4Z5F3w6H\noGtmlhijoKzNkEWccj5jbsBDscjhRhDV+GfKtxCifMs+ODtghnf9xn8eWJrh/d97\nYM6bbnLvTYS7P+cB8nofzgjzYPK9eQsjKsOAtiBGS7ZIllaFVsCp8yBr9ATvZ9qp\n1NVwJBisaXLuDxdvb8GcEPs5cGqS3vOIhq9RQUm1K9iqGQjavtvnVA3vvmzEyGhr\n4iLZZ+B6yZEkljh7zJJzMhT8HdJNYX7QvcQ=\n-----END CERTIFICATE-----",
+          "certificate_sha256_thumbprint": "55c2487a07acc33938c505f41bf82f6c4f23d7c3f91e26033f9ad68886ce3967"
+        },
+        "mgmt_cluster_listen_addr": {
+          "ip_address": "192.168.0.231",
+          "port": 0,
+          "certificate": "-----BEGIN CERTIFICATE-----\nMIIDmTCCAoGgAwIBAgIEVWsnrjANBgkqhkiG9w0BAQsFADB9MQswCQYDVQQGEwJVUzELMAkGA1UE\nCBMCQ0ExEjAQBgNVBAcTCVBhbG8gQWx0bzEUMBIGA1UEChMLVk13YXJlIEluYy4xDDAKBgNVBAsT\nA05TWDEpMCcGA1UEAxMgVk13YXJlIE5TWEFQSSBHZW1maXJlIE1hbmFnZW1lbnQwHhcNMjEwNzIx\nMTY1NTMyWhcNMjMxMDI0MTY1NTMyWjB9MQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExEjAQBgNV\nBAcTCVBhbG8gQWx0bzEUMBIGA1UEChMLVk13YXJlIEluYy4xDDAKBgNVBAsTA05TWDEpMCcGA1UE\nAxMgVk13YXJlIE5TWEFQSSBHZW1maXJlIE1hbmFnZW1lbnQwggEiMA0GCSqGSIb3DQEBAQUAA4IB\nDwAwggEKAoIBAQCOpMl79W3jlxQz3iWOHv9F2RgOqC391kp3bvskLAC4S4ltY9LUzIDEfzQU6/j9\nTG/CXdZwa02P0P3yJnQPPGqbA25ZvXNVAlRtbWLiTYSsXCx+AkDfgVohzH/iXpPc/EI9Dc3Jfg2w\noDny9lUAxJk/c/O5xQSiLhsZpcuwi9qyefdlG1QNdKT+ePHrH3OSIXdcSUN9EqhWypt0HMvBHdpO\n8r7WHkRnPo2V3X9EzyI5x7aR9fADm8GuWqAnyqqW2Fo1wGDfBJICIfIGrRxvTjii+XfXFMqpmnLJ\ncn1IO/HVBpnDDUbR6xQ8y7t/SckxhF9eIfiHQsOF/SRDc5UjB9HbAgMBAAGjITAfMB0GA1UdDgQW\nBBRpb2FLwCv5C+axDsMWZbgpi79DDzANBgkqhkiG9w0BAQsFAAOCAQEAbO4ivnI2UCQmmqYFU5CS\noTFqSDibLRllrNgHXlp7F+vPbCFdprzZrbfNcsqQeb4epFDyri0cYoeTRGuTSYWGgOafPwFZjH7r\n4dguPsEBXZN+i034USCvJ1y8i6jnAzUp6Sk74nNZPBa42cdGqG5jgfjXt781qRCZLIaz/8VFjF+2\nvwfsmpdHK59oYIdtZd0SH/UnmWaKoOjpOdyb8xRvAQRiHyOKzj8LfAv85KXaeQKbAmT0qvkSVAXj\n0/Ct7vLhMSI4ool+aoajEC9Qz/z69dhKT0/o22TLIcorbupg/7TFZ0OlrDwmmjG4K12oAlqg9arw\n7RjRUIhIHkUHXKmtFA==\n-----END CERTIFICATE-----",
+          "certificate_sha256_thumbprint": "af6b1e5976b494e32524e8cbd5d0ee589ad7fdbb2983aba0e341bdc9c1c9325c"
+        },
+        "mpa_msg_client_info": {
+          "account_name": "cvn-mp-mpa-d6eeeffb-1a8d-4039-9232-b8b19ed1b42a"
+        },
+        "appliance_connection_info": {
+          "ip_address": "192.168.0.231",
+          "port": 1234,
+          "certificate": "-----BEGIN CERTIFICATE-----\nMIIEjDCCA3SgAwIBAgIJAOaxjs8WecSrMA0GCSqGSIb3DQEBCwUAMIHRMQswCQYD\nVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTESMBAGA1UEBxMJUGFsbyBBbHRv\nMRUwEwYDVQQKEwxWTXdhcmUsIEluYy4xKjAoBgkqhkiG9w0BCQEWG3NzbC1jZXJ0\naWZpY2F0ZXNAdm13YXJlLmNvbTEgMB4GA1UEAxMXVk13YXJlLU5TWC1BcHBsUHJv\neHlIdWIxNDAyBgoJkiaJk/IsZAEBEyRkNmVlZWZmYi0xYThkLTQwMzktOTIzMi1i\nOGIxOWVkMWI0MmEwHhcNMjEwNzIxMTY1MjI1WhcNMzEwNzE5MTY1MjI1WjCB0TEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExEjAQBgNVBAcTCVBhbG8g\nQWx0bzEVMBMGA1UEChMMVk13YXJlLCBJbmMuMSowKAYJKoZIhvcNAQkBFhtzc2wt\nY2VydGlmaWNhdGVzQHZtd2FyZS5jb20xIDAeBgNVBAMTF1ZNd2FyZS1OU1gtQXBw\nbFByb3h5SHViMTQwMgYKCZImiZPyLGQBARMkZDZlZWVmZmItMWE4ZC00MDM5LTky\nMzItYjhiMTllZDFiNDJhMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA\nlJc60uxoLr4OCMf8oFOy33iSWt5p8fodvNAvDnoW42Jz/jgSrVt9s4HQr4HJfffk\nLNvdUpJrbLgPUKsGSNfSgKTt3HNjmRF6RyZCRSTlS6oKOEKaay9vVTOWvEwO9FRi\n89iQ+0K4sIGkwVKtlYEZJi9gNGrLsJFVDSKbL2Kd032LRM9n35iht9DnPUtvIGK3\n/MyXtgeU8mjjVzNuqni5sKmkV/Jgt6PRnS3UI7v2Kgibj2Ki29v7gmYcZ16Z4rwu\npUcQmOX0hWPzUf5Qwxkl54ErmLbIJkcgEySbLSZrWCMtBVeSQN7pLps6ilp4dFS+\nL8Vbcz8vKrPKLhjDXX3z7wIDAQABo2UwYzAJBgNVHRMEAjAAMB0GA1UdJQQWMBQG\nCCsGAQUFBwMBBggrBgEFBQcDAjA3BgNVHREEMDAuhixuc3gtYXBoOmQ2ZWVlZmZi\nLTFhOGQtNDAzOS05MjMyLWI4YjE5ZWQxYjQyYTANBgkqhkiG9w0BAQsFAAOCAQEA\nfffdScVSOEr508BYyfHmPSTnpAENuFa7TxJZRSIaKIY7420SiV8S7XilrkEoUZ9w\ncchzMOv6AhCdiKAM4xmxUla3ML8qXTPzeftZIxcS3hwZr6lrv0jmbg404ckw5URK\npPDxiImccXI0FfMQCZ2Qq5DEjFP34ogAxPh7Du3J+7mnrAvOOtiid8LY2KicsOt7\nS7eOka5j3IHku2w8JZM5ZKIRnCuIpckT1GgZn4V83mTRjIWF5bc97MauY+MVP0GI\nj94xiJjSY2bLqPdb0y9Fhob9J4pg+UwnBCzAymBisIqReOQ1/HMobWI6dOdapnQl\nN4jV8D/0dWep8tU2j6WJbg==\n-----END CERTIFICATE-----",
+          "certificate_sha256_thumbprint": "23fe845b6ccc177ac0de7d8e3a94e4a9d2ed1f2624136c537ba275f419549911",
+          "service_endpoint_uuid": "d6eeeffb-1a8d-4039-9232-b8b19ed1b42a",
+          "entities_hosted": [
+            {
+              "entity_type": "MP",
+              "entity_uuid": "d9bf1a42-6d93-44b6-e149-3128f7cd46b8"
+            }
+          ]
+        },
+        "type": "ManagementClusterRoleConfig"
+      },
+      "transport_nodes_connected": 0,
+      "node_status": {
+        "version": "3.1.3.3.0.18844962",
+        "mgmt_cluster_status": {
+          "mgmt_cluster_status": "CONNECTED"
+        }
+      },
+      "node_status_properties": [
+        {
+          "cpu_cores": 4,
+          "disk_space_total": 262788076,
+          "disk_space_used": 28466800,
+          "file_systems": [
+            {
+              "file_system": "udev",
+              "mount": "/dev",
+              "total": 8192164,
+              "type": "devtmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run",
+              "total": 1641704,
+              "type": "tmpfs",
+              "used": 6332
+            },
+            {
+              "file_system": "/dev/sda3",
+              "mount": "/",
+              "total": 10750024,
+              "type": "ext4",
+              "used": 6283000
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/dev/shm",
+              "total": 8208516,
+              "type": "tmpfs",
+              "used": 2780
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run/lock",
+              "total": 5120,
+              "type": "tmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/sys/fs/cgroup",
+              "total": 8208516,
+              "type": "tmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "/dev/sda1",
+              "mount": "/boot",
+              "total": 966264,
+              "type": "ext4",
+              "used": 9616
+            },
+            {
+              "file_system": "/dev/mapper/nsx-var+dump",
+              "mount": "/var/dump",
+              "total": 9765140,
+              "type": "ext4",
+              "used": 36888
+            },
+            {
+              "file_system": "/dev/mapper/nsx-repository",
+              "mount": "/repository",
+              "total": 32313680,
+              "type": "ext4",
+              "used": 13343688
+            },
+            {
+              "file_system": "/dev/mapper/nsx-tmp",
+              "mount": "/tmp",
+              "total": 3865136,
+              "type": "ext4",
+              "used": 22200
+            },
+            {
+              "file_system": "/dev/mapper/nsx-var+log",
+              "mount": "/var/log",
+              "total": 28113476,
+              "type": "ext4",
+              "used": 8018580
+            },
+            {
+              "file_system": "/dev/mapper/nsx-config__bak",
+              "mount": "/config",
+              "total": 30348680,
+              "type": "ext4",
+              "used": 94088
+            },
+            {
+              "file_system": "/dev/mapper/nsx-image",
+              "mount": "/image",
+              "total": 43982100,
+              "type": "ext4",
+              "used": 54500
+            },
+            {
+              "file_system": "/dev/mapper/nsx-secondary",
+              "mount": "/nonconfig",
+              "total": 102683576,
+              "type": "ext4",
+              "used": 604240
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run/user/1007",
+              "total": 1641700,
+              "type": "tmpfs",
+              "used": 0
+            }
+          ],
+          "load_average": [ 2.94, 3.79, 4.11 ],
+          "mem_cache": 583124,
+          "mem_total": 16417036,
+          "mem_used": 14229660,
+          "source": "cached",
+          "swap_total": 0,
+          "swap_used": 0,
+          "system_time": 1639528459000,
+          "uptime": 117874000
+        },
+        {
+          "cpu_cores": 4,
+          "disk_space_total": 262788076,
+          "disk_space_used": 28470876,
+          "file_systems": [
+            {
+              "file_system": "udev",
+              "mount": "/dev",
+              "total": 8192164,
+              "type": "devtmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run",
+              "total": 1641704,
+              "type": "tmpfs",
+              "used": 6332
+            },
+            {
+              "file_system": "/dev/sda3",
+              "mount": "/",
+              "total": 10750024,
+              "type": "ext4",
+              "used": 6283000
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/dev/shm",
+              "total": 8208516,
+              "type": "tmpfs",
+              "used": 2780
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run/lock",
+              "total": 5120,
+              "type": "tmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/sys/fs/cgroup",
+              "total": 8208516,
+              "type": "tmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "/dev/sda1",
+              "mount": "/boot",
+              "total": 966264,
+              "type": "ext4",
+              "used": 9616
+            },
+            {
+              "file_system": "/dev/mapper/nsx-var+dump",
+              "mount": "/var/dump",
+              "total": 9765140,
+              "type": "ext4",
+              "used": 36888
+            },
+            {
+              "file_system": "/dev/mapper/nsx-repository",
+              "mount": "/repository",
+              "total": 32313680,
+              "type": "ext4",
+              "used": 13343688
+            },
+            {
+              "file_system": "/dev/mapper/nsx-tmp",
+              "mount": "/tmp",
+              "total": 3865136,
+              "type": "ext4",
+              "used": 22200
+            },
+            {
+              "file_system": "/dev/mapper/nsx-var+log",
+              "mount": "/var/log",
+              "total": 28113476,
+              "type": "ext4",
+              "used": 8021684
+            },
+            {
+              "file_system": "/dev/mapper/nsx-config__bak",
+              "mount": "/config",
+              "total": 30348680,
+              "type": "ext4",
+              "used": 94188
+            },
+            {
+              "file_system": "/dev/mapper/nsx-image",
+              "mount": "/image",
+              "total": 43982100,
+              "type": "ext4",
+              "used": 54500
+            },
+            {
+              "file_system": "/dev/mapper/nsx-secondary",
+              "mount": "/nonconfig",
+              "total": 102683576,
+              "type": "ext4",
+              "used": 605040
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run/user/1007",
+              "total": 1641700,
+              "type": "tmpfs",
+              "used": 0
+            }
+          ],
+          "load_average": [ 3.19, 3.81, 4.11 ],
+          "mem_cache": 584604,
+          "mem_total": 16417036,
+          "mem_used": 14226448,
+          "source": "cached",
+          "swap_total": 0,
+          "swap_used": 0,
+          "system_time": 1639528474000,
+          "uptime": 117889000
+        },
+        {
+          "cpu_cores": 4,
+          "disk_space_total": 262788076,
+          "disk_space_used": 28472388,
+          "file_systems": [
+            {
+              "file_system": "udev",
+              "mount": "/dev",
+              "total": 8192164,
+              "type": "devtmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run",
+              "total": 1641704,
+              "type": "tmpfs",
+              "used": 6332
+            },
+            {
+              "file_system": "/dev/sda3",
+              "mount": "/",
+              "total": 10750024,
+              "type": "ext4",
+              "used": 6283000
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/dev/shm",
+              "total": 8208516,
+              "type": "tmpfs",
+              "used": 2780
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run/lock",
+              "total": 5120,
+              "type": "tmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/sys/fs/cgroup",
+              "total": 8208516,
+              "type": "tmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "/dev/sda1",
+              "mount": "/boot",
+              "total": 966264,
+              "type": "ext4",
+              "used": 9616
+            },
+            {
+              "file_system": "/dev/mapper/nsx-var+dump",
+              "mount": "/var/dump",
+              "total": 9765140,
+              "type": "ext4",
+              "used": 36888
+            },
+            {
+              "file_system": "/dev/mapper/nsx-repository",
+              "mount": "/repository",
+              "total": 32313680,
+              "type": "ext4",
+              "used": 13343688
+            },
+            {
+              "file_system": "/dev/mapper/nsx-tmp",
+              "mount": "/tmp",
+              "total": 3865136,
+              "type": "ext4",
+              "used": 22200
+            },
+            {
+              "file_system": "/dev/mapper/nsx-var+log",
+              "mount": "/var/log",
+              "total": 28113476,
+              "type": "ext4",
+              "used": 8024764
+            },
+            {
+              "file_system": "/dev/mapper/nsx-config__bak",
+              "mount": "/config",
+              "total": 30348680,
+              "type": "ext4",
+              "used": 94272
+            },
+            {
+              "file_system": "/dev/mapper/nsx-image",
+              "mount": "/image",
+              "total": 43982100,
+              "type": "ext4",
+              "used": 54500
+            },
+            {
+              "file_system": "/dev/mapper/nsx-secondary",
+              "mount": "/nonconfig",
+              "total": 102683576,
+              "type": "ext4",
+              "used": 603460
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run/user/1007",
+              "total": 1641700,
+              "type": "tmpfs",
+              "used": 0
+            }
+          ],
+          "load_average": [ 3.6, 3.86, 4.12 ],
+          "mem_cache": 586744,
+          "mem_total": 16417036,
+          "mem_used": 14244976,
+          "source": "cached",
+          "swap_total": 0,
+          "swap_used": 0,
+          "system_time": 1639528489000,
+          "uptime": 117904000
+        },
+        {
+          "cpu_cores": 4,
+          "disk_space_total": 262788076,
+          "disk_space_used": 28473152,
+          "file_systems": [
+            {
+              "file_system": "udev",
+              "mount": "/dev",
+              "total": 8192164,
+              "type": "devtmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run",
+              "total": 1641704,
+              "type": "tmpfs",
+              "used": 6332
+            },
+            {
+              "file_system": "/dev/sda3",
+              "mount": "/",
+              "total": 10750024,
+              "type": "ext4",
+              "used": 6283000
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/dev/shm",
+              "total": 8208516,
+              "type": "tmpfs",
+              "used": 2780
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run/lock",
+              "total": 5120,
+              "type": "tmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/sys/fs/cgroup",
+              "total": 8208516,
+              "type": "tmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "/dev/sda1",
+              "mount": "/boot",
+              "total": 966264,
+              "type": "ext4",
+              "used": 9616
+            },
+            {
+              "file_system": "/dev/mapper/nsx-var+dump",
+              "mount": "/var/dump",
+              "total": 9765140,
+              "type": "ext4",
+              "used": 36888
+            },
+            {
+              "file_system": "/dev/mapper/nsx-repository",
+              "mount": "/repository",
+              "total": 32313680,
+              "type": "ext4",
+              "used": 13343688
+            },
+            {
+              "file_system": "/dev/mapper/nsx-tmp",
+              "mount": "/tmp",
+              "total": 3865136,
+              "type": "ext4",
+              "used": 22208
+            },
+            {
+              "file_system": "/dev/mapper/nsx-var+log",
+              "mount": "/var/log",
+              "total": 28113476,
+              "type": "ext4",
+              "used": 8025252
+            },
+            {
+              "file_system": "/dev/mapper/nsx-config__bak",
+              "mount": "/config",
+              "total": 30348680,
+              "type": "ext4",
+              "used": 94360
+            },
+            {
+              "file_system": "/dev/mapper/nsx-image",
+              "mount": "/image",
+              "total": 43982100,
+              "type": "ext4",
+              "used": 54500
+            },
+            {
+              "file_system": "/dev/mapper/nsx-secondary",
+              "mount": "/nonconfig",
+              "total": 102683576,
+              "type": "ext4",
+              "used": 603636
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run/user/1007",
+              "total": 1641700,
+              "type": "tmpfs",
+              "used": 0
+            }
+          ],
+          "load_average": [ 5.3, 4.22, 4.23 ],
+          "mem_cache": 588000,
+          "mem_total": 16417036,
+          "mem_used": 14243024,
+          "source": "cached",
+          "swap_total": 0,
+          "swap_used": 0,
+          "system_time": 1639528504000,
+          "uptime": 117919000
+        },
+        {
+          "cpu_cores": 4,
+          "disk_space_total": 262788076,
+          "disk_space_used": 28473892,
+          "file_systems": [
+            {
+              "file_system": "udev",
+              "mount": "/dev",
+              "total": 8192164,
+              "type": "devtmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run",
+              "total": 1641704,
+              "type": "tmpfs",
+              "used": 6332
+            },
+            {
+              "file_system": "/dev/sda3",
+              "mount": "/",
+              "total": 10750024,
+              "type": "ext4",
+              "used": 6283000
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/dev/shm",
+              "total": 8208516,
+              "type": "tmpfs",
+              "used": 2780
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run/lock",
+              "total": 5120,
+              "type": "tmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/sys/fs/cgroup",
+              "total": 8208516,
+              "type": "tmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "/dev/sda1",
+              "mount": "/boot",
+              "total": 966264,
+              "type": "ext4",
+              "used": 9616
+            },
+            {
+              "file_system": "/dev/mapper/nsx-var+dump",
+              "mount": "/var/dump",
+              "total": 9765140,
+              "type": "ext4",
+              "used": 36888
+            },
+            {
+              "file_system": "/dev/mapper/nsx-repository",
+              "mount": "/repository",
+              "total": 32313680,
+              "type": "ext4",
+              "used": 13343688
+            },
+            {
+              "file_system": "/dev/mapper/nsx-tmp",
+              "mount": "/tmp",
+              "total": 3865136,
+              "type": "ext4",
+              "used": 22208
+            },
+            {
+              "file_system": "/dev/mapper/nsx-var+log",
+              "mount": "/var/log",
+              "total": 28113476,
+              "type": "ext4",
+              "used": 8025784
+            },
+            {
+              "file_system": "/dev/mapper/nsx-config__bak",
+              "mount": "/config",
+              "total": 30348680,
+              "type": "ext4",
+              "used": 94456
+            },
+            {
+              "file_system": "/dev/mapper/nsx-image",
+              "mount": "/image",
+              "total": 43982100,
+              "type": "ext4",
+              "used": 54500
+            },
+            {
+              "file_system": "/dev/mapper/nsx-secondary",
+              "mount": "/nonconfig",
+              "total": 102683576,
+              "type": "ext4",
+              "used": 603752
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run/user/1007",
+              "total": 1641700,
+              "type": "tmpfs",
+              "used": 0
+            }
+          ],
+          "load_average": [ 5.52, 4.33, 4.27 ],
+          "mem_cache": 588908,
+          "mem_total": 16417036,
+          "mem_used": 14231880,
+          "source": "cached",
+          "swap_total": 0,
+          "swap_used": 0,
+          "system_time": 1639528519000,
+          "uptime": 117934000
+        },
+        {
+          "cpu_cores": 4,
+          "disk_space_total": 262788076,
+          "disk_space_used": 28476572,
+          "file_systems": [
+            {
+              "file_system": "udev",
+              "mount": "/dev",
+              "total": 8192164,
+              "type": "devtmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run",
+              "total": 1641704,
+              "type": "tmpfs",
+              "used": 6332
+            },
+            {
+              "file_system": "/dev/sda3",
+              "mount": "/",
+              "total": 10750024,
+              "type": "ext4",
+              "used": 6283000
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/dev/shm",
+              "total": 8208516,
+              "type": "tmpfs",
+              "used": 2780
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run/lock",
+              "total": 5120,
+              "type": "tmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/sys/fs/cgroup",
+              "total": 8208516,
+              "type": "tmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "/dev/sda1",
+              "mount": "/boot",
+              "total": 966264,
+              "type": "ext4",
+              "used": 9616
+            },
+            {
+              "file_system": "/dev/mapper/nsx-var+dump",
+              "mount": "/var/dump",
+              "total": 9765140,
+              "type": "ext4",
+              "used": 36888
+            },
+            {
+              "file_system": "/dev/mapper/nsx-repository",
+              "mount": "/repository",
+              "total": 32313680,
+              "type": "ext4",
+              "used": 13343688
+            },
+            {
+              "file_system": "/dev/mapper/nsx-tmp",
+              "mount": "/tmp",
+              "total": 3865136,
+              "type": "ext4",
+              "used": 22208
+            },
+            {
+              "file_system": "/dev/mapper/nsx-var+log",
+              "mount": "/var/log",
+              "total": 28113476,
+              "type": "ext4",
+              "used": 8028248
+            },
+            {
+              "file_system": "/dev/mapper/nsx-config__bak",
+              "mount": "/config",
+              "total": 30348680,
+              "type": "ext4",
+              "used": 94540
+            },
+            {
+              "file_system": "/dev/mapper/nsx-image",
+              "mount": "/image",
+              "total": 43982100,
+              "type": "ext4",
+              "used": 54500
+            },
+            {
+              "file_system": "/dev/mapper/nsx-secondary",
+              "mount": "/nonconfig",
+              "total": 102683576,
+              "type": "ext4",
+              "used": 603868
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run/user/1007",
+              "total": 1641700,
+              "type": "tmpfs",
+              "used": 0
+            }
+          ],
+          "load_average": [ 5.46, 4.38, 4.29 ],
+          "mem_cache": 590716,
+          "mem_total": 16417036,
+          "mem_used": 14245680,
+          "source": "cached",
+          "swap_total": 0,
+          "swap_used": 0,
+          "system_time": 1639528534000,
+          "uptime": 117949000
+        },
+        {
+          "cpu_cores": 4,
+          "disk_space_total": 262788076,
+          "disk_space_used": 28480464,
+          "file_systems": [
+            {
+              "file_system": "udev",
+              "mount": "/dev",
+              "total": 8192164,
+              "type": "devtmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run",
+              "total": 1641704,
+              "type": "tmpfs",
+              "used": 6332
+            },
+            {
+              "file_system": "/dev/sda3",
+              "mount": "/",
+              "total": 10750024,
+              "type": "ext4",
+              "used": 6283000
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/dev/shm",
+              "total": 8208516,
+              "type": "tmpfs",
+              "used": 2780
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run/lock",
+              "total": 5120,
+              "type": "tmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/sys/fs/cgroup",
+              "total": 8208516,
+              "type": "tmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "/dev/sda1",
+              "mount": "/boot",
+              "total": 966264,
+              "type": "ext4",
+              "used": 9616
+            },
+            {
+              "file_system": "/dev/mapper/nsx-var+dump",
+              "mount": "/var/dump",
+              "total": 9765140,
+              "type": "ext4",
+              "used": 36888
+            },
+            {
+              "file_system": "/dev/mapper/nsx-repository",
+              "mount": "/repository",
+              "total": 32313680,
+              "type": "ext4",
+              "used": 13343688
+            },
+            {
+              "file_system": "/dev/mapper/nsx-tmp",
+              "mount": "/tmp",
+              "total": 3865136,
+              "type": "ext4",
+              "used": 22208
+            },
+            {
+              "file_system": "/dev/mapper/nsx-var+log",
+              "mount": "/var/log",
+              "total": 28113476,
+              "type": "ext4",
+              "used": 8031948
+            },
+            {
+              "file_system": "/dev/mapper/nsx-config__bak",
+              "mount": "/config",
+              "total": 30348680,
+              "type": "ext4",
+              "used": 94636
+            },
+            {
+              "file_system": "/dev/mapper/nsx-image",
+              "mount": "/image",
+              "total": 43982100,
+              "type": "ext4",
+              "used": 54500
+            },
+            {
+              "file_system": "/dev/mapper/nsx-secondary",
+              "mount": "/nonconfig",
+              "total": 102683576,
+              "type": "ext4",
+              "used": 603980
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run/user/1007",
+              "total": 1641700,
+              "type": "tmpfs",
+              "used": 0
+            }
+          ],
+          "load_average": [ 5.35, 4.41, 4.3 ],
+          "mem_cache": 594008,
+          "mem_total": 16417036,
+          "mem_used": 14231684,
+          "source": "cached",
+          "swap_total": 0,
+          "swap_used": 0,
+          "system_time": 1639528549000,
+          "uptime": 117964000
+        },
+        {
+          "cpu_cores": 4,
+          "disk_space_total": 262788076,
+          "disk_space_used": 28481448,
+          "file_systems": [
+            {
+              "file_system": "udev",
+              "mount": "/dev",
+              "total": 8192164,
+              "type": "devtmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run",
+              "total": 1641704,
+              "type": "tmpfs",
+              "used": 6332
+            },
+            {
+              "file_system": "/dev/sda3",
+              "mount": "/",
+              "total": 10750024,
+              "type": "ext4",
+              "used": 6283000
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/dev/shm",
+              "total": 8208516,
+              "type": "tmpfs",
+              "used": 2788
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run/lock",
+              "total": 5120,
+              "type": "tmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/sys/fs/cgroup",
+              "total": 8208516,
+              "type": "tmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "/dev/sda1",
+              "mount": "/boot",
+              "total": 966264,
+              "type": "ext4",
+              "used": 9616
+            },
+            {
+              "file_system": "/dev/mapper/nsx-var+dump",
+              "mount": "/var/dump",
+              "total": 9765140,
+              "type": "ext4",
+              "used": 36888
+            },
+            {
+              "file_system": "/dev/mapper/nsx-repository",
+              "mount": "/repository",
+              "total": 32313680,
+              "type": "ext4",
+              "used": 13343688
+            },
+            {
+              "file_system": "/dev/mapper/nsx-tmp",
+              "mount": "/tmp",
+              "total": 3865136,
+              "type": "ext4",
+              "used": 22208
+            },
+            {
+              "file_system": "/dev/mapper/nsx-var+log",
+              "mount": "/var/log",
+              "total": 28113476,
+              "type": "ext4",
+              "used": 8032720
+            },
+            {
+              "file_system": "/dev/mapper/nsx-config__bak",
+              "mount": "/config",
+              "total": 30348680,
+              "type": "ext4",
+              "used": 94728
+            },
+            {
+              "file_system": "/dev/mapper/nsx-image",
+              "mount": "/image",
+              "total": 43982100,
+              "type": "ext4",
+              "used": 54500
+            },
+            {
+              "file_system": "/dev/mapper/nsx-secondary",
+              "mount": "/nonconfig",
+              "total": 102683576,
+              "type": "ext4",
+              "used": 604096
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run/user/1007",
+              "total": 1641700,
+              "type": "tmpfs",
+              "used": 0
+            }
+          ],
+          "load_average": [ 4.84, 4.34, 4.28 ],
+          "mem_cache": 595332,
+          "mem_total": 16417036,
+          "mem_used": 14233508,
+          "source": "cached",
+          "swap_total": 0,
+          "swap_used": 0,
+          "system_time": 1639528564000,
+          "uptime": 117979000
+        },
+        {
+          "cpu_cores": 4,
+          "disk_space_total": 262788076,
+          "disk_space_used": 28482180,
+          "file_systems": [
+            {
+              "file_system": "udev",
+              "mount": "/dev",
+              "total": 8192164,
+              "type": "devtmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run",
+              "total": 1641704,
+              "type": "tmpfs",
+              "used": 6332
+            },
+            {
+              "file_system": "/dev/sda3",
+              "mount": "/",
+              "total": 10750024,
+              "type": "ext4",
+              "used": 6283000
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/dev/shm",
+              "total": 8208516,
+              "type": "tmpfs",
+              "used": 2788
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run/lock",
+              "total": 5120,
+              "type": "tmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/sys/fs/cgroup",
+              "total": 8208516,
+              "type": "tmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "/dev/sda1",
+              "mount": "/boot",
+              "total": 966264,
+              "type": "ext4",
+              "used": 9616
+            },
+            {
+              "file_system": "/dev/mapper/nsx-var+dump",
+              "mount": "/var/dump",
+              "total": 9765140,
+              "type": "ext4",
+              "used": 36888
+            },
+            {
+              "file_system": "/dev/mapper/nsx-repository",
+              "mount": "/repository",
+              "total": 32313680,
+              "type": "ext4",
+              "used": 13343688
+            },
+            {
+              "file_system": "/dev/mapper/nsx-tmp",
+              "mount": "/tmp",
+              "total": 3865136,
+              "type": "ext4",
+              "used": 22208
+            },
+            {
+              "file_system": "/dev/mapper/nsx-var+log",
+              "mount": "/var/log",
+              "total": 28113476,
+              "type": "ext4",
+              "used": 8033256
+            },
+            {
+              "file_system": "/dev/mapper/nsx-config__bak",
+              "mount": "/config",
+              "total": 30348680,
+              "type": "ext4",
+              "used": 94816
+            },
+            {
+              "file_system": "/dev/mapper/nsx-image",
+              "mount": "/image",
+              "total": 43982100,
+              "type": "ext4",
+              "used": 54500
+            },
+            {
+              "file_system": "/dev/mapper/nsx-secondary",
+              "mount": "/nonconfig",
+              "total": 102683576,
+              "type": "ext4",
+              "used": 604208
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run/user/1007",
+              "total": 1641700,
+              "type": "tmpfs",
+              "used": 0
+            }
+          ],
+          "load_average": [ 4.35, 4.26, 4.25 ],
+          "mem_cache": 596256,
+          "mem_total": 16417036,
+          "mem_used": 14245036,
+          "source": "cached",
+          "swap_total": 0,
+          "swap_used": 0,
+          "system_time": 1639528579000,
+          "uptime": 117994000
+        },
+        {
+          "cpu_cores": 4,
+          "disk_space_total": 262788076,
+          "disk_space_used": 28486104,
+          "file_systems": [
+            {
+              "file_system": "udev",
+              "mount": "/dev",
+              "total": 8192164,
+              "type": "devtmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run",
+              "total": 1641704,
+              "type": "tmpfs",
+              "used": 6332
+            },
+            {
+              "file_system": "/dev/sda3",
+              "mount": "/",
+              "total": 10750024,
+              "type": "ext4",
+              "used": 6283000
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/dev/shm",
+              "total": 8208516,
+              "type": "tmpfs",
+              "used": 2788
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run/lock",
+              "total": 5120,
+              "type": "tmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/sys/fs/cgroup",
+              "total": 8208516,
+              "type": "tmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "/dev/sda1",
+              "mount": "/boot",
+              "total": 966264,
+              "type": "ext4",
+              "used": 9616
+            },
+            {
+              "file_system": "/dev/mapper/nsx-var+dump",
+              "mount": "/var/dump",
+              "total": 9765140,
+              "type": "ext4",
+              "used": 36888
+            },
+            {
+              "file_system": "/dev/mapper/nsx-repository",
+              "mount": "/repository",
+              "total": 32313680,
+              "type": "ext4",
+              "used": 13343688
+            },
+            {
+              "file_system": "/dev/mapper/nsx-tmp",
+              "mount": "/tmp",
+              "total": 3865136,
+              "type": "ext4",
+              "used": 22208
+            },
+            {
+              "file_system": "/dev/mapper/nsx-var+log",
+              "mount": "/var/log",
+              "total": 28113476,
+              "type": "ext4",
+              "used": 8036948
+            },
+            {
+              "file_system": "/dev/mapper/nsx-config__bak",
+              "mount": "/config",
+              "total": 30348680,
+              "type": "ext4",
+              "used": 94916
+            },
+            {
+              "file_system": "/dev/mapper/nsx-image",
+              "mount": "/image",
+              "total": 43982100,
+              "type": "ext4",
+              "used": 54500
+            },
+            {
+              "file_system": "/dev/mapper/nsx-secondary",
+              "mount": "/nonconfig",
+              "total": 102683576,
+              "type": "ext4",
+              "used": 604320
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run/user/1007",
+              "total": 1641700,
+              "type": "tmpfs",
+              "used": 0
+            }
+          ],
+          "load_average": [ 4.07, 4.2, 4.23 ],
+          "mem_cache": 600016,
+          "mem_total": 16417036,
+          "mem_used": 14249576,
+          "source": "cached",
+          "swap_total": 0,
+          "swap_used": 0,
+          "system_time": 1639528594000,
+          "uptime": 118009000
+        },
+        {
+          "cpu_cores": 4,
+          "disk_space_total": 262788076,
+          "disk_space_used": 28489436,
+          "file_systems": [
+            {
+              "file_system": "udev",
+              "mount": "/dev",
+              "total": 8192164,
+              "type": "devtmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run",
+              "total": 1641704,
+              "type": "tmpfs",
+              "used": 6332
+            },
+            {
+              "file_system": "/dev/sda3",
+              "mount": "/",
+              "total": 10750024,
+              "type": "ext4",
+              "used": 6283000
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/dev/shm",
+              "total": 8208516,
+              "type": "tmpfs",
+              "used": 2788
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run/lock",
+              "total": 5120,
+              "type": "tmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/sys/fs/cgroup",
+              "total": 8208516,
+              "type": "tmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "/dev/sda1",
+              "mount": "/boot",
+              "total": 966264,
+              "type": "ext4",
+              "used": 9616
+            },
+            {
+              "file_system": "/dev/mapper/nsx-var+dump",
+              "mount": "/var/dump",
+              "total": 9765140,
+              "type": "ext4",
+              "used": 36888
+            },
+            {
+              "file_system": "/dev/mapper/nsx-repository",
+              "mount": "/repository",
+              "total": 32313680,
+              "type": "ext4",
+              "used": 13343688
+            },
+            {
+              "file_system": "/dev/mapper/nsx-tmp",
+              "mount": "/tmp",
+              "total": 3865136,
+              "type": "ext4",
+              "used": 22208
+            },
+            {
+              "file_system": "/dev/mapper/nsx-var+log",
+              "mount": "/var/log",
+              "total": 28113476,
+              "type": "ext4",
+              "used": 8039416
+            },
+            {
+              "file_system": "/dev/mapper/nsx-config__bak",
+              "mount": "/config",
+              "total": 30348680,
+              "type": "ext4",
+              "used": 95000
+            },
+            {
+              "file_system": "/dev/mapper/nsx-image",
+              "mount": "/image",
+              "total": 43982100,
+              "type": "ext4",
+              "used": 54500
+            },
+            {
+              "file_system": "/dev/mapper/nsx-secondary",
+              "mount": "/nonconfig",
+              "total": 102683576,
+              "type": "ext4",
+              "used": 605120
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run/user/1007",
+              "total": 1641700,
+              "type": "tmpfs",
+              "used": 0
+            }
+          ],
+          "load_average": [ 4.26, 4.24, 4.25 ],
+          "mem_cache": 601868,
+          "mem_total": 16417036,
+          "mem_used": 14231148,
+          "source": "cached",
+          "swap_total": 0,
+          "swap_used": 0,
+          "system_time": 1639528609000,
+          "uptime": 118024000
+        },
+        {
+          "cpu_cores": 4,
+          "disk_space_total": 262788076,
+          "disk_space_used": 28488848,
+          "file_systems": [
+            {
+              "file_system": "udev",
+              "mount": "/dev",
+              "total": 8192164,
+              "type": "devtmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run",
+              "total": 1641704,
+              "type": "tmpfs",
+              "used": 6332
+            },
+            {
+              "file_system": "/dev/sda3",
+              "mount": "/",
+              "total": 10750024,
+              "type": "ext4",
+              "used": 6283000
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/dev/shm",
+              "total": 8208516,
+              "type": "tmpfs",
+              "used": 2788
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run/lock",
+              "total": 5120,
+              "type": "tmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/sys/fs/cgroup",
+              "total": 8208516,
+              "type": "tmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "/dev/sda1",
+              "mount": "/boot",
+              "total": 966264,
+              "type": "ext4",
+              "used": 9616
+            },
+            {
+              "file_system": "/dev/mapper/nsx-var+dump",
+              "mount": "/var/dump",
+              "total": 9765140,
+              "type": "ext4",
+              "used": 36888
+            },
+            {
+              "file_system": "/dev/mapper/nsx-repository",
+              "mount": "/repository",
+              "total": 32313680,
+              "type": "ext4",
+              "used": 13343688
+            },
+            {
+              "file_system": "/dev/mapper/nsx-tmp",
+              "mount": "/tmp",
+              "total": 3865136,
+              "type": "ext4",
+              "used": 22272
+            },
+            {
+              "file_system": "/dev/mapper/nsx-var+log",
+              "mount": "/var/log",
+              "total": 28113476,
+              "type": "ext4",
+              "used": 8040260
+            },
+            {
+              "file_system": "/dev/mapper/nsx-config__bak",
+              "mount": "/config",
+              "total": 30348680,
+              "type": "ext4",
+              "used": 95088
+            },
+            {
+              "file_system": "/dev/mapper/nsx-image",
+              "mount": "/image",
+              "total": 43982100,
+              "type": "ext4",
+              "used": 54500
+            },
+            {
+              "file_system": "/dev/mapper/nsx-secondary",
+              "mount": "/nonconfig",
+              "total": 102683576,
+              "type": "ext4",
+              "used": 603536
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run/user/1007",
+              "total": 1641700,
+              "type": "tmpfs",
+              "used": 0
+            }
+          ],
+          "load_average": [ 5.19, 4.44, 4.31 ],
+          "mem_cache": 601636,
+          "mem_total": 16417036,
+          "mem_used": 14734540,
+          "source": "cached",
+          "swap_total": 0,
+          "swap_used": 0,
+          "system_time": 1639528624000,
+          "uptime": 118039000
+        },
+        {
+          "cpu_cores": 4,
+          "disk_space_total": 262788076,
+          "disk_space_used": 28499956,
+          "file_systems": [
+            {
+              "file_system": "udev",
+              "mount": "/dev",
+              "total": 8192164,
+              "type": "devtmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run",
+              "total": 1641704,
+              "type": "tmpfs",
+              "used": 6332
+            },
+            {
+              "file_system": "/dev/sda3",
+              "mount": "/",
+              "total": 10750024,
+              "type": "ext4",
+              "used": 6283000
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/dev/shm",
+              "total": 8208516,
+              "type": "tmpfs",
+              "used": 2788
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run/lock",
+              "total": 5120,
+              "type": "tmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/sys/fs/cgroup",
+              "total": 8208516,
+              "type": "tmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "/dev/sda1",
+              "mount": "/boot",
+              "total": 966264,
+              "type": "ext4",
+              "used": 9616
+            },
+            {
+              "file_system": "/dev/mapper/nsx-var+dump",
+              "mount": "/var/dump",
+              "total": 9765140,
+              "type": "ext4",
+              "used": 36888
+            },
+            {
+              "file_system": "/dev/mapper/nsx-repository",
+              "mount": "/repository",
+              "total": 32313680,
+              "type": "ext4",
+              "used": 13343688
+            },
+            {
+              "file_system": "/dev/mapper/nsx-tmp",
+              "mount": "/tmp",
+              "total": 3865136,
+              "type": "ext4",
+              "used": 31956
+            },
+            {
+              "file_system": "/dev/mapper/nsx-var+log",
+              "mount": "/var/log",
+              "total": 28113476,
+              "type": "ext4",
+              "used": 8040848
+            },
+            {
+              "file_system": "/dev/mapper/nsx-config__bak",
+              "mount": "/config",
+              "total": 30348680,
+              "type": "ext4",
+              "used": 95184
+            },
+            {
+              "file_system": "/dev/mapper/nsx-image",
+              "mount": "/image",
+              "total": 43982100,
+              "type": "ext4",
+              "used": 54500
+            },
+            {
+              "file_system": "/dev/mapper/nsx-secondary",
+              "mount": "/nonconfig",
+              "total": 102683576,
+              "type": "ext4",
+              "used": 604276
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run/user/1007",
+              "total": 1641700,
+              "type": "tmpfs",
+              "used": 0
+            }
+          ],
+          "load_average": [ 5.7, 4.58, 4.36 ],
+          "mem_cache": 612772,
+          "mem_total": 16417036,
+          "mem_used": 15100596,
+          "source": "cached",
+          "swap_total": 0,
+          "swap_used": 0,
+          "system_time": 1639528639000,
+          "uptime": 118054000
+        },
+        {
+          "cpu_cores": 4,
+          "disk_space_total": 262788076,
+          "disk_space_used": 28484020,
+          "file_systems": [
+            {
+              "file_system": "udev",
+              "mount": "/dev",
+              "total": 8192164,
+              "type": "devtmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run",
+              "total": 1641704,
+              "type": "tmpfs",
+              "used": 6332
+            },
+            {
+              "file_system": "/dev/sda3",
+              "mount": "/",
+              "total": 10750024,
+              "type": "ext4",
+              "used": 6283000
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/dev/shm",
+              "total": 8208516,
+              "type": "tmpfs",
+              "used": 2788
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run/lock",
+              "total": 5120,
+              "type": "tmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/sys/fs/cgroup",
+              "total": 8208516,
+              "type": "tmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "/dev/sda1",
+              "mount": "/boot",
+              "total": 966264,
+              "type": "ext4",
+              "used": 9616
+            },
+            {
+              "file_system": "/dev/mapper/nsx-var+dump",
+              "mount": "/var/dump",
+              "total": 9765140,
+              "type": "ext4",
+              "used": 36888
+            },
+            {
+              "file_system": "/dev/mapper/nsx-repository",
+              "mount": "/repository",
+              "total": 32313680,
+              "type": "ext4",
+              "used": 13343688
+            },
+            {
+              "file_system": "/dev/mapper/nsx-tmp",
+              "mount": "/tmp",
+              "total": 3865136,
+              "type": "ext4",
+              "used": 23252
+            },
+            {
+              "file_system": "/dev/mapper/nsx-var+log",
+              "mount": "/var/log",
+              "total": 28113476,
+              "type": "ext4",
+              "used": 8046452
+            },
+            {
+              "file_system": "/dev/mapper/nsx-config__bak",
+              "mount": "/config",
+              "total": 30348680,
+              "type": "ext4",
+              "used": 81880
+            },
+            {
+              "file_system": "/dev/mapper/nsx-image",
+              "mount": "/image",
+              "total": 43982100,
+              "type": "ext4",
+              "used": 54500
+            },
+            {
+              "file_system": "/dev/mapper/nsx-secondary",
+              "mount": "/nonconfig",
+              "total": 102683576,
+              "type": "ext4",
+              "used": 604688
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run/user/1007",
+              "total": 1641700,
+              "type": "tmpfs",
+              "used": 0
+            }
+          ],
+          "load_average": [ 5.52, 4.6, 4.37 ],
+          "mem_cache": 608788,
+          "mem_total": 16417036,
+          "mem_used": 14717036,
+          "source": "cached",
+          "swap_total": 0,
+          "swap_used": 0,
+          "system_time": 1639528654000,
+          "uptime": 118069000
+        },
+        {
+          "cpu_cores": 4,
+          "disk_space_total": 262788076,
+          "disk_space_used": 28460680,
+          "file_systems": [
+            {
+              "file_system": "udev",
+              "mount": "/dev",
+              "total": 8192164,
+              "type": "devtmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run",
+              "total": 1641704,
+              "type": "tmpfs",
+              "used": 6332
+            },
+            {
+              "file_system": "/dev/sda3",
+              "mount": "/",
+              "total": 10750024,
+              "type": "ext4",
+              "used": 6283000
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/dev/shm",
+              "total": 8208516,
+              "type": "tmpfs",
+              "used": 2792
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run/lock",
+              "total": 5120,
+              "type": "tmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/sys/fs/cgroup",
+              "total": 8208516,
+              "type": "tmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "/dev/sda1",
+              "mount": "/boot",
+              "total": 966264,
+              "type": "ext4",
+              "used": 9616
+            },
+            {
+              "file_system": "/dev/mapper/nsx-var+dump",
+              "mount": "/var/dump",
+              "total": 9765140,
+              "type": "ext4",
+              "used": 36888
+            },
+            {
+              "file_system": "/dev/mapper/nsx-repository",
+              "mount": "/repository",
+              "total": 32313680,
+              "type": "ext4",
+              "used": 13343688
+            },
+            {
+              "file_system": "/dev/mapper/nsx-tmp",
+              "mount": "/tmp",
+              "total": 3865136,
+              "type": "ext4",
+              "used": 23252
+            },
+            {
+              "file_system": "/dev/mapper/nsx-var+log",
+              "mount": "/var/log",
+              "total": 28113476,
+              "type": "ext4",
+              "used": 8022888
+            },
+            {
+              "file_system": "/dev/mapper/nsx-config__bak",
+              "mount": "/config",
+              "total": 30348680,
+              "type": "ext4",
+              "used": 82048
+            },
+            {
+              "file_system": "/dev/mapper/nsx-image",
+              "mount": "/image",
+              "total": 43982100,
+              "type": "ext4",
+              "used": 54500
+            },
+            {
+              "file_system": "/dev/mapper/nsx-secondary",
+              "mount": "/nonconfig",
+              "total": 102683576,
+              "type": "ext4",
+              "used": 604800
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run/user/1007",
+              "total": 1641700,
+              "type": "tmpfs",
+              "used": 0
+            }
+          ],
+          "load_average": [ 5.81, 4.72, 4.41 ],
+          "mem_cache": 586508,
+          "mem_total": 16417036,
+          "mem_used": 14692084,
+          "source": "cached",
+          "swap_total": 0,
+          "swap_used": 0,
+          "system_time": 1639528669000,
+          "uptime": 118084000
+        },
+        {
+          "cpu_cores": 4,
+          "disk_space_total": 262788076,
+          "disk_space_used": 28461856,
+          "file_systems": [
+            {
+              "file_system": "udev",
+              "mount": "/dev",
+              "total": 8192164,
+              "type": "devtmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run",
+              "total": 1641704,
+              "type": "tmpfs",
+              "used": 6332
+            },
+            {
+              "file_system": "/dev/sda3",
+              "mount": "/",
+              "total": 10750024,
+              "type": "ext4",
+              "used": 6283000
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/dev/shm",
+              "total": 8208516,
+              "type": "tmpfs",
+              "used": 2796
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run/lock",
+              "total": 5120,
+              "type": "tmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/sys/fs/cgroup",
+              "total": 8208516,
+              "type": "tmpfs",
+              "used": 0
+            },
+            {
+              "file_system": "/dev/sda1",
+              "mount": "/boot",
+              "total": 966264,
+              "type": "ext4",
+              "used": 9616
+            },
+            {
+              "file_system": "/dev/mapper/nsx-var+dump",
+              "mount": "/var/dump",
+              "total": 9765140,
+              "type": "ext4",
+              "used": 36888
+            },
+            {
+              "file_system": "/dev/mapper/nsx-repository",
+              "mount": "/repository",
+              "total": 32313680,
+              "type": "ext4",
+              "used": 13343688
+            },
+            {
+              "file_system": "/dev/mapper/nsx-tmp",
+              "mount": "/tmp",
+              "total": 3865136,
+              "type": "ext4",
+              "used": 23252
+            },
+            {
+              "file_system": "/dev/mapper/nsx-var+log",
+              "mount": "/var/log",
+              "total": 28113476,
+              "type": "ext4",
+              "used": 8023780
+            },
+            {
+              "file_system": "/dev/mapper/nsx-config__bak",
+              "mount": "/config",
+              "total": 30348680,
+              "type": "ext4",
+              "used": 82216
+            },
+            {
+              "file_system": "/dev/mapper/nsx-image",
+              "mount": "/image",
+              "total": 43982100,
+              "type": "ext4",
+              "used": 54500
+            },
+            {
+              "file_system": "/dev/mapper/nsx-secondary",
+              "mount": "/nonconfig",
+              "total": 102683576,
+              "type": "ext4",
+              "used": 604916
+            },
+            {
+              "file_system": "tmpfs",
+              "mount": "/run/user/1007",
+              "total": 1641700,
+              "type": "tmpfs",
+              "used": 0
+            }
+          ],
+          "load_average": [ 5.76, 4.76, 4.43 ],
+          "mem_cache": 587396,
+          "mem_total": 16417036,
+          "mem_used": 14702628,
+          "source": "cached",
+          "swap_total": 0,
+          "swap_used": 0,
+          "system_time": 1639528684000,
+          "uptime": 118099000
+        }
+      ],
+      "node_interface_properties": [
+        {
+          "admin_status": "UP",
+          "interface_id": "eth0",
+          "link_status": "UP",
+          "mtu": 1500,
+          "interface_alias": [
+            {
+              "broadcast_address": "192.168.0.255",
+              "ip_address": "192.168.0.231",
+              "ip_configuration": "STATIC",
+              "netmask": "255.255.255.0",
+              "physical_address": "00:50:56:9a:b9:e6"
+            }
+          ],
+          "source": "cached"
+        },
+        {
+          "admin_status": "UP",
+          "interface_id": "lo",
+          "link_status": "UP",
+          "mtu": 65536,
+          "interface_alias": [
+            {
+              "broadcast_address": "0.0.0.0",
+              "ip_address": "127.0.0.1",
+              "ip_configuration": "NOT_CONFIGURED",
+              "netmask": "255.0.0.0",
+              "physical_address": "00:00:00:00:00:00"
+            }
+          ],
+          "source": "cached"
+        }
+      ]
+    }
+  ],
+  "controller_cluster": [
+    {
+      "role_config": {
+        "control_plane_listen_addr": {
+          "ip_address": "192.168.0.231",
+          "port": 1235,
+          "certificate": "-----BEGIN CERTIFICATE-----\nMIIDOjCCAiKgAwIBAgIQZKB+GM5gQzaRJMFwLQu+DDANBgkqhkiG9w0BAQsFADBZ\nMQswCQYDVQQGEwJVUzELMAkGA1UECAwCQ0ExFTATBgNVBAoMDFZNd2FyZSwgSW5j\nLjENMAsGA1UECwwETlNCVTEXMBUGA1UEAwwObnN4LWNvbnRyb2xsZXIwHhcNMjEx\nMjA5MjA0ODQzWhcNMzExMjA3MjA0ODQzWjBZMQswCQYDVQQGEwJVUzELMAkGA1UE\nCAwCQ0ExFTATBgNVBAoMDFZNd2FyZSwgSW5jLjENMAsGA1UECwwETlNCVTEXMBUG\nA1UEAwwObnN4LWNvbnRyb2xsZXIwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEK\nAoIBAQDW3GMsWezpU2eoZMEde6gASLBsnPVh7SkeTDO1a7qYkvZOncIyjmTLVtZw\ndiIoZiQciZH2ccPy3Y9o+Vd0MuSrJcOKp3h1+ycbTsFV0b8hxGxbN0WA1w10RyoP\n8fetlYb2cvbVDGQug13cYM879/nz4a5T7rvvpJYqy3a75S3lO78pXO9zJQDogIcr\nvlbpAao5FYZQ5lCmO2QNc95Omg0sgLwutpJiQloLcUuYE0Rpdlb/Zz6XTT+Cv8W8\novgjkDItC0HVYIPp41xqoGXldu6bMEa8sNRWSx35KZvJsUbN4d1rNiqxdaTwo44X\nJvTQVG/0x+sNyoWQIxMME0ZoNjqnAgMBAAEwDQYJKoZIhvcNAQELBQADggEBAI2n\n41zYFNUoaPJNjx1AxWTveKKa3Nb8MzvTyGL5T0kQ8gD6nOMPZ8C+pTVQ93joe/Y8\nDNqHjpMs4t30TRsG7C88ijz9a2u9Qx/4qB21bRkVcCtxIAzhCZgnOt8lae+SOPwM\nWMPYt+yVyaDSoabslaPBWjoeeAa8x7AJOejTC6nhziFJfoZ9eeDSqWmZHAzrpGQv\n4LgG4r1LahwZh5FkhWNgkZ1kUWdLAWES/hbCQnY1FgtC/7qKjbC2m9kruzLw24wG\nhj1AvzBa8J1iCwdIKq5RwJlfjYFDtVPcPKYEF9Z8HseV6RXpSDXCqYLxFLn5y4Sb\nX08J4nA0tcFWWaolx+s=\n-----END CERTIFICATE-----",
+          "certificate_sha256_thumbprint": "f193eba0bcdc9ab3c3c30af93396a2ea54443f4e733cebb21744dad727dc069a"
+        },
+        "control_cluster_listen_addr": {
+          "ip_address": "127.0.0.1",
+          "port": 7777
+        },
+        "host_msg_client_info": {
+          "account_name": "cvn-ccp-3d0fbd2e-12d6-49c5-a3f0-81173d7b3413"
+        },
+        "mpa_msg_client_info": {
+          "account_name": "cvn-mp-mpa-d6eeeffb-1a8d-4039-9232-b8b19ed1b42a"
+        },
+        "type": "ControllerClusterRoleConfig"
+      },
+      "node_status": {
+        "version": "3.1.3.3.0.18844962",
+        "control_cluster_status": {
+          "mgmt_connection_status": {
+            "connectivity_status": "CONNECTED"
+          },
+          "control_cluster_status": "CONNECTED"
+        }
+      }
+    }
+  ]
+}
