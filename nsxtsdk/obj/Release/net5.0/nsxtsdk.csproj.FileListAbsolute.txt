@@ -1,0 +1,12 @@
+C:\Users\Phillip\source\repos\nsxtsdk\nsxtsdk\bin\Release\net5.0\nsxtsdk.deps.json
+C:\Users\Phillip\source\repos\nsxtsdk\nsxtsdk\bin\Release\net5.0\nsxtsdk.dll
+C:\Users\Phillip\source\repos\nsxtsdk\nsxtsdk\bin\Release\net5.0\ref\nsxtsdk.dll
+C:\Users\Phillip\source\repos\nsxtsdk\nsxtsdk\bin\Release\net5.0\nsxtsdk.pdb
+C:\Users\Phillip\source\repos\nsxtsdk\nsxtsdk\obj\Release\net5.0\nsxtsdk.csproj.AssemblyReference.cache
+C:\Users\Phillip\source\repos\nsxtsdk\nsxtsdk\obj\Release\net5.0\nsxtsdk.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Phillip\source\repos\nsxtsdk\nsxtsdk\obj\Release\net5.0\nsxtsdk.AssemblyInfoInputs.cache
+C:\Users\Phillip\source\repos\nsxtsdk\nsxtsdk\obj\Release\net5.0\nsxtsdk.AssemblyInfo.cs
+C:\Users\Phillip\source\repos\nsxtsdk\nsxtsdk\obj\Release\net5.0\nsxtsdk.csproj.CoreCompileInputs.cache
+C:\Users\Phillip\source\repos\nsxtsdk\nsxtsdk\obj\Release\net5.0\nsxtsdk.dll
+C:\Users\Phillip\source\repos\nsxtsdk\nsxtsdk\obj\Release\net5.0\ref\nsxtsdk.dll
+C:\Users\Phillip\source\repos\nsxtsdk\nsxtsdk\obj\Release\net5.0\nsxtsdk.pdb
