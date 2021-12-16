@@ -46,15 +46,24 @@ namespace nsxtapi.ManagerModules
             request.AddJsonBody(JsonConvert.SerializeObject(NodeNetworkInterfaceProperties, defaultSerializationSettings));
             request.Resource = UpdateNodeInterfaceServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTNodeNetworkInterfacePropertiesType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP PUT operation to " + UpdateNodeInterfaceServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTNodeNetworkInterfacePropertiesType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeNetworkInterfacePropertiesType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -74,15 +83,24 @@ namespace nsxtapi.ManagerModules
             ReadNodeInterfaceServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadNodeInterfaceServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTNodeNetworkInterfacePropertiesType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + ReadNodeInterfaceServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTNodeNetworkInterfacePropertiesType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeNetworkInterfacePropertiesType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -100,15 +118,24 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.Resource = ListNodeInterfacesServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTNodeNetworkInterfacePropertiesListResultType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + ListNodeInterfacesServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTNodeNetworkInterfacePropertiesListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeNetworkInterfacePropertiesListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -128,15 +155,24 @@ namespace nsxtapi.ManagerModules
             ReadNetworkInterfaceStatisticsServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadNetworkInterfaceStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTNodeInterfaceStatisticsPropertiesType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + ReadNetworkInterfaceStatisticsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTNodeInterfaceStatisticsPropertiesType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeInterfaceStatisticsPropertiesType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
     }
 }

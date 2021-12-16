@@ -46,15 +46,24 @@ namespace nsxtapi.ManagerModules
             request.AddJsonBody(JsonConvert.SerializeObject(NodeUserProperties, defaultSerializationSettings));
             request.Resource = UpdateNodeUserServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTNodeUserPropertiesType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP PUT operation to " + UpdateNodeUserServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTNodeUserPropertiesType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeUserPropertiesType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -74,15 +83,24 @@ namespace nsxtapi.ManagerModules
             ReadNodeUserServiceURL.Replace("{userid}", System.Uri.EscapeDataString(Helpers.ConvertToString(Userid, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadNodeUserServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTNodeUserPropertiesType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + ReadNodeUserServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTNodeUserPropertiesType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeUserPropertiesType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -104,14 +122,11 @@ namespace nsxtapi.ManagerModules
             request.AddJsonBody(JsonConvert.SerializeObject(SshKeyBaseProperties, defaultSerializationSettings));
             request.Resource = DeleteNodeUserSshKeyRemoveSshKeyServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP POST operation to " + DeleteNodeUserSshKeyRemoveSshKeyServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
         /// <summary>
@@ -134,14 +149,11 @@ namespace nsxtapi.ManagerModules
             request.AddJsonBody(JsonConvert.SerializeObject(SshKeyProperties, defaultSerializationSettings));
             request.Resource = AddNodeUserSshKeyAddSshKeyServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP POST operation to " + AddNodeUserSshKeyAddSshKeyServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
         /// <summary>
@@ -160,15 +172,24 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.Resource = ListNodeUsersServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTNodeUserPropertiesListResultType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + ListNodeUsersServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTNodeUserPropertiesListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeUserPropertiesListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -188,15 +209,24 @@ namespace nsxtapi.ManagerModules
             ListNodeUserSshKeysServiceURL.Replace("{userid}", System.Uri.EscapeDataString(Helpers.ConvertToString(Userid, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ListNodeUserSshKeysServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTSshKeyPropertiesListResultType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + ListNodeUserSshKeysServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTSshKeyPropertiesListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTSshKeyPropertiesListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
     }
 }

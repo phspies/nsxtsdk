@@ -48,15 +48,24 @@ namespace nsxtapi.PolicyModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListDnsSecurityProfilesServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTDnsSecurityProfileListResultType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + ListDnsSecurityProfilesServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTDnsSecurityProfileListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTDnsSecurityProfileListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -80,15 +89,24 @@ namespace nsxtapi.PolicyModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListCpumemThresholdsProfilesServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallCpuMemThresholdsProfileListResultType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + ListCpumemThresholdsProfilesServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallCpuMemThresholdsProfileListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallCpuMemThresholdsProfileListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -112,15 +130,24 @@ namespace nsxtapi.PolicyModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListFloodProtectionProfilesServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTFloodProtectionProfileListResultType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + ListFloodProtectionProfilesServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTFloodProtectionProfileListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTFloodProtectionProfileListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -146,15 +173,24 @@ namespace nsxtapi.PolicyModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListFloodProtectionProfileBindingsServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTFloodProtectionProfileBindingListResultType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + ListFloodProtectionProfileBindingsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTFloodProtectionProfileBindingListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTFloodProtectionProfileBindingListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -177,15 +213,24 @@ namespace nsxtapi.PolicyModules
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = UpdateCpumemThresholdsProfileServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallCpuMemThresholdsProfileType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP PUT operation to " + UpdateCpumemThresholdsProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallCpuMemThresholdsProfileType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallCpuMemThresholdsProfileType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -205,15 +250,24 @@ namespace nsxtapi.PolicyModules
             ReadCpumemThresholdsProfileServiceURL.Replace("{profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadCpumemThresholdsProfileServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallCpuMemThresholdsProfileType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + ReadCpumemThresholdsProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallCpuMemThresholdsProfileType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallCpuMemThresholdsProfileType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -234,14 +288,11 @@ namespace nsxtapi.PolicyModules
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = DeleteCpumemThresholdsProfileServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP DELETE operation to " + DeleteCpumemThresholdsProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
         /// <summary>
@@ -265,14 +316,11 @@ namespace nsxtapi.PolicyModules
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = PatchCpumemThresholdsProfileServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP PATCH operation to " + PatchCpumemThresholdsProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
         /// <summary>
@@ -297,15 +345,24 @@ namespace nsxtapi.PolicyModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListDnsSecurityProfilesServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTDnsSecurityProfileListResultType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + ListDnsSecurityProfilesServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTDnsSecurityProfileListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTDnsSecurityProfileListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -331,15 +388,24 @@ namespace nsxtapi.PolicyModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListSessionTimerProfileBindingsServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTSessionTimerProfileBindingListResultType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + ListSessionTimerProfileBindingsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTSessionTimerProfileBindingListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTSessionTimerProfileBindingListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -362,15 +428,24 @@ namespace nsxtapi.PolicyModules
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = UpdateDnsSecurityProfileServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTDnsSecurityProfileType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP PUT operation to " + UpdateDnsSecurityProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTDnsSecurityProfileType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTDnsSecurityProfileType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -390,15 +465,24 @@ namespace nsxtapi.PolicyModules
             ReadDnsSecurityProfileServiceURL.Replace("{profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadDnsSecurityProfileServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTDnsSecurityProfileType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + ReadDnsSecurityProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTDnsSecurityProfileType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTDnsSecurityProfileType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -421,14 +505,11 @@ namespace nsxtapi.PolicyModules
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = PatchDnsSecurityProfileServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP PATCH operation to " + PatchDnsSecurityProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
         /// <summary>
@@ -450,14 +531,11 @@ namespace nsxtapi.PolicyModules
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = DeleteDnsSecurityProfileServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP DELETE operation to " + DeleteDnsSecurityProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
         /// <summary>
@@ -481,15 +559,24 @@ namespace nsxtapi.PolicyModules
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = UpdateDnsSecurityProfileServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTDnsSecurityProfileType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP PUT operation to " + UpdateDnsSecurityProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTDnsSecurityProfileType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTDnsSecurityProfileType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -509,15 +596,24 @@ namespace nsxtapi.PolicyModules
             ReadDnsSecurityProfileServiceURL.Replace("{profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadDnsSecurityProfileServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTDnsSecurityProfileType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + ReadDnsSecurityProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTDnsSecurityProfileType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTDnsSecurityProfileType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -540,14 +636,11 @@ namespace nsxtapi.PolicyModules
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = PatchDnsSecurityProfileServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP PATCH operation to " + PatchDnsSecurityProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
         /// <summary>
@@ -569,14 +662,11 @@ namespace nsxtapi.PolicyModules
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = DeleteDnsSecurityProfileServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP DELETE operation to " + DeleteDnsSecurityProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
         /// <summary>
@@ -601,15 +691,24 @@ namespace nsxtapi.PolicyModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListCpumemThresholdsProfilesServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallCpuMemThresholdsProfileListResultType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + ListCpumemThresholdsProfilesServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallCpuMemThresholdsProfileListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallCpuMemThresholdsProfileListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -633,15 +732,24 @@ namespace nsxtapi.PolicyModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListFloodProtectionProfilesServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTFloodProtectionProfileListResultType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + ListFloodProtectionProfilesServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTFloodProtectionProfileListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTFloodProtectionProfileListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -664,15 +772,24 @@ namespace nsxtapi.PolicyModules
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = UpdateFloodProtectionProfileServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTFloodProtectionProfileType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP PUT operation to " + UpdateFloodProtectionProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTFloodProtectionProfileType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTFloodProtectionProfileType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -692,15 +809,24 @@ namespace nsxtapi.PolicyModules
             GetFloodProtectionProfileServiceURL.Replace("{flood-protection-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FloodProtectionProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetFloodProtectionProfileServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTFloodProtectionProfileType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetFloodProtectionProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTFloodProtectionProfileType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTFloodProtectionProfileType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -723,14 +849,11 @@ namespace nsxtapi.PolicyModules
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = PatchFloodProtectionProfileServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP PATCH operation to " + PatchFloodProtectionProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
         /// <summary>
@@ -752,14 +875,11 @@ namespace nsxtapi.PolicyModules
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = DeleteFloodProtectionProfileServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP DELETE operation to " + DeleteFloodProtectionProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
         /// <summary>
@@ -786,15 +906,24 @@ namespace nsxtapi.PolicyModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListSessionTimerProfileBindingsServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTSessionTimerProfileBindingListResultType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + ListSessionTimerProfileBindingsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTSessionTimerProfileBindingListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTSessionTimerProfileBindingListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -817,15 +946,24 @@ namespace nsxtapi.PolicyModules
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = UpdateCpumemThresholdsProfileServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallCpuMemThresholdsProfileType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP PUT operation to " + UpdateCpumemThresholdsProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallCpuMemThresholdsProfileType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallCpuMemThresholdsProfileType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -845,15 +983,24 @@ namespace nsxtapi.PolicyModules
             ReadCpumemThresholdsProfileServiceURL.Replace("{profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadCpumemThresholdsProfileServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallCpuMemThresholdsProfileType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + ReadCpumemThresholdsProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallCpuMemThresholdsProfileType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallCpuMemThresholdsProfileType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -874,14 +1021,11 @@ namespace nsxtapi.PolicyModules
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = DeleteCpumemThresholdsProfileServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP DELETE operation to " + DeleteCpumemThresholdsProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
         /// <summary>
@@ -905,14 +1049,11 @@ namespace nsxtapi.PolicyModules
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = PatchCpumemThresholdsProfileServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP PATCH operation to " + PatchCpumemThresholdsProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
         /// <summary>
@@ -939,15 +1080,24 @@ namespace nsxtapi.PolicyModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListFloodProtectionProfileBindingsServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTFloodProtectionProfileBindingListResultType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + ListFloodProtectionProfileBindingsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTFloodProtectionProfileBindingListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTFloodProtectionProfileBindingListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -970,15 +1120,24 @@ namespace nsxtapi.PolicyModules
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = UpdateFloodProtectionProfileServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTFloodProtectionProfileType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP PUT operation to " + UpdateFloodProtectionProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTFloodProtectionProfileType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTFloodProtectionProfileType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -998,15 +1157,24 @@ namespace nsxtapi.PolicyModules
             GetFloodProtectionProfileServiceURL.Replace("{flood-protection-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FloodProtectionProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetFloodProtectionProfileServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTFloodProtectionProfileType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetFloodProtectionProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTFloodProtectionProfileType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTFloodProtectionProfileType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -1029,14 +1197,11 @@ namespace nsxtapi.PolicyModules
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = PatchFloodProtectionProfileServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP PATCH operation to " + PatchFloodProtectionProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
         /// <summary>
@@ -1058,14 +1223,11 @@ namespace nsxtapi.PolicyModules
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = DeleteFloodProtectionProfileServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP DELETE operation to " + DeleteFloodProtectionProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
     }

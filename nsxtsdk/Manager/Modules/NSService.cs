@@ -46,15 +46,24 @@ namespace nsxtapi.ManagerModules
             request.AddJsonBody(JsonConvert.SerializeObject(Nsservice, defaultSerializationSettings));
             request.Resource = UpdateNsserviceServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTNSServiceType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP PUT operation to " + UpdateNsserviceServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTNSServiceType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTNSServiceType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -75,14 +84,11 @@ namespace nsxtapi.ManagerModules
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteNsserviceServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP DELETE operation to " + DeleteNsserviceServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
         /// <summary>
@@ -103,15 +109,24 @@ namespace nsxtapi.ManagerModules
             ReadNsserviceServiceURL.Replace("{ns-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NsServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadNsserviceServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTNSServiceType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + ReadNsserviceServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTNSServiceType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTNSServiceType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -131,15 +146,24 @@ namespace nsxtapi.ManagerModules
             request.AddJsonBody(JsonConvert.SerializeObject(Nsservice, defaultSerializationSettings));
             request.Resource = CreateNsserviceServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTNSServiceType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP POST operation to " + CreateNsserviceServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTNSServiceType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTNSServiceType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -163,15 +187,24 @@ namespace nsxtapi.ManagerModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListNsservicesServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTNSServiceListResultType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + ListNsservicesServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTNSServiceListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTNSServiceListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
     }
 }

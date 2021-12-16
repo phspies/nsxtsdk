@@ -46,15 +46,24 @@ namespace nsxtapi.ManagerModules
             if (PeerPortId != null) { request.AddQueryParameter("peer_port_id", PeerPortId.ToString()); }
             request.Resource = GetForwardingPathServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTPortConnectionEntitiesType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetForwardingPathServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPortConnectionEntitiesType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPortConnectionEntitiesType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
     }
 }

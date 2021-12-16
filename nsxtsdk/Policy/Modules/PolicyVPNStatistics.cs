@@ -52,15 +52,24 @@ namespace nsxtapi.PolicyModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetL2VpnSessionStatusServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VPNSessionStatusType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetL2VpnSessionStatusServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VPNSessionStatusType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateL2VPNSessionStatusType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -88,15 +97,24 @@ namespace nsxtapi.PolicyModules
             if (SegmentPath != null) { request.AddQueryParameter("segment_path", SegmentPath.ToString()); }
             request.Resource = GetTier0L2VpnSessionRemoteMacsForLSServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VpnSessionRemoteMacType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetTier0L2VpnSessionRemoteMacsForLSServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VpnSessionRemoteMacType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateL2VpnSessionRemoteMacType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -125,14 +143,11 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = ResetTier1IpsecVpnSessionStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP POST operation to " + ResetTier1IpsecVpnSessionStatisticsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
         /// <summary>
@@ -161,15 +176,24 @@ namespace nsxtapi.PolicyModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier1IpsecVpnSessionStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTAggregateIPSecVpnSessionStatisticsType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetTier1IpsecVpnSessionStatisticsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTAggregateIPSecVpnSessionStatisticsType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateIPSecVpnSessionStatisticsType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -197,15 +221,24 @@ namespace nsxtapi.PolicyModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier1L2VpnSessionStatusServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VPNSessionStatusType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetTier1L2VpnSessionStatusServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VPNSessionStatusType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateL2VPNSessionStatusType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -233,15 +266,24 @@ namespace nsxtapi.PolicyModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetL2VpnSessionStatusServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VPNSessionStatusType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetL2VpnSessionStatusServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VPNSessionStatusType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateL2VPNSessionStatusType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -269,15 +311,24 @@ namespace nsxtapi.PolicyModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier1IpsecVpnSessionStatusServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTAggregateIPSecVpnSessionStatusType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetTier1IpsecVpnSessionStatusServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTAggregateIPSecVpnSessionStatusType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateIPSecVpnSessionStatusType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -303,15 +354,24 @@ namespace nsxtapi.PolicyModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier0IpsecVpnSessionSummaryServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTPolicyIpsecVpnIkeServiceSummaryType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetTier0IpsecVpnSessionSummaryServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyIpsecVpnIkeServiceSummaryType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyIpsecVpnIkeServiceSummaryType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -337,15 +397,24 @@ namespace nsxtapi.PolicyModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier1IpsecVpnSessionSummaryServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTPolicyIpsecVpnIkeServiceSummaryType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetTier1IpsecVpnSessionSummaryServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyIpsecVpnIkeServiceSummaryType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyIpsecVpnIkeServiceSummaryType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -374,14 +443,11 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = ResetTier0IpsecVpnSessionStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP POST operation to " + ResetTier0IpsecVpnSessionStatisticsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
         /// <summary>
@@ -410,15 +476,24 @@ namespace nsxtapi.PolicyModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier0IpsecVpnSessionStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTAggregateIPSecVpnSessionStatisticsType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetTier0IpsecVpnSessionStatisticsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTAggregateIPSecVpnSessionStatisticsType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateIPSecVpnSessionStatisticsType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -446,15 +521,24 @@ namespace nsxtapi.PolicyModules
             if (SegmentPath != null) { request.AddQueryParameter("segment_path", SegmentPath.ToString()); }
             request.Resource = GetTier1L2VpnSessionRemoteMacsForLSServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VpnSessionRemoteMacType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetTier1L2VpnSessionRemoteMacsForLSServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VpnSessionRemoteMacType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateL2VpnSessionRemoteMacType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -482,15 +566,24 @@ namespace nsxtapi.PolicyModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier1L2VpnSessionStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VPNSessionStatisticsType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetTier1L2VpnSessionStatisticsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VPNSessionStatisticsType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateL2VPNSessionStatisticsType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -518,15 +611,24 @@ namespace nsxtapi.PolicyModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetL2VpnSessionStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VPNSessionStatisticsType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetL2VpnSessionStatisticsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VPNSessionStatisticsType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateL2VPNSessionStatisticsType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -554,15 +656,24 @@ namespace nsxtapi.PolicyModules
             if (SegmentPath != null) { request.AddQueryParameter("segment_path", SegmentPath.ToString()); }
             request.Resource = GetTier1L2VpnSessionRemoteMacsForLSServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VpnSessionRemoteMacType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetTier1L2VpnSessionRemoteMacsForLSServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VpnSessionRemoteMacType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateL2VpnSessionRemoteMacType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -590,15 +701,24 @@ namespace nsxtapi.PolicyModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier1IpsecVpnSessionStatusServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTAggregateIPSecVpnSessionStatusType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetTier1IpsecVpnSessionStatusServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTAggregateIPSecVpnSessionStatusType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateIPSecVpnSessionStatusType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -623,15 +743,24 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = GetL2VpnStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VpnStatisticsType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetL2VpnStatisticsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VpnStatisticsType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateL2VpnStatisticsType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -660,14 +789,11 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = ResetTier0IpsecVpnSessionStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP POST operation to " + ResetTier0IpsecVpnSessionStatisticsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
         /// <summary>
@@ -696,15 +822,24 @@ namespace nsxtapi.PolicyModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier0IpsecVpnSessionStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTAggregateIPSecVpnSessionStatisticsType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetTier0IpsecVpnSessionStatisticsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTAggregateIPSecVpnSessionStatisticsType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateIPSecVpnSessionStatisticsType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -730,15 +865,24 @@ namespace nsxtapi.PolicyModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier0IpsecVpnSessionSummaryServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTPolicyIpsecVpnIkeServiceSummaryType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetTier0IpsecVpnSessionSummaryServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyIpsecVpnIkeServiceSummaryType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyIpsecVpnIkeServiceSummaryType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -766,15 +910,24 @@ namespace nsxtapi.PolicyModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetL2VpnSessionStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VPNSessionStatisticsType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetL2VpnSessionStatisticsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VPNSessionStatisticsType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateL2VPNSessionStatisticsType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -800,15 +953,24 @@ namespace nsxtapi.PolicyModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier1IpsecVpnSessionSummaryServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTPolicyIpsecVpnIkeServiceSummaryType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetTier1IpsecVpnSessionSummaryServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyIpsecVpnIkeServiceSummaryType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyIpsecVpnIkeServiceSummaryType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -836,15 +998,24 @@ namespace nsxtapi.PolicyModules
             if (SegmentPath != null) { request.AddQueryParameter("segment_path", SegmentPath.ToString()); }
             request.Resource = GetTier0L2VpnSessionRemoteMacsForLSServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VpnSessionRemoteMacType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetTier0L2VpnSessionRemoteMacsForLSServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VpnSessionRemoteMacType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateL2VpnSessionRemoteMacType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -872,15 +1043,24 @@ namespace nsxtapi.PolicyModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier1L2VpnSessionStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VPNSessionStatisticsType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetTier1L2VpnSessionStatisticsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VPNSessionStatisticsType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateL2VPNSessionStatisticsType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -908,15 +1088,24 @@ namespace nsxtapi.PolicyModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier1L2VpnSessionStatusServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VPNSessionStatusType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetTier1L2VpnSessionStatusServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VPNSessionStatusType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateL2VPNSessionStatusType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -941,15 +1130,24 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = GetL3VpnStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTAggregateL3VpnStatisticsType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetL3VpnStatisticsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTAggregateL3VpnStatisticsType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateL3VpnStatisticsType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -977,15 +1175,24 @@ namespace nsxtapi.PolicyModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier0IpsecVpnSessionStatusServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTAggregateIPSecVpnSessionStatusType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetTier0IpsecVpnSessionStatusServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTAggregateIPSecVpnSessionStatusType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateIPSecVpnSessionStatusType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -1010,15 +1217,24 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = GetL2VpnStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VpnStatisticsType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetL2VpnStatisticsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VpnStatisticsType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateL2VpnStatisticsType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -1047,14 +1263,11 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = ResetTier1IpsecVpnSessionStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP POST operation to " + ResetTier1IpsecVpnSessionStatisticsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
         /// <summary>
@@ -1083,15 +1296,24 @@ namespace nsxtapi.PolicyModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier1IpsecVpnSessionStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTAggregateIPSecVpnSessionStatisticsType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetTier1IpsecVpnSessionStatisticsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTAggregateIPSecVpnSessionStatisticsType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateIPSecVpnSessionStatisticsType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -1116,15 +1338,24 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = GetL3VpnStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTAggregateL3VpnStatisticsType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetL3VpnStatisticsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTAggregateL3VpnStatisticsType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateL3VpnStatisticsType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -1152,15 +1383,24 @@ namespace nsxtapi.PolicyModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier0IpsecVpnSessionStatusServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTAggregateIPSecVpnSessionStatusType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetTier0IpsecVpnSessionStatusServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTAggregateIPSecVpnSessionStatusType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateIPSecVpnSessionStatusType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
     }
 }

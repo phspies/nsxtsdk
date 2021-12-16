@@ -47,15 +47,24 @@ namespace nsxtapi.PolicyModules
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = UpdatePolicyFirewallSessionTimerProfileServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallSessionTimerProfileType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP PUT operation to " + UpdatePolicyFirewallSessionTimerProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallSessionTimerProfileType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallSessionTimerProfileType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -75,15 +84,24 @@ namespace nsxtapi.PolicyModules
             GetPolicyFirewallSessionTimerProfileServiceURL.Replace("{firewall-session-timer-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallSessionTimerProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetPolicyFirewallSessionTimerProfileServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallSessionTimerProfileType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetPolicyFirewallSessionTimerProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallSessionTimerProfileType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallSessionTimerProfileType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -104,14 +122,11 @@ namespace nsxtapi.PolicyModules
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = DeletePolicyFirewallSessionTimerProfileServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP DELETE operation to " + DeletePolicyFirewallSessionTimerProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
         /// <summary>
@@ -135,14 +150,11 @@ namespace nsxtapi.PolicyModules
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = PatchPolicyFirewallSessionTimerProfileServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP PATCH operation to " + PatchPolicyFirewallSessionTimerProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
         /// <summary>
@@ -167,15 +179,24 @@ namespace nsxtapi.PolicyModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListPolicyFirewallSessionTimerProfilesServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallSessionTimerProfileListResultType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + ListPolicyFirewallSessionTimerProfilesServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallSessionTimerProfileListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallSessionTimerProfileListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -199,15 +220,24 @@ namespace nsxtapi.PolicyModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListPolicyFirewallSessionTimerProfilesServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallSessionTimerProfileListResultType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + ListPolicyFirewallSessionTimerProfilesServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallSessionTimerProfileListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallSessionTimerProfileListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -230,15 +260,24 @@ namespace nsxtapi.PolicyModules
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = UpdatePolicyFirewallSessionTimerProfileServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallSessionTimerProfileType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP PUT operation to " + UpdatePolicyFirewallSessionTimerProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallSessionTimerProfileType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallSessionTimerProfileType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -258,15 +297,24 @@ namespace nsxtapi.PolicyModules
             GetPolicyFirewallSessionTimerProfileServiceURL.Replace("{firewall-session-timer-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallSessionTimerProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetPolicyFirewallSessionTimerProfileServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallSessionTimerProfileType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetPolicyFirewallSessionTimerProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallSessionTimerProfileType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallSessionTimerProfileType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -287,14 +335,11 @@ namespace nsxtapi.PolicyModules
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = DeletePolicyFirewallSessionTimerProfileServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP DELETE operation to " + DeletePolicyFirewallSessionTimerProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
         /// <summary>
@@ -318,14 +363,11 @@ namespace nsxtapi.PolicyModules
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = PatchPolicyFirewallSessionTimerProfileServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP PATCH operation to " + PatchPolicyFirewallSessionTimerProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
     }

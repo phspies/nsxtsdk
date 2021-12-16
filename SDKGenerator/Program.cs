@@ -18,6 +18,7 @@ namespace nsxtapi
     {
         static string projectDirectory = @"C:\Users\Phillip\source\repos\nsxtsdk\nsxtsdk";
         static string generatorDirectory = @"C:\Users\Phillip\source\repos\nsxtsdk\SDKGenerator";
+        static string templatesDirectory = @"C:\Users\Phillip\source\repos\nsxtsdk\SDKGenerator\Templates";
         static void Main(string[] args)
         {
 
@@ -140,7 +141,7 @@ namespace nsxtapi
                             {
                                 inheritanceClasses.Add(classValue);
                             }
-                        }                            
+                        }
                     }
                     Render.FileToFile(Path.Combine(generatorDirectory, "Templates", "Model.cs.template"), new
                     {
@@ -450,7 +451,23 @@ namespace nsxtapi
                     }
                     else if (arguments[1] as string == "return")
                     {
-                        context.Write($"return returnValue;");
+                        var okResponse = operation.Responses.FirstOrDefault(x => x.Key.StartsWith("20"));
+                        if (okResponse.Value.Schema != null)
+                        {
+                            context.Write("else");
+                            context.Write("\r\n\t\t\t{");
+                            context.Write("\r\n\t\t\t\ttry");
+                            context.Write("\r\n\t\t\t\t{");
+                            context.Write($"\r\n\t\t\t\t\treturnValue = JsonConvert.DeserializeObject<NSXT{((IJsonReferenceBase)okResponse.Value.Schema).ReferencePath.Split("/")[3]}Type>(response.Content, defaultSerializationSettings);");
+                            context.Write("\r\n\t\t\t\t}");
+                            context.Write("\r\n\t\t\t\tcatch (Exception ex)");
+                            context.Write("\r\n\t\t\t\t{");
+                            context.Write("\r\n\t\t\t\t\t" + @"var message = ""Could not deserialize the response body string as "" + typeof(" + className + @").FullName + ""."";");
+                            context.Write("\r\n\t\t\t\t\t" + @"throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);");
+                            context.Write("\r\n\t\t\t\t}");
+                            context.Write("\r\n\t\t\t}");
+                            context.Write("\r\n\t\t\treturn returnValue;");
+                        }
                     }
                     else if (arguments[1] as string == "cmdlet")
                     {
@@ -489,7 +506,23 @@ namespace nsxtapi
                     }
                     else if (arguments[1] as string == "return")
                     {
-                        context.Write($"return returnValue;");
+                        var okResponse = operation.Responses.FirstOrDefault(x => x.Key.StartsWith("20"));
+                        if (okResponse.Value.Schema != null)
+                        {
+                            context.Write("else");
+                            context.Write("\r\n\t\t\t{");
+                            context.Write("\r\n\t\t\t\ttry");
+                            context.Write("\r\n\t\t\t\t{");
+                            context.Write($"\r\n\t\t\t\t\treturnValue = JsonConvert.DeserializeObject<" + okResponse.Value.Schema.Type.ToString().ToLower() + @">(response.Content, defaultSerializationSettings);");
+                            context.Write("\r\n\t\t\t\t}");
+                            context.Write("\r\n\t\t\t\tcatch (Exception ex)");
+                            context.Write("\r\n\t\t\t\t{");
+                            context.Write("\r\n\t\t\t\t\t" + @"var message = ""Could not deserialize the response body string as "" + typeof(" + className + @").FullName + ""."";");
+                            context.Write("\r\n\t\t\t\t\t" + @"throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);");
+                            context.Write("\r\n\t\t\t\t}");
+                            context.Write("\r\n\t\t\t}");
+                            context.Write("\r\n\t\t\treturn returnValue;");
+                        }
                     }
                     else if (arguments[1] as string == "cmdlet")
                     {
@@ -565,6 +598,7 @@ namespace nsxtapi
                     context.Write($"returnValue = JsonConvert.DeserializeObject<{okResponse.Value.Schema.Type.ToString().ToLower()}>(response.Content, defaultSerializationSettings);");
                 }
             }
+
         }
 
         private static void GetOperationPathInjectionCode(RenderContext context, IList<object> arguments, IDictionary<string, object> options, RenderBlock fn, RenderBlock inverse)

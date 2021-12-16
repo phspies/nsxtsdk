@@ -1,4 +1,5 @@
 ﻿using nsxtsdk.Models;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,20 +9,25 @@ using System.Threading.Tasks;
 
 namespace nsxtsdk
 {
-    public class NSXTException : System.Exception
+    public partial class NSXTException : System.Exception
     {
+        public int StatusCode { get; private set; }
 
-        public string Error { get; }
+        public string Response { get; private set; }
 
-        public NSXTException()
+        public IList<Parameter> Headers { get; private set; }
+
+        public NSXTException(string message, int statusCode, string response, IList<Parameter> headers, Exception innerException)
+            : base(message + "\n\nStatus: " + statusCode + "\nResponse: \n" + response.Substring(0, response.Length >= 512 ? 512 : response.Length), innerException)
         {
+            StatusCode = statusCode;
+            Response = response;
+            Headers = headers;
         }
-        public NSXTException(string message) : base(message)
+
+        public override string ToString()
         {
-        }
-        public NSXTException(string message, string error) : this(message)
-        {
-            Error = error;
+            return string.Format("HTTP Response: \n\n{0}\n\n{1}", Response, base.ToString());
         }
     }
 }

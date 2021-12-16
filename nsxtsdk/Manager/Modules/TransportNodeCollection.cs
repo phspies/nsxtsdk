@@ -44,15 +44,24 @@ namespace nsxtapi.ManagerModules
             GetTransportNodeCollectionStateServiceURL.Replace("{transport-node-collection-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TransportNodeCollectionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetTransportNodeCollectionStateServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTTransportNodeCollectionStateType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetTransportNodeCollectionStateServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTTransportNodeCollectionStateType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTTransportNodeCollectionStateType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -74,15 +83,24 @@ namespace nsxtapi.ManagerModules
             request.AddJsonBody(JsonConvert.SerializeObject(TransportNodeCollection, defaultSerializationSettings));
             request.Resource = UpdateTransportNodeCollectionServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTTransportNodeCollectionType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP PUT operation to " + UpdateTransportNodeCollectionServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTTransportNodeCollectionType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTTransportNodeCollectionType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -102,15 +120,24 @@ namespace nsxtapi.ManagerModules
             GetTransportNodeCollectionServiceURL.Replace("{transport-node-collection-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TransportNodeCollectionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetTransportNodeCollectionServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTTransportNodeCollectionType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetTransportNodeCollectionServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTTransportNodeCollectionType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTTransportNodeCollectionType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -130,14 +157,11 @@ namespace nsxtapi.ManagerModules
             DeleteTransportNodeCollectionServiceURL.Replace("{transport-node-collection-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TransportNodeCollectionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteTransportNodeCollectionServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP DELETE operation to " + DeleteTransportNodeCollectionServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
         /// <summary>
@@ -159,15 +183,24 @@ namespace nsxtapi.ManagerModules
             if (ApplyProfile != null) { request.AddQueryParameter("apply_profile", ApplyProfile.ToString()); }
             request.Resource = CreateTransportNodeCollectionServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTTransportNodeCollectionType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP POST operation to " + CreateTransportNodeCollectionServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTTransportNodeCollectionType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTTransportNodeCollectionType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -188,15 +221,24 @@ namespace nsxtapi.ManagerModules
             if (VcInstanceUuid != null) { request.AddQueryParameter("vc_instance_uuid", VcInstanceUuid.ToString()); }
             request.Resource = ListTransportNodeCollectionsServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTTransportNodeCollectionListResultType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + ListTransportNodeCollectionsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTTransportNodeCollectionListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTTransportNodeCollectionListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -216,14 +258,11 @@ namespace nsxtapi.ManagerModules
             RetryTransportNodeCollectionRealizationRetryProfileRealizationServiceURL.Replace("{transport-node-collection-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TransportNodeCollectionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = RetryTransportNodeCollectionRealizationRetryProfileRealizationServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP POST operation to " + RetryTransportNodeCollectionRealizationRetryProfileRealizationServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
     }

@@ -43,14 +43,11 @@ namespace nsxtapi.ManagerModules
             if (All != null) { request.AddQueryParameter("all", All.ToString()); }
             request.Resource = ReadNodeSupportBundleServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP GET operation to " + ReadNodeSupportBundleServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
     }

@@ -44,15 +44,24 @@ namespace nsxtapi.ManagerModules
             GetDnsForwarderStatisticsServiceURL.Replace("{forwarder-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ForwarderId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetDnsForwarderStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTDnsForwarderStatisticsType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetDnsForwarderStatisticsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTDnsForwarderStatisticsType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTDnsForwarderStatisticsType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -72,15 +81,24 @@ namespace nsxtapi.ManagerModules
             GetDnsForwarderStatusServiceURL.Replace("{forwarder-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ForwarderId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetDnsForwarderStatusServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                returnValue = JsonConvert.DeserializeObject<NSXTDnsForwarderStatusType>(response.Content, defaultSerializationSettings);
+                var message = "HTTP GET operation to " + GetDnsForwarderStatusServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
-            return returnValue;
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTDnsForwarderStatusType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTDnsForwarderStatusType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
     }
 }

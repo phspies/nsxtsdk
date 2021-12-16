@@ -46,14 +46,11 @@ namespace nsxtapi.ManagerModules
             InvokePutFabricCentralAPIServiceURL.Replace("{target-uri}", System.Uri.EscapeDataString(Helpers.ConvertToString(TargetUri, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = InvokePutFabricCentralAPIServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP PUT operation to " + InvokePutFabricCentralAPIServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
         /// <summary>
@@ -76,14 +73,11 @@ namespace nsxtapi.ManagerModules
             InvokePostFabricCentralAPIServiceURL.Replace("{target-uri}", System.Uri.EscapeDataString(Helpers.ConvertToString(TargetUri, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = InvokePostFabricCentralAPIServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP POST operation to " + InvokePostFabricCentralAPIServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
         /// <summary>
@@ -106,14 +100,11 @@ namespace nsxtapi.ManagerModules
             InvokeDeleteFabricCentralAPIServiceURL.Replace("{target-uri}", System.Uri.EscapeDataString(Helpers.ConvertToString(TargetUri, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = InvokeDeleteFabricCentralAPIServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP DELETE operation to " + InvokeDeleteFabricCentralAPIServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
         /// <summary>
@@ -136,14 +127,11 @@ namespace nsxtapi.ManagerModules
             InvokeGetFabricCentralAPIServiceURL.Replace("{target-uri}", System.Uri.EscapeDataString(Helpers.ConvertToString(TargetUri, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = InvokeGetFabricCentralAPIServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP GET operation to " + InvokeGetFabricCentralAPIServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
         /// <summary>
@@ -166,14 +154,11 @@ namespace nsxtapi.ManagerModules
             InvokePutTransportNodeCentralAPIServiceURL.Replace("{target-uri}", System.Uri.EscapeDataString(Helpers.ConvertToString(TargetUri, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = InvokePutTransportNodeCentralAPIServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP PUT operation to " + InvokePutTransportNodeCentralAPIServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
         /// <summary>
@@ -196,14 +181,11 @@ namespace nsxtapi.ManagerModules
             InvokePostTransportNodeCentralAPIServiceURL.Replace("{target-uri}", System.Uri.EscapeDataString(Helpers.ConvertToString(TargetUri, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = InvokePostTransportNodeCentralAPIServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP POST operation to " + InvokePostTransportNodeCentralAPIServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
         /// <summary>
@@ -226,14 +208,11 @@ namespace nsxtapi.ManagerModules
             InvokeGetTransportNodeCentralAPIServiceURL.Replace("{target-uri}", System.Uri.EscapeDataString(Helpers.ConvertToString(TargetUri, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = InvokeGetTransportNodeCentralAPIServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP GET operation to " + InvokeGetTransportNodeCentralAPIServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
         /// <summary>
@@ -256,14 +235,11 @@ namespace nsxtapi.ManagerModules
             InvokeDeleteTransportNodeCentralAPIServiceURL.Replace("{target-uri}", System.Uri.EscapeDataString(Helpers.ConvertToString(TargetUri, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = InvokeDeleteTransportNodeCentralAPIServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP DELETE operation to " + InvokeDeleteTransportNodeCentralAPIServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
         /// <summary>
@@ -286,14 +262,11 @@ namespace nsxtapi.ManagerModules
             InvokePutClusterCentralAPIServiceURL.Replace("{target-uri}", System.Uri.EscapeDataString(Helpers.ConvertToString(TargetUri, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = InvokePutClusterCentralAPIServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP PUT operation to " + InvokePutClusterCentralAPIServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
         /// <summary>
@@ -316,14 +289,11 @@ namespace nsxtapi.ManagerModules
             InvokePostClusterCentralAPIServiceURL.Replace("{target-uri}", System.Uri.EscapeDataString(Helpers.ConvertToString(TargetUri, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = InvokePostClusterCentralAPIServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP POST operation to " + InvokePostClusterCentralAPIServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
         /// <summary>
@@ -346,14 +316,11 @@ namespace nsxtapi.ManagerModules
             InvokeDeleteClusterCentralAPIServiceURL.Replace("{target-uri}", System.Uri.EscapeDataString(Helpers.ConvertToString(TargetUri, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = InvokeDeleteClusterCentralAPIServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP DELETE operation to " + InvokeDeleteClusterCentralAPIServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
         /// <summary>
@@ -376,14 +343,11 @@ namespace nsxtapi.ManagerModules
             InvokeGetClusterCentralAPIServiceURL.Replace("{target-uri}", System.Uri.EscapeDataString(Helpers.ConvertToString(TargetUri, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = InvokeGetClusterCentralAPIServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                
+                var message = "HTTP GET operation to " + InvokeGetClusterCentralAPIServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             
         }
     }

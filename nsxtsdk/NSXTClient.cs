@@ -21,7 +21,7 @@ namespace nsxtapi
         {
             if (host.Contains("http"))
             {
-                throw new NSXTException("Host string should not include https string");
+                throw new ArgumentException("Host string should not include https string");
             }
             restClient = new RestClient(new Uri($"https://{host}/api/v1"));
             if (remoteCertificateValidation == false)

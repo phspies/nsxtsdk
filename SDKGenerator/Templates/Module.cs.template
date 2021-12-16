@@ -52,14 +52,11 @@ namespace nsxtapi.{{rootmodule}}Modules
             {{/value.parameters}}
             request.Resource = {{GetMethodName .}}ServiceURL.ToString();
             var response = restClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
 			{
-                {{GetResponseType value.responses}}
+                var message = "HTTP {{GetOperationHttpMethod key}} operation to " + {{GetMethodName .}}ServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-            {
-                throw new NSXTException(response.Content, response.StatusCode.ToString());
-            }
             {{GetOperationReturnType . "return"}}
         }
         {{/each}}

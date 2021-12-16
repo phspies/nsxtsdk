@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <None Remove="nsxt_policy.json" />
+    <None Remove="nsxt_policyClient.orig" />
   </ItemGroup>
 
   <ItemGroup>
