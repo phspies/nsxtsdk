@@ -19,14 +19,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Match sequence in route map which is used for matching routes.IP prefix lists and match community expression are mutuallyexclusive fields, one of them must be provided.")]
     public class NSXTRouteMapSequenceMatchType 
     {
+        public NSXTRouteMapSequenceMatchType()
+        {
+        }
         /// <summary>
-        /// It supports conjunction operator (AND) and five
-        /// operators within singular community match expression
-        /// (MATCH_ANY, MATCH_ALL, MATCH_EXACT, MATCH_NONE,
-        /// MATCH_REGEX).
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "match_community_expression")]
-        [NSXTProperty(IsRequired: false, Description: @"It supports conjunction operator (AND) and fiveoperators within singular community match expression(MATCH_ANY, MATCH_ALL, MATCH_EXACT, MATCH_NONE,MATCH_REGEX).")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTCommunityMatchExpressionType MatchCommunityExpression { get; set; }
         /// <summary>
         /// IPPrefixList Identifiers for RouteMap Sequence Match Criteria

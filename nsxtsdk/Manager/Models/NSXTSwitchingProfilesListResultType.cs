@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSwitchingProfilesListResultType : NSXTListResultType
     {
+        public NSXTSwitchingProfilesListResultType()
+        {
+        }
         /// <summary>
         /// Switching Profile Results
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPortConnectionHypervisorType : NSXTPortConnectionEntityType
     {
+        public NSXTPortConnectionHypervisorType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

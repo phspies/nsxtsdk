@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMultiWidgetConfigurationType : NSXTWidgetConfigurationType
     {
+        public NSXTMultiWidgetConfigurationType()
+        {
+        }
         /// <summary>
         /// Array of widgets that are part of the multi-widget.
         /// </summary>

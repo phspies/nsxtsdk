@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRuleType : NSXTBaseRuleType
     {
+        public NSXTRuleType()
+        {
+        }
         /// <summary>
         /// The action to be applied to all the services
         /// The JUMP_TO_APPLICATION action is only supported for rules created in the

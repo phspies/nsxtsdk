@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLicensesListResultType : NSXTListResultType
     {
+        public NSXTLicensesListResultType()
+        {
+        }
         /// <summary>
         /// Licenses Results
         /// </summary>

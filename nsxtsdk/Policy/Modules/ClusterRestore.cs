@@ -30,21 +30,21 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTClusterRestoreStatusType RetryClusterRestoreRetry()
+        public NSXTClusterRestoreStatusType RetryClusterRestore()
         {
             NSXTClusterRestoreStatusType returnValue = default(NSXTClusterRestoreStatusType);
-            StringBuilder RetryClusterRestoreRetryServiceURL = new StringBuilder("/cluster/restore?action=retry");
+            StringBuilder RetryClusterRestoreServiceURL = new StringBuilder("/cluster/restore?action=retry");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            request.Resource = RetryClusterRestoreRetryServiceURL.ToString();
+            request.Resource = RetryClusterRestoreServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + RetryClusterRestoreRetryServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + RetryClusterRestoreServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -65,11 +65,11 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTClusterRestoreStatusType InitiateClusterRestoreStart(NSXTInitiateClusterRestoreRequestType InitiateClusterRestoreRequest)
+        public NSXTClusterRestoreStatusType InitiateClusterRestore(NSXTInitiateClusterRestoreRequestType InitiateClusterRestoreRequest)
         {
             if (InitiateClusterRestoreRequest == null) { throw new System.ArgumentNullException("InitiateClusterRestoreRequest cannot be null"); }
             NSXTClusterRestoreStatusType returnValue = default(NSXTClusterRestoreStatusType);
-            StringBuilder InitiateClusterRestoreStartServiceURL = new StringBuilder("/cluster/restore?action=start");
+            StringBuilder InitiateClusterRestoreServiceURL = new StringBuilder("/cluster/restore?action=start");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -77,11 +77,11 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(InitiateClusterRestoreRequest, defaultSerializationSettings));
-            request.Resource = InitiateClusterRestoreStartServiceURL.ToString();
+            request.Resource = InitiateClusterRestoreServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + InitiateClusterRestoreStartServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + InitiateClusterRestoreServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -102,21 +102,21 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTClusterRestoreStatusType CancelClusterRestoreCancel()
+        public NSXTClusterRestoreStatusType CancelClusterRestore()
         {
             NSXTClusterRestoreStatusType returnValue = default(NSXTClusterRestoreStatusType);
-            StringBuilder CancelClusterRestoreCancelServiceURL = new StringBuilder("/cluster/restore?action=cancel");
+            StringBuilder CancelClusterRestoreServiceURL = new StringBuilder("/cluster/restore?action=cancel");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            request.Resource = CancelClusterRestoreCancelServiceURL.ToString();
+            request.Resource = CancelClusterRestoreServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + CancelClusterRestoreCancelServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + CancelClusterRestoreServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -137,11 +137,11 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTClusterRestoreStatusType AdvanceClusterRestoreAdvance(NSXTAdvanceClusterRestoreRequestType AdvanceClusterRestoreRequest)
+        public NSXTClusterRestoreStatusType AdvanceClusterRestore(NSXTAdvanceClusterRestoreRequestType AdvanceClusterRestoreRequest)
         {
             if (AdvanceClusterRestoreRequest == null) { throw new System.ArgumentNullException("AdvanceClusterRestoreRequest cannot be null"); }
             NSXTClusterRestoreStatusType returnValue = default(NSXTClusterRestoreStatusType);
-            StringBuilder AdvanceClusterRestoreAdvanceServiceURL = new StringBuilder("/cluster/restore?action=advance");
+            StringBuilder AdvanceClusterRestoreServiceURL = new StringBuilder("/cluster/restore?action=advance");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -149,11 +149,11 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(AdvanceClusterRestoreRequest, defaultSerializationSettings));
-            request.Resource = AdvanceClusterRestoreAdvanceServiceURL.ToString();
+            request.Resource = AdvanceClusterRestoreServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + AdvanceClusterRestoreAdvanceServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + AdvanceClusterRestoreServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -174,21 +174,21 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTClusterRestoreStatusType SuspendClusterRestoreSuspend()
+        public NSXTClusterRestoreStatusType SuspendClusterRestore()
         {
             NSXTClusterRestoreStatusType returnValue = default(NSXTClusterRestoreStatusType);
-            StringBuilder SuspendClusterRestoreSuspendServiceURL = new StringBuilder("/cluster/restore?action=suspend");
+            StringBuilder SuspendClusterRestoreServiceURL = new StringBuilder("/cluster/restore?action=suspend");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            request.Resource = SuspendClusterRestoreSuspendServiceURL.ToString();
+            request.Resource = SuspendClusterRestoreServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + SuspendClusterRestoreSuspendServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + SuspendClusterRestoreServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else

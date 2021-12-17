@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPInfoType 
     {
+        public NSXTIPInfoType()
+        {
+        }
         /// <summary>
         /// IPv4 Addresses
         /// </summary>

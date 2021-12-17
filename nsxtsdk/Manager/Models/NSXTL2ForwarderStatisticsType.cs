@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTL2ForwarderStatisticsType 
     {
+        public NSXTL2ForwarderStatisticsType()
+        {
+        }
         /// <summary>
         /// Timestamp when the l2 forwarder statistics was last updated.
         /// </summary>
@@ -30,16 +33,16 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Logical switch id on which the L2 forwarder is created.")]
         public string? LogicalSwitchId { get; set; }
         /// <summary>
-        /// Total received data counters.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "rx")]
-        [NSXTProperty(IsRequired: false, Description: @"Total received data counters.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTInterSitePortCountersType Rx { get; set; }
         /// <summary>
-        /// Total sent data counters.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "tx")]
-        [NSXTProperty(IsRequired: false, Description: @"Total sent data counters.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTInterSitePortCountersType Tx { get; set; }
     }
 }

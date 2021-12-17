@@ -17,6 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"BGP neighbor learned/advertised route details.")]
     public class NSXTBgpNeighborRoutesType 
     {
+        public NSXTBgpNeighborRoutesType()
+        {
+        }
+        /// <summary>
+        /// Array of BGP neighbor route details per edge node.
+        /// </summary>
+        [JsonProperty(PropertyName = "edge_node_routes")]
+        [NSXTProperty(IsRequired: false, Description: @"Array of BGP neighbor route details per edge node.")]
+        public IList<NSXTRoutesPerTransportNodeType> EdgeNodeRoutes { get; set; }
         /// <summary>
         /// BGP neighbor policy path
         /// </summary>

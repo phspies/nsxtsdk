@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Firewall to use TTL config to manage firewall cache to expire snooped FQDN entries from DNS response.")]
     public class NSXTDnsTtlConfigType 
     {
+        public NSXTDnsTtlConfigType()
+        {
+            Ttl = test
+        }
         /// <summary>
         /// The number of seconds that snooped DNS responses are retained in the cache. Used only when dns_ttl_type is USE_TTL.
         /// </summary>
@@ -24,7 +28,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"The number of seconds that snooped DNS responses are retained in the cache. Used only when dns_ttl_type is USE_TTL.")]
         //[System.ComponentModel.DataAnnotations.MinLength(3600)]
         //[System.ComponentModel.DataAnnotations.MaxLength(864000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Ttl { get; set; }
         /// <summary>
         /// TTL type to decide how to manage ttl.

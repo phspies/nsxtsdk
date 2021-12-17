@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPMirrorDestinationType : NSXTMirrorDestinationType
     {
+        public NSXTIPMirrorDestinationType()
+        {
+            EncapsulationType = test
+        }
         /// <summary>
         /// The destination IPs of the mirror packet will be sent to.
         /// </summary>
@@ -30,7 +34,6 @@ namespace nsxtsdk.ManagerModels
         [JsonProperty(PropertyName = "encapsulation_type", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"You can choose GRE, ERSPAN II or ERSPAN III.")]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "GRE")]
         public NSXTIpmirrorDestinationEncapsulationTypeEnumType EncapsulationType { get; set; }
         /// <summary>
         /// Used by physical switch for the mirror traffic forwarding.

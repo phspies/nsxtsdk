@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVpnSessionStatusNsxTType : NSXTIPSecVpnSessionStatusPerEPType
     {
+        public NSXTIPSecVpnSessionStatusNsxTType()
+        {
+        }
         /// <summary>
         /// Gives session status consolidated using IKE status and tunnel status. It can
         /// be UP, DOWN, DEGRADED. If IKE and all tunnels are UP status will be UP, if
@@ -56,16 +59,16 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Total number of tunnels.")]
         public long? TotalTunnels { get; set; }
         /// <summary>
-        /// Status for IPSec VPN IKE session UP/DOWN and fail reason if IKE session is down.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ike_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Status for IPSec VPN IKE session UP/DOWN and fail reason if IKE session is down.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPSecVpnIkeSessionStatusType IkeStatus { get; set; }
         /// <summary>
-        /// Aggregate traffic statistics across all ipsec tunnels.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "aggregate_traffic_counters")]
-        [NSXTProperty(IsRequired: false, Description: @"Aggregate traffic statistics across all ipsec tunnels.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPSecVpnTrafficCountersType AggregateTrafficCounters { get; set; }
     }
 }

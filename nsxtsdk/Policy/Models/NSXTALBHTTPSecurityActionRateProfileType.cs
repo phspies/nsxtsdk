@@ -17,18 +17,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HTTPSecurityActionRateProfile object")]
     public class NSXTALBHTTPSecurityActionRateProfileType 
     {
+        public NSXTALBHTTPSecurityActionRateProfileType()
+        {
+        }
         /// <summary>
-        /// The action to take when the rate limit has been reached.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "action", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The action to take when the rate limit has been reached.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBRateLimiterActionType Action { get; set; }
         /// <summary>
-        /// The rate limiter used when this action is triggered.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "rate_limiter", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The rate limiter used when this action is triggered.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBRateLimiterType RateLimiter { get; set; }
         /// <summary>

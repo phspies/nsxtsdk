@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Network error related to container objects.")]
     public class NSXTNetworkErrorType 
     {
+        public NSXTNetworkErrorType()
+        {
+        }
         /// <summary>
         /// Detailed message of network related error.
         /// </summary>

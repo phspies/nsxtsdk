@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeInstallUpgradeServicePropertiesType : NSXTNodeServicePropertiesType
     {
+        public NSXTNodeInstallUpgradeServicePropertiesType()
+        {
+        }
         /// <summary>
-        /// install-upgrade Service properties
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "service_properties")]
-        [NSXTProperty(IsRequired: false, Description: @"install-upgrade Service properties")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTInstallUpgradeServicePropertiesType ServiceProperties { get; set; }
     }
 }

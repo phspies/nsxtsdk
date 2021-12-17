@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"configuration parameters for Bridge Profile")]
     public class NSXTBridgeProfileConfigType 
     {
+        public NSXTBridgeProfileConfigType()
+        {
+        }
         /// <summary>
         /// The name of the switching uplink teaming policy for the bridge endpoint. This name corresponds to one fot he switching
         /// uplink teaming policy names listed in teh transport zone. When this property is not specified, the teaming policy is

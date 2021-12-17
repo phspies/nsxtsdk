@@ -17,17 +17,32 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBAuthProfileType : NSXTPolicyConfigResourceType
     {
+        public NSXTALBAuthProfileType()
+        {
+        }
         /// <summary>
-        /// HTTP user authentication params.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "http")]
-        [NSXTProperty(IsRequired: false, Description: @"HTTP user authentication params.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBAuthProfileHTTPClientParamsType Http { get; set; }
         /// <summary>
-        /// SAML settings.
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "tacacs_plus")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTALBTacacsPlusAuthSettingsType TacacsPlus { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "ldap")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTALBLdapAuthSettingsType Ldap { get; set; }
+        /// <summary>
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "saml")]
-        [NSXTProperty(IsRequired: false, Description: @"SAML settings.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBSamlSettingsType Saml { get; set; }
         /// <summary>
         /// Type of the Auth Profile.
@@ -40,16 +55,12 @@ namespace nsxtsdk.PolicyModels
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTAlbauthProfileTypeEnumType Type { get; set; }
         /// <summary>
-        /// TACACS+ settings.
+        /// List of labels to be used for granular RBAC.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
         /// </summary>
-        [JsonProperty(PropertyName = "tacacs_plus")]
-        [NSXTProperty(IsRequired: false, Description: @"TACACS+ settings.")]
-        public NSXTALBTacacsPlusAuthSettingsType TacacsPlus { get; set; }
-        /// <summary>
-        /// LDAP server and directory settings.
-        /// </summary>
-        [JsonProperty(PropertyName = "ldap")]
-        [NSXTProperty(IsRequired: false, Description: @"LDAP server and directory settings.")]
-        public NSXTALBLdapAuthSettingsType Ldap { get; set; }
+        [JsonProperty(PropertyName = "markers")]
+        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
+        public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
     }
 }

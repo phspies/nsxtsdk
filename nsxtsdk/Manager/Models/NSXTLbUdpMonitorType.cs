@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbUdpMonitorType : NSXTLbActiveMonitorType
     {
+        public NSXTLbUdpMonitorType()
+        {
+        }
         /// <summary>
         /// Expected data, can be anywhere in the response and it has to be a
         /// string, regular expressions are not supported.

@@ -17,13 +17,16 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeUserSettingsType 
     {
+        public NSXTNodeUserSettingsType()
+        {
+            CliUsername = test
+        }
         /// <summary>
         /// To configure username, you must provide this property together with
         /// <b>cli_password</b>. Username must contain ASCII characters only.
         /// </summary>
         [JsonProperty(PropertyName = "cli_username")]
         [NSXTProperty(IsRequired: false, Description: @"To configure username, you must provide this property together with&lt;b&gt;cli_password&lt;/b&gt;. Username must contain ASCII characters only.")]
-        [NSXTDefaultProperty(Default: "admin")]
         public string? CliUsername { get; set; }
         /// <summary>
         /// The default username is "audit". To configure username, you must provide

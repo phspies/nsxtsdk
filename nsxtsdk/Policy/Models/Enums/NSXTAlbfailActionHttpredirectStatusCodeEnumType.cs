@@ -7,9 +7,9 @@ using nsxtsdk.Models;
 namespace nsxtsdk.PolicyModels
 {
     /// <summary>
-    /// Enum options - HTTP_REDIRECT_STATUS_CODE_301,HTTP_REDIRECT_STATUS_CODE_302,HTTP_REDIRECT_STATUS_CODE_307.Default value when not specified in API or module isinterpreted by ALB Controller asHTTP_REDIRECT_STATUS_CODE_302.
+    /// Enum options - HTTP_REDIRECT_STATUS_CODE_301,HTTP_REDIRECT_STATUS_CODE_302,HTTP_REDIRECT_STATUS_CODE_307.Allowed in Basic(Allowed values-HTTP_REDIRECT_STATUS_CODE_302) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller asHTTP_REDIRECT_STATUS_CODE_302.
     /// </summary>
-    [NSXTProperty(Description: @"Enum options - HTTP_REDIRECT_STATUS_CODE_301,HTTP_REDIRECT_STATUS_CODE_302,HTTP_REDIRECT_STATUS_CODE_307.Default value when not specified in API or module isinterpreted by ALB Controller asHTTP_REDIRECT_STATUS_CODE_302.")]
+    [NSXTProperty(Description: @"Enum options - HTTP_REDIRECT_STATUS_CODE_301,HTTP_REDIRECT_STATUS_CODE_302,HTTP_REDIRECT_STATUS_CODE_307.Allowed in Basic(Allowed values-HTTP_REDIRECT_STATUS_CODE_302) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller asHTTP_REDIRECT_STATUS_CODE_302.")]
     public enum NSXTAlbfailActionHttpredirectStatusCodeEnumType
     {
         [EnumMember(Value = "HTTP_REDIRECT_STATUS_CODE_301")]

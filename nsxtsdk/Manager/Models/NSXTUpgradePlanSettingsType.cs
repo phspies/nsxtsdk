@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUpgradePlanSettingsType 
     {
+        public NSXTUpgradePlanSettingsType()
+        {
+            Parallel = test
+        }
         /// <summary>
         /// Flag to indicate whether to pause the upgrade after upgrade of each group is completed
         /// </summary>
@@ -34,7 +38,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "parallel")]
         [NSXTProperty(IsRequired: false, Description: @"Upgrade Method to specify whether the upgrade is to be performed serially or in parallel")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Parallel { get; set; }
     }
 }

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyApiErrorType : NSXTPolicyRelatedApiErrorType
     {
+        public NSXTPolicyApiErrorType()
+        {
+        }
         /// <summary>
         /// Other errors related to this error
         /// </summary>

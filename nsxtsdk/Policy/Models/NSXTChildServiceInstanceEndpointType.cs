@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildServiceInstanceEndpointType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildServiceInstanceEndpointType()
+        {
+        }
         /// <summary>
-        /// Contains actual ServiceInstanceEndpoint.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ServiceInstanceEndpoint", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains actual ServiceInstanceEndpoint.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTServiceInstanceEndpointType ServiceInstanceEndpoint { get; set; }
     }

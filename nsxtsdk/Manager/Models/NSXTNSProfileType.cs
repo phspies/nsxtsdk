@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNSProfileType : NSXTManagedResourceType
     {
+        public NSXTNSProfileType()
+        {
+            IsValid = test
+        }
         /// <summary>
         /// Reference to the encapsulating object of attributes/sub-attributes for
         /// NSProfile.
@@ -33,7 +37,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "is_valid")]
         [NSXTProperty(IsRequired: false, Description: @"If set to false, the NSProfile has some app ids whichare unsupported. Those were allowed to be added inprevious releases but in testing in later phasesfound that those app ids could not be detected.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? IsValid { get; set; }
     }
 }

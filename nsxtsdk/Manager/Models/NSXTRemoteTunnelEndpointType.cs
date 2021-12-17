@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRemoteTunnelEndpointType : NSXTEndpointType
     {
+        public NSXTRemoteTunnelEndpointType()
+        {
+        }
         /// <summary>
         /// Vlan id
         /// </summary>

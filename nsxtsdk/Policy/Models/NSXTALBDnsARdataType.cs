@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsARdata object")]
     public class NSXTALBDnsARdataType 
     {
+        public NSXTALBDnsARdataType()
+        {
+        }
         /// <summary>
-        /// IP address for FQDN.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ip_address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IP address for FQDN.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBIpAddrType IpAddress { get; set; }
     }

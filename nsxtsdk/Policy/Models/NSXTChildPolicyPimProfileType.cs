@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildPolicyPimProfileType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildPolicyPimProfileType()
+        {
+        }
         /// <summary>
-        /// Contains actual PolicyPimProfile.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "PolicyPimProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains actual PolicyPimProfile.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTPolicyPimProfileType PolicyPimProfile { get; set; }
     }

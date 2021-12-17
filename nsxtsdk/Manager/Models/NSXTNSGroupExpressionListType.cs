@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"List of NSGroupExpressions")]
     public class NSXTNSGroupExpressionListType 
     {
+        public NSXTNSGroupExpressionListType()
+        {
+        }
         /// <summary>
         /// List of NSGroupExpressions to be passed to add and remove APIs
         /// </summary>

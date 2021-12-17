@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Describes status of configuration of an entity")]
     public class NSXTConfigurationStateType 
     {
+        public NSXTConfigurationStateType()
+        {
+        }
         /// <summary>
         /// Gives details of state of desired configuration.
         /// Additional enums with more details on progress/success/error states

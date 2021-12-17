@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildSiteType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildSiteType()
+        {
+        }
         /// <summary>
-        /// Contains the actual Site object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "Site", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual Site object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTSiteType Site { get; set; }
     }

@@ -17,12 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Contains the deployment information for a NSX-Intelligence node VM.")]
     public class NSXTIntelligenceClusterNodeVMDeploymentRequestType 
     {
+        public NSXTIntelligenceClusterNodeVMDeploymentRequestType()
+        {
+            FormFactor = test
+        }
         /// <summary>
-        /// Info needed to configure a NSX-Intelligence cluster node VM at deployment for a
-        /// specific platform.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "deployment_config", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Info needed to configure a NSX-Intelligence cluster node VM at deployment for aspecific platform.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTIntelligenceClusterNodeVMDeploymentConfigType DeploymentConfig { get; set; }
         /// <summary>
@@ -33,23 +36,16 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"ID of the VM maintained internally.Note: This is automatically generated and cannot be modified.")]
         public string? VmId { get; set; }
         /// <summary>
-        /// Username and password settings for the NSX-Intelligence node VM.
-        /// Passwords must be at least 12 characters in length and contain at
-        /// least one lowercase, one uppercase, one numerical, and one special
-        /// character.
-        /// Note: These settings will be honored only during VM deployment.
-        /// Post-deployment, CLI must be used for changing the user settings and
-        /// changes to these parameters will not have any effect.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "user_settings")]
-        [NSXTProperty(IsRequired: false, Description: @"Username and password settings for the NSX-Intelligence node VM.Passwords must be at least 12 characters in length and contain atleast one lowercase, one uppercase, one numerical, and one specialcharacter.Note: These settings will be honored only during VM deployment.Post-deployment, CLI must be used for changing the user settings andchanges to these parameters will not have any effect.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTNodeUserSettingsType UserSettings { get; set; }
         /// <summary>
         /// Specifies the desired "size" of the VM
         /// </summary>
         [JsonProperty(PropertyName = "form_factor")]
         [NSXTProperty(IsRequired: false, Description: @"Specifies the desired &quot;size&quot; of the VM")]
-        [NSXTDefaultProperty(Default: "SMALL")]
         public NSXTIntelligenceClusterNodeVmdeploymentRequestFormFactorEnumType? FormFactor { get; set; }
     }
 }

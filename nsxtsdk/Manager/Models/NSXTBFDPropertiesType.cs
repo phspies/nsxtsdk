@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"BFD information")]
     public class NSXTBFDPropertiesType 
     {
+        public NSXTBFDPropertiesType()
+        {
+        }
         /// <summary>
         /// True if tunnel is active in a gateway HA setup
         /// </summary>

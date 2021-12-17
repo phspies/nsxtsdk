@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFireWallServiceAssociationListResultType : NSXTServiceAssociationListResultType
     {
+        public NSXTFireWallServiceAssociationListResultType()
+        {
+        }
         /// <summary>
         /// Firewall rule list result with pagination support.
         /// </summary>

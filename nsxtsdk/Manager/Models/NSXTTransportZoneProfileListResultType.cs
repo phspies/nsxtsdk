@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTransportZoneProfileListResultType : NSXTListResultType
     {
+        public NSXTTransportZoneProfileListResultType()
+        {
+        }
         /// <summary>
         /// Transport zone profile results
         /// </summary>

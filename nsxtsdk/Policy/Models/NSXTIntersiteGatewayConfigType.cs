@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Intersite gateway configuration.")]
     public class NSXTIntersiteGatewayConfigType 
     {
+        public NSXTIntersiteGatewayConfigType()
+        {
+            IntersiteTransitSubnet = test
+        }
         /// <summary>
         /// IPv4 subnet for inter-site transit segment connecting service routers
         /// across sites for stretched gateway. For IPv6 link local subnet is
@@ -24,7 +28,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "intersite_transit_subnet")]
         [NSXTProperty(IsRequired: false, Description: @"IPv4 subnet for inter-site transit segment connecting service routersacross sites for stretched gateway. For IPv6 link local subnet isauto configured.")]
-        [NSXTDefaultProperty(Default: "169.254.32.0/20")]
         public string? IntersiteTransitSubnet { get; set; }
         /// <summary>
         /// Primary egress site for gateway. T0/T1 gateway in Active/Standby mode

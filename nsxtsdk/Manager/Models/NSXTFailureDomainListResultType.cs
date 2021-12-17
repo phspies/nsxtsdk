@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFailureDomainListResultType : NSXTListResultType
     {
+        public NSXTFailureDomainListResultType()
+        {
+        }
         /// <summary>
         /// Array of all failure domains including system generated default
         /// failure domain

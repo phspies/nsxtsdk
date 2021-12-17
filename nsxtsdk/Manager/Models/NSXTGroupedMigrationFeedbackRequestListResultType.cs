@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTGroupedMigrationFeedbackRequestListResultType : NSXTListResultType
     {
+        public NSXTGroupedMigrationFeedbackRequestListResultType()
+        {
+        }
         /// <summary>
         /// Paged Collection of groups of feedback requests
         /// </summary>

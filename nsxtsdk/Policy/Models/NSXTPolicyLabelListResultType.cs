@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyLabelListResultType : NSXTListResultType
     {
+        public NSXTPolicyLabelListResultType()
+        {
+        }
         /// <summary>
         /// Policy label list results
         /// </summary>

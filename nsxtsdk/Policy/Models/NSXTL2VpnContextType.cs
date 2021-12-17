@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTL2VpnContextType : NSXTPolicyConfigResourceType
     {
+        public NSXTL2VpnContextType()
+        {
+        }
         /// <summary>
         /// If enabled, the tier-0 acts as a Hub and replicates traffic received from
         /// peer to all other peers. If disabled, the tier-0 acts as a Spoke and

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSystemHealthAgentProfileType : NSXTManagedResourceType
     {
+        public NSXTSystemHealthAgentProfileType()
+        {
+        }
         /// <summary>
         /// The on-off switch of System Health Agent
         /// </summary>

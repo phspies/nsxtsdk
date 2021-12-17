@@ -18,6 +18,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Service capabilities that will be inherited by service VMs created using a service definition that contains this service capability.")]
     public class NSXTServiceCapabilityType 
     {
+        public NSXTServiceCapabilityType()
+        {
+        }
         /// <summary>
         /// Indicating whether service supports NSH liveness detection.
         /// </summary>

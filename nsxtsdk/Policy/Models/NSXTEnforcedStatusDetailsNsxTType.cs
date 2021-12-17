@@ -19,20 +19,20 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Detailed Realized Status of an intent object on an NSX-T type of enforcement point. This isa detailed view of the Realized Status of an intent object from an NSX-T enforcement pointperspective.")]
     public class NSXTEnforcedStatusDetailsNsxTType 
     {
+        public NSXTEnforcedStatusDetailsNsxTType()
+        {
+        }
         /// <summary>
-        /// Information about pending changes, if any, that aren't reflected in the Enforced Realized
-        /// Status.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "pending_changes_info")]
-        [NSXTProperty(IsRequired: false, Description: @"Information about pending changes, if any, that aren&apos;t reflected in the Enforced RealizedStatus.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTPendingChangesInfoNsxTType PendingChangesInfo { get; set; }
         /// <summary>
-        /// Information about the realized status of the intent on this enforcement point. Some very
-        /// recent changes may be excluded when preparing this information, which is indicated by
-        /// Pending Changes Info.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "enforced_status_info")]
-        [NSXTProperty(IsRequired: false, Description: @"Information about the realized status of the intent on this enforcement point. Some veryrecent changes may be excluded when preparing this information, which is indicated byPending Changes Info.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTEnforcedStatusInfoNsxTType EnforcedStatusInfo { get; set; }
     }
 }

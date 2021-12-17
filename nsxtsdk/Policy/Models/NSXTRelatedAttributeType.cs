@@ -20,6 +20,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Related attribute on the target resource for conditional constraints basedon related attribute value.Example - destinationGroups/service/action is related attribute of  sourceGroups in communcation entry.")]
     public class NSXTRelatedAttributeType 
     {
+        public NSXTRelatedAttributeType()
+        {
+        }
         /// <summary>
         /// Related attribute name on the target entity.
         /// </summary>

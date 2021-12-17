@@ -17,18 +17,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer SamlSettings object")]
     public class NSXTALBSamlSettingsType 
     {
+        public NSXTALBSamlSettingsType()
+        {
+        }
         /// <summary>
-        /// Configure service provider settings for the Controller.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "sp", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Configure service provider settings for the Controller.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBSamlServiceProviderSettingsType Sp { get; set; }
         /// <summary>
-        /// Configure remote Identity provider settings.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "idp")]
-        [NSXTProperty(IsRequired: false, Description: @"Configure remote Identity provider settings.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBSamlIdentityProviderSettingsType Idp { get; set; }
     }
 }

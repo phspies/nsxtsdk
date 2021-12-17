@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTransportNodeProfileListResultType : NSXTListResultType
     {
+        public NSXTTransportNodeProfileListResultType()
+        {
+        }
         /// <summary>
         /// TransportNodeProfile Results
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTAggregateLBVirtualServerStatisticsType : NSXTAggregatePolicyRuntimeInfoType
     {
+        public NSXTAggregateLBVirtualServerStatisticsType()
+        {
+        }
         /// <summary>
         /// LBVirtualServerStatisticsPerEP list results.
         /// </summary>

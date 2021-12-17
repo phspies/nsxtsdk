@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSpoofGuardProfileListResultType : NSXTListResultType
     {
+        public NSXTSpoofGuardProfileListResultType()
+        {
+        }
         /// <summary>
         /// SpoofGuard profile list results
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"TLS cipher suite")]
     public class NSXTCipherSuiteType 
     {
+        public NSXTCipherSuiteType()
+        {
+        }
         /// <summary>
         /// Enable status for this cipher suite
         /// </summary>

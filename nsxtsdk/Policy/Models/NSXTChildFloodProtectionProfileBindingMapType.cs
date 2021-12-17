@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildFloodProtectionProfileBindingMapType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildFloodProtectionProfileBindingMapType()
+        {
+        }
         /// <summary>
-        /// Contains the actual FloodProtectionProfileBindingMap object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "FloodProtectionProfileBindingMap", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual FloodProtectionProfileBindingMap object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTFloodProtectionProfileBindingMapType FloodProtectionProfileBindingMap { get; set; }
     }

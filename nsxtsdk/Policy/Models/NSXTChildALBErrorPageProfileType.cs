@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildALBErrorPageProfileType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildALBErrorPageProfileType()
+        {
+        }
         /// <summary>
-        /// Contains the actual ALBErrorPageProfile object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ALBErrorPageProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual ALBErrorPageProfile object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBErrorPageProfileType ALBErrorPageProfile { get; set; }
     }

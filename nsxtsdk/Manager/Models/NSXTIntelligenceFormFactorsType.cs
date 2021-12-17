@@ -12,16 +12,19 @@ using System.ComponentModel;
 namespace nsxtsdk.ManagerModels
 {
     /// <summary>
-    /// NSX Intelligence form factors list result
+    /// Napp cluster form factors list result
     /// </summary>
-    [NSXTProperty(Description: @"NSX Intelligence form factors list result")]
+    [NSXTProperty(Description: @"Napp cluster form factors list result")]
     public class NSXTIntelligenceFormFactorsType 
     {
+        public NSXTIntelligenceFormFactorsType()
+        {
+        }
         /// <summary>
-        /// NSX Intelligence form factor list
+        /// Napp cluster form factor list
         /// </summary>
         [JsonProperty(PropertyName = "form_factors")]
-        [NSXTProperty(IsRequired: false, Description: @"NSX Intelligence form factor list")]
+        [NSXTProperty(IsRequired: false, Description: @"Napp cluster form factor list")]
         public IList<NSXTIntelligenceFormFactorType> FormFactors { get; set; }
     }
 }

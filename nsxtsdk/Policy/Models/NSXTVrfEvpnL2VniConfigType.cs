@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTVrfEvpnL2VniConfigType 
     {
+        public NSXTVrfEvpnL2VniConfigType()
+        {
+        }
         /// <summary>
         /// Define L2 VNI and its related route distinguiser and route targets.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbServiceListResultType : NSXTListResultType
     {
+        public NSXTLbServiceListResultType()
+        {
+        }
         /// <summary>
         /// paginated list of load balancer services
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTEvpnTunnelEndpointConfigType : NSXTPolicyConfigResourceType
     {
+        public NSXTEvpnTunnelEndpointConfigType()
+        {
+        }
         /// <summary>
         /// MTU
         /// </summary>
@@ -24,7 +27,7 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"MTU")]
         //[System.ComponentModel.DataAnnotations.MinLength(64)]
         //[System.ComponentModel.DataAnnotations.MaxLength(9100)]
-        public long? Mtu { get; set; }
+        public int? Mtu { get; set; }
         /// <summary>
         /// edge path
         /// </summary>

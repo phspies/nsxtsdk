@@ -25,6 +25,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceEntryType : NSXTPolicyConfigResourceType
     {
+        public NSXTServiceEntryType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

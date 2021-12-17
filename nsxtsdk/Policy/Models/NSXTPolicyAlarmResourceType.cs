@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyAlarmResourceType : NSXTPolicyResourceType
     {
+        public NSXTPolicyAlarmResourceType()
+        {
+        }
         /// <summary>
         /// path of the object on which alarm is created
         /// </summary>
@@ -30,11 +33,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"error message to describe the issue")]
         public string? Message { get; set; }
         /// <summary>
-        /// Detailed information about errors from an API call made to the
-        /// enforcement point, if any.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "error_details")]
-        [NSXTProperty(IsRequired: false, Description: @"Detailed information about errors from an API call made to theenforcement point, if any.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTPolicyApiErrorType ErrorDetails { get; set; }
         /// <summary>
         /// This field will refer to the source site on which the alarm is

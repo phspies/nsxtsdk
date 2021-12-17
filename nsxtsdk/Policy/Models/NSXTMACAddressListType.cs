@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"List of MAC Addresses.")]
     public class NSXTMACAddressListType 
     {
+        public NSXTMACAddressListType()
+        {
+        }
         /// <summary>
         /// The array contains MAC addresses.
         /// </summary>

@@ -65,41 +65,6 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeServiceStatusPropertiesType CreateNsxUiServiceServiceActionStart()
-        {
-            NSXTNodeServiceStatusPropertiesType returnValue = default(NSXTNodeServiceStatusPropertiesType);
-            StringBuilder CreateNsxUiServiceServiceActionStartServiceURL = new StringBuilder("/node/services/ui-service?action=start");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.POST
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.Resource = CreateNsxUiServiceServiceActionStartServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP POST operation to " + CreateNsxUiServiceServiceActionStartServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeServiceStatusPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeServiceStatusPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTNodeServiceStatusPropertiesType CreateNsxUiServiceServiceActionRestart()
         {
             NSXTNodeServiceStatusPropertiesType returnValue = default(NSXTNodeServiceStatusPropertiesType);
@@ -150,6 +115,41 @@ namespace nsxtapi.ManagerModules
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateNsxUiServiceServiceActionStopServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTNodeServiceStatusPropertiesType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeServiceStatusPropertiesType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTNodeServiceStatusPropertiesType CreateNsxUiServiceServiceActionStart()
+        {
+            NSXTNodeServiceStatusPropertiesType returnValue = default(NSXTNodeServiceStatusPropertiesType);
+            StringBuilder CreateNsxUiServiceServiceActionStartServiceURL = new StringBuilder("/node/services/ui-service?action=start");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.POST
+            };
+            request.AddHeader("Content-type", "application/json");
+            request.Resource = CreateNsxUiServiceServiceActionStartServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP POST operation to " + CreateNsxUiServiceServiceActionStartServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else

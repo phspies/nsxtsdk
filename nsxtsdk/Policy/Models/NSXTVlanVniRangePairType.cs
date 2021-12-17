@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Vlan-Vni mapping pair resource in EvpnTenantConfig for ROUTE-SERVER Evpn mode")]
     public class NSXTVlanVniRangePairType 
     {
+        public NSXTVlanVniRangePairType()
+        {
+        }
         /// <summary>
         /// List of VNI ids and VNI ranges (specified with '-'). The vni id is used for VXLAN transmission for a given tenant Vlan
         /// ID in ROUTE-SERVER Evpn.

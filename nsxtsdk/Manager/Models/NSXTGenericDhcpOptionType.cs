@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Define DHCP options other than option 121.")]
     public class NSXTGenericDhcpOptionType 
     {
+        public NSXTGenericDhcpOptionType()
+        {
+        }
         /// <summary>
         /// Code of the dhcp option.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdsProfileListResultType : NSXTListResultType
     {
+        public NSXTIdsProfileListResultType()
+        {
+        }
         /// <summary>
         /// IDS profile list results
         /// </summary>

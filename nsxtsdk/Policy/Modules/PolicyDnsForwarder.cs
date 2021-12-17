@@ -30,6 +30,162 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
+        public NSXTPolicyDnsForwarderType UpdatePolicyDnsForwarderOnTier1(string Tier1Id, NSXTPolicyDnsForwarderType PolicyDnsForwarder)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            if (PolicyDnsForwarder == null) { throw new System.ArgumentNullException("PolicyDnsForwarder cannot be null"); }
+            NSXTPolicyDnsForwarderType returnValue = default(NSXTPolicyDnsForwarderType);
+            StringBuilder UpdatePolicyDnsForwarderOnTier1ServiceURL = new StringBuilder("/infra/tier-1s/{tier-1-id}/dns-forwarder");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.PUT
+            };
+            request.AddHeader("Content-type", "application/json");
+            UpdatePolicyDnsForwarderOnTier1ServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            request.AddJsonBody(JsonConvert.SerializeObject(PolicyDnsForwarder, defaultSerializationSettings));
+            request.Resource = UpdatePolicyDnsForwarderOnTier1ServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP PUT operation to " + UpdatePolicyDnsForwarderOnTier1ServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyDnsForwarderType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyDnsForwarderType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public void DeletePolicyDnsForwarderOnTier1(string Tier1Id)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            
+            StringBuilder DeletePolicyDnsForwarderOnTier1ServiceURL = new StringBuilder("/infra/tier-1s/{tier-1-id}/dns-forwarder");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.DELETE
+            };
+            request.AddHeader("Content-type", "application/json");
+            DeletePolicyDnsForwarderOnTier1ServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = DeletePolicyDnsForwarderOnTier1ServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP DELETE operation to " + DeletePolicyDnsForwarderOnTier1ServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public void PerformEpactionForDnsForwarderAtTier1(string Tier1Id, string Action, string? EnforcementPointPath = null)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            if (Action == null) { throw new System.ArgumentNullException("Action cannot be null"); }
+            
+            StringBuilder PerformEpactionForDnsForwarderAtTier1ServiceURL = new StringBuilder("/infra/tier-1s/{tier-1-id}/dns-forwarder");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.POST
+            };
+            request.AddHeader("Content-type", "application/json");
+            PerformEpactionForDnsForwarderAtTier1ServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            request.Resource = PerformEpactionForDnsForwarderAtTier1ServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP POST operation to " + PerformEpactionForDnsForwarderAtTier1ServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPolicyDnsForwarderType ReadPolicyDnsForwarderOnTier1(string Tier1Id)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            NSXTPolicyDnsForwarderType returnValue = default(NSXTPolicyDnsForwarderType);
+            StringBuilder ReadPolicyDnsForwarderOnTier1ServiceURL = new StringBuilder("/infra/tier-1s/{tier-1-id}/dns-forwarder");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            ReadPolicyDnsForwarderOnTier1ServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = ReadPolicyDnsForwarderOnTier1ServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + ReadPolicyDnsForwarderOnTier1ServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyDnsForwarderType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyDnsForwarderType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public void PatchPolicyDnsForwarderOnTier1(string Tier1Id, NSXTPolicyDnsForwarderType PolicyDnsForwarder)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            if (PolicyDnsForwarder == null) { throw new System.ArgumentNullException("PolicyDnsForwarder cannot be null"); }
+            
+            StringBuilder PatchPolicyDnsForwarderOnTier1ServiceURL = new StringBuilder("/infra/tier-1s/{tier-1-id}/dns-forwarder");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.PATCH
+            };
+            request.AddHeader("Content-type", "application/json");
+            PatchPolicyDnsForwarderOnTier1ServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            request.AddJsonBody(JsonConvert.SerializeObject(PolicyDnsForwarder, defaultSerializationSettings));
+            request.Resource = PatchPolicyDnsForwarderOnTier1ServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP PATCH operation to " + PatchPolicyDnsForwarderOnTier1ServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
         public NSXTPolicyDnsForwarderType UpdatePolicyDnsForwarderOnTier0(string Tier0Id, NSXTPolicyDnsForwarderType PolicyDnsForwarder)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
@@ -227,6 +383,71 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
+        public void GlobalGlobalInfraPerformEpactionForDnsForwarderAtTier0(string Tier0Id, string Action, string? EnforcementPointPath = null)
+        {
+            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
+            if (Action == null) { throw new System.ArgumentNullException("Action cannot be null"); }
+            
+            StringBuilder GlobalInfraPerformEpactionForDnsForwarderAtTier0ServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/dns-forwarder");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.POST
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraPerformEpactionForDnsForwarderAtTier0ServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            request.Resource = GlobalInfraPerformEpactionForDnsForwarderAtTier0ServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP POST operation to " + GlobalInfraPerformEpactionForDnsForwarderAtTier0ServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPolicyDnsForwarderType GlobalGlobalInfraReadPolicyDnsForwarderOnTier0(string Tier0Id)
+        {
+            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
+            NSXTPolicyDnsForwarderType returnValue = default(NSXTPolicyDnsForwarderType);
+            StringBuilder GlobalInfraReadPolicyDnsForwarderOnTier0ServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/dns-forwarder");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraReadPolicyDnsForwarderOnTier0ServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraReadPolicyDnsForwarderOnTier0ServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraReadPolicyDnsForwarderOnTier0ServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyDnsForwarderType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyDnsForwarderType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
         public NSXTAggregatePolicyDnsAnswerType LookupAddressViaTier1Dnsforwarder(string Tier1Id, string? Address = null, string? EnforcementPointPath = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
@@ -246,6 +467,45 @@ namespace nsxtapi.PolicyModules
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + LookupAddressViaTier1DnsforwarderServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTAggregatePolicyDnsAnswerType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregatePolicyDnsAnswerType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTAggregatePolicyDnsAnswerType GlobalGlobalInfraLookupAddressViaTier0Dnsforwarder(string Tier0Id, string? Address = null, string? EnforcementPointPath = null)
+        {
+            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
+            NSXTAggregatePolicyDnsAnswerType returnValue = default(NSXTAggregatePolicyDnsAnswerType);
+            StringBuilder GlobalInfraLookupAddressViaTier0DnsforwarderServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/dns-forwarder/nslookup");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraLookupAddressViaTier0DnsforwarderServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Address != null) { request.AddQueryParameter("address", Address.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            request.Resource = GlobalInfraLookupAddressViaTier0DnsforwarderServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraLookupAddressViaTier0DnsforwarderServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -433,166 +693,10 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyDnsForwarderType GlobalUpdatePolicyDnsForwarderOnTier0(string Tier0Id, NSXTPolicyDnsForwarderType PolicyDnsForwarder)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (PolicyDnsForwarder == null) { throw new System.ArgumentNullException("PolicyDnsForwarder cannot be null"); }
-            NSXTPolicyDnsForwarderType returnValue = default(NSXTPolicyDnsForwarderType);
-            StringBuilder UpdatePolicyDnsForwarderOnTier0ServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/dns-forwarder");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdatePolicyDnsForwarderOnTier0ServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(PolicyDnsForwarder, defaultSerializationSettings));
-            request.Resource = UpdatePolicyDnsForwarderOnTier0ServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdatePolicyDnsForwarderOnTier0ServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyDnsForwarderType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyDnsForwarderType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeletePolicyDnsForwarderOnTier0(string Tier0Id)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            
-            StringBuilder DeletePolicyDnsForwarderOnTier0ServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/dns-forwarder");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeletePolicyDnsForwarderOnTier0ServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeletePolicyDnsForwarderOnTier0ServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeletePolicyDnsForwarderOnTier0ServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPerformEpactionForDnsForwarderAtTier0(string Tier0Id, string Action, string? EnforcementPointPath = null)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (Action == null) { throw new System.ArgumentNullException("Action cannot be null"); }
-            
-            StringBuilder PerformEpactionForDnsForwarderAtTier0ServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/dns-forwarder");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.POST
-            };
-            request.AddHeader("Content-type", "application/json");
-            PerformEpactionForDnsForwarderAtTier0ServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = PerformEpactionForDnsForwarderAtTier0ServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP POST operation to " + PerformEpactionForDnsForwarderAtTier0ServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTPolicyDnsForwarderType GlobalReadPolicyDnsForwarderOnTier0(string Tier0Id)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            NSXTPolicyDnsForwarderType returnValue = default(NSXTPolicyDnsForwarderType);
-            StringBuilder ReadPolicyDnsForwarderOnTier0ServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/dns-forwarder");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadPolicyDnsForwarderOnTier0ServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadPolicyDnsForwarderOnTier0ServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadPolicyDnsForwarderOnTier0ServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyDnsForwarderType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyDnsForwarderType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchPolicyDnsForwarderOnTier0(string Tier0Id, NSXTPolicyDnsForwarderType PolicyDnsForwarder)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (PolicyDnsForwarder == null) { throw new System.ArgumentNullException("PolicyDnsForwarder cannot be null"); }
-            
-            StringBuilder PatchPolicyDnsForwarderOnTier0ServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/dns-forwarder");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchPolicyDnsForwarderOnTier0ServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(PolicyDnsForwarder, defaultSerializationSettings));
-            request.Resource = PatchPolicyDnsForwarderOnTier0ServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchPolicyDnsForwarderOnTier0ServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTPolicyDnsForwarderZoneListResultType GlobalListPolicyDnsForwarderZone(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyDnsForwarderZoneListResultType GlobalGlobalInfraListPolicyDnsForwarderZone(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTPolicyDnsForwarderZoneListResultType returnValue = default(NSXTPolicyDnsForwarderZoneListResultType);
-            StringBuilder ListPolicyDnsForwarderZoneServiceURL = new StringBuilder("/global-infra/dns-forwarder-zones");
+            StringBuilder GlobalInfraListPolicyDnsForwarderZoneServiceURL = new StringBuilder("/global-infra/dns-forwarder-zones");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -605,11 +709,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListPolicyDnsForwarderZoneServiceURL.ToString();
+            request.Resource = GlobalInfraListPolicyDnsForwarderZoneServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ListPolicyDnsForwarderZoneServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraListPolicyDnsForwarderZoneServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -630,25 +734,25 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregatePolicyDnsAnswerType GlobalLookupAddressViaTier1Dnsforwarder(string Tier1Id, string? Address = null, string? EnforcementPointPath = null)
+        public NSXTAggregatePolicyDnsAnswerType GlobalGlobalInfraLookupAddressViaTier1Dnsforwarder(string Tier1Id, string? Address = null, string? EnforcementPointPath = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             NSXTAggregatePolicyDnsAnswerType returnValue = default(NSXTAggregatePolicyDnsAnswerType);
-            StringBuilder LookupAddressViaTier1DnsforwarderServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/dns-forwarder/nslookup");
+            StringBuilder GlobalInfraLookupAddressViaTier1DnsforwarderServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/dns-forwarder/nslookup");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            LookupAddressViaTier1DnsforwarderServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraLookupAddressViaTier1DnsforwarderServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             if (Address != null) { request.AddQueryParameter("address", Address.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = LookupAddressViaTier1DnsforwarderServiceURL.ToString();
+            request.Resource = GlobalInfraLookupAddressViaTier1DnsforwarderServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + LookupAddressViaTier1DnsforwarderServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraLookupAddressViaTier1DnsforwarderServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -669,129 +773,26 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregatePolicyDnsAnswerType GlobalLookupAddressViaTier0Dnsforwarder(string Tier0Id, string? Address = null, string? EnforcementPointPath = null)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            NSXTAggregatePolicyDnsAnswerType returnValue = default(NSXTAggregatePolicyDnsAnswerType);
-            StringBuilder LookupAddressViaTier0DnsforwarderServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/dns-forwarder/nslookup");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            LookupAddressViaTier0DnsforwarderServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Address != null) { request.AddQueryParameter("address", Address.ToString()); }
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = LookupAddressViaTier0DnsforwarderServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + LookupAddressViaTier0DnsforwarderServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregatePolicyDnsAnswerType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregatePolicyDnsAnswerType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTPolicyDnsForwarderType UpdatePolicyDnsForwarderOnTier1(string Tier1Id, NSXTPolicyDnsForwarderType PolicyDnsForwarder)
-        {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (PolicyDnsForwarder == null) { throw new System.ArgumentNullException("PolicyDnsForwarder cannot be null"); }
-            NSXTPolicyDnsForwarderType returnValue = default(NSXTPolicyDnsForwarderType);
-            StringBuilder UpdatePolicyDnsForwarderOnTier1ServiceURL = new StringBuilder("/infra/tier-1s/{tier-1-id}/dns-forwarder");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdatePolicyDnsForwarderOnTier1ServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(PolicyDnsForwarder, defaultSerializationSettings));
-            request.Resource = UpdatePolicyDnsForwarderOnTier1ServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdatePolicyDnsForwarderOnTier1ServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyDnsForwarderType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyDnsForwarderType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void DeletePolicyDnsForwarderOnTier1(string Tier1Id)
-        {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            
-            StringBuilder DeletePolicyDnsForwarderOnTier1ServiceURL = new StringBuilder("/infra/tier-1s/{tier-1-id}/dns-forwarder");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeletePolicyDnsForwarderOnTier1ServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeletePolicyDnsForwarderOnTier1ServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeletePolicyDnsForwarderOnTier1ServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void PerformEpactionForDnsForwarderAtTier1(string Tier1Id, string Action, string? EnforcementPointPath = null)
+        public void GlobalGlobalInfraPerformEpactionForDnsForwarderAtTier1(string Tier1Id, string Action, string? EnforcementPointPath = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (Action == null) { throw new System.ArgumentNullException("Action cannot be null"); }
             
-            StringBuilder PerformEpactionForDnsForwarderAtTier1ServiceURL = new StringBuilder("/infra/tier-1s/{tier-1-id}/dns-forwarder");
+            StringBuilder GlobalInfraPerformEpactionForDnsForwarderAtTier1ServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/dns-forwarder");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            PerformEpactionForDnsForwarderAtTier1ServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraPerformEpactionForDnsForwarderAtTier1ServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = PerformEpactionForDnsForwarderAtTier1ServiceURL.ToString();
+            request.Resource = GlobalInfraPerformEpactionForDnsForwarderAtTier1ServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + PerformEpactionForDnsForwarderAtTier1ServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + GlobalInfraPerformEpactionForDnsForwarderAtTier1ServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -800,23 +801,23 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyDnsForwarderType ReadPolicyDnsForwarderOnTier1(string Tier1Id)
+        public NSXTPolicyDnsForwarderType GlobalGlobalInfraReadPolicyDnsForwarderOnTier1(string Tier1Id)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             NSXTPolicyDnsForwarderType returnValue = default(NSXTPolicyDnsForwarderType);
-            StringBuilder ReadPolicyDnsForwarderOnTier1ServiceURL = new StringBuilder("/infra/tier-1s/{tier-1-id}/dns-forwarder");
+            StringBuilder GlobalInfraReadPolicyDnsForwarderOnTier1ServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/dns-forwarder");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            ReadPolicyDnsForwarderOnTier1ServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadPolicyDnsForwarderOnTier1ServiceURL.ToString();
+            GlobalInfraReadPolicyDnsForwarderOnTier1ServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraReadPolicyDnsForwarderOnTier1ServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ReadPolicyDnsForwarderOnTier1ServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraReadPolicyDnsForwarderOnTier1ServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -837,208 +838,23 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchPolicyDnsForwarderOnTier1(string Tier1Id, NSXTPolicyDnsForwarderType PolicyDnsForwarder)
-        {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (PolicyDnsForwarder == null) { throw new System.ArgumentNullException("PolicyDnsForwarder cannot be null"); }
-            
-            StringBuilder PatchPolicyDnsForwarderOnTier1ServiceURL = new StringBuilder("/infra/tier-1s/{tier-1-id}/dns-forwarder");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchPolicyDnsForwarderOnTier1ServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(PolicyDnsForwarder, defaultSerializationSettings));
-            request.Resource = PatchPolicyDnsForwarderOnTier1ServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchPolicyDnsForwarderOnTier1ServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTPolicyDnsForwarderType GlobalUpdatePolicyDnsForwarderOnTier1(string Tier1Id, NSXTPolicyDnsForwarderType PolicyDnsForwarder)
-        {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (PolicyDnsForwarder == null) { throw new System.ArgumentNullException("PolicyDnsForwarder cannot be null"); }
-            NSXTPolicyDnsForwarderType returnValue = default(NSXTPolicyDnsForwarderType);
-            StringBuilder UpdatePolicyDnsForwarderOnTier1ServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/dns-forwarder");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdatePolicyDnsForwarderOnTier1ServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(PolicyDnsForwarder, defaultSerializationSettings));
-            request.Resource = UpdatePolicyDnsForwarderOnTier1ServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdatePolicyDnsForwarderOnTier1ServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyDnsForwarderType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyDnsForwarderType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeletePolicyDnsForwarderOnTier1(string Tier1Id)
-        {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            
-            StringBuilder DeletePolicyDnsForwarderOnTier1ServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/dns-forwarder");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeletePolicyDnsForwarderOnTier1ServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeletePolicyDnsForwarderOnTier1ServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeletePolicyDnsForwarderOnTier1ServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPerformEpactionForDnsForwarderAtTier1(string Tier1Id, string Action, string? EnforcementPointPath = null)
-        {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (Action == null) { throw new System.ArgumentNullException("Action cannot be null"); }
-            
-            StringBuilder PerformEpactionForDnsForwarderAtTier1ServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/dns-forwarder");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.POST
-            };
-            request.AddHeader("Content-type", "application/json");
-            PerformEpactionForDnsForwarderAtTier1ServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = PerformEpactionForDnsForwarderAtTier1ServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP POST operation to " + PerformEpactionForDnsForwarderAtTier1ServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTPolicyDnsForwarderType GlobalReadPolicyDnsForwarderOnTier1(string Tier1Id)
-        {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            NSXTPolicyDnsForwarderType returnValue = default(NSXTPolicyDnsForwarderType);
-            StringBuilder ReadPolicyDnsForwarderOnTier1ServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/dns-forwarder");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadPolicyDnsForwarderOnTier1ServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadPolicyDnsForwarderOnTier1ServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadPolicyDnsForwarderOnTier1ServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyDnsForwarderType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyDnsForwarderType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchPolicyDnsForwarderOnTier1(string Tier1Id, NSXTPolicyDnsForwarderType PolicyDnsForwarder)
-        {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (PolicyDnsForwarder == null) { throw new System.ArgumentNullException("PolicyDnsForwarder cannot be null"); }
-            
-            StringBuilder PatchPolicyDnsForwarderOnTier1ServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/dns-forwarder");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchPolicyDnsForwarderOnTier1ServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(PolicyDnsForwarder, defaultSerializationSettings));
-            request.Resource = PatchPolicyDnsForwarderOnTier1ServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchPolicyDnsForwarderOnTier1ServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTPolicyDnsForwarderZoneType GlobalUpdatePolicyDnsForwarderZone(string DnsForwarderZoneId, NSXTPolicyDnsForwarderZoneType PolicyDnsForwarderZone)
+        public NSXTPolicyDnsForwarderZoneType GlobalGlobalInfraReadPolicyDnsForwarderZone(string DnsForwarderZoneId)
         {
             if (DnsForwarderZoneId == null) { throw new System.ArgumentNullException("DnsForwarderZoneId cannot be null"); }
-            if (PolicyDnsForwarderZone == null) { throw new System.ArgumentNullException("PolicyDnsForwarderZone cannot be null"); }
             NSXTPolicyDnsForwarderZoneType returnValue = default(NSXTPolicyDnsForwarderZoneType);
-            StringBuilder UpdatePolicyDnsForwarderZoneServiceURL = new StringBuilder("/global-infra/dns-forwarder-zones/{dns-forwarder-zone-id}");
+            StringBuilder GlobalInfraReadPolicyDnsForwarderZoneServiceURL = new StringBuilder("/global-infra/dns-forwarder-zones/{dns-forwarder-zone-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
-                Method = Method.PUT
+                Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            UpdatePolicyDnsForwarderZoneServiceURL.Replace("{dns-forwarder-zone-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DnsForwarderZoneId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(PolicyDnsForwarderZone, defaultSerializationSettings));
-            request.Resource = UpdatePolicyDnsForwarderZoneServiceURL.ToString();
+            GlobalInfraReadPolicyDnsForwarderZoneServiceURL.Replace("{dns-forwarder-zone-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DnsForwarderZoneId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraReadPolicyDnsForwarderZoneServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP PUT operation to " + UpdatePolicyDnsForwarderZoneServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraReadPolicyDnsForwarderZoneServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1054,95 +870,6 @@ namespace nsxtapi.PolicyModules
 				}
 			}
 			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTPolicyDnsForwarderZoneType GlobalReadPolicyDnsForwarderZone(string DnsForwarderZoneId)
-        {
-            if (DnsForwarderZoneId == null) { throw new System.ArgumentNullException("DnsForwarderZoneId cannot be null"); }
-            NSXTPolicyDnsForwarderZoneType returnValue = default(NSXTPolicyDnsForwarderZoneType);
-            StringBuilder ReadPolicyDnsForwarderZoneServiceURL = new StringBuilder("/global-infra/dns-forwarder-zones/{dns-forwarder-zone-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadPolicyDnsForwarderZoneServiceURL.Replace("{dns-forwarder-zone-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DnsForwarderZoneId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadPolicyDnsForwarderZoneServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadPolicyDnsForwarderZoneServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyDnsForwarderZoneType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyDnsForwarderZoneType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeletePolicyDnsForwarderZone(string DnsForwarderZoneId)
-        {
-            if (DnsForwarderZoneId == null) { throw new System.ArgumentNullException("DnsForwarderZoneId cannot be null"); }
-            
-            StringBuilder DeletePolicyDnsForwarderZoneServiceURL = new StringBuilder("/global-infra/dns-forwarder-zones/{dns-forwarder-zone-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeletePolicyDnsForwarderZoneServiceURL.Replace("{dns-forwarder-zone-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DnsForwarderZoneId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeletePolicyDnsForwarderZoneServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeletePolicyDnsForwarderZoneServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchPolicyDnsForwarderZone(string DnsForwarderZoneId, NSXTPolicyDnsForwarderZoneType PolicyDnsForwarderZone)
-        {
-            if (DnsForwarderZoneId == null) { throw new System.ArgumentNullException("DnsForwarderZoneId cannot be null"); }
-            if (PolicyDnsForwarderZone == null) { throw new System.ArgumentNullException("PolicyDnsForwarderZone cannot be null"); }
-            
-            StringBuilder PatchPolicyDnsForwarderZoneServiceURL = new StringBuilder("/global-infra/dns-forwarder-zones/{dns-forwarder-zone-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchPolicyDnsForwarderZoneServiceURL.Replace("{dns-forwarder-zone-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DnsForwarderZoneId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(PolicyDnsForwarderZone, defaultSerializationSettings));
-            request.Resource = PatchPolicyDnsForwarderZoneServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchPolicyDnsForwarderZoneServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
         }
     }
 }

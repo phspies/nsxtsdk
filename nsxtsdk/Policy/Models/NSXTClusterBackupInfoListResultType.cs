@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTClusterBackupInfoListResultType : NSXTListResultType
     {
+        public NSXTClusterBackupInfoListResultType()
+        {
+        }
         /// <summary>
         /// List of timestamps of backed-up cluster files
         /// </summary>

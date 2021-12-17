@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTQoSProfileListResultType : NSXTListResultType
     {
+        public NSXTQoSProfileListResultType()
+        {
+        }
         /// <summary>
         /// QoS profiles list results
         /// </summary>

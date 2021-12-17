@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer EquivalentLabels object")]
     public class NSXTALBEquivalentLabelsType 
     {
+        public NSXTALBEquivalentLabelsType()
+        {
+        }
         /// <summary>
         /// Equivalent labels.
         /// </summary>

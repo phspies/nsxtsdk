@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUpgradeHistoryType 
     {
+        public NSXTUpgradeHistoryType()
+        {
+        }
         /// <summary>
         /// Timestamp (in milliseconds since epoch) when the upgrade was performed
         /// </summary>

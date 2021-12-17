@@ -17,6 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Represents a column of the Grid")]
     public class NSXTColumnItemType 
     {
+        public NSXTColumnItemType()
+        {
+            Type = test
+            SortAscending = test
+        }
         /// <summary>
         /// Sorting on column is based on the sort_key. sort_key represents the field in the output data on which sort is requested.
         /// </summary>
@@ -29,7 +34,6 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "type", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"Data type of the field.")]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "String")]
         public NSXTColumnItemTypeEnumType Type { get; set; }
         /// <summary>
         /// Multi-line text to be shown on tooltip while hovering over a cell in the grid.
@@ -38,10 +42,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Multi-line text to be shown on tooltip while hovering over a cell in the grid.")]
         public IList<NSXTTooltipType> Tooltip { get; set; }
         /// <summary>
-        /// Label of the column.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "label", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Label of the column.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTLabelType Label { get; set; }
         /// <summary>
@@ -56,7 +60,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "sort_ascending")]
         [NSXTProperty(IsRequired: false, Description: @"If true, the value of the column are sorted in ascending order. Otherwise, in descending order.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? SortAscending { get; set; }
         /// <summary>
         /// Id of drilldown widget, if any. Id should be a valid id of an existing widget.

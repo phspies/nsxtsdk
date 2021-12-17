@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Physical NIC specification")]
     public class NSXTPnicType 
     {
+        public NSXTPnicType()
+        {
+        }
         /// <summary>
         /// Uplink name for this Pnic. This name will be used to reference this Pnic in other configurations.
         /// </summary>

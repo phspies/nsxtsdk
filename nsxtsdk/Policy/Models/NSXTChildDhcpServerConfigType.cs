@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildDhcpServerConfigType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildDhcpServerConfigType()
+        {
+        }
         /// <summary>
-        /// Contains the actual DhcpServerConfig object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "DhcpServerConfig", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual DhcpServerConfig object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTDhcpServerConfigType DhcpServerConfig { get; set; }
     }

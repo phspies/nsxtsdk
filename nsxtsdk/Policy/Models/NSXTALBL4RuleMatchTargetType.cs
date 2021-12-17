@@ -17,23 +17,26 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer L4RuleMatchTarget object")]
     public class NSXTALBL4RuleMatchTargetType 
     {
+        public NSXTALBL4RuleMatchTargetType()
+        {
+        }
         /// <summary>
-        /// IP addresses to match against client IP.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "client_ip")]
-        [NSXTProperty(IsRequired: false, Description: @"IP addresses to match against client IP.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBIpAddrMatchType ClientIp { get; set; }
         /// <summary>
-        /// TCP/UDP/ICMP protocol to match against transport protocol.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "protocol")]
-        [NSXTProperty(IsRequired: false, Description: @"TCP/UDP/ICMP protocol to match against transport protocol.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBL4RuleProtocolMatchType Protocol { get; set; }
         /// <summary>
-        /// Port number to match against Virtual Service listner port.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "port")]
-        [NSXTProperty(IsRequired: false, Description: @"Port number to match against Virtual Service listner port.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBL4RulePortMatchType Port { get; set; }
     }
 }

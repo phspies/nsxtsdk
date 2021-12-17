@@ -18,6 +18,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"To filter the routes advertised by the TIER1 LR to TIER0 LR. Filtering will be based on the type of route and the prefix operator configured.")]
     public class NSXTAdvertisementRuleFilterType 
     {
+        public NSXTAdvertisementRuleFilterType()
+        {
+            PrefixOperator = test
+        }
         /// <summary>
         /// GE prefix operator filters all the routes having network subset of any of the networks configured in Advertise rule. EQ
         /// prefix operator filter all the routes having network equal to any of the network configured in Advertise rule.
@@ -25,7 +29,6 @@ namespace nsxtsdk.ManagerModels
         [JsonProperty(PropertyName = "prefix_operator", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"GE prefix operator filters all the routes having network subset of any of the networks configured in Advertise rule. EQ prefix operator filter all the routes having network equal to any of the network configured in Advertise rule.")]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "GE")]
         public NSXTAdvertisementRuleFilterPrefixOperatorEnumType PrefixOperator { get; set; }
         /// <summary>
         /// Array of route types to filter routes

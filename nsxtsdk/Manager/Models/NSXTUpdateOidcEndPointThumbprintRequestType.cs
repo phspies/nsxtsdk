@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUpdateOidcEndPointThumbprintRequestType : NSXTManagedResourceType
     {
+        public NSXTUpdateOidcEndPointThumbprintRequestType()
+        {
+        }
         /// <summary>
         /// URI where to download the meta-data of the OIDC end-point.
         /// </summary>

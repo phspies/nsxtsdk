@@ -17,6 +17,18 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsServiceApplicationProfile object")]
     public class NSXTALBDnsServiceApplicationProfileType 
     {
+        public NSXTALBDnsServiceApplicationProfileType()
+        {
+            DnsOverTcpEnabled = test
+            EcsStrippingEnabled = test
+            NegativeCachingTtl = test
+            AaaaEmptyResponse = test
+            NumDnsIp = test
+            ErrorResponse = test
+            Ttl = test
+            Edns = test
+            AdminEmail = test
+        }
         /// <summary>
         /// Enable DNS query/response over TCP.
         /// This enables analytics for pass-through queries as well.
@@ -25,7 +37,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "dns_over_tcp_enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Enable DNS query/response over TCP.This enables analytics for pass-through queries as well.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? DnsOverTcpEnabled { get; set; }
         /// <summary>
         /// Specifies the IP address prefix length to use in the EDNS
@@ -65,7 +76,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "ecs_stripping_enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Enable stripping of EDNS client subnet (ecs) option towardsclient if DNS service inserts ecs option in the DNS querytowards upstream servers.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? EcsStrippingEnabled { get; set; }
         /// <summary>
         /// Subdomain names serviced by this Virtual Service.
@@ -89,7 +99,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Specifies the TTL value (in seconds) for SOA (Start ofAuthority) (corresponding to a authoritative domain owned bythis DNS Virtual Service) record&apos;s minimum TTL served by theDNS Virtual Service.Allowed values are 0-86400.Unit is SEC.Default value when not specified in API or module isinterpreted by ALB Controller as 30.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(86400)]
-        [NSXTDefaultProperty(Default: "")]
         public long? NegativeCachingTtl { get; set; }
         /// <summary>
         /// Respond to AAAA queries with empty response when there are
@@ -99,7 +108,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "aaaa_empty_response")]
         [NSXTProperty(IsRequired: false, Description: @"Respond to AAAA queries with empty response when there areonly IPV4 records.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? AaaaEmptyResponse { get; set; }
         /// <summary>
         /// Specifies the number of IP addresses returned by the DNS
@@ -114,7 +122,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Specifies the number of IP addresses returned by the DNSService.Enter 0 to return all IP addresses.Allowed values are 1-20.Special values are 0- &apos;Return all IP addresses&apos;.Default value when not specified in API or module isinterpreted by ALB Controller as 1.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(20)]
-        [NSXTDefaultProperty(Default: "")]
         public long? NumDnsIp { get; set; }
         /// <summary>
         /// Drop or respond to client when the DNS service encounters
@@ -132,7 +139,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "error_response")]
         [NSXTProperty(IsRequired: false, Description: @"Drop or respond to client when the DNS service encountersan error processing a client query.By default, such a request is dropped without any response,or passed through to a passthrough pool, if configured.When set to respond, an appropriate response is sent toclient, e.g.NXDOMAIN response for non-existent records, empty NOERRORresponse for unsupported queries, etc.Enum options - DNS_ERROR_RESPONSE_ERROR,DNS_ERROR_RESPONSE_NONE.Default value when not specified in API or module isinterpreted by ALB Controller as DNS_ERROR_RESPONSE_NONE.")]
-        [NSXTDefaultProperty(Default: "DNS_ERROR_RESPONSE_NONE")]
         public NSXTAlbdnsServiceApplicationProfileErrorResponseEnumType? ErrorResponse { get; set; }
         /// <summary>
         /// Specifies the TTL value (in seconds) for records served by
@@ -146,7 +152,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Specifies the TTL value (in seconds) for records served byDNS Service.Allowed values are 0-86400.Unit is SEC.Default value when not specified in API or module isinterpreted by ALB Controller as 30.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(86400)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Ttl { get; set; }
         /// <summary>
         /// Enable DNS service to be aware of EDNS (Extension mechanism
@@ -159,7 +164,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "edns")]
         [NSXTProperty(IsRequired: false, Description: @"Enable DNS service to be aware of EDNS (Extension mechanismfor DNS).EDNS extensions are parsed and shown in logs.For GSLB services, the EDNS client subnet option can beused to influence Load Balancing.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Edns { get; set; }
         /// <summary>
         /// Email address of the administrator responsible for this
@@ -173,7 +177,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "admin_email")]
         [NSXTProperty(IsRequired: false, Description: @"Email address of the administrator responsible for thiszone.This field is used in SOA records (rname) pertaining to alldomain names specified as authoritative domain names.If not configured, the default value &apos;hostmaster&apos; is usedin SOA responses.Default value when not specified in API or module isinterpreted by ALB Controller as hostmaster.")]
-        [NSXTDefaultProperty(Default: "hostmaster")]
         public string? AdminEmail { get; set; }
         /// <summary>
         /// DNS zones hosted on this Virtual Service.

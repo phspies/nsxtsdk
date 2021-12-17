@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbEdgeNodeUsageType : NSXTLbNodeUsageType
     {
+        public NSXTLbEdgeNodeUsageType()
+        {
+        }
         /// <summary>
         /// The current credit number reflects the current usage on the node.
         /// For example, configuring a medium load balancer on a node consumes

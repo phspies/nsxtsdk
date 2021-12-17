@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTManagedResourceType : NSXTRevisionedResourceType
     {
+        public NSXTManagedResourceType()
+        {
+        }
         /// <summary>
         /// Indicates system owned resource
         /// </summary>

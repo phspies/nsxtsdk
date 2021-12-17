@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Details of the instructions displayed during restore process")]
     public class NSXTInstructionInfoType 
     {
+        public NSXTInstructionInfoType()
+        {
+        }
         /// <summary>
         /// A list of fields that are displayable to users in a table
         /// </summary>

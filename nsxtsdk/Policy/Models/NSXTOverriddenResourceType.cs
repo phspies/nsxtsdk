@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTOverriddenResourceType : NSXTPolicyConfigResourceType
     {
+        public NSXTOverriddenResourceType()
+        {
+        }
         /// <summary>
         /// Site path to the specific site that has overridden the global resource.
         /// </summary>

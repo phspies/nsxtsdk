@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDnsSecurityProfileType : NSXTPolicyConfigResourceType
     {
+        public NSXTDnsSecurityProfileType()
+        {
+            Ttl = test
+        }
         /// <summary>
         /// Time to live for DNS cache entry in seconds. Valid TTL values are between 3600
         /// to 864000. However, this field accepts values between 0 through 864000. We define
@@ -32,7 +36,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Time to live for DNS cache entry in seconds. Valid TTL values are between 3600to 864000. However, this field accepts values between 0 through 864000. We defineTTL type based on the value of TTL as follows:TTL 0 - cached entry never expires.TTL 1 to 3599 - invalid input and error is thrownTTL 3600 to 864000 - ttl is set to user inputTTL field not set by user - TTL type is &apos;AUTO&apos; and ttl value is set from DNS response packet.User defined TTL value is used only when it is betweeen 3600 to 864000.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(864000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Ttl { get; set; }
     }
 }

@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Remote server")]
     public class NSXTRemoteServerFingerprintRequestType 
     {
+        public NSXTRemoteServerFingerprintRequestType()
+        {
+            Port = test
+        }
         /// <summary>
         /// Server port
         /// </summary>
@@ -24,7 +28,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Server port")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Port { get; set; }
         /// <summary>
         /// Remote server hostname or IP address

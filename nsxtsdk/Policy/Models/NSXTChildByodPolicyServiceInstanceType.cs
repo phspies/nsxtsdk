@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildByodPolicyServiceInstanceType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildByodPolicyServiceInstanceType()
+        {
+        }
         /// <summary>
-        /// Contains actual ByodPolicyServiceInstance.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ByodPolicyServiceInstance", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains actual ByodPolicyServiceInstance.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTByodPolicyServiceInstanceType ByodPolicyServiceInstance { get; set; }
     }

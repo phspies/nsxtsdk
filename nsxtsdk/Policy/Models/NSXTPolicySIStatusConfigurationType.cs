@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicySIStatusConfigurationType : NSXTPolicyConfigResourceType
     {
+        public NSXTPolicySIStatusConfigurationType()
+        {
+        }
         /// <summary>
         /// If set to true, service insertion for east-west traffic is enabled.
         /// </summary>

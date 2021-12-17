@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTHostNodeType : NSXTNodeType
     {
+        public NSXTHostNodeType()
+        {
+        }
         /// <summary>
         /// Id of discovered node which was converted to create this node
         /// </summary>
@@ -24,17 +27,23 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Id of discovered node which was converted to create this node")]
         public string? DiscoveredNodeId { get; set; }
         /// <summary>
+        /// Specify an installation folder to install the NSX kernel modules for Windows Server. By default, it is C:\Program
+        /// Files\VMware\NSX\.
+        /// </summary>
+        [JsonProperty(PropertyName = "windows_install_location")]
+        [NSXTProperty(IsRequired: false, Description: @"Specify an installation folder to install the NSX kernel modules for Windows Server. By default, it is C:\Program Files\VMware\NSX\.")]
+        public string? WindowsInstallLocation { get; set; }
+        /// <summary>
         /// The id of the vCenter server managing the ESXi type HostNode
         /// </summary>
         [JsonProperty(PropertyName = "managed_by_server")]
         [NSXTProperty(IsRequired: false, Description: @"The id of the vCenter server managing the ESXi type HostNode")]
         public string? ManagedByServer { get; set; }
         /// <summary>
-        /// Login credentials for the host. It is mandatory to provide
-        /// credentials while adding host to MP to create transport node.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "host_credential")]
-        [NSXTProperty(IsRequired: false, Description: @"Login credentials for the host. It is mandatory to providecredentials while adding host to MP to create transport node.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTHostNodeLoginCredentialType HostCredential { get; set; }
         /// <summary>
         /// Version of the hypervisor operating system
@@ -50,12 +59,11 @@ namespace nsxtsdk.ManagerModels
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTHostNodeOsTypeEnumType OsType { get; set; }
         /// <summary>
-        /// Specify an installation folder to install the NSX kernel modules for Windows Server. By default, it is C:\Program
-        /// Files\VMware\NSX\.
+        /// Id of the compute collection to which discovered node belongs.
         /// </summary>
-        [JsonProperty(PropertyName = "windows_install_location")]
-        [NSXTProperty(IsRequired: false, Description: @"Specify an installation folder to install the NSX kernel modules for Windows Server. By default, it is C:\Program Files\VMware\NSX\.")]
-        public string? WindowsInstallLocation { get; set; }
+        [JsonProperty(PropertyName = "compute_collection_id")]
+        [NSXTProperty(IsRequired: false, Description: @"Id of the compute collection to which discovered node belongs.")]
+        public string? ComputeCollectionId { get; set; }
         /// <summary>
         /// Indicates host node's maintenance mode state. The state is ENTERING
         /// when a task to put the host in maintenance-mode is in progress.

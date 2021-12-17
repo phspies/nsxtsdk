@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSegmentPortListResultType : NSXTListResultType
     {
+        public NSXTSegmentPortListResultType()
+        {
+        }
         /// <summary>
         /// Place holder for the list result
         /// </summary>

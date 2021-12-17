@@ -7,9 +7,9 @@ using nsxtsdk.Models;
 namespace nsxtsdk.PolicyModels
 {
     /// <summary>
-    /// Criterion to use for string matching the DNS query domainname in the question section.Enum options - BEGINS_WITH, DOES_NOT_BEGIN_WITH, CONTAINS,DOES_NOT_CONTAIN, ENDS_WITH, DOES_NOT_END_WITH, EQUALS,DOES_NOT_EQUAL, REGEX_MATCH, REGEX_DOES_NOT_MATCH.
+    /// Criterion to use for string matching the DNS query domainname in the question section.Enum options - BEGINS_WITH, DOES_NOT_BEGIN_WITH, CONTAINS,DOES_NOT_CONTAIN, ENDS_WITH, DOES_NOT_END_WITH, EQUALS,DOES_NOT_EQUAL, REGEX_MATCH, REGEX_DOES_NOT_MATCH.Allowed in Basic(Allowed values-BEGINS_WITH,DOES_NOT_BEGIN_WITH,CONTAINS,DOES_NOT_CONTAIN,ENDS_WITH,DOES_NOT_END_WITH,EQUALS,DOES_NOT_EQUAL)edition, Essentials(Allowed values-BEGINS_WITH,DOES_NOT_BEGIN_WITH,CONTAINS,DOES_NOT_CONTAIN,ENDS_WITH,DOES_NOT_END_WITH,EQUALS,DOES_NOT_EQUAL)edition, Enterprise edition.
     /// </summary>
-    [NSXTProperty(Description: @"Criterion to use for string matching the DNS query domainname in the question section.Enum options - BEGINS_WITH, DOES_NOT_BEGIN_WITH, CONTAINS,DOES_NOT_CONTAIN, ENDS_WITH, DOES_NOT_END_WITH, EQUALS,DOES_NOT_EQUAL, REGEX_MATCH, REGEX_DOES_NOT_MATCH.")]
+    [NSXTProperty(Description: @"Criterion to use for string matching the DNS query domainname in the question section.Enum options - BEGINS_WITH, DOES_NOT_BEGIN_WITH, CONTAINS,DOES_NOT_CONTAIN, ENDS_WITH, DOES_NOT_END_WITH, EQUALS,DOES_NOT_EQUAL, REGEX_MATCH, REGEX_DOES_NOT_MATCH.Allowed in Basic(Allowed values-BEGINS_WITH,DOES_NOT_BEGIN_WITH,CONTAINS,DOES_NOT_CONTAIN,ENDS_WITH,DOES_NOT_END_WITH,EQUALS,DOES_NOT_EQUAL)edition, Essentials(Allowed values-BEGINS_WITH,DOES_NOT_BEGIN_WITH,CONTAINS,DOES_NOT_CONTAIN,ENDS_WITH,DOES_NOT_END_WITH,EQUALS,DOES_NOT_EQUAL)edition, Enterprise edition.")]
     public enum NSXTAlbdnsQueryNameMatchMatchCriteriaEnumType
     {
         [EnumMember(Value = "BEGINS_WITH")]

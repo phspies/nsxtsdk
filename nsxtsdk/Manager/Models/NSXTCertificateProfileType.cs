@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTCertificateProfileType : NSXTResourceType
     {
+        public NSXTCertificateProfileType()
+        {
+        }
         /// <summary>
         /// True if this is for a cluster certificate
         /// </summary>

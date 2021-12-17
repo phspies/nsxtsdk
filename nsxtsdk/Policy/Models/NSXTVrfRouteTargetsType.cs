@@ -17,12 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Vrf Route Targets for import/export.")]
     public class NSXTVrfRouteTargetsType 
     {
+        public NSXTVrfRouteTargetsType()
+        {
+            AddressFamily = test
+        }
         /// <summary>
         /// Address family.
         /// </summary>
         [JsonProperty(PropertyName = "address_family")]
         [NSXTProperty(IsRequired: false, Description: @"Address family.")]
-        [NSXTDefaultProperty(Default: "L2VPN_EVPN")]
         public NSXTVrfRouteTargetsAddressFamilyEnumType? AddressFamily { get; set; }
         /// <summary>
         /// Import route targets with format in ASN:<number>.

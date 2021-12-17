@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNatRuleListResultType : NSXTListResultType
     {
+        public NSXTNatRuleListResultType()
+        {
+        }
         /// <summary>
         /// NAT rule list results
         /// </summary>

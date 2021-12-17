@@ -100,41 +100,6 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeServicePropertiesType ReadNsxUpgradeAgentService()
-        {
-            NSXTNodeServicePropertiesType returnValue = default(NSXTNodeServicePropertiesType);
-            StringBuilder ReadNsxUpgradeAgentServiceServiceURL = new StringBuilder("/node/services/nsx-upgrade-agent");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.Resource = ReadNsxUpgradeAgentServiceServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadNsxUpgradeAgentServiceServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeServicePropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeServicePropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTNodeServiceStatusPropertiesType ReadNsxUpgradeAgentServiceStatus()
         {
             NSXTNodeServiceStatusPropertiesType returnValue = default(NSXTNodeServiceStatusPropertiesType);
@@ -161,6 +126,41 @@ namespace nsxtapi.ManagerModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeServiceStatusPropertiesType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTNodeServicePropertiesType ReadNsxUpgradeAgentService()
+        {
+            NSXTNodeServicePropertiesType returnValue = default(NSXTNodeServicePropertiesType);
+            StringBuilder ReadNsxUpgradeAgentServiceServiceURL = new StringBuilder("/node/services/nsx-upgrade-agent");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            request.Resource = ReadNsxUpgradeAgentServiceServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + ReadNsxUpgradeAgentServiceServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTNodeServicePropertiesType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeServicePropertiesType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}

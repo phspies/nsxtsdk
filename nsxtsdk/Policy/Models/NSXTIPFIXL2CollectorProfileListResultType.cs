@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPFIXL2CollectorProfileListResultType : NSXTListResultType
     {
+        public NSXTIPFIXL2CollectorProfileListResultType()
+        {
+        }
         /// <summary>
         /// IPFIX collector Profile list results
         /// </summary>

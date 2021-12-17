@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFirewallStatsListType 
     {
+        public NSXTFirewallStatsListType()
+        {
+        }
         /// <summary>
         /// Total count for firewall rule statistics in results set
         /// </summary>

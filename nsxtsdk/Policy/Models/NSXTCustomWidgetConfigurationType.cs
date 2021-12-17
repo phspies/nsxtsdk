@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTCustomWidgetConfigurationType : NSXTWidgetConfigurationType
     {
+        public NSXTCustomWidgetConfigurationType()
+        {
+        }
         /// <summary>
         /// User defined component selector to be rendered inside view/container.
         /// </summary>

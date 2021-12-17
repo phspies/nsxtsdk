@@ -12,12 +12,16 @@ using System.ComponentModel;
 namespace nsxtsdk.ManagerModels
 {
     /// <summary>
-    /// An IP prefix to mark the private network that NSX-Intelligence
+    /// This is deprecated. Please use CommonAgentPrivateIpRangeInfo instead.
+        /// An IP prefix to mark the private network that NSX-Intelligence
         /// network flow is collected from.
     /// </summary>
-    [NSXTProperty(Description: @"An IP prefix to mark the private network that NSX-Intelligencenetwork flow is collected from.")]
+    [NSXTProperty(Description: @"This is deprecated. Please use CommonAgentPrivateIpRangeInfo instead.An IP prefix to mark the private network that NSX-Intelligencenetwork flow is collected from.")]
     public class NSXTIntelligenceFlowPrivateIpPrefixInfoType 
     {
+        public NSXTIntelligenceFlowPrivateIpPrefixInfoType()
+        {
+        }
         /// <summary>
         /// The type of IP address.
         /// </summary>

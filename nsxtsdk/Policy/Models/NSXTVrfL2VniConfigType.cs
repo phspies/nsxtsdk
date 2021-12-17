@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTVrfL2VniConfigType 
     {
+        public NSXTVrfL2VniConfigType()
+        {
+        }
         /// <summary>
         /// L2 VNI associated with the VRF. It must be unique and available from the VNI
         /// pool defined for EVPN service.
@@ -24,7 +27,7 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "l2_vni", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"L2 VNI associated with the VRF. It must be unique and available from the VNIpool defined for EVPN service.")]
         [System.ComponentModel.DataAnnotations.Required]
-        public long L2Vni { get; set; }
+        public int L2Vni { get; set; }
         /// <summary>
         /// Route targets.
         /// </summary>

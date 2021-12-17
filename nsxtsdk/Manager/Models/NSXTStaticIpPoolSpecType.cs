@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTStaticIpPoolSpecType : NSXTIpAssignmentSpecType
     {
+        public NSXTStaticIpPoolSpecType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

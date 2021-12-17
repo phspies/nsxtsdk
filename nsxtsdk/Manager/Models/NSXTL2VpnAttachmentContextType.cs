@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTL2VpnAttachmentContextType : NSXTAttachmentContextType
     {
+        public NSXTL2VpnAttachmentContextType()
+        {
+        }
         /// <summary>
         /// List of local egress IP addresses, used for
         /// local egress optimization.

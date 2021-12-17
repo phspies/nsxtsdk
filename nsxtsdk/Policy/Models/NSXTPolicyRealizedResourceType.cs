@@ -17,12 +17,47 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyRealizedResourceType : NSXTPolicyResourceType
     {
+        public NSXTPolicyRealizedResourceType()
+        {
+        }
         /// <summary>
         /// Realization id of this object
         /// </summary>
         [JsonProperty(PropertyName = "realization_specific_identifier")]
         [NSXTProperty(IsRequired: false, Description: @"Realization id of this object")]
         public string? RealizationSpecificIdentifier { get; set; }
+        /// <summary>
+        /// It defines error code for publish status error.
+        /// </summary>
+        [JsonProperty(PropertyName = "publish_status_error_code")]
+        [NSXTProperty(IsRequired: false, Description: @"It defines error code for publish status error.")]
+        public int? PublishStatusErrorCode { get; set; }
+        /// <summary>
+        /// It defines the root cause for publish status error.
+        /// </summary>
+        [JsonProperty(PropertyName = "publish_status_error")]
+        [NSXTProperty(IsRequired: false, Description: @"It defines the root cause for publish status error.")]
+        public string? PublishStatusError { get; set; }
+        /// <summary>
+        /// It defines the root cause for operational status error.
+        /// </summary>
+        [JsonProperty(PropertyName = "operational_status_error")]
+        [NSXTProperty(IsRequired: false, Description: @"It defines the root cause for operational status error.")]
+        public string? OperationalStatusError { get; set; }
+        /// <summary>
+        /// Possible values could be UP, DOWN, UNKNOWN, FAILURE
+        /// This list is not exhaustive.
+        /// </summary>
+        [JsonProperty(PropertyName = "operational_status")]
+        [NSXTProperty(IsRequired: false, Description: @"Possible values could be UP, DOWN, UNKNOWN, FAILUREThis list is not exhaustive.")]
+        public string? OperationalStatus { get; set; }
+        /// <summary>
+        /// Possible values could be UP, DOWN, UNKNOWN, SUCCESS
+        /// This list is not exhaustive.
+        /// </summary>
+        [JsonProperty(PropertyName = "publish_status")]
+        [NSXTProperty(IsRequired: false, Description: @"Possible values could be UP, DOWN, UNKNOWN, SUCCESSThis list is not exhaustive.")]
+        public string? PublishStatus { get; set; }
         /// <summary>
         /// Desire state paths of this object
         /// </summary>
@@ -54,6 +89,12 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "runtime_error")]
         [NSXTProperty(IsRequired: false, Description: @"It define the root cause for runtime error.")]
         public string? RuntimeError { get; set; }
+        /// <summary>
+        /// Error details for publish status.
+        /// </summary>
+        [JsonProperty(PropertyName = "publish_status_error_details")]
+        [NSXTProperty(IsRequired: false, Description: @"Error details for publish status.")]
+        public IList<NSXTConfigurationStateElementType> PublishStatusErrorDetails { get; set; }
         /// <summary>
         /// Possible values could be UP, DOWN, UNKNOWN, DEGRADED
         /// This list is not exhaustive.

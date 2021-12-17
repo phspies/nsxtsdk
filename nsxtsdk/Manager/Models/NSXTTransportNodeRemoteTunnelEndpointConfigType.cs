@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Remote tunnel endpoint configuration")]
     public class NSXTTransportNodeRemoteTunnelEndpointConfigType 
     {
+        public NSXTTransportNodeRemoteTunnelEndpointConfigType()
+        {
+        }
         /// <summary>
         /// Specifying this field will override the default teaming policy of the host switch and will be used by remote tunnel
         /// endpoint traffic.
@@ -40,12 +43,10 @@ namespace nsxtsdk.ManagerModels
         [System.ComponentModel.DataAnnotations.Required]
         public long RtepVlan { get; set; }
         /// <summary>
-        /// IPs can come from either a static IP pool or an explicitly specified IP list. Therefore, specifying any other IP
-        /// assignment type will result in error. In case a list of IPs is specified, the number of IPs provided should be
-        /// sufficient as per the teaming policy associated with the host switch uplink profile used by the remote tunnel endpoint.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ip_assignment_spec", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IPs can come from either a static IP pool or an explicitly specified IP list. Therefore, specifying any other IP assignment type will result in error. In case a list of IPs is specified, the number of IPs provided should be sufficient as per the teaming policy associated with the host switch uplink profile used by the remote tunnel endpoint.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTIpAssignmentSpecType IpAssignmentSpec { get; set; }
     }

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Guest virtual machine details include OS name and computer name of guest VM.")]
     public class NSXTGuestInfoType 
     {
+        public NSXTGuestInfoType()
+        {
+        }
         /// <summary>
         /// OS name of guest virtual machine. Currently this is supported for guests
         /// on ESXi that have VMware Tools installed.

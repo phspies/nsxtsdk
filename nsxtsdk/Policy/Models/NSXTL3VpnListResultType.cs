@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTL3VpnListResultType : NSXTListResultType
     {
+        public NSXTL3VpnListResultType()
+        {
+        }
         /// <summary>
         /// L3Vpn list results
         /// </summary>

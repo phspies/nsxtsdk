@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTFeaturePermissionListResultType : NSXTListResultType
     {
+        public NSXTFeaturePermissionListResultType()
+        {
+        }
         /// <summary>
         /// List results
         /// </summary>

@@ -17,6 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer WafExclusionType object")]
     public class NSXTALBWafExclusionTypeType 
     {
+        public NSXTALBWafExclusionTypeType()
+        {
+            MatchCase = test
+            MatchOp = test
+        }
         /// <summary>
         /// Case sensitivity to use for the matching.
         /// Enum options - SENSITIVE, INSENSITIVE.
@@ -25,7 +30,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "match_case")]
         [NSXTProperty(IsRequired: false, Description: @"Case sensitivity to use for the matching.Enum options - SENSITIVE, INSENSITIVE.Default value when not specified in API or module isinterpreted by ALB Controller as SENSITIVE.")]
-        [NSXTDefaultProperty(Default: "SENSITIVE")]
         public NSXTAlbwafExclusionTypeMatchCaseEnumType? MatchCase { get; set; }
         /// <summary>
         /// String Operation to use for matching the Exclusion.
@@ -37,7 +41,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "match_op")]
         [NSXTProperty(IsRequired: false, Description: @"String Operation to use for matching the Exclusion.Enum options - BEGINS_WITH, DOES_NOT_BEGIN_WITH, CONTAINS,DOES_NOT_CONTAIN, ENDS_WITH, DOES_NOT_END_WITH, EQUALS,DOES_NOT_EQUAL, REGEX_MATCH, REGEX_DOES_NOT_MATCH.Default value when not specified in API or module isinterpreted by ALB Controller as EQUALS.")]
-        [NSXTDefaultProperty(Default: "EQUALS")]
         public NSXTAlbwafExclusionTypeMatchOpEnumType? MatchOp { get; set; }
     }
 }

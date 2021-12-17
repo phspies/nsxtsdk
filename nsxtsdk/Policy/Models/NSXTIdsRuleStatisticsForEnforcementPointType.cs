@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"IDS Rule statistics for a specfic enforcement point.")]
     public class NSXTIdsRuleStatisticsForEnforcementPointType 
     {
+        public NSXTIdsRuleStatisticsForEnforcementPointType()
+        {
+        }
         /// <summary>
         /// IDS Rule statistics for a single enforcement point
         /// </summary>
@@ -24,10 +27,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"IDS Rule statistics for a single enforcement point")]
         public string? EnforcementPoint { get; set; }
         /// <summary>
-        /// Statistics for the specified enforcement point
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "statistics")]
-        [NSXTProperty(IsRequired: false, Description: @"Statistics for the specified enforcement point")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIdsRuleStatisticsType Statistics { get; set; }
     }
 }

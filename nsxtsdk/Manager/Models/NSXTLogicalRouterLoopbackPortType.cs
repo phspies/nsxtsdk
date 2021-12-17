@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalRouterLoopbackPortType : NSXTLogicalRouterPortType
     {
+        public NSXTLogicalRouterLoopbackPortType()
+        {
+        }
         /// <summary>
         /// Loopback port subnets
         /// </summary>

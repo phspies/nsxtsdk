@@ -17,12 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTGridConfigurationType : NSXTWidgetConfigurationType
     {
+        public NSXTGridConfigurationType()
+        {
+            PageSize = test
+        }
         /// <summary>
         /// Number of records per page. page_size will be effective only when the urls provided in the datasource support paging.
         /// </summary>
         [JsonProperty(PropertyName = "page_size")]
         [NSXTProperty(IsRequired: false, Description: @"Number of records per page. page_size will be effective only when the urls provided in the datasource support paging.")]
-        [NSXTDefaultProperty(Default: "")]
         public int? PageSize { get; set; }
         /// <summary>
         /// Rows of grid or table are formed from the list of objects returned by a row list field.

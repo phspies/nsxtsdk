@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMirrorDestinationType 
     {
+        public NSXTMirrorDestinationType()
+        {
+        }
         /// <summary>
         /// Resource types of mirror destination
         /// </summary>

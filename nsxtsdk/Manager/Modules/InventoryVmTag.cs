@@ -30,11 +30,11 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void UpdateVirtualMachineTagsUpdateTags(NSXTVirtualMachineTagUpdateType VirtualMachineTagUpdate)
+        public void UpdateVirtualMachineTags(NSXTVirtualMachineTagUpdateType VirtualMachineTagUpdate)
         {
             if (VirtualMachineTagUpdate == null) { throw new System.ArgumentNullException("VirtualMachineTagUpdate cannot be null"); }
             
-            StringBuilder UpdateVirtualMachineTagsUpdateTagsServiceURL = new StringBuilder("/fabric/virtual-machines?action=update_tags");
+            StringBuilder UpdateVirtualMachineTagsServiceURL = new StringBuilder("/fabric/virtual-machines?action=update_tags");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -42,11 +42,11 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(VirtualMachineTagUpdate, defaultSerializationSettings));
-            request.Resource = UpdateVirtualMachineTagsUpdateTagsServiceURL.ToString();
+            request.Resource = UpdateVirtualMachineTagsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + UpdateVirtualMachineTagsUpdateTagsServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + UpdateVirtualMachineTagsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -55,11 +55,11 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void RemoveVirtualMachineTagsRemoveTags(NSXTVirtualMachineTagUpdateType VirtualMachineTagUpdate)
+        public void RemoveVirtualMachineTags(NSXTVirtualMachineTagUpdateType VirtualMachineTagUpdate)
         {
             if (VirtualMachineTagUpdate == null) { throw new System.ArgumentNullException("VirtualMachineTagUpdate cannot be null"); }
             
-            StringBuilder RemoveVirtualMachineTagsRemoveTagsServiceURL = new StringBuilder("/fabric/virtual-machines?action=remove_tags");
+            StringBuilder RemoveVirtualMachineTagsServiceURL = new StringBuilder("/fabric/virtual-machines?action=remove_tags");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -67,11 +67,11 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(VirtualMachineTagUpdate, defaultSerializationSettings));
-            request.Resource = RemoveVirtualMachineTagsRemoveTagsServiceURL.ToString();
+            request.Resource = RemoveVirtualMachineTagsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + RemoveVirtualMachineTagsRemoveTagsServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + RemoveVirtualMachineTagsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -80,11 +80,11 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void AddVirtualMachineTagsAddTags(NSXTVirtualMachineTagUpdateType VirtualMachineTagUpdate)
+        public void AddVirtualMachineTags(NSXTVirtualMachineTagUpdateType VirtualMachineTagUpdate)
         {
             if (VirtualMachineTagUpdate == null) { throw new System.ArgumentNullException("VirtualMachineTagUpdate cannot be null"); }
             
-            StringBuilder AddVirtualMachineTagsAddTagsServiceURL = new StringBuilder("/fabric/virtual-machines?action=add_tags");
+            StringBuilder AddVirtualMachineTagsServiceURL = new StringBuilder("/fabric/virtual-machines?action=add_tags");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -92,11 +92,11 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(VirtualMachineTagUpdate, defaultSerializationSettings));
-            request.Resource = AddVirtualMachineTagsAddTagsServiceURL.ToString();
+            request.Resource = AddVirtualMachineTagsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + AddVirtualMachineTagsAddTagsServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + AddVirtualMachineTagsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             

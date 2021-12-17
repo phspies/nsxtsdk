@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Collection of all registered ErrorResolverInfo")]
     public class NSXTErrorResolverInfoListType 
     {
+        public NSXTErrorResolverInfoListType()
+        {
+        }
         /// <summary>
         /// ErrorResolverInfo list
         /// </summary>

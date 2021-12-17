@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildALBSSLProfileType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildALBSSLProfileType()
+        {
+        }
         /// <summary>
-        /// Contains the actual ALBSSLProfile object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ALBSSLProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual ALBSSLProfile object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBSSLProfileType ALBSSLProfile { get; set; }
     }

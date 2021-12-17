@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTContainerApplicationListResultType : NSXTListResultType
     {
+        public NSXTContainerApplicationListResultType()
+        {
+        }
         /// <summary>
         /// List of Container Applications
         /// </summary>

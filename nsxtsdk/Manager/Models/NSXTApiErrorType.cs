@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTApiErrorType : NSXTRelatedApiErrorType
     {
+        public NSXTApiErrorType()
+        {
+        }
         /// <summary>
         /// Other errors related to this error
         /// </summary>

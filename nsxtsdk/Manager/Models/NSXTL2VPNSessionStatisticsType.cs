@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Session statistics gives VPN session status and traffic statistics per logical switch.")]
     public class NSXTL2VPNSessionStatisticsType 
     {
+        public NSXTL2VPNSessionStatisticsType()
+        {
+        }
         /// <summary>
         /// Traffic statistics per logical switch.
         /// </summary>

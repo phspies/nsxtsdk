@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"The operation collector is defined to receive stats from hosts. (eg. vRNI-collector collects all the system metrics)")]
     public class NSXTOperationCollectorType 
     {
+        public NSXTOperationCollectorType()
+        {
+            CollectorType = test
+        }
         /// <summary>
         /// Port for the operation collector.
         /// </summary>
@@ -27,11 +31,18 @@ namespace nsxtsdk.ManagerModels
         [System.ComponentModel.DataAnnotations.Required]
         public int CollectorPort { get; set; }
         /// <summary>
+        /// Port for the Wavefront tracing.
+        /// </summary>
+        [JsonProperty(PropertyName = "tracing_port")]
+        [NSXTProperty(IsRequired: false, Description: @"Port for the Wavefront tracing.")]
+        //[System.ComponentModel.DataAnnotations.MinLength(0)]
+        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
+        public int? TracingPort { get; set; }
+        /// <summary>
         /// Define the operation collector type.
         /// </summary>
         [JsonProperty(PropertyName = "collector_type")]
         [NSXTProperty(IsRequired: false, Description: @"Define the operation collector type.")]
-        [NSXTDefaultProperty(Default: "VRNI")]
         public NSXTOperationCollectorCollectorTypeEnumType? CollectorType { get; set; }
         /// <summary>
         /// IP address for the operation collector.

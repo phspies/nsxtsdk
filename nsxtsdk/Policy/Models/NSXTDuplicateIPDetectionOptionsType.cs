@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Contains dupliacte IP detection related discovery options.")]
     public class NSXTDuplicateIPDetectionOptionsType 
     {
+        public NSXTDuplicateIPDetectionOptionsType()
+        {
+        }
         /// <summary>
         /// Indicates whether duplicate IP detection should be enabled
         /// </summary>

@@ -17,6 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"MAC learning configuration")]
     public class NSXTMacLearningSpecType 
     {
+        public NSXTMacLearningSpecType()
+        {
+            Limit = test
+            LimitPolicy = test
+            RemoteOverlayMacLimit = test
+            AgingTime = test
+            UnicastFloodingAllowed = test
+        }
         /// <summary>
         /// This property specifies the limit on the maximum number of MAC
         /// addresses that can be learned on a port. It is consumed by vswitch
@@ -27,14 +35,12 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"This property specifies the limit on the maximum number of MACaddresses that can be learned on a port. It is consumed by vswitchkernel module on the hypervisor while learning MACs per port forVMs that are local to the host.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(4096)]
-        [NSXTDefaultProperty(Default: "")]
         public int? Limit { get; set; }
         /// <summary>
         /// The policy after MAC Limit is exceeded
         /// </summary>
         [JsonProperty(PropertyName = "limit_policy")]
         [NSXTProperty(IsRequired: false, Description: @"The policy after MAC Limit is exceeded")]
-        [NSXTDefaultProperty(Default: "ALLOW")]
         public NSXTMacLearningSpecLimitPolicyEnumType? LimitPolicy { get; set; }
         /// <summary>
         /// This property specifies the limit on the maximum number of MACs
@@ -45,14 +51,12 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"This property specifies the limit on the maximum number of MACslearned for a remote Virtual Machine&apos;s MAC to vtep binding peroverlay logical switch.")]
         //[System.ComponentModel.DataAnnotations.MinLength(2048)]
         //[System.ComponentModel.DataAnnotations.MaxLength(8192)]
-        [NSXTDefaultProperty(Default: "")]
         public int? RemoteOverlayMacLimit { get; set; }
         /// <summary>
         /// Aging time in sec for learned MAC address
         /// </summary>
         [JsonProperty(PropertyName = "aging_time")]
         [NSXTProperty(IsRequired: false, Description: @"Aging time in sec for learned MAC address")]
-        [NSXTDefaultProperty(Default: "")]
         public int? AgingTime { get; set; }
         /// <summary>
         /// Allowing source MAC address learning
@@ -66,7 +70,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "unicast_flooding_allowed")]
         [NSXTProperty(IsRequired: false, Description: @"Allowing flooding for unlearned MAC for ingress traffic")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? UnicastFloodingAllowed { get; set; }
     }
 }

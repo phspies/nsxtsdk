@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSelectableResourceReferenceType : NSXTResourceReferenceType
     {
+        public NSXTSelectableResourceReferenceType()
+        {
+        }
         /// <summary>
         /// Set to true if this resource has been selected to be acted upon
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVPNLocalEndpointListResultType : NSXTListResultType
     {
+        public NSXTIPSecVPNLocalEndpointListResultType()
+        {
+        }
         /// <summary>
         /// IPSec local endpoint list results
         /// </summary>

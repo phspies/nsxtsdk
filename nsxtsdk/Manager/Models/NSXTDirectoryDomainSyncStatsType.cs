@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Directory domain synchronization statistics")]
     public class NSXTDirectoryDomainSyncStatsType 
     {
+        public NSXTDirectoryDomainSyncStatsType()
+        {
+        }
         /// <summary>
         /// Directory domain previous sync status. It could be one of the following two states.
         /// </summary>

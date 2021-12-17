@@ -17,19 +17,16 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer CloneServer object")]
     public class NSXTALBCloneServerType 
     {
+        public NSXTALBCloneServerType()
+        {
+        }
         /// <summary>
         /// Network to clone the traffic to.
         /// It is a reference to an object of type Network.
         /// </summary>
-        [JsonProperty(PropertyName = "network_path")]
+        [JsonProperty(PropertyName = "network_name")]
         [NSXTProperty(IsRequired: false, Description: @"Network to clone the traffic to.It is a reference to an object of type Network.")]
-        public string? NetworkPath { get; set; }
-        /// <summary>
-        /// Subnet of the network to clone the traffic to.
-        /// </summary>
-        [JsonProperty(PropertyName = "subnet")]
-        [NSXTProperty(IsRequired: false, Description: @"Subnet of the network to clone the traffic to.")]
-        public NSXTALBIpAddrPrefixType Subnet { get; set; }
+        public string? NetworkName { get; set; }
         /// <summary>
         /// MAC Address of the Clone Server.
         /// </summary>
@@ -37,10 +34,16 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"MAC Address of the Clone Server.")]
         public string? Mac { get; set; }
         /// <summary>
-        /// IP Address of the Clone Server.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ip_address")]
-        [NSXTProperty(IsRequired: false, Description: @"IP Address of the Clone Server.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBIpAddrType IpAddress { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "subnet")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTALBIpAddrPrefixType Subnet { get; set; }
     }
 }

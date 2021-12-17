@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"TAP (Terminal access point) traffic statistics for L2Vpn.")]
     public class NSXTL2VpnTapTrafficStatisticsType 
     {
+        public NSXTL2VpnTapTrafficStatisticsType()
+        {
+        }
         /// <summary>
         /// Total number of outgoing packets.
         /// </summary>

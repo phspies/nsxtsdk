@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HostHdrMatch object")]
     public class NSXTALBHostHdrMatchType 
     {
+        public NSXTALBHostHdrMatchType()
+        {
+            MatchCase = test
+        }
         /// <summary>
         /// Case sensitivity to use for the match.
         /// Enum options - SENSITIVE, INSENSITIVE.
@@ -25,7 +29,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "match_case")]
         [NSXTProperty(IsRequired: false, Description: @"Case sensitivity to use for the match.Enum options - SENSITIVE, INSENSITIVE.Default value when not specified in API or module isinterpreted by ALB Controller as INSENSITIVE.")]
-        [NSXTDefaultProperty(Default: "INSENSITIVE")]
         public NSXTAlbhostHdrMatchMatchCaseEnumType? MatchCase { get; set; }
         /// <summary>
         /// String value(s) in the host header.

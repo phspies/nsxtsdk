@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTVrniGlobalCollectorType : NSXTGlobalCollectorConfigType
     {
+        public NSXTVrniGlobalCollectorType()
+        {
+            ReportInterval = test
+        }
         /// <summary>
         /// Report interval for operation data in seconds.
         /// </summary>
@@ -25,7 +29,6 @@ namespace nsxtsdk.PolicyModels
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(1800)]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "")]
-        public long ReportInterval { get; set; }
+        public int ReportInterval { get; set; }
     }
 }

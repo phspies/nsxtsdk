@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Base type for various login credential types")]
     public class NSXTLoginCredentialType 
     {
+        public NSXTLoginCredentialType()
+        {
+        }
         /// <summary>
         /// Possible values are 'UsernamePasswordLoginCredential', 'VerifiableAsymmetricLoginCredential', 'SessionLoginCredential'.
         /// </summary>

@@ -17,12 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Details about switch to be migrated")]
     public class NSXTMigrationSwitchInfoType 
     {
+        public NSXTMigrationSwitchInfoType()
+        {
+            Kind = test
+        }
         /// <summary>
         /// Kind of switch, can be DVS, VSS.
         /// </summary>
         [JsonProperty(PropertyName = "kind")]
         [NSXTProperty(IsRequired: false, Description: @"Kind of switch, can be DVS, VSS.")]
-        [NSXTDefaultProperty(Default: "DVS")]
         public NSXTMigrationSwitchInfoKindEnumType? Kind { get; set; }
         /// <summary>
         /// Version of the switch to be migrated.

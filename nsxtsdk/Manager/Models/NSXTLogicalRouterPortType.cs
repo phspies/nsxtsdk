@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalRouterPortType : NSXTManagedResourceType
     {
+        public NSXTLogicalRouterPortType()
+        {
+        }
         /// <summary>
         /// Identifier for logical router on which this port is created
         /// </summary>

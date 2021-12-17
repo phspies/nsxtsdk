@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTGatewayPolicyType : NSXTPolicyType
     {
+        public NSXTGatewayPolicyType()
+        {
+        }
         /// <summary>
         /// Rules that are a part of this SecurityPolicy
         /// </summary>

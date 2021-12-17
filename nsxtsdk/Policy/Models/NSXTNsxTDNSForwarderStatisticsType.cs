@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTNsxTDNSForwarderStatisticsType : NSXTDNSForwarderStatisticsPerEnforcementPointType
     {
+        public NSXTNsxTDNSForwarderStatisticsType()
+        {
+        }
         /// <summary>
         /// The total number of forwarded DNS queries
         /// </summary>
@@ -30,10 +33,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"The total number of cached entries")]
         public long? CachedEntries { get; set; }
         /// <summary>
-        /// The statistics of default forwarder zone
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "default_forwarder_statistics")]
-        [NSXTProperty(IsRequired: false, Description: @"The statistics of default forwarder zone")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTNsxTDNSForwarderZoneStatisticsType DefaultForwarderStatistics { get; set; }
         /// <summary>
         /// The total number of queries answered from local cache

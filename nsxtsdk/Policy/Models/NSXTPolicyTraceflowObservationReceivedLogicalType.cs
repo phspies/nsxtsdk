@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyTraceflowObservationReceivedLogicalType : NSXTTraceflowObservationReceivedLogicalType
     {
+        public NSXTPolicyTraceflowObservationReceivedLogicalType()
+        {
+        }
         /// <summary>
         /// The path of the component that received the traceflow packet
         /// </summary>

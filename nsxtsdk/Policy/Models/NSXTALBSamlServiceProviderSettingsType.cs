@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer SamlServiceProviderSettings object")]
     public class NSXTALBSamlServiceProviderSettingsType 
     {
+        public NSXTALBSamlServiceProviderSettingsType()
+        {
+        }
         /// <summary>
         /// Service Provider Organization Name.
         /// </summary>

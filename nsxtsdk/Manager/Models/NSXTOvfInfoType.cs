@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Information related to OVF file.")]
     public class NSXTOvfInfoType 
     {
+        public NSXTOvfInfoType()
+        {
+        }
         /// <summary>
         /// Version of the OVF.
         /// </summary>

@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdsClusterConfigType : NSXTPolicyConfigResourceType
     {
+        public NSXTIdsClusterConfigType()
+        {
+        }
         /// <summary>
-        /// Contains policy resource reference object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "cluster", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains policy resource reference object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTPolicyResourceReferenceType Cluster { get; set; }
         /// <summary>

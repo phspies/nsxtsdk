@@ -17,6 +17,24 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer TCPProxyProfile object")]
     public class NSXTALBTCPProxyProfileType 
     {
+        public NSXTALBTCPProxyProfileType()
+        {
+            ReceiveWindow = test
+            CcAlgo = test
+            MaxSynRetransmissions = test
+            IdleConnectionTimeout = test
+            IdleConnectionType = test
+            KeepaliveInHalfcloseState = test
+            TimeWaitDelay = test
+            CongestionRecoveryScalingFactor = test
+            AutoWindowGrowth = test
+            ReassemblyQueueSize = test
+            MaxRetransmissions = test
+            SlowStartScalingFactor = test
+            Automatic = test
+            IpDscp = test
+            UseInterfaceMtu = test
+        }
         /// <summary>
         /// Size of the receive window.
         /// Allowed values are 2-65536.
@@ -28,7 +46,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Size of the receive window.Allowed values are 2-65536.Unit is KB.Default value when not specified in API or module isinterpreted by ALB Controller as 64.")]
         //[System.ComponentModel.DataAnnotations.MinLength(2)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65536)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ReceiveWindow { get; set; }
         /// <summary>
         /// Controls the our congestion window to send, normally it's 1
@@ -48,7 +65,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "cc_algo")]
         [NSXTProperty(IsRequired: false, Description: @"Controls the congestion control algorithm we use.Enum options - CC_ALGO_NEW_RENO, CC_ALGO_CUBIC,CC_ALGO_HTCP.Default value when not specified in API or module isinterpreted by ALB Controller as CC_ALGO_NEW_RENO.")]
-        [NSXTDefaultProperty(Default: "CC_ALGO_NEW_RENO")]
         public NSXTAlbtcpproxyProfileCcAlgoEnumType? CcAlgo { get; set; }
         /// <summary>
         /// Controls the number of duplicate acks required to trigger
@@ -77,7 +93,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"The maximum number of attempts at retransmitting a SYNpacket before giving up.Allowed values are 3-8.Default value when not specified in API or module isinterpreted by ALB Controller as 8.")]
         //[System.ComponentModel.DataAnnotations.MinLength(3)]
         //[System.ComponentModel.DataAnnotations.MaxLength(8)]
-        [NSXTDefaultProperty(Default: "")]
         public long? MaxSynRetransmissions { get; set; }
         /// <summary>
         /// The duration for keepalive probes or session idle timeout.
@@ -93,7 +108,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"The duration for keepalive probes or session idle timeout.Max value is 3600 seconds, min is 5.Set to 0 to allow infinite idle time.Allowed values are 5-14400.Special values are 0 - &apos;infinite&apos;.Unit is SEC.Default value when not specified in API or module isinterpreted by ALB Controller as 600.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(14400)]
-        [NSXTDefaultProperty(Default: "")]
         public long? IdleConnectionTimeout { get; set; }
         /// <summary>
         /// Maximum TCP segment size.
@@ -114,7 +128,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "idle_connection_type")]
         [NSXTProperty(IsRequired: false, Description: @"Controls the behavior of idle connections.Enum options - KEEP_ALIVE, CLOSE_IDLE.Default value when not specified in API or module isinterpreted by ALB Controller as KEEP_ALIVE.")]
-        [NSXTDefaultProperty(Default: "KEEP_ALIVE")]
         public NSXTAlbtcpproxyProfileIdleConnectionTypeEnumType? IdleConnectionType { get; set; }
         /// <summary>
         /// Controls whether to keep the connection alive with
@@ -127,7 +140,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "keepalive_in_halfclose_state")]
         [NSXTProperty(IsRequired: false, Description: @"Controls whether to keep the connection alive withkeepalive messages in the TCP half close state.The interval for sending keepalive messages is 30s.If a timeout is already configured in the network profile,this will not override it.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? KeepaliveInHalfcloseState { get; set; }
         /// <summary>
         /// The time (in millisec) to wait before closing a connection
@@ -142,7 +154,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"The time (in millisec) to wait before closing a connectionin the TIME_WAIT state.Allowed values are 500-2000.Special values are 0 - &apos;immediate&apos;.Unit is MILLISECONDS.Default value when not specified in API or module isinterpreted by ALB Controller as 2000.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(2000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? TimeWaitDelay { get; set; }
         /// <summary>
         /// Congestion window scaling factor after recovery.
@@ -154,7 +165,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Congestion window scaling factor after recovery.Allowed values are 0-8.Default value when not specified in API or module isinterpreted by ALB Controller as 2.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(8)]
-        [NSXTDefaultProperty(Default: "")]
         public long? CongestionRecoveryScalingFactor { get; set; }
         /// <summary>
         /// The minimum wait time (in millisec) to retransmit packet.
@@ -175,7 +185,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "auto_window_growth")]
         [NSXTProperty(IsRequired: false, Description: @"Controls whether the windows are static or supportsautogrowth.Maximum that it can grow to is limited to 4MB.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? AutoWindowGrowth { get; set; }
         /// <summary>
         /// A new SYN is accepted from the same 4-tuple even if there
@@ -197,7 +206,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "reassembly_queue_size")]
         [NSXTProperty(IsRequired: false, Description: @"Maximum number of TCP segments that can be queued forreassembly.Configuring this to 0 disables the feature and providesunlimited queuing.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
-        [NSXTDefaultProperty(Default: "")]
         public long? ReassemblyQueueSize { get; set; }
         /// <summary>
         /// Consolidates small data packets to send clients fewer but
@@ -221,7 +229,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"The number of attempts at retransmit before closing theconnection.Allowed values are 3-8.Default value when not specified in API or module isinterpreted by ALB Controller as 8.")]
         //[System.ComponentModel.DataAnnotations.MinLength(3)]
         //[System.ComponentModel.DataAnnotations.MaxLength(8)]
-        [NSXTDefaultProperty(Default: "")]
         public long? MaxRetransmissions { get; set; }
         /// <summary>
         /// Congestion window scaling factor during slow start.
@@ -233,16 +240,16 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Congestion window scaling factor during slow start.Allowed values are 0-8.Default value when not specified in API or module isinterpreted by ALB Controller as 1.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(8)]
-        [NSXTDefaultProperty(Default: "")]
         public long? SlowStartScalingFactor { get; set; }
         /// <summary>
         /// Dynamically pick the relevant parameters for connections.
+        /// Allowed in Basic(Allowed values- true) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as true.
         /// </summary>
         [JsonProperty(PropertyName = "automatic")]
-        [NSXTProperty(IsRequired: false, Description: @"Dynamically pick the relevant parameters for connections.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Dynamically pick the relevant parameters for connections.Allowed in Basic(Allowed values- true) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
         public bool? Automatic { get; set; }
         /// <summary>
         /// Controls the value of the Differentiated Services Code
@@ -258,7 +265,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Controls the value of the Differentiated Services CodePoint field inserted in the IP header.This has two options   Set to a specific value, or PassThrough, which uses the incoming DSCP value.Allowed values are 0-63.Special values are MAX - &apos;Passthrough&apos;.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(63)]
-        [NSXTDefaultProperty(Default: "")]
         public long? IpDscp { get; set; }
         /// <summary>
         /// Use the interface MTU to calculate the TCP max segment
@@ -268,7 +274,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "use_interface_mtu")]
         [NSXTProperty(IsRequired: false, Description: @"Use the interface MTU to calculate the TCP max segmentsize.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? UseInterfaceMtu { get; set; }
     }
 }

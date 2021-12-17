@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalRouterPortStatisticsType 
     {
+        public NSXTLogicalRouterPortStatisticsType()
+        {
+        }
         /// <summary>
         /// Per Node Statistics
         /// </summary>

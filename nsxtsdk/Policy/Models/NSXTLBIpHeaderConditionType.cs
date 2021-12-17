@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBIpHeaderConditionType : NSXTLBRuleConditionType
     {
+        public NSXTLBIpHeaderConditionType()
+        {
+        }
         /// <summary>
         /// Source IP address of HTTP message should match IP addresses which are
         /// configured in Group in order to perform actions.

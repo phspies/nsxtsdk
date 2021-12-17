@@ -17,6 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer CompressionFilter object")]
     public class NSXTALBCompressionFilterType 
     {
+        public NSXTALBCompressionFilterType()
+        {
+            Level = test
+            Match = test
+        }
         /// <summary>
         /// It is a reference to an object of type IpAddrGroup.
         /// </summary>
@@ -66,7 +71,6 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "level", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"Enum options - AGGRESSIVE_COMPRESSION, NORMAL_COMPRESSION,NO_COMPRESSION.Default value when not specified in API or module isinterpreted by ALB Controller as NORMAL_COMPRESSION.")]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "NORMAL_COMPRESSION")]
         public NSXTAlbcompressionFilterLevelEnumType Level { get; set; }
         /// <summary>
         /// Placeholder for description of property ip_addrs of obj
@@ -84,7 +88,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "match")]
         [NSXTProperty(IsRequired: false, Description: @"Whether to apply Filter when group criteria is matched ornot.Enum options - IS_IN, IS_NOT_IN.Default value when not specified in API or module isinterpreted by ALB Controller as IS_IN.")]
-        [NSXTDefaultProperty(Default: "IS_IN")]
         public NSXTAlbcompressionFilterMatchEnumType? Match { get; set; }
         /// <summary>
         /// Placeholder for description of property user_agent of obj

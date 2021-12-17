@@ -17,21 +17,33 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyDnsForwarderType : NSXTPolicyConfigResourceType
     {
+        public NSXTPolicyDnsForwarderType()
+        {
+            LogLevel = test
+            CacheSize = test
+            Enabled = test
+        }
+        /// <summary>
+        /// Set log_level to DISABLED will stop dumping fowarder log.
+        /// </summary>
+        [JsonProperty(PropertyName = "log_level")]
+        [NSXTProperty(IsRequired: false, Description: @"Set log_level to DISABLED will stop dumping fowarder log.")]
+        public NSXTPolicyDnsForwarderLogLevelEnumType? LogLevel { get; set; }
+        /// <summary>
+        /// Cache size in KB.
+        /// </summary>
+        [JsonProperty(PropertyName = "cache_size")]
+        [NSXTProperty(IsRequired: false, Description: @"Cache size in KB.")]
+        //[System.ComponentModel.DataAnnotations.MinLength(0)]
+        //[System.ComponentModel.DataAnnotations.MaxLength(16777216)]
+        public int? CacheSize { get; set; }
         /// <summary>
         /// The flag, which suggests whether the DNS forwarder is enabled or
         /// disabled. The default is True.
         /// </summary>
         [JsonProperty(PropertyName = "enabled")]
         [NSXTProperty(IsRequired: false, Description: @"The flag, which suggests whether the DNS forwarder is enabled ordisabled. The default is True.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enabled { get; set; }
-        /// <summary>
-        /// Set log_level to DISABLED will stop dumping fowarder log.
-        /// </summary>
-        [JsonProperty(PropertyName = "log_level")]
-        [NSXTProperty(IsRequired: false, Description: @"Set log_level to DISABLED will stop dumping fowarder log.")]
-        [NSXTDefaultProperty(Default: "INFO")]
-        public NSXTPolicyDnsForwarderLogLevelEnumType? LogLevel { get; set; }
         /// <summary>
         /// Max of 5 DNS servers can be configured
         /// </summary>

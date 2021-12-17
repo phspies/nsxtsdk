@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdsVmListType : NSXTListResultType
     {
+        public NSXTIdsVmListType()
+        {
+        }
         /// <summary>
         /// List of all affected VMs specific to a particular signature.
         /// </summary>

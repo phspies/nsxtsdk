@@ -17,12 +17,27 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTCrlObjectDataType : NSXTManagedResourceType
     {
+        public NSXTCrlObjectDataType()
+        {
+            CrlType = test
+        }
+        /// <summary>
+        /// The type of the CRL. It can be "OneCRL" or "X509" (default).
+        /// </summary>
+        [JsonProperty(PropertyName = "crl_type")]
+        [NSXTProperty(IsRequired: false, Description: @"The type of the CRL. It can be &quot;OneCRL&quot; or &quot;X509&quot; (default).")]
+        public NSXTCrlObjectDataCrlTypeEnumType? CrlType { get; set; }
         /// <summary>
         /// PEM encoded CRL data.
         /// </summary>
-        [JsonProperty(PropertyName = "pem_encoded", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"PEM encoded CRL data.")]
-        [System.ComponentModel.DataAnnotations.Required]
-        public string PemEncoded { get; set; }
+        [JsonProperty(PropertyName = "pem_encoded")]
+        [NSXTProperty(IsRequired: false, Description: @"PEM encoded CRL data.")]
+        public string? PemEncoded { get; set; }
+        /// <summary>
+        /// JSON-encoded OneCRL-like object
+        /// </summary>
+        [JsonProperty(PropertyName = "one_crl")]
+        [NSXTProperty(IsRequired: false, Description: @"JSON-encoded OneCRL-like object")]
+        public string? OneCrl { get; set; }
     }
 }

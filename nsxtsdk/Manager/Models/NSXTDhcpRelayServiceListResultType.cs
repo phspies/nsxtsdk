@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpRelayServiceListResultType : NSXTListResultType
     {
+        public NSXTDhcpRelayServiceListResultType()
+        {
+        }
         /// <summary>
         /// Dhcp relay service list results
         /// </summary>

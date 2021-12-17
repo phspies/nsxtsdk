@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeSearchDomainsPropertiesType : NSXTResourceType
     {
+        public NSXTNodeSearchDomainsPropertiesType()
+        {
+        }
         /// <summary>
         /// Search domains
         /// </summary>

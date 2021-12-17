@@ -17,18 +17,18 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced configuration for Policy connectivity")]
     public class NSXTConnectivityAdvancedConfigType 
     {
+        public NSXTConnectivityAdvancedConfigType()
+        {
+            Connectivity = test
+        }
         /// <summary>
         /// Connectivity configuration to manually connect (ON) or disconnect (OFF)
-        /// a Tier1 segment from corresponding Tier1 gateway. Only valid for Tier1
-        /// Segments.
-        /// This property is ignored for L2 VPN extended segments when subnets
-        /// property is not specified.
+        /// Tier-0/Tier1 segment from corresponding gateway.
         /// This property does not apply to VLAN backed segments. VLAN backed segments
         /// with connectivity OFF does not affect its layer-2 connectivity.
         /// </summary>
         [JsonProperty(PropertyName = "connectivity")]
-        [NSXTProperty(IsRequired: false, Description: @"Connectivity configuration to manually connect (ON) or disconnect (OFF)a Tier1 segment from corresponding Tier1 gateway. Only valid for Tier1Segments.This property is ignored for L2 VPN extended segments when subnetsproperty is not specified.This property does not apply to VLAN backed segments. VLAN backed segmentswith connectivity OFF does not affect its layer-2 connectivity.")]
-        [NSXTDefaultProperty(Default: "ON")]
+        [NSXTProperty(IsRequired: false, Description: @"Connectivity configuration to manually connect (ON) or disconnect (OFF)Tier-0/Tier1 segment from corresponding gateway.This property does not apply to VLAN backed segments. VLAN backed segmentswith connectivity OFF does not affect its layer-2 connectivity.")]
         public NSXTConnectivityAdvancedConfigConnectivityEnumType? Connectivity { get; set; }
     }
 }

@@ -7,9 +7,9 @@ using nsxtsdk.Models;
 namespace nsxtsdk.PolicyModels
 {
     /// <summary>
-    /// Load balancer service size.
+    /// Load balancer service size.The load balancer service sizes, SMALL, MEDIUM, LARGE and XLARGE areall deprecated. Customers who are using this set of features areadvised to migrate to NSX Advanced Load Balancer (Avi) which providesa superset of the NSX-T load balancing functionality.
     /// </summary>
-    [NSXTProperty(Description: @"Load balancer service size.")]
+    [NSXTProperty(Description: @"Load balancer service size.The load balancer service sizes, SMALL, MEDIUM, LARGE and XLARGE areall deprecated. Customers who are using this set of features areadvised to migrate to NSX Advanced Load Balancer (Avi) which providesa superset of the NSX-T load balancing functionality.")]
     public enum NSXTLbserviceSizeEnumType
     {
         [EnumMember(Value = "SMALL")]

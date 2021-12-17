@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceInstanceEndpointType : NSXTBaseEndpointType
     {
+        public NSXTServiceInstanceEndpointType()
+        {
+        }
         /// <summary>
         /// Path of Service Interface to which this ServiceInstanceEndpoint is connected.
         /// </summary>

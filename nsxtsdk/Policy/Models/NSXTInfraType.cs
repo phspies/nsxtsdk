@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTInfraType : NSXTAbstractSpaceType
     {
+        public NSXTInfraType()
+        {
+        }
         /// <summary>
         /// This field is used while creating or updating the infra space.
         /// </summary>

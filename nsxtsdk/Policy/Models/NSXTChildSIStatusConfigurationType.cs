@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildSIStatusConfigurationType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildSIStatusConfigurationType()
+        {
+        }
         /// <summary>
-        /// Contains the actual service insertion status configuration list object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "PolicySIStatusConfiguration", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual service insertion status configuration list object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTPolicySIStatusConfigurationType PolicySIStatusConfiguration { get; set; }
     }

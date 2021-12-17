@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTOspfDatabaseStatusType 
     {
+        public NSXTOspfDatabaseStatusType()
+        {
+        }
         /// <summary>
         /// array of nssa external link of OSPF database
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPPrefixListListResultType : NSXTListResultType
     {
+        public NSXTIPPrefixListListResultType()
+        {
+        }
         /// <summary>
         /// Paginated list of IPPrefixLists
         /// </summary>

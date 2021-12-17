@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMacPoolType : NSXTManagedResourceType
     {
+        public NSXTMacPoolType()
+        {
+        }
         /// <summary>
         /// Array of ranges for MAC addresses
         /// </summary>

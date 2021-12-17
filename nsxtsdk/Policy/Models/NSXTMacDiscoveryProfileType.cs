@@ -17,13 +17,20 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTMacDiscoveryProfileType : NSXTPolicyConfigResourceType
     {
+        public NSXTMacDiscoveryProfileType()
+        {
+            MacLearningAgingTime = test
+            MacLimitPolicy = test
+            RemoteOverlayMacLimit = test
+            MacLimit = test
+            UnknownUnicastFloodingEnabled = test
+        }
         /// <summary>
         /// Indicates how long learned MAC address remain.
         /// </summary>
         [JsonProperty(PropertyName = "mac_learning_aging_time")]
         [NSXTProperty(IsRequired: false, Description: @"Indicates how long learned MAC address remain.")]
-        [NSXTDefaultProperty(Default: "")]
-        public long? MacLearningAgingTime { get; set; }
+        public int? MacLearningAgingTime { get; set; }
         /// <summary>
         /// Allowing source MAC address learning
         /// </summary>
@@ -36,28 +43,25 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "mac_limit_policy")]
         [NSXTProperty(IsRequired: false, Description: @"The policy after MAC Limit is exceeded")]
-        [NSXTDefaultProperty(Default: "ALLOW")]
         public NSXTMacDiscoveryProfileMacLimitPolicyEnumType? MacLimitPolicy { get; set; }
         /// <summary>
-        /// This property specifies the limit on the maximum number of MACs
-        /// learned for a remote virtual machine's MAC to VTEP binding per
-        /// overlay logical switch.
+        /// The maximum number of mac addresses learnt on an overlay logical switch, irrespective of whether mac learning
+        /// is enabled on the segment ports. When this limit is reached, traffic for mac addresses that are not learnt
+        /// will be flooded.
         /// </summary>
         [JsonProperty(PropertyName = "remote_overlay_mac_limit")]
-        [NSXTProperty(IsRequired: false, Description: @"This property specifies the limit on the maximum number of MACslearned for a remote virtual machine&apos;s MAC to VTEP binding peroverlay logical switch.")]
+        [NSXTProperty(IsRequired: false, Description: @"The maximum number of mac addresses learnt on an overlay logical switch, irrespective of whether mac learningis enabled on the segment ports. When this limit is reached, traffic for mac addresses that are not learntwill be flooded.")]
         //[System.ComponentModel.DataAnnotations.MinLength(2048)]
         //[System.ComponentModel.DataAnnotations.MaxLength(8192)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? RemoteOverlayMacLimit { get; set; }
+        public int? RemoteOverlayMacLimit { get; set; }
         /// <summary>
-        /// The maximum number of MAC addresses that can be learned on this port
+        /// The maximum number of mac addresses that can be learnt on this port when mac learning is enabled.
         /// </summary>
         [JsonProperty(PropertyName = "mac_limit")]
-        [NSXTProperty(IsRequired: false, Description: @"The maximum number of MAC addresses that can be learned on this port")]
+        [NSXTProperty(IsRequired: false, Description: @"The maximum number of mac addresses that can be learnt on this port when mac learning is enabled.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(4096)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? MacLimit { get; set; }
+        public int? MacLimit { get; set; }
         /// <summary>
         /// Allowing source MAC address change
         /// </summary>
@@ -69,7 +73,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "unknown_unicast_flooding_enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Allowing flooding for unlearned MAC for ingress traffic")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? UnknownUnicastFloodingEnabled { get; set; }
     }
 }

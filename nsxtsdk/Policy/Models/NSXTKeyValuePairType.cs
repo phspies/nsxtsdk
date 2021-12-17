@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"An arbitrary key-value pair")]
     public class NSXTKeyValuePairType 
     {
+        public NSXTKeyValuePairType()
+        {
+        }
         /// <summary>
         /// Value
         /// </summary>

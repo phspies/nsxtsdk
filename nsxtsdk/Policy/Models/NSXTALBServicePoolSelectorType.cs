@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer ServicePoolSelector object")]
     public class NSXTALBServicePoolSelectorType 
     {
+        public NSXTALBServicePoolSelectorType()
+        {
+            ServicePortRangeEnd = test
+        }
         /// <summary>
         /// Destination protocol to match for the pool selection.
         /// If not specified, it will match any protocol.
@@ -44,7 +48,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"The end of the Service port number range.Allowed values are 1-65535.Special values are 0- &apos;single port&apos;.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ServicePortRangeEnd { get; set; }
         /// <summary>
         /// It is a reference to an object of type PoolGroup.

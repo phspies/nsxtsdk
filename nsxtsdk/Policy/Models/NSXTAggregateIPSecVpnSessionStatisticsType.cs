@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTAggregateIPSecVpnSessionStatisticsType : NSXTAggregatePolicyRuntimeInfoType
     {
+        public NSXTAggregateIPSecVpnSessionStatisticsType()
+        {
+        }
         /// <summary>
         /// List of IPSec VPN Session Statistics per Enforcement Point.
         /// </summary>

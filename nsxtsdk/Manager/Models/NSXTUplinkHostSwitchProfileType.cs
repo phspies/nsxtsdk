@@ -17,6 +17,11 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUplinkHostSwitchProfileType : NSXTBaseHostSwitchProfileType
     {
+        public NSXTUplinkHostSwitchProfileType()
+        {
+            TransportVlan = test
+            OverlayEncap = test
+        }
         /// <summary>
         /// list of LACP group
         /// </summary>
@@ -28,13 +33,12 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "transport_vlan")]
         [NSXTProperty(IsRequired: false, Description: @"VLAN used for tagging Overlay traffic of associated HostSwitch")]
-        [NSXTDefaultProperty(Default: "")]
         public long? TransportVlan { get; set; }
         /// <summary>
-        /// Default TeamingPolicy associated with this UplinkProfile
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "teaming", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Default TeamingPolicy associated with this UplinkProfile")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTTeamingPolicyType Teaming { get; set; }
         /// <summary>
@@ -42,7 +46,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "overlay_encap")]
         [NSXTProperty(IsRequired: false, Description: @"The protocol used to encapsulate overlay traffic")]
-        [NSXTDefaultProperty(Default: "GENEVE")]
         public NSXTUplinkHostSwitchProfileOverlayEncapEnumType? OverlayEncap { get; set; }
         /// <summary>
         /// List of named uplink teaming policies that can be used by logical switches

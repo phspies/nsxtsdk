@@ -17,11 +17,18 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer LdapAuthSettings object")]
     public class NSXTALBLdapAuthSettingsType 
     {
+        public NSXTALBLdapAuthSettingsType()
+        {
+            FullNameAttribute = test
+            EmailAttribute = test
+            BindAsAdministrator = test
+            Port = test
+        }
         /// <summary>
-        /// LDAP anonymous bind configuration.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "user_bind")]
-        [NSXTProperty(IsRequired: false, Description: @"LDAP anonymous bind configuration.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBLdapUserBindSettingsType UserBind { get; set; }
         /// <summary>
         /// LDAP connection security mode.
@@ -38,14 +45,12 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "full_name_attribute")]
         [NSXTProperty(IsRequired: false, Description: @"LDAP attribute that refers to user&apos;s full name.Default value when not specified in API or module isinterpreted by ALB Controller as name.")]
-        [NSXTDefaultProperty(Default: "name")]
         public string? FullNameAttribute { get; set; }
         /// <summary>
-        /// LDAP full directory configuration with administrator
-        /// credentials.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "settings")]
-        [NSXTProperty(IsRequired: false, Description: @"LDAP full directory configuration with administratorcredentials.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBLdapDirectorySettingsType Settings { get; set; }
         /// <summary>
         /// The LDAP base DN.
@@ -62,7 +67,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "email_attribute")]
         [NSXTProperty(IsRequired: false, Description: @"LDAP attribute that refers to user email.Default value when not specified in API or module isinterpreted by ALB Controller as email.")]
-        [NSXTDefaultProperty(Default: "email")]
         public string? EmailAttribute { get; set; }
         /// <summary>
         /// LDAP administrator credentials are used to search for users
@@ -72,7 +76,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "bind_as_administrator")]
         [NSXTProperty(IsRequired: false, Description: @"LDAP administrator credentials are used to search for usersand group memberships.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? BindAsAdministrator { get; set; }
         /// <summary>
         /// Query the LDAP servers on this port.
@@ -81,7 +84,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "port")]
         [NSXTProperty(IsRequired: false, Description: @"Query the LDAP servers on this port.Default value when not specified in API or module isinterpreted by ALB Controller as 389.")]
-        [NSXTDefaultProperty(Default: "")]
         public long? Port { get; set; }
         /// <summary>
         /// LDAP server IP address or Hostname.

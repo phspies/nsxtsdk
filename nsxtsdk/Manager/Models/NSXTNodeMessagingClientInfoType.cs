@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeMessagingClientInfoType 
     {
+        public NSXTNodeMessagingClientInfoType()
+        {
+        }
         /// <summary>
         /// A list of messaging clients owned by this entity
         /// </summary>

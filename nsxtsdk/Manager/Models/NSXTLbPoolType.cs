@@ -17,23 +17,23 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbPoolType : NSXTManagedResourceType
     {
+        public NSXTLbPoolType()
+        {
+            Algorithm = test
+            TcpMultiplexingNumber = test
+            MinActiveMembers = test
+        }
         /// <summary>
-        /// Load balancer pool support grouping object as dynamic pool members.
-        /// When member group is defined, members setting should not be specified.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "member_group")]
-        [NSXTProperty(IsRequired: false, Description: @"Load balancer pool support grouping object as dynamic pool members.When member group is defined, members setting should not be specified.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTPoolMemberGroupType MemberGroup { get; set; }
         /// <summary>
-        /// Depending on the topology, Source NAT (SNAT) may be required to ensure
-        /// traffic from the server destined to the client is received by the load
-        /// balancer. SNAT can be enabled per pool. If SNAT is not enabled for a
-        /// pool, then load balancer uses the client IP and port (spoofing) while
-        /// establishing connections to the servers. This is referred to as no-SNAT
-        /// or TRANSPARENT mode.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "snat_translation")]
-        [NSXTProperty(IsRequired: false, Description: @"Depending on the topology, Source NAT (SNAT) may be required to ensuretraffic from the server destined to the client is received by the loadbalancer. SNAT can be enabled per pool. If SNAT is not enabled for apool, then load balancer uses the client IP and port (spoofing) whileestablishing connections to the servers. This is referred to as no-SNATor TRANSPARENT mode.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLbSnatTranslationType SnatTranslation { get; set; }
         /// <summary>
         /// Load balancing algorithm, configurable per pool controls how the
@@ -41,7 +41,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "algorithm")]
         [NSXTProperty(IsRequired: false, Description: @"Load balancing algorithm, configurable per pool controls how theincoming connections are distributed among the members.")]
-        [NSXTDefaultProperty(Default: "ROUND_ROBIN")]
         public NSXTLbPoolAlgorithmEnumType? Algorithm { get; set; }
         /// <summary>
         /// Server pool consists of one or more pool members. Each pool member
@@ -61,19 +60,20 @@ namespace nsxtsdk.ManagerModels
         /// response is received to a TCP SYN sent to the pool member or if a TCP
         /// RST is received in response to a TCP SYN, then the pool member is
         /// considered to have failed and the failed count is incremented.
+        /// The property is deprecated as NSX-T Load Balancer is deprecated.
         /// </summary>
         [JsonProperty(PropertyName = "passive_monitor_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Passive healthchecks are disabled by default and can be enabled byattaching a passive health monitor to a server pool.Each time a client connection to a pool member fails, its failed countis incremented. For pools bound to L7 virtual servers, a connection isconsidered to be failed and failed count is incremented if any TCPconnection errors (e.g. TCP RST or failure to send data) or SSLhandshake failures occur. For pools bound to L4 virtual servers, if noresponse is received to a TCP SYN sent to the pool member or if a TCPRST is received in response to a TCP SYN, then the pool member isconsidered to have failed and the failed count is incremented.")]
+        [NSXTProperty(IsRequired: false, Description: @"Passive healthchecks are disabled by default and can be enabled byattaching a passive health monitor to a server pool.Each time a client connection to a pool member fails, its failed countis incremented. For pools bound to L7 virtual servers, a connection isconsidered to be failed and failed count is incremented if any TCPconnection errors (e.g. TCP RST or failure to send data) or SSLhandshake failures occur. For pools bound to L4 virtual servers, if noresponse is received to a TCP SYN sent to the pool member or if a TCPRST is received in response to a TCP SYN, then the pool member isconsidered to have failed and the failed count is incremented.The property is deprecated as NSX-T Load Balancer is deprecated.")]
         public string? PassiveMonitorId { get; set; }
         /// <summary>
         /// The maximum number of TCP connections per pool that are idly kept alive
         /// for sending future client requests.
+        /// The property is deprecated as NSX-T Load Balancer is deprecated.
         /// </summary>
         [JsonProperty(PropertyName = "tcp_multiplexing_number")]
-        [NSXTProperty(IsRequired: false, Description: @"The maximum number of TCP connections per pool that are idly kept alivefor sending future client requests.")]
+        [NSXTProperty(IsRequired: false, Description: @"The maximum number of TCP connections per pool that are idly kept alivefor sending future client requests.The property is deprecated as NSX-T Load Balancer is deprecated.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
-        [NSXTDefaultProperty(Default: "")]
         public long? TcpMultiplexingNumber { get; set; }
         /// <summary>
         /// In case of active healthchecks, load balancer itself initiates new
@@ -83,17 +83,19 @@ namespace nsxtsdk.ManagerModels
         /// pool by binding a health monitor to the pool. If multiple active
         /// monitors are configured, the pool member status is UP only when the
         /// health check status for all the monitors are UP.
+        /// The property is deprecated as NSX-T Load Balancer is deprecated.
         /// </summary>
         [JsonProperty(PropertyName = "active_monitor_ids")]
-        [NSXTProperty(IsRequired: false, Description: @"In case of active healthchecks, load balancer itself initiates newconnections (or sends ICMP ping) to the servers periodically to checktheir health, completely independent of any data traffic. Activehealthchecks are disabled by default and can be enabled for a serverpool by binding a health monitor to the pool. If multiple activemonitors are configured, the pool member status is UP only when thehealth check status for all the monitors are UP.")]
+        [NSXTProperty(IsRequired: false, Description: @"In case of active healthchecks, load balancer itself initiates newconnections (or sends ICMP ping) to the servers periodically to checktheir health, completely independent of any data traffic. Activehealthchecks are disabled by default and can be enabled for a serverpool by binding a health monitor to the pool. If multiple activemonitors are configured, the pool member status is UP only when thehealth check status for all the monitors are UP.The property is deprecated as NSX-T Load Balancer is deprecated.")]
         public IList<string> ActiveMonitorIds { get; set; }
         /// <summary>
         /// TCP multiplexing allows the same TCP connection between load balancer
         /// and the backend server to be used for sending multiple client requests
         /// from different client TCP connections.
+        /// The property is deprecated as NSX-T Load Balancer is deprecated.
         /// </summary>
         [JsonProperty(PropertyName = "tcp_multiplexing_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"TCP multiplexing allows the same TCP connection between load balancerand the backend server to be used for sending multiple client requestsfrom different client TCP connections.")]
+        [NSXTProperty(IsRequired: false, Description: @"TCP multiplexing allows the same TCP connection between load balancerand the backend server to be used for sending multiple client requestsfrom different client TCP connections.The property is deprecated as NSX-T Load Balancer is deprecated.")]
         public bool? TcpMultiplexingEnabled { get; set; }
         /// <summary>
         /// A pool is considered active if there are at least certain
@@ -103,7 +105,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"A pool is considered active if there are at least certainminimum number of members.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
-        [NSXTDefaultProperty(Default: "")]
         public long? MinActiveMembers { get; set; }
     }
 }

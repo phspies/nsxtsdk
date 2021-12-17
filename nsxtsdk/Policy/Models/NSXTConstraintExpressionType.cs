@@ -22,6 +22,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTConstraintExpressionType : NSXTManagedResourceType
     {
+        public NSXTConstraintExpressionType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildIPDiscoveryProfileType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildIPDiscoveryProfileType()
+        {
+        }
         /// <summary>
-        /// Contains the actual IPDiscoveryProfile object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "IPDiscoveryProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual IPDiscoveryProfile object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTIPDiscoveryProfileType IPDiscoveryProfile { get; set; }
     }

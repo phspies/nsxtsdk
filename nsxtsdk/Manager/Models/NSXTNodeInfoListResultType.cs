@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeInfoListResultType : NSXTListResultType
     {
+        public NSXTNodeInfoListResultType()
+        {
+        }
         /// <summary>
         /// Paged Collection of Nodes
         /// </summary>

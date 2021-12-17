@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTApplianceProcessDataType : NSXTResourceType
     {
+        public NSXTApplianceProcessDataType()
+        {
+        }
         /// <summary>
         /// Display the total count of process.
         /// </summary>

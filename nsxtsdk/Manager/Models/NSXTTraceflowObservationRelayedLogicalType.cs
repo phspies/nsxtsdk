@@ -17,13 +17,16 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTraceflowObservationRelayedLogicalType : NSXTTraceflowObservationType
     {
+        public NSXTTraceflowObservationRelayedLogicalType()
+        {
+            MessageType = test
+        }
         /// <summary>
         /// This field specified the message type of the relay service REQUEST - The relay service will relay a request message to
         /// the destination server REPLY - The relay service will relay a reply message to the client
         /// </summary>
         [JsonProperty(PropertyName = "message_type")]
         [NSXTProperty(IsRequired: false, Description: @"This field specified the message type of the relay service REQUEST - The relay service will relay a request message to the destination server REPLY - The relay service will relay a reply message to the client")]
-        [NSXTDefaultProperty(Default: "REQUEST")]
         public NSXTTraceflowObservationRelayedLogicalMessageTypeEnumType? MessageType { get; set; }
         /// <summary>
         /// This field specified the IP address of the destination which the packet will be relayed.

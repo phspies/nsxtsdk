@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"IPv4 address properties")]
     public class NSXTIPv4AddressPropertiesType 
     {
+        public NSXTIPv4AddressPropertiesType()
+        {
+        }
         /// <summary>
         /// Interface netmask
         /// </summary>

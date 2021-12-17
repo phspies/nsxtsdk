@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyComplianceStatusType 
     {
+        public NSXTPolicyComplianceStatusType()
+        {
+        }
         /// <summary>
         /// Timestamp of last update
         /// </summary>

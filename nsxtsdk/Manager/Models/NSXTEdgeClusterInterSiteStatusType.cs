@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTEdgeClusterInterSiteStatusType 
     {
+        public NSXTEdgeClusterInterSiteStatusType()
+        {
+        }
         /// <summary>
         /// Timestamp when the edge cluster inter-site status was last updated.
         /// </summary>

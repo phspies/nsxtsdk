@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBServiceStatusType : NSXTLBServiceStatusPerEPType
     {
+        public NSXTLBServiceStatusType()
+        {
+        }
         /// <summary>
         /// Cpu usage in percentage.
         /// </summary>

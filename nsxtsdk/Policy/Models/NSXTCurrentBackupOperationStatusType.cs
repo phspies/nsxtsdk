@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Current backup operation status")]
     public class NSXTCurrentBackupOperationStatusType 
     {
+        public NSXTCurrentBackupOperationStatusType()
+        {
+        }
         /// <summary>
         /// Current step of operation
         /// </summary>
@@ -45,10 +48,9 @@ namespace nsxtsdk.PolicyModels
         /// Type of operation that is in progress. Returns none if no operation is in progress, in which case
         /// none of the other fields will be set.
         /// </summary>
-        [JsonProperty(PropertyName = "operation_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Type of operation that is in progress. Returns none if no operation is in progress, in which casenone of the other fields will be set.")]
-        [System.ComponentModel.DataAnnotations.Required]
-        public NSXTCurrentBackupOperationStatusOperationTypeEnumType OperationType { get; set; }
+        [JsonProperty(PropertyName = "operation_type")]
+        [NSXTProperty(IsRequired: false, Description: @"Type of operation that is in progress. Returns none if no operation is in progress, in which casenone of the other fields will be set.")]
+        public NSXTCurrentBackupOperationStatusOperationTypeEnumType? OperationType { get; set; }
         /// <summary>
         /// Time when operation was started
         /// </summary>

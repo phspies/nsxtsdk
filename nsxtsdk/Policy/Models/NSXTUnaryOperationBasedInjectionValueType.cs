@@ -17,19 +17,20 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTUnaryOperationBasedInjectionValueType : NSXTInjectionValueType
     {
+        public NSXTUnaryOperationBasedInjectionValueType()
+        {
+        }
         /// <summary>
-        /// Represents an optional operation to be done on the initial value.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "operation")]
-        [NSXTProperty(IsRequired: false, Description: @"Represents an optional operation to be done on the initial value.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTUnaryOperationType Operation { get; set; }
         /// <summary>
-        /// Resource field pointer representing the initial value for the injection value. If an
-        /// operation is supplied, the value is handed to the operation function to produce a
-        /// final result.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "initial_value", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Resource field pointer representing the initial value for the injection value. If anoperation is supplied, the value is handed to the operation function to produce afinal result.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTResourceFieldPointerType InitialValue { get; set; }
     }

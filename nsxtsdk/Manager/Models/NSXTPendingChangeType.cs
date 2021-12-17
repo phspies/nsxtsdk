@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPendingChangeType 
     {
+        public NSXTPendingChangeType()
+        {
+        }
         /// <summary>
         /// Request identifier of the API which modified the entity.
         /// </summary>

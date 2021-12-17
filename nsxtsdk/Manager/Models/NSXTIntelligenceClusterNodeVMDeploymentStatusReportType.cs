@@ -18,6 +18,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Contains up-to-date information relating to an auto-deployed VM, includingits status and (potentially) an error message.")]
     public class NSXTIntelligenceClusterNodeVMDeploymentStatusReportType 
     {
+        public NSXTIntelligenceClusterNodeVMDeploymentStatusReportType()
+        {
+        }
         /// <summary>
         /// Status of the addition or deletion of an auto-deployed NSX-Intelligence cluster node VM.
         /// </summary>
@@ -26,10 +29,10 @@ namespace nsxtsdk.ManagerModels
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTIntelligenceClusterNodeVmdeploymentStatusReportStatusEnumType Status { get; set; }
         /// <summary>
-        /// Detailed progress state of node VM deployment realization
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "deployment_progress_state")]
-        [NSXTProperty(IsRequired: false, Description: @"Detailed progress state of node VM deployment realization")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTClusterNodeVMDeploymentProgressStateType DeploymentProgressState { get; set; }
         /// <summary>
         /// In case of auto-deployment-related failure, an error message will be

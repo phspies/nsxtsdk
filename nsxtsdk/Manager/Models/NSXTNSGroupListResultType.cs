@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNSGroupListResultType : NSXTListResultType
     {
+        public NSXTNSGroupListResultType()
+        {
+        }
         /// <summary>
         /// NSGroup list results
         /// </summary>

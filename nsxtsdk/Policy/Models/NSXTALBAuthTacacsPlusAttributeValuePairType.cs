@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer AuthTacacsPlusAttributeValuePair object")]
     public class NSXTALBAuthTacacsPlusAttributeValuePairType 
     {
+        public NSXTALBAuthTacacsPlusAttributeValuePairType()
+        {
+        }
         /// <summary>
         /// mandatory.
         /// </summary>

@@ -17,22 +17,29 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer TCPFastPathProfile object")]
     public class NSXTALBTCPFastPathProfileType 
     {
+        public NSXTALBTCPFastPathProfileType()
+        {
+            SessionIdleTimeout = test
+        }
         /// <summary>
-        /// DSR profile information.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "dsr_profile")]
-        [NSXTProperty(IsRequired: false, Description: @"DSR profile information.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBDsrProfileType DsrProfile { get; set; }
         /// <summary>
         /// When enabled, Avi will complete the 3-way handshake with
         /// the client before forwarding any packets to the server.
         /// This will protect the server from SYN flood and half open
         /// SYN connections.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "enable_syn_protection")]
-        [NSXTProperty(IsRequired: false, Description: @"When enabled, Avi will complete the 3-way handshake withthe client before forwarding any packets to the server.This will protect the server from SYN flood and half openSYN connections.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"When enabled, Avi will complete the 3-way handshake withthe client before forwarding any packets to the server.This will protect the server from SYN flood and half openSYN connections.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? EnableSynProtection { get; set; }
         /// <summary>
         /// The amount of time (in sec) for which a connection needs to
@@ -47,7 +54,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"The amount of time (in sec) for which a connection needs tobe idle before it is eligible to be deleted.Allowed values are 5-14400.Special values are 0 - &apos;infinite&apos;.Unit is SEC.Default value when not specified in API or module isinterpreted by ALB Controller as 300.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(14400)]
-        [NSXTDefaultProperty(Default: "")]
         public long? SessionIdleTimeout { get; set; }
     }
 }

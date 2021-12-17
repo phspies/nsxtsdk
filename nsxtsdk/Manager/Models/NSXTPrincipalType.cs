@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPrincipalType 
     {
+        public NSXTPrincipalType()
+        {
+        }
         /// <summary>
-        /// Certificate list.
+        /// Attribute list.
         /// </summary>
         [JsonProperty(PropertyName = "attributes", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Certificate list.")]
+        [NSXTProperty(IsRequired: true, Description: @"Attribute list.")]
         [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTKeyValueType> Attributes { get; set; }
     }

@@ -8,12 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="nsxt_policy.json" />
     <None Remove="nsxt_policyClient.orig" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <OpenApiReference Include="nsxt_policy.json" CodeGenerator="NSwagCSharp" />
   </ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="CaseExtensions" Version="1.1.0" />

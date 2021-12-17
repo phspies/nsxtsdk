@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRuleStatisticsListResultType : NSXTListResultType
     {
+        public NSXTRuleStatisticsListResultType()
+        {
+        }
         /// <summary>
         /// RuleStatistics list results
         /// </summary>

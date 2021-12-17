@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeServicePropertiesListResultType : NSXTListResultType
     {
+        public NSXTNodeServicePropertiesListResultType()
+        {
+        }
         /// <summary>
         /// Node service property results
         /// </summary>

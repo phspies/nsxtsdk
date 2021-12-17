@@ -199,11 +199,46 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteLicenseKeyDelete(NSXTLicenseType License)
+        public NSXTFeatureUsageListInCsvFormatType GetLicenseUsageReportInCsvFormat()
+        {
+            NSXTFeatureUsageListInCsvFormatType returnValue = default(NSXTFeatureUsageListInCsvFormatType);
+            StringBuilder GetLicenseUsageReportInCsvFormatServiceURL = new StringBuilder("/licenses/licenses-usage?format=csv");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            request.Resource = GetLicenseUsageReportInCsvFormatServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetLicenseUsageReportInCsvFormatServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTFeatureUsageListInCsvFormatType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTFeatureUsageListInCsvFormatType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public void DeleteLicenseKey(NSXTLicenseType License)
         {
             if (License == null) { throw new System.ArgumentNullException("License cannot be null"); }
             
-            StringBuilder DeleteLicenseKeyDeleteServiceURL = new StringBuilder("/licenses?action=delete");
+            StringBuilder DeleteLicenseKeyServiceURL = new StringBuilder("/licenses?action=delete");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -211,11 +246,11 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(License, defaultSerializationSettings));
-            request.Resource = DeleteLicenseKeyDeleteServiceURL.ToString();
+            request.Resource = DeleteLicenseKeyServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + DeleteLicenseKeyDeleteServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + DeleteLicenseKeyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -287,41 +322,6 @@ namespace nsxtapi.ManagerModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTLicensesListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTFeatureUsageListInCsvFormatType GetLicenseUsageReportInCsvFormatCsv()
-        {
-            NSXTFeatureUsageListInCsvFormatType returnValue = default(NSXTFeatureUsageListInCsvFormatType);
-            StringBuilder GetLicenseUsageReportInCsvFormatCsvServiceURL = new StringBuilder("/licenses/licenses-usage?format=csv");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.Resource = GetLicenseUsageReportInCsvFormatCsvServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetLicenseUsageReportInCsvFormatCsvServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFeatureUsageListInCsvFormatType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFeatureUsageListInCsvFormatType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}

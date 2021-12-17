@@ -17,12 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBgpRouteAggregationType 
     {
+        public NSXTBgpRouteAggregationType()
+        {
+            SummaryOnly = test
+        }
         /// <summary>
         /// Flag to send only summarized route
         /// </summary>
         [JsonProperty(PropertyName = "summary_only")]
         [NSXTProperty(IsRequired: false, Description: @"Flag to send only summarized route")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? SummaryOnly { get; set; }
         /// <summary>
         /// cidr of the aggregate address

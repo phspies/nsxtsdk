@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"PIM Rendezvous Point Mappings Per Edge.")]
     public class NSXTPimRpMappingsPerEdgeType 
     {
+        public NSXTPimRpMappingsPerEdgeType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

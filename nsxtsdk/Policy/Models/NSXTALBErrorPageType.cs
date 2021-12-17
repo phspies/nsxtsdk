@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer ErrorPage object")]
     public class NSXTALBErrorPageType 
     {
+        public NSXTALBErrorPageType()
+        {
+            Enable = test
+        }
         /// <summary>
         /// Index of the error page.
         /// </summary>
@@ -37,13 +41,12 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "enable")]
         [NSXTProperty(IsRequired: false, Description: @"Enable or disable the error page.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enable { get; set; }
         /// <summary>
-        /// Add match criteria for http status codes to the error page.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "match")]
-        [NSXTProperty(IsRequired: false, Description: @"Add match criteria for http status codes to the error page.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHTTPStatusMatchType Match { get; set; }
         /// <summary>
         /// Redirect sent to client when match.

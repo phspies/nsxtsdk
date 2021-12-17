@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNSAttributesDataType : NSXTManagedResourceType
     {
+        public NSXTNSAttributesDataType()
+        {
+        }
         /// <summary>
         /// Data type of attribute/sub attribute key
         /// </summary>

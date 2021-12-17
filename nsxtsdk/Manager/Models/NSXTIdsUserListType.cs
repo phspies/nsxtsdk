@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdsUserListType : NSXTListResultType
     {
+        public NSXTIdsUserListType()
+        {
+        }
         /// <summary>
         /// List of all affected users specific to a particular signature.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDnsSecurityProfileBindingMapType : NSXTProfileBindingMapType
     {
+        public NSXTDnsSecurityProfileBindingMapType()
+        {
+        }
         /// <summary>
         /// Sequence number used to resolve conflicts betweeen two profiles applied on
         /// the same group. Lower sequence number takes higher precedence. Two binding

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Represents high level logical grouping of portions or segments of a donut / stats chart.")]
     public class NSXTDonutSectionType 
     {
+        public NSXTDonutSectionType()
+        {
+        }
         /// <summary>
         /// Field of the root of the api result set for forming parts.
         /// </summary>

@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildALBHTTPPolicySetType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildALBHTTPPolicySetType()
+        {
+        }
         /// <summary>
-        /// Contains the actual ALBHTTPPolicySet object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ALBHTTPPolicySet", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual ALBHTTPPolicySet object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBHTTPPolicySetType ALBHTTPPolicySet { get; set; }
     }

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTContainerClusterNodeType : NSXTDiscoveredResourceType
     {
+        public NSXTContainerClusterNodeType()
+        {
+        }
         /// <summary>
         /// Network status of container cluster node.
         /// </summary>
@@ -24,11 +27,19 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Network status of container cluster node.")]
         public NSXTContainerClusterNodeNetworkStatusEnumType? NetworkStatus { get; set; }
         /// <summary>
-        /// External identifier of the container cluster.
+        /// Specifies identifier of container cluster node given by infrastructure provider
+        /// of container cluster. e.g. in case of vSpehere, it will be instance uuid of worker
+        /// node virtual machine.
         /// </summary>
-        [JsonProperty(PropertyName = "container_cluster_id")]
-        [NSXTProperty(IsRequired: false, Description: @"External identifier of the container cluster.")]
-        public string? ContainerClusterId { get; set; }
+        [JsonProperty(PropertyName = "provider_id")]
+        [NSXTProperty(IsRequired: false, Description: @"Specifies identifier of container cluster node given by infrastructure providerof container cluster. e.g. in case of vSpehere, it will be instance uuid of workernode virtual machine.")]
+        public string? ProviderId { get; set; }
+        /// <summary>
+        /// Specifies Container Network Interface agent status of container cluster node.
+        /// </summary>
+        [JsonProperty(PropertyName = "cni_agent_status")]
+        [NSXTProperty(IsRequired: false, Description: @"Specifies Container Network Interface agent status of container cluster node.")]
+        public NSXTContainerClusterNodeCniAgentStatusEnumType? CniAgentStatus { get; set; }
         /// <summary>
         /// List of IP addresses of container cluster node.
         /// </summary>
@@ -49,6 +60,12 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: true, Description: @"External identifier of the container cluster node in K8S/PAS.")]
         [System.ComponentModel.DataAnnotations.Required]
         public string ExternalId { get; set; }
+        /// <summary>
+        /// External identifier of the container cluster.
+        /// </summary>
+        [JsonProperty(PropertyName = "container_cluster_id")]
+        [NSXTProperty(IsRequired: false, Description: @"External identifier of the container cluster.")]
+        public string? ContainerClusterId { get; set; }
         /// <summary>
         /// List of network errors related to container cluster node.
         /// </summary>

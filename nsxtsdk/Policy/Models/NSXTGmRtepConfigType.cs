@@ -18,6 +18,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Global Manager federation RTEP configuration. This configuration is distributedto all Sites participating in federation.")]
     public class NSXTGmRtepConfigType 
     {
+        public NSXTGmRtepConfigType()
+        {
+        }
         /// <summary>
         /// Password to authenticate IBGP session between remote tunnel endpoints
         /// created on federated sites. This is applied to inter-site underlay

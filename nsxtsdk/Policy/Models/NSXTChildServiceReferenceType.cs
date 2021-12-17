@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildServiceReferenceType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildServiceReferenceType()
+        {
+        }
         /// <summary>
-        /// Contains actual ServiceReference.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ServiceReference", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains actual ServiceReference.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTServiceReferenceType ServiceReference { get; set; }
     }

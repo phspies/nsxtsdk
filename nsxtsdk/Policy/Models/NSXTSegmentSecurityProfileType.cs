@@ -17,12 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSegmentSecurityProfileType : NSXTPolicyConfigResourceType
     {
+        public NSXTSegmentSecurityProfileType()
+        {
+            BpduFilterEnable = test
+            DhcpServerBlockEnabled = test
+            DhcpServerBlockV6Enabled = test
+        }
         /// <summary>
         /// Indicates whether BPDU filter is enabled. BPDU filtering is enabled by default.
         /// </summary>
         [JsonProperty(PropertyName = "bpdu_filter_enable")]
         [NSXTProperty(IsRequired: false, Description: @"Indicates whether BPDU filter is enabled. BPDU filtering is enabled by default.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? BpduFilterEnable { get; set; }
         /// <summary>
         /// Enable or disable Router Advertisement Guard.
@@ -63,7 +68,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "dhcp_server_block_enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Filters DHCP server and/or client traffic. DHCP serverblocking is enabled and client blocking is disabled by default.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? DhcpServerBlockEnabled { get; set; }
         /// <summary>
         /// Enable or disable Rate Limits
@@ -72,10 +76,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Enable or disable Rate Limits")]
         public bool? RateLimitsEnabled { get; set; }
         /// <summary>
-        /// Allows configuration of rate limits for broadcast and multicast traffic. Rate limiting is disabled by default
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "rate_limits")]
-        [NSXTProperty(IsRequired: false, Description: @"Allows configuration of rate limits for broadcast and multicast traffic. Rate limiting is disabled by default")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTTrafficRateLimitsType RateLimits { get; set; }
         /// <summary>
         /// Filters DHCP server and/or client traffic. DHCP server
@@ -90,7 +94,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "dhcp_server_block_v6_enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Filters DHCP server and/or client IPv6 traffic. DHCP serverblocking is enabled and client blocking is disabled by default.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? DhcpServerBlockV6Enabled { get; set; }
     }
 }

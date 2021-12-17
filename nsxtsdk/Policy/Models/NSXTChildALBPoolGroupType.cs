@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildALBPoolGroupType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildALBPoolGroupType()
+        {
+        }
         /// <summary>
-        /// Contains the actual ALBPoolGroup object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ALBPoolGroup", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual ALBPoolGroup object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBPoolGroupType ALBPoolGroup { get; set; }
     }

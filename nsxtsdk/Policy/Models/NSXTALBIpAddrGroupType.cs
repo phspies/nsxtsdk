@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBIpAddrGroupType : NSXTPolicyConfigResourceType
     {
+        public NSXTALBIpAddrGroupType()
+        {
+        }
         /// <summary>
         /// Configure IP address range(s).
         /// </summary>
@@ -29,6 +32,12 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "prefixes")]
         [NSXTProperty(IsRequired: false, Description: @"Configure IP address prefix(es).")]
         public IList<NSXTALBIpAddrPrefixType> Prefixes { get; set; }
+        /// <summary>
+        /// Configure (IP address, port) tuple(s).
+        /// </summary>
+        [JsonProperty(PropertyName = "ip_ports")]
+        [NSXTProperty(IsRequired: false, Description: @"Configure (IP address, port) tuple(s).")]
+        public IList<NSXTALBIpAddrPortType> IpPorts { get; set; }
         /// <summary>
         /// Populate IP addresses from tasks of this Marathon app.
         /// </summary>
@@ -58,11 +67,13 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Task port associated with marathon service port.If Marathon app has multiple service ports, this isrequired.Else, the first task port is used.")]
         public long? MarathonServicePort { get; set; }
         /// <summary>
-        /// Configure (IP address, port) tuple(s).
+        /// List of labels to be used for granular RBAC.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
         /// </summary>
-        [JsonProperty(PropertyName = "ip_ports")]
-        [NSXTProperty(IsRequired: false, Description: @"Configure (IP address, port) tuple(s).")]
-        public IList<NSXTALBIpAddrPortType> IpPorts { get; set; }
+        [JsonProperty(PropertyName = "markers")]
+        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
+        public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
         /// <summary>
         /// Populate IP addresses from members of this Cisco APIC EPG.
         /// </summary>

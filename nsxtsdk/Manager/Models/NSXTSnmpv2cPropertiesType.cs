@@ -18,6 +18,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"This object contains list of SNMP v2c communities used to poll NSX nodes over SNMP and list of SNMP v2c targets used to receive SNMP traps/notifications from NSX nodes.")]
     public class NSXTSnmpv2cPropertiesType 
     {
+        public NSXTSnmpv2cPropertiesType()
+        {
+        }
         /// <summary>
         /// List of SNMP v2c communities allowed to poll NSX nodes over SNMP v2c.
         /// </summary>

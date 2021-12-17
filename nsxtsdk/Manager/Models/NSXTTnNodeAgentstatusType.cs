@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTnNodeAgentstatusType 
     {
+        public NSXTTnNodeAgentstatusType()
+        {
+        }
         /// <summary>
         /// Show the Node Agent connected VM vif status.
         /// </summary>

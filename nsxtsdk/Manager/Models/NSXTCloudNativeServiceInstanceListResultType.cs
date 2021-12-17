@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTCloudNativeServiceInstanceListResultType : NSXTListResultType
     {
+        public NSXTCloudNativeServiceInstanceListResultType()
+        {
+        }
         /// <summary>
         /// List of cloud native service instances
         /// </summary>

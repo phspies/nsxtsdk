@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildBgpRoutingConfigType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildBgpRoutingConfigType()
+        {
+        }
         /// <summary>
-        /// Contains the actual BgpRoutingConfig object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "BgpRoutingConfig", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual BgpRoutingConfig object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTBgpRoutingConfigType BgpRoutingConfig { get; set; }
     }

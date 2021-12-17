@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyTransportZoneListResultType : NSXTListResultType
     {
+        public NSXTPolicyTransportZoneListResultType()
+        {
+        }
         /// <summary>
         /// Transport Zone list result.
         /// </summary>

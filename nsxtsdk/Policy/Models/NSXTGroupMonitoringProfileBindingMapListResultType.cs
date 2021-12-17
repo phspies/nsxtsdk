@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTGroupMonitoringProfileBindingMapListResultType : NSXTListResultType
     {
+        public NSXTGroupMonitoringProfileBindingMapListResultType()
+        {
+        }
         /// <summary>
         /// Group Monitoring Profile Binding Map list results
         /// </summary>

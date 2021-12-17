@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Status for IPSec VPN IKE session UP, DOWN, NEGOTIATING and fail reason if IKE session is down.")]
     public class NSXTIPSecVPNIKESessionStatusType 
     {
+        public NSXTIPSecVPNIKESessionStatusType()
+        {
+        }
         /// <summary>
         /// Transport Node identifier where session is present.
         /// </summary>

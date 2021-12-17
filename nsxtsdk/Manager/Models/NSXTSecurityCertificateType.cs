@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSecurityCertificateType 
     {
+        public NSXTSecurityCertificateType()
+        {
+        }
         /// <summary>
         /// X.509 certificate in text form
         /// </summary>

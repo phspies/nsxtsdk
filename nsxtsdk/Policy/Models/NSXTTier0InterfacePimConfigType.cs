@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Multicast PIM configuration.")]
     public class NSXTTier0InterfacePimConfigType 
     {
+        public NSXTTier0InterfacePimConfigType()
+        {
+            HelloInterval = test
+        }
         /// <summary>
         /// PIM hold interval(seconds) at interface level.
         /// </summary>
@@ -24,7 +28,7 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"PIM hold interval(seconds) at interface level.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(630)]
-        public long? HoldInterval { get; set; }
+        public int? HoldInterval { get; set; }
         /// <summary>
         /// enable/disable PIM configuration.
         /// </summary>
@@ -38,7 +42,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"PIM hello interval(seconds) at interface level.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(180)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? HelloInterval { get; set; }
+        public int? HelloInterval { get; set; }
     }
 }

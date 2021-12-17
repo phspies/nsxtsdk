@@ -17,11 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"A list of fields to include in query results")]
     public class NSXTIncludedFieldsParametersType 
     {
+        public NSXTIncludedFieldsParametersType()
+        {
+        }
         /// <summary>
-        /// Comma separated list of fields that should be included in query result
+        /// Note - this parameter currently only works when used with the search APIs /policy/api/v1/search/query and
+        /// /policy/api/v1/search/dsl. It is ignored for other list APIs.
         /// </summary>
         [JsonProperty(PropertyName = "included_fields")]
-        [NSXTProperty(IsRequired: false, Description: @"Comma separated list of fields that should be included in query result")]
+        [NSXTProperty(IsRequired: false, Description: @"Note - this parameter currently only works when used with the search APIs /policy/api/v1/search/query and /policy/api/v1/search/dsl. It is ignored for other list APIs.")]
         public string? IncludedFields { get; set; }
     }
 }

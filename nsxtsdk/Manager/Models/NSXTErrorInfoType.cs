@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Error information")]
     public class NSXTErrorInfoType 
     {
+        public NSXTErrorInfoType()
+        {
+        }
         /// <summary>
         /// Timestamp when the error occurred
         /// </summary>

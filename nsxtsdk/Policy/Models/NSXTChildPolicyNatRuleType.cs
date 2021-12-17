@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildPolicyNatRuleType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildPolicyNatRuleType()
+        {
+        }
         /// <summary>
-        /// Contains the actual PolicyNatRule object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "PolicyNatRule", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual PolicyNatRule object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTPolicyNatRuleType PolicyNatRule { get; set; }
     }

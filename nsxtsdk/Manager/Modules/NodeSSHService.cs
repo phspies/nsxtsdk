@@ -302,21 +302,21 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeServiceStatusPropertiesType CreateSshserviceActionNotifyMpaRestart()
+        public NSXTNodeServiceStatusPropertiesType CreateSshserviceActionNotifyMpaStart()
         {
             NSXTNodeServiceStatusPropertiesType returnValue = default(NSXTNodeServiceStatusPropertiesType);
-            StringBuilder CreateSshserviceActionNotifyMpaRestartServiceURL = new StringBuilder("/node/services/ssh/notify_mpa?action=restart");
+            StringBuilder CreateSshserviceActionNotifyMpaStartServiceURL = new StringBuilder("/node/services/ssh/notify_mpa?action=start");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            request.Resource = CreateSshserviceActionNotifyMpaRestartServiceURL.ToString();
+            request.Resource = CreateSshserviceActionNotifyMpaStartServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + CreateSshserviceActionNotifyMpaRestartServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + CreateSshserviceActionNotifyMpaStartServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -337,21 +337,21 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeServiceStatusPropertiesType CreateSshserviceActionNotifyMpaStart()
+        public NSXTNodeServiceStatusPropertiesType CreateSshserviceActionNotifyMpaRestart()
         {
             NSXTNodeServiceStatusPropertiesType returnValue = default(NSXTNodeServiceStatusPropertiesType);
-            StringBuilder CreateSshserviceActionNotifyMpaStartServiceURL = new StringBuilder("/node/services/ssh/notify_mpa?action=start");
+            StringBuilder CreateSshserviceActionNotifyMpaRestartServiceURL = new StringBuilder("/node/services/ssh/notify_mpa?action=restart");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            request.Resource = CreateSshserviceActionNotifyMpaStartServiceURL.ToString();
+            request.Resource = CreateSshserviceActionNotifyMpaRestartServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + CreateSshserviceActionNotifyMpaStartServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + CreateSshserviceActionNotifyMpaRestartServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else

@@ -17,6 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTBfdProfileType : NSXTPolicyConfigResourceType
     {
+        public NSXTBfdProfileType()
+        {
+            Interval = test
+            Multiple = test
+        }
         /// <summary>
         /// Time interval between heartbeat packets in milliseconds.
         /// </summary>
@@ -24,8 +29,7 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Time interval between heartbeat packets in milliseconds.")]
         //[System.ComponentModel.DataAnnotations.MinLength(50)]
         //[System.ComponentModel.DataAnnotations.MaxLength(60000)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? Interval { get; set; }
+        public int? Interval { get; set; }
         /// <summary>
         /// Declare dead multiple.
         /// Number of times heartbeat packet is missed before BFD declares the
@@ -35,7 +39,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Declare dead multiple.Number of times heartbeat packet is missed before BFD declares theneighbor is down.")]
         //[System.ComponentModel.DataAnnotations.MinLength(2)]
         //[System.ComponentModel.DataAnnotations.MaxLength(16)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? Multiple { get; set; }
+        public int? Multiple { get; set; }
     }
 }

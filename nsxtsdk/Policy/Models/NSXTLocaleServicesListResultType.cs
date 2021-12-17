@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLocaleServicesListResultType : NSXTListResultType
     {
+        public NSXTLocaleServicesListResultType()
+        {
+        }
         /// <summary>
         /// LocaleServices results
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsAttacks object")]
     public class NSXTALBDnsAttacksType 
     {
+        public NSXTALBDnsAttacksType()
+        {
+        }
         /// <summary>
         /// Mode of dealing with the attacks - perform detection only,
         /// or detect and mitigate the attacks.

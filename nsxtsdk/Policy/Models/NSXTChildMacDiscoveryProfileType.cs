@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildMacDiscoveryProfileType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildMacDiscoveryProfileType()
+        {
+        }
         /// <summary>
-        /// Contains the actual MacDiscoveryProfile object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "MacDiscoveryProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual MacDiscoveryProfile object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTMacDiscoveryProfileType MacDiscoveryProfile { get; set; }
     }

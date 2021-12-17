@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTL2VpnPeerCodesType : NSXTL2VpnPeerConfigPerEnforcementPointType
     {
+        public NSXTL2VpnPeerCodesType()
+        {
+        }
         /// <summary>
         /// List of peer codes per transport tunnel.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Node system time in UTC")]
     public class NSXTNodeTimeType 
     {
+        public NSXTNodeTimeType()
+        {
+        }
         /// <summary>
         /// Datetime string in UTC
         /// </summary>

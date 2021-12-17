@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyServiceProfileType : NSXTPolicyConfigResourceType
     {
+        public NSXTPolicyServiceProfileType()
+        {
+        }
         /// <summary>
         /// The vendor template key property of actual vendor template. This should be used when multiple templates with same name
         /// exist.

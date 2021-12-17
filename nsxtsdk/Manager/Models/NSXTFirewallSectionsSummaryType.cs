@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFirewallSectionsSummaryType : NSXTResourceType
     {
+        public NSXTFirewallSectionsSummaryType()
+        {
+        }
         /// <summary>
         /// Total number of sections for the section type.
         /// </summary>

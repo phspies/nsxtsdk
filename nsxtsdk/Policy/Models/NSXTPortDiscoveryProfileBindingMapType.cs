@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPortDiscoveryProfileBindingMapType : NSXTDiscoveryProfileBindingMapType
     {
+        public NSXTPortDiscoveryProfileBindingMapType()
+        {
+        }
         /// <summary>
         /// PolicyPath of associated IP Discovery Profile
         /// </summary>

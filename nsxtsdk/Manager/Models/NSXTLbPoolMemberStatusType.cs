@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbPoolMemberStatusType 
     {
+        public NSXTLbPoolMemberStatusType()
+        {
+        }
         /// <summary>
         /// UP means that pool member is enabled and monitors have marked the pool
         /// member as UP. If the pool member has no monitor configured, it would

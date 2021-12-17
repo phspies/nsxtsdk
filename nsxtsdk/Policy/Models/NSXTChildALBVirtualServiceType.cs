@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildALBVirtualServiceType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildALBVirtualServiceType()
+        {
+        }
         /// <summary>
-        /// Contains the actual ALBVirtualService object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ALBVirtualService", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual ALBVirtualService object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBVirtualServiceType ALBVirtualService { get; set; }
     }

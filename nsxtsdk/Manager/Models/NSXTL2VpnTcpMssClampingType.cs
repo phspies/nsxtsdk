@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"TCP MSS Clamping Direction and value for L2VPN session.")]
     public class NSXTL2VpnTcpMssClampingType 
     {
+        public NSXTL2VpnTcpMssClampingType()
+        {
+            Direction = test
+        }
         /// <summary>
         /// It defines the maximum amount of data that a host is willing to accept in a single TCP segment. This field is set in TCP
         /// header during connection establishment. To avoid packet fragmentation, you can set this field depending on uplink MTU
@@ -33,7 +37,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "direction")]
         [NSXTProperty(IsRequired: false, Description: @"Specifies the traffic direction for which to apply MSS Clamping. If direction is None, the feature is disabled.")]
-        [NSXTDefaultProperty(Default: "BOTH")]
         public NSXTL2VpnTcpMssClampingDirectionEnumType? Direction { get; set; }
     }
 }

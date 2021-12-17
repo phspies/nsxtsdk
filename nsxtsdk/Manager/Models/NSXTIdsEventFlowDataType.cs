@@ -21,6 +21,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"IDS event flow data specific to each IDSevent. The data includes source ip, sourceport, destination ip, destination port,protocol, rule id, profile id, and theaction.")]
     public class NSXTIdsEventFlowDataType 
     {
+        public NSXTIdsEventFlowDataType()
+        {
+        }
         /// <summary>
         /// IP address of the destination VM on the intrusion flow.
         /// </summary>

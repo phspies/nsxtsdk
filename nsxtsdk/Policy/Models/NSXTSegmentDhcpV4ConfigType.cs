@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSegmentDhcpV4ConfigType : NSXTSegmentDhcpConfigType
     {
+        public NSXTSegmentDhcpV4ConfigType()
+        {
+        }
         /// <summary>
-        /// IPv4 DHCP options for segment subnet.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "options")]
-        [NSXTProperty(IsRequired: false, Description: @"IPv4 DHCP options for segment subnet.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTDhcpV4OptionsType Options { get; set; }
     }
 }

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyTransportZoneType : NSXTPolicyConfigResourceType
     {
+        public NSXTPolicyTransportZoneType()
+        {
+        }
         /// <summary>
         /// Flag to indicate if the transport zone is the default one. Only one
         /// transport zone can be the default one for a given transport zone type.
@@ -25,17 +28,41 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Flag to indicate if the transport zone is the default one. Only onetransport zone can be the default one for a given transport zone type.")]
         public bool? IsDefault { get; set; }
         /// <summary>
-        /// Transport Zone Type.
+        /// Transport Zone Traffic type. OVERLAY_STANDARD and OVERLAY_ENS are deprecated.
+        /// STANDARD, ENS and ENS_INTERRUPT are hostSwitch modes and same can be given in HostTransportNode.HostSwitchSpec.
         /// </summary>
         [JsonProperty(PropertyName = "tz_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Transport Zone Type.")]
+        [NSXTProperty(IsRequired: false, Description: @"Transport Zone Traffic type. OVERLAY_STANDARD and OVERLAY_ENS are deprecated.STANDARD, ENS and ENS_INTERRUPT are hostSwitch modes and same can be given in HostTransportNode.HostSwitchSpec.")]
         public NSXTPolicyTransportZoneTzTypeEnumType? TzType { get; set; }
+        /// <summary>
+        /// Policy Transport Zone Profile paths
+        /// </summary>
+        [JsonProperty(PropertyName = "transport_zone_profile_paths")]
+        [NSXTProperty(IsRequired: false, Description: @"Policy Transport Zone Profile paths")]
+        public IList<string> TransportZoneProfilePaths { get; set; }
+        /// <summary>
+        /// This field is populated only if the transport zone was created by NSX system to support security on vSphere Distributed
+        /// Switch (vDS). The origin_id will refer to the identifier of corresponding vDS from it's parent vCenter server.
+        /// </summary>
+        [JsonProperty(PropertyName = "origin_id")]
+        [NSXTProperty(IsRequired: false, Description: @"This field is populated only if the transport zone was created by NSX system to support security on vSphere Distributed Switch (vDS). The origin_id will refer to the identifier of corresponding vDS from it&apos;s parent vCenter server.")]
+        public string? OriginId { get; set; }
         /// <summary>
         /// UUID of transport zone on NSX-T enforcement point.
         /// </summary>
         [JsonProperty(PropertyName = "nsx_id")]
         [NSXTProperty(IsRequired: false, Description: @"UUID of transport zone on NSX-T enforcement point.")]
         public string? NsxId { get; set; }
+        /// <summary>
+        /// This flag should be set to true in nested NSX environment. When the "allow_changing_vdr_mac_in_use" property in the
+        /// global config object RoutingGlobalConfig is false, this flag can not be changed if this transport zone is OVERLAY and
+        /// the change will make any transport node in this transport zone to change the VDR MAC used in any host switch. When this
+        /// flag is true and this transport zone is OVERLAY, all host switches in this transport zone will use the VDR MAC in the
+        /// "vdr_mac_nested" property in the global config object RoutingGlobalConfig.
+        /// </summary>
+        [JsonProperty(PropertyName = "nested_nsx")]
+        [NSXTProperty(IsRequired: false, Description: @"This flag should be set to true in nested NSX environment. When the &quot;allow_changing_vdr_mac_in_use&quot; property in the global config object RoutingGlobalConfig is false, this flag can not be changed if this transport zone is OVERLAY and the change will make any transport node in this transport zone to change the VDR MAC used in any host switch. When this flag is true and this transport zone is OVERLAY, all host switches in this transport zone will use the VDR MAC in the &quot;vdr_mac_nested&quot; property in the global config object RoutingGlobalConfig.")]
+        public bool? NestedNsx { get; set; }
         /// <summary>
         /// The names of switching uplink teaming policies that all transport nodes in this transport zone support. Uplinkin teaming
         /// policies are only valid for VLAN backed transport zones.

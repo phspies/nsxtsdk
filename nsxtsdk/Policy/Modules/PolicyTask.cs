@@ -30,56 +30,21 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTExportTaskType GlobalCancelExportTaskCancel()
-        {
-            NSXTExportTaskType returnValue = default(NSXTExportTaskType);
-            StringBuilder CancelExportTaskCancelServiceURL = new StringBuilder("/global-infra/settings/firewall/export?action=cancel");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.POST
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.Resource = CancelExportTaskCancelServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP POST operation to " + CancelExportTaskCancelServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTExportTaskType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTExportTaskType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTImportTaskType CancelImportTaskCancel()
+        public NSXTImportTaskType CancelImportTask()
         {
             NSXTImportTaskType returnValue = default(NSXTImportTaskType);
-            StringBuilder CancelImportTaskCancelServiceURL = new StringBuilder("/infra/settings/firewall/import?action=cancel");
+            StringBuilder CancelImportTaskServiceURL = new StringBuilder("/infra/settings/firewall/import?action=cancel");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            request.Resource = CancelImportTaskCancelServiceURL.ToString();
+            request.Resource = CancelImportTaskServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + CancelImportTaskCancelServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + CancelImportTaskServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -172,116 +137,21 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DownloadExportedFileDownload()
+        public void DownloadExportedFile()
         {
             
-            StringBuilder DownloadExportedFileDownloadServiceURL = new StringBuilder("/infra/settings/firewall/export?action=download");
+            StringBuilder DownloadExportedFileServiceURL = new StringBuilder("/infra/settings/firewall/export?action=download");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            request.Resource = DownloadExportedFileDownloadServiceURL.ToString();
+            request.Resource = DownloadExportedFileServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + DownloadExportedFileDownloadServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTExportTaskType GlobalInvokeExportTask(NSXTExportRequestParameterType ExportRequestParameter)
-        {
-            if (ExportRequestParameter == null) { throw new System.ArgumentNullException("ExportRequestParameter cannot be null"); }
-            NSXTExportTaskType returnValue = default(NSXTExportTaskType);
-            StringBuilder InvokeExportTaskServiceURL = new StringBuilder("/global-infra/settings/firewall/export");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.POST
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.AddJsonBody(JsonConvert.SerializeObject(ExportRequestParameter, defaultSerializationSettings));
-            request.Resource = InvokeExportTaskServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP POST operation to " + InvokeExportTaskServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTExportTaskType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTExportTaskType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTExportTaskType GlobalGetExportTask()
-        {
-            NSXTExportTaskType returnValue = default(NSXTExportTaskType);
-            StringBuilder GetExportTaskServiceURL = new StringBuilder("/global-infra/settings/firewall/export");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.Resource = GetExportTaskServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetExportTaskServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTExportTaskType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTExportTaskType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDownloadExportedFileDownload()
-        {
-            
-            StringBuilder DownloadExportedFileDownloadServiceURL = new StringBuilder("/global-infra/settings/firewall/export?action=download");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.Resource = DownloadExportedFileDownloadServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + DownloadExportedFileDownloadServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + DownloadExportedFileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -325,56 +195,21 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTImportTaskType GlobalCancelImportTaskCancel()
-        {
-            NSXTImportTaskType returnValue = default(NSXTImportTaskType);
-            StringBuilder CancelImportTaskCancelServiceURL = new StringBuilder("/global-infra/settings/firewall/import?action=cancel");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.POST
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.Resource = CancelImportTaskCancelServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP POST operation to " + CancelImportTaskCancelServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTImportTaskType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTImportTaskType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTExportTaskType CancelExportTaskCancel()
+        public NSXTExportTaskType CancelExportTask()
         {
             NSXTExportTaskType returnValue = default(NSXTExportTaskType);
-            StringBuilder CancelExportTaskCancelServiceURL = new StringBuilder("/infra/settings/firewall/export?action=cancel");
+            StringBuilder CancelExportTaskServiceURL = new StringBuilder("/infra/settings/firewall/export?action=cancel");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            request.Resource = CancelExportTaskCancelServiceURL.ToString();
+            request.Resource = CancelExportTaskServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + CancelExportTaskCancelServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + CancelExportTaskServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -386,41 +221,6 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTExportTaskType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTImportTaskType GlobalGetImportTask()
-        {
-            NSXTImportTaskType returnValue = default(NSXTImportTaskType);
-            StringBuilder GetImportTaskServiceURL = new StringBuilder("/global-infra/settings/firewall/import");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.Resource = GetImportTaskServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetImportTaskServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTImportTaskType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTImportTaskType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}

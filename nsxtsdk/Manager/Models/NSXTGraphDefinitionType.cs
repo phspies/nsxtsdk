@@ -17,19 +17,27 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Defines a graph")]
     public class NSXTGraphDefinitionType 
     {
+        public NSXTGraphDefinitionType()
+        {
+        }
         /// <summary>
-        /// Defines the points of a graph.
+        /// An expression that represents the series of the graph
+        /// </summary>
+        [JsonProperty(PropertyName = "row_list_field")]
+        [NSXTProperty(IsRequired: false, Description: @"An expression that represents the series of the graph")]
+        public string? RowListField { get; set; }
+        /// <summary>
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "point_definition", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Defines the points of a graph.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTPointDefinitionType PointDefinition { get; set; }
         /// <summary>
-        /// Describes the graph. It labels the entities of graph. If the label is not provided then it is not shown for a graph. For
-        /// example, for a single graph, the title of widget can describe the graph and a label may not be necessary to be shown.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "label")]
-        [NSXTProperty(IsRequired: false, Description: @"Describes the graph. It labels the entities of graph. If the label is not provided then it is not shown for a graph. For example, for a single graph, the title of widget can describe the graph and a label may not be necessary to be shown.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLabelType Label { get; set; }
         /// <summary>
         /// Identifier of graph. It can be used to differentiate multiple graph series present in GraphWidgetConfiguration.

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTNestedServiceServiceEntryType : NSXTServiceEntryType
     {
+        public NSXTNestedServiceServiceEntryType()
+        {
+        }
         /// <summary>
         /// path of nested service
         /// </summary>

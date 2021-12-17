@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNSServiceGroupListResultType : NSXTListResultType
     {
+        public NSXTNSServiceGroupListResultType()
+        {
+        }
         /// <summary>
         /// Paged collection of NSServiceGroups
         /// </summary>

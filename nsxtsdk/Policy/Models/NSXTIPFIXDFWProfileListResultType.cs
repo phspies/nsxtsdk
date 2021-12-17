@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPFIXDFWProfileListResultType : NSXTListResultType
     {
+        public NSXTIPFIXDFWProfileListResultType()
+        {
+        }
         /// <summary>
         /// IPFIX DFW Profile list results
         /// </summary>

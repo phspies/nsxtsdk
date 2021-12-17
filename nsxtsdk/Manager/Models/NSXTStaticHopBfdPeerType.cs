@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTStaticHopBfdPeerType : NSXTManagedResourceType
     {
+        public NSXTStaticHopBfdPeerType()
+        {
+            Enabled = test
+        }
         /// <summary>
         /// BFD peers will be created from all these source addresses to this neighbour.
         /// </summary>
@@ -24,17 +28,16 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"BFD peers will be created from all these source addresses to this neighbour.")]
         public IList<string> SourceAddresses { get; set; }
         /// <summary>
-        /// If not specified then BFD peer will inherit configuration from the BFD global config.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "bfd_config")]
-        [NSXTProperty(IsRequired: false, Description: @"If not specified then BFD peer will inherit configuration from the BFD global config.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTBfdConfigParametersType BfdConfig { get; set; }
         /// <summary>
         /// Indicate BFD peer is enabled or disabled. Default is true.
         /// </summary>
         [JsonProperty(PropertyName = "enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Indicate BFD peer is enabled or disabled. Default is true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// IP address of BFD peer. This should be same as next hop IP address.

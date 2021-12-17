@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Describes plugin status on node")]
     public class NSXTPluginStatusType 
     {
+        public NSXTPluginStatusType()
+        {
+        }
         /// <summary>
         /// Plugin status.
         /// </summary>

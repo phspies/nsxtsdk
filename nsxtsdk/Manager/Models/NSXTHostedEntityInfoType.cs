@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTHostedEntityInfoType 
     {
+        public NSXTHostedEntityInfoType()
+        {
+        }
         /// <summary>
         /// Unique identifier of entity
         /// </summary>

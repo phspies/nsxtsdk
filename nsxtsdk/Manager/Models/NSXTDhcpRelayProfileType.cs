@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpRelayProfileType : NSXTManagedResourceType
     {
+        public NSXTDhcpRelayProfileType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

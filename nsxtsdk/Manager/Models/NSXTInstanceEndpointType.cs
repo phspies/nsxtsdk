@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTInstanceEndpointType : NSXTManagedResourceType
     {
+        public NSXTInstanceEndpointType()
+        {
+            EndpointType = test
+        }
         /// <summary>
         /// Id(s) of the Service Attachment where this enndpoint is connected to. Service Attachment is mandatory for LOGICAL
         /// Instance Endpoint.
@@ -40,7 +44,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "endpoint_type")]
         [NSXTProperty(IsRequired: false, Description: @"LOGICAL - It must be created with a ServiceAttachment and identifies a destination connected to the Service Port of the ServiceAttachment, through the ServiceAttachment&apos;s Logical Switch. VIRTUAL - It represents a L3 destination the router can route to but does not provide any further information about its location in the network. Virtual InstanceEndpoints are used for redirection targets that are not connected to Service Ports, such as the next-hop routers on the Edge uplinks.")]
-        [NSXTDefaultProperty(Default: "LOGICAL")]
         public NSXTInstanceEndpointEndpointTypeEnumType? EndpointType { get; set; }
         /// <summary>
         /// The Service instancee with which the instance endpoint is associated.

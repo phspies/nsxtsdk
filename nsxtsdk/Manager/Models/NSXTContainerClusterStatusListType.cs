@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTContainerClusterStatusListType : NSXTListResultType
     {
+        public NSXTContainerClusterStatusListType()
+        {
+        }
         /// <summary>
         /// Container cluster list.
         /// </summary>

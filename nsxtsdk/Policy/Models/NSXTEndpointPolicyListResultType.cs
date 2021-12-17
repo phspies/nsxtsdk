@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTEndpointPolicyListResultType : NSXTListResultType
     {
+        public NSXTEndpointPolicyListResultType()
+        {
+        }
         /// <summary>
         /// Guest Introspection Map list results
         /// </summary>

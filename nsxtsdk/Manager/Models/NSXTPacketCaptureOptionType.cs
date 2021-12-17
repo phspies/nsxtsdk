@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"The option is used to filter data on given node.")]
     public class NSXTPacketCaptureOptionType 
     {
+        public NSXTPacketCaptureOptionType()
+        {
+        }
         /// <summary>
         /// The avaiable option names in the enum can be used to filter the capture data.
         /// </summary>

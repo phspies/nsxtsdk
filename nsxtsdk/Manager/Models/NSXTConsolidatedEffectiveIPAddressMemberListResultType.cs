@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTConsolidatedEffectiveIPAddressMemberListResultType : NSXTListResultType
     {
+        public NSXTConsolidatedEffectiveIPAddressMemberListResultType()
+        {
+        }
         /// <summary>
         /// Paged Collection of site wise consolidated effective ip addresses for the given NSGroup
         /// </summary>

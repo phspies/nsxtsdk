@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"IKE session traffic summary provides IKE session status and aggregate of traffic across all tunnel.")]
     public class NSXTIPSecVPNSessionStatusType 
     {
+        public NSXTIPSecVPNSessionStatusType()
+        {
+        }
         /// <summary>
         /// UUID of vpn session.
         /// </summary>
@@ -55,16 +58,16 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Timestamp when the data was last updated.")]
         public long? LastUpdateTimestamp { get; set; }
         /// <summary>
-        /// Aggregate traffic statistics across all ipsec tunnels.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "aggregate_traffic_counters")]
-        [NSXTProperty(IsRequired: false, Description: @"Aggregate traffic statistics across all ipsec tunnels.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPSecVPNTrafficCountersType AggregateTrafficCounters { get; set; }
         /// <summary>
-        /// Status for IPSec VPN IKE session UP/DOWN and fail reason if IKE session is down.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ike_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Status for IPSec VPN IKE session UP/DOWN and fail reason if IKE session is down.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPSecVPNIKESessionStatusType IkeStatus { get; set; }
         /// <summary>
         /// Total number of tunnels.

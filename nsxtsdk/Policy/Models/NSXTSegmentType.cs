@@ -17,6 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSegmentType : NSXTPolicyConfigResourceType
     {
+        public NSXTSegmentType()
+        {
+            AdminState = test
+            ReplicationMode = test
+        }
         /// <summary>
         /// Subnet configuration. Max 1 subnet
         /// </summary>
@@ -41,10 +46,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"This property could be used for vendor specific configuration in key valuestring pairs, the setting in extra_configs will be automatically inherittedby segment ports in the Segment.")]
         public IList<NSXTSegmentExtraConfigType> ExtraConfigs { get; set; }
         /// <summary>
-        /// Advanced configuration for Segment.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "advanced_config")]
-        [NSXTProperty(IsRequired: false, Description: @"Advanced configuration for Segment.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTSegmentAdvancedConfigType AdvancedConfig { get; set; }
         /// <summary>
         /// Static address binding used for the Segment. This field is deprecated and will be removed in a future release. Please
@@ -54,10 +59,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Static address binding used for the Segment. This field is deprecated and will be removed in a future release. Please use address_bindings in SegmentPort to configure static bindings.")]
         public IList<NSXTPortAddressBindingEntryType> AddressBindings { get; set; }
         /// <summary>
-        /// Additional config for federation.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "federation_config")]
-        [NSXTProperty(IsRequired: false, Description: @"Additional config for federation.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTFederationConnectivityConfigType FederationConfig { get; set; }
         /// <summary>
         /// Policy path to the EvpnTenantConfig resource. Supported only for Route-Server Evpn Mode.
@@ -102,7 +107,7 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Used for overlay connectivity of segments. The overlay_idshould be allocated from the pool as definied by enforcement-point.If not provided, it is auto-allocated from the default pool on theenforcement-point.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
-        public long? OverlayId { get; set; }
+        public int? OverlayId { get; set; }
         /// <summary>
         /// Policy path to DHCP server or relay configuration to use for all
         /// IPv4 & IPv6 subnets configured on this segment.
@@ -126,11 +131,11 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Flag to indicate if the Segment is a Child-Segment of type EVPN.")]
         public bool? EvpnSegment { get; set; }
         /// <summary>
-        /// Represents Desired state of the Segment
+        /// Admin state represents desired state of segment. It does not reflect the state of other logical entities
+        /// connected/attached to the segment.
         /// </summary>
         [JsonProperty(PropertyName = "admin_state")]
-        [NSXTProperty(IsRequired: false, Description: @"Represents Desired state of the Segment")]
-        [NSXTDefaultProperty(Default: "UP")]
+        [NSXTProperty(IsRequired: false, Description: @"Admin state represents desired state of segment. It does not reflect the state of other logical entities connected/attached to the segment.")]
         public NSXTSegmentAdminStateEnumType? AdminState { get; set; }
         /// <summary>
         /// Policy path to metadata proxy configuration. Multiple distinct MD proxies can be configured.
@@ -145,10 +150,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Segment type based on configuration.")]
         public NSXTSegmentTypeEnumType? Type { get; set; }
         /// <summary>
-        /// Configuration for extending Segment through L2 VPN
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "l2_extension")]
-        [NSXTProperty(IsRequired: false, Description: @"Configuration for extending Segment through L2 VPN")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTL2ExtensionType L2Extension { get; set; }
         /// <summary>
         /// Policy path to the transport zone. Supported for VLAN backed segments
@@ -167,7 +172,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "replication_mode")]
         [NSXTProperty(IsRequired: false, Description: @"If this field is not set for overlay segment, then the default of MTEPwill be used.")]
-        [NSXTDefaultProperty(Default: "MTEP")]
         public NSXTSegmentReplicationModeEnumType? ReplicationMode { get; set; }
     }
 }

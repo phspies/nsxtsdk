@@ -17,12 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBL4PolicySetApiResponseType : NSXTListResultType
     {
+        public NSXTALBL4PolicySetApiResponseType()
+        {
+        }
         /// <summary>
         /// count
         /// </summary>
         [JsonProperty(PropertyName = "count")]
         [NSXTProperty(IsRequired: false, Description: @"count")]
-        public long? Count { get; set; }
+        public int? Count { get; set; }
         /// <summary>
         /// Array of L4PolicySet
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRouteBasedIPSecVPNSessionType : NSXTIPSecVPNSessionType
     {
+        public NSXTRouteBasedIPSecVPNSessionType()
+        {
+        }
         /// <summary>
         /// IP Tunnel ports.
         /// </summary>

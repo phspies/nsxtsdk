@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildALBPoolType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildALBPoolType()
+        {
+        }
         /// <summary>
-        /// Contains the actual ALBPool object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ALBPool", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual ALBPool object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBPoolType ALBPool { get; set; }
     }

@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"DHCP options for IPv4 server.")]
     public class NSXTDhcpV4OptionsType 
     {
+        public NSXTDhcpV4OptionsType()
+        {
+        }
         /// <summary>
-        /// DHCP option 121 to define classless static routes.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "option121")]
-        [NSXTProperty(IsRequired: false, Description: @"DHCP option 121 to define classless static routes.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTDhcpOption121Type Option121 { get; set; }
         /// <summary>
         /// To define DHCP options other than option 121 in generic format.

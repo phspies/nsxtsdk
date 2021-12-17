@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMigrationFeedbackRequestListResultType : NSXTListResultType
     {
+        public NSXTMigrationFeedbackRequestListResultType()
+        {
+        }
         /// <summary>
         /// Paged Collection of feedback requests
         /// </summary>

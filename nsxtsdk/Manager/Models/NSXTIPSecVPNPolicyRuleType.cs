@@ -17,6 +17,11 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVPNPolicyRuleType : NSXTEmbeddedResourceType
     {
+        public NSXTIPSecVPNPolicyRuleType()
+        {
+            Action = test
+            Enabled = test
+        }
         /// <summary>
         /// List of local subnets.
         /// </summary>
@@ -32,14 +37,12 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "action")]
         [NSXTProperty(IsRequired: false, Description: @"PROTECT - Protect rules are defined per policy basedIPSec VPN session.BYPASS - Bypass rules are defined per IPSec VPNservice and affects all policy based IPSec VPN sessions.Bypass rules are prioritized over protect rules.")]
-        [NSXTDefaultProperty(Default: "PROTECT")]
         public NSXTIpsecVpnpolicyRuleActionEnumType? Action { get; set; }
         /// <summary>
         /// A flag to enable/disable the policy rule.
         /// </summary>
         [JsonProperty(PropertyName = "enabled")]
         [NSXTProperty(IsRequired: false, Description: @"A flag to enable/disable the policy rule.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// A flag to enable/disable the logging for the policy rule.

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRealizedLogicalSwitchType : NSXTPolicyRealizedResourceType
     {
+        public NSXTRealizedLogicalSwitchType()
+        {
+        }
         /// <summary>
         /// Transport zone identifier
         /// </summary>

@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildALBDnsPolicyType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildALBDnsPolicyType()
+        {
+        }
         /// <summary>
-        /// Contains the actual ALBDnsPolicy object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ALBDnsPolicy", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual ALBDnsPolicy object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBDnsPolicyType ALBDnsPolicy { get; set; }
     }

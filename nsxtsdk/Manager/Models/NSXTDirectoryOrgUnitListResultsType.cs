@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDirectoryOrgUnitListResultsType : NSXTListResultType
     {
+        public NSXTDirectoryOrgUnitListResultsType()
+        {
+        }
         /// <summary>
         /// List of Organization Units
         /// </summary>

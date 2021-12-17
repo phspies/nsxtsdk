@@ -17,51 +17,51 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBridgeEndpointType : NSXTManagedResourceType
     {
+        public NSXTBridgeEndpointType()
+        {
+            HaEnable = test
+        }
         /// <summary>
         /// This field will not be used if an edge cluster is being used for the
         /// bridge endpoint
         /// </summary>
         [JsonProperty(PropertyName = "ha_enable")]
         [NSXTProperty(IsRequired: false, Description: @"This field will not be used if an edge cluster is being used for thebridge endpoint")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? HaEnable { get; set; }
         /// <summary>
         /// This field will not be used if an edge cluster is being used for the
-        /// bridge endpoint.
-        /// This field is applicable for bridge cluster and it is deprecated.
+        /// bridge endpoint
         /// </summary>
         [JsonProperty(PropertyName = "bridge_cluster_id")]
-        [NSXTProperty(IsRequired: false, Description: @"This field will not be used if an edge cluster is being used for thebridge endpoint.This field is applicable for bridge cluster and it is deprecated.")]
+        [NSXTProperty(IsRequired: false, Description: @"This field will not be used if an edge cluster is being used for thebridge endpoint")]
         public string? BridgeClusterId { get; set; }
         /// <summary>
         /// This field will not be used if a bridge cluster is being used for the
-        /// bridge endpoint.
+        /// bridge endpoint
         /// </summary>
         [JsonProperty(PropertyName = "vlan_transport_zone_id")]
-        [NSXTProperty(IsRequired: false, Description: @"This field will not be used if a bridge cluster is being used for thebridge endpoint.")]
+        [NSXTProperty(IsRequired: false, Description: @"This field will not be used if a bridge cluster is being used for thebridge endpoint")]
         public string? VlanTransportZoneId { get; set; }
         /// <summary>
         /// This field will not be used if a bridge cluster is being used for the
-        /// bridge endpoint.
+        /// bridge endpoint
         /// </summary>
         [JsonProperty(PropertyName = "bridge_endpoint_profile_id")]
-        [NSXTProperty(IsRequired: false, Description: @"This field will not be used if a bridge cluster is being used for thebridge endpoint.")]
+        [NSXTProperty(IsRequired: false, Description: @"This field will not be used if a bridge cluster is being used for thebridge endpoint")]
         public string? BridgeEndpointProfileId { get; set; }
         /// <summary>
         /// This name has to be one of the switching uplink teaming policy names listed inside the TransportZone. If this field is
         /// not specified, bridge will use the first pnic in host-switch config. This field will not be used if a bridge cluster is
-        /// being used for the bridge endpoint.
+        /// being used for the bridge endpoint
         /// </summary>
         [JsonProperty(PropertyName = "uplink_teaming_policy_name")]
-        [NSXTProperty(IsRequired: false, Description: @"This name has to be one of the switching uplink teaming policy names listed inside the TransportZone. If this field is not specified, bridge will use the first pnic in host-switch config. This field will not be used if a bridge cluster is being used for the bridge endpoint.")]
+        [NSXTProperty(IsRequired: false, Description: @"This name has to be one of the switching uplink teaming policy names listed inside the TransportZone. If this field is not specified, bridge will use the first pnic in host-switch config. This field will not be used if a bridge cluster is being used for the bridge endpoint")]
         public string? UplinkTeamingPolicyName { get; set; }
         /// <summary>
-        /// This property is used for VLAN trunk specification of edge bridge endpoint.
-        /// It's mutually exclusive with 'vlan', either 'vlan' or 'vlan_trunk_spec'
-        /// should be specified.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "vlan_trunk_spec")]
-        [NSXTProperty(IsRequired: false, Description: @"This property is used for VLAN trunk specification of edge bridge endpoint.It&apos;s mutually exclusive with &apos;vlan&apos;, either &apos;vlan&apos; or &apos;vlan_trunk_spec&apos;should be specified.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTVlanTrunkSpecType VlanTrunkSpec { get; set; }
         /// <summary>
         /// This property is used for VLAN specification of bridge endpoint.

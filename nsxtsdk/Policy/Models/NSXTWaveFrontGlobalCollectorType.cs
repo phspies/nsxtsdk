@@ -17,5 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTWaveFrontGlobalCollectorType : NSXTGlobalCollectorConfigType
     {
+        public NSXTWaveFrontGlobalCollectorType()
+        {
+            TracingPort = test
+        }
+        /// <summary>
+        /// Port for the Wavefront tracing.
+        /// </summary>
+        [JsonProperty(PropertyName = "tracing_port")]
+        [NSXTProperty(IsRequired: false, Description: @"Port for the Wavefront tracing.")]
+        //[System.ComponentModel.DataAnnotations.MinLength(0)]
+        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
+        public int? TracingPort { get; set; }
     }
 }

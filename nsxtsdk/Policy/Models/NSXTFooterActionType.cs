@@ -19,6 +19,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Action specified at the footer of a widget to provide additional information or to provide a clickable url for navigation. An example usage of footer action is provided under the &apos;example_request&apos; section of &apos;CreateWidgetConfiguration&apos; API.")]
     public class NSXTFooterActionType 
     {
+        public NSXTFooterActionType()
+        {
+            DockToContainerFooter = test
+        }
         /// <summary>
         /// Hyperlink to the UI page that provides details of action.
         /// </summary>
@@ -30,13 +34,12 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "dock_to_container_footer")]
         [NSXTProperty(IsRequired: false, Description: @"If true, the footer will appear in the underlying container that holds the widget.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? DockToContainerFooter { get; set; }
         /// <summary>
-        /// Label to be displayed against the footer action.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "label", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Label to be displayed against the footer action.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTLabelType Label { get; set; }
     }

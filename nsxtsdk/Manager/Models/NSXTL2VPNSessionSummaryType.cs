@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"List summary of L2VPN sessions.")]
     public class NSXTL2VPNSessionSummaryType 
     {
+        public NSXTL2VPNSessionSummaryType()
+        {
+        }
         /// <summary>
         /// Total L2VPN sessions configured.
         /// </summary>

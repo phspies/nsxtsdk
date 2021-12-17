@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTCapacityThresholdType 
     {
+        public NSXTCapacityThresholdType()
+        {
+        }
         /// <summary>
         /// Set the maximum threshold percentage. Specify a value between 0 and
         /// 100. Usage percentage above this value is tagged as critical.

@@ -17,6 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer PGDeploymentRule object")]
     public class NSXTALBPGDeploymentRuleType 
     {
+        public NSXTALBPGDeploymentRuleType()
+        {
+            Operator = test
+            MetricId = test
+        }
         /// <summary>
         /// Enum options - CO_EQ, CO_GT, CO_GE, CO_LT, CO_LE, CO_NE.
         /// Default value when not specified in API or module is
@@ -24,7 +29,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "operator")]
         [NSXTProperty(IsRequired: false, Description: @"Enum options - CO_EQ, CO_GT, CO_GE, CO_LT, CO_LE, CO_NE.Default value when not specified in API or module isinterpreted by ALB Controller as CO_GE.")]
-        [NSXTDefaultProperty(Default: "CO_GE")]
         public NSXTAlbpgdeploymentRuleOperatorEnumType? OperatorProperty { get; set; }
         /// <summary>
         /// metric threshold that is used as the pass fail.
@@ -41,7 +45,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "metric_id")]
         [NSXTProperty(IsRequired: false, Description: @"metric_id of PGDeploymentRule.Default value when not specified in API or module isinterpreted by ALB Controller as health.health_score_value.")]
-        [NSXTDefaultProperty(Default: "health.health_score_value")]
         public string? MetricId { get; set; }
     }
 }

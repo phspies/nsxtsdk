@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNSServiceGroupType : NSXTManagedResourceType
     {
+        public NSXTNSServiceGroupType()
+        {
+        }
         /// <summary>
         /// The default NSServiceGroups are created in the system by default. These
         /// NSServiceGroups can't be modified/deleted

@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyPimProfileType : NSXTPolicyConfigResourceType
     {
+        public NSXTPolicyPimProfileType()
+        {
+            BsmEnabled = test
+        }
         /// <summary>
         /// Static IPv4 multicast address and assciated multicast groups configuration.
         /// </summary>
@@ -28,7 +32,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "bsm_enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Enable/disable bootstrap messaging Configuration.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? BsmEnabled { get; set; }
         /// <summary>
         /// Static IPv4 multicast address configuration.

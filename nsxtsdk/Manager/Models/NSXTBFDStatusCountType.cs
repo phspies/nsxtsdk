@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBFDStatusCountType 
     {
+        public NSXTBFDStatusCountType()
+        {
+        }
         /// <summary>
         /// Number of tunnels in BFD admin down state
         /// </summary>

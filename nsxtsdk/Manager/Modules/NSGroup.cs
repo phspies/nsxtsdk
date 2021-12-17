@@ -114,48 +114,6 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEffectiveIPAddressMemberListResultType GetEffectiveIpaddressMembers(string NsGroupId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (NsGroupId == null) { throw new System.ArgumentNullException("NsGroupId cannot be null"); }
-            NSXTEffectiveIPAddressMemberListResultType returnValue = default(NSXTEffectiveIPAddressMemberListResultType);
-            StringBuilder GetEffectiveIpaddressMembersServiceURL = new StringBuilder("/ns-groups/{ns-group-id}/effective-ip-address-members");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetEffectiveIpaddressMembersServiceURL.Replace("{ns-group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NsGroupId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetEffectiveIpaddressMembersServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetEffectiveIpaddressMembersServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEffectiveIPAddressMemberListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEffectiveIPAddressMemberListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTEffectiveMemberResourceListResultType GetEffectiveLogicalSwitchMembers(string NsGroupId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (NsGroupId == null) { throw new System.ArgumentNullException("NsGroupId cannot be null"); }
@@ -543,6 +501,48 @@ namespace nsxtapi.ManagerModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTEffectiveMemberTypeListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTEffectiveIPAddressMemberListResultType GetEffectiveIpaddressMembers(string NsGroupId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (NsGroupId == null) { throw new System.ArgumentNullException("NsGroupId cannot be null"); }
+            NSXTEffectiveIPAddressMemberListResultType returnValue = default(NSXTEffectiveIPAddressMemberListResultType);
+            StringBuilder GetEffectiveIpaddressMembersServiceURL = new StringBuilder("/ns-groups/{ns-group-id}/effective-ip-address-members");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GetEffectiveIpaddressMembersServiceURL.Replace("{ns-group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NsGroupId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = GetEffectiveIpaddressMembersServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetEffectiveIpaddressMembersServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTEffectiveIPAddressMemberListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTEffectiveIPAddressMemberListResultType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}

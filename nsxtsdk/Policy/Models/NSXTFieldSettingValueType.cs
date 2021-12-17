@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Field Setting Value.")]
     public class NSXTFieldSettingValueType 
     {
+        public NSXTFieldSettingValueType()
+        {
+        }
         /// <summary>
         /// Field Setting Value resource type.
         /// </summary>

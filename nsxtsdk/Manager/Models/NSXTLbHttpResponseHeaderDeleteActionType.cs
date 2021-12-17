@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbHttpResponseHeaderDeleteActionType : NSXTLbRuleActionType
     {
+        public NSXTLbHttpResponseHeaderDeleteActionType()
+        {
+        }
         /// <summary>
         /// Name of a header field of HTTP response message
         /// </summary>

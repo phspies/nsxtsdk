@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Runtime status information of the fabric node.")]
     public class NSXTNodeStatusType 
     {
+        public NSXTNodeStatusType()
+        {
+            LcpConnectivityStatus = test
+        }
         /// <summary>
         /// Indicates the fabric node's MP<->MPA channel connectivity status, UP, DOWN, UNKNOWN.
         /// </summary>
@@ -60,10 +64,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Is true if inventory sync is paused else false")]
         public bool? InventorySyncPaused { get; set; }
         /// <summary>
-        /// Node status properties
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "system_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Node status properties")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTNodeStatusPropertiesType SystemStatus { get; set; }
         /// <summary>
         /// Inventory sync auto re-enable target time, in epoch milis
@@ -76,7 +80,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "lcp_connectivity_status")]
         [NSXTProperty(IsRequired: false, Description: @"Indicates the fabric node&apos;s LCP&amp;lt;-&amp;gt;CCP channel connectivity status, UP, DOWN, DEGRADED, UNKNOWN.")]
-        [NSXTDefaultProperty(Default: "UNKNOWN")]
         public NSXTNodeStatusLcpConnectivityStatusEnumType? LcpConnectivityStatus { get; set; }
         /// <summary>
         /// Timestamp of the last heartbeat status change, in epoch milliseconds.

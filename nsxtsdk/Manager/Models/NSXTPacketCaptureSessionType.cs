@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPacketCaptureSessionType : NSXTManagedResourceType
     {
+        public NSXTPacketCaptureSessionType()
+        {
+        }
         /// <summary>
         /// Packet capture session id.
         /// </summary>
@@ -55,10 +58,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Timestamp when session was stopped in epoch millisecond.")]
         public long? Endtime { get; set; }
         /// <summary>
-        /// Packet capture request information.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "request", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Packet capture request information.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTPacketCaptureRequestType Request { get; set; }
         /// <summary>

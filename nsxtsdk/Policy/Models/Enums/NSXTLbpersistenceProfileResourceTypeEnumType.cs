@@ -7,9 +7,9 @@ using nsxtsdk.Models;
 namespace nsxtsdk.PolicyModels
 {
     /// <summary>
-    /// The resource_type property identifies persistence profile type.
+    /// The resource_type property identifies persistence profile type.LBCookiePersistenceProfile and LBGenericPersistenceProfile aredeprecated as NSX-T Load Balancer is deprecated.
     /// </summary>
-    [NSXTProperty(Description: @"The resource_type property identifies persistence profile type.")]
+    [NSXTProperty(Description: @"The resource_type property identifies persistence profile type.LBCookiePersistenceProfile and LBGenericPersistenceProfile aredeprecated as NSX-T Load Balancer is deprecated.")]
     public enum NSXTLbpersistenceProfileResourceTypeEnumType
     {
         [EnumMember(Value = "LBSOURCEIPPERSISTENCEPROFILE")]

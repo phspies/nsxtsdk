@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdfwTransportNodeStatusListResultType : NSXTListResultType
     {
+        public NSXTIdfwTransportNodeStatusListResultType()
+        {
+        }
         /// <summary>
         /// List of transport node ids and  status for idfw enabled
         /// Compute collection.

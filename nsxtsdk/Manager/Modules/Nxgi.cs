@@ -209,5 +209,153 @@ namespace nsxtapi.ManagerModules
 			}
 			return returnValue;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTExtendedSolutionConfigType UpdateExtendedSolutionConfig(string ServiceId, string SolutionConfigId, NSXTExtendedSolutionConfigType ExtendedSolutionConfig)
+        {
+            if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
+            if (SolutionConfigId == null) { throw new System.ArgumentNullException("SolutionConfigId cannot be null"); }
+            if (ExtendedSolutionConfig == null) { throw new System.ArgumentNullException("ExtendedSolutionConfig cannot be null"); }
+            NSXTExtendedSolutionConfigType returnValue = default(NSXTExtendedSolutionConfigType);
+            StringBuilder UpdateExtendedSolutionConfigServiceURL = new StringBuilder("/serviceinsertion/services/{service-id}/solution-configs/{solution-config-id}/extended-solution-config");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.PUT
+            };
+            request.AddHeader("Content-type", "application/json");
+            UpdateExtendedSolutionConfigServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            UpdateExtendedSolutionConfigServiceURL.Replace("{solution-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SolutionConfigId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.AddJsonBody(JsonConvert.SerializeObject(ExtendedSolutionConfig, defaultSerializationSettings));
+            request.Resource = UpdateExtendedSolutionConfigServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP PUT operation to " + UpdateExtendedSolutionConfigServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTExtendedSolutionConfigType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTExtendedSolutionConfigType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTExtendedSolutionConfigType CreateExtendedSolutionConfig(string ServiceId, string SolutionConfigId, NSXTExtendedSolutionConfigType ExtendedSolutionConfig)
+        {
+            if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
+            if (SolutionConfigId == null) { throw new System.ArgumentNullException("SolutionConfigId cannot be null"); }
+            if (ExtendedSolutionConfig == null) { throw new System.ArgumentNullException("ExtendedSolutionConfig cannot be null"); }
+            NSXTExtendedSolutionConfigType returnValue = default(NSXTExtendedSolutionConfigType);
+            StringBuilder CreateExtendedSolutionConfigServiceURL = new StringBuilder("/serviceinsertion/services/{service-id}/solution-configs/{solution-config-id}/extended-solution-config");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.POST
+            };
+            request.AddHeader("Content-type", "application/json");
+            CreateExtendedSolutionConfigServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            CreateExtendedSolutionConfigServiceURL.Replace("{solution-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SolutionConfigId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.AddJsonBody(JsonConvert.SerializeObject(ExtendedSolutionConfig, defaultSerializationSettings));
+            request.Resource = CreateExtendedSolutionConfigServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP POST operation to " + CreateExtendedSolutionConfigServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTExtendedSolutionConfigType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTExtendedSolutionConfigType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTExtendedSolutionConfigType GetExtendedSolutionConfig(string ServiceId, string SolutionConfigId)
+        {
+            if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
+            if (SolutionConfigId == null) { throw new System.ArgumentNullException("SolutionConfigId cannot be null"); }
+            NSXTExtendedSolutionConfigType returnValue = default(NSXTExtendedSolutionConfigType);
+            StringBuilder GetExtendedSolutionConfigServiceURL = new StringBuilder("/serviceinsertion/services/{service-id}/solution-configs/{solution-config-id}/extended-solution-config");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GetExtendedSolutionConfigServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetExtendedSolutionConfigServiceURL.Replace("{solution-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SolutionConfigId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GetExtendedSolutionConfigServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetExtendedSolutionConfigServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTExtendedSolutionConfigType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTExtendedSolutionConfigType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public void DeleteExtendedSolutionConfig(string ServiceId, string SolutionConfigId)
+        {
+            if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
+            if (SolutionConfigId == null) { throw new System.ArgumentNullException("SolutionConfigId cannot be null"); }
+            
+            StringBuilder DeleteExtendedSolutionConfigServiceURL = new StringBuilder("/serviceinsertion/services/{service-id}/solution-configs/{solution-config-id}/extended-solution-config");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.DELETE
+            };
+            request.AddHeader("Content-type", "application/json");
+            DeleteExtendedSolutionConfigServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            DeleteExtendedSolutionConfigServiceURL.Replace("{solution-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SolutionConfigId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = DeleteExtendedSolutionConfigServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP DELETE operation to " + DeleteExtendedSolutionConfigServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
+        }
     }
 }

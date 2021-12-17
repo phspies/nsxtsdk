@@ -17,12 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTGlobalManagerConfigType : NSXTPolicyConfigResourceType
     {
+        public NSXTGlobalManagerConfigType()
+        {
+        }
         /// <summary>
-        /// Global Manager federation RTEP configuration. This configuration is distributed
-        /// to all Sites participating in federation.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "rtep_config")]
-        [NSXTProperty(IsRequired: false, Description: @"Global Manager federation RTEP configuration. This configuration is distributedto all Sites participating in federation.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTGmRtepConfigType RtepConfig { get; set; }
     }
 }

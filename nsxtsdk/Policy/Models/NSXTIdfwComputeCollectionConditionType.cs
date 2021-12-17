@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Status of the Identity Firewall enabled Compute collection.")]
     public class NSXTIdfwComputeCollectionConditionType 
     {
+        public NSXTIdfwComputeCollectionConditionType()
+        {
+        }
         /// <summary>
         /// IDFW enabled Compute collection status.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Key value structure for holding metadata of context profile attributes")]
     public class NSXTContextProfileAttributesMetadataType 
     {
+        public NSXTContextProfileAttributesMetadataType()
+        {
+        }
         /// <summary>
         /// Value for metadata key
         /// </summary>

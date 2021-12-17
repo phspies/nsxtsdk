@@ -17,12 +17,16 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTL3VpnContextType : NSXTPolicyConfigResourceType
     {
+        public NSXTL3VpnContextType()
+        {
+            IkeLogLevel = test
+            Enabled = test
+        }
         /// <summary>
         /// Log level for internet key exchange (IKE).
         /// </summary>
         [JsonProperty(PropertyName = "ike_log_level")]
         [NSXTProperty(IsRequired: false, Description: @"Log level for internet key exchange (IKE).")]
-        [NSXTDefaultProperty(Default: "INFO")]
         public NSXTL3VpnContextIkeLogLevelEnumType? IkeLogLevel { get; set; }
         /// <summary>
         /// If true, enable L3Vpn Service for given tier-0. Enabling/disabling this
@@ -30,7 +34,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "enabled")]
         [NSXTProperty(IsRequired: false, Description: @"If true, enable L3Vpn Service for given tier-0. Enabling/disabling thisservice affects all L3Vpns under the given tier-0.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// Bypass L3Vpn rules that will be shared across L3Vpns. Only Bypass action is

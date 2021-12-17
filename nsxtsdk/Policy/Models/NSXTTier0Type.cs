@@ -17,11 +17,16 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTier0Type : NSXTPolicyConfigResourceType
     {
+        public NSXTTier0Type()
+        {
+            HaMode = test
+            FailoverMode = test
+        }
         /// <summary>
-        /// Additional config for federation.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "federation_config")]
-        [NSXTProperty(IsRequired: false, Description: @"Additional config for federation.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTFederationGatewayConfigType FederationConfig { get; set; }
         /// <summary>
         /// Indicates if logging should be enabled for the default whitelisting rule. This field is
@@ -32,38 +37,35 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Indicates if logging should be enabled for the default whitelisting rule. This field isdeprecated and recommended to change Rule logging field. Note that thisfield is not synchronized with default logging field.")]
         public bool? DefaultRuleLogging { get; set; }
         /// <summary>
-        /// Determines the behavior when a Tier-0 instance in ACTIVE-STANDBY
-        /// high-availability mode restarts after a failure. If set to
-        /// PREEMPTIVE, the preferred node will take over, even if it causes
-        /// another failure. If set to NON_PREEMPTIVE, then the instance that
-        /// restarted will remain secondary. This property is not used when
-        /// the ha_mode property is set to ACTIVE_ACTIVE.
-        /// Only applicable when edge cluster is configured in Tier0
-        /// locale-service.
+        /// Specify transit subnets that are used to assign addresses to logical links
+        /// connecting tier-0 and tier-1s. Both IPv4 and IPv6 addresses are supported.
+        /// When not specified, subnet 100.64.0.0/16 is configured by default.
         /// </summary>
-        [JsonProperty(PropertyName = "failover_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"Determines the behavior when a Tier-0 instance in ACTIVE-STANDBYhigh-availability mode restarts after a failure. If set toPREEMPTIVE, the preferred node will take over, even if it causesanother failure. If set to NON_PREEMPTIVE, then the instance thatrestarted will remain secondary. This property is not used whenthe ha_mode property is set to ACTIVE_ACTIVE.Only applicable when edge cluster is configured in Tier0locale-service.")]
-        [NSXTDefaultProperty(Default: "NON_PREEMPTIVE")]
-        public NSXTTier0FailoverModeEnumType? FailoverMode { get; set; }
+        [JsonProperty(PropertyName = "transit_subnets")]
+        [NSXTProperty(IsRequired: false, Description: @"Specify transit subnets that are used to assign addresses to logical linksconnecting tier-0 and tier-1s. Both IPv4 and IPv6 addresses are supported.When not specified, subnet 100.64.0.0/16 is configured by default.")]
+        public IList<string> TransitSubnets { get; set; }
         /// <summary>
-        /// NSX specific configuration for tier-0
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "advanced_config")]
-        [NSXTProperty(IsRequired: false, Description: @"NSX specific configuration for tier-0")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTTier0AdvancedConfigType AdvancedConfig { get; set; }
         /// <summary>
-        /// Maximum number of ARP entries per transport node.
+        /// Specify high-availability mode for Tier-0. Default is ACTIVE_ACTIVE.
+        /// When ha_mode is changed from ACTIVE_ACTIVE to ACTIVE_STANDBY,
+        /// inter SR iBGP (in BGP) is disabled.
+        /// Changing ha_mode from ACTIVE_STANDBY to ACTIVE_ACTIVE will enable
+        /// inter SR iBGP (in BGP) and previously configured preferred edge nodes
+        /// (in Tier0 locale-service) are removed.
         /// </summary>
-        [JsonProperty(PropertyName = "arp_limit")]
-        [NSXTProperty(IsRequired: false, Description: @"Maximum number of ARP entries per transport node.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(5000)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(50000)]
-        public long? ArpLimit { get; set; }
+        [JsonProperty(PropertyName = "ha_mode")]
+        [NSXTProperty(IsRequired: false, Description: @"Specify high-availability mode for Tier-0. Default is ACTIVE_ACTIVE.When ha_mode is changed from ACTIVE_ACTIVE to ACTIVE_STANDBY,inter SR iBGP (in BGP) is disabled.Changing ha_mode from ACTIVE_STANDBY to ACTIVE_ACTIVE will enableinter SR iBGP (in BGP) and previously configured preferred edge nodes(in Tier0 locale-service) are removed.")]
+        public NSXTTier0HaModeEnumType? HaMode { get; set; }
         /// <summary>
-        /// VRF config, required for VRF Tier0.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "vrf_config")]
-        [NSXTProperty(IsRequired: false, Description: @"VRF config, required for VRF Tier0.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTTier0VrfConfigType VrfConfig { get; set; }
         /// <summary>
         /// Specify subnets that are used to assign addresses to logical links
@@ -76,25 +78,26 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Specify subnets that are used to assign addresses to logical linksconnecting service routers and distributed routers. Only IPv4addresses are supported.When not specified, subnet 169.254.0.0/24 is assigned by defaultin ACTIVE_ACTIVE HA mode or 169.254.0.0/28 in ACTIVE_STANDBY mode.")]
         public IList<string> InternalTransitSubnets { get; set; }
         /// <summary>
-        /// Specify transit subnets that are used to assign addresses to logical links
-        /// connecting tier-0 and tier-1s. Both IPv4 and IPv6 addresses are supported.
-        /// When not specified, subnet 100.64.0.0/16 is configured by default.
+        /// Determines the behavior when a Tier-0 instance in ACTIVE-STANDBY
+        /// high-availability mode restarts after a failure. If set to
+        /// PREEMPTIVE, the preferred node will take over, even if it causes
+        /// another failure. If set to NON_PREEMPTIVE, then the instance that
+        /// restarted will remain secondary. This property is not used when
+        /// the ha_mode property is set to ACTIVE_ACTIVE.
+        /// Only applicable when edge cluster is configured in Tier0
+        /// locale-service.
         /// </summary>
-        [JsonProperty(PropertyName = "transit_subnets")]
-        [NSXTProperty(IsRequired: false, Description: @"Specify transit subnets that are used to assign addresses to logical linksconnecting tier-0 and tier-1s. Both IPv4 and IPv6 addresses are supported.When not specified, subnet 100.64.0.0/16 is configured by default.")]
-        public IList<string> TransitSubnets { get; set; }
+        [JsonProperty(PropertyName = "failover_mode")]
+        [NSXTProperty(IsRequired: false, Description: @"Determines the behavior when a Tier-0 instance in ACTIVE-STANDBYhigh-availability mode restarts after a failure. If set toPREEMPTIVE, the preferred node will take over, even if it causesanother failure. If set to NON_PREEMPTIVE, then the instance thatrestarted will remain secondary. This property is not used whenthe ha_mode property is set to ACTIVE_ACTIVE.Only applicable when edge cluster is configured in Tier0locale-service.")]
+        public NSXTTier0FailoverModeEnumType? FailoverMode { get; set; }
         /// <summary>
-        /// Specify high-availability mode for Tier-0. Default is ACTIVE_ACTIVE.
-        /// When ha_mode is changed from ACTIVE_ACTIVE to ACTIVE_STANDBY,
-        /// inter SR iBGP (in BGP) is disabled.
-        /// Changing ha_mode from ACTIVE_STANDBY to ACTIVE_ACTIVE will enable
-        /// inter SR iBGP (in BGP) and previously configured preferred edge nodes
-        /// (in Tier0 locale-service) are removed.
+        /// Maximum number of ARP entries per transport node.
         /// </summary>
-        [JsonProperty(PropertyName = "ha_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"Specify high-availability mode for Tier-0. Default is ACTIVE_ACTIVE.When ha_mode is changed from ACTIVE_ACTIVE to ACTIVE_STANDBY,inter SR iBGP (in BGP) is disabled.Changing ha_mode from ACTIVE_STANDBY to ACTIVE_ACTIVE will enableinter SR iBGP (in BGP) and previously configured preferred edge nodes(in Tier0 locale-service) are removed.")]
-        [NSXTDefaultProperty(Default: "ACTIVE_ACTIVE")]
-        public NSXTTier0HaModeEnumType? HaMode { get; set; }
+        [JsonProperty(PropertyName = "arp_limit")]
+        [NSXTProperty(IsRequired: false, Description: @"Maximum number of ARP entries per transport node.")]
+        //[System.ComponentModel.DataAnnotations.MinLength(5000)]
+        //[System.ComponentModel.DataAnnotations.MaxLength(50000)]
+        public int? ArpLimit { get; set; }
         /// <summary>
         /// This field is deprecated and recommended to change Rule action field.
         /// Note that this field is not synchronized with default rule field.
@@ -103,10 +106,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"This field is deprecated and recommended to change Rule action field.Note that this field is not synchronized with default rule field.")]
         public bool? ForceWhitelisting { get; set; }
         /// <summary>
-        /// Inter site routing configuration when the gateway is streched.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "intersite_config")]
-        [NSXTProperty(IsRequired: false, Description: @"Inter site routing configuration when the gateway is streched.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIntersiteGatewayConfigType IntersiteConfig { get; set; }
         /// <summary>
         /// If you are using EVPN service, then route distinguisher administrator address

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Community match expression")]
     public class NSXTCommunityMatchExpressionType 
     {
+        public NSXTCommunityMatchExpressionType()
+        {
+        }
         /// <summary>
         /// Operator for evaluating community match expressions.
         /// AND logical AND operator

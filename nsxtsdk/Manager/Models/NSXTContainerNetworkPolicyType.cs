@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTContainerNetworkPolicyType : NSXTDiscoveredResourceType
     {
+        public NSXTContainerNetworkPolicyType()
+        {
+        }
         /// <summary>
         /// Network status of container network policy.
         /// </summary>

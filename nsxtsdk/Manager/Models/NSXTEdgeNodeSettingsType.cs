@@ -13,23 +13,28 @@ namespace nsxtsdk.ManagerModels
 {
     /// <summary>
     /// The settings are used during deployment and consequent update of an edge,
-        /// unless indicated otherwise. The settings are preferred over the deprecated
-        /// settings in VsphereDeploymentConfig.
-        /// The settings reflect the current configuraton on an edge node.
+        /// unless indicated otherwise.
+        /// These settings are editable for manually deployed edge nodes as well.
+        /// If using DHCP, you must leave the following fields unset: search_domains,
+        /// management_port_subnets, dns_servers and default_gateway_addresses.
+        /// EdgeNodeSettings reports current values configured on the edge node.
         /// If the settings lag with actual state on the edge,
         /// these may be refreshed at NSX Manager using API POST api/v1/transport-nodes
         /// /<transport-node-id>?action=refresh_node_configuration&resource_type=
         /// EdgeNode
     /// </summary>
-    [NSXTProperty(Description: @"The settings are used during deployment and consequent update of an edge,unless indicated otherwise. The settings are preferred over the deprecatedsettings in VsphereDeploymentConfig.The settings reflect the current configuraton on an edge node.If the settings lag with actual state on the edge,these may be refreshed at NSX Manager using API POST api/v1/transport-nodes/&amp;lt;transport-node-id&amp;gt;?action=refresh_node_configuration&amp;resource_type=EdgeNode")]
+    [NSXTProperty(Description: @"The settings are used during deployment and consequent update of an edge,unless indicated otherwise.These settings are editable for manually deployed edge nodes as well.If using DHCP, you must leave the following fields unset: search_domains,management_port_subnets, dns_servers and default_gateway_addresses.EdgeNodeSettings reports current values configured on the edge node.If the settings lag with actual state on the edge,these may be refreshed at NSX Manager using API POST api/v1/transport-nodes/&amp;lt;transport-node-id&amp;gt;?action=refresh_node_configuration&amp;resource_type=EdgeNode")]
     public class NSXTEdgeNodeSettingsType 
     {
+        public NSXTEdgeNodeSettingsType()
+        {
+        }
         /// <summary>
-        /// List of domain names that are used to complete unqualified host names.
+        /// List of NTP servers.
         /// </summary>
-        [JsonProperty(PropertyName = "search_domains")]
-        [NSXTProperty(IsRequired: false, Description: @"List of domain names that are used to complete unqualified host names.")]
-        public IList<string> SearchDomains { get; set; }
+        [JsonProperty(PropertyName = "ntp_servers")]
+        [NSXTProperty(IsRequired: false, Description: @"List of NTP servers.")]
+        public IList<string> NtpServers { get; set; }
         /// <summary>
         /// List of DNS servers.
         /// </summary>
@@ -43,17 +48,25 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"List of Syslog server configuration.")]
         public IList<NSXTSyslogConfigurationType> SyslogServers { get; set; }
         /// <summary>
-        /// List of NTP servers.
+        /// Array of additional specific properties for advanced or cloud-
+        /// specific deployments in key-value format.
         /// </summary>
-        [JsonProperty(PropertyName = "ntp_servers")]
-        [NSXTProperty(IsRequired: false, Description: @"List of NTP servers.")]
-        public IList<string> NtpServers { get; set; }
+        [JsonProperty(PropertyName = "advanced_configuration")]
+        [NSXTProperty(IsRequired: false, Description: @"Array of additional specific properties for advanced or cloud-specific deployments in key-value format.")]
+        public IList<NSXTKeyValuePairType> AdvancedConfiguration { get; set; }
+        /// <summary>
+        /// List of domain names that are used to complete unqualified host names.
+        /// </summary>
+        [JsonProperty(PropertyName = "search_domains")]
+        [NSXTProperty(IsRequired: false, Description: @"List of domain names that are used to complete unqualified host names.")]
+        public IList<string> SearchDomains { get; set; }
         /// <summary>
         /// Host name or FQDN for edge node.
         /// </summary>
-        [JsonProperty(PropertyName = "hostname")]
-        [NSXTProperty(IsRequired: false, Description: @"Host name or FQDN for edge node.")]
-        public string? Hostname { get; set; }
+        [JsonProperty(PropertyName = "hostname", Required = Required.AllowNull)]
+        [NSXTProperty(IsRequired: true, Description: @"Host name or FQDN for edge node.")]
+        [System.ComponentModel.DataAnnotations.Required]
+        public string Hostname { get; set; }
         /// <summary>
         /// Enabling SSH service is not recommended for security reasons.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbSelectPoolActionType : NSXTLbRuleActionType
     {
+        public NSXTLbSelectPoolActionType()
+        {
+        }
         /// <summary>
         /// Display name of load balancer pool
         /// </summary>

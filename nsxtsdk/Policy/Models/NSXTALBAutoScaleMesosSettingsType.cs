@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer AutoScaleMesosSettings object")]
     public class NSXTALBAutoScaleMesosSettingsType 
     {
+        public NSXTALBAutoScaleMesosSettingsType()
+        {
+            Force = test
+        }
         /// <summary>
         /// Apply scaleout even when there are deployments inprogress.
         /// Default value when not specified in API or module is
@@ -24,7 +28,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "force")]
         [NSXTProperty(IsRequired: false, Description: @"Apply scaleout even when there are deployments inprogress.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Force { get; set; }
     }
 }

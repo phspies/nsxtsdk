@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpAllocationBaseType : NSXTManagedResourceType
     {
+        public NSXTIpAllocationBaseType()
+        {
+            LeaseTime = test
+        }
         /// <summary>
         /// Lease time, in seconds, [60-(2^32-1)]. Default is 86400.
         /// </summary>
@@ -24,7 +28,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Lease time, in seconds, [60-(2^32-1)]. Default is 86400.")]
         //[System.ComponentModel.DataAnnotations.MinLength(60)]
         //[System.ComponentModel.DataAnnotations.MaxLength(4294967295)]
-        [NSXTDefaultProperty(Default: "")]
         public long? LeaseTime { get; set; }
         /// <summary>
         /// Gateway ip address of the allocation.
@@ -33,14 +36,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Gateway ip address of the allocation.")]
         public string? GatewayIp { get; set; }
         /// <summary>
-        /// If an option is defined at server level and not configred at
-        /// ip-pool/static-binding level, the option will be inherited to
-        /// ip-pool/static-binding. If both define a same-code option, the
-        /// option defined at ip-pool/static-binding level take precedence
-        /// over that defined at server level.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "options")]
-        [NSXTProperty(IsRequired: false, Description: @"If an option is defined at server level and not configred atip-pool/static-binding level, the option will be inherited toip-pool/static-binding. If both define a same-code option, theoption defined at ip-pool/static-binding level take precedenceover that defined at server level.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTDhcpOptionsType Options { get; set; }
     }
 }

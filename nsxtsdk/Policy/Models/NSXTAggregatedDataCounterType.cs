@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTAggregatedDataCounterType 
     {
+        public NSXTAggregatedDataCounterType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

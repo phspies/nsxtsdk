@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTVmToolsInfoListResultType : NSXTListResultType
     {
+        public NSXTVmToolsInfoListResultType()
+        {
+        }
         /// <summary>
         /// VmToolsInfo list results.
         /// </summary>

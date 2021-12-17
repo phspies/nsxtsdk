@@ -17,6 +17,11 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMigrationUnitGroupType : NSXTManagedResourceType
     {
+        public NSXTMigrationUnitGroupType()
+        {
+            Enabled = test
+            Parallel = test
+        }
         /// <summary>
         /// Number of migration units in the group
         /// </summary>
@@ -34,7 +39,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Flag to indicate whether migration of this group is enabled or not")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// Component type
@@ -48,7 +52,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "parallel")]
         [NSXTProperty(IsRequired: false, Description: @"Migration method to specify whether the migration is to be performed in parallel or serially")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Parallel { get; set; }
         /// <summary>
         /// Extended configuration for the group

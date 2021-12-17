@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSystemHealthAgentProfileListResultType : NSXTListResultType
     {
+        public NSXTSystemHealthAgentProfileListResultType()
+        {
+        }
         /// <summary>
         /// System Health Profile List
         /// </summary>

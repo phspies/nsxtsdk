@@ -20,6 +20,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Each cluster node entity provides multiple services. When working in a group, each service can elect a cluster node entity to be the leader of the service. Leader election helps in coordination of the service. The leader holds a renewable lease on the leadership for a fixed period of time. The lease version is incremented every time the leadership lease is renewed. This type contains the attributes of a leader.")]
     public class NSXTClusterGroupServiceLeaderType 
     {
+        public NSXTClusterGroupServiceLeaderType()
+        {
+        }
         /// <summary>
         /// Name of the service
         /// </summary>

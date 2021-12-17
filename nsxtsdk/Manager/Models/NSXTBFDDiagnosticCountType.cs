@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBFDDiagnosticCountType 
     {
+        public NSXTBFDDiagnosticCountType()
+        {
+        }
         /// <summary>
         /// Number of tunnels with concatenated path down diagnostic message
         /// </summary>

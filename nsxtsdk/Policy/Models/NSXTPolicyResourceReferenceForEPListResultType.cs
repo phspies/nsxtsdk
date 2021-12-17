@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyResourceReferenceForEPListResultType : NSXTListResultType
     {
+        public NSXTPolicyResourceReferenceForEPListResultType()
+        {
+        }
         /// <summary>
         /// Paged Collection of policy resource references for enforcement point
         /// </summary>

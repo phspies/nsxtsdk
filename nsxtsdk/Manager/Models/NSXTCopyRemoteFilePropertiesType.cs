@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTCopyRemoteFilePropertiesType 
     {
+        public NSXTCopyRemoteFilePropertiesType()
+        {
+        }
         /// <summary>
         /// URI of file to copy
         /// </summary>

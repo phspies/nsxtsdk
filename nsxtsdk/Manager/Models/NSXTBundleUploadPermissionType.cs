@@ -12,22 +12,25 @@ using System.ComponentModel;
 namespace nsxtsdk.ManagerModels
 {
     /// <summary>
-    /// Describes wether bundle upload is allowed or not
+    /// Describes whether bundle upload is allowed or not.
     /// </summary>
-    [NSXTProperty(Description: @"Describes wether bundle upload is allowed or not")]
+    [NSXTProperty(Description: @"Describes whether bundle upload is allowed or not.")]
     public class NSXTBundleUploadPermissionType 
     {
+        public NSXTBundleUploadPermissionType()
+        {
+        }
         /// <summary>
-        /// Reason for not allowing upload
+        /// Reason for not allowing upload.
         /// </summary>
         [JsonProperty(PropertyName = "reason")]
-        [NSXTProperty(IsRequired: false, Description: @"Reason for not allowing upload")]
+        [NSXTProperty(IsRequired: false, Description: @"Reason for not allowing upload.")]
         public string? Reason { get; set; }
         /// <summary>
-        /// Flag indecation whether upload is allowed or not
+        /// Flag indication whether upload is allowed or not.
         /// </summary>
         [JsonProperty(PropertyName = "upload_allowed")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag indecation whether upload is allowed or not")]
+        [NSXTProperty(IsRequired: false, Description: @"Flag indication whether upload is allowed or not.")]
         public bool? UploadAllowed { get; set; }
     }
 }

@@ -15,8 +15,32 @@ namespace nsxtsdk.ManagerModels
     /// 
     /// </summary>
     [NSXTProperty(Description: @"")]
-    public class NSXTNodeType : NSXTManagedResourceType
+    public class NSXTNodeType 
     {
+        public NSXTNodeType()
+        {
+        }
+        /// <summary>
+        /// This field is deprecated. TransportNode field 'display_name' must be used instead. For HostNode, this field defaults to
+        /// ID if not set. For EdgeNode and PublicCloudGatewayNode, this field is ignored if specified in request payload.
+        /// </summary>
+        [JsonProperty(PropertyName = "display_name")]
+        [NSXTProperty(IsRequired: false, Description: @"This field is deprecated. TransportNode field &apos;display_name&apos; must be used instead. For HostNode, this field defaults to ID if not set. For EdgeNode and PublicCloudGatewayNode, this field is ignored if specified in request payload.")]
+        public string? DisplayName { get; set; }
+        /// <summary>
+        /// This field is deprecated. TransportNode field 'description' must be used instead. For EdgeNode and
+        /// PublicCloudGatewayNode, this field is ignored if specified in request payload.
+        /// </summary>
+        [JsonProperty(PropertyName = "description")]
+        [NSXTProperty(IsRequired: false, Description: @"This field is deprecated. TransportNode field &apos;description&apos; must be used instead. For EdgeNode and PublicCloudGatewayNode, this field is ignored if specified in request payload.")]
+        public string? Description { get; set; }
+        /// <summary>
+        /// This field is deprecated. TransportNode field 'tags' must be used instead. For EdgeNode and PublicCloudGatewayNode, this
+        /// field is ignored if specified in request payload.
+        /// </summary>
+        [JsonProperty(PropertyName = "tags")]
+        [NSXTProperty(IsRequired: false, Description: @"This field is deprecated. TransportNode field &apos;tags&apos; must be used instead. For EdgeNode and PublicCloudGatewayNode, this field is ignored if specified in request payload.")]
+        public IList<NSXTTagType> Tags { get; set; }
         /// <summary>
         /// Discovered IP Addresses of the fabric node, version 4 or 6
         /// </summary>
@@ -50,5 +74,11 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: true, Description: @"Fabric node type, for example &apos;HostNode&apos;, &apos;EdgeNode&apos; or &apos;PublicCloudGatewayNode&apos;")]
         [System.ComponentModel.DataAnnotations.Required]
         public string ResourceType { get; set; }
+        /// <summary>
+        /// Unique identifier of this resource.
+        /// </summary>
+        [JsonProperty(PropertyName = "id")]
+        [NSXTProperty(IsRequired: false, Description: @"Unique identifier of this resource.")]
+        public string? Id { get; set; }
     }
 }

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTStringArrayConstraintValueType : NSXTConstraintValueType
     {
+        public NSXTStringArrayConstraintValueType()
+        {
+        }
         /// <summary>
         /// Array of string values
         /// </summary>

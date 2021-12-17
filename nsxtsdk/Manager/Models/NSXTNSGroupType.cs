@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNSGroupType : NSXTManagedResourceType
     {
+        public NSXTNSGroupType()
+        {
+        }
         /// <summary>
         /// Count of the members added to this NSGroup
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTL2VpnSessionRemoteMacNsxTType : NSXTL2VpnSessionRemoteMacPerEPType
     {
+        public NSXTL2VpnSessionRemoteMacNsxTType()
+        {
+        }
         /// <summary>
         /// Display name of L2Vpn session.
         /// </summary>

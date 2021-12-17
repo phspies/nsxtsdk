@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbGenericPersistenceProfileType : NSXTLbPersistenceProfileType
     {
+        public NSXTLbGenericPersistenceProfileType()
+        {
+            Timeout = test
+        }
         /// <summary>
         /// The mirroring enabled flag is to synchronize persistence entries.
         /// Persistence entries are not synchronized to the HA peer by default.
@@ -32,7 +36,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"When all connections complete (reference count reaches 0), persistenceentry timer is started with the expiration time.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Timeout { get; set; }
     }
 }

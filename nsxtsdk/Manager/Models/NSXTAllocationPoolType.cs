@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAllocationPoolType 
     {
+        public NSXTAllocationPoolType()
+        {
+        }
         /// <summary>
         /// Represents the number of standby services running on the edge node.
         /// </summary>

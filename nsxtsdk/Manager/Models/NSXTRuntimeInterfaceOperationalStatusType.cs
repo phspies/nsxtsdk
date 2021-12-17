@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRuntimeInterfaceOperationalStatusType 
     {
+        public NSXTRuntimeInterfaceOperationalStatusType()
+        {
+        }
         /// <summary>
         /// The Operational status of the interface
         /// </summary>

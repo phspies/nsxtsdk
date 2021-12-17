@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTCentralNodeConfigProfileType : NSXTManagedResourceType
     {
+        public NSXTCentralNodeConfigProfileType()
+        {
+        }
         /// <summary>
-        /// Syslog service properties for NSX nodes.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "syslog")]
-        [NSXTProperty(IsRequired: false, Description: @"Syslog service properties for NSX nodes.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTSyslogPropertiesType Syslog { get; set; }
         /// <summary>
         /// Timezone to be set for NSX nodes. Only timezone strings listed in the Time Zone database
@@ -31,16 +34,16 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Timezone to be set for NSX nodes. Only timezone strings listed in the Time Zone database (https://www.iana.org/time-zones) are allowed.")]
         public string? Timezone { get; set; }
         /// <summary>
-        /// SNMP service properties for NSX nodes.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "snmp")]
-        [NSXTProperty(IsRequired: false, Description: @"SNMP service properties for NSX nodes.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTSnmpPropertiesType Snmp { get; set; }
         /// <summary>
-        /// NTP service properties for NSX nodes.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ntp")]
-        [NSXTProperty(IsRequired: false, Description: @"NTP service properties for NSX nodes.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTNtpPropertiesType Ntp { get; set; }
     }
 }

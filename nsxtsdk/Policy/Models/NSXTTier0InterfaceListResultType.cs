@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTier0InterfaceListResultType : NSXTListResultType
     {
+        public NSXTTier0InterfaceListResultType()
+        {
+        }
         /// <summary>
         /// Tier-0 Interface list results
         /// </summary>

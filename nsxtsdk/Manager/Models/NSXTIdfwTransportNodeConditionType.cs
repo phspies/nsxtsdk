@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Status of the Identity Firewall Compute Collection&apos;s transport node.")]
     public class NSXTIdfwTransportNodeConditionType 
     {
+        public NSXTIdfwTransportNodeConditionType()
+        {
+        }
         /// <summary>
         /// Transport node status for IDFW compute collection.
         /// </summary>

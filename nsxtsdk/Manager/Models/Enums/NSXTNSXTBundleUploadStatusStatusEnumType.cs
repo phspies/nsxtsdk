@@ -7,9 +7,9 @@ using nsxtsdk.Models;
 namespace nsxtsdk.ManagerModels
 {
     /// <summary>
-    /// Current status of bundle upload
+    /// Current status of bundle upload.
     /// </summary>
-    [NSXTProperty(Description: @"Current status of bundle upload")]
+    [NSXTProperty(Description: @"Current status of bundle upload.")]
     public enum NSXTBundleUploadStatusStatusEnumType
     {
         [EnumMember(Value = "UPLOADING")]

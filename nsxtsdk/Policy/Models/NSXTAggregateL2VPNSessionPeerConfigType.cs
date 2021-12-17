@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTAggregateL2VPNSessionPeerConfigType : NSXTAggregatePolicyRuntimeInfoType
     {
+        public NSXTAggregateL2VPNSessionPeerConfigType()
+        {
+        }
         /// <summary>
         /// List of L2VPN Session peer config per Enforcement Point.
         /// </summary>

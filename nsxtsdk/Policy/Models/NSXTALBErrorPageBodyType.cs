@@ -17,12 +17,24 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBErrorPageBodyType : NSXTPolicyConfigResourceType
     {
+        public NSXTALBErrorPageBodyType()
+        {
+            Format = test
+        }
         /// <summary>
         /// Error page body sent to client when match.
         /// </summary>
         [JsonProperty(PropertyName = "error_page_body")]
         [NSXTProperty(IsRequired: false, Description: @"Error page body sent to client when match.")]
         public string? ErrorPageBody { get; set; }
+        /// <summary>
+        /// List of labels to be used for granular RBAC.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
+        /// </summary>
+        [JsonProperty(PropertyName = "markers")]
+        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
+        public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
         /// <summary>
         /// Format of an error page body HTML or JSON.
         /// Enum options - ERROR_PAGE_FORMAT_HTML,
@@ -32,7 +44,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "format")]
         [NSXTProperty(IsRequired: false, Description: @"Format of an error page body HTML or JSON.Enum options - ERROR_PAGE_FORMAT_HTML,ERROR_PAGE_FORMAT_JSON.Default value when not specified in API or module isinterpreted by ALB Controller as ERROR_PAGE_FORMAT_HTML.")]
-        [NSXTDefaultProperty(Default: "ERROR_PAGE_FORMAT_HTML")]
         public NSXTAlberrorPageBodyFormatEnumType? Format { get; set; }
     }
 }

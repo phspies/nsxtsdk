@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Port Connection Containers Entities")]
     public class NSXTPortConnectionContainersEntitiesType 
     {
+        public NSXTPortConnectionContainersEntitiesType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

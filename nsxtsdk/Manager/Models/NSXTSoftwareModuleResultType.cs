@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Software module result")]
     public class NSXTSoftwareModuleResultType 
     {
+        public NSXTSoftwareModuleResultType()
+        {
+        }
         /// <summary>
         /// Software module results
         /// </summary>

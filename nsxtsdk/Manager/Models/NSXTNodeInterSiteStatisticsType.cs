@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeInterSiteStatisticsType 
     {
+        public NSXTNodeInterSiteStatisticsType()
+        {
+        }
         /// <summary>
         /// Timestamp when the remote tunnel port statistics was last updated.
         /// </summary>

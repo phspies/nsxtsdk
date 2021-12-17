@@ -18,7 +18,9 @@ namespace nsxtsdk.ManagerModels
         VXLAN = 2,
         [EnumMember(Value = "GENEVE")]
         GENEVE = 3,
+        [EnumMember(Value = "NONE")]
+        NONE = 4,
         [EnumMember(Value = "UNKNOWN_ENCAP")]
-        UNKNOWNENCAP = 4,
+        UNKNOWNENCAP = 5,
     }
 }

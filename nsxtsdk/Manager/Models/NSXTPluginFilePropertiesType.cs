@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPluginFilePropertiesType : NSXTResourceType
     {
+        public NSXTPluginFilePropertiesType()
+        {
+        }
         /// <summary>
         /// Upload status
         /// </summary>

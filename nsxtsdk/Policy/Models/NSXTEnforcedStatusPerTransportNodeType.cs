@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Detailed Realized Status Per Transport Node.")]
     public class NSXTEnforcedStatusPerTransportNodeType 
     {
+        public NSXTEnforcedStatusPerTransportNodeType()
+        {
+        }
         /// <summary>
-        /// Realized Status of an Intent object on this Transport Node.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "enforced_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Realized Status of an Intent object on this Transport Node.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTEnforcedStatusNsxTType EnforcedStatus { get; set; }
         /// <summary>
         /// Policy Path referencing the transport node.

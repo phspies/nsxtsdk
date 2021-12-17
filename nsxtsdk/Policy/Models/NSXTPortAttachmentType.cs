@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Detail information about port attachment")]
     public class NSXTPortAttachmentType 
     {
+        public NSXTPortAttachmentType()
+        {
+            HyperbusMode = test
+        }
         /// <summary>
         /// Not valid when type field is INDEPENDENT, mainly used to identify
         /// traffic from different ports in container use case.
@@ -35,7 +39,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "hyperbus_mode")]
         [NSXTProperty(IsRequired: false, Description: @"Flag to indicate if hyperbus configuration is required.")]
-        [NSXTDefaultProperty(Default: "DISABLE")]
         public NSXTPortAttachmentHyperbusModeEnumType? HyperbusMode { get; set; }
         /// <summary>
         /// Set to PARENT when type field is CHILD. Read only field.
@@ -61,10 +64,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"List of Evpn tenant VLAN IDs the Parent logical-port serves in Evpn Route-Server mode. Only effective when attachment type is PARENT and the logical-port is attached to vRouter VM.")]
         public IList<string> EvpnVlans { get; set; }
         /// <summary>
-        /// Indicate application interface configuration for Bare Metal Server.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "bms_interface_config")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicate application interface configuration for Bare Metal Server.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTAttachedInterfaceEntryType BmsInterfaceConfig { get; set; }
         /// <summary>
         /// Type of port attachment. STATIC is added to replace INDEPENDENT. INDEPENDENT type and PARENT type are deprecated.

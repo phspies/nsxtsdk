@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Allows more granular policies for application workloads")]
     public class NSXTApplicationConnectivityStrategyType 
     {
+        public NSXTApplicationConnectivityStrategyType()
+        {
+        }
         /// <summary>
         /// Flag to enable packet logging. Default is disabled.
         /// </summary>

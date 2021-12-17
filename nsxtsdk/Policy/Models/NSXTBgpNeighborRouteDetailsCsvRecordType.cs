@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTBgpNeighborRouteDetailsCsvRecordType : NSXTCsvRecordType
     {
+        public NSXTBgpNeighborRouteDetailsCsvRecordType()
+        {
+        }
         /// <summary>
         /// BGP Multi Exit Discriminator attribute.
         /// </summary>

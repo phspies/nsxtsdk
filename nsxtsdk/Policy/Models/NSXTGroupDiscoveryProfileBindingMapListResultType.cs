@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTGroupDiscoveryProfileBindingMapListResultType : NSXTListResultType
     {
+        public NSXTGroupDiscoveryProfileBindingMapListResultType()
+        {
+        }
         /// <summary>
         /// Group Discovery Profile Binding Map List Results
         /// </summary>

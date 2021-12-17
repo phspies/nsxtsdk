@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildPolicyIgmpProfileType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildPolicyIgmpProfileType()
+        {
+        }
         /// <summary>
-        /// Contains actual PolicyIgmpProfile.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "PolicyIgmpProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains actual PolicyIgmpProfile.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTPolicyIgmpProfileType PolicyIgmpProfile { get; set; }
     }

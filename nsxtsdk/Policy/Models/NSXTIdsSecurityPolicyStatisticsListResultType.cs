@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdsSecurityPolicyStatisticsListResultType : NSXTListResultType
     {
+        public NSXTIdsSecurityPolicyStatisticsListResultType()
+        {
+        }
         /// <summary>
         /// IDS Security Policy statistics list results
         /// </summary>

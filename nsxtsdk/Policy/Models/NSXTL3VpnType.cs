@@ -17,6 +17,12 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTL3VpnType : NSXTPolicyConfigResourceType
     {
+        public NSXTL3VpnType()
+        {
+            EnablePerfectForwardSecrecy = test
+            IkeVersion = test
+            Enabled = test
+        }
         /// <summary>
         /// This field is used to resolve conflicts in case of a remote site being
         /// behind NAT as remote public ip address is not enough. If it is not the
@@ -45,7 +51,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "enable_perfect_forward_secrecy")]
         [NSXTProperty(IsRequired: false, Description: @"If true, perfect forward secrecy (PFS) is enabled.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? EnablePerfectForwardSecrecy { get; set; }
         /// <summary>
         /// Algorithm to be used for message digest during Internet Key Exchange(IKE)
@@ -60,7 +65,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "ike_version")]
         [NSXTProperty(IsRequired: false, Description: @"IKE protocol version to be used. IKE-Flex will initiate IKE-V2 and respondsto both IKE-V1 and IKE-V2.")]
-        [NSXTDefaultProperty(Default: "IKE_V2")]
         public NSXTL3VpnIkeVersionEnumType? IkeVersion { get; set; }
         /// <summary>
         /// Algorithm to be used during Internet Key Exchange(IKE) negotiation.
@@ -77,10 +81,10 @@ namespace nsxtsdk.PolicyModels
         [System.ComponentModel.DataAnnotations.Required]
         public string LocalAddress { get; set; }
         /// <summary>
-        /// L3Vpn Session
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "l3vpn_session", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"L3Vpn Session")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTL3VpnSessionType L3vpnSession { get; set; }
         /// <summary>
@@ -102,7 +106,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Flag to enable L3Vpn. Default is enabled.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// Public IPv4 address of remote gateway

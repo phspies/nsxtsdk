@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildALBStringGroupType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildALBStringGroupType()
+        {
+        }
         /// <summary>
-        /// Contains the actual ALBStringGroup object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ALBStringGroup", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual ALBStringGroup object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBStringGroupType ALBStringGroup { get; set; }
     }

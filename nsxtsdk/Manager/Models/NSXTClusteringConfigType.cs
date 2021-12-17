@@ -19,6 +19,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Configuration for automatically joining a cluster node to thecluster after it is deployed. ClusteringConfig is requiredif any of the deployment nodes has CONTROLLER role.")]
     public class NSXTClusteringConfigType 
     {
+        public NSXTClusteringConfigType()
+        {
+        }
         /// <summary>
         /// Specifies the type of clustering config to be used.
         /// </summary>

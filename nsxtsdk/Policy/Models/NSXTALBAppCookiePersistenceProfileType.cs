@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer AppCookiePersistenceProfile object")]
     public class NSXTALBAppCookiePersistenceProfileType 
     {
+        public NSXTALBAppCookiePersistenceProfileType()
+        {
+            Timeout = test
+        }
         /// <summary>
         /// Header or cookie name for application cookie persistence.
         /// </summary>
@@ -42,7 +46,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"The length of time after a client&apos;s connections have closedbefore expiring the client&apos;s persistence to a server.Allowed values are 1-720.Unit is MIN.Default value when not specified in API or module isinterpreted by ALB Controller as 20.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(720)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Timeout { get; set; }
     }
 }

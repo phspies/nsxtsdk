@@ -18,6 +18,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Node usage for load balancer contains basic information and LB entityusages and capacity for the given node.")]
     public class NSXTLbNodeUsageType 
     {
+        public NSXTLbNodeUsageType()
+        {
+        }
         /// <summary>
         /// The property identifies the node UUID for load balancer node usage.
         /// </summary>

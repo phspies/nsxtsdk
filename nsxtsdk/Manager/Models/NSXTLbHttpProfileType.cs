@@ -17,6 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbHttpProfileType : NSXTLbAppProfileType
     {
+        public NSXTLbHttpProfileType()
+        {
+            ResponseTimeout = test
+            RequestHeaderSize = test
+            ResponseHeaderSize = test
+            IdleTimeout = test
+        }
         /// <summary>
         /// When buffering is disabled, the response is passed to a client
         /// synchronously, immediately as it is received.
@@ -33,7 +40,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"If server doesn&apos;t send any packet within this time, the connection is closed.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ResponseTimeout { get; set; }
         /// <summary>
         /// If it is not specified, it means that request body size is unlimited.
@@ -65,7 +71,6 @@ namespace nsxtsdk.ManagerModels
         [JsonProperty(PropertyName = "request_header_size")]
         [NSXTProperty(IsRequired: false, Description: @"A request with header equal to or below this size is guaranteed to beprocessed. A request with header larger than request_header_size willbe processed up to 32K bytes on best effort basis.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        [NSXTDefaultProperty(Default: "")]
         public long? RequestHeaderSize { get; set; }
         /// <summary>
         /// Certain secure applications may want to force communication over SSL,
@@ -82,7 +87,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"A response with header larger than response_header_size will be dropped.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65536)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ResponseHeaderSize { get; set; }
         /// <summary>
         /// It is used to specify the HTTP application idle timeout, it means that
@@ -94,7 +98,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"It is used to specify the HTTP application idle timeout, it means thathow long the load balancer will keep the connection idle to wait forthe client to send the next keep-alive request. It is not a TCP socketsetting.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(5400)]
-        [NSXTDefaultProperty(Default: "")]
         public long? IdleTimeout { get; set; }
         /// <summary>
         /// If server_keep_alive is true, it means the backend connection will keep

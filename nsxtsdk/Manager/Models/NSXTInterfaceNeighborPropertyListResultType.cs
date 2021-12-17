@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTInterfaceNeighborPropertyListResultType : NSXTListResultType
     {
+        public NSXTInterfaceNeighborPropertyListResultType()
+        {
+        }
         /// <summary>
         /// Interface neighbor property results
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Multicast forwarding interface details.")]
     public class NSXTMulticastForwardingInterfaceType 
     {
+        public NSXTMulticastForwardingInterfaceType()
+        {
+        }
         /// <summary>
         /// Interface id.
         /// </summary>

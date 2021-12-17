@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIDSSignatureDetailType 
     {
+        public NSXTIDSSignatureDetailType()
+        {
+        }
         /// <summary>
         /// Product affected by the signature.
         /// </summary>

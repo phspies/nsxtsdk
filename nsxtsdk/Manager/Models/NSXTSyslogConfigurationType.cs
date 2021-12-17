@@ -17,26 +17,29 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Syslog server configuration parameters")]
     public class NSXTSyslogConfigurationType 
     {
+        public NSXTSyslogConfigurationType()
+        {
+            LogLevel = test
+            Protocol = test
+            Port = test
+        }
         /// <summary>
         /// Log level that needs to be redirected.
         /// </summary>
         [JsonProperty(PropertyName = "log_level")]
         [NSXTProperty(IsRequired: false, Description: @"Log level that needs to be redirected.")]
-        [NSXTDefaultProperty(Default: "INFO")]
         public NSXTSyslogConfigurationLogLevelEnumType? LogLevel { get; set; }
         /// <summary>
         /// Supported Syslog protocol.
         /// </summary>
         [JsonProperty(PropertyName = "protocol")]
         [NSXTProperty(IsRequired: false, Description: @"Supported Syslog protocol.")]
-        [NSXTDefaultProperty(Default: "UDP")]
         public NSXTSyslogConfigurationProtocolEnumType? Protocol { get; set; }
         /// <summary>
         /// Syslog server listening port.
         /// </summary>
         [JsonProperty(PropertyName = "port")]
         [NSXTProperty(IsRequired: false, Description: @"Syslog server listening port.")]
-        [NSXTDefaultProperty(Default: "514")]
         public string? Port { get; set; }
         /// <summary>
         /// Display name of the syslog server

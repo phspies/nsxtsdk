@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbAppProfileListResultType : NSXTListResultType
     {
+        public NSXTLbAppProfileListResultType()
+        {
+        }
         /// <summary>
         /// paginated list of load balancer application profiles
         /// </summary>

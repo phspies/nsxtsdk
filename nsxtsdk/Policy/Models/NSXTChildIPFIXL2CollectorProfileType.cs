@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildIPFIXL2CollectorProfileType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildIPFIXL2CollectorProfileType()
+        {
+        }
         /// <summary>
-        /// Contains the actual IPFIXL2CollectorProfile object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "IPFIXL2CollectorProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual IPFIXL2CollectorProfile object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTIPFIXL2CollectorProfileType IPFIXL2CollectorProfile { get; set; }
     }

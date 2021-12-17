@@ -20,6 +20,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpStaticBindingConfigType : NSXTPolicyConfigResourceType
     {
+        public NSXTDhcpStaticBindingConfigType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

@@ -17,6 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer ClientLogStreamingConfig object")]
     public class NSXTALBClientLogStreamingConfigType 
     {
+        public NSXTALBClientLogStreamingConfigType()
+        {
+            ExternalServerPort = test
+            Protocol = test
+            MaxLogsPerSecond = test
+            LogTypesToSend = test
+        }
         /// <summary>
         /// The service port to use for the external servers.
         /// If multiple external servers have been specified, the
@@ -28,7 +35,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "external_server_port")]
         [NSXTProperty(IsRequired: false, Description: @"The service port to use for the external servers.If multiple external servers have been specified, thesingle port number specified here will apply to all thoseservers for which an explicit port number has not beenspecified in the external server list.Default value when not specified in API or module isinterpreted by ALB Controller as 514.")]
-        [NSXTDefaultProperty(Default: "")]
         public long? ExternalServerPort { get; set; }
         /// <summary>
         /// Protocol to use for streaming logs.
@@ -36,20 +42,20 @@ namespace nsxtsdk.PolicyModels
         /// LOG_STREAMING_PROTOCOL_SYSLOG_OVER_UDP,
         /// LOG_STREAMING_PROTOCOL_TCP,
         /// LOG_STREAMING_PROTOCOL_SYSLOG_OVER_TCP,
-        /// LOG_STREAMING_PROTOCOL_RAW_OVER_UDP.
+        /// LOG_STREAMING_PROTOCOL_RAW_OVER_UDP,
+        /// LOG_STREAMING_PROTOCOL_TLS,
+        /// LOG_STREAMING_PROTOCOL_SYSLOG_OVER_TLS.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as LOG_STREAMING_PROTOCOL_UDP.
         /// </summary>
         [JsonProperty(PropertyName = "protocol")]
-        [NSXTProperty(IsRequired: false, Description: @"Protocol to use for streaming logs.Enum options - LOG_STREAMING_PROTOCOL_UDP,LOG_STREAMING_PROTOCOL_SYSLOG_OVER_UDP,LOG_STREAMING_PROTOCOL_TCP,LOG_STREAMING_PROTOCOL_SYSLOG_OVER_TCP,LOG_STREAMING_PROTOCOL_RAW_OVER_UDP.Default value when not specified in API or module isinterpreted by ALB Controller as LOG_STREAMING_PROTOCOL_UDP.")]
-        [NSXTDefaultProperty(Default: "LOG_STREAMING_PROTOCOL_UDP")]
+        [NSXTProperty(IsRequired: false, Description: @"Protocol to use for streaming logs.Enum options - LOG_STREAMING_PROTOCOL_UDP,LOG_STREAMING_PROTOCOL_SYSLOG_OVER_UDP,LOG_STREAMING_PROTOCOL_TCP,LOG_STREAMING_PROTOCOL_SYSLOG_OVER_TCP,LOG_STREAMING_PROTOCOL_RAW_OVER_UDP,LOG_STREAMING_PROTOCOL_TLS,LOG_STREAMING_PROTOCOL_SYSLOG_OVER_TLS.Default value when not specified in API or module isinterpreted by ALB Controller as LOG_STREAMING_PROTOCOL_UDP.")]
         public NSXTAlbclientLogStreamingConfigProtocolEnumType? Protocol { get; set; }
         /// <summary>
-        /// Syslog configuration if a Syslog-based protocol is
-        /// specified for streaming.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "syslog_config")]
-        [NSXTProperty(IsRequired: false, Description: @"Syslog configuration if a Syslog-based protocol isspecified for streaming.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBStreamingSyslogConfigType SyslogConfig { get; set; }
         /// <summary>
         /// Maximum number of logs per second streamed to the remote
@@ -61,14 +67,12 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "max_logs_per_second")]
         [NSXTProperty(IsRequired: false, Description: @"Maximum number of logs per second streamed to the remoteserver.By default, 100 logs per second are streamed.Set this to zero(0) to not enforce any limit.Default value when not specified in API or module isinterpreted by ALB Controller as 100.")]
-        [NSXTDefaultProperty(Default: "")]
         public long? MaxLogsPerSecond { get; set; }
         /// <summary>
-        /// Configuration to specify the format of streamed logs.
-        /// By default, each log is encoded in JSON format.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "format_config")]
-        [NSXTProperty(IsRequired: false, Description: @"Configuration to specify the format of streamed logs.By default, each log is encoded in JSON format.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBClientLogStreamingFormatType FormatConfig { get; set; }
         /// <summary>
         /// Type of logs to stream to the external server.
@@ -80,7 +84,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "log_types_to_send")]
         [NSXTProperty(IsRequired: false, Description: @"Type of logs to stream to the external server.Default is LOGS_ALL, i.e., send all logs.Enum options - LOGS_SIGNIFICANT_ONLY, LOGS_UDF_ONLY,LOGS_UDF_SIGNIFICANT, LOGS_ALL.Default value when not specified in API or module isinterpreted by ALB Controller as LOGS_ALL.")]
-        [NSXTDefaultProperty(Default: "LOGS_ALL")]
         public NSXTAlbclientLogStreamingConfigLogTypesToSendEnumType? LogTypesToSend { get; set; }
         /// <summary>
         /// IP address or hostnames (FQDNs) of destination servers.

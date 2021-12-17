@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer SipServiceApplicationProfile object")]
     public class NSXTALBSipServiceApplicationProfileType 
     {
+        public NSXTALBSipServiceApplicationProfileType()
+        {
+            TransactionTimeout = test
+        }
         /// <summary>
         /// SIP transaction timeout in seconds.
         /// Allowed values are 2-512.
@@ -28,7 +32,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"SIP transaction timeout in seconds.Allowed values are 2-512.Unit is SEC.Default value when not specified in API or module isinterpreted by ALB Controller as 32.")]
         //[System.ComponentModel.DataAnnotations.MinLength(2)]
         //[System.ComponentModel.DataAnnotations.MaxLength(512)]
-        [NSXTDefaultProperty(Default: "")]
         public long? TransactionTimeout { get; set; }
     }
 }

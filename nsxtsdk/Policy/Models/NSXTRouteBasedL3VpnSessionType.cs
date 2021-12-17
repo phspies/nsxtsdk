@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRouteBasedL3VpnSessionType : NSXTL3VpnSessionType
     {
+        public NSXTRouteBasedL3VpnSessionType()
+        {
+        }
         /// <summary>
         /// This is a deprecated field. Any specified value is not saved and will be ignored.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLdapIdentitySourceSearchResultItemType 
     {
+        public NSXTLdapIdentitySourceSearchResultItemType()
+        {
+        }
         /// <summary>
         /// Distinguished name (DN) of the entry.
         /// </summary>

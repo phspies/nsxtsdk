@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTReactionType : NSXTPolicyConfigResourceType
     {
+        public NSXTReactionType()
+        {
+        }
         /// <summary>
         /// Events that provide contextual variables about what the reaction should react to.
         /// This field can be interpreted as the WHAT of the Reaction, or simply as "If This"

@@ -30,11 +30,11 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void BulkUpdateAlarmsSetStatus(string NewStatus, long? After = null, long? Before = null, string? Cursor = null, string? EventType = null, string? FeatureName = null, string? Id = null, string? IntentPath = null, string? NodeId = null, string? NodeResourceType = null, long? PageSize = null, string? Severity = null, bool? SortAscending = null, string? SortBy = null, string? Status = null, long? SuppressDuration = null)
+        public void BulkUpdateAlarms(string NewStatus, long? After = null, long? Before = null, string? Cursor = null, string? EventType = null, string? FeatureName = null, string? Id = null, string? IntentPath = null, string? NodeId = null, string? NodeResourceType = null, long? PageSize = null, string? Severity = null, bool? SortAscending = null, string? SortBy = null, string? Status = null, long? SuppressDuration = null)
         {
             if (NewStatus == null) { throw new System.ArgumentNullException("NewStatus cannot be null"); }
             
-            StringBuilder BulkUpdateAlarmsSetStatusServiceURL = new StringBuilder("/alarms?action=set_status");
+            StringBuilder BulkUpdateAlarmsServiceURL = new StringBuilder("/alarms?action=set_status");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -57,11 +57,11 @@ namespace nsxtapi.ManagerModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Status != null) { request.AddQueryParameter("status", Status.ToString()); }
             if (SuppressDuration != null) { request.AddQueryParameter("suppress_duration", SuppressDuration.ToString()); }
-            request.Resource = BulkUpdateAlarmsSetStatusServiceURL.ToString();
+            request.Resource = BulkUpdateAlarmsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + BulkUpdateAlarmsSetStatusServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + BulkUpdateAlarmsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -267,23 +267,23 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMonitoringEventType ResetEventValuesSetDefault(string EventId)
+        public NSXTMonitoringEventType ResetEventValues(string EventId)
         {
             if (EventId == null) { throw new System.ArgumentNullException("EventId cannot be null"); }
             NSXTMonitoringEventType returnValue = default(NSXTMonitoringEventType);
-            StringBuilder ResetEventValuesSetDefaultServiceURL = new StringBuilder("/events/{event-id}?action=set_default");
+            StringBuilder ResetEventValuesServiceURL = new StringBuilder("/events/{event-id}?action=set_default");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            ResetEventValuesSetDefaultServiceURL.Replace("{event-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EventId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ResetEventValuesSetDefaultServiceURL.ToString();
+            ResetEventValuesServiceURL.Replace("{event-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EventId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = ResetEventValuesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + ResetEventValuesSetDefaultServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + ResetEventValuesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -304,26 +304,26 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAlarmType UpdateAlarmStatusSetStatus(string AlarmId, string NewStatus, long? SuppressDuration = null)
+        public NSXTAlarmType UpdateAlarmStatus(string AlarmId, string NewStatus, long? SuppressDuration = null)
         {
             if (AlarmId == null) { throw new System.ArgumentNullException("AlarmId cannot be null"); }
             if (NewStatus == null) { throw new System.ArgumentNullException("NewStatus cannot be null"); }
             NSXTAlarmType returnValue = default(NSXTAlarmType);
-            StringBuilder UpdateAlarmStatusSetStatusServiceURL = new StringBuilder("/alarms/{alarm-id}?action=set_status");
+            StringBuilder UpdateAlarmStatusServiceURL = new StringBuilder("/alarms/{alarm-id}?action=set_status");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            UpdateAlarmStatusSetStatusServiceURL.Replace("{alarm-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlarmId, System.Globalization.CultureInfo.InvariantCulture)));
+            UpdateAlarmStatusServiceURL.Replace("{alarm-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlarmId, System.Globalization.CultureInfo.InvariantCulture)));
             if (NewStatus != null) { request.AddQueryParameter("new_status", NewStatus.ToString()); }
             if (SuppressDuration != null) { request.AddQueryParameter("suppress_duration", SuppressDuration.ToString()); }
-            request.Resource = UpdateAlarmStatusSetStatusServiceURL.ToString();
+            request.Resource = UpdateAlarmStatusServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + UpdateAlarmStatusSetStatusServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + UpdateAlarmStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else

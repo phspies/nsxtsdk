@@ -17,6 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTelemetryConfigType : NSXTManagedResourceType
     {
+        public NSXTTelemetryConfigType()
+        {
+        }
+        /// <summary>
+        /// Deployment id generated during initialization of telemetry config.
+        /// </summary>
+        [JsonProperty(PropertyName = "telemetry_deployment_id")]
+        [NSXTProperty(IsRequired: false, Description: @"Deployment id generated during initialization of telemetry config.")]
+        public string? TelemetryDeploymentId { get; set; }
         /// <summary>
         /// Enable this to schedule data collection and upload times. If enabled,
         /// and a schedule is not provided, a default schedule (WEEKLY, Sunday at 2:00 a.m)
@@ -27,12 +36,6 @@ namespace nsxtsdk.ManagerModels
         [System.ComponentModel.DataAnnotations.Required]
         public bool ScheduleEnabled { get; set; }
         /// <summary>
-        /// Specify the proxy configuration (scheme, server, port) here.
-        /// </summary>
-        [JsonProperty(PropertyName = "telemetry_proxy")]
-        [NSXTProperty(IsRequired: false, Description: @"Specify the proxy configuration (scheme, server, port) here.")]
-        public NSXTTelemetryProxyType TelemetryProxy { get; set; }
-        /// <summary>
         /// Enable this flag to participate in the Customer Experience Improvement Program.
         /// </summary>
         [JsonProperty(PropertyName = "ceip_acceptance", Required = Required.AllowNull)]
@@ -40,10 +43,16 @@ namespace nsxtsdk.ManagerModels
         [System.ComponentModel.DataAnnotations.Required]
         public bool CeipAcceptance { get; set; }
         /// <summary>
-        /// Specify one of Daily, Weekly or Monthly schedules.
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "telemetry_proxy")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTTelemetryProxyType TelemetryProxy { get; set; }
+        /// <summary>
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "telemetry_schedule")]
-        [NSXTProperty(IsRequired: false, Description: @"Specify one of Daily, Weekly or Monthly schedules.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTTelemetryScheduleType TelemetrySchedule { get; set; }
         /// <summary>
         /// Enable this flag to specify a proxy, and provide the proxy settings.

@@ -17,11 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer AuthenticationRule object")]
     public class NSXTALBAuthenticationRuleType 
     {
+        public NSXTALBAuthenticationRuleType()
+        {
+            Enable = test
+        }
         /// <summary>
-        /// Enable or disable authentication for matched targets.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "action")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable or disable authentication for matched targets.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBAuthenticationActionType Action { get; set; }
         /// <summary>
         /// Index of the rule.
@@ -37,7 +41,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "enable")]
         [NSXTProperty(IsRequired: false, Description: @"Enable or disable the rule.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enable { get; set; }
         /// <summary>
         /// Name of the rule.
@@ -47,10 +50,10 @@ namespace nsxtsdk.PolicyModels
         [System.ComponentModel.DataAnnotations.Required]
         public string Name { get; set; }
         /// <summary>
-        /// Add match criteria to the rule.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "match")]
-        [NSXTProperty(IsRequired: false, Description: @"Add match criteria to the rule.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBAuthenticationMatchType Match { get; set; }
     }
 }

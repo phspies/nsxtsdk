@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildALBApplicationProfileType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildALBApplicationProfileType()
+        {
+        }
         /// <summary>
-        /// Contains the actual ALBApplicationProfile object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ALBApplicationProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual ALBApplicationProfile object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBApplicationProfileType ALBApplicationProfile { get; set; }
     }

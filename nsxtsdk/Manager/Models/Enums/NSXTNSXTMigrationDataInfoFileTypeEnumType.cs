@@ -14,7 +14,13 @@ namespace nsxtsdk.ManagerModels
     {
         [EnumMember(Value = "VRA_INPUT")]
         VRAINPUT = 1,
+        [EnumMember(Value = "VRA_OUTPUT")]
+        VRAOUTPUT = 2,
         [EnumMember(Value = "EDGE_CUTOVER_MAPPING")]
-        EDGECUTOVERMAPPING = 2,
+        EDGECUTOVERMAPPING = 3,
+        [EnumMember(Value = "BYOT_L3_MAPPING")]
+        BYOTL3MAPPING = 4,
+        [EnumMember(Value = "AVI_LB_MAPPING")]
+        AVILBMAPPING = 5,
     }
 }

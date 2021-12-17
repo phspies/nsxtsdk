@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLiveTraceResultType 
     {
+        public NSXTLiveTraceResultType()
+        {
+        }
         /// <summary>
         /// PktCap action results
         /// </summary>
@@ -24,22 +27,16 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"PktCap action results")]
         public IList<NSXTPktCapResultType> PktcapResults { get; set; }
         /// <summary>
-        /// Count action list results
-        /// </summary>
-        [JsonProperty(PropertyName = "count_results")]
-        [NSXTProperty(IsRequired: false, Description: @"Count action list results")]
-        public IList<NSXTCountResultType> CountResults { get; set; }
-        /// <summary>
-        /// The id is assigned by live trace and cannot be specified by user.
-        /// </summary>
-        [JsonProperty(PropertyName = "id")]
-        [NSXTProperty(IsRequired: false, Description: @"The id is assigned by live trace and cannot be specified by user.")]
-        public string? Id { get; set; }
-        /// <summary>
         /// Trace action observation list results
         /// </summary>
         [JsonProperty(PropertyName = "trace_results")]
         [NSXTProperty(IsRequired: false, Description: @"Trace action observation list results")]
         public IList<NSXTTraceResultType> TraceResults { get; set; }
+        /// <summary>
+        /// The id is assigned by Livetrace and cannot be specified by user.
+        /// </summary>
+        [JsonProperty(PropertyName = "id")]
+        [NSXTProperty(IsRequired: false, Description: @"The id is assigned by Livetrace and cannot be specified by user.")]
+        public string? Id { get; set; }
     }
 }

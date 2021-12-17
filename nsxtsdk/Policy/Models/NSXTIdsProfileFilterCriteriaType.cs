@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdsProfileFilterCriteriaType : NSXTIdsProfileCriteriaType
     {
+        public NSXTIdsProfileFilterCriteriaType()
+        {
+        }
         /// <summary>
         /// Represents the value of selected filter name.
         /// Note : The supported values for filter name CVSS are

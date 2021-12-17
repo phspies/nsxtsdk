@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVpnTunnelInterfaceType : NSXTPolicyConfigResourceType
     {
+        public NSXTIPSecVpnTunnelInterfaceType()
+        {
+        }
         /// <summary>
         /// IP Tunnel interface (commonly referred as VTI) subnet.
         /// </summary>

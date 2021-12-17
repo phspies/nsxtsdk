@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLoadBalancerAllocationPoolType : NSXTEdgeClusterMemberAllocationPoolType
     {
+        public NSXTLoadBalancerAllocationPoolType()
+        {
+            AllocationSize = test
+        }
         /// <summary>
         /// To address varied customer performance and scalability requirements,
         /// different sizes for load balancer service are supported: SMALL, MEDIUM,
@@ -27,7 +31,6 @@ namespace nsxtsdk.ManagerModels
         [JsonProperty(PropertyName = "allocation_size", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"To address varied customer performance and scalability requirements,different sizes for load balancer service are supported: SMALL, MEDIUM,LARGE and XLARGE, each with its own set of resource and performance.Specify size of load balancer service which you will bind to TIER1router.")]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "SMALL")]
         public NSXTLoadBalancerAllocationPoolAllocationSizeEnumType AllocationSize { get; set; }
     }
 }

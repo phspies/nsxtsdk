@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTEffectiveMemberResourceListResultType : NSXTListResultType
     {
+        public NSXTEffectiveMemberResourceListResultType()
+        {
+        }
         /// <summary>
         /// Paged Collection of resources which are the effective members of an NSGroup.
         /// </summary>

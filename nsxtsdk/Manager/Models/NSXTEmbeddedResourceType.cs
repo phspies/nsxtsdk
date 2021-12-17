@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTEmbeddedResourceType : NSXTRevisionedResourceType
     {
+        public NSXTEmbeddedResourceType()
+        {
+        }
         /// <summary>
-        /// Owner of this resource
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "_owner")]
-        [NSXTProperty(IsRequired: false, Description: @"Owner of this resource")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTOwnerResourceLinkType Owner { get; set; }
         /// <summary>
         /// Defaults to ID if not set

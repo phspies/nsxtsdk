@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"OSPF route next hop result.")]
     public class NSXTOspfRouteNextHopResultType 
     {
+        public NSXTOspfRouteNextHopResultType()
+        {
+        }
         /// <summary>
         /// Check whether OSPF route is directly connected.
         /// </summary>

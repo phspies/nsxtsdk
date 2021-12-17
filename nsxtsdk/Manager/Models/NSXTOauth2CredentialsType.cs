@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Oauth2 Account Credentials")]
     public class NSXTOauth2CredentialsType 
     {
+        public NSXTOauth2CredentialsType()
+        {
+        }
         /// <summary>
         /// Client secret, that will be used for authentication in AWS environment. Can be some passphrase.
         /// </summary>

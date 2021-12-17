@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildIdsStandaloneHostConfigType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildIdsStandaloneHostConfigType()
+        {
+        }
         /// <summary>
-        /// Contains the IdsStandaloneHostConfig object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "IdsStandaloneHostConfig", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the IdsStandaloneHostConfig object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTIdsStandaloneHostConfigType IdsStandaloneHostConfig { get; set; }
     }

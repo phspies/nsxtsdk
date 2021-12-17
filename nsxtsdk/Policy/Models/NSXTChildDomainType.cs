@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildDomainType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildDomainType()
+        {
+        }
         /// <summary>
-        /// Contains the actual domain object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "Domain", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual domain object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTDomainType Domain { get; set; }
     }

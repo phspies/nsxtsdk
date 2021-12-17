@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTOperationCollectorGlobalConfigType : NSXTGlobalConfigsType
     {
+        public NSXTOperationCollectorGlobalConfigType()
+        {
+            ReportInterval = test
+        }
         /// <summary>
         /// Report interval for operation data in seconds.
         /// </summary>
@@ -24,7 +28,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Report interval for operation data in seconds.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(1800)]
-        [NSXTDefaultProperty(Default: "")]
         public int? ReportInterval { get; set; }
         /// <summary>
         /// Operation Collector Config.

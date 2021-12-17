@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTContainerApplicationType : NSXTDiscoveredResourceType
     {
+        public NSXTContainerApplicationType()
+        {
+        }
         /// <summary>
         /// Status of the container application.
         /// </summary>

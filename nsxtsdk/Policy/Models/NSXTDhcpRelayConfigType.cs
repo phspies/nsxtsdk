@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpRelayConfigType : NSXTPolicyConfigResourceType
     {
+        public NSXTDhcpRelayConfigType()
+        {
+        }
         /// <summary>
         /// DHCP server IP addresses for DHCP relay configuration.
         /// Both IPv4 and IPv6 addresses are supported.

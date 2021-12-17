@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildLBVirtualServerType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildLBVirtualServerType()
+        {
+        }
         /// <summary>
-        /// Contains the actual LBVirtualServer object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "LBVirtualServer", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual LBVirtualServer object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTLBVirtualServerType LBVirtualServer { get; set; }
     }

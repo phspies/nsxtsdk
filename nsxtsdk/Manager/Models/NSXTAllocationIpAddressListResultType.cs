@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAllocationIpAddressListResultType : NSXTListResultType
     {
+        public NSXTAllocationIpAddressListResultType()
+        {
+        }
         /// <summary>
         /// Pool allocation list results
         /// </summary>

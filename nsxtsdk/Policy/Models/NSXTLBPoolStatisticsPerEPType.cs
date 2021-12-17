@@ -19,6 +19,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBPoolStatisticsPerEPType : NSXTPolicyRuntimeInfoPerEPType
     {
+        public NSXTLBPoolStatisticsPerEPType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

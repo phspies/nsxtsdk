@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildSecurityPolicyType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildSecurityPolicyType()
+        {
+        }
         /// <summary>
-        /// Contains the actual SecurityPolicy object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "SecurityPolicy", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual SecurityPolicy object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTSecurityPolicyType SecurityPolicy { get; set; }
     }

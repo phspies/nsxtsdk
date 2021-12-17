@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyIdfwGroupVmDetailListResultType : NSXTListResultType
     {
+        public NSXTPolicyIdfwGroupVmDetailListResultType()
+        {
+        }
         /// <summary>
         /// String Path of the group
         /// </summary>

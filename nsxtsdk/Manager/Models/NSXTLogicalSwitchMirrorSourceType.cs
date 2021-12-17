@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalSwitchMirrorSourceType : NSXTMirrorSourceType
     {
+        public NSXTLogicalSwitchMirrorSourceType()
+        {
+        }
         /// <summary>
         /// Please note as logical port attached with vmk interface is unsupported
         /// as mirror source, traffic from those ports on source logical switch will

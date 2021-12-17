@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Meta-data of a pre/post-upgrade check")]
     public class NSXTUpgradeCheckInfoType 
     {
+        public NSXTUpgradeCheckInfoType()
+        {
+        }
         /// <summary>
         /// Display name of the pre/post-upgrade check
         /// </summary>

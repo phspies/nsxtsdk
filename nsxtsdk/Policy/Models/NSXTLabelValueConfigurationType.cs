@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLabelValueConfigurationType : NSXTWidgetConfigurationType
     {
+        public NSXTLabelValueConfigurationType()
+        {
+        }
         /// <summary>
-        /// Layout of properties can be vertical or grid. If layout is not specified a default vertical layout is applied.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "layout")]
-        [NSXTProperty(IsRequired: false, Description: @"Layout of properties can be vertical or grid. If layout is not specified a default vertical layout is applied.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLayoutType Layout { get; set; }
         /// <summary>
         /// Hyperlink of the specified UI page that provides details.
@@ -31,10 +34,11 @@ namespace nsxtsdk.PolicyModels
         public string? Navigation { get; set; }
         /// <summary>
         /// A sub-type of LabelValueConfiguration. If sub-type is not specified the parent type is rendered. For VERTICALLY_ALIGNED
-        /// sub_type, the value is placed below the label.
+        /// sub_type, the value is placed below the label. For HORIZONTALLY_ALIGNED sub_type, the value is placed right hand side of
+        /// the label.
         /// </summary>
         [JsonProperty(PropertyName = "sub_type")]
-        [NSXTProperty(IsRequired: false, Description: @"A sub-type of LabelValueConfiguration. If sub-type is not specified the parent type is rendered. For VERTICALLY_ALIGNED sub_type, the value is placed below the label.")]
+        [NSXTProperty(IsRequired: false, Description: @"A sub-type of LabelValueConfiguration. If sub-type is not specified the parent type is rendered. For VERTICALLY_ALIGNED sub_type, the value is placed below the label. For HORIZONTALLY_ALIGNED sub_type, the value is placed right hand side of the label.")]
         public NSXTLabelValueConfigurationSubTypeEnumType? SubType { get; set; }
         /// <summary>
         /// An array of label-value properties.

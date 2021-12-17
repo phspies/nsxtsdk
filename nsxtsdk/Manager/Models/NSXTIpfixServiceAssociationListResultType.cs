@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpfixServiceAssociationListResultType : NSXTServiceAssociationListResultType
     {
+        public NSXTIpfixServiceAssociationListResultType()
+        {
+        }
         /// <summary>
         /// Ipfix config list result with pagination support.
         /// </summary>

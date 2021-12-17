@@ -17,6 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDnsHeaderType 
     {
+        public NSXTDnsHeaderType()
+        {
+            AddressType = test
+            MessageType = test
+        }
         /// <summary>
         /// This is used to specify the type of the address. V4 - The address provided is an IPv4 domain name/IP address, the Type
         /// in query or response will be A V6 - The address provided is an IPv6 domain name/IP address, the Type in query or
@@ -24,14 +29,12 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "address_type")]
         [NSXTProperty(IsRequired: false, Description: @"This is used to specify the type of the address. V4 - The address provided is an IPv4 domain name/IP address, the Type in query or response will be A V6 - The address provided is an IPv6 domain name/IP address, the Type in query or response will be AAAA")]
-        [NSXTDefaultProperty(Default: "V4")]
         public NSXTDnsHeaderAddressTypeEnumType? AddressType { get; set; }
         /// <summary>
         /// Specifies the message type whether it is a query or a response.
         /// </summary>
         [JsonProperty(PropertyName = "message_type")]
         [NSXTProperty(IsRequired: false, Description: @"Specifies the message type whether it is a query or a response.")]
-        [NSXTDefaultProperty(Default: "QUERY")]
         public NSXTDnsHeaderMessageTypeEnumType? MessageType { get; set; }
         /// <summary>
         /// This is used to define what is being asked or responded.

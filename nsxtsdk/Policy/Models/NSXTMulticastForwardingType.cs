@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Multicast forwarding entry.")]
     public class NSXTMulticastForwardingType 
     {
+        public NSXTMulticastForwardingType()
+        {
+        }
         /// <summary>
         /// Multicast source address.
         /// </summary>
@@ -30,10 +33,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Array of egress interfaces on whic multicast traffic is forwarded.")]
         public IList<NSXTMulticastForwardingInterfaceType> OutgoingInterfaces { get; set; }
         /// <summary>
-        /// Ingress interface on whic multicast traffic is learned.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "incoming_interface")]
-        [NSXTProperty(IsRequired: false, Description: @"Ingress interface on whic multicast traffic is learned.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTMulticastForwardingInterfaceType IncomingInterface { get; set; }
         /// <summary>
         /// Multicast group address.

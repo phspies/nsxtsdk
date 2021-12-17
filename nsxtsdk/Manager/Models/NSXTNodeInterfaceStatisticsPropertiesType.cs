@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeInterfaceStatisticsPropertiesType : NSXTResourceType
     {
+        public NSXTNodeInterfaceStatisticsPropertiesType()
+        {
+        }
         /// <summary>
         /// Number of packets dropped
         /// </summary>

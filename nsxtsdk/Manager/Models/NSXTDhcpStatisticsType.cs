@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpStatisticsType 
     {
+        public NSXTDhcpStatisticsType()
+        {
+        }
         /// <summary>
         /// The total number of DHCP errors
         /// </summary>

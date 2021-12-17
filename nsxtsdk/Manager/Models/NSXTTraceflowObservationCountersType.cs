@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTraceflowObservationCountersType 
     {
+        public NSXTTraceflowObservationCountersType()
+        {
+        }
         /// <summary>
         /// Total number of forwarded observations for this traceflow round.
         /// </summary>

@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTViewType : NSXTManagedResourceType
     {
+        public NSXTViewType()
+        {
+            Weight = test
+        }
         /// <summary>
         /// Comma separated list of roles to which the shared view is visible. Allows user to specify the visibility of a shared
         /// view to the specified roles. User defined roles can also be specified in the list. The roles can be obtained via GET
@@ -46,7 +50,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "weight")]
         [NSXTProperty(IsRequired: false, Description: @"Determines placement of view relative to other views. The lower the weight, the higher it is in the placement order.")]
-        [NSXTDefaultProperty(Default: "")]
         public int? Weight { get; set; }
         /// <summary>
         /// Array of widgets that are part of the view.

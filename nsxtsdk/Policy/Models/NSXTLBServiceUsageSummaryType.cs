@@ -18,6 +18,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Describes usage summary of virtual servers, pools and pool members forall load balancer services.")]
     public class NSXTLBServiceUsageSummaryType 
     {
+        public NSXTLBServiceUsageSummaryType()
+        {
+        }
         /// <summary>
         /// Overall pool usage percentage for all load balancer services.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Port Connection Bare Metal Entities")]
     public class NSXTPortConnectionBMEntitiesType 
     {
+        public NSXTPortConnectionBMEntitiesType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

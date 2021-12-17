@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPFIXL2CollectorType : NSXTPolicyConfigResourceType
     {
+        public NSXTIPFIXL2CollectorType()
+        {
+            CollectorPort = test
+        }
         /// <summary>
         /// IP address for the IPFIX L2 collector.
         /// IP addresses such as 0.0.0.0, 127.0.0.1, 255.255.255.255 are invalid.
@@ -32,7 +36,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Port number for the IPFIX L2 collector.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? CollectorPort { get; set; }
+        public int? CollectorPort { get; set; }
     }
 }

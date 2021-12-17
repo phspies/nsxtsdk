@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceAttachmentType : NSXTManagedResourceType
     {
+        public NSXTServiceAttachmentType()
+        {
+            AttachmentStatus = test
+        }
         /// <summary>
         /// List of LogicalRouters to be connected to the ServicePlane logical switch via a ServiceLink.
         /// </summary>
@@ -24,10 +28,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"List of LogicalRouters to be connected to the ServicePlane logical switch via a ServiceLink.")]
         public IList<NSXTResourceReferenceType> LogicalRouters { get; set; }
         /// <summary>
-        /// Logical Switch gets created as a part of Service Attachment creation.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "logical_switch")]
-        [NSXTProperty(IsRequired: false, Description: @"Logical Switch gets created as a part of Service Attachment creation.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType LogicalSwitch { get; set; }
         /// <summary>
         /// Local IPs associated with this Service Attachment.
@@ -36,19 +40,16 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Local IPs associated with this Service Attachment.")]
         public IList<NSXTIPInfoType> LocalIps { get; set; }
         /// <summary>
-        /// Service Port gets created as a part of Service Attachment creation. It is a Logical Router Port of type
-        /// CentralizedServicePort. It does not participate in distributed routing. Stateless Policy Based Routing service can be
-        /// applied on this port.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "service_port")]
-        [NSXTProperty(IsRequired: false, Description: @"Service Port gets created as a part of Service Attachment creation. It is a Logical Router Port of type CentralizedServicePort. It does not participate in distributed routing. Stateless Policy Based Routing service can be applied on this port.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType ServicePort { get; set; }
         /// <summary>
-        /// NSX Resource where we want to create Service Attachment Point. Ex. T0 LR Edge in case of north-south ServiceInsertion
-        /// and a TransportZone (which is used to define the service plane) in case of east-west service insertion.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "deployed_to", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"NSX Resource where we want to create Service Attachment Point. Ex. T0 LR Edge in case of north-south ServiceInsertion and a TransportZone (which is used to define the service plane) in case of east-west service insertion.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTResourceReferenceType DeployedTo { get; set; }
         /// <summary>
@@ -58,7 +59,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "attachment_status")]
         [NSXTProperty(IsRequired: false, Description: @"UP - A Service Attachment will have its Service Port - UP and with a configured IP address. DOWN - An Inactive ServiceAttachment has its Service Port - DOWN. It can be used to connect set of appliances that do not need to exchange traffic to/from/through the Edge node.")]
-        [NSXTDefaultProperty(Default: "UP")]
         public NSXTServiceAttachmentAttachmentStatusEnumType? AttachmentStatus { get; set; }
     }
 }

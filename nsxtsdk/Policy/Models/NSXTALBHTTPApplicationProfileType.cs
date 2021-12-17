@@ -17,6 +17,37 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HTTPApplicationProfile object")]
     public class NSXTALBHTTPApplicationProfileType 
     {
+        public NSXTALBHTTPApplicationProfileType()
+        {
+            EnableChunkMerge = test
+            MaxKeepaliveRequests = test
+            MaxRpsUri = test
+            FwdCloseHdrForBoundConnections = test
+            MaxRpsCipUri = test
+            ConnectionMultiplexingEnabled = test
+            WebsocketsEnabled = test
+            XffEnabled = test
+            HstsMaxAge = test
+            KeepaliveTimeout = test
+            SslClientCertificateMode = test
+            RespondWith100Continue = test
+            MaxBadRpsCipUri = test
+            ClientBodyTimeout = test
+            DisableKeepalivePostsMsie6 = test
+            ClientMaxHeaderSize = test
+            MaxBadRpsCip = test
+            ClientMaxRequestSize = test
+            MaxRpsUnknownUri = test
+            HttpUpstreamBufferSize = test
+            PostAcceptTimeout = test
+            ClientHeaderTimeout = test
+            MaxResponseHeadersSize = test
+            XffAlternateName = test
+            MaxRpsCip = test
+            ClientMaxBodySize = test
+            MaxRpsUnknownCip = test
+            MaxBadRpsUri = test
+        }
         /// <summary>
         /// Enable chunk body merge for chunked transfer encoding
         /// response.
@@ -25,7 +56,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "enable_chunk_merge")]
         [NSXTProperty(IsRequired: false, Description: @"Enable chunk body merge for chunked transfer encodingresponse.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? EnableChunkMerge { get; set; }
         /// <summary>
         /// The max number of HTTP requests that can be sent over a
@@ -33,14 +63,15 @@ namespace nsxtsdk.PolicyModels
         /// '0' means unlimited.
         /// Allowed values are 0-1000000.
         /// Special values are 0- 'Unlimited requests on a connection'.
+        /// Allowed in Basic(Allowed values- 100) edition,
+        /// Essentials(Allowed values- 100) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 100.
         /// </summary>
         [JsonProperty(PropertyName = "max_keepalive_requests")]
-        [NSXTProperty(IsRequired: false, Description: @"The max number of HTTP requests that can be sent over aKeep-Alive connection.&apos;0&apos; means unlimited.Allowed values are 0-1000000.Special values are 0- &apos;Unlimited requests on a connection&apos;.Default value when not specified in API or module isinterpreted by ALB Controller as 100.")]
+        [NSXTProperty(IsRequired: false, Description: @"The max number of HTTP requests that can be sent over aKeep-Alive connection.&apos;0&apos; means unlimited.Allowed values are 0-1000000.Special values are 0- &apos;Unlimited requests on a connection&apos;.Allowed in Basic(Allowed values- 100) edition,Essentials(Allowed values- 100) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 100.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(1000000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? MaxKeepaliveRequests { get; set; }
         /// <summary>
         /// Maximum requests per second per URI.
@@ -53,7 +84,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Maximum requests per second per URI.Allowed values are 10-1000.Special values are 0- &apos;unlimited&apos;.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(1000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? MaxRpsUri { get; set; }
         /// <summary>
         /// Forward the Connection  Close header coming from backend
@@ -65,7 +95,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "fwd_close_hdr_for_bound_connections")]
         [NSXTProperty(IsRequired: false, Description: @"Forward the Connection  Close header coming from backendserver to the client if connection-switching is enabled,i.e.front-end and backend connections are bound together.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? FwdCloseHdrForBoundConnections { get; set; }
         /// <summary>
         /// Send HTTP 'Keep-Alive' header to the client.
@@ -90,7 +119,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Maximum requests per second per client IP and URI.Allowed values are 10-1000.Special values are 0- &apos;unlimited&apos;.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(1000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? MaxRpsCipUri { get; set; }
         /// <summary>
         /// Insert an X-Forwarded-Proto header in the request sent to
@@ -100,11 +128,14 @@ namespace nsxtsdk.PolicyModels
         /// the servers can determine the original protocol via this
         /// header.
         /// In this example, the value will be 'https'.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "x_forwarded_proto_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Insert an X-Forwarded-Proto header in the request sent tothe server.When the client connects via SSL, Avi terminates the SSL,and then forwards the requests to the servers via HTTP, sothe servers can determine the original protocol via thisheader.In this example, the value will be &apos;https&apos;.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"Insert an X-Forwarded-Proto header in the request sent tothe server.When the client connects via SSL, Avi terminates the SSL,and then forwards the requests to the servers via HTTP, sothe servers can determine the original protocol via thisheader.In this example, the value will be &apos;https&apos;.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? XForwardedProtoEnabled { get; set; }
         /// <summary>
         /// Allows HTTP requests, not just TCP connections, to be load
@@ -117,7 +148,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "connection_multiplexing_enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Allows HTTP requests, not just TCP connections, to be loadbalanced across servers.Proxied TCP connections to servers may be reused bymultiple clients to improve performance.Not compatible with Preserve Client IP.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? ConnectionMultiplexingEnabled { get; set; }
         /// <summary>
         /// Enable Websockets proxy for traffic from clients to the
@@ -131,7 +161,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "websockets_enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Enable Websockets proxy for traffic from clients to thevirtual service.Connections to this VS start in HTTP mode.If the client requests an Upgrade to Websockets, and theserver responds back with success, then the connection isupgraded to WebSockets mode.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? WebsocketsEnabled { get; set; }
         /// <summary>
         /// Enable HTTP request body metrics.
@@ -146,11 +175,14 @@ namespace nsxtsdk.PolicyModels
         /// Use it when detailed information about the number of HTTP
         /// POST parameters is needed, e.g.
         /// for WAF sizing.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "enable_request_body_metrics")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable HTTP request body metrics.If enabled, requests from clients are parsed and relevantstatistics about them are gathered.Currently, it processes HTTP POST requests withContent-Type application/x-www-form-urlencoded ormultipart/form-data, and adds the number of detectedparameters to the l7_client.http_params_count.This is an experimental feature and it may have performanceimpact.Use it when detailed information about the number of HTTPPOST parameters is needed, e.g.for WAF sizing.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"Enable HTTP request body metrics.If enabled, requests from clients are parsed and relevantstatistics about them are gathered.Currently, it processes HTTP POST requests withContent-Type application/x-www-form-urlencoded ormultipart/form-data, and adds the number of detectedparameters to the l7_client.http_params_count.This is an experimental feature and it may have performanceimpact.Use it when detailed information about the number of HTTPPOST parameters is needed, e.g.for WAF sizing.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? EnableRequestBodyMetrics { get; set; }
         /// <summary>
         /// Enable request body buffering for POST requests.
@@ -168,17 +200,20 @@ namespace nsxtsdk.PolicyModels
         /// HSTS can help mitigate man-in-the-middle attacks by telling
         /// browsers that support HSTS that they should only access this
         /// site via HTTPS.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "hsts_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Inserts HTTP Strict-Transport-Security header in the HTTPSresponse.HSTS can help mitigate man-in-the-middle attacks by tellingbrowsers that support HSTS that they should only access thissite via HTTPS.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"Inserts HTTP Strict-Transport-Security header in the HTTPSresponse.HSTS can help mitigate man-in-the-middle attacks by tellingbrowsers that support HSTS that they should only access thissite via HTTPS.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? HstsEnabled { get; set; }
         /// <summary>
-        /// HTTP Compression settings to use with this HTTP Profile.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "compression_profile")]
-        [NSXTProperty(IsRequired: false, Description: @"HTTP Compression settings to use with this HTTP Profile.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBCompressionProfileType CompressionProfile { get; set; }
         /// <summary>
         /// The client's original IP address is inserted into an HTTP
@@ -191,43 +226,47 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "xff_enabled")]
         [NSXTProperty(IsRequired: false, Description: @"The client&apos;s original IP address is inserted into an HTTPrequest header sent to the server.Servers may use this address for logging or other purposes,rather than Avi&apos;s source NAT address used in the Avi toserver IP connection.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? XffEnabled { get; set; }
         /// <summary>
         /// If enabled, an HTTP request on an SSL port will result in
         /// connection close instead of a 400 response.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "reset_conn_http_on_ssl_port")]
-        [NSXTProperty(IsRequired: false, Description: @"If enabled, an HTTP request on an SSL port will result inconnection close instead of a 400 response.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"If enabled, an HTTP request on an SSL port will result inconnection close instead of a 400 response.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? ResetConnHttpOnSslPort { get; set; }
         /// <summary>
         /// Number of days for which the client should regard this
         /// virtual service as a known HSTS host.
         /// Allowed values are 0-10000.
+        /// Allowed in Basic(Allowed values- 365) edition,
+        /// Essentials(Allowed values- 365) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 365.
         /// </summary>
         [JsonProperty(PropertyName = "hsts_max_age")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of days for which the client should regard thisvirtual service as a known HSTS host.Allowed values are 0-10000.Default value when not specified in API or module isinterpreted by ALB Controller as 365.")]
+        [NSXTProperty(IsRequired: false, Description: @"Number of days for which the client should regard thisvirtual service as a known HSTS host.Allowed values are 0-10000.Allowed in Basic(Allowed values- 365) edition,Essentials(Allowed values- 365) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 365.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(10000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? HstsMaxAge { get; set; }
         /// <summary>
         /// The max idle time allowed between HTTP requests over a
         /// Keep-alive connection.
         /// Allowed values are 10-100000000.
         /// Unit is MILLISECONDS.
+        /// Allowed in Essentials(Allowed values- 30000) edition,
+        /// Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 30000.
         /// </summary>
         [JsonProperty(PropertyName = "keepalive_timeout")]
-        [NSXTProperty(IsRequired: false, Description: @"The max idle time allowed between HTTP requests over aKeep-alive connection.Allowed values are 10-100000000.Unit is MILLISECONDS.Default value when not specified in API or module isinterpreted by ALB Controller as 30000.")]
+        [NSXTProperty(IsRequired: false, Description: @"The max idle time allowed between HTTP requests over aKeep-alive connection.Allowed values are 10-100000000.Unit is MILLISECONDS.Allowed in Essentials(Allowed values- 30000) edition,Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 30000.")]
         //[System.ComponentModel.DataAnnotations.MinLength(10)]
         //[System.ComponentModel.DataAnnotations.MaxLength(100000000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? KeepaliveTimeout { get; set; }
         /// <summary>
         /// Specifies whether the client side verification is set to
@@ -235,24 +274,31 @@ namespace nsxtsdk.PolicyModels
         /// Enum options - SSL_CLIENT_CERTIFICATE_NONE,
         /// SSL_CLIENT_CERTIFICATE_REQUEST,
         /// SSL_CLIENT_CERTIFICATE_REQUIRE.
+        /// Allowed in Basic(Allowed values-
+        /// SSL_CLIENT_CERTIFICATE_NONE,SSL_CLIENT_CERTIFICATE_REQUIRE)
+        /// edition, Essentials(Allowed values-
+        /// SSL_CLIENT_CERTIFICATE_NONE,SSL_CLIENT_CERTIFICATE_REQUIRE)
+        /// edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as
         /// SSL_CLIENT_CERTIFICATE_NONE.
         /// </summary>
         [JsonProperty(PropertyName = "ssl_client_certificate_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"Specifies whether the client side verification is set tonone, request or require.Enum options - SSL_CLIENT_CERTIFICATE_NONE,SSL_CLIENT_CERTIFICATE_REQUEST,SSL_CLIENT_CERTIFICATE_REQUIRE.Default value when not specified in API or module isinterpreted by ALB Controller asSSL_CLIENT_CERTIFICATE_NONE.")]
-        [NSXTDefaultProperty(Default: "SSL_CLIENT_CERTIFICATE_NONE")]
+        [NSXTProperty(IsRequired: false, Description: @"Specifies whether the client side verification is set tonone, request or require.Enum options - SSL_CLIENT_CERTIFICATE_NONE,SSL_CLIENT_CERTIFICATE_REQUEST,SSL_CLIENT_CERTIFICATE_REQUIRE.Allowed in Basic(Allowed values-SSL_CLIENT_CERTIFICATE_NONE,SSL_CLIENT_CERTIFICATE_REQUIRE)edition, Essentials(Allowed values-SSL_CLIENT_CERTIFICATE_NONE,SSL_CLIENT_CERTIFICATE_REQUIRE)edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller asSSL_CLIENT_CERTIFICATE_NONE.")]
         public NSXTAlbhttpapplicationProfileSslClientCertificateModeEnumType? SslClientCertificateMode { get; set; }
         /// <summary>
         /// When terminating client SSL sessions at Avi, servers may
         /// incorrectly send redirect to clients as HTTP.
         /// This option will rewrite the server's redirect responses
         /// for this virtual service from HTTP to HTTPS.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "server_side_redirect_to_https")]
-        [NSXTProperty(IsRequired: false, Description: @"When terminating client SSL sessions at Avi, servers mayincorrectly send redirect to clients as HTTP.This option will rewrite the server&apos;s redirect responsesfor this virtual service from HTTP to HTTPS.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"When terminating client SSL sessions at Avi, servers mayincorrectly send redirect to clients as HTTP.This option will rewrite the server&apos;s redirect responsesfor this virtual service from HTTP to HTTPS.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? ServerSideRedirectToHttps { get; set; }
         /// <summary>
         /// Disable strict check between TLS servername and HTTP Host
@@ -271,7 +317,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "respond_with_100_continue")]
         [NSXTProperty(IsRequired: false, Description: @"Avi will respond with 100-Continue response if Expect 100-Continue header received from client.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? RespondWith100Continue { get; set; }
         /// <summary>
         /// Maximum bad requests per second per client IP and URI.
@@ -284,7 +329,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Maximum bad requests per second per client IP and URI.Allowed values are 10-1000.Special values are 0- &apos;unlimited&apos;.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(1000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? MaxBadRpsCipUri { get; set; }
         /// <summary>
         /// The maximum length of time allowed between consecutive read
@@ -294,25 +338,30 @@ namespace nsxtsdk.PolicyModels
         /// for a client to send a POST.
         /// Allowed values are 0-100000000.
         /// Unit is MILLISECONDS.
+        /// Allowed in Basic(Allowed values- 30000) edition,
+        /// Essentials(Allowed values- 30000) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 30000.
         /// </summary>
         [JsonProperty(PropertyName = "client_body_timeout")]
-        [NSXTProperty(IsRequired: false, Description: @"The maximum length of time allowed between consecutive readoperations for a client request body.The value &apos;0&apos; specifies no timeout.This setting generally impacts the length of time allowedfor a client to send a POST.Allowed values are 0-100000000.Unit is MILLISECONDS.Default value when not specified in API or module isinterpreted by ALB Controller as 30000.")]
+        [NSXTProperty(IsRequired: false, Description: @"The maximum length of time allowed between consecutive readoperations for a client request body.The value &apos;0&apos; specifies no timeout.This setting generally impacts the length of time allowedfor a client to send a POST.Allowed values are 0-100000000.Unit is MILLISECONDS.Allowed in Basic(Allowed values- 30000) edition,Essentials(Allowed values- 30000) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as 30000.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(100000000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ClientBodyTimeout { get; set; }
         /// <summary>
         /// Mark HTTP cookies as HTTPonly.
         /// This helps mitigate cross site scripting attacks as
         /// browsers will not allow these cookies to be read by third
         /// parties, such as javascript.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "httponly_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Mark HTTP cookies as HTTPonly.This helps mitigate cross site scripting attacks asbrowsers will not allow these cookies to be read by thirdparties, such as javascript.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"Mark HTTP cookies as HTTPonly.This helps mitigate cross site scripting attacks asbrowsers will not allow these cookies to be read by thirdparties, such as javascript.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? HttponlyEnabled { get; set; }
         /// <summary>
         /// Disable keep-alive client side connections for older
@@ -321,35 +370,40 @@ namespace nsxtsdk.PolicyModels
         /// for older clients based off MSIE6.
         /// For such applications, set this option to false to allow
         /// keep-alive connections.
+        /// Allowed in Basic(Allowed values- true) edition,
+        /// Essentials(Allowed values- true) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as true.
         /// </summary>
         [JsonProperty(PropertyName = "disable_keepalive_posts_msie6")]
-        [NSXTProperty(IsRequired: false, Description: @"Disable keep-alive client side connections for olderbrowsers based off MS Internet Explorer 6.0 (MSIE6).For some applications, this might break NTLM authenticationfor older clients based off MSIE6.For such applications, set this option to false to allowkeep-alive connections.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Disable keep-alive client side connections for olderbrowsers based off MS Internet Explorer 6.0 (MSIE6).For some applications, this might break NTLM authenticationfor older clients based off MSIE6.For such applications, set this option to false to allowkeep-alive connections.Allowed in Basic(Allowed values- true) edition,Essentials(Allowed values- true) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
         public bool? DisableKeepalivePostsMsie6 { get; set; }
         /// <summary>
         /// Maximum size in Kbytes of a single HTTP header in the
         /// client request.
         /// Allowed values are 1-64.
         /// Unit is KB.
+        /// Allowed in Basic(Allowed values- 12) edition,
+        /// Essentials(Allowed values- 12) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 12.
         /// </summary>
         [JsonProperty(PropertyName = "client_max_header_size")]
-        [NSXTProperty(IsRequired: false, Description: @"Maximum size in Kbytes of a single HTTP header in theclient request.Allowed values are 1-64.Unit is KB.Default value when not specified in API or module isinterpreted by ALB Controller as 12.")]
+        [NSXTProperty(IsRequired: false, Description: @"Maximum size in Kbytes of a single HTTP header in theclient request.Allowed values are 1-64.Unit is KB.Allowed in Basic(Allowed values- 12) edition,Essentials(Allowed values- 12) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 12.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(64)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ClientMaxHeaderSize { get; set; }
         /// <summary>
         /// Client requests received via HTTP will be redirected to
         /// HTTPS.
+        /// Allowed in Essentials(Allowed values- false) edition,
+        /// Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "http_to_https")]
-        [NSXTProperty(IsRequired: false, Description: @"Client requests received via HTTP will be redirected toHTTPS.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"Client requests received via HTTP will be redirected toHTTPS.Allowed in Essentials(Allowed values- false) edition,Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? HttpToHttps { get; set; }
         /// <summary>
         /// Maximum bad requests per second per client IP.
@@ -362,14 +416,12 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Maximum bad requests per second per client IP.Allowed values are 10-1000.Special values are 0- &apos;unlimited&apos;.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(1000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? MaxBadRpsCip { get; set; }
         /// <summary>
-        /// Set of match/action rules that govern what happens when the
-        /// client certificate request is enabled.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ssl_client_certificate_action")]
-        [NSXTProperty(IsRequired: false, Description: @"Set of match/action rules that govern what happens when theclient certificate request is enabled.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBSSLClientCertificateActionType SslClientCertificateAction { get; set; }
         /// <summary>
         /// Maximum size in Kbytes of all the client HTTP request
@@ -383,13 +435,12 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Maximum size in Kbytes of all the client HTTP requestheaders.Allowed values are 1-256.Unit is KB.Default value when not specified in API or module isinterpreted by ALB Controller as 48.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(256)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ClientMaxRequestSize { get; set; }
         /// <summary>
-        /// HTTP Caching config to use with this HTTP Profile.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "cache_config")]
-        [NSXTProperty(IsRequired: false, Description: @"HTTP Caching config to use with this HTTP Profile.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHttpCacheConfigType CacheConfig { get; set; }
         /// <summary>
         /// Maximum unknown URIs per second.
@@ -402,7 +453,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Maximum unknown URIs per second.Allowed values are 10-1000.Special values are 0- &apos;unlimited&apos;.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(1000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? MaxRpsUnknownUri { get; set; }
         /// <summary>
         /// Insert the 'includeSubdomains' directive in the HTTP
@@ -410,48 +460,54 @@ namespace nsxtsdk.PolicyModels
         /// Adding the includeSubdomains directive signals the
         /// User-Agent that the HSTS Policy applies to this HSTS Host as
         /// well as any subdomains of the host's domain name.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
+        /// Special default for Basic edition is false, Essentials
+        /// edition is false, Enterprise is True.
         /// Default value when not specified in API or module is
-        /// interpreted by ALB Controller as true.
+        /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "hsts_subdomains_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Insert the &apos;includeSubdomains&apos; directive in the HTTPStrict-Transport-Security header.Adding the includeSubdomains directive signals theUser-Agent that the HSTS Policy applies to this HSTS Host aswell as any subdomains of the host&apos;s domain name.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Insert the &apos;includeSubdomains&apos; directive in the HTTPStrict-Transport-Security header.Adding the includeSubdomains directive signals theUser-Agent that the HSTS Policy applies to this HSTS Host aswell as any subdomains of the host&apos;s domain name.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Special default for Basic edition is false, Essentialsedition is false, Enterprise is True.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? HstsSubdomainsEnabled { get; set; }
         /// <summary>
         /// Size of HTTP buffer in kB.
         /// Allowed values are 1-256.
         /// Special values are 0- 'Auto compute the size of buffer'.
         /// Unit is KB.
+        /// Allowed in Basic(Allowed values- 0) edition,
+        /// Essentials(Allowed values- 0) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 0.
         /// </summary>
         [JsonProperty(PropertyName = "http_upstream_buffer_size")]
-        [NSXTProperty(IsRequired: false, Description: @"Size of HTTP buffer in kB.Allowed values are 1-256.Special values are 0- &apos;Auto compute the size of buffer&apos;.Unit is KB.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
+        [NSXTProperty(IsRequired: false, Description: @"Size of HTTP buffer in kB.Allowed values are 1-256.Special values are 0- &apos;Auto compute the size of buffer&apos;.Unit is KB.Allowed in Basic(Allowed values- 0) edition,Essentials(Allowed values- 0) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(256)]
-        [NSXTDefaultProperty(Default: "")]
         public long? HttpUpstreamBufferSize { get; set; }
         /// <summary>
-        /// Specifies the HTTP/2 specific application profile
-        /// parameters.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "http2_profile")]
-        [NSXTProperty(IsRequired: false, Description: @"Specifies the HTTP/2 specific application profileparameters.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHTTP2ApplicationProfileType Http2Profile { get; set; }
         /// <summary>
         /// The max allowed length of time between a client
-        /// establishing a TCP connection until Avi receives the first
+        /// establishing a TCP connection and Avi receives the first
         /// byte of the client's HTTP request.
         /// Allowed values are 10-100000000.
         /// Unit is MILLISECONDS.
+        /// Allowed in Basic(Allowed values- 30000) edition,
+        /// Essentials(Allowed values- 30000) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 30000.
         /// </summary>
         [JsonProperty(PropertyName = "post_accept_timeout")]
-        [NSXTProperty(IsRequired: false, Description: @"The max allowed length of time between a clientestablishing a TCP connection until Avi receives the firstbyte of the client&apos;s HTTP request.Allowed values are 10-100000000.Unit is MILLISECONDS.Default value when not specified in API or module isinterpreted by ALB Controller as 30000.")]
+        [NSXTProperty(IsRequired: false, Description: @"The max allowed length of time between a clientestablishing a TCP connection and Avi receives the firstbyte of the client&apos;s HTTP request.Allowed values are 10-100000000.Unit is MILLISECONDS.Allowed in Basic(Allowed values- 30000) edition,Essentials(Allowed values- 30000) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as 30000.")]
         //[System.ComponentModel.DataAnnotations.MinLength(10)]
         //[System.ComponentModel.DataAnnotations.MaxLength(100000000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? PostAcceptTimeout { get; set; }
         /// <summary>
         /// The maximum length of time allowed for a client to transmit
@@ -459,14 +515,16 @@ namespace nsxtsdk.PolicyModels
         /// This helps mitigate various forms of SlowLoris attacks.
         /// Allowed values are 10-100000000.
         /// Unit is MILLISECONDS.
+        /// Allowed in Basic(Allowed values- 10000) edition,
+        /// Essentials(Allowed values- 10000) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 10000.
         /// </summary>
         [JsonProperty(PropertyName = "client_header_timeout")]
-        [NSXTProperty(IsRequired: false, Description: @"The maximum length of time allowed for a client to transmitan entire request header.This helps mitigate various forms of SlowLoris attacks.Allowed values are 10-100000000.Unit is MILLISECONDS.Default value when not specified in API or module isinterpreted by ALB Controller as 10000.")]
+        [NSXTProperty(IsRequired: false, Description: @"The maximum length of time allowed for a client to transmitan entire request header.This helps mitigate various forms of SlowLoris attacks.Allowed values are 10-100000000.Unit is MILLISECONDS.Allowed in Basic(Allowed values- 10000) edition,Essentials(Allowed values- 10000) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as 10000.")]
         //[System.ComponentModel.DataAnnotations.MinLength(10)]
         //[System.ComponentModel.DataAnnotations.MaxLength(100000000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ClientHeaderTimeout { get; set; }
         /// <summary>
         /// Mark server cookies with the 'Secure' attribute.
@@ -475,24 +533,28 @@ namespace nsxtsdk.PolicyModels
         /// If Avi is terminating SSL from clients and passing it as
         /// HTTP to the server, the server may return cookies without
         /// the secure flag set.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "secure_cookie_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Mark server cookies with the &apos;Secure&apos; attribute.Client browsers will not send a cookie marked as secureover an unencrypted connection.If Avi is terminating SSL from clients and passing it asHTTP to the server, the server may return cookies withoutthe secure flag set.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"Mark server cookies with the &apos;Secure&apos; attribute.Client browsers will not send a cookie marked as secureover an unencrypted connection.If Avi is terminating SSL from clients and passing it asHTTP to the server, the server may return cookies withoutthe secure flag set.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? SecureCookieEnabled { get; set; }
         /// <summary>
         /// Maximum size in Kbytes of all the HTTP response headers.
         /// Allowed values are 1-256.
         /// Unit is KB.
+        /// Allowed in Basic(Allowed values- 48) edition,
+        /// Essentials(Allowed values- 48) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 48.
         /// </summary>
         [JsonProperty(PropertyName = "max_response_headers_size")]
-        [NSXTProperty(IsRequired: false, Description: @"Maximum size in Kbytes of all the HTTP response headers.Allowed values are 1-256.Unit is KB.Default value when not specified in API or module isinterpreted by ALB Controller as 48.")]
+        [NSXTProperty(IsRequired: false, Description: @"Maximum size in Kbytes of all the HTTP response headers.Allowed values are 1-256.Unit is KB.Allowed in Basic(Allowed values- 48) edition,Essentials(Allowed values- 48) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 48.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(256)]
-        [NSXTDefaultProperty(Default: "")]
         public long? MaxResponseHeadersSize { get; set; }
         /// <summary>
         /// Provide a custom name for the X-Forwarded-For header sent
@@ -502,7 +564,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "xff_alternate_name")]
         [NSXTProperty(IsRequired: false, Description: @"Provide a custom name for the X-Forwarded-For header sentto the servers.Default value when not specified in API or module isinterpreted by ALB Controller as X-Forwarded-For.")]
-        [NSXTDefaultProperty(Default: "X-Forwarded-For")]
         public string? XffAlternateName { get; set; }
         /// <summary>
         /// Maximum requests per second per client IP.
@@ -515,7 +576,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Maximum requests per second per client IP.Allowed values are 10-1000.Special values are 0- &apos;unlimited&apos;.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(1000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? MaxRpsCip { get; set; }
         /// <summary>
         /// Maximum size for the client request body.
@@ -528,17 +588,19 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "client_max_body_size")]
         [NSXTProperty(IsRequired: false, Description: @"Maximum size for the client request body.This limits the size of the client data that can beuploaded/posted as part of a single HTTP Request.Default 0 =&gt; Unlimited.Unit is KB.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
-        [NSXTDefaultProperty(Default: "")]
         public long? ClientMaxBodySize { get; set; }
         /// <summary>
         /// Enable support for fire and forget feature.
         /// If enabled, request from client is forwarded to server even
         /// if client prematurely closes the connection.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "enable_fire_and_forget")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable support for fire and forget feature.If enabled, request from client is forwarded to server evenif client prematurely closes the connection.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"Enable support for fire and forget feature.If enabled, request from client is forwarded to server evenif client prematurely closes the connection.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? EnableFireAndForget { get; set; }
         /// <summary>
         /// Maximum unknown client IPs per second.
@@ -551,16 +613,18 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Maximum unknown client IPs per second.Allowed values are 10-1000.Special values are 0- &apos;unlimited&apos;.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(1000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? MaxRpsUnknownCip { get; set; }
         /// <summary>
         /// Allow use of dot (.) in HTTP header names, for instance
         /// Header.app.special  PickAppVersionX.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "allow_dots_in_header_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Allow use of dot (.) in HTTP header names, for instanceHeader.app.special  PickAppVersionX.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"Allow use of dot (.) in HTTP header names, for instanceHeader.app.special  PickAppVersionX.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? AllowDotsInHeaderName { get; set; }
         /// <summary>
         /// Select the PKI profile to be associated with the Virtual
@@ -583,16 +647,18 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Maximum bad requests per second per URI.Allowed values are 10-1000.Special values are 0- &apos;unlimited&apos;.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(1000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? MaxBadRpsUri { get; set; }
         /// <summary>
         /// Use 'Keep-Alive' header timeout sent by application instead
         /// of sending the HTTP Keep-Alive Timeout.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "use_app_keepalive_timeout")]
-        [NSXTProperty(IsRequired: false, Description: @"Use &apos;Keep-Alive&apos; header timeout sent by application insteadof sending the HTTP Keep-Alive Timeout.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"Use &apos;Keep-Alive&apos; header timeout sent by application insteadof sending the HTTP Keep-Alive Timeout.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? UseAppKeepaliveTimeout { get; set; }
     }
 }

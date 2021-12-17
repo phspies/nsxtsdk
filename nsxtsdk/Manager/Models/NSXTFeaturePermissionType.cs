@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Feature Permission")]
     public class NSXTFeaturePermissionType 
     {
+        public NSXTFeaturePermissionType()
+        {
+        }
         /// <summary>
         /// Is execute recommended
         /// </summary>

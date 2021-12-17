@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer NetworkSecurityPolicyActionRLParam object")]
     public class NSXTALBNetworkSecurityPolicyActionRLParamType 
     {
+        public NSXTALBNetworkSecurityPolicyActionRLParamType()
+        {
+            BurstSize = test
+        }
         /// <summary>
         /// Maximum number of connections or requests or packets per
         /// second.
@@ -37,7 +41,6 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "burst_size", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"Maximum number of connections or requests or packets to berate limited instantaneously.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "")]
         public long BurstSize { get; set; }
     }
 }

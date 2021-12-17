@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdsProfileConjunctionOperatorType : NSXTIdsProfileCriteriaType
     {
+        public NSXTIdsProfileConjunctionOperatorType()
+        {
+        }
         /// <summary>
         /// IDS Profile Filter Condition
         /// </summary>

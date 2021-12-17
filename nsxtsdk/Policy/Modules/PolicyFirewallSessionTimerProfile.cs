@@ -30,26 +30,26 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyFirewallSessionTimerProfileType GlobalUpdatePolicyFirewallSessionTimerProfile(string FirewallSessionTimerProfileId, NSXTPolicyFirewallSessionTimerProfileType PolicyFirewallSessionTimerProfile, bool? Override = null)
+        public NSXTPolicyFirewallSessionTimerProfileType GlobalGlobalInfraUpdatePolicyFirewallSessionTimerProfile(string FirewallSessionTimerProfileId, NSXTPolicyFirewallSessionTimerProfileType PolicyFirewallSessionTimerProfile, bool? Override = null)
         {
             if (FirewallSessionTimerProfileId == null) { throw new System.ArgumentNullException("FirewallSessionTimerProfileId cannot be null"); }
             if (PolicyFirewallSessionTimerProfile == null) { throw new System.ArgumentNullException("PolicyFirewallSessionTimerProfile cannot be null"); }
             NSXTPolicyFirewallSessionTimerProfileType returnValue = default(NSXTPolicyFirewallSessionTimerProfileType);
-            StringBuilder UpdatePolicyFirewallSessionTimerProfileServiceURL = new StringBuilder("/global-infra/firewall-session-timer-profiles/{firewall-session-timer-profile-id}");
+            StringBuilder GlobalInfraUpdatePolicyFirewallSessionTimerProfileServiceURL = new StringBuilder("/global-infra/firewall-session-timer-profiles/{firewall-session-timer-profile-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.PUT
             };
             request.AddHeader("Content-type", "application/json");
-            UpdatePolicyFirewallSessionTimerProfileServiceURL.Replace("{firewall-session-timer-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallSessionTimerProfileId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraUpdatePolicyFirewallSessionTimerProfileServiceURL.Replace("{firewall-session-timer-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallSessionTimerProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyFirewallSessionTimerProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
-            request.Resource = UpdatePolicyFirewallSessionTimerProfileServiceURL.ToString();
+            request.Resource = GlobalInfraUpdatePolicyFirewallSessionTimerProfileServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP PUT operation to " + UpdatePolicyFirewallSessionTimerProfileServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP PUT operation to " + GlobalInfraUpdatePolicyFirewallSessionTimerProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -70,23 +70,23 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyFirewallSessionTimerProfileType GlobalGetPolicyFirewallSessionTimerProfile(string FirewallSessionTimerProfileId)
+        public NSXTPolicyFirewallSessionTimerProfileType GlobalGlobalInfraGetPolicyFirewallSessionTimerProfile(string FirewallSessionTimerProfileId)
         {
             if (FirewallSessionTimerProfileId == null) { throw new System.ArgumentNullException("FirewallSessionTimerProfileId cannot be null"); }
             NSXTPolicyFirewallSessionTimerProfileType returnValue = default(NSXTPolicyFirewallSessionTimerProfileType);
-            StringBuilder GetPolicyFirewallSessionTimerProfileServiceURL = new StringBuilder("/global-infra/firewall-session-timer-profiles/{firewall-session-timer-profile-id}");
+            StringBuilder GlobalInfraGetPolicyFirewallSessionTimerProfileServiceURL = new StringBuilder("/global-infra/firewall-session-timer-profiles/{firewall-session-timer-profile-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetPolicyFirewallSessionTimerProfileServiceURL.Replace("{firewall-session-timer-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallSessionTimerProfileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = GetPolicyFirewallSessionTimerProfileServiceURL.ToString();
+            GlobalInfraGetPolicyFirewallSessionTimerProfileServiceURL.Replace("{firewall-session-timer-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallSessionTimerProfileId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraGetPolicyFirewallSessionTimerProfileServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetPolicyFirewallSessionTimerProfileServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetPolicyFirewallSessionTimerProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -107,24 +107,24 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalDeletePolicyFirewallSessionTimerProfile(string FirewallSessionTimerProfileId, bool? Override = null)
+        public void GlobalGlobalInfraDeletePolicyFirewallSessionTimerProfile(string FirewallSessionTimerProfileId, bool? Override = null)
         {
             if (FirewallSessionTimerProfileId == null) { throw new System.ArgumentNullException("FirewallSessionTimerProfileId cannot be null"); }
             
-            StringBuilder DeletePolicyFirewallSessionTimerProfileServiceURL = new StringBuilder("/global-infra/firewall-session-timer-profiles/{firewall-session-timer-profile-id}");
+            StringBuilder GlobalInfraDeletePolicyFirewallSessionTimerProfileServiceURL = new StringBuilder("/global-infra/firewall-session-timer-profiles/{firewall-session-timer-profile-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.DELETE
             };
             request.AddHeader("Content-type", "application/json");
-            DeletePolicyFirewallSessionTimerProfileServiceURL.Replace("{firewall-session-timer-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallSessionTimerProfileId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraDeletePolicyFirewallSessionTimerProfileServiceURL.Replace("{firewall-session-timer-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallSessionTimerProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
-            request.Resource = DeletePolicyFirewallSessionTimerProfileServiceURL.ToString();
+            request.Resource = GlobalInfraDeletePolicyFirewallSessionTimerProfileServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP DELETE operation to " + DeletePolicyFirewallSessionTimerProfileServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP DELETE operation to " + GlobalInfraDeletePolicyFirewallSessionTimerProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -133,26 +133,26 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalPatchPolicyFirewallSessionTimerProfile(string FirewallSessionTimerProfileId, NSXTPolicyFirewallSessionTimerProfileType PolicyFirewallSessionTimerProfile, bool? Override = null)
+        public void GlobalGlobalInfraPatchPolicyFirewallSessionTimerProfile(string FirewallSessionTimerProfileId, NSXTPolicyFirewallSessionTimerProfileType PolicyFirewallSessionTimerProfile, bool? Override = null)
         {
             if (FirewallSessionTimerProfileId == null) { throw new System.ArgumentNullException("FirewallSessionTimerProfileId cannot be null"); }
             if (PolicyFirewallSessionTimerProfile == null) { throw new System.ArgumentNullException("PolicyFirewallSessionTimerProfile cannot be null"); }
             
-            StringBuilder PatchPolicyFirewallSessionTimerProfileServiceURL = new StringBuilder("/global-infra/firewall-session-timer-profiles/{firewall-session-timer-profile-id}");
+            StringBuilder GlobalInfraPatchPolicyFirewallSessionTimerProfileServiceURL = new StringBuilder("/global-infra/firewall-session-timer-profiles/{firewall-session-timer-profile-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.PATCH
             };
             request.AddHeader("Content-type", "application/json");
-            PatchPolicyFirewallSessionTimerProfileServiceURL.Replace("{firewall-session-timer-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallSessionTimerProfileId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraPatchPolicyFirewallSessionTimerProfileServiceURL.Replace("{firewall-session-timer-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallSessionTimerProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyFirewallSessionTimerProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
-            request.Resource = PatchPolicyFirewallSessionTimerProfileServiceURL.ToString();
+            request.Resource = GlobalInfraPatchPolicyFirewallSessionTimerProfileServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP PATCH operation to " + PatchPolicyFirewallSessionTimerProfileServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP PATCH operation to " + GlobalInfraPatchPolicyFirewallSessionTimerProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -202,10 +202,10 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyFirewallSessionTimerProfileListResultType GlobalListPolicyFirewallSessionTimerProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyFirewallSessionTimerProfileListResultType GlobalGlobalInfraListPolicyFirewallSessionTimerProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTPolicyFirewallSessionTimerProfileListResultType returnValue = default(NSXTPolicyFirewallSessionTimerProfileListResultType);
-            StringBuilder ListPolicyFirewallSessionTimerProfilesServiceURL = new StringBuilder("/global-infra/firewall-session-timer-profiles");
+            StringBuilder GlobalInfraListPolicyFirewallSessionTimerProfilesServiceURL = new StringBuilder("/global-infra/firewall-session-timer-profiles");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -218,11 +218,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListPolicyFirewallSessionTimerProfilesServiceURL.ToString();
+            request.Resource = GlobalInfraListPolicyFirewallSessionTimerProfilesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ListPolicyFirewallSessionTimerProfilesServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraListPolicyFirewallSessionTimerProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else

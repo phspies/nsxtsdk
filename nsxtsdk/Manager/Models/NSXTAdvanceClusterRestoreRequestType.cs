@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAdvanceClusterRestoreRequestType 
     {
+        public NSXTAdvanceClusterRestoreRequestType()
+        {
+        }
         /// <summary>
         /// List of instructions and their associated data
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMetadataProxyStatisticsType 
     {
+        public NSXTMetadataProxyStatisticsType()
+        {
+        }
         /// <summary>
         /// timestamp of the statistics
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalPortStatisticsType : NSXTAggregatedDataCounterExType
     {
+        public NSXTLogicalPortStatisticsType()
+        {
+        }
         /// <summary>
         /// The id of the logical port
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSetFieldsType : NSXTActionType
     {
+        public NSXTSetFieldsType()
+        {
+        }
         /// <summary>
         /// Field Settings.
         /// </summary>

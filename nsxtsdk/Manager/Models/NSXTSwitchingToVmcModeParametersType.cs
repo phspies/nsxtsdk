@@ -17,36 +17,41 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSwitchingToVmcModeParametersType : NSXTNodeModeType
     {
+        public NSXTSwitchingToVmcModeParametersType()
+        {
+            ResourceType = test
+        }
         /// <summary>
-        /// Org ID and role of "Enterprise Admin"
-        /// </summary>
-        [JsonProperty(PropertyName = "sre_org")]
-        [NSXTProperty(IsRequired: false, Description: @"Org ID and role of &quot;Enterprise Admin&quot;")]
-        public NSXTOrgInfoType SreOrg { get; set; }
-        /// <summary>
-        /// Org ID of a Client - commonly UUID.
-        /// </summary>
-        [JsonProperty(PropertyName = "default_org_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Org ID of a Client - commonly UUID.")]
-        public string? DefaultOrgId { get; set; }
-        /// <summary>
-        /// Org ID and role of "Site Reliability Engineer"
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ea_org")]
-        [NSXTProperty(IsRequired: false, Description: @"Org ID and role of &quot;Site Reliability Engineer&quot;")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTOrgInfoType EaOrg { get; set; }
         /// <summary>
-        /// Org ID and role of "Global Support Services"
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "sre_org")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTOrgInfoType SreOrg { get; set; }
+        /// <summary>
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "gss_org")]
-        [NSXTProperty(IsRequired: false, Description: @"Org ID and role of &quot;Global Support Services&quot;")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTOrgInfoType GssOrg { get; set; }
         /// <summary>
-        /// IP/host of PoP (Point-of-Presence) HTTP proxy server
+        /// This CSP end-point returns the identity provider's logout url. In order to logout, an explicit redirect to this url is
+        /// needed.
         /// </summary>
-        [JsonProperty(PropertyName = "proxy_host")]
-        [NSXTProperty(IsRequired: false, Description: @"IP/host of PoP (Point-of-Presence) HTTP proxy server")]
-        public string? ProxyHost { get; set; }
+        [JsonProperty(PropertyName = "csp_logout_uri")]
+        [NSXTProperty(IsRequired: false, Description: @"This CSP end-point returns the identity provider&apos;s logout url. In order to logout, an explicit redirect to this url is needed.")]
+        public string? CspLogoutUri { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "auth_code")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTOauth2CredentialsType AuthCode { get; set; }
         /// <summary>
         /// CSP time drift in milliseconds
         /// </summary>
@@ -54,23 +59,17 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"CSP time drift in milliseconds")]
         public long? CspTimeDrift { get; set; }
         /// <summary>
-        /// SDDC id
-        /// </summary>
-        [JsonProperty(PropertyName = "sddc_id")]
-        [NSXTProperty(IsRequired: false, Description: @"SDDC id")]
-        public string? SddcId { get; set; }
-        /// <summary>
         /// List of whitelist IPs for basic auth
         /// </summary>
         [JsonProperty(PropertyName = "basic_auth_whitelist_ips")]
         [NSXTProperty(IsRequired: false, Description: @"List of whitelist IPs for basic auth")]
         public IList<string> BasicAuthWhitelistIps { get; set; }
         /// <summary>
-        /// Protocol and domain name (or IP address) of a CSP server, like "https://console-stg.cloud.vmware.com".
+        /// SDDC id
         /// </summary>
-        [JsonProperty(PropertyName = "base_url")]
-        [NSXTProperty(IsRequired: false, Description: @"Protocol and domain name (or IP address) of a CSP server, like &quot;https://console-stg.cloud.vmware.com&quot;.")]
-        public string? BaseUrl { get; set; }
+        [JsonProperty(PropertyName = "sddc_id")]
+        [NSXTProperty(IsRequired: false, Description: @"SDDC id")]
+        public string? SddcId { get; set; }
         /// <summary>
         /// Port of PoP (Point-of-Presence) Http proxy server
         /// </summary>
@@ -80,23 +79,61 @@ namespace nsxtsdk.ManagerModels
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public long? ProxyPort { get; set; }
         /// <summary>
+        /// Node Mode type
+        /// </summary>
+        [JsonProperty(PropertyName = "resource_type")]
+        [NSXTProperty(IsRequired: false, Description: @"Node Mode type")]
+        public NSXTSwitchingToVmcModeParametersResourceTypeEnumType? ResourceType { get; set; }
+        /// <summary>
         /// Relative path on CSP server to the Org location. Can be "/csp/gateway/am/api/orgs/".
         /// </summary>
         [JsonProperty(PropertyName = "csp_org_uri")]
         [NSXTProperty(IsRequired: false, Description: @"Relative path on CSP server to the Org location. Can be &quot;/csp/gateway/am/api/orgs/&quot;.")]
         public string? CspOrgUri { get; set; }
         /// <summary>
-        /// Client's credentials on CSP server
+        /// Org ID of a Client - commonly UUID.
+        /// </summary>
+        [JsonProperty(PropertyName = "default_org_id")]
+        [NSXTProperty(IsRequired: false, Description: @"Org ID of a Client - commonly UUID.")]
+        public string? DefaultOrgId { get; set; }
+        /// <summary>
+        /// IP/host of PoP (Point-of-Presence) HTTP proxy server
+        /// </summary>
+        [JsonProperty(PropertyName = "proxy_host")]
+        [NSXTProperty(IsRequired: false, Description: @"IP/host of PoP (Point-of-Presence) HTTP proxy server")]
+        public string? ProxyHost { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "public_client_info")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTPublicClientInfoType PublicClientInfo { get; set; }
+        /// <summary>
+        /// Protocol and domain name (or IP address) of a CSP server, like "https://console-stg.cloud.vmware.com".
+        /// </summary>
+        [JsonProperty(PropertyName = "base_url")]
+        [NSXTProperty(IsRequired: false, Description: @"Protocol and domain name (or IP address) of a CSP server, like &quot;https://console-stg.cloud.vmware.com&quot;.")]
+        public string? BaseUrl { get; set; }
+        /// <summary>
+        /// CSP endpoint that returns a list of public keys in jwks format. These keys are used in an application to validate that
+        /// the access-token is valid.
+        /// </summary>
+        [JsonProperty(PropertyName = "csp_public_key_uri")]
+        [NSXTProperty(IsRequired: false, Description: @"CSP endpoint that returns a list of public keys in jwks format. These keys are used in an application to validate that the access-token is valid.")]
+        public string? CspPublicKeyUri { get; set; }
+        /// <summary>
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "csp_client_credential")]
-        [NSXTProperty(IsRequired: false, Description: @"Client&apos;s credentials on CSP server")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTOauth2CredentialsType CspClientCredential { get; set; }
         /// <summary>
-        /// Client's credentials.
+        /// This endpoint is used with browser redirection only. It discovers the user's Identity Provider (IdP) and sends the user
+        /// to the IdP login page. It is the starting point of the OAuth 2.0 flow to authenticate end users from an application.
         /// </summary>
-        [JsonProperty(PropertyName = "auth_code")]
-        [NSXTProperty(IsRequired: false, Description: @"Client&apos;s credentials.")]
-        public NSXTOauth2CredentialsType AuthCode { get; set; }
+        [JsonProperty(PropertyName = "csp_user_authorization_uri")]
+        [NSXTProperty(IsRequired: false, Description: @"This endpoint is used with browser redirection only. It discovers the user&apos;s Identity Provider (IdP) and sends the user to the IdP login page. It is the starting point of the OAuth 2.0 flow to authenticate end users from an application.")]
+        public string? CspUserAuthorizationUri { get; set; }
         /// <summary>
         /// When this parameter is set to true, only a change of the node mode happens without any update to the auth properties.
         /// When this param is not set to true i.e. set to false or not provided, mode change and update to the auth properties will
@@ -118,11 +155,18 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Service definition id")]
         public string? ServiceDefinitionId { get; set; }
         /// <summary>
-        /// Node Mode type
+        /// This CSP end-point exchanges one of the following grants - authorization_code, refresh_token, client_credentials or
+        /// client_delegate for an access token.
         /// </summary>
-        [JsonProperty(PropertyName = "resource_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Node Mode type")]
-        [NSXTDefaultProperty(Default: "SwitchingToVmcModeParameters")]
-        public NSXTSwitchingToVmcModeParametersResourceTypeEnumType? ResourceType { get; set; }
+        [JsonProperty(PropertyName = "csp_access_token_uri")]
+        [NSXTProperty(IsRequired: false, Description: @"This CSP end-point exchanges one of the following grants - authorization_code, refresh_token, client_credentials or client_delegate for an access token.")]
+        public string? CspAccessTokenUri { get; set; }
+        /// <summary>
+        /// This endpoint returns the content of the given access token if the token is valid. It also includes the group_ids and
+        /// group_names if the client is registered with group_id, group_names scopes. It's usually /am/api/userinfo.
+        /// </summary>
+        [JsonProperty(PropertyName = "csp_user_info_uri")]
+        [NSXTProperty(IsRequired: false, Description: @"This endpoint returns the content of the given access token if the token is valid. It also includes the group_ids and group_names if the client is registered with group_id, group_names scopes. It&apos;s usually /am/api/userinfo.")]
+        public string? CspUserInfoUri { get; set; }
     }
 }

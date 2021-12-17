@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Detailed information about a related API error")]
     public class NSXTRelatedApiErrorType 
     {
+        public NSXTRelatedApiErrorType()
+        {
+        }
         /// <summary>
         /// The module name where the error occurred
         /// </summary>

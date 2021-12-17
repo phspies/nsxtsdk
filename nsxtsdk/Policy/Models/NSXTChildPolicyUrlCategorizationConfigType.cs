@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildPolicyUrlCategorizationConfigType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildPolicyUrlCategorizationConfigType()
+        {
+        }
         /// <summary>
-        /// Contains the actual PolicyUrlCategorizationConfig object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "PolicyUrlCategorizationConfig", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual PolicyUrlCategorizationConfig object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTPolicyUrlCategorizationConfigType PolicyUrlCategorizationConfig { get; set; }
     }

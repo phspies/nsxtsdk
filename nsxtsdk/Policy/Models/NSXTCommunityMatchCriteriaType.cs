@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Match criteria based on a community list")]
     public class NSXTCommunityMatchCriteriaType 
     {
+        public NSXTCommunityMatchCriteriaType()
+        {
+        }
         /// <summary>
         /// Match operator for community list entries. Not valid when a regular expression is specified for criteria.
         /// </summary>

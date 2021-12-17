@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPackageLoggingLevelsType 
     {
+        public NSXTPackageLoggingLevelsType()
+        {
+        }
         /// <summary>
         /// Logging levels per package
         /// </summary>

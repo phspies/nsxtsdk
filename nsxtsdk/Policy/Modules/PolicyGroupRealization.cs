@@ -30,20 +30,20 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyGroupMembersListResultType GlobalGetGroupSegmentMembers(string DomainId, string GroupId, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyGroupMembersListResultType GlobalGlobalInfraGetGroupSegmentMembers(string DomainId, string GroupId, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
             NSXTPolicyGroupMembersListResultType returnValue = default(NSXTPolicyGroupMembersListResultType);
-            StringBuilder GetGroupSegmentMembersServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/groups/{group-id}/members/segments");
+            StringBuilder GlobalInfraGetGroupSegmentMembersServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/groups/{group-id}/members/segments");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetGroupSegmentMembersServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetGroupSegmentMembersServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetGroupSegmentMembersServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetGroupSegmentMembersServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
@@ -51,11 +51,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetGroupSegmentMembersServiceURL.ToString();
+            request.Resource = GlobalInfraGetGroupSegmentMembersServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetGroupSegmentMembersServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetGroupSegmentMembersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -256,6 +256,52 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
+        public NSXTPolicyGroupMembersListResultType GetGroupDiscoveredPortMembers(string DomainId, string GroupId, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
+            if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
+            NSXTPolicyGroupMembersListResultType returnValue = default(NSXTPolicyGroupMembersListResultType);
+            StringBuilder GetGroupDiscoveredPortMembersServiceURL = new StringBuilder("/infra/domains/{domain-id}/groups/{group-id}/members/dvports");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GetGroupDiscoveredPortMembersServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetGroupDiscoveredPortMembersServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = GetGroupDiscoveredPortMembersServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetGroupDiscoveredPortMembersServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyGroupMembersListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyGroupMembersListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
         public NSXTPolicyResourceReferenceForEPListResultType GetGroupsForObject(string IntentPath, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (IntentPath == null) { throw new System.ArgumentNullException("IntentPath cannot be null"); }
@@ -300,20 +346,64 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTConsolidatedEffectiveIPAddressMemberListResultType GlobalGetConsolidatedEffectiveIpmembers(string DomainId, string GroupId, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, string? IpFilter = null, long? PageSize = null, string? SiteId = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyResourceReferenceForEPListResultType GetGroupsForContainerApplicationInstance(string PodId, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
-            NSXTConsolidatedEffectiveIPAddressMemberListResultType returnValue = default(NSXTConsolidatedEffectiveIPAddressMemberListResultType);
-            StringBuilder GetConsolidatedEffectiveIpmembersServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/groups/{group-id}/members/consolidated-effective-ip-addresses");
+            if (PodId == null) { throw new System.ArgumentNullException("PodId cannot be null"); }
+            NSXTPolicyResourceReferenceForEPListResultType returnValue = default(NSXTPolicyResourceReferenceForEPListResultType);
+            StringBuilder GetGroupsForContainerApplicationInstanceServiceURL = new StringBuilder("/infra/pod-group-associations");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetConsolidatedEffectiveIpmembersServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetConsolidatedEffectiveIpmembersServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (PodId != null) { request.AddQueryParameter("pod_id", PodId.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = GetGroupsForContainerApplicationInstanceServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetGroupsForContainerApplicationInstanceServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyResourceReferenceForEPListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyResourceReferenceForEPListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTConsolidatedEffectiveIPAddressMemberListResultType GlobalGlobalInfraGetConsolidatedEffectiveIpmembers(string DomainId, string GroupId, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, string? IpFilter = null, long? PageSize = null, string? SiteId = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
+            if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
+            NSXTConsolidatedEffectiveIPAddressMemberListResultType returnValue = default(NSXTConsolidatedEffectiveIPAddressMemberListResultType);
+            StringBuilder GlobalInfraGetConsolidatedEffectiveIpmembersServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/groups/{group-id}/members/consolidated-effective-ip-addresses");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetConsolidatedEffectiveIpmembersServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetConsolidatedEffectiveIpmembersServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
@@ -322,11 +412,11 @@ namespace nsxtapi.PolicyModules
             if (SiteId != null) { request.AddQueryParameter("site_id", SiteId.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetConsolidatedEffectiveIpmembersServiceURL.ToString();
+            request.Resource = GlobalInfraGetConsolidatedEffectiveIpmembersServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetConsolidatedEffectiveIpmembersServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetConsolidatedEffectiveIpmembersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -439,20 +529,20 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyGroupIPMembersListResultType GlobalGetProviderGroupIpmembers(string Tier0Id, string GroupId, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyGroupIPMembersListResultType GlobalGlobalInfraGetProviderGroupIpmembers(string Tier0Id, string GroupId, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
             NSXTPolicyGroupIPMembersListResultType returnValue = default(NSXTPolicyGroupIPMembersListResultType);
-            StringBuilder GetProviderGroupIpmembersServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/groups/{group-id}/members/ip-addresses");
+            StringBuilder GlobalInfraGetProviderGroupIpmembersServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/groups/{group-id}/members/ip-addresses");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetProviderGroupIpmembersServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetProviderGroupIpmembersServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetProviderGroupIpmembersServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetProviderGroupIpmembersServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
@@ -460,11 +550,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetProviderGroupIpmembersServiceURL.ToString();
+            request.Resource = GlobalInfraGetProviderGroupIpmembersServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetProviderGroupIpmembersServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetProviderGroupIpmembersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -531,11 +621,11 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyResourceReferenceForEPListResultType GlobalGetGroupsForVM(string VmExternalId, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyResourceReferenceForEPListResultType GlobalGlobalInfraGetGroupsForContainerApplicationInstance(string PodId, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
-            if (VmExternalId == null) { throw new System.ArgumentNullException("VmExternalId cannot be null"); }
+            if (PodId == null) { throw new System.ArgumentNullException("PodId cannot be null"); }
             NSXTPolicyResourceReferenceForEPListResultType returnValue = default(NSXTPolicyResourceReferenceForEPListResultType);
-            StringBuilder GetGroupsForVMServiceURL = new StringBuilder("/global-infra/virtual-machine-group-associations");
+            StringBuilder GlobalInfraGetGroupsForContainerApplicationInstanceServiceURL = new StringBuilder("/global-infra/pod-group-associations");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -547,14 +637,14 @@ namespace nsxtapi.PolicyModules
             if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (PodId != null) { request.AddQueryParameter("pod_id", PodId.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            if (VmExternalId != null) { request.AddQueryParameter("vm_external_id", VmExternalId.ToString()); }
-            request.Resource = GetGroupsForVMServiceURL.ToString();
+            request.Resource = GlobalInfraGetGroupsForContainerApplicationInstanceServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetGroupsForVMServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetGroupsForContainerApplicationInstanceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -575,20 +665,17 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyGroupMembersListResultType GlobalGetGroupLpmembers(string DomainId, string GroupId, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyResourceReferenceForEPListResultType GlobalGlobalInfraGetGroupsForVM(string VmExternalId, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
-            NSXTPolicyGroupMembersListResultType returnValue = default(NSXTPolicyGroupMembersListResultType);
-            StringBuilder GetGroupLpmembersServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/groups/{group-id}/members/logical-ports");
+            if (VmExternalId == null) { throw new System.ArgumentNullException("VmExternalId cannot be null"); }
+            NSXTPolicyResourceReferenceForEPListResultType returnValue = default(NSXTPolicyResourceReferenceForEPListResultType);
+            StringBuilder GlobalInfraGetGroupsForVMServiceURL = new StringBuilder("/global-infra/virtual-machine-group-associations");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetGroupLpmembersServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetGroupLpmembersServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
@@ -596,11 +683,58 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetGroupLpmembersServiceURL.ToString();
+            if (VmExternalId != null) { request.AddQueryParameter("vm_external_id", VmExternalId.ToString()); }
+            request.Resource = GlobalInfraGetGroupsForVMServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetGroupLpmembersServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetGroupsForVMServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyResourceReferenceForEPListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyResourceReferenceForEPListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPolicyGroupMembersListResultType GlobalGlobalInfraGetGroupLpmembers(string DomainId, string GroupId, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
+            if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
+            NSXTPolicyGroupMembersListResultType returnValue = default(NSXTPolicyGroupMembersListResultType);
+            StringBuilder GlobalInfraGetGroupLpmembersServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/groups/{group-id}/members/logical-ports");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetGroupLpmembersServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetGroupLpmembersServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = GlobalInfraGetGroupLpmembersServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetGroupLpmembersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -621,20 +755,20 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRealizedVirtualMachineListResultType GlobalGetProviderGroupVmmembers(string Tier0Id, string GroupId, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyGroupMembersListResultType GlobalGlobalInfraGetGroupDvpgmembers(string DomainId, string GroupId, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
+            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
-            NSXTRealizedVirtualMachineListResultType returnValue = default(NSXTRealizedVirtualMachineListResultType);
-            StringBuilder GetProviderGroupVmmembersServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/groups/{group-id}/members/virtual-machines");
+            NSXTPolicyGroupMembersListResultType returnValue = default(NSXTPolicyGroupMembersListResultType);
+            StringBuilder GlobalInfraGetGroupDvpgmembersServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/groups/{group-id}/members/dvpg");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetProviderGroupVmmembersServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetProviderGroupVmmembersServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetGroupDvpgmembersServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetGroupDvpgmembersServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
@@ -642,11 +776,242 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetProviderGroupVmmembersServiceURL.ToString();
+            request.Resource = GlobalInfraGetGroupDvpgmembersServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetProviderGroupVmmembersServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetGroupDvpgmembersServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyGroupMembersListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyGroupMembersListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPolicyContainerGroupMembersListResultType GetGroupPodMembers(string DomainId, string GroupId, string? ClusterId = null, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
+            if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
+            NSXTPolicyContainerGroupMembersListResultType returnValue = default(NSXTPolicyContainerGroupMembersListResultType);
+            StringBuilder GetGroupPodMembersServiceURL = new StringBuilder("/infra/domains/{domain-id}/groups/{group-id}/members/pods");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GetGroupPodMembersServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetGroupPodMembersServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (ClusterId != null) { request.AddQueryParameter("cluster_id", ClusterId.ToString()); }
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = GetGroupPodMembersServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetGroupPodMembersServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyContainerGroupMembersListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyContainerGroupMembersListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTRealizedVirtualMachineListResultType GlobalGlobalInfraGetProviderGroupVmmembers(string Tier0Id, string GroupId, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
+            if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
+            NSXTRealizedVirtualMachineListResultType returnValue = default(NSXTRealizedVirtualMachineListResultType);
+            StringBuilder GlobalInfraGetProviderGroupVmmembersServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/groups/{group-id}/members/virtual-machines");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetProviderGroupVmmembersServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetProviderGroupVmmembersServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = GlobalInfraGetProviderGroupVmmembersServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetProviderGroupVmmembersServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTRealizedVirtualMachineListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTRealizedVirtualMachineListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPolicyGroupMembersListResultType GetGroupDvpgmembers(string DomainId, string GroupId, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
+            if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
+            NSXTPolicyGroupMembersListResultType returnValue = default(NSXTPolicyGroupMembersListResultType);
+            StringBuilder GetGroupDvpgmembersServiceURL = new StringBuilder("/infra/domains/{domain-id}/groups/{group-id}/members/dvpg");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GetGroupDvpgmembersServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetGroupDvpgmembersServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = GetGroupDvpgmembersServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetGroupDvpgmembersServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyGroupMembersListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyGroupMembersListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPolicyGroupIPMembersListResultType GetProviderGroupIpmembers(string Tier0Id, string GroupId, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
+            if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
+            NSXTPolicyGroupIPMembersListResultType returnValue = default(NSXTPolicyGroupIPMembersListResultType);
+            StringBuilder GetProviderGroupIpmembersServiceURL = new StringBuilder("/infra/tier-0s/{tier-0-id}/groups/{group-id}/members/ip-addresses");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GetProviderGroupIpmembersServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GetProviderGroupIpmembersServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = GetProviderGroupIpmembersServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetProviderGroupIpmembersServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyGroupIPMembersListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyGroupIPMembersListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTRealizedVirtualMachineListResultType GlobalGlobalInfraGetGroupVmmembers(string DomainId, string GroupId, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
+            if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
+            NSXTRealizedVirtualMachineListResultType returnValue = default(NSXTRealizedVirtualMachineListResultType);
+            StringBuilder GlobalInfraGetGroupVmmembersServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/groups/{group-id}/members/virtual-machines");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetGroupVmmembersServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetGroupVmmembersServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = GlobalInfraGetGroupVmmembersServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetGroupVmmembersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -706,66 +1071,21 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyGroupIPMembersListResultType GetProviderGroupIpmembers(string Tier0Id, string GroupId, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
-            NSXTPolicyGroupIPMembersListResultType returnValue = default(NSXTPolicyGroupIPMembersListResultType);
-            StringBuilder GetProviderGroupIpmembersServiceURL = new StringBuilder("/infra/tier-0s/{tier-0-id}/groups/{group-id}/members/ip-addresses");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetProviderGroupIpmembersServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetProviderGroupIpmembersServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetProviderGroupIpmembersServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetProviderGroupIpmembersServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyGroupIPMembersListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyGroupIPMembersListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTRealizedVirtualMachineListResultType GlobalGetGroupVmmembers(string DomainId, string GroupId, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyContainerGroupMembersListResultType GlobalGlobalInfraGetGroupPodMembers(string DomainId, string GroupId, string? ClusterId = null, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
-            NSXTRealizedVirtualMachineListResultType returnValue = default(NSXTRealizedVirtualMachineListResultType);
-            StringBuilder GetGroupVmmembersServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/groups/{group-id}/members/virtual-machines");
+            NSXTPolicyContainerGroupMembersListResultType returnValue = default(NSXTPolicyContainerGroupMembersListResultType);
+            StringBuilder GlobalInfraGetGroupPodMembersServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/groups/{group-id}/members/pods");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetGroupVmmembersServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetGroupVmmembersServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetGroupPodMembersServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetGroupPodMembersServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (ClusterId != null) { request.AddQueryParameter("cluster_id", ClusterId.ToString()); }
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
@@ -773,22 +1093,22 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetGroupVmmembersServiceURL.ToString();
+            request.Resource = GlobalInfraGetGroupPodMembersServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetGroupVmmembersServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetGroupPodMembersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
 			{
 				try
 				{
-					returnValue = JsonConvert.DeserializeObject<NSXTRealizedVirtualMachineListResultType>(response.Content, defaultSerializationSettings);
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyContainerGroupMembersListResultType>(response.Content, defaultSerializationSettings);
 				}
 				catch (Exception ex)
 				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTRealizedVirtualMachineListResultType).FullName + ".";
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyContainerGroupMembersListResultType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -798,25 +1118,25 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGroupTagsListType GlobalGetGroupTags(string DomainId, string GroupId)
+        public NSXTGroupTagsListType GlobalGlobalInfraGetGroupTags(string DomainId, string GroupId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
             NSXTGroupTagsListType returnValue = default(NSXTGroupTagsListType);
-            StringBuilder GetGroupTagsServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/groups/{group-id}/tags");
+            StringBuilder GlobalInfraGetGroupTagsServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/groups/{group-id}/tags");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetGroupTagsServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetGroupTagsServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = GetGroupTagsServiceURL.ToString();
+            GlobalInfraGetGroupTagsServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetGroupTagsServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraGetGroupTagsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetGroupTagsServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetGroupTagsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -837,20 +1157,20 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTVirtualNetworkInterfaceListResultType GlobalGetGroupVifmembers(string DomainId, string GroupId, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTVirtualNetworkInterfaceListResultType GlobalGlobalInfraGetGroupVifmembers(string DomainId, string GroupId, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
             NSXTVirtualNetworkInterfaceListResultType returnValue = default(NSXTVirtualNetworkInterfaceListResultType);
-            StringBuilder GetGroupVifmembersServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/groups/{group-id}/members/vifs");
+            StringBuilder GlobalInfraGetGroupVifmembersServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/groups/{group-id}/members/vifs");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetGroupVifmembersServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetGroupVifmembersServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetGroupVifmembersServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetGroupVifmembersServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
@@ -858,11 +1178,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetGroupVifmembersServiceURL.ToString();
+            request.Resource = GlobalInfraGetGroupVifmembersServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetGroupVifmembersServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetGroupVifmembersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -929,11 +1249,11 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyResourceReferenceForEPListResultType GlobalGetGroupsForObject(string IntentPath, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyResourceReferenceForEPListResultType GlobalGlobalInfraGetGroupsForObject(string IntentPath, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (IntentPath == null) { throw new System.ArgumentNullException("IntentPath cannot be null"); }
             NSXTPolicyResourceReferenceForEPListResultType returnValue = default(NSXTPolicyResourceReferenceForEPListResultType);
-            StringBuilder GetGroupsForObjectServiceURL = new StringBuilder("/global-infra/group-associations");
+            StringBuilder GlobalInfraGetGroupsForObjectServiceURL = new StringBuilder("/global-infra/group-associations");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -948,11 +1268,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetGroupsForObjectServiceURL.ToString();
+            request.Resource = GlobalInfraGetGroupsForObjectServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetGroupsForObjectServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetGroupsForObjectServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -973,20 +1293,20 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyGroupIPMembersListResultType GlobalGetGroupIpmembers(string DomainId, string GroupId, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyGroupIPMembersListResultType GlobalGlobalInfraGetGroupIpmembers(string DomainId, string GroupId, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
             NSXTPolicyGroupIPMembersListResultType returnValue = default(NSXTPolicyGroupIPMembersListResultType);
-            StringBuilder GetGroupIpmembersServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/groups/{group-id}/members/ip-addresses");
+            StringBuilder GlobalInfraGetGroupIpmembersServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/groups/{group-id}/members/ip-addresses");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetGroupIpmembersServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetGroupIpmembersServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetGroupIpmembersServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetGroupIpmembersServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
@@ -994,11 +1314,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetGroupIpmembersServiceURL.ToString();
+            request.Resource = GlobalInfraGetGroupIpmembersServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetGroupIpmembersServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetGroupIpmembersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1019,11 +1339,11 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyResourceReferenceForEPListResultType GlobalGetGroupsForIpaddress(string IpAddress, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyResourceReferenceForEPListResultType GlobalGlobalInfraGetGroupsForIpaddress(string IpAddress, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (IpAddress == null) { throw new System.ArgumentNullException("IpAddress cannot be null"); }
             NSXTPolicyResourceReferenceForEPListResultType returnValue = default(NSXTPolicyResourceReferenceForEPListResultType);
-            StringBuilder GetGroupsForIpaddressServiceURL = new StringBuilder("/global-infra/ip-address-group-associations");
+            StringBuilder GlobalInfraGetGroupsForIpaddressServiceURL = new StringBuilder("/global-infra/ip-address-group-associations");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -1038,11 +1358,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetGroupsForIpaddressServiceURL.ToString();
+            request.Resource = GlobalInfraGetGroupsForIpaddressServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetGroupsForIpaddressServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetGroupsForIpaddressServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1109,6 +1429,52 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
+        public NSXTPolicyGroupMembersListResultType GlobalGlobalInfraGetGroupDiscoveredPortMembers(string DomainId, string GroupId, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
+            if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
+            NSXTPolicyGroupMembersListResultType returnValue = default(NSXTPolicyGroupMembersListResultType);
+            StringBuilder GlobalInfraGetGroupDiscoveredPortMembersServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/groups/{group-id}/members/dvports");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetGroupDiscoveredPortMembersServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetGroupDiscoveredPortMembersServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = GlobalInfraGetGroupDiscoveredPortMembersServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetGroupDiscoveredPortMembersServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyGroupMembersListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyGroupMembersListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
         public NSXTRealizedVirtualMachineListResultType GetProviderGroupVmmembers(string Tier0Id, string GroupId, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
@@ -1155,20 +1521,20 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyGroupMembersListResultType GlobalGetGroupSegmentPortMembers(string DomainId, string GroupId, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyGroupMembersListResultType GlobalGlobalInfraGetGroupSegmentPortMembers(string DomainId, string GroupId, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
             NSXTPolicyGroupMembersListResultType returnValue = default(NSXTPolicyGroupMembersListResultType);
-            StringBuilder GetGroupSegmentPortMembersServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/groups/{group-id}/members/segment-ports");
+            StringBuilder GlobalInfraGetGroupSegmentPortMembersServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/groups/{group-id}/members/segment-ports");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetGroupSegmentPortMembersServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetGroupSegmentPortMembersServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetGroupSegmentPortMembersServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetGroupSegmentPortMembersServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
@@ -1176,11 +1542,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetGroupSegmentPortMembersServiceURL.ToString();
+            request.Resource = GlobalInfraGetGroupSegmentPortMembersServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetGroupSegmentPortMembersServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetGroupSegmentPortMembersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1335,20 +1701,20 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyGroupMembersListResultType GlobalGetGroupLsmembers(string DomainId, string GroupId, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyGroupMembersListResultType GlobalGlobalInfraGetGroupLsmembers(string DomainId, string GroupId, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
             NSXTPolicyGroupMembersListResultType returnValue = default(NSXTPolicyGroupMembersListResultType);
-            StringBuilder GetGroupLsmembersServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/groups/{group-id}/members/logical-switches");
+            StringBuilder GlobalInfraGetGroupLsmembersServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/groups/{group-id}/members/logical-switches");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetGroupLsmembersServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetGroupLsmembersServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetGroupLsmembersServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetGroupLsmembersServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
@@ -1356,11 +1722,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetGroupLsmembersServiceURL.ToString();
+            request.Resource = GlobalInfraGetGroupLsmembersServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetGroupLsmembersServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetGroupLsmembersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1381,11 +1747,11 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyResourceReferenceForEPListResultType GlobalGetGroupsForVIF(string VifExternalId, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyResourceReferenceForEPListResultType GlobalGlobalInfraGetGroupsForVIF(string VifExternalId, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (VifExternalId == null) { throw new System.ArgumentNullException("VifExternalId cannot be null"); }
             NSXTPolicyResourceReferenceForEPListResultType returnValue = default(NSXTPolicyResourceReferenceForEPListResultType);
-            StringBuilder GetGroupsForVIFServiceURL = new StringBuilder("/global-infra/virtual-network-interface-group-associations");
+            StringBuilder GlobalInfraGetGroupsForVIFServiceURL = new StringBuilder("/global-infra/virtual-network-interface-group-associations");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -1400,11 +1766,11 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (VifExternalId != null) { request.AddQueryParameter("vif_external_id", VifExternalId.ToString()); }
-            request.Resource = GetGroupsForVIFServiceURL.ToString();
+            request.Resource = GlobalInfraGetGroupsForVIFServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetGroupsForVIFServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetGroupsForVIFServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1425,11 +1791,11 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyResourceReferenceListResultType GlobalGetPolicyGroupServiceAssociations(string IntentPath, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyResourceReferenceListResultType GlobalGlobalInfraGetPolicyGroupServiceAssociations(string IntentPath, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (IntentPath == null) { throw new System.ArgumentNullException("IntentPath cannot be null"); }
             NSXTPolicyResourceReferenceListResultType returnValue = default(NSXTPolicyResourceReferenceListResultType);
-            StringBuilder GetPolicyGroupServiceAssociationsServiceURL = new StringBuilder("/global-infra/group-service-associations");
+            StringBuilder GlobalInfraGetPolicyGroupServiceAssociationsServiceURL = new StringBuilder("/global-infra/group-service-associations");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -1443,11 +1809,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetPolicyGroupServiceAssociationsServiceURL.ToString();
+            request.Resource = GlobalInfraGetPolicyGroupServiceAssociationsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetPolicyGroupServiceAssociationsServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetPolicyGroupServiceAssociationsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else

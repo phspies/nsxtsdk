@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer AuthenticationPolicy object")]
     public class NSXTALBAuthenticationPolicyType 
     {
+        public NSXTALBAuthenticationPolicyType()
+        {
+        }
         /// <summary>
         /// Auth Profile to use for validating users.
         /// It is a reference to an object of type AuthProfile.

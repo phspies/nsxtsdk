@@ -18,6 +18,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Represents the Site resource information for a Span entityincluding both the internal id as well as the site path.")]
     public class NSXTSpanSiteInfoType 
     {
+        public NSXTSpanSiteInfoType()
+        {
+        }
         /// <summary>
         /// Path of the Site resource
         /// </summary>

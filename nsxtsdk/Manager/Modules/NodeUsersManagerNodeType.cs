@@ -133,9 +133,9 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void ResetNodeUserOwnPasswordResetOwnPassword(NSXTNodeUserPasswordPropertyType NodeUserPasswordProperty)
+        public void ResetNodeUserOwnPasswordResetOwnPassword(NSXTResetNodeUserOwnPasswordPropertiesType ResetNodeUserOwnPasswordProperties)
         {
-            if (NodeUserPasswordProperty == null) { throw new System.ArgumentNullException("NodeUserPasswordProperty cannot be null"); }
+            if (ResetNodeUserOwnPasswordProperties == null) { throw new System.ArgumentNullException("ResetNodeUserOwnPasswordProperties cannot be null"); }
             
             StringBuilder ResetNodeUserOwnPasswordResetOwnPasswordServiceURL = new StringBuilder("/node/users?action=reset_own_password");
             var request = new RestRequest
@@ -144,7 +144,7 @@ namespace nsxtapi.ManagerModules
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            request.AddJsonBody(JsonConvert.SerializeObject(NodeUserPasswordProperty, defaultSerializationSettings));
+            request.AddJsonBody(JsonConvert.SerializeObject(ResetNodeUserOwnPasswordProperties, defaultSerializationSettings));
             request.Resource = ResetNodeUserOwnPasswordResetOwnPasswordServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Single route redistribution rule")]
     public class NSXTTier0RouteRedistributionRuleType 
     {
+        public NSXTTier0RouteRedistributionRuleType()
+        {
+        }
         /// <summary>
         /// Each rule can have more than one destinations. If destinations not specified for a given rule,
         /// default destionation will be BGP

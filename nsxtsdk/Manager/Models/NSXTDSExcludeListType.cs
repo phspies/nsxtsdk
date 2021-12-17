@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDSExcludeListType : NSXTManagedResourceType
     {
+        public NSXTDSExcludeListType()
+        {
+        }
         /// <summary>
         /// Total number of members present in Exclude List.
         /// </summary>

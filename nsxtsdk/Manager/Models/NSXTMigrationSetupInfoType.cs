@@ -17,12 +17,60 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Details about source and destination NSX setup to be migrated")]
     public class NSXTMigrationSetupInfoType 
     {
+        public NSXTMigrationSetupInfoType()
+        {
+            MigrationMode = test
+            CreateSegmentPorts = test
+        }
         /// <summary>
-        /// IP address or hostname of the destination NSX API endpoint.
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "avi_lb_endpoint")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTAviEndPointType AviLbEndpoint { get; set; }
+        /// <summary>
+        /// Comprehensive information about NSX-V multi site setup. This will be populated only when the migration is executed on a
+        /// cross VC setup.
+        /// </summary>
+        [JsonProperty(PropertyName = "nsxv_sites")]
+        [NSXTProperty(IsRequired: false, Description: @"Comprehensive information about NSX-V multi site setup. This will be populated only when the migration is executed on a cross VC setup.")]
+        public IList<NSXTSourceNsxApiEndpointType> NsxvSites { get; set; }
+        /// <summary>
+        /// Migration mode can be - - VMC_V2T - ONPREMISE_VSPHERE2T - ONPREMISE_V2T - CMP_VRA - FULL_MIGRATION_WITH_BYOT -
+        /// FULL_MIGRATION_WITH_BYOT_ON_FEDERATION - FULL_MIGRATION_WITH_BYOT_AND_VRA -
+        /// FULL_MIGRATION_WITH_BYOT_AND_VRA_ON_FEDERATION - CONFIG_MIGRATION_ONLY_WITH_BYOT -
+        /// CONFIG_MIGRATION_ONLY_WITH_BYOT_ON_FEDERATION - EDGE_CUTOVER - DFW_ONLY - DFW_WITH_BRIDGED_SEG -
+        /// DFW_AND_HOST_AND_WORKLOAD - DFW_AND_HOST_AND_WORKLOAD_WITH_BRIDGED_SEG
+        /// </summary>
+        [JsonProperty(PropertyName = "migration_mode")]
+        [NSXTProperty(IsRequired: false, Description: @"Migration mode can be - - VMC_V2T - ONPREMISE_VSPHERE2T - ONPREMISE_V2T - CMP_VRA - FULL_MIGRATION_WITH_BYOT - FULL_MIGRATION_WITH_BYOT_ON_FEDERATION - FULL_MIGRATION_WITH_BYOT_AND_VRA - FULL_MIGRATION_WITH_BYOT_AND_VRA_ON_FEDERATION - CONFIG_MIGRATION_ONLY_WITH_BYOT - CONFIG_MIGRATION_ONLY_WITH_BYOT_ON_FEDERATION - EDGE_CUTOVER - DFW_ONLY - DFW_WITH_BRIDGED_SEG - DFW_AND_HOST_AND_WORKLOAD - DFW_AND_HOST_AND_WORKLOAD_WITH_BRIDGED_SEG")]
+        public NSXTMigrationSetupInfoMigrationModeEnumType? MigrationMode { get; set; }
+        /// <summary>
+        /// List of mappings between NSX-T site and Avi. This will be populated only when the migration is executed on a cross VC
+        /// setup.
+        /// </summary>
+        [JsonProperty(PropertyName = "nsxt_site_to_avi_mappings")]
+        [NSXTProperty(IsRequired: false, Description: @"List of mappings between NSX-T site and Avi. This will be populated only when the migration is executed on a cross VC setup.")]
+        public IList<NSXTNsxtSiteToAviMappingType> NsxtSiteToAviMappings { get; set; }
+        /// <summary>
+        /// Mapping option can be - - UI - FILE_UPLOAD - NO_MAPPING
+        /// </summary>
+        [JsonProperty(PropertyName = "esg_to_router_mapping_option")]
+        [NSXTProperty(IsRequired: false, Description: @"Mapping option can be - - UI - FILE_UPLOAD - NO_MAPPING")]
+        public NSXTMigrationSetupInfoEsgToRouterMappingOptionEnumType? EsgToRouterMappingOption { get; set; }
+        /// <summary>
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "destination_nsx")]
-        [NSXTProperty(IsRequired: false, Description: @"IP address or hostname of the destination NSX API endpoint.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTDestinationNsxApiEndpointType DestinationNsx { get; set; }
+        /// <summary>
+        /// Comprehensive information about NSX-T multi site setup. This will be populated only when the migration is executed on a
+        /// cross VC setup.
+        /// </summary>
+        [JsonProperty(PropertyName = "nsxt_sites")]
+        [NSXTProperty(IsRequired: false, Description: @"Comprehensive information about NSX-T multi site setup. This will be populated only when the migration is executed on a cross VC setup.")]
+        public IList<NSXTNsxtSiteType> NsxtSites { get; set; }
         /// <summary>
         /// List of source NSX manager endpoints.
         /// </summary>
@@ -30,19 +78,17 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"List of source NSX manager endpoints.")]
         public IList<NSXTSourceNsxApiEndpointType> SourceNsx { get; set; }
         /// <summary>
-        /// Migration mode can be VMC_V2T, ONPREMISE_V2T, ONPREMISE_VSPHERE2T, DFW_ONLY, DFW_WITH_BRIDGED_SEG, CMP_VRA,
-        /// DFW_AND_HOST_AND_WORKLOAD, DFW_AND_HOST_AND_WORKLOAD_WITH_BRIDGED_SEG, EDGE_CUTOVER
+        /// List of site mappings between NSX-V and NSX-T. This will be populated only when the migration is executed on a cross VC
+        /// setup.
         /// </summary>
-        [JsonProperty(PropertyName = "migration_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"Migration mode can be VMC_V2T, ONPREMISE_V2T, ONPREMISE_VSPHERE2T, DFW_ONLY, DFW_WITH_BRIDGED_SEG, CMP_VRA, DFW_AND_HOST_AND_WORKLOAD, DFW_AND_HOST_AND_WORKLOAD_WITH_BRIDGED_SEG, EDGE_CUTOVER")]
-        [NSXTDefaultProperty(Default: "ONPREMISE_V2T")]
-        public NSXTMigrationSetupInfoMigrationModeEnumType? MigrationMode { get; set; }
+        [JsonProperty(PropertyName = "v2t_site_mappings")]
+        [NSXTProperty(IsRequired: false, Description: @"List of site mappings between NSX-V and NSX-T. This will be populated only when the migration is executed on a cross VC setup.")]
+        public IList<NSXTV2tSiteMappingType> V2tSiteMappings { get; set; }
         /// <summary>
-        /// Flag to indicate whether to create missing segment ports.
+        /// Flag to indicate whether to create missing segment ports
         /// </summary>
         [JsonProperty(PropertyName = "create_segment_ports")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to indicate whether to create missing segment ports.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Flag to indicate whether to create missing segment ports")]
         public bool? CreateSegmentPorts { get; set; }
     }
 }

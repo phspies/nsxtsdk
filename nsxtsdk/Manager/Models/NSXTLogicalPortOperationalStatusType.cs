@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalPortOperationalStatusType 
     {
+        public NSXTLogicalPortOperationalStatusType()
+        {
+        }
         /// <summary>
         /// The id of the logical port
         /// </summary>

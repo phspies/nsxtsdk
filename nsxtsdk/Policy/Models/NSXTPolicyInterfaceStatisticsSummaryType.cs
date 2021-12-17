@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyInterfaceStatisticsSummaryType : NSXTLogicalRouterPortStatisticsSummaryType
     {
+        public NSXTPolicyInterfaceStatisticsSummaryType()
+        {
+        }
         /// <summary>
         /// Policy path for the interface
         /// </summary>

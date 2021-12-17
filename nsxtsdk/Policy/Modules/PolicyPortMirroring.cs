@@ -201,26 +201,26 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPortMirroringProfileType GlobalCreateOrReplacePortMirroringProfile(string PortMirroringProfileId, NSXTPortMirroringProfileType PortMirroringProfile, bool? Override = null)
+        public NSXTPortMirroringProfileType GlobalGlobalInfraCreateOrReplacePortMirroringProfile(string PortMirroringProfileId, NSXTPortMirroringProfileType PortMirroringProfile, bool? Override = null)
         {
             if (PortMirroringProfileId == null) { throw new System.ArgumentNullException("PortMirroringProfileId cannot be null"); }
             if (PortMirroringProfile == null) { throw new System.ArgumentNullException("PortMirroringProfile cannot be null"); }
             NSXTPortMirroringProfileType returnValue = default(NSXTPortMirroringProfileType);
-            StringBuilder CreateOrReplacePortMirroringProfileServiceURL = new StringBuilder("/global-infra/port-mirroring-profiles/{port-mirroring-profile-id}");
+            StringBuilder GlobalInfraCreateOrReplacePortMirroringProfileServiceURL = new StringBuilder("/global-infra/port-mirroring-profiles/{port-mirroring-profile-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.PUT
             };
             request.AddHeader("Content-type", "application/json");
-            CreateOrReplacePortMirroringProfileServiceURL.Replace("{port-mirroring-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortMirroringProfileId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraCreateOrReplacePortMirroringProfileServiceURL.Replace("{port-mirroring-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortMirroringProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PortMirroringProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
-            request.Resource = CreateOrReplacePortMirroringProfileServiceURL.ToString();
+            request.Resource = GlobalInfraCreateOrReplacePortMirroringProfileServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP PUT operation to " + CreateOrReplacePortMirroringProfileServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP PUT operation to " + GlobalInfraCreateOrReplacePortMirroringProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -241,26 +241,26 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalPatchPortMirroringProfile(string PortMirroringProfileId, NSXTPortMirroringProfileType PortMirroringProfile, bool? Override = null)
+        public void GlobalGlobalInfraPatchPortMirroringProfile(string PortMirroringProfileId, NSXTPortMirroringProfileType PortMirroringProfile, bool? Override = null)
         {
             if (PortMirroringProfileId == null) { throw new System.ArgumentNullException("PortMirroringProfileId cannot be null"); }
             if (PortMirroringProfile == null) { throw new System.ArgumentNullException("PortMirroringProfile cannot be null"); }
             
-            StringBuilder PatchPortMirroringProfileServiceURL = new StringBuilder("/global-infra/port-mirroring-profiles/{port-mirroring-profile-id}");
+            StringBuilder GlobalInfraPatchPortMirroringProfileServiceURL = new StringBuilder("/global-infra/port-mirroring-profiles/{port-mirroring-profile-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.PATCH
             };
             request.AddHeader("Content-type", "application/json");
-            PatchPortMirroringProfileServiceURL.Replace("{port-mirroring-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortMirroringProfileId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraPatchPortMirroringProfileServiceURL.Replace("{port-mirroring-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortMirroringProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PortMirroringProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
-            request.Resource = PatchPortMirroringProfileServiceURL.ToString();
+            request.Resource = GlobalInfraPatchPortMirroringProfileServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP PATCH operation to " + PatchPortMirroringProfileServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP PATCH operation to " + GlobalInfraPatchPortMirroringProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -269,24 +269,24 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalDeletePortMirroringProfile(string PortMirroringProfileId, bool? Override = null)
+        public void GlobalGlobalInfraDeletePortMirroringProfile(string PortMirroringProfileId, bool? Override = null)
         {
             if (PortMirroringProfileId == null) { throw new System.ArgumentNullException("PortMirroringProfileId cannot be null"); }
             
-            StringBuilder DeletePortMirroringProfileServiceURL = new StringBuilder("/global-infra/port-mirroring-profiles/{port-mirroring-profile-id}");
+            StringBuilder GlobalInfraDeletePortMirroringProfileServiceURL = new StringBuilder("/global-infra/port-mirroring-profiles/{port-mirroring-profile-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.DELETE
             };
             request.AddHeader("Content-type", "application/json");
-            DeletePortMirroringProfileServiceURL.Replace("{port-mirroring-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortMirroringProfileId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraDeletePortMirroringProfileServiceURL.Replace("{port-mirroring-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortMirroringProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
-            request.Resource = DeletePortMirroringProfileServiceURL.ToString();
+            request.Resource = GlobalInfraDeletePortMirroringProfileServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP DELETE operation to " + DeletePortMirroringProfileServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP DELETE operation to " + GlobalInfraDeletePortMirroringProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -295,23 +295,23 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPortMirroringProfileType GlobalReadPortMirroringProfile(string PortMirroringProfileId)
+        public NSXTPortMirroringProfileType GlobalGlobalInfraReadPortMirroringProfile(string PortMirroringProfileId)
         {
             if (PortMirroringProfileId == null) { throw new System.ArgumentNullException("PortMirroringProfileId cannot be null"); }
             NSXTPortMirroringProfileType returnValue = default(NSXTPortMirroringProfileType);
-            StringBuilder ReadPortMirroringProfileServiceURL = new StringBuilder("/global-infra/port-mirroring-profiles/{port-mirroring-profile-id}");
+            StringBuilder GlobalInfraReadPortMirroringProfileServiceURL = new StringBuilder("/global-infra/port-mirroring-profiles/{port-mirroring-profile-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            ReadPortMirroringProfileServiceURL.Replace("{port-mirroring-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortMirroringProfileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadPortMirroringProfileServiceURL.ToString();
+            GlobalInfraReadPortMirroringProfileServiceURL.Replace("{port-mirroring-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortMirroringProfileId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraReadPortMirroringProfileServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ReadPortMirroringProfileServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraReadPortMirroringProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -332,10 +332,10 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPortMirroringProfileListResultType GlobalListPortMirroringProfiles(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPortMirroringProfileListResultType GlobalGlobalInfraListPortMirroringProfiles(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTPortMirroringProfileListResultType returnValue = default(NSXTPortMirroringProfileListResultType);
-            StringBuilder ListPortMirroringProfilesServiceURL = new StringBuilder("/global-infra/port-mirroring-profiles");
+            StringBuilder GlobalInfraListPortMirroringProfilesServiceURL = new StringBuilder("/global-infra/port-mirroring-profiles");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -347,11 +347,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListPortMirroringProfilesServiceURL.ToString();
+            request.Resource = GlobalInfraListPortMirroringProfilesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ListPortMirroringProfilesServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraListPortMirroringProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else

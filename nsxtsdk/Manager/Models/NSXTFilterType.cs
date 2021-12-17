@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFilterType 
     {
+        public NSXTFilterType()
+        {
+        }
         /// <summary>
         /// The name of the filter.
         /// </summary>

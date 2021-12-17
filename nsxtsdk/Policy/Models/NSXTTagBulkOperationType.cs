@@ -17,24 +17,27 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTagBulkOperationType : NSXTPolicyConfigResourceType
     {
+        public NSXTTagBulkOperationType()
+        {
+        }
         /// <summary>
-        /// List of resources on which tag needs to be applied
+        /// List of resources on which tag needs to be applied.
         /// </summary>
         [JsonProperty(PropertyName = "apply_to")]
-        [NSXTProperty(IsRequired: false, Description: @"List of resources on which tag needs to be applied")]
+        [NSXTProperty(IsRequired: false, Description: @"List of resources on which tag needs to be applied.")]
         public IList<NSXTResourceInfoType> ApplyTo { get; set; }
         /// <summary>
-        /// Tag
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "tag", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Tag")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTTagType Tag { get; set; }
         /// <summary>
-        /// List of resources from which tag needs to be removed
+        /// List of resources from which tag needs to be removed.
         /// </summary>
         [JsonProperty(PropertyName = "remove_from")]
-        [NSXTProperty(IsRequired: false, Description: @"List of resources from which tag needs to be removed")]
+        [NSXTProperty(IsRequired: false, Description: @"List of resources from which tag needs to be removed.")]
         public IList<NSXTResourceInfoType> RemoveFrom { get; set; }
     }
 }

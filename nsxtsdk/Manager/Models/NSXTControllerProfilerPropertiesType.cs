@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTControllerProfilerPropertiesType : NSXTResourceType
     {
+        public NSXTControllerProfilerPropertiesType()
+        {
+        }
         /// <summary>
         /// True for enabling controller profiler,
         /// False for disabling controller profiler.

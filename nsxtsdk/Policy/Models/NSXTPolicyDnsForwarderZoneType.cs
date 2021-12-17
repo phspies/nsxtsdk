@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyDnsForwarderZoneType : NSXTPolicyConfigResourceType
     {
+        public NSXTPolicyDnsForwarderZoneType()
+        {
+        }
         /// <summary>
         /// List of domain names on which conditional forwarding is based. This
         /// field is required if the DNS Zone is being used for a conditional

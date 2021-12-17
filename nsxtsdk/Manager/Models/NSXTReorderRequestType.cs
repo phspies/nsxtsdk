@@ -17,13 +17,16 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTReorderRequestType 
     {
+        public NSXTReorderRequestType()
+        {
+            IsBefore = test
+        }
         /// <summary>
         /// flag indicating whether the upgrade unit group/upgrade unit is to be placed before or after the specified upgrade unit
         /// group/upgrade unit
         /// </summary>
         [JsonProperty(PropertyName = "is_before")]
         [NSXTProperty(IsRequired: false, Description: @"flag indicating whether the upgrade unit group/upgrade unit is to be placed before or after the specified upgrade unit group/upgrade unit")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? IsBefore { get; set; }
         /// <summary>
         /// id of the upgrade unit group/upgrade unit before/after which the upgrade unit group/upgrade unit is to be placed

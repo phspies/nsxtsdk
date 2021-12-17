@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFeatureUsageListType : NSXTResourceType
     {
+        public NSXTFeatureUsageListType()
+        {
+        }
         /// <summary>
         /// Feature Usage List
         /// </summary>

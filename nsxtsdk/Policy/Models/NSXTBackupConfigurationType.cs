@@ -17,12 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Configuration for taking manual/automated backup")]
     public class NSXTBackupConfigurationType 
     {
+        public NSXTBackupConfigurationType()
+        {
+            InventorySummaryInterval = test
+        }
         /// <summary>
-        /// The server to which backups will be sent.
+        /// 
         /// </summary>
-        [JsonProperty(PropertyName = "remote_file_server", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The server to which backups will be sent.")]
-        [System.ComponentModel.DataAnnotations.Required]
+        [JsonProperty(PropertyName = "remote_file_server")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTRemoteFileServerType RemoteFileServer { get; set; }
         /// <summary>
         /// true if automated backup is enabled
@@ -40,10 +43,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Passphrase used to encrypt backup files.The passphrase specified must be at least 8 characters in length and mustcontain at least one lowercase, one uppercase, one numeric character and onespecial character (any other non-space character).")]
         public string? Passphrase { get; set; }
         /// <summary>
-        /// Set when backups should be taken - on a weekly schedule or at regular intervals.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "backup_schedule")]
-        [NSXTProperty(IsRequired: false, Description: @"Set when backups should be taken - on a weekly schedule or at regular intervals.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTBackupScheduleType BackupSchedule { get; set; }
         /// <summary>
         /// A number of seconds after a last backup, that needs to pass, before a topology change will trigger a generation of a new
@@ -62,7 +65,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"The minimum number of seconds between each upload of the inventory summary to backup server.")]
         //[System.ComponentModel.DataAnnotations.MinLength(30)]
         //[System.ComponentModel.DataAnnotations.MaxLength(3600)]
-        [NSXTDefaultProperty(Default: "")]
         public long? InventorySummaryInterval { get; set; }
     }
 }

@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildDhcpRelayConfigType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildDhcpRelayConfigType()
+        {
+        }
         /// <summary>
-        /// Contains the actual DhcpRelayConfig object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "DhcpRelayConfig", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual DhcpRelayConfig object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTDhcpRelayConfigType DhcpRelayConfig { get; set; }
     }

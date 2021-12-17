@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Tunnel endpoint configuration of preconfigured host switch")]
     public class NSXTPreconfiguredEndpointType 
     {
+        public NSXTPreconfiguredEndpointType()
+        {
+        }
         /// <summary>
         /// Name of the virtual tunnel endpoint
         /// </summary>

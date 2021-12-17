@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Preconfigured host switch is used for manually configured transport node.")]
     public class NSXTPreconfiguredHostSwitchType 
     {
+        public NSXTPreconfiguredHostSwitchType()
+        {
+        }
         /// <summary>
         /// External Id of the preconfigured host switch.
         /// </summary>

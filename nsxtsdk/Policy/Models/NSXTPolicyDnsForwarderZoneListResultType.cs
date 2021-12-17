@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyDnsForwarderZoneListResultType : NSXTListResultType
     {
+        public NSXTPolicyDnsForwarderZoneListResultType()
+        {
+        }
         /// <summary>
         /// Dns Forwarder Zone list results
         /// </summary>

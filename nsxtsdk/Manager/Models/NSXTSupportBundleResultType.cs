@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSupportBundleResultType 
     {
+        public NSXTSupportBundleResultType()
+        {
+        }
         /// <summary>
-        /// Request properties
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "request_properties")]
-        [NSXTProperty(IsRequired: false, Description: @"Request properties")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTSupportBundleRequestType RequestProperties { get; set; }
         /// <summary>
         /// Nodes where bundles were not generated or not copied to remote server

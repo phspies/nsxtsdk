@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"NSSupportedAttributes Types")]
     public class NSXTNSSupportedAttributeTypesResultType 
     {
+        public NSXTNSSupportedAttributeTypesResultType()
+        {
+        }
         /// <summary>
         /// List of NSSupportedAttributes types
         /// </summary>

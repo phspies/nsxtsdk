@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBPersistenceProfileListResultType : NSXTListResultType
     {
+        public NSXTLBPersistenceProfileListResultType()
+        {
+        }
         /// <summary>
         /// LBPersistenceProfile list results
         /// </summary>

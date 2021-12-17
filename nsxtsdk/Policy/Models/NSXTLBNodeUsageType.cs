@@ -18,6 +18,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Node usage for load balancer contains basic information and LB entityusages and capacity for the given node. Only edge node is supported.")]
     public class NSXTLBNodeUsageType 
     {
+        public NSXTLBNodeUsageType()
+        {
+        }
         /// <summary>
         /// The property identifies the load balancer node usage type.
         /// </summary>

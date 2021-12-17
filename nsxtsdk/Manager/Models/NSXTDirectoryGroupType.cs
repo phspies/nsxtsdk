@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDirectoryGroupType : NSXTManagedResourceType
     {
+        public NSXTDirectoryGroupType()
+        {
+        }
         /// <summary>
         /// Domain sync node under which this directory group is located. We currently sync only from Root node and hence this
         /// attribute doesn't have a specific value set.

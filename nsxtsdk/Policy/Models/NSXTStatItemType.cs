@@ -18,6 +18,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Displayed as a single number. It can be used to show the characteristics of entities such as Logical Switches, Firewall Rules, and so on. For example, number of logical switches and their admin states.")]
     public class NSXTStatItemType 
     {
+        public NSXTStatItemType()
+        {
+        }
         /// <summary>
         /// Id of drilldown widget, if any. Id should be a valid id of an existing widget.
         /// </summary>

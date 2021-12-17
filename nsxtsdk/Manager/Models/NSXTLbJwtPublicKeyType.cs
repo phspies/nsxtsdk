@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbJwtPublicKeyType : NSXTLbJwtKeyType
     {
+        public NSXTLbJwtPublicKeyType()
+        {
+        }
         /// <summary>
         /// Content of public key
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyTaskType : NSXTTaskPropertiesType
     {
+        public NSXTPolicyTaskType()
+        {
+        }
         /// <summary>
         /// This property holds the reason of the task failure, if any.
         /// </summary>

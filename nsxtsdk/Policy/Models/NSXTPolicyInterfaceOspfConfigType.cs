@@ -17,6 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"OSPF Interface configuration.")]
     public class NSXTPolicyInterfaceOspfConfigType 
     {
+        public NSXTPolicyInterfaceOspfConfigType()
+        {
+            DeadInterval = test
+            HelloInterval = test
+            Enabled = test
+            NetworkType = test
+        }
         /// <summary>
         /// Specifies the number of seconds that router must wait before it declares
         /// a OSPF neighbor router down because it has not received OSPF hello packet.
@@ -26,8 +33,7 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Specifies the number of seconds that router must wait before it declaresa OSPF neighbor router down because it has not received OSPF hello packet.OSPF dead interval should be minimum 3 times greater than the hello interval")]
         //[System.ComponentModel.DataAnnotations.MinLength(3)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? DeadInterval { get; set; }
+        public int? DeadInterval { get; set; }
         /// <summary>
         /// Attache Tier0 Interface to specified OSPF Area.
         /// all peers.
@@ -44,8 +50,7 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Specifies the interval between the hello packets that OSPF sends on this interface.OSPF hello interval should be less than the dead interval")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(21845)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? HelloInterval { get; set; }
+        public int? HelloInterval { get; set; }
         /// <summary>
         /// Enable/Disable OSPF to register for BFD event. Use FALSE to disable BFD.
         /// </summary>
@@ -53,17 +58,16 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Enable/Disable OSPF to register for BFD event. Use FALSE to disable BFD.")]
         public bool? EnableBfd { get; set; }
         /// <summary>
-        /// enable/disable OSPF on the interface. If enabled flag not specified, defailt is disable OSPF.
+        /// enable/disable OSPF on the interface. If enabled flag not specified, defailt is enable OSPF.
         /// </summary>
         [JsonProperty(PropertyName = "enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"enable/disable OSPF on the interface. If enabled flag not specified, defailt is disable OSPF.")]
+        [NSXTProperty(IsRequired: false, Description: @"enable/disable OSPF on the interface. If enabled flag not specified, defailt is enable OSPF.")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// Configure OSPF networkt type, default is BROADCAST network type
         /// </summary>
         [JsonProperty(PropertyName = "network_type")]
         [NSXTProperty(IsRequired: false, Description: @"Configure OSPF networkt type, default is BROADCAST network type")]
-        [NSXTDefaultProperty(Default: "BROADCAST")]
         public NSXTPolicyInterfaceOspfConfigNetworkTypeEnumType? NetworkType { get; set; }
         /// <summary>
         /// This filed is valid only if enable_bfd is set to TRUE.

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPortMirroringInstanceType : NSXTPolicyConfigResourceType
     {
+        public NSXTPortMirroringInstanceType()
+        {
+        }
         /// <summary>
         /// If this property is set, the packet will be truncated to the provided
         /// length. If this property is unset, entire packet will be mirrored.
@@ -25,7 +28,7 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"If this property is set, the packet will be truncated to the providedlength. If this property is unset, entire packet will be mirrored.")]
         //[System.ComponentModel.DataAnnotations.MinLength(60)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        public long? SnapLength { get; set; }
+        public int? SnapLength { get; set; }
         /// <summary>
         /// Port mirroring instance direction
         /// </summary>

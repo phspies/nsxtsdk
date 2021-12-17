@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMetadataProxyType : NSXTManagedResourceType
     {
+        public NSXTMetadataProxyType()
+        {
+        }
         /// <summary>
         /// secret to access metadata server
         /// </summary>

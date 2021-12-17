@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer SSLProfileSelector object")]
     public class NSXTALBSSLProfileSelectorType 
     {
+        public NSXTALBSSLProfileSelectorType()
+        {
+        }
         /// <summary>
-        /// Configure client IP address groups.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "client_ip_list", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Configure client IP address groups.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBIpAddrMatchType ClientIpList { get; set; }
         /// <summary>

@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildALBPriorityLabelsType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildALBPriorityLabelsType()
+        {
+        }
         /// <summary>
-        /// Contains the actual ALBPriorityLabels object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ALBPriorityLabels", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual ALBPriorityLabels object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBPriorityLabelsType ALBPriorityLabels { get; set; }
     }

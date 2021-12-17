@@ -34,5 +34,7 @@ namespace nsxtsdk.ManagerModels
         CLIENTAUTH = 10,
         [EnumMember(Value = "RMQ")]
         RMQ = 11,
+        [EnumMember(Value = "K8S_MSG_CLIENT")]
+        K8SMSGCLIENT = 12,
     }
 }

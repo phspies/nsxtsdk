@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Additional configuration required for federation.")]
     public class NSXTFederationConnectivityConfigType 
     {
+        public NSXTFederationConnectivityConfigType()
+        {
+        }
         /// <summary>
         /// Global id for by Layer3 services for federation usecases.
         /// </summary>

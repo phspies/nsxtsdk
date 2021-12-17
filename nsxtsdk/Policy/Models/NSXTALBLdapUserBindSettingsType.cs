@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer LdapUserBindSettings object")]
     public class NSXTALBLdapUserBindSettingsType 
     {
+        public NSXTALBLdapUserBindSettingsType()
+        {
+            Token = test
+        }
         /// <summary>
         /// LDAP user DN pattern is used to bind LDAP user after
         /// replacing the user token with real username.
@@ -38,7 +42,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "token")]
         [NSXTProperty(IsRequired: false, Description: @"LDAP token is replaced with real user name in the user DNpattern.Default value when not specified in API or module isinterpreted by ALB Controller as &lt;user&gt;.")]
-        [NSXTDefaultProperty(Default: "&lt;user&gt;")]
         public string? Token { get; set; }
         /// <summary>
         /// LDAP user id attribute is the login attribute that uniquely

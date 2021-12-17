@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Minimal description of feedback requests.")]
     public class NSXTSummaryMigrationFeedbackRequestType 
     {
+        public NSXTSummaryMigrationFeedbackRequestType()
+        {
+        }
         /// <summary>
         /// Indicates if a valid response already exist for this feedback request.
         /// </summary>
@@ -30,17 +33,23 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Name of this object in the source NSX endpoint.")]
         public string? VObjectName { get; set; }
         /// <summary>
-        /// Indicates if previous response was invalid. Please provide a valid response.
+        /// Identifier of the object for which feedback is requested.
         /// </summary>
-        [JsonProperty(PropertyName = "rejected")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicates if previous response was invalid. Please provide a valid response.")]
-        public bool? Rejected { get; set; }
+        [JsonProperty(PropertyName = "object_id")]
+        [NSXTProperty(IsRequired: false, Description: @"Identifier of the object for which feedback is requested.")]
+        public string? ObjectId { get; set; }
         /// <summary>
         /// Identifier for this object in the source NSX endpoint.
         /// </summary>
         [JsonProperty(PropertyName = "v_object_id")]
         [NSXTProperty(IsRequired: false, Description: @"Identifier for this object in the source NSX endpoint.")]
         public string? VObjectId { get; set; }
+        /// <summary>
+        /// Id of the site in NSX-T Federation
+        /// </summary>
+        [JsonProperty(PropertyName = "federation_site_id")]
+        [NSXTProperty(IsRequired: false, Description: @"Id of the site in NSX-T Federation")]
+        public string? FederationSiteId { get; set; }
         /// <summary>
         /// If the feedback request was resolved earlier, provides details about the previous resolution.
         /// </summary>
@@ -54,11 +63,11 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Identifier of the feedback request.")]
         public string? Id { get; set; }
         /// <summary>
-        /// Identifier of the object for which feedback is requested.
+        /// Indicates if previous response was invalid. Please provide a valid response.
         /// </summary>
-        [JsonProperty(PropertyName = "object_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifier of the object for which feedback is requested.")]
-        public string? ObjectId { get; set; }
+        [JsonProperty(PropertyName = "rejected")]
+        [NSXTProperty(IsRequired: false, Description: @"Indicates if previous response was invalid. Please provide a valid response.")]
+        public bool? Rejected { get; set; }
         /// <summary>
         /// Details about this specific feedback request.
         /// </summary>

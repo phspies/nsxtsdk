@@ -18,6 +18,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"The current runtime status of the DNS forwarder including the hostingtransport nodes and forwarder service status.")]
     public class NSXTDnsForwarderStatusType 
     {
+        public NSXTDnsForwarderStatusType()
+        {
+        }
         /// <summary>
         /// UP means the DNS forwarder is working correctly on the active transport
         /// node and the stand-by transport node (if present). Failover will occur

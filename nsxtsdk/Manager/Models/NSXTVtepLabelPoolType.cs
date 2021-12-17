@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTVtepLabelPoolType : NSXTManagedResourceType
     {
+        public NSXTVtepLabelPoolType()
+        {
+        }
         /// <summary>
         /// Array of ranges for virtual tunnel endpoint labels
         /// </summary>
@@ -25,10 +28,10 @@ namespace nsxtsdk.ManagerModels
         [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTVtepLabelRangeType> Ranges { get; set; }
         /// <summary>
-        /// Pool usage statistics
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "pool_usage")]
-        [NSXTProperty(IsRequired: false, Description: @"Pool usage statistics")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTVtepLabelPoolUsageType PoolUsage { get; set; }
     }
 }

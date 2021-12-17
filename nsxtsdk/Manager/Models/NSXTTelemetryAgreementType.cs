@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTelemetryAgreementType : NSXTManagedResourceType
     {
+        public NSXTTelemetryAgreementType()
+        {
+        }
         /// <summary>
         /// Determine if telemetry agreement has been displayed. If false,
         /// the agreement text will be displayed at login time.

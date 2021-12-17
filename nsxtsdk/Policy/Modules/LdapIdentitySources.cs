@@ -131,11 +131,11 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLdapIdentitySourceProbeResultsType ProbeUnconfiguredLdapIdentitySourceProbeIdentitySource(NSXTLdapIdentitySourceType LdapIdentitySource)
+        public NSXTLdapIdentitySourceProbeResultsType ProbeUnconfiguredLdapIdentitySource(NSXTLdapIdentitySourceType LdapIdentitySource)
         {
             if (LdapIdentitySource == null) { throw new System.ArgumentNullException("LdapIdentitySource cannot be null"); }
             NSXTLdapIdentitySourceProbeResultsType returnValue = default(NSXTLdapIdentitySourceProbeResultsType);
-            StringBuilder ProbeUnconfiguredLdapIdentitySourceProbeIdentitySourceServiceURL = new StringBuilder("/aaa/ldap-identity-sources?action=probe_identity_source");
+            StringBuilder ProbeUnconfiguredLdapIdentitySourceServiceURL = new StringBuilder("/aaa/ldap-identity-sources?action=probe_identity_source");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -143,11 +143,11 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(LdapIdentitySource, defaultSerializationSettings));
-            request.Resource = ProbeUnconfiguredLdapIdentitySourceProbeIdentitySourceServiceURL.ToString();
+            request.Resource = ProbeUnconfiguredLdapIdentitySourceServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + ProbeUnconfiguredLdapIdentitySourceProbeIdentitySourceServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + ProbeUnconfiguredLdapIdentitySourceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -208,11 +208,11 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPeerCertificateChainType FetchIdentitySourceLdapServerCertificateFetchCertificate(NSXTIdentitySourceLdapServerEndpointType IdentitySourceLdapServerEndpoint)
+        public NSXTPeerCertificateChainType FetchIdentitySourceLdapServerCertificate(NSXTIdentitySourceLdapServerEndpointType IdentitySourceLdapServerEndpoint)
         {
             if (IdentitySourceLdapServerEndpoint == null) { throw new System.ArgumentNullException("IdentitySourceLdapServerEndpoint cannot be null"); }
             NSXTPeerCertificateChainType returnValue = default(NSXTPeerCertificateChainType);
-            StringBuilder FetchIdentitySourceLdapServerCertificateFetchCertificateServiceURL = new StringBuilder("/aaa/ldap-identity-sources?action=fetch_certificate");
+            StringBuilder FetchIdentitySourceLdapServerCertificateServiceURL = new StringBuilder("/aaa/ldap-identity-sources?action=fetch_certificate");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -220,11 +220,11 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(IdentitySourceLdapServerEndpoint, defaultSerializationSettings));
-            request.Resource = FetchIdentitySourceLdapServerCertificateFetchCertificateServiceURL.ToString();
+            request.Resource = FetchIdentitySourceLdapServerCertificateServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + FetchIdentitySourceLdapServerCertificateFetchCertificateServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + FetchIdentitySourceLdapServerCertificateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -245,11 +245,11 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdentitySourceLdapServerProbeResultType ProbeIdentitySourceLdapServerProbeLdapServer(NSXTIdentitySourceLdapServerType IdentitySourceLdapServer)
+        public NSXTIdentitySourceLdapServerProbeResultType ProbeIdentitySourceLdapServer(NSXTIdentitySourceLdapServerType IdentitySourceLdapServer)
         {
             if (IdentitySourceLdapServer == null) { throw new System.ArgumentNullException("IdentitySourceLdapServer cannot be null"); }
             NSXTIdentitySourceLdapServerProbeResultType returnValue = default(NSXTIdentitySourceLdapServerProbeResultType);
-            StringBuilder ProbeIdentitySourceLdapServerProbeLdapServerServiceURL = new StringBuilder("/aaa/ldap-identity-sources?action=probe_ldap_server");
+            StringBuilder ProbeIdentitySourceLdapServerServiceURL = new StringBuilder("/aaa/ldap-identity-sources?action=probe_ldap_server");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -257,11 +257,11 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(IdentitySourceLdapServer, defaultSerializationSettings));
-            request.Resource = ProbeIdentitySourceLdapServerProbeLdapServerServiceURL.ToString();
+            request.Resource = ProbeIdentitySourceLdapServerServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + ProbeIdentitySourceLdapServerProbeLdapServerServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + ProbeIdentitySourceLdapServerServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -282,23 +282,23 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLdapIdentitySourceProbeResultsType ProbeConfiguredLdapIdentitySourceProbe(string LdapIdentitySourceId)
+        public NSXTLdapIdentitySourceProbeResultsType ProbeConfiguredLdapIdentitySource(string LdapIdentitySourceId)
         {
             if (LdapIdentitySourceId == null) { throw new System.ArgumentNullException("LdapIdentitySourceId cannot be null"); }
             NSXTLdapIdentitySourceProbeResultsType returnValue = default(NSXTLdapIdentitySourceProbeResultsType);
-            StringBuilder ProbeConfiguredLdapIdentitySourceProbeServiceURL = new StringBuilder("/aaa/ldap-identity-sources/{ldap-identity-source-id}?action=probe");
+            StringBuilder ProbeConfiguredLdapIdentitySourceServiceURL = new StringBuilder("/aaa/ldap-identity-sources/{ldap-identity-source-id}?action=probe");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            ProbeConfiguredLdapIdentitySourceProbeServiceURL.Replace("{ldap-identity-source-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LdapIdentitySourceId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ProbeConfiguredLdapIdentitySourceProbeServiceURL.ToString();
+            ProbeConfiguredLdapIdentitySourceServiceURL.Replace("{ldap-identity-source-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LdapIdentitySourceId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = ProbeConfiguredLdapIdentitySourceServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + ProbeConfiguredLdapIdentitySourceProbeServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + ProbeConfiguredLdapIdentitySourceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else

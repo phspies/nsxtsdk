@@ -18,12 +18,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"DHCP server to support IPv4 DHCP service. Properties defined at DHCP serverlevel can be overridden by ip-pool or static-binding level properties.")]
     public class NSXTIPv4DhcpServerType 
     {
+        public NSXTIPv4DhcpServerType()
+        {
+        }
         /// <summary>
-        /// Defines the default options for all ip-pools and static-bindings of this server.
-        /// These options will be ignored if options are defined for ip-pools or static-bindings.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "options")]
-        [NSXTProperty(IsRequired: false, Description: @"Defines the default options for all ip-pools and static-bindings of this server.These options will be ignored if options are defined for ip-pools or static-bindings.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTDhcpOptionsType Options { get; set; }
         /// <summary>
         /// Enable or disable monitoring of DHCP ip-pools usage. When enabled, system events are

@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildDeploymentZoneType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildDeploymentZoneType()
+        {
+        }
         /// <summary>
-        /// Contains the actual DeploymentZone object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "DeploymentZone", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual DeploymentZone object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTDeploymentZoneType DeploymentZone { get; set; }
     }

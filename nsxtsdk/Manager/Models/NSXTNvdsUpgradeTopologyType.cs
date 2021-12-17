@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNvdsUpgradeTopologyType : NSXTManagedResourceType
     {
+        public NSXTNvdsUpgradeTopologyType()
+        {
+        }
         /// <summary>
         /// Identifier for a NVDS
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPacketCaptureOptionListType : NSXTListResultType
     {
+        public NSXTPacketCaptureOptionListType()
+        {
+        }
         /// <summary>
         /// Packet capture option collection
         /// </summary>

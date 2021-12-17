@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer ContentRewriteProfile object")]
     public class NSXTALBContentRewriteProfileType 
     {
+        public NSXTALBContentRewriteProfileType()
+        {
+        }
         /// <summary>
         /// Enable rewrite on response body.
         /// Default value when not specified in API or module is
@@ -36,9 +39,11 @@ namespace nsxtsdk.PolicyModels
         /// <summary>
         /// Strings to be matched and replaced with on the response
         /// body.
+        /// This should be configured when response_rewrite_enabled is
+        /// set to true.
         /// </summary>
         [JsonProperty(PropertyName = "rsp_match_replace_pair")]
-        [NSXTProperty(IsRequired: false, Description: @"Strings to be matched and replaced with on the responsebody.")]
+        [NSXTProperty(IsRequired: false, Description: @"Strings to be matched and replaced with on the responsebody.This should be configured when response_rewrite_enabled isset to true.")]
         public IList<NSXTALBMatchReplacePairType> RspMatchReplacePair { get; set; }
     }
 }

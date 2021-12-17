@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNSSupportedAttributesListResultType : NSXTListResultType
     {
+        public NSXTNSSupportedAttributesListResultType()
+        {
+        }
         /// <summary>
         /// Paged collection of NSSupportedAttributes
         /// </summary>

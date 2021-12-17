@@ -110,25 +110,25 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void UpgradeServiceVmsUpgrade(string ServiceId, string ServiceInstanceId)
+        public void UpgradeServiceVms(string ServiceId, string ServiceInstanceId)
         {
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
             if (ServiceInstanceId == null) { throw new System.ArgumentNullException("ServiceInstanceId cannot be null"); }
             
-            StringBuilder UpgradeServiceVmsUpgradeServiceURL = new StringBuilder("/serviceinsertion/services/{service-id}/service-instances/{service-instance-id}/instance-runtimes?action=upgrade");
+            StringBuilder UpgradeServiceVmsServiceURL = new StringBuilder("/serviceinsertion/services/{service-id}/service-instances/{service-instance-id}/instance-runtimes?action=upgrade");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            UpgradeServiceVmsUpgradeServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            UpgradeServiceVmsUpgradeServiceURL.Replace("{service-instance-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceInstanceId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = UpgradeServiceVmsUpgradeServiceURL.ToString();
+            UpgradeServiceVmsServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            UpgradeServiceVmsServiceURL.Replace("{service-instance-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceInstanceId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = UpgradeServiceVmsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + UpgradeServiceVmsUpgradeServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + UpgradeServiceVmsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -137,27 +137,27 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void UpgradeServiceDeploymentUpgrade(string ServiceId, string ServiceDeploymentId, NSXTDeploymentSpecNameType DeploymentSpecName)
+        public void UpgradeServiceDeployment(string ServiceId, string ServiceDeploymentId, NSXTDeploymentSpecNameType DeploymentSpecName)
         {
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
             if (ServiceDeploymentId == null) { throw new System.ArgumentNullException("ServiceDeploymentId cannot be null"); }
             if (DeploymentSpecName == null) { throw new System.ArgumentNullException("DeploymentSpecName cannot be null"); }
             
-            StringBuilder UpgradeServiceDeploymentUpgradeServiceURL = new StringBuilder("/serviceinsertion/services/{service-id}/service-deployments/{service-deployment-id}?action=upgrade");
+            StringBuilder UpgradeServiceDeploymentServiceURL = new StringBuilder("/serviceinsertion/services/{service-id}/service-deployments/{service-deployment-id}?action=upgrade");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            UpgradeServiceDeploymentUpgradeServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            UpgradeServiceDeploymentUpgradeServiceURL.Replace("{service-deployment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceDeploymentId, System.Globalization.CultureInfo.InvariantCulture)));
+            UpgradeServiceDeploymentServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            UpgradeServiceDeploymentServiceURL.Replace("{service-deployment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceDeploymentId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(DeploymentSpecName, defaultSerializationSettings));
-            request.Resource = UpgradeServiceDeploymentUpgradeServiceURL.ToString();
+            request.Resource = UpgradeServiceDeploymentServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + UpgradeServiceDeploymentUpgradeServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + UpgradeServiceDeploymentServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -166,25 +166,52 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeployServiceVmsDeploy(string ServiceId, string ServiceInstanceId)
+        public void DeployServiceVms(string ServiceId, string ServiceInstanceId)
         {
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
             if (ServiceInstanceId == null) { throw new System.ArgumentNullException("ServiceInstanceId cannot be null"); }
             
-            StringBuilder DeployServiceVmsDeployServiceURL = new StringBuilder("/serviceinsertion/services/{service-id}/service-instances/{service-instance-id}/instance-runtimes?action=deploy");
+            StringBuilder DeployServiceVmsServiceURL = new StringBuilder("/serviceinsertion/services/{service-id}/service-instances/{service-instance-id}/instance-runtimes?action=deploy");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            DeployServiceVmsDeployServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            DeployServiceVmsDeployServiceURL.Replace("{service-instance-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceInstanceId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeployServiceVmsDeployServiceURL.ToString();
+            DeployServiceVmsServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            DeployServiceVmsServiceURL.Replace("{service-instance-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceInstanceId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = DeployServiceVmsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + DeployServiceVmsDeployServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + DeployServiceVmsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public void DeleteServiceVms(string ServiceId, string ServiceInstanceId)
+        {
+            if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
+            if (ServiceInstanceId == null) { throw new System.ArgumentNullException("ServiceInstanceId cannot be null"); }
+            
+            StringBuilder DeleteServiceVmsServiceURL = new StringBuilder("/serviceinsertion/services/{service-id}/service-instances/{service-instance-id}/instance-runtimes?action=delete");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.POST
+            };
+            request.AddHeader("Content-type", "application/json");
+            DeleteServiceVmsServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            DeleteServiceVmsServiceURL.Replace("{service-instance-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceInstanceId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = DeleteServiceVmsServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP POST operation to " + DeleteServiceVmsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -439,33 +466,6 @@ namespace nsxtapi.ManagerModules
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + UpdateServiceVmStateServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void DeleteServiceVmsDelete(string ServiceId, string ServiceInstanceId)
-        {
-            if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
-            if (ServiceInstanceId == null) { throw new System.ArgumentNullException("ServiceInstanceId cannot be null"); }
-            
-            StringBuilder DeleteServiceVmsDeleteServiceURL = new StringBuilder("/serviceinsertion/services/{service-id}/service-instances/{service-instance-id}/instance-runtimes?action=delete");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.POST
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteServiceVmsDeleteServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteServiceVmsDeleteServiceURL.Replace("{service-instance-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceInstanceId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteServiceVmsDeleteServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP POST operation to " + DeleteServiceVmsDeleteServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             

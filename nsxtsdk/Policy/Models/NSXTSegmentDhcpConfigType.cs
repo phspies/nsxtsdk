@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"DHCP IPv4 and IPv6 configurations are extended from this abstract class.")]
     public class NSXTSegmentDhcpConfigType 
     {
+        public NSXTSegmentDhcpConfigType()
+        {
+            LeaseTime = test
+        }
         /// <summary>
         /// IP address of the DHCP server in CIDR format.
         /// The server_address is mandatory in case this segment has provided a
@@ -47,7 +51,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"DHCP lease time in seconds. When specified, this property overwriteslease time configured DHCP server config.")]
         //[System.ComponentModel.DataAnnotations.MinLength(60)]
         //[System.ComponentModel.DataAnnotations.MaxLength(4294967295)]
-        [NSXTDefaultProperty(Default: "")]
         public long? LeaseTime { get; set; }
         /// <summary>
         /// 

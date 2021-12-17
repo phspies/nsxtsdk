@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPortMirroringProfileListResultType : NSXTListResultType
     {
+        public NSXTPortMirroringProfileListResultType()
+        {
+        }
         /// <summary>
         /// Port Mirroring Profiles list results
         /// </summary>

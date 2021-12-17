@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDeploymentZoneType : NSXTPolicyConfigResourceType
     {
+        public NSXTDeploymentZoneType()
+        {
+        }
         /// <summary>
         /// Logical grouping of enforcement points
         /// </summary>

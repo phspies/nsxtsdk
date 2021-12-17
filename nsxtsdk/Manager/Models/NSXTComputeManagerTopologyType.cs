@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Details where NVDS will be migrated to")]
     public class NSXTComputeManagerTopologyType 
     {
+        public NSXTComputeManagerTopologyType()
+        {
+        }
         /// <summary>
         /// Datacenter, VDS mapping
         /// </summary>

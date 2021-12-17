@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildEnforcementPointType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildEnforcementPointType()
+        {
+        }
         /// <summary>
-        /// Contains the actual Enforcement point object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "EnforcementPoint", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual Enforcement point object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTEnforcementPointType EnforcementPoint { get; set; }
     }

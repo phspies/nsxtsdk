@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSystemHealthPluginProfileListType : NSXTListResultType
     {
+        public NSXTSystemHealthPluginProfileListType()
+        {
+        }
         /// <summary>
         /// System Health plugin list
         /// </summary>

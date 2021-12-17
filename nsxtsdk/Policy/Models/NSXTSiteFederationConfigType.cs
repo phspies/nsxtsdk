@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Site fedeation configuration.")]
     public class NSXTSiteFederationConfigType 
     {
+        public NSXTSiteFederationConfigType()
+        {
+        }
         /// <summary>
         /// Site path
         /// </summary>

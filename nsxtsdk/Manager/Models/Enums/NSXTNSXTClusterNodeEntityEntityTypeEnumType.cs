@@ -34,5 +34,11 @@ namespace nsxtsdk.ManagerModels
         IDPSREPORTING = 10,
         [EnumMember(Value = "CORFU_NONCONFIG")]
         CORFUNONCONFIG = 11,
+        [EnumMember(Value = "UPGRADE_COORDINATOR")]
+        UPGRADECOORDINATOR = 12,
+        [EnumMember(Value = "CM-INVENTORY")]
+        CMINVENTORY = 13,
+        [EnumMember(Value = "MESSAGING-MANAGER")]
+        MESSAGINGMANAGER = 14,
     }
 }

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Describes a process detail informaiton.")]
     public class NSXTProcessInformationType 
     {
+        public NSXTProcessInformationType()
+        {
+        }
         /// <summary>
         /// Display the process id.
         /// </summary>

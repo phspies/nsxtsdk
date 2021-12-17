@@ -18,19 +18,22 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"This object contains list of SNMP v3 users used to poll NSX nodes over SNMP and list of SNMP v3 targets used to receive SNMP traps/notifications from NSX nodes. Users specified in a SNMP v3 target must exist in the list of SNMP v3 users.")]
     public class NSXTSnmpv3PropertiesType 
     {
+        public NSXTSnmpv3PropertiesType()
+        {
+            AuthProtocol = test
+            PrivProtocol = test
+        }
         /// <summary>
         /// Authentication protocol used for SNMP v3 communication.
         /// </summary>
         [JsonProperty(PropertyName = "auth_protocol")]
         [NSXTProperty(IsRequired: false, Description: @"Authentication protocol used for SNMP v3 communication.")]
-        [NSXTDefaultProperty(Default: "SHA1")]
         public NSXTSnmpv3PropertiesAuthProtocolEnumType? AuthProtocol { get; set; }
         /// <summary>
         /// Privacy protocol used for SNMP v3 communication.
         /// </summary>
         [JsonProperty(PropertyName = "priv_protocol")]
         [NSXTProperty(IsRequired: false, Description: @"Privacy protocol used for SNMP v3 communication.")]
-        [NSXTDefaultProperty(Default: "AES128")]
         public NSXTSnmpv3PropertiesPrivProtocolEnumType? PrivProtocol { get; set; }
         /// <summary>
         /// List of SNMP v3 users allowed to poll NSX nodes over SNMP. Also, users specified in a SNMP v3 target must exist in this

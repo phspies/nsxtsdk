@@ -12,11 +12,14 @@ using System.ComponentModel;
 namespace nsxtsdk.ManagerModels
 {
     /// <summary>
-    /// Identifier of the bundle
+    /// Identifier of the bundle.
     /// </summary>
-    [NSXTProperty(Description: @"Identifier of the bundle")]
+    [NSXTProperty(Description: @"Identifier of the bundle.")]
     public class NSXTBundleIdType 
     {
+        public NSXTBundleIdType()
+        {
+        }
         /// <summary>
         /// Identifier of bundle upload
         /// </summary>

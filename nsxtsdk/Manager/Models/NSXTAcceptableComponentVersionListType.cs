@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAcceptableComponentVersionListType 
     {
+        public NSXTAcceptableComponentVersionListType()
+        {
+        }
         /// <summary>
         /// Acceptable version whitelist for different components
         /// </summary>

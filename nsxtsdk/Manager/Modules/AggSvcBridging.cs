@@ -30,44 +30,6 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBridgeClusterStatusType GetBridgeClusterStatus(string ClusterId, string? Source = null)
-        {
-            if (ClusterId == null) { throw new System.ArgumentNullException("ClusterId cannot be null"); }
-            NSXTBridgeClusterStatusType returnValue = default(NSXTBridgeClusterStatusType);
-            StringBuilder GetBridgeClusterStatusServiceURL = new StringBuilder("/bridge-clusters/{cluster-id}/status");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetBridgeClusterStatusServiceURL.Replace("{cluster-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ClusterId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
-            request.Resource = GetBridgeClusterStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetBridgeClusterStatusServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBridgeClusterStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBridgeClusterStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTBridgeEndpointStatusType GetBridgeEndpointStatus(string EndpointId, string? Source = null)
         {
             if (EndpointId == null) { throw new System.ArgumentNullException("EndpointId cannot be null"); }

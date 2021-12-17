@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDirectoryLdapServerListResultsType : NSXTListResultType
     {
+        public NSXTDirectoryLdapServerListResultsType()
+        {
+        }
         /// <summary>
         /// List of directory domain LDAP servers
         /// </summary>

@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVPNLocalEndpointType : NSXTManagedResourceType
     {
+        public NSXTIPSecVPNLocalEndpointType()
+        {
+        }
         /// <summary>
-        /// VPN Service id.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ipsec_vpn_service_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"VPN Service id.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTResourceReferenceType IpsecVpnServiceId { get; set; }
         /// <summary>

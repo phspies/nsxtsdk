@@ -7,9 +7,9 @@ using nsxtsdk.Models;
 namespace nsxtsdk.ManagerModels
 {
     /// <summary>
-    /// The operation state of live trace.IN_PROGRESS - collecting the session results.FINISHED - session results collect complete.PARTIAL_FINISHED - some ssession results may be lost.CANCELED - session cancelled by exception.TIMEOUT - session result is incomplete until timeout.
+    /// The operation state of Livetrace.IN_PROGRESS - collecting the session results.FINISHED - session results collection completes.PARTIAL_FINISHED - session results may be incomplete.CANCELED - session is cancelled by exception.INVALIDATED - session is invalidated by configuration changes such as VM migration.TIMEOUT - session is not completed on time.
     /// </summary>
-    [NSXTProperty(Description: @"The operation state of live trace.IN_PROGRESS - collecting the session results.FINISHED - session results collect complete.PARTIAL_FINISHED - some ssession results may be lost.CANCELED - session cancelled by exception.TIMEOUT - session result is incomplete until timeout.")]
+    [NSXTProperty(Description: @"The operation state of Livetrace.IN_PROGRESS - collecting the session results.FINISHED - session results collection completes.PARTIAL_FINISHED - session results may be incomplete.CANCELED - session is cancelled by exception.INVALIDATED - session is invalidated by configuration changes such as VM migration.TIMEOUT - session is not completed on time.")]
     public enum NSXTLiveTraceStatusOperationStateEnumType
     {
         [EnumMember(Value = "IN_PROGRESS")]
@@ -20,7 +20,9 @@ namespace nsxtsdk.ManagerModels
         PARTIALFINISHED = 3,
         [EnumMember(Value = "CANCELED")]
         CANCELED = 4,
+        [EnumMember(Value = "INVALIDATED")]
+        INVALIDATED = 5,
         [EnumMember(Value = "TIMEOUT")]
-        TIMEOUT = 5,
+        TIMEOUT = 6,
     }
 }

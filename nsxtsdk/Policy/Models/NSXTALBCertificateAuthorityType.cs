@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer CertificateAuthority object")]
     public class NSXTALBCertificateAuthorityType 
     {
+        public NSXTALBCertificateAuthorityType()
+        {
+        }
         /// <summary>
         /// It is a reference to an object of type
         /// SSLKeyAndCertificate.

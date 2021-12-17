@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Trunk VLAN id range")]
     public class NSXTTrunkVlanRangeType 
     {
+        public NSXTTrunkVlanRangeType()
+        {
+        }
         /// <summary>
         /// Virtual Local Area Network Identifier
         /// </summary>

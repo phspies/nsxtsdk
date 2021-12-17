@@ -17,32 +17,35 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTBackupOverviewType : NSXTClusterBackupInfoListResultType
     {
+        public NSXTBackupOverviewType()
+        {
+        }
         /// <summary>
-        /// Backup status decribes type, phase, success/failure and time of a | latest backup execution
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "current_backup_operation_status", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Backup status decribes type, phase, success/failure and time of a | latest backup execution")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTCurrentBackupOperationStatusType CurrentBackupOperationStatus { get; set; }
         /// <summary>
-        /// Status of the last backup execution per component
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "backup_operation_history", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Status of the last backup execution per component")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTBackupOperationHistoryType BackupOperationHistory { get; set; }
         /// <summary>
-        /// Configuration to generate a manual/automated backup
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "backup_config", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Configuration to generate a manual/automated backup")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTBackupConfigurationType BackupConfig { get; set; }
         /// <summary>
-        /// Status of restore process executing/executed on appliance
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "restore_status", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Status of restore process executing/executed on appliance")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTClusterRestoreStatusType RestoreStatus { get; set; }
     }

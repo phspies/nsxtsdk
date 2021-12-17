@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTX509CertificateType 
     {
+        public NSXTX509CertificateType()
+        {
+        }
         /// <summary>
         /// The order of the middle term(s) of the reduction polynomial in elliptic curve (EC) | characteristic 2 finite field.|
         /// Contents of this array are copied to protect against subsequent modification in ECDSA.
@@ -168,7 +171,7 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "public_key_algo")]
         [NSXTProperty(IsRequired: false, Description: @"Cryptographic algorithm used by the public key for data encryption.")]
-        public NSXTX509CertificatePublicKeyAlgoEnumType? PublicKeyAlgo { get; set; }
+        public string? PublicKeyAlgo { get; set; }
         /// <summary>
         /// True if this certificate is valid.
         /// </summary>

@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildVirtualEndpointType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildVirtualEndpointType()
+        {
+        }
         /// <summary>
-        /// Contains reference to actual VirtualEndpoint.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "VirtualEndpoint", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains reference to actual VirtualEndpoint.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTVirtualEndpointType VirtualEndpoint { get; set; }
     }

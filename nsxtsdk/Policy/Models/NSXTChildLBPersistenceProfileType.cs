@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildLBPersistenceProfileType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildLBPersistenceProfileType()
+        {
+        }
         /// <summary>
-        /// Contains the actual LBPersistenceProfile object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "LBPersistenceProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual LBPersistenceProfile object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTLBPersistenceProfileType LBPersistenceProfile { get; set; }
     }

@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTContainerClusterType : NSXTDiscoveredResourceType
     {
+        public NSXTContainerClusterType()
+        {
+            CniType = test
+        }
         /// <summary>
         /// Network status of container cluster.
         /// </summary>
@@ -24,15 +28,17 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Network status of container cluster.")]
         public NSXTContainerClusterNetworkStatusEnumType? NetworkStatus { get; set; }
         /// <summary>
-        /// Details of underlying infrastructure that hosts the container cluster.
-        /// In case of creating container cluster first time, it is expected to
-        /// pass the valid infrastructure.
-        /// In case of update, if there is no change in cluster-type, then this
-        /// field can be omitted in the request.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "infrastructure")]
-        [NSXTProperty(IsRequired: false, Description: @"Details of underlying infrastructure that hosts the container cluster.In case of creating container cluster first time, it is expected topass the valid infrastructure.In case of update, if there is no change in cluster-type, then thisfield can be omitted in the request.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTContainerInfrastructureInfoType Infrastructure { get; set; }
+        /// <summary>
+        /// Specifies supervisor container project identifier for cluster.
+        /// </summary>
+        [JsonProperty(PropertyName = "supervisor_project_id")]
+        [NSXTProperty(IsRequired: false, Description: @"Specifies supervisor container project identifier for cluster.")]
+        public string? SupervisorProjectId { get; set; }
         /// <summary>
         /// Type of the container cluster. In case of creating container cluster
         /// first time, it is expected to pass the valid cluster-type.
@@ -49,6 +55,12 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "origin_properties")]
         [NSXTProperty(IsRequired: false, Description: @"Array of additional specific properties of container clusterin key-value format.")]
         public IList<NSXTKeyValuePairType> OriginProperties { get; set; }
+        /// <summary>
+        /// Specifies Container Network Interface type for container cluster.
+        /// </summary>
+        [JsonProperty(PropertyName = "cni_type")]
+        [NSXTProperty(IsRequired: false, Description: @"Specifies Container Network Interface type for container cluster.")]
+        public NSXTContainerClusterCniTypeEnumType? CniType { get; set; }
         /// <summary>
         /// External identifier of the container cluster.
         /// </summary>

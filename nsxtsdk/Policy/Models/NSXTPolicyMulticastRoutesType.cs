@@ -12,11 +12,14 @@ using System.ComponentModel;
 namespace nsxtsdk.PolicyModels
 {
     /// <summary>
-    /// Multicast Routes.
+    /// 
     /// </summary>
-    [NSXTProperty(Description: @"Multicast Routes.")]
-    public class NSXTPolicyMulticastRoutesType 
+    [NSXTProperty(Description: @"")]
+    public class NSXTPolicyMulticastRoutesType : NSXTListResultType
     {
+        public NSXTPolicyMulticastRoutesType()
+        {
+        }
         /// <summary>
         /// Policy path to Tier0 gateway.
         /// </summary>

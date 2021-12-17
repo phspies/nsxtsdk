@@ -7,9 +7,9 @@ using nsxtsdk.Models;
 namespace nsxtsdk.PolicyModels
 {
     /// <summary>
-    /// Enum options - CLOUD_NONE, CLOUD_VCENTER, CLOUD_OPENSTACK,CLOUD_AWS, CLOUD_VCA, CLOUD_APIC, CLOUD_MESOS,CLOUD_LINUXSERVER, CLOUD_DOCKER_UCP, CLOUD_RANCHER,CLOUD_OSHIFT_K8S, CLOUD_AZURE, CLOUD_GCP, CLOUD_NSXT.Default value when not specified in API or module isinterpreted by ALB Controller as CLOUD_NONE.
+    /// Enum options - CLOUD_NONE, CLOUD_VCENTER, CLOUD_OPENSTACK,CLOUD_AWS, CLOUD_VCA, CLOUD_APIC, CLOUD_MESOS,CLOUD_LINUXSERVER, CLOUD_DOCKER_UCP, CLOUD_RANCHER,CLOUD_OSHIFT_K8S, CLOUD_AZURE, CLOUD_GCP, CLOUD_NSXT.Allowed in Basic(Allowed values- CLOUD_NONE,CLOUD_NSXT)edition, Essentials(Allowed values-CLOUD_NONE,CLOUD_VCENTER) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as CLOUD_NONE.
     /// </summary>
-    [NSXTProperty(Description: @"Enum options - CLOUD_NONE, CLOUD_VCENTER, CLOUD_OPENSTACK,CLOUD_AWS, CLOUD_VCA, CLOUD_APIC, CLOUD_MESOS,CLOUD_LINUXSERVER, CLOUD_DOCKER_UCP, CLOUD_RANCHER,CLOUD_OSHIFT_K8S, CLOUD_AZURE, CLOUD_GCP, CLOUD_NSXT.Default value when not specified in API or module isinterpreted by ALB Controller as CLOUD_NONE.")]
+    [NSXTProperty(Description: @"Enum options - CLOUD_NONE, CLOUD_VCENTER, CLOUD_OPENSTACK,CLOUD_AWS, CLOUD_VCA, CLOUD_APIC, CLOUD_MESOS,CLOUD_LINUXSERVER, CLOUD_DOCKER_UCP, CLOUD_RANCHER,CLOUD_OSHIFT_K8S, CLOUD_AZURE, CLOUD_GCP, CLOUD_NSXT.Allowed in Basic(Allowed values- CLOUD_NONE,CLOUD_NSXT)edition, Essentials(Allowed values-CLOUD_NONE,CLOUD_VCENTER) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as CLOUD_NONE.")]
     public enum NSXTAlbvirtualServiceCloudTypeEnumType
     {
         [EnumMember(Value = "CLOUD_NONE")]

@@ -17,6 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBCookiePersistenceProfileType : NSXTLBPersistenceProfileType
     {
+        public NSXTLBCookiePersistenceProfileType()
+        {
+            CookieGarble = test
+            CookieFallback = test
+            CookieMode = test
+            CookieName = test
+        }
         /// <summary>
         /// If garble is set to true, cookie value (server IP and port) would be
         /// encrypted.
@@ -24,7 +31,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "cookie_garble")]
         [NSXTProperty(IsRequired: false, Description: @"If garble is set to true, cookie value (server IP and port) would beencrypted.If garble is set to false, cookie value would be plain text.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? CookieGarble { get; set; }
         /// <summary>
         /// If cookie secure flag is true, it prevents the browser from sending a
@@ -43,14 +49,12 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "cookie_fallback")]
         [NSXTProperty(IsRequired: false, Description: @"If fallback is true, once the cookie points to a server that is down(i.e. admin state DISABLED or healthcheck state is DOWN), then a newserver is selected by default to handle that request.If fallback is false, it will cause the request to be rejected ifcookie points to a server.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? CookieFallback { get; set; }
         /// <summary>
         /// Cookie persistence mode.
         /// </summary>
         [JsonProperty(PropertyName = "cookie_mode")]
         [NSXTProperty(IsRequired: false, Description: @"Cookie persistence mode.")]
-        [NSXTDefaultProperty(Default: "INSERT")]
         public NSXTLbcookiePersistenceProfileCookieModeEnumType? CookieMode { get; set; }
         /// <summary>
         /// HTTP cookie domain could be configured, only available for insert mode.
@@ -70,15 +74,12 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "cookie_name")]
         [NSXTProperty(IsRequired: false, Description: @"Cookie name.")]
-        [NSXTDefaultProperty(Default: "NSXLB")]
         public string? CookieName { get; set; }
         /// <summary>
-        /// Both session cookie and persistence cookie are supported, if not
-        /// specified, it's a session cookie. It expires when the browser is
-        /// closed.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "cookie_time")]
-        [NSXTProperty(IsRequired: false, Description: @"Both session cookie and persistence cookie are supported, if notspecified, it&apos;s a session cookie. It expires when the browser isclosed.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLBCookieTimeType CookieTime { get; set; }
         /// <summary>
         /// HTTP cookie path could be set, only available for insert mode.

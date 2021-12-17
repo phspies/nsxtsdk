@@ -17,11 +17,27 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDfwFirewallConfigurationType : NSXTFirewallConfigurationType
     {
+        public NSXTDfwFirewallConfigurationType()
+        {
+        }
         /// <summary>
         /// If set to true, identity firewall is enabled.
         /// </summary>
         [JsonProperty(PropertyName = "idfw_enabled")]
         [NSXTProperty(IsRequired: false, Description: @"If set to true, identity firewall is enabled.")]
         public bool? IdfwEnabled { get; set; }
+        /// <summary>
+        /// Enables event log scraping for Identity firewall.
+        /// </summary>
+        [JsonProperty(PropertyName = "idfw_event_log_scraper_enabled")]
+        [NSXTProperty(IsRequired: false, Description: @"Enables event log scraping for Identity firewall.")]
+        public bool? IdfwEventLogScraperEnabled { get; set; }
+        /// <summary>
+        /// If set to true, collection of login/logout events from
+        /// Loginsight server is enabled.
+        /// </summary>
+        [JsonProperty(PropertyName = "idfw_loginsight_enabled")]
+        [NSXTProperty(IsRequired: false, Description: @"If set to true, collection of login/logout events fromLoginsight server is enabled.")]
+        public bool? IdfwLoginsightEnabled { get; set; }
     }
 }

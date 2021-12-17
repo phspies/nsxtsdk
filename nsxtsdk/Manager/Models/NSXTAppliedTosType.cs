@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Entity lists where the profile will be enabled on.")]
     public class NSXTAppliedTosType 
     {
+        public NSXTAppliedTosType()
+        {
+        }
         /// <summary>
         /// Logical Port List
         /// </summary>

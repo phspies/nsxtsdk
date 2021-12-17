@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSegmentDhcpV6ConfigType : NSXTSegmentDhcpConfigType
     {
+        public NSXTSegmentDhcpV6ConfigType()
+        {
+        }
         /// <summary>
         /// Excluded addresses to define dynamic ip allocation ranges.
         /// </summary>

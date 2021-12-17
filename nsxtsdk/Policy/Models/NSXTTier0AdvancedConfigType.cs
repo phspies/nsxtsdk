@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTier0AdvancedConfigType : NSXTConnectivityAdvancedConfigType
     {
+        public NSXTTier0AdvancedConfigType()
+        {
+            ForwardingUpTimer = test
+        }
         /// <summary>
         /// Extra time in seconds the router must wait before sending the UP
         /// notification after the peer routing session is established. Default
@@ -27,7 +31,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Extra time in seconds the router must wait before sending the UPnotification after the peer routing session is established. Defaultmeans forward immediately. VRF logical router will set it same as parentlogical router.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(300)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ForwardingUpTimer { get; set; }
     }
 }

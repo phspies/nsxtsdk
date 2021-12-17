@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Identity Firewall user session data list and Directory Group to user mappings.")]
     public class NSXTIdfwUserSessionDataAndMappingsType 
     {
+        public NSXTIdfwUserSessionDataAndMappingsType()
+        {
+        }
         /// <summary>
         /// Archived user session data list
         /// </summary>

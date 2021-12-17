@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTraceflowObservationReplicationLogicalType : NSXTTraceflowObservationType
     {
+        public NSXTTraceflowObservationReplicationLogicalType()
+        {
+        }
         /// <summary>
         /// The label of VTEP
         /// </summary>

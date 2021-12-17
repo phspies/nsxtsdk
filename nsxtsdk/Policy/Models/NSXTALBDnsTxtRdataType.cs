@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsTxtRdata object")]
     public class NSXTALBDnsTxtRdataType 
     {
+        public NSXTALBDnsTxtRdataType()
+        {
+        }
         /// <summary>
         /// Text data associated with the FQDN.
         /// </summary>

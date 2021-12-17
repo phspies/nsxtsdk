@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer RateProfile object")]
     public class NSXTALBRateProfileType 
     {
+        public NSXTALBRateProfileType()
+        {
+        }
         /// <summary>
         /// HTTP header name.
         /// </summary>
@@ -30,10 +33,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"HTTP cookie name.")]
         public string? HttpCookie { get; set; }
         /// <summary>
-        /// Action to perform upon rate limiting.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "action", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Action to perform upon rate limiting.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBRateLimiterActionType Action { get; set; }
         /// <summary>
@@ -45,10 +48,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Explicitly tracks an attacker across rate periods.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? ExplicitTracking { get; set; }
         /// <summary>
-        /// The rate limiter configuration for this rate profile.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "rate_limiter")]
-        [NSXTProperty(IsRequired: false, Description: @"The rate limiter configuration for this rate profile.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBRateLimiterType RateLimiter { get; set; }
         /// <summary>
         /// Enable fine granularity.

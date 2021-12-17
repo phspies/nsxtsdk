@@ -7,9 +7,9 @@ using nsxtsdk.Models;
 namespace nsxtsdk.PolicyModels
 {
     /// <summary>
-    /// Enables a response to client when pool experiences afailure.By default TCP connection is closed.Enum options - FAIL_ACTION_HTTP_REDIRECT,FAIL_ACTION_HTTP_LOCAL_RSP, FAIL_ACTION_CLOSE_CONN,FAIL_ACTION_BACKUP_POOL.Default value when not specified in API or module isinterpreted by ALB Controller as FAIL_ACTION_CLOSE_CONN.
+    /// Enables a response to client when pool experiences afailure.By default TCP connection is closed.Enum options - FAIL_ACTION_HTTP_REDIRECT,FAIL_ACTION_HTTP_LOCAL_RSP, FAIL_ACTION_CLOSE_CONN.Allowed in Basic(Allowed values-FAIL_ACTION_CLOSE_CONN,FAIL_ACTION_HTTP_REDIRECT) edition,Essentials(Allowed values- FAIL_ACTION_CLOSE_CONN) edition,Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as FAIL_ACTION_CLOSE_CONN.
     /// </summary>
-    [NSXTProperty(Description: @"Enables a response to client when pool experiences afailure.By default TCP connection is closed.Enum options - FAIL_ACTION_HTTP_REDIRECT,FAIL_ACTION_HTTP_LOCAL_RSP, FAIL_ACTION_CLOSE_CONN,FAIL_ACTION_BACKUP_POOL.Default value when not specified in API or module isinterpreted by ALB Controller as FAIL_ACTION_CLOSE_CONN.")]
+    [NSXTProperty(Description: @"Enables a response to client when pool experiences afailure.By default TCP connection is closed.Enum options - FAIL_ACTION_HTTP_REDIRECT,FAIL_ACTION_HTTP_LOCAL_RSP, FAIL_ACTION_CLOSE_CONN.Allowed in Basic(Allowed values-FAIL_ACTION_CLOSE_CONN,FAIL_ACTION_HTTP_REDIRECT) edition,Essentials(Allowed values- FAIL_ACTION_CLOSE_CONN) edition,Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as FAIL_ACTION_CLOSE_CONN.")]
     public enum NSXTAlbfailActionTypeEnumType
     {
         [EnumMember(Value = "FAIL_ACTION_HTTP_REDIRECT")]
@@ -18,7 +18,5 @@ namespace nsxtsdk.PolicyModels
         FAILACTIONHTTPLOCALRSP = 2,
         [EnumMember(Value = "FAIL_ACTION_CLOSE_CONN")]
         FAILACTIONCLOSECONN = 0,
-        [EnumMember(Value = "FAIL_ACTION_BACKUP_POOL")]
-        FAILACTIONBACKUPPOOL = 1,
     }
 }

@@ -17,6 +17,11 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDirectoryLdapServerType : NSXTManagedResourceType
     {
+        public NSXTDirectoryLdapServerType()
+        {
+            Protocol = test
+            Port = test
+        }
         /// <summary>
         /// Directory LDAP server connection user name.
         /// </summary>
@@ -36,7 +41,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "protocol")]
         [NSXTProperty(IsRequired: false, Description: @"Directory LDAP server connection protocol which is either LDAP or LDAPS.")]
-        [NSXTDefaultProperty(Default: "LDAP")]
         public NSXTDirectoryLdapServerProtocolEnumType? Protocol { get; set; }
         /// <summary>
         /// Directory LDAP server certificate thumbprint used in secure LDAPS connection.
@@ -62,7 +66,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "port")]
         [NSXTProperty(IsRequired: false, Description: @"Directory LDAP server connection TCP/UDP port.")]
-        [NSXTDefaultProperty(Default: "")]
         public long? Port { get; set; }
     }
 }

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyEdgeClusterType : NSXTPolicyConfigResourceType
     {
+        public NSXTPolicyEdgeClusterType()
+        {
+        }
         /// <summary>
         /// Flag to indicate status of inter site l2 and l3 forwarding in federation.
         /// </summary>

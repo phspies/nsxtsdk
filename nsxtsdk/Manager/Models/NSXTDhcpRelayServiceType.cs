@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpRelayServiceType : NSXTManagedResourceType
     {
+        public NSXTDhcpRelayServiceType()
+        {
+        }
         /// <summary>
         /// dhcp relay profile referenced by the dhcp relay service
         /// </summary>

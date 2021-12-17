@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildDomainDeploymentMapType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildDomainDeploymentMapType()
+        {
+        }
         /// <summary>
-        /// Contains the actual DomainDeploymentMap object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "DomainDeploymentMap", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual DomainDeploymentMap object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTDomainDeploymentMapType DomainDeploymentMap { get; set; }
     }

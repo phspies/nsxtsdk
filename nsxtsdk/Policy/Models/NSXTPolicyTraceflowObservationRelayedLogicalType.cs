@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyTraceflowObservationRelayedLogicalType : NSXTTraceflowObservationRelayedLogicalType
     {
+        public NSXTPolicyTraceflowObservationRelayedLogicalType()
+        {
+        }
         /// <summary>
         /// This field specifies the logical component that relay service located on.
         /// </summary>

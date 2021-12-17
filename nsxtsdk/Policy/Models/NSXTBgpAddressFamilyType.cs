@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTBgpAddressFamilyType 
     {
+        public NSXTBgpAddressFamilyType()
+        {
+        }
         /// <summary>
         /// Count of out prefixes
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HealthMonitorSSLAttributes object")]
     public class NSXTALBHealthMonitorSSLAttributesType 
     {
+        public NSXTALBHealthMonitorSSLAttributesType()
+        {
+        }
         /// <summary>
         /// SSL profile defines ciphers and SSL versions to be used for
         /// healthmonitor traffic to the back-end servers.

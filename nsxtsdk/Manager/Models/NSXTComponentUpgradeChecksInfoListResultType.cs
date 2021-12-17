@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTComponentUpgradeChecksInfoListResultType : NSXTListResultType
     {
+        public NSXTComponentUpgradeChecksInfoListResultType()
+        {
+        }
         /// <summary>
         /// Collection of info of pre/post-upgrade checks for components
         /// </summary>

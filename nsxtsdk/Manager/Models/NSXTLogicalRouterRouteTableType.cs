@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalRouterRouteTableType : NSXTListResultType
     {
+        public NSXTLogicalRouterRouteTableType()
+        {
+        }
         /// <summary>
         /// Name of the logical router
         /// </summary>

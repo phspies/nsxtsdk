@@ -17,6 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Contains ARP snooping related configuration.")]
     public class NSXTArpSnoopingConfigType 
     {
+        public NSXTArpSnoopingConfigType()
+        {
+            ArpBindingLimit = test
+            ArpSnoopingEnabled = test
+        }
         /// <summary>
         /// Number of arp snooped IP addresses
         /// Indicates the number of arp snooped IP addresses to be remembered
@@ -29,14 +34,12 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Number of arp snooped IP addressesIndicates the number of arp snooped IP addresses to be rememberedper LogicalPort. Decreasing this value, will retain the latestbindings from the existing list of address bindings. Increasing thisvalue will retain existing bindings and also learn any new addressbindings discovered on the port until the new limit is reached.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(256)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? ArpBindingLimit { get; set; }
+        public int? ArpBindingLimit { get; set; }
         /// <summary>
         /// Indicates whether ARP snooping is enabled
         /// </summary>
         [JsonProperty(PropertyName = "arp_snooping_enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Indicates whether ARP snooping is enabled")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? ArpSnoopingEnabled { get; set; }
     }
 }

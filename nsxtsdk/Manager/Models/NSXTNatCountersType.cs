@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNatCountersType 
     {
+        public NSXTNatCountersType()
+        {
+        }
         /// <summary>
         /// The number of packets
         /// </summary>

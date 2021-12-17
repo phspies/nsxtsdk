@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMacManagementSwitchingProfileType : NSXTBaseSwitchingProfileType
     {
+        public NSXTMacManagementSwitchingProfileType()
+        {
+        }
         /// <summary>
-        /// MAC learning configuration
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "mac_learning")]
-        [NSXTProperty(IsRequired: false, Description: @"MAC learning configuration")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTMacLearningSpecType MacLearning { get; set; }
         /// <summary>
         /// Allowing source MAC address change

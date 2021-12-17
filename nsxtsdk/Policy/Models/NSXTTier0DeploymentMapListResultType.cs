@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTier0DeploymentMapListResultType : NSXTListResultType
     {
+        public NSXTTier0DeploymentMapListResultType()
+        {
+        }
         /// <summary>
         /// Tier-0 Deployment Maps.
         /// </summary>

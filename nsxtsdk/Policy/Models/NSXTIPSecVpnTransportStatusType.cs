@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVpnTransportStatusType : NSXTL2VPNSessionTransportTunnelStatusType
     {
+        public NSXTIPSecVpnTransportStatusType()
+        {
+        }
         /// <summary>
-        /// IPSec VPN Session status
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "session_status")]
-        [NSXTProperty(IsRequired: false, Description: @"IPSec VPN Session status")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPSecVpnSessionStatusNsxTType SessionStatus { get; set; }
     }
 }

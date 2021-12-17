@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Remote server authentication details")]
     public class NSXTFileTransferAuthenticationSchemeType 
     {
+        public NSXTFileTransferAuthenticationSchemeType()
+        {
+        }
         /// <summary>
         /// User name to authenticate with
         /// </summary>

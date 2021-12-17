@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeServiceStatusPropertiesType : NSXTResourceType
     {
+        public NSXTNodeServiceStatusPropertiesType()
+        {
+        }
         /// <summary>
         /// Reason for service degradation
         /// </summary>

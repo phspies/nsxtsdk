@@ -17,17 +17,20 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPktcapActionConfigType 
     {
+        public NSXTPktcapActionConfigType()
+        {
+        }
         /// <summary>
-        /// Sample argument for packet capture
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "sampling_argument")]
-        [NSXTProperty(IsRequired: false, Description: @"Sample argument for packet capture")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTSamplingArgumentType SamplingArgument { get; set; }
         /// <summary>
-        /// Action argument for packet capture
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "action_argument")]
-        [NSXTProperty(IsRequired: false, Description: @"Action argument for packet capture")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTPktcapActionArgumentType ActionArgument { get; set; }
     }
 }

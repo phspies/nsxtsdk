@@ -17,6 +17,16 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HTTP2ApplicationProfile object")]
     public class NSXTALBHTTP2ApplicationProfileType 
     {
+        public NSXTALBHTTP2ApplicationProfileType()
+        {
+            MaxHttp2RequestsPerConnection = test
+            MaxHttp2ControlFramesPerConnection = test
+            MaxHttp2ConcurrentStreamsPerConnection = test
+            MaxHttp2QueuedFramesToClientPerConnection = test
+            MaxHttp2EmptyDataFramesPerConnection = test
+            MaxHttp2HeaderFieldSize = test
+            Http2InitialWindowSize = test
+        }
         /// <summary>
         /// The maximum number of requests over a client side HTTP/2
         /// connection.
@@ -30,7 +40,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"The maximum number of requests over a client side HTTP/2connection.Allowed values are 0-10000.Special values are 0- &apos;Unlimited requests on a client sideHTTP/2 connection&apos;.Default value when not specified in API or module isinterpreted by ALB Controller as 1000.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(10000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? MaxHttp2RequestsPerConnection { get; set; }
         /// <summary>
         /// The max number of control frames that client can send over
@@ -46,7 +55,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"The max number of control frames that client can send overan HTTP/2 connection.&apos;0&apos; means unlimited.Allowed values are 0-10000.Special values are 0- &apos;Unlimited control frames on a clientside HTTP/2 connection&apos;.Default value when not specified in API or module isinterpreted by ALB Controller as 1000.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(10000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? MaxHttp2ControlFramesPerConnection { get; set; }
         /// <summary>
         /// The max number of concurrent streams over a client side
@@ -59,7 +67,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"The max number of concurrent streams over a client sideHTTP/2 connection.Allowed values are 1-256.Default value when not specified in API or module isinterpreted by ALB Controller as 128.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(256)]
-        [NSXTDefaultProperty(Default: "")]
         public long? MaxHttp2ConcurrentStreamsPerConnection { get; set; }
         /// <summary>
         /// The max number of frames that can be queued waiting to be
@@ -75,7 +82,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"The max number of frames that can be queued waiting to besent over a client side HTTP/2 connection at any given time.&apos;0&apos; means unlimited.Allowed values are 0-10000.Special values are 0- &apos;Unlimited frames can be queued on aclient side HTTP/2 connection&apos;.Default value when not specified in API or module isinterpreted by ALB Controller as 1000.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(10000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? MaxHttp2QueuedFramesToClientPerConnection { get; set; }
         /// <summary>
         /// The max number of empty data frames that client can send
@@ -91,7 +97,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"The max number of empty data frames that client can sendover an HTTP/2 connection.&apos;0&apos; means unlimited.Allowed values are 0-10000.Special values are 0- &apos;Unlimited empty data frames over aclient side HTTP/2 connection&apos;.Default value when not specified in API or module isinterpreted by ALB Controller as 1000.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(10000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? MaxHttp2EmptyDataFramesPerConnection { get; set; }
         /// <summary>
         /// The maximum size in bytes of the compressed request header
@@ -106,7 +111,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"The maximum size in bytes of the compressed request headerfield.The limit applies equally to both name and value.Allowed values are 1-8192.Unit is BYTES.Default value when not specified in API or module isinterpreted by ALB Controller as 4096.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(8192)]
-        [NSXTDefaultProperty(Default: "")]
         public long? MaxHttp2HeaderFieldSize { get; set; }
         /// <summary>
         /// The initial flow control window size in KB for HTTP/2
@@ -120,7 +124,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"The initial flow control window size in KB for HTTP/2streams.Allowed values are 64-32768.Unit is KB.Default value when not specified in API or module isinterpreted by ALB Controller as 64.")]
         //[System.ComponentModel.DataAnnotations.MinLength(64)]
         //[System.ComponentModel.DataAnnotations.MaxLength(32768)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Http2InitialWindowSize { get; set; }
     }
 }

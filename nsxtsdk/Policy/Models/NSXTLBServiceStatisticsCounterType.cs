@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBServiceStatisticsCounterType 
     {
+        public NSXTLBServiceStatisticsCounterType()
+        {
+        }
         /// <summary>
         /// Number of l4 total sessions.
         /// </summary>

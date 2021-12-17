@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTVirtualEndpointListResultType : NSXTListResultType
     {
+        public NSXTVirtualEndpointListResultType()
+        {
+        }
         /// <summary>
         /// All virtual endpoints under a Tier0
         /// </summary>

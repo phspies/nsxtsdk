@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSupportBundleFileTransferAuthenticationSchemeType 
     {
+        public NSXTSupportBundleFileTransferAuthenticationSchemeType()
+        {
+        }
         /// <summary>
         /// User name to authenticate with
         /// </summary>

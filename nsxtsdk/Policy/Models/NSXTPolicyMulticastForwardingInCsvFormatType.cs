@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyMulticastForwardingInCsvFormatType : NSXTCsvListResultType
     {
+        public NSXTPolicyMulticastForwardingInCsvFormatType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

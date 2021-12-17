@@ -69,6 +69,45 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
+        public NSXTServiceInstanceNSGroupsType GetServiceInstanceNsgroups(string ServiceId, string ServiceInstanceId)
+        {
+            if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
+            if (ServiceInstanceId == null) { throw new System.ArgumentNullException("ServiceInstanceId cannot be null"); }
+            NSXTServiceInstanceNSGroupsType returnValue = default(NSXTServiceInstanceNSGroupsType);
+            StringBuilder GetServiceInstanceNsgroupsServiceURL = new StringBuilder("/serviceinsertion/services/{service-id}/service-instances/{service-instance-id}/group-associations");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GetServiceInstanceNsgroupsServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetServiceInstanceNsgroupsServiceURL.Replace("{service-instance-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceInstanceId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GetServiceInstanceNsgroupsServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetServiceInstanceNsgroupsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTServiceInstanceNSGroupsType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTServiceInstanceNSGroupsType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
         public NSXTServiceDefinitionType UpdateServiceInsertionService(string ServiceId, NSXTServiceDefinitionType ServiceDefinition)
         {
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
@@ -267,45 +306,6 @@ namespace nsxtapi.ManagerModules
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTServiceInstanceNSGroupsType GetServiceInstanceNsgroups(string ServiceId, string ServiceInstanceId)
-        {
-            if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
-            if (ServiceInstanceId == null) { throw new System.ArgumentNullException("ServiceInstanceId cannot be null"); }
-            NSXTServiceInstanceNSGroupsType returnValue = default(NSXTServiceInstanceNSGroupsType);
-            StringBuilder GetServiceInstanceNsgroupsServiceURL = new StringBuilder("/serviceinsertion/services/{service-id}/service-instances/{service-instance-id}/group-associations");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetServiceInstanceNsgroupsServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetServiceInstanceNsgroupsServiceURL.Replace("{service-instance-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceInstanceId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = GetServiceInstanceNsgroupsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetServiceInstanceNsgroupsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTServiceInstanceNSGroupsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTServiceInstanceNSGroupsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
         }
         /// <summary>
         /// 
@@ -574,43 +574,6 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSourceEntityResultType ResolveSourceEntities(string SourceNodeValue)
-        {
-            if (SourceNodeValue == null) { throw new System.ArgumentNullException("SourceNodeValue cannot be null"); }
-            NSXTSourceEntityResultType returnValue = default(NSXTSourceEntityResultType);
-            StringBuilder ResolveSourceEntitiesServiceURL = new StringBuilder("/serviceinsertion/source-entities");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (SourceNodeValue != null) { request.AddQueryParameter("source_node_value", SourceNodeValue.ToString()); }
-            request.Resource = ResolveSourceEntitiesServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ResolveSourceEntitiesServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSourceEntityResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSourceEntityResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTServiceInstanceListResultType ListServiceInstances(string? DeployedTo = null, string? ServiceDeploymentId = null)
         {
             NSXTServiceInstanceListResultType returnValue = default(NSXTServiceInstanceListResultType);
@@ -716,48 +679,6 @@ namespace nsxtapi.ManagerModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTVendorTemplateListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTServicePathListResultType ListServicePaths(string ServiceChainId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (ServiceChainId == null) { throw new System.ArgumentNullException("ServiceChainId cannot be null"); }
-            NSXTServicePathListResultType returnValue = default(NSXTServicePathListResultType);
-            StringBuilder ListServicePathsServiceURL = new StringBuilder("/serviceinsertion/service-chains/{service-chain-id}/service-paths");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ListServicePathsServiceURL.Replace("{service-chain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceChainId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListServicePathsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListServicePathsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTServicePathListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTServicePathListResultType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -1148,6 +1069,43 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
+        public NSXTSourceEntityResultType ResolveSourceEntities(string SourceNodeValue)
+        {
+            if (SourceNodeValue == null) { throw new System.ArgumentNullException("SourceNodeValue cannot be null"); }
+            NSXTSourceEntityResultType returnValue = default(NSXTSourceEntityResultType);
+            StringBuilder ResolveSourceEntitiesServiceURL = new StringBuilder("/serviceinsertion/source-entities");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            if (SourceNodeValue != null) { request.AddQueryParameter("source_node_value", SourceNodeValue.ToString()); }
+            request.Resource = ResolveSourceEntitiesServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + ResolveSourceEntitiesServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTSourceEntityResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTSourceEntityResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
         public NSXTServiceDefinitionType AddServiceInsertionService(NSXTServiceDefinitionType ServiceDefinition)
         {
             if (ServiceDefinition == null) { throw new System.ArgumentNullException("ServiceDefinition cannot be null"); }
@@ -1382,6 +1340,48 @@ namespace nsxtapi.ManagerModules
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTServicePathListResultType ListServicePaths(string ServiceChainId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (ServiceChainId == null) { throw new System.ArgumentNullException("ServiceChainId cannot be null"); }
+            NSXTServicePathListResultType returnValue = default(NSXTServicePathListResultType);
+            StringBuilder ListServicePathsServiceURL = new StringBuilder("/serviceinsertion/service-chains/{service-chain-id}/service-paths");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            ListServicePathsServiceURL.Replace("{service-chain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceChainId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = ListServicePathsServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + ListServicePathsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTServicePathListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTServicePathListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 

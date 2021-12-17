@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPacketCaptureSessionListType : NSXTListResultType
     {
+        public NSXTPacketCaptureSessionListType()
+        {
+        }
         /// <summary>
         /// Packet capture list for all sessoins
         /// </summary>

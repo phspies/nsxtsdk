@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdsGlobalConfigType : NSXTGlobalConfigsType
     {
+        public NSXTIdsGlobalConfigType()
+        {
+        }
         /// <summary>
         /// When this flag is set to true, IDS events would be sent to syslog.
         /// </summary>

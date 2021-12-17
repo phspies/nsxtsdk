@@ -68,11 +68,11 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSpanType GlobalGetSpan(string IntentPath, string? SitePath = null)
+        public NSXTSpanType GlobalGlobalInfraGetSpan(string IntentPath, string? SitePath = null)
         {
             if (IntentPath == null) { throw new System.ArgumentNullException("IntentPath cannot be null"); }
             NSXTSpanType returnValue = default(NSXTSpanType);
-            StringBuilder GetSpanServiceURL = new StringBuilder("/global-infra/span");
+            StringBuilder GlobalInfraGetSpanServiceURL = new StringBuilder("/global-infra/span");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -81,11 +81,11 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             if (IntentPath != null) { request.AddQueryParameter("intent_path", IntentPath.ToString()); }
             if (SitePath != null) { request.AddQueryParameter("site_path", SitePath.ToString()); }
-            request.Resource = GetSpanServiceURL.ToString();
+            request.Resource = GlobalInfraGetSpanServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetSpanServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetSpanServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else

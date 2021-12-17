@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNotificationsListType : NSXTManagedResourceType
     {
+        public NSXTNotificationsListType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

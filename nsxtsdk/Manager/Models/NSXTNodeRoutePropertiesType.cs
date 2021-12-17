@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeRoutePropertiesType : NSXTResourceType
     {
+        public NSXTNodeRoutePropertiesType()
+        {
+            Proto = test
+        }
         /// <summary>
         /// Source address to prefer when sending to destinations of route
         /// </summary>
@@ -34,7 +38,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "proto")]
         [NSXTProperty(IsRequired: false, Description: @"Routing protocol identifier of route")]
-        [NSXTDefaultProperty(Default: "boot")]
         public NSXTNodeRoutePropertiesProtoEnumType? Proto { get; set; }
         /// <summary>
         /// Route type

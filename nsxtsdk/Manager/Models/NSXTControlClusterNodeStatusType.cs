@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTControlClusterNodeStatusType 
     {
+        public NSXTControlClusterNodeStatusType()
+        {
+        }
         /// <summary>
-        /// Status of this node's management plane connection
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "mgmt_connection_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Status of this node&apos;s management plane connection")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTMgmtConnStatusType MgmtConnectionStatus { get; set; }
         /// <summary>
         /// Status of this node's connection to the control cluster

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Object to identify an uplink based on its type and name")]
     public class NSXTUplinkType 
     {
+        public NSXTUplinkType()
+        {
+        }
         /// <summary>
         /// Name of this uplink
         /// </summary>

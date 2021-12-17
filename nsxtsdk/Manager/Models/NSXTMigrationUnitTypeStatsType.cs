@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMigrationUnitTypeStatsType 
     {
+        public NSXTMigrationUnitTypeStatsType()
+        {
+        }
         /// <summary>
         /// Number of nodes with issues that may cause migration failure
         /// </summary>

@@ -17,19 +17,22 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAdvertiseRuleType 
     {
+        public NSXTAdvertiseRuleType()
+        {
+            Action = test
+        }
         /// <summary>
         /// ALLOW action enables the advertisment and DENY action disables the advertisement of a filtered routes to the connected
         /// TIER0 router.
         /// </summary>
         [JsonProperty(PropertyName = "action")]
         [NSXTProperty(IsRequired: false, Description: @"ALLOW action enables the advertisment and DENY action disables the advertisement of a filtered routes to the connected TIER0 router.")]
-        [NSXTDefaultProperty(Default: "ALLOW")]
         public NSXTAdvertiseRuleActionEnumType? Action { get; set; }
         /// <summary>
-        /// Rule filter for the advertise rule
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "rule_filter")]
-        [NSXTProperty(IsRequired: false, Description: @"Rule filter for the advertise rule")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTAdvertisementRuleFilterType RuleFilter { get; set; }
         /// <summary>
         /// Display name

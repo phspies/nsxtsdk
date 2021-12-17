@@ -24,5 +24,19 @@ namespace nsxtsdk.PolicyModels
         Segment = 5,
         [EnumMember(Value = "SEGMENTPORT")]
         SegmentPort = 6,
+        [EnumMember(Value = "POD")]
+        Pod = 7,
+        [EnumMember(Value = "SERVICE")]
+        Service = 8,
+        [EnumMember(Value = "NAMESPACE")]
+        Namespace = 9,
+        [EnumMember(Value = "TRANSPORTNODE")]
+        TransportNode = 10,
+        [EnumMember(Value = "GROUP")]
+        Group = 11,
+        [EnumMember(Value = "DVPG")]
+        DVPG = 12,
+        [EnumMember(Value = "DVPORT")]
+        Dvport = 13,
     }
 }

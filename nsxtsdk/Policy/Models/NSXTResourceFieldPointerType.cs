@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Resource Field Pointer representing the exact value within a policy object.")]
     public class NSXTResourceFieldPointerType 
     {
+        public NSXTResourceFieldPointerType()
+        {
+        }
         /// <summary>
         /// Policy Path referencing a policy object. If not supplied, the field pointer will be applied
         /// to the event source.

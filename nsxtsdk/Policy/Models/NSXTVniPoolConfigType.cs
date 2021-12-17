@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTVniPoolConfigType : NSXTPolicyConfigResourceType
     {
+        public NSXTVniPoolConfigType()
+        {
+        }
         /// <summary>
         /// Start value of VNI Pool range
         /// </summary>
@@ -25,7 +28,7 @@ namespace nsxtsdk.PolicyModels
         //[System.ComponentModel.DataAnnotations.MinLength(75001)]
         //[System.ComponentModel.DataAnnotations.MaxLength(16777215)]
         [System.ComponentModel.DataAnnotations.Required]
-        public long Start { get; set; }
+        public int Start { get; set; }
         /// <summary>
         /// End value of VNI Pool range
         /// </summary>
@@ -34,6 +37,6 @@ namespace nsxtsdk.PolicyModels
         //[System.ComponentModel.DataAnnotations.MinLength(75001)]
         //[System.ComponentModel.DataAnnotations.MaxLength(16777215)]
         [System.ComponentModel.DataAnnotations.Required]
-        public long End { get; set; }
+        public int End { get; set; }
     }
 }

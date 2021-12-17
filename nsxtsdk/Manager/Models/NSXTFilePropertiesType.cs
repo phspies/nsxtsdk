@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFilePropertiesType : NSXTResourceType
     {
+        public NSXTFilePropertiesType()
+        {
+        }
         /// <summary>
         /// File creation time in epoch milliseconds
         /// </summary>

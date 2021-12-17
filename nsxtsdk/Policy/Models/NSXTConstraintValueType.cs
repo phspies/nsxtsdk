@@ -18,6 +18,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"All the types of value extend from this abstract class. Thisis present for extensibility.")]
     public class NSXTConstraintValueType 
     {
+        public NSXTConstraintValueType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

@@ -17,30 +17,19 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBPoolGroupType : NSXTPolicyConfigResourceType
     {
+        public NSXTALBPoolGroupType()
+        {
+            MinServers = test
+        }
         /// <summary>
-        /// Name of the user who created the object.
+        /// When setup autoscale manager will automatically promote new
+        /// pools into production when deployment goals are met.
+        /// It is a reference to an object of type
+        /// PoolGroupDeploymentPolicy.
         /// </summary>
-        [JsonProperty(PropertyName = "created_by")]
-        [NSXTProperty(IsRequired: false, Description: @"Name of the user who created the object.")]
-        public string? CreatedBy { get; set; }
-        /// <summary>
-        /// Metadata pertaining to the service provided by this
-        /// PoolGroup.
-        /// In Openshift/Kubernetes environments, app metadata info is
-        /// stored.
-        /// Any user input to this field will be overwritten by Avi
-        /// Vantage.
-        /// </summary>
-        [JsonProperty(PropertyName = "service_metadata")]
-        [NSXTProperty(IsRequired: false, Description: @"Metadata pertaining to the service provided by thisPoolGroup.In Openshift/Kubernetes environments, app metadata info isstored.Any user input to this field will be overwritten by AviVantage.")]
-        public string? ServiceMetadata { get; set; }
-        /// <summary>
-        /// Checksum of cloud configuration for PoolGroup.
-        /// Internally set by cloud connector.
-        /// </summary>
-        [JsonProperty(PropertyName = "cloud_config_cksum")]
-        [NSXTProperty(IsRequired: false, Description: @"Checksum of cloud configuration for PoolGroup.Internally set by cloud connector.")]
-        public string? CloudConfigCksum { get; set; }
+        [JsonProperty(PropertyName = "deployment_policy_path")]
+        [NSXTProperty(IsRequired: false, Description: @"When setup autoscale manager will automatically promote newpools into production when deployment goals are met.It is a reference to an object of typePoolGroupDeploymentPolicy.")]
+        public string? DeploymentPolicyPath { get; set; }
         /// <summary>
         /// Whether an implicit set of priority labels is generated.
         /// Default value when not specified in API or module is
@@ -53,15 +42,74 @@ namespace nsxtsdk.PolicyModels
         /// The minimum number of servers to distribute traffic to.
         /// Allowed values are 1-65535.
         /// Special values are 0 - 'Disable'.
+        /// Allowed in Basic(Allowed values- 0) edition,
+        /// Essentials(Allowed values- 0) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 0.
         /// </summary>
         [JsonProperty(PropertyName = "min_servers")]
-        [NSXTProperty(IsRequired: false, Description: @"The minimum number of servers to distribute traffic to.Allowed values are 1-65535.Special values are 0 - &apos;Disable&apos;.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
+        [NSXTProperty(IsRequired: false, Description: @"The minimum number of servers to distribute traffic to.Allowed values are 1-65535.Special values are 0 - &apos;Disable&apos;.Allowed in Basic(Allowed values- 0) edition,Essentials(Allowed values- 0) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [NSXTDefaultProperty(Default: "")]
         public long? MinServers { get; set; }
+        /// <summary>
+        /// Enable HTTP/2 for traffic from VirtualService to all the
+        /// backend servers in all the pools configured under this
+        /// PoolGroup.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
+        /// Default value when not specified in API or module is
+        /// interpreted by ALB Controller as false.
+        /// </summary>
+        [JsonProperty(PropertyName = "enable_http2")]
+        [NSXTProperty(IsRequired: false, Description: @"Enable HTTP/2 for traffic from VirtualService to all thebackend servers in all the pools configured under thisPoolGroup.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        public bool? EnableHttp2 { get; set; }
+        /// <summary>
+        /// It is a reference to an object of type Cloud.
+        /// </summary>
+        [JsonProperty(PropertyName = "cloud_name")]
+        [NSXTProperty(IsRequired: false, Description: @"It is a reference to an object of type Cloud.")]
+        public string? CloudName { get; set; }
+        /// <summary>
+        /// Checksum of cloud configuration for PoolGroup.
+        /// Internally set by cloud connector.
+        /// </summary>
+        [JsonProperty(PropertyName = "cloud_config_cksum")]
+        [NSXTProperty(IsRequired: false, Description: @"Checksum of cloud configuration for PoolGroup.Internally set by cloud connector.")]
+        public string? CloudConfigCksum { get; set; }
+        /// <summary>
+        /// Deactivate primary pool for selection when down until it is
+        /// activated by user via clear poolgroup command.
+        /// Default value when not specified in API or module is
+        /// interpreted by ALB Controller as false.
+        /// </summary>
+        [JsonProperty(PropertyName = "deactivate_primary_pool_on_down")]
+        [NSXTProperty(IsRequired: false, Description: @"Deactivate primary pool for selection when down until it isactivated by user via clear poolgroup command.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        public bool? DeactivatePrimaryPoolOnDown { get; set; }
+        /// <summary>
+        /// List of pool group members object of type PoolGroupMember.
+        /// </summary>
+        [JsonProperty(PropertyName = "members")]
+        [NSXTProperty(IsRequired: false, Description: @"List of pool group members object of type PoolGroupMember.")]
+        public IList<NSXTALBPoolGroupMemberType> Members { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "fail_action")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTALBFailActionType FailAction { get; set; }
+        /// <summary>
+        /// Metadata pertaining to the service provided by this
+        /// PoolGroup.
+        /// In Openshift/Kubernetes environments, app metadata info is
+        /// stored.
+        /// Any user input to this field will be overwritten by Avi
+        /// Vantage.
+        /// </summary>
+        [JsonProperty(PropertyName = "service_metadata")]
+        [NSXTProperty(IsRequired: false, Description: @"Metadata pertaining to the service provided by thisPoolGroup.In Openshift/Kubernetes environments, app metadata info isstored.Any user input to this field will be overwritten by AviVantage.")]
+        public string? ServiceMetadata { get; set; }
         /// <summary>
         /// path of the priority labels.
         /// If not provided, pool group member priority label will be
@@ -73,38 +121,18 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"path of the priority labels.If not provided, pool group member priority label will beinterpreted as a number with a larger number consideredhigher priority.It is a reference to an object of type PriorityLabels.")]
         public string? PriorityLabelsPath { get; set; }
         /// <summary>
-        /// Enable an action - Close Connection, HTTP Redirect, or
-        /// Local HTTP Response - when a pool group failure happens.
-        /// By default, a connection will be closed, in case the pool
-        /// group experiences a failure.
+        /// Name of the user who created the object.
         /// </summary>
-        [JsonProperty(PropertyName = "fail_action")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable an action - Close Connection, HTTP Redirect, orLocal HTTP Response - when a pool group failure happens.By default, a connection will be closed, in case the poolgroup experiences a failure.")]
-        public NSXTALBFailActionType FailAction { get; set; }
+        [JsonProperty(PropertyName = "created_by")]
+        [NSXTProperty(IsRequired: false, Description: @"Name of the user who created the object.")]
+        public string? CreatedBy { get; set; }
         /// <summary>
-        /// When setup autoscale manager will automatically promote new
-        /// pools into production when deployment goals are met.
-        /// It is a reference to an object of type
-        /// PoolGroupDeploymentPolicy.
+        /// List of labels to be used for granular RBAC.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
         /// </summary>
-        [JsonProperty(PropertyName = "deployment_policy_path")]
-        [NSXTProperty(IsRequired: false, Description: @"When setup autoscale manager will automatically promote newpools into production when deployment goals are met.It is a reference to an object of typePoolGroupDeploymentPolicy.")]
-        public string? DeploymentPolicyPath { get; set; }
-        /// <summary>
-        /// List of pool group members object of type PoolGroupMember.
-        /// </summary>
-        [JsonProperty(PropertyName = "members")]
-        [NSXTProperty(IsRequired: false, Description: @"List of pool group members object of type PoolGroupMember.")]
-        public IList<NSXTALBPoolGroupMemberType> Members { get; set; }
-        /// <summary>
-        /// Enable HTTP/2 for traffic from VirtualService to all the
-        /// backend servers in all the pools configured under this
-        /// PoolGroup.
-        /// Default value when not specified in API or module is
-        /// interpreted by ALB Controller as false.
-        /// </summary>
-        [JsonProperty(PropertyName = "enable_http2")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable HTTP/2 for traffic from VirtualService to all thebackend servers in all the pools configured under thisPoolGroup.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
-        public bool? EnableHttp2 { get; set; }
+        [JsonProperty(PropertyName = "markers")]
+        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
+        public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
     }
 }

@@ -17,6 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBVariableConditionType : NSXTLBRuleConditionType
     {
+        public NSXTLBVariableConditionType()
+        {
+            CaseSensitive = test
+            MatchType = test
+        }
         /// <summary>
         /// Value of variable to be matched
         /// </summary>
@@ -29,14 +34,12 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "case_sensitive")]
         [NSXTProperty(IsRequired: false, Description: @"If true, case is significant when comparing variable value.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? CaseSensitive { get; set; }
         /// <summary>
         /// Match type of variable value
         /// </summary>
         [JsonProperty(PropertyName = "match_type")]
         [NSXTProperty(IsRequired: false, Description: @"Match type of variable value")]
-        [NSXTDefaultProperty(Default: "REGEX")]
         public NSXTLbvariableConditionMatchTypeEnumType? MatchType { get; set; }
         /// <summary>
         /// Name of the variable to be matched

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbTcpHeaderConditionType : NSXTLbRuleConditionType
     {
+        public NSXTLbTcpHeaderConditionType()
+        {
+        }
         /// <summary>
         /// TCP source port of HTTP message
         /// </summary>

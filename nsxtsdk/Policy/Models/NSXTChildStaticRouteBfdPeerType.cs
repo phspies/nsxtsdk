@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildStaticRouteBfdPeerType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildStaticRouteBfdPeerType()
+        {
+        }
         /// <summary>
-        /// Contains the actual StaticRouteBfdPeer object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "BfdPeer", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual StaticRouteBfdPeer object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTStaticRouteBfdPeerType BfdPeer { get; set; }
     }

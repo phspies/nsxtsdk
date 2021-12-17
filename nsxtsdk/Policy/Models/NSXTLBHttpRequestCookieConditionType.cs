@@ -17,12 +17,16 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBHttpRequestCookieConditionType : NSXTLBRuleConditionType
     {
+        public NSXTLBHttpRequestCookieConditionType()
+        {
+            MatchType = test
+            CaseSensitive = test
+        }
         /// <summary>
         /// Match type of cookie value.
         /// </summary>
         [JsonProperty(PropertyName = "match_type")]
         [NSXTProperty(IsRequired: false, Description: @"Match type of cookie value.")]
-        [NSXTDefaultProperty(Default: "REGEX")]
         public NSXTLbhttpRequestCookieConditionMatchTypeEnumType? MatchType { get; set; }
         /// <summary>
         /// Cookie name.
@@ -43,7 +47,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "case_sensitive")]
         [NSXTProperty(IsRequired: false, Description: @"If true, case is significant when comparing cookie value.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? CaseSensitive { get; set; }
     }
 }

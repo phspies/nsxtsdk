@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Subnet configuration for segment")]
     public class NSXTSegmentSubnetType 
     {
+        public NSXTSegmentSubnetType()
+        {
+        }
         /// <summary>
-        /// Additional DHCP configuration for current subnet.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "dhcp_config")]
-        [NSXTProperty(IsRequired: false, Description: @"Additional DHCP configuration for current subnet.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTSegmentDhcpConfigType DhcpConfig { get; set; }
         /// <summary>
         /// Gateway IP address in CIDR format for both IPv4 and IPv6.

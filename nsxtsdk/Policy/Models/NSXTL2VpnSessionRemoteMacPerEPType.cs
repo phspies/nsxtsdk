@@ -19,6 +19,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTL2VpnSessionRemoteMacPerEPType : NSXTPolicyRuntimeInfoPerEPType
     {
+        public NSXTL2VpnSessionRemoteMacPerEPType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

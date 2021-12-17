@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLdapIdentitySourceListResultType : NSXTListResultType
     {
+        public NSXTLdapIdentitySourceListResultType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

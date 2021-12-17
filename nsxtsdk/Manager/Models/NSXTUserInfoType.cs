@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Authenticated User Info")]
     public class NSXTUserInfoType 
     {
+        public NSXTUserInfoType()
+        {
+        }
         /// <summary>
         /// User Name
         /// </summary>

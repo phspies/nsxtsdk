@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTraceflowObservationListResultType : NSXTListResultType
     {
+        public NSXTTraceflowObservationListResultType()
+        {
+        }
         /// <summary>
         /// TraceflowObservation list results
         /// </summary>

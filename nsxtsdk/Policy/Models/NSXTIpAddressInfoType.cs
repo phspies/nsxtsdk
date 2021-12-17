@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Ipaddress information of the fabric node.")]
     public class NSXTIpAddressInfoType 
     {
+        public NSXTIpAddressInfoType()
+        {
+        }
         /// <summary>
         /// Source of the ipaddress information.
         /// </summary>

@@ -19,18 +19,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"An address binding entry is a combination of the IP-MAC-VLAN binding fora logical port. The address bindings can be obtained via various methodslike ARP snooping, DHCP snooping etc. or by user configuration.")]
     public class NSXTAddressBindingEntryType 
     {
+        public NSXTAddressBindingEntryType()
+        {
+            Source = test
+        }
         /// <summary>
         /// Source from which the address binding entry was obtained
         /// </summary>
         [JsonProperty(PropertyName = "source")]
         [NSXTProperty(IsRequired: false, Description: @"Source from which the address binding entry was obtained")]
-        [NSXTDefaultProperty(Default: "UNKNOWN")]
         public NSXTAddressBindingEntrySourceEnumType? Source { get; set; }
         /// <summary>
-        /// Combination of IP-MAC-VLAN binding
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "binding")]
-        [NSXTProperty(IsRequired: false, Description: @"Combination of IP-MAC-VLAN binding")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTPacketAddressClassifierType Binding { get; set; }
         /// <summary>
         /// Timestamp at which the binding was discovered via snooping or manually

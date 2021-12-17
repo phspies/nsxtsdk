@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLatencyStatProfileType : NSXTManagedResourceType
     {
+        public NSXTLatencyStatProfileType()
+        {
+        }
         /// <summary>
         /// Event nth milliseconds packet is sampled. When a value less than
         /// 1000 is given, the realized sampling interval will be 1000 milliseconds.

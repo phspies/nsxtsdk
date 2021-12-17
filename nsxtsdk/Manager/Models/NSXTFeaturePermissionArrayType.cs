@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFeaturePermissionArrayType 
     {
+        public NSXTFeaturePermissionArrayType()
+        {
+        }
         /// <summary>
         /// Array of FeaturePermission
         /// </summary>

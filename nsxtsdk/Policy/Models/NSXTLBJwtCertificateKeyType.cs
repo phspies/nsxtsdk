@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBJwtCertificateKeyType : NSXTLBJwtKeyType
     {
+        public NSXTLBJwtCertificateKeyType()
+        {
+        }
         /// <summary>
         /// Certificate identifier
         /// </summary>

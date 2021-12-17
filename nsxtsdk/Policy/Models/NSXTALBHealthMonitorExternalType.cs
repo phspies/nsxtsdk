@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HealthMonitorExternal object")]
     public class NSXTALBHealthMonitorExternalType 
     {
+        public NSXTALBHealthMonitorExternalType()
+        {
+        }
         /// <summary>
         /// Command script provided inline.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTOspfDatabaseListResultInCsvFormatType : NSXTCsvListResultType
     {
+        public NSXTOspfDatabaseListResultInCsvFormatType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

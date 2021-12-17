@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalRouterPortCountersType 
     {
+        public NSXTLogicalRouterPortCountersType()
+        {
+        }
         /// <summary>
         /// Number of no ARP packets dropped.
         /// </summary>

@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTCsrExtType : NSXTCsrType
     {
+        public NSXTCsrExtType()
+        {
+        }
         /// <summary>
-        /// X509 v3 extensions to be added to a CSR.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "extensions")]
-        [NSXTProperty(IsRequired: false, Description: @"X509 v3 extensions to be added to a CSR.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTCsrExtensionsType Extensions { get; set; }
     }
 }

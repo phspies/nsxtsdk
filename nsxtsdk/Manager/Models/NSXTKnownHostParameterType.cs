@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTKnownHostParameterType 
     {
+        public NSXTKnownHostParameterType()
+        {
+            Port = test
+        }
         /// <summary>
         /// Known host hostname or IP address
         /// </summary>
@@ -31,7 +35,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Known host port")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Port { get; set; }
     }
 }

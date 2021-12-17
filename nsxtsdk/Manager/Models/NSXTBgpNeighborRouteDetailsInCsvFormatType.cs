@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBgpNeighborRouteDetailsInCsvFormatType : NSXTCsvListResultType
     {
+        public NSXTBgpNeighborRouteDetailsInCsvFormatType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

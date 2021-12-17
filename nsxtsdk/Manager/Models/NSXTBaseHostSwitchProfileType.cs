@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBaseHostSwitchProfileType : NSXTManagedResourceType
     {
+        public NSXTBaseHostSwitchProfileType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdsRuleListResultType : NSXTBaseRuleListResultType
     {
+        public NSXTIdsRuleListResultType()
+        {
+        }
         /// <summary>
         /// IDS rule list results
         /// </summary>

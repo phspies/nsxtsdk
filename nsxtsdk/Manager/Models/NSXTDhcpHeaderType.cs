@@ -17,13 +17,16 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpHeaderType 
     {
+        public NSXTDhcpHeaderType()
+        {
+            OpCode = test
+        }
         /// <summary>
         /// This is used to specify the general type of message. A client sending request to a server uses an op code of
         /// BOOTREQUEST, while a server replying uses an op code of BOOTREPLY.
         /// </summary>
         [JsonProperty(PropertyName = "op_code")]
         [NSXTProperty(IsRequired: false, Description: @"This is used to specify the general type of message. A client sending request to a server uses an op code of BOOTREQUEST, while a server replying uses an op code of BOOTREPLY.")]
-        [NSXTDefaultProperty(Default: "BOOTREQUEST")]
         public NSXTDhcpHeaderOpCodeEnumType? OpCode { get; set; }
     }
 }

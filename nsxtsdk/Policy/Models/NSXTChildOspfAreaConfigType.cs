@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildOspfAreaConfigType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildOspfAreaConfigType()
+        {
+        }
         /// <summary>
-        /// Contains actual OspfAreaConfig.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "OspfAreaConfig", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains actual OspfAreaConfig.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTOspfAreaConfigType OspfAreaConfig { get; set; }
     }

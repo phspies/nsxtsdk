@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTVniPoolConfigListResultType : NSXTListResultType
     {
+        public NSXTVniPoolConfigListResultType()
+        {
+        }
         /// <summary>
         /// Vni Pool Config list results
         /// </summary>

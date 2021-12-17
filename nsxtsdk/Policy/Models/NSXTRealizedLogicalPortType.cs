@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRealizedLogicalPortType : NSXTPolicyRealizedResourceType
     {
+        public NSXTRealizedLogicalPortType()
+        {
+        }
         /// <summary>
         /// The id of the logical port
         /// </summary>

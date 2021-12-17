@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyContextProfileType : NSXTPolicyConfigResourceType
     {
+        public NSXTPolicyContextProfileType()
+        {
+        }
         /// <summary>
         /// Property containing attributes/sub-attributes for Policy Context Profile.
         /// </summary>

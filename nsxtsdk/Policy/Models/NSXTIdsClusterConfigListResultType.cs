@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdsClusterConfigListResultType : NSXTListResultType
     {
+        public NSXTIdsClusterConfigListResultType()
+        {
+        }
         /// <summary>
         /// Cluster wise IDS configuration list results
         /// </summary>

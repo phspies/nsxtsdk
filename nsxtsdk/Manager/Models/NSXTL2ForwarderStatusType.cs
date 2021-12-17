@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTL2ForwarderStatusType 
     {
+        public NSXTL2ForwarderStatusType()
+        {
+        }
         /// <summary>
         /// Timestamp when the service router status was last updated.
         /// </summary>

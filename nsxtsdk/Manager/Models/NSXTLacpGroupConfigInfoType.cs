@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLacpGroupConfigInfoType 
     {
+        public NSXTLacpGroupConfigInfoType()
+        {
+            TimeoutType = test
+        }
         /// <summary>
         /// The key represents the identifier for the group that is unique
         /// across VC.
@@ -37,6 +41,12 @@ namespace nsxtsdk.ManagerModels
         [JsonProperty(PropertyName = "uplink_port_keys")]
         [NSXTProperty(IsRequired: false, Description: @"Keys for the uplink ports in the group. Each uplink port isassigned a key that is unique across VC.")]
         public IList<string> UplinkPortKeys { get; set; }
+        /// <summary>
+        /// To set the lag mode as fast for LACP. By default, it will be slow.
+        /// </summary>
+        [JsonProperty(PropertyName = "timeout_type")]
+        [NSXTProperty(IsRequired: false, Description: @"To set the lag mode as fast for LACP. By default, it will be slow.")]
+        public NSXTLacpGroupConfigInfoTimeoutTypeEnumType? TimeoutType { get; set; }
         /// <summary>
         /// Load balance algorithm used in LACP group. The possible values
         /// are dictated by the values available in VC. Please refer

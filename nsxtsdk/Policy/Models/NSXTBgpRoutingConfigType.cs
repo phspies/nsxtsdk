@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTBgpRoutingConfigType : NSXTPolicyConfigResourceType
     {
+        public NSXTBgpRoutingConfigType()
+        {
+        }
         /// <summary>
         /// Flag to enable inter SR IBGP configuration.
         /// When not specified, inter SR IBGP is automatically enabled if Tier-0
@@ -60,10 +63,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Flag to enable BGP configuration. Disabling will stop feature andBGP peering.")]
         public bool? Enabled { get; set; }
         /// <summary>
-        /// Configuration field to hold BGP Restart mode and timer.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "graceful_restart_config")]
-        [NSXTProperty(IsRequired: false, Description: @"Configuration field to hold BGP Restart mode and timer.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTBgpGracefulRestartConfigType GracefulRestartConfig { get; set; }
         /// <summary>
         /// Flag to enable BGP multipath relax option.

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTContainerConfigurationType : NSXTWidgetConfigurationType
     {
+        public NSXTContainerConfigurationType()
+        {
+        }
         /// <summary>
         /// If not specified, creates an empty container.
         /// </summary>
@@ -24,11 +27,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"If not specified, creates an empty container.")]
         public IList<NSXTWidgetItemType> Widgets { get; set; }
         /// <summary>
-        /// Layout of widgets can be either vertical or horizontal. If layout is not specified a default horizontal layout is
-        /// applied.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "layout")]
-        [NSXTProperty(IsRequired: false, Description: @"Layout of widgets can be either vertical or horizontal. If layout is not specified a default horizontal layout is applied.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLayoutType Layout { get; set; }
         /// <summary>
         /// Labels for the container.

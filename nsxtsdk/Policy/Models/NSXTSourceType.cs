@@ -22,6 +22,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Source that is logically deemed to be the &quot;object&quot; upon which theEvent in question initially occurred upon. The Source is responsiblefor providing information of the occurred event. Some example sourcesinclude:- Resource.- API.")]
     public class NSXTSourceType 
     {
+        public NSXTSourceType()
+        {
+        }
         /// <summary>
         /// Event Source resource type.
         /// </summary>

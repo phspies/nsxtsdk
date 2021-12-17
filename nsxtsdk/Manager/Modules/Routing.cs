@@ -192,78 +192,36 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPPrefixListType AddIpprefixList(string LogicalRouterId, NSXTIPPrefixListType IpprefixList)
+        public NSXTBgpNeighborType ReadBgpNeighborWithPassword(string LogicalRouterId, string Id)
         {
             if (LogicalRouterId == null) { throw new System.ArgumentNullException("LogicalRouterId cannot be null"); }
-            if (IpprefixList == null) { throw new System.ArgumentNullException("IpprefixList cannot be null"); }
-            NSXTIPPrefixListType returnValue = default(NSXTIPPrefixListType);
-            StringBuilder AddIpprefixListServiceURL = new StringBuilder("/logical-routers/{logical-router-id}/routing/ip-prefix-lists");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.POST
-            };
-            request.AddHeader("Content-type", "application/json");
-            AddIpprefixListServiceURL.Replace("{logical-router-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalRouterId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(IpprefixList, defaultSerializationSettings));
-            request.Resource = AddIpprefixListServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP POST operation to " + AddIpprefixListServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIPPrefixListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIPPrefixListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIPPrefixListListResultType ListIpprefixLists(string LogicalRouterId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (LogicalRouterId == null) { throw new System.ArgumentNullException("LogicalRouterId cannot be null"); }
-            NSXTIPPrefixListListResultType returnValue = default(NSXTIPPrefixListListResultType);
-            StringBuilder ListIpprefixListsServiceURL = new StringBuilder("/logical-routers/{logical-router-id}/routing/ip-prefix-lists");
+            if (Id == null) { throw new System.ArgumentNullException("Id cannot be null"); }
+            NSXTBgpNeighborType returnValue = default(NSXTBgpNeighborType);
+            StringBuilder ReadBgpNeighborWithPasswordServiceURL = new StringBuilder("/logical-routers/{logical-router-id}/routing/bgp/neighbors/{id}?action=show-sensitive-data");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            ListIpprefixListsServiceURL.Replace("{logical-router-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalRouterId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListIpprefixListsServiceURL.ToString();
+            ReadBgpNeighborWithPasswordServiceURL.Replace("{logical-router-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalRouterId, System.Globalization.CultureInfo.InvariantCulture)));
+            ReadBgpNeighborWithPasswordServiceURL.Replace("{id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Id, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = ReadBgpNeighborWithPasswordServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ListIpprefixListsServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + ReadBgpNeighborWithPasswordServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
 			{
 				try
 				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIPPrefixListListResultType>(response.Content, defaultSerializationSettings);
+					returnValue = JsonConvert.DeserializeObject<NSXTBgpNeighborType>(response.Content, defaultSerializationSettings);
 				}
 				catch (Exception ex)
 				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIPPrefixListListResultType).FullName + ".";
+					var message = "Could not deserialize the response body string as " + typeof(NSXTBgpNeighborType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -829,6 +787,163 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
+        public NSXTRedistributionRuleListType UpdateRedistributionRuleList(string LogicalRouterId, NSXTRedistributionRuleListType RedistributionRuleList)
+        {
+            if (LogicalRouterId == null) { throw new System.ArgumentNullException("LogicalRouterId cannot be null"); }
+            if (RedistributionRuleList == null) { throw new System.ArgumentNullException("RedistributionRuleList cannot be null"); }
+            NSXTRedistributionRuleListType returnValue = default(NSXTRedistributionRuleListType);
+            StringBuilder UpdateRedistributionRuleListServiceURL = new StringBuilder("/logical-routers/{logical-router-id}/routing/redistribution/rules");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.PUT
+            };
+            request.AddHeader("Content-type", "application/json");
+            UpdateRedistributionRuleListServiceURL.Replace("{logical-router-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalRouterId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.AddJsonBody(JsonConvert.SerializeObject(RedistributionRuleList, defaultSerializationSettings));
+            request.Resource = UpdateRedistributionRuleListServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP PUT operation to " + UpdateRedistributionRuleListServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTRedistributionRuleListType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTRedistributionRuleListType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTRedistributionRuleListType ReadRedistributionRuleList(string LogicalRouterId)
+        {
+            if (LogicalRouterId == null) { throw new System.ArgumentNullException("LogicalRouterId cannot be null"); }
+            NSXTRedistributionRuleListType returnValue = default(NSXTRedistributionRuleListType);
+            StringBuilder ReadRedistributionRuleListServiceURL = new StringBuilder("/logical-routers/{logical-router-id}/routing/redistribution/rules");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            ReadRedistributionRuleListServiceURL.Replace("{logical-router-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalRouterId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = ReadRedistributionRuleListServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + ReadRedistributionRuleListServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTRedistributionRuleListType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTRedistributionRuleListType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTIPPrefixListType AddIpprefixList(string LogicalRouterId, NSXTIPPrefixListType IpprefixList)
+        {
+            if (LogicalRouterId == null) { throw new System.ArgumentNullException("LogicalRouterId cannot be null"); }
+            if (IpprefixList == null) { throw new System.ArgumentNullException("IpprefixList cannot be null"); }
+            NSXTIPPrefixListType returnValue = default(NSXTIPPrefixListType);
+            StringBuilder AddIpprefixListServiceURL = new StringBuilder("/logical-routers/{logical-router-id}/routing/ip-prefix-lists");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.POST
+            };
+            request.AddHeader("Content-type", "application/json");
+            AddIpprefixListServiceURL.Replace("{logical-router-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalRouterId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.AddJsonBody(JsonConvert.SerializeObject(IpprefixList, defaultSerializationSettings));
+            request.Resource = AddIpprefixListServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP POST operation to " + AddIpprefixListServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTIPPrefixListType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTIPPrefixListType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTIPPrefixListListResultType ListIpprefixLists(string LogicalRouterId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (LogicalRouterId == null) { throw new System.ArgumentNullException("LogicalRouterId cannot be null"); }
+            NSXTIPPrefixListListResultType returnValue = default(NSXTIPPrefixListListResultType);
+            StringBuilder ListIpprefixListsServiceURL = new StringBuilder("/logical-routers/{logical-router-id}/routing/ip-prefix-lists");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            ListIpprefixListsServiceURL.Replace("{logical-router-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalRouterId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = ListIpprefixListsServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + ListIpprefixListsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTIPPrefixListListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTIPPrefixListListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
         public NSXTBgpNeighborType AddBgpNeighbor(string LogicalRouterId, NSXTBgpNeighborType BgpNeighbor)
         {
             if (LogicalRouterId == null) { throw new System.ArgumentNullException("LogicalRouterId cannot be null"); }
@@ -1006,82 +1121,6 @@ namespace nsxtapi.ManagerModules
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTRedistributionRuleListType UpdateRedistributionRuleList(string LogicalRouterId, NSXTRedistributionRuleListType RedistributionRuleList)
-        {
-            if (LogicalRouterId == null) { throw new System.ArgumentNullException("LogicalRouterId cannot be null"); }
-            if (RedistributionRuleList == null) { throw new System.ArgumentNullException("RedistributionRuleList cannot be null"); }
-            NSXTRedistributionRuleListType returnValue = default(NSXTRedistributionRuleListType);
-            StringBuilder UpdateRedistributionRuleListServiceURL = new StringBuilder("/logical-routers/{logical-router-id}/routing/redistribution/rules");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateRedistributionRuleListServiceURL.Replace("{logical-router-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalRouterId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(RedistributionRuleList, defaultSerializationSettings));
-            request.Resource = UpdateRedistributionRuleListServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateRedistributionRuleListServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTRedistributionRuleListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTRedistributionRuleListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTRedistributionRuleListType ReadRedistributionRuleList(string LogicalRouterId)
-        {
-            if (LogicalRouterId == null) { throw new System.ArgumentNullException("LogicalRouterId cannot be null"); }
-            NSXTRedistributionRuleListType returnValue = default(NSXTRedistributionRuleListType);
-            StringBuilder ReadRedistributionRuleListServiceURL = new StringBuilder("/logical-routers/{logical-router-id}/routing/redistribution/rules");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadRedistributionRuleListServiceURL.Replace("{logical-router-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalRouterId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadRedistributionRuleListServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadRedistributionRuleListServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTRedistributionRuleListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTRedistributionRuleListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
         }
         /// <summary>
         /// 
@@ -1276,45 +1315,6 @@ namespace nsxtapi.ManagerModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTBGPCommunityListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTBgpNeighborType ReadBgpNeighborWithPasswordShowSensitiveData(string LogicalRouterId, string Id)
-        {
-            if (LogicalRouterId == null) { throw new System.ArgumentNullException("LogicalRouterId cannot be null"); }
-            if (Id == null) { throw new System.ArgumentNullException("Id cannot be null"); }
-            NSXTBgpNeighborType returnValue = default(NSXTBgpNeighborType);
-            StringBuilder ReadBgpNeighborWithPasswordShowSensitiveDataServiceURL = new StringBuilder("/logical-routers/{logical-router-id}/routing/bgp/neighbors/{id}?action=show-sensitive-data");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadBgpNeighborWithPasswordShowSensitiveDataServiceURL.Replace("{logical-router-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalRouterId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReadBgpNeighborWithPasswordShowSensitiveDataServiceURL.Replace("{id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Id, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadBgpNeighborWithPasswordShowSensitiveDataServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadBgpNeighborWithPasswordShowSensitiveDataServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBgpNeighborType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBgpNeighborType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}

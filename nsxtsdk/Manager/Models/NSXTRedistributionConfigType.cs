@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRedistributionConfigType : NSXTManagedResourceType
     {
+        public NSXTRedistributionConfigType()
+        {
+        }
         /// <summary>
         /// Logical router id
         /// </summary>

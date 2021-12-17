@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTEdgeClusterType : NSXTManagedResourceType
     {
+        public NSXTEdgeClusterType()
+        {
+        }
         /// <summary>
         /// Edge cluster is homogenous collection of transport nodes.
         /// Hence all transport nodes of the cluster must be of same type.

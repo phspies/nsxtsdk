@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTStaticRouteListResultType : NSXTListResultType
     {
+        public NSXTStaticRouteListResultType()
+        {
+        }
         /// <summary>
         /// Paginated list of static routes
         /// </summary>

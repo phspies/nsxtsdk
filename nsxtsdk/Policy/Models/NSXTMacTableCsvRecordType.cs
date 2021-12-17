@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTMacTableCsvRecordType : NSXTCsvRecordType
     {
+        public NSXTMacTableCsvRecordType()
+        {
+        }
         /// <summary>
         /// The virtual tunnel endpoint MAC address
         /// </summary>

@@ -17,11 +17,16 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTier0InterfaceType : NSXTBaseTier0InterfaceType
     {
+        public NSXTTier0InterfaceType()
+        {
+            UrpfMode = test
+            Type = test
+        }
         /// <summary>
-        /// OSPF configuration.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ospf")]
-        [NSXTProperty(IsRequired: false, Description: @"OSPF configuration.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTPolicyInterfaceOspfConfigType Ospf { get; set; }
         /// <summary>
         /// Specify association of interface with edge cluster member.
@@ -31,13 +36,12 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "edge_cluster_member_index")]
         [NSXTProperty(IsRequired: false, Description: @"Specify association of interface with edge cluster member.This property is deprecated, use edge_path instead. When bothproperties are specifed, only edge_path property is used.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        public long? EdgeClusterMemberIndex { get; set; }
+        public int? EdgeClusterMemberIndex { get; set; }
         /// <summary>
         /// Unicast Reverse Path Forwarding mode
         /// </summary>
         [JsonProperty(PropertyName = "urpf_mode")]
         [NSXTProperty(IsRequired: false, Description: @"Unicast Reverse Path Forwarding mode")]
-        [NSXTDefaultProperty(Default: "STRICT")]
         public NSXTTier0InterfaceUrpfModeEnumType? UrpfMode { get; set; }
         /// <summary>
         /// Array of prefix lists used to specify filtering for ARP proxy.
@@ -62,20 +66,24 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Specify Segment to which this interface is connected to.Either segment_path or ls_id property is required.")]
         public string? SegmentPath { get; set; }
         /// <summary>
-        /// Multicast PIM configuration.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "multicast")]
-        [NSXTProperty(IsRequired: false, Description: @"Multicast PIM configuration.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTTier0InterfacePimConfigType Multicast { get; set; }
         /// <summary>
-        /// Specify logical switch to which tier-0 interface is connected for
-        /// external access.
-        /// This property is deprecated, use segment_path instead. Both
-        /// properties cannot be used together.
+        /// This flag is used to enable/disable admin state on tier-0 service port.
+        /// If admin_state flag value is not specified then default is UP. When set to UP then
+        /// traffic on service port will be enabled and service port is enabled from routing
+        /// perspective. When set to DOWN then traffic on service port will be disabled and
+        /// service port is down from routing perspective. This flag is experimental because
+        /// it will be used in V2T BYOT migration. This flag should not be set to UP or DOWN if
+        /// EVPN is configured, and tier-0 LR is in A/S mode. Also this flag can not be set to
+        /// UP or DOWN for service interfaces which are configured on vrf-lite.
         /// </summary>
-        [JsonProperty(PropertyName = "ls_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Specify logical switch to which tier-0 interface is connected forexternal access.This property is deprecated, use segment_path instead. Bothproperties cannot be used together.")]
-        public string? LsId { get; set; }
+        [JsonProperty(PropertyName = "admin_state")]
+        [NSXTProperty(IsRequired: false, Description: @"This flag is used to enable/disable admin state on tier-0 service port.If admin_state flag value is not specified then default is UP. When set to UP thentraffic on service port will be enabled and service port is enabled from routingperspective. When set to DOWN then traffic on service port will be disabled andservice port is down from routing perspective. This flag is experimental becauseit will be used in V2T BYOT migration. This flag should not be set to UP or DOWN ifEVPN is configured, and tier-0 LR is in A/S mode. Also this flag can not be set toUP or DOWN for service interfaces which are configured on vrf-lite.")]
+        public NSXTTier0InterfaceAdminStateEnumType? AdminState { get; set; }
         /// <summary>
         /// Configuration IPv6 NDRA profile. Only one
         /// NDRA profile can be configured.
@@ -90,11 +98,14 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"IGMP local join groups configuration.")]
         public IList<string> IgmpLocalJoinGroups { get; set; }
         /// <summary>
-        /// Vlan id.
+        /// Specify logical switch to which tier-0 interface is connected for
+        /// external access.
+        /// This property is deprecated, use segment_path instead. Both
+        /// properties cannot be used together.
         /// </summary>
-        [JsonProperty(PropertyName = "access_vlan_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Vlan id.")]
-        public long? AccessVlanId { get; set; }
+        [JsonProperty(PropertyName = "ls_id")]
+        [NSXTProperty(IsRequired: false, Description: @"Specify logical switch to which tier-0 interface is connected forexternal access.This property is deprecated, use segment_path instead. Bothproperties cannot be used together.")]
+        public string? LsId { get; set; }
         /// <summary>
         /// Maximum transmission unit (MTU) specifies the size of the largest
         /// packet that a network protocol can transmit.
@@ -102,13 +113,18 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "mtu")]
         [NSXTProperty(IsRequired: false, Description: @"Maximum transmission unit (MTU) specifies the size of the largestpacket that a network protocol can transmit.")]
         //[System.ComponentModel.DataAnnotations.MinLength(64)]
-        public long? Mtu { get; set; }
+        public int? Mtu { get; set; }
         /// <summary>
         /// Interface type
         /// </summary>
         [JsonProperty(PropertyName = "type")]
         [NSXTProperty(IsRequired: false, Description: @"Interface type")]
-        [NSXTDefaultProperty(Default: "EXTERNAL")]
         public NSXTTier0InterfaceTypeEnumType? Type { get; set; }
+        /// <summary>
+        /// Vlan id.
+        /// </summary>
+        [JsonProperty(PropertyName = "access_vlan_id")]
+        [NSXTProperty(IsRequired: false, Description: @"Vlan id.")]
+        public long? AccessVlanId { get; set; }
     }
 }

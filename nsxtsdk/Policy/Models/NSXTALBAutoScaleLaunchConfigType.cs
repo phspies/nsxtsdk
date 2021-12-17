@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBAutoScaleLaunchConfigType : NSXTPolicyConfigResourceType
     {
+        public NSXTALBAutoScaleLaunchConfigType()
+        {
+            UseExternalAsg = test
+        }
         /// <summary>
         /// Unique ID of the Amazon Machine Image (AMI)  or OpenStack
         /// VM ID.
@@ -34,21 +38,26 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "use_external_asg")]
         [NSXTProperty(IsRequired: false, Description: @"If set to True, ServerAutoscalePolicy will use theautoscaling group (external_autoscaling_groups) from Pool toperform scale up and scale down.Pool should have single autoscaling group configured.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? UseExternalAsg { get; set; }
         /// <summary>
-        /// Placeholder for description of property mesos of obj type
-        /// AutoScaleLaunchConfig field type str  type ref.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "mesos")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property mesos of obj typeAutoScaleLaunchConfig field type str  type ref.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBAutoScaleMesosSettingsType Mesos { get; set; }
         /// <summary>
-        /// Placeholder for description of property openstack of obj
-        /// type AutoScaleLaunchConfig field type str  type ref.
+        /// List of labels to be used for granular RBAC.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
+        /// </summary>
+        [JsonProperty(PropertyName = "markers")]
+        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
+        public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
+        /// <summary>
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "openstack")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property openstack of objtype AutoScaleLaunchConfig field type str  type ref.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBAutoScaleOpenStackSettingsType Openstack { get; set; }
     }
 }

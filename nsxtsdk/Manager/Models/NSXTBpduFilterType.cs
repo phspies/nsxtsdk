@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"BPDU filter configuration")]
     public class NSXTBpduFilterType 
     {
+        public NSXTBpduFilterType()
+        {
+        }
         /// <summary>
         /// Pre-defined list of allowed MAC addresses to be excluded from BPDU filtering
         /// </summary>

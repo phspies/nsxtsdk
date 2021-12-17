@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer GeoLocation object")]
     public class NSXTALBGeoLocationType 
     {
+        public NSXTALBGeoLocationType()
+        {
+        }
         /// <summary>
         /// Latitude of the location.
         /// This is represented as degrees.minutes.

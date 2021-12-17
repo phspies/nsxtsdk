@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRecommendedFeaturePermissionListResultType : NSXTListResultType
     {
+        public NSXTRecommendedFeaturePermissionListResultType()
+        {
+        }
         /// <summary>
         /// List results
         /// </summary>

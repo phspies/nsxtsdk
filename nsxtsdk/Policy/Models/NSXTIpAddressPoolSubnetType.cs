@@ -20,6 +20,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpAddressPoolSubnetType : NSXTPolicyConfigResourceType
     {
+        public NSXTIpAddressPoolSubnetType()
+        {
+        }
         /// <summary>
         /// Specifies whether the IpAddressPoolSubnet is to be carved out of a IpAddressBlock or will be specified by the user
         /// </summary>

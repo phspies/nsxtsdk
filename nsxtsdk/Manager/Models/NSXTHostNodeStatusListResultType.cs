@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTHostNodeStatusListResultType : NSXTListResultType
     {
+        public NSXTHostNodeStatusListResultType()
+        {
+        }
         /// <summary>
         /// HostNodeStatus Results
         /// </summary>

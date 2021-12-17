@@ -17,12 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBWafPolicyApiResponseType : NSXTListResultType
     {
+        public NSXTALBWafPolicyApiResponseType()
+        {
+        }
         /// <summary>
         /// count
         /// </summary>
         [JsonProperty(PropertyName = "count")]
         [NSXTProperty(IsRequired: false, Description: @"count")]
-        public long? Count { get; set; }
+        public int? Count { get; set; }
         /// <summary>
         /// Array of WafPolicy
         /// </summary>

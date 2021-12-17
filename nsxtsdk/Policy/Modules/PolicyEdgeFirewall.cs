@@ -30,68 +30,25 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRuleListResultType ListGatewayRules(string DomainId, string GatewayPolicyId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (GatewayPolicyId == null) { throw new System.ArgumentNullException("GatewayPolicyId cannot be null"); }
-            NSXTRuleListResultType returnValue = default(NSXTRuleListResultType);
-            StringBuilder ListGatewayRulesServiceURL = new StringBuilder("/infra/domains/{domain-id}/gateway-policies/{gateway-policy-id}/rules");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ListGatewayRulesServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            ListGatewayRulesServiceURL.Replace("{gateway-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GatewayPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListGatewayRulesServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListGatewayRulesServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTRuleListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTRuleListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTGatewayPolicyListResultType GlobalViewTier1GatewayFirewall(string Tier1Id)
+        public NSXTGatewayPolicyListResultType GlobalGlobalInfraViewTier1LocaleServicesGatewayFirewall(string Tier1Id, string LocaleServicesId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
             NSXTGatewayPolicyListResultType returnValue = default(NSXTGatewayPolicyListResultType);
-            StringBuilder ViewTier1GatewayFirewallServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/gateway-firewall");
+            StringBuilder GlobalInfraViewTier1LocaleServicesGatewayFirewallServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/locale-services/{locale-services-id}/gateway-firewall");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            ViewTier1GatewayFirewallServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ViewTier1GatewayFirewallServiceURL.ToString();
+            GlobalInfraViewTier1LocaleServicesGatewayFirewallServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraViewTier1LocaleServicesGatewayFirewallServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraViewTier1LocaleServicesGatewayFirewallServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ViewTier1GatewayFirewallServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraViewTier1LocaleServicesGatewayFirewallServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -248,27 +205,25 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGroupType GlobalCreateOrReplaceTier0Group(string Tier0Id, string GroupId, NSXTGroupType Group)
+        public NSXTGroupType GlobalGlobalInfraReadTier0Group(string Tier0Id, string GroupId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
-            if (Group == null) { throw new System.ArgumentNullException("Group cannot be null"); }
             NSXTGroupType returnValue = default(NSXTGroupType);
-            StringBuilder CreateOrReplaceTier0GroupServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/groups/{group-id}");
+            StringBuilder GlobalInfraReadTier0GroupServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/groups/{group-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
-                Method = Method.PUT
+                Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            CreateOrReplaceTier0GroupServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            CreateOrReplaceTier0GroupServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(Group, defaultSerializationSettings));
-            request.Resource = CreateOrReplaceTier0GroupServiceURL.ToString();
+            GlobalInfraReadTier0GroupServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraReadTier0GroupServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraReadTier0GroupServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP PUT operation to " + CreateOrReplaceTier0GroupServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraReadTier0GroupServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -289,141 +244,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalDeleteTier0Group(string Tier0Id, string GroupId)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
-            
-            StringBuilder DeleteTier0GroupServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/groups/{group-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteTier0GroupServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteTier0GroupServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteTier0GroupServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteTier0GroupServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchTier0Group(string Tier0Id, string GroupId, NSXTGroupType Group)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
-            if (Group == null) { throw new System.ArgumentNullException("Group cannot be null"); }
-            
-            StringBuilder PatchTier0GroupServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/groups/{group-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchTier0GroupServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchTier0GroupServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(Group, defaultSerializationSettings));
-            request.Resource = PatchTier0GroupServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchTier0GroupServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTGroupType GlobalReadTier0Group(string Tier0Id, string GroupId)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
-            NSXTGroupType returnValue = default(NSXTGroupType);
-            StringBuilder ReadTier0GroupServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/groups/{group-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadTier0GroupServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            ReadTier0GroupServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadTier0GroupServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadTier0GroupServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGroupType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGroupType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTGatewayPolicyListResultType GlobalViewTier1LocaleServicesGatewayFirewall(string Tier1Id, string LocaleServicesId)
-        {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            NSXTGatewayPolicyListResultType returnValue = default(NSXTGatewayPolicyListResultType);
-            StringBuilder ViewTier1LocaleServicesGatewayFirewallServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/locale-services/{locale-services-id}/gateway-firewall");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ViewTier1LocaleServicesGatewayFirewallServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            ViewTier1LocaleServicesGatewayFirewallServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ViewTier1LocaleServicesGatewayFirewallServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ViewTier1LocaleServicesGatewayFirewallServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGatewayPolicyListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGatewayPolicyListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTRuleStatisticsListResultType GetGatewayRuleStatistics(string DomainId, string GatewayPolicyId, string RuleId, string? EnforcementPointPath = null)
+        public NSXTRuleStatisticsListResultType GetGatewayRuleStatistics(string DomainId, string GatewayPolicyId, string RuleId, string? ContainerClusterPath = null, string? EnforcementPointPath = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GatewayPolicyId == null) { throw new System.ArgumentNullException("GatewayPolicyId cannot be null"); }
@@ -439,6 +260,7 @@ namespace nsxtapi.PolicyModules
             GetGatewayRuleStatisticsServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
             GetGatewayRuleStatisticsServiceURL.Replace("{gateway-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GatewayPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             GetGatewayRuleStatisticsServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (ContainerClusterPath != null) { request.AddQueryParameter("container_cluster_path", ContainerClusterPath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = GetGatewayRuleStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
@@ -502,29 +324,29 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGatewayPolicyType ReviseGatewayPolicyRevise(string DomainId, string GatewayPolicyId, NSXTGatewayPolicyType GatewayPolicy, string? AnchorPath = null, string? Operation = null)
+        public NSXTGatewayPolicyType ReviseGatewayPolicy(string DomainId, string GatewayPolicyId, NSXTGatewayPolicyType GatewayPolicy, string? AnchorPath = null, string? Operation = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GatewayPolicyId == null) { throw new System.ArgumentNullException("GatewayPolicyId cannot be null"); }
             if (GatewayPolicy == null) { throw new System.ArgumentNullException("GatewayPolicy cannot be null"); }
             NSXTGatewayPolicyType returnValue = default(NSXTGatewayPolicyType);
-            StringBuilder ReviseGatewayPolicyReviseServiceURL = new StringBuilder("/infra/domains/{domain-id}/gateway-policies/{gateway-policy-id}?action=revise");
+            StringBuilder ReviseGatewayPolicyServiceURL = new StringBuilder("/infra/domains/{domain-id}/gateway-policies/{gateway-policy-id}?action=revise");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            ReviseGatewayPolicyReviseServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReviseGatewayPolicyReviseServiceURL.Replace("{gateway-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GatewayPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
+            ReviseGatewayPolicyServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
+            ReviseGatewayPolicyServiceURL.Replace("{gateway-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GatewayPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(GatewayPolicy, defaultSerializationSettings));
             if (AnchorPath != null) { request.AddQueryParameter("anchor_path", AnchorPath.ToString()); }
             if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
-            request.Resource = ReviseGatewayPolicyReviseServiceURL.ToString();
+            request.Resource = ReviseGatewayPolicyServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + ReviseGatewayPolicyReviseServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + ReviseGatewayPolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -545,113 +367,66 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGatewayPolicyType GlobalReviseGatewayPolicyRevise(string DomainId, string GatewayPolicyId, NSXTGatewayPolicyType GatewayPolicy, string? AnchorPath = null, string? Operation = null)
+        public NSXTGatewayPolicyListResultType GlobalGlobalInfraViewTier0LocaleServicesGatewayFirewall(string Tier0Id, string LocaleServicesId)
         {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (GatewayPolicyId == null) { throw new System.ArgumentNullException("GatewayPolicyId cannot be null"); }
-            if (GatewayPolicy == null) { throw new System.ArgumentNullException("GatewayPolicy cannot be null"); }
-            NSXTGatewayPolicyType returnValue = default(NSXTGatewayPolicyType);
-            StringBuilder ReviseGatewayPolicyReviseServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/gateway-policies/{gateway-policy-id}?action=revise");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.POST
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReviseGatewayPolicyReviseServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReviseGatewayPolicyReviseServiceURL.Replace("{gateway-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GatewayPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(GatewayPolicy, defaultSerializationSettings));
-            if (AnchorPath != null) { request.AddQueryParameter("anchor_path", AnchorPath.ToString()); }
-            if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
-            request.Resource = ReviseGatewayPolicyReviseServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP POST operation to " + ReviseGatewayPolicyReviseServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGatewayPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGatewayPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTRuleType GlobalCreateOrReplaceGatewayRule(string DomainId, string GatewayPolicyId, string RuleId, NSXTRuleType Rule)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (GatewayPolicyId == null) { throw new System.ArgumentNullException("GatewayPolicyId cannot be null"); }
-            if (RuleId == null) { throw new System.ArgumentNullException("RuleId cannot be null"); }
-            if (Rule == null) { throw new System.ArgumentNullException("Rule cannot be null"); }
-            NSXTRuleType returnValue = default(NSXTRuleType);
-            StringBuilder CreateOrReplaceGatewayRuleServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/gateway-policies/{gateway-policy-id}/rules/{rule-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            CreateOrReplaceGatewayRuleServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            CreateOrReplaceGatewayRuleServiceURL.Replace("{gateway-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GatewayPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            CreateOrReplaceGatewayRuleServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(Rule, defaultSerializationSettings));
-            request.Resource = CreateOrReplaceGatewayRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + CreateOrReplaceGatewayRuleServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTRuleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTRuleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTRuleType GlobalReadGatewayRule(string DomainId, string GatewayPolicyId, string RuleId)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (GatewayPolicyId == null) { throw new System.ArgumentNullException("GatewayPolicyId cannot be null"); }
-            if (RuleId == null) { throw new System.ArgumentNullException("RuleId cannot be null"); }
-            NSXTRuleType returnValue = default(NSXTRuleType);
-            StringBuilder ReadGatewayRuleServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/gateway-policies/{gateway-policy-id}/rules/{rule-id}");
+            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
+            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
+            NSXTGatewayPolicyListResultType returnValue = default(NSXTGatewayPolicyListResultType);
+            StringBuilder GlobalInfraViewTier0LocaleServicesGatewayFirewallServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-services-id}/gateway-firewall");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            ReadGatewayRuleServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReadGatewayRuleServiceURL.Replace("{gateway-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GatewayPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReadGatewayRuleServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadGatewayRuleServiceURL.ToString();
+            GlobalInfraViewTier0LocaleServicesGatewayFirewallServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraViewTier0LocaleServicesGatewayFirewallServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraViewTier0LocaleServicesGatewayFirewallServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ReadGatewayRuleServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraViewTier0LocaleServicesGatewayFirewallServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTGatewayPolicyListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTGatewayPolicyListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTRuleType GlobalGlobalInfraReadGatewayRule(string DomainId, string GatewayPolicyId, string RuleId)
+        {
+            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
+            if (GatewayPolicyId == null) { throw new System.ArgumentNullException("GatewayPolicyId cannot be null"); }
+            if (RuleId == null) { throw new System.ArgumentNullException("RuleId cannot be null"); }
+            NSXTRuleType returnValue = default(NSXTRuleType);
+            StringBuilder GlobalInfraReadGatewayRuleServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/gateway-policies/{gateway-policy-id}/rules/{rule-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraReadGatewayRuleServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraReadGatewayRuleServiceURL.Replace("{gateway-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GatewayPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraReadGatewayRuleServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraReadGatewayRuleServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraReadGatewayRuleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -667,66 +442,6 @@ namespace nsxtapi.PolicyModules
 				}
 			}
 			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteGatewayRule(string DomainId, string GatewayPolicyId, string RuleId)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (GatewayPolicyId == null) { throw new System.ArgumentNullException("GatewayPolicyId cannot be null"); }
-            if (RuleId == null) { throw new System.ArgumentNullException("RuleId cannot be null"); }
-            
-            StringBuilder DeleteGatewayRuleServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/gateway-policies/{gateway-policy-id}/rules/{rule-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteGatewayRuleServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteGatewayRuleServiceURL.Replace("{gateway-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GatewayPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteGatewayRuleServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteGatewayRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteGatewayRuleServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchGatewayRule(string DomainId, string GatewayPolicyId, string RuleId, NSXTRuleType Rule)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (GatewayPolicyId == null) { throw new System.ArgumentNullException("GatewayPolicyId cannot be null"); }
-            if (RuleId == null) { throw new System.ArgumentNullException("RuleId cannot be null"); }
-            if (Rule == null) { throw new System.ArgumentNullException("Rule cannot be null"); }
-            
-            StringBuilder PatchGatewayRuleServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/gateway-policies/{gateway-policy-id}/rules/{rule-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchGatewayRuleServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchGatewayRuleServiceURL.Replace("{gateway-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GatewayPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchGatewayRuleServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(Rule, defaultSerializationSettings));
-            request.Resource = PatchGatewayRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchGatewayRuleServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
         }
         /// <summary>
         /// 
@@ -949,28 +664,29 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRuleStatisticsListResultType GlobalGetGatewayRuleStatistics(string DomainId, string GatewayPolicyId, string RuleId, string? EnforcementPointPath = null)
+        public NSXTRuleStatisticsListResultType GlobalGlobalInfraGetGatewayRuleStatistics(string DomainId, string GatewayPolicyId, string RuleId, string? ContainerClusterPath = null, string? EnforcementPointPath = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GatewayPolicyId == null) { throw new System.ArgumentNullException("GatewayPolicyId cannot be null"); }
             if (RuleId == null) { throw new System.ArgumentNullException("RuleId cannot be null"); }
             NSXTRuleStatisticsListResultType returnValue = default(NSXTRuleStatisticsListResultType);
-            StringBuilder GetGatewayRuleStatisticsServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/gateway-policies/{gateway-policy-id}/rules/{rule-id}/statistics");
+            StringBuilder GlobalInfraGetGatewayRuleStatisticsServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/gateway-policies/{gateway-policy-id}/rules/{rule-id}/statistics");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetGatewayRuleStatisticsServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetGatewayRuleStatisticsServiceURL.Replace("{gateway-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GatewayPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetGatewayRuleStatisticsServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetGatewayRuleStatisticsServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetGatewayRuleStatisticsServiceURL.Replace("{gateway-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GatewayPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetGatewayRuleStatisticsServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (ContainerClusterPath != null) { request.AddQueryParameter("container_cluster_path", ContainerClusterPath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = GetGatewayRuleStatisticsServiceURL.ToString();
+            request.Resource = GlobalInfraGetGatewayRuleStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetGatewayRuleStatisticsServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetGatewayRuleStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -991,18 +707,18 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGatewayPolicyListResultType GlobalListGatewayPoliciesForDomain(string DomainId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, bool? IncludeRuleCount = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTGatewayPolicyListResultType GlobalGlobalInfraListGatewayPoliciesForDomain(string DomainId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, bool? IncludeRuleCount = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             NSXTGatewayPolicyListResultType returnValue = default(NSXTGatewayPolicyListResultType);
-            StringBuilder ListGatewayPoliciesForDomainServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/gateway-policies");
+            StringBuilder GlobalInfraListGatewayPoliciesForDomainServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/gateway-policies");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            ListGatewayPoliciesForDomainServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraListGatewayPoliciesForDomainServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
             if (IncludeRuleCount != null) { request.AddQueryParameter("include_rule_count", IncludeRuleCount.ToString()); }
@@ -1010,11 +726,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListGatewayPoliciesForDomainServiceURL.ToString();
+            request.Resource = GlobalInfraListGatewayPoliciesForDomainServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ListGatewayPoliciesForDomainServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraListGatewayPoliciesForDomainServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1074,269 +790,12 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGatewayPolicyListResultType ViewTier0LocaleServicesGatewayFirewall(string Tier0Id, string LocaleServicesId)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            NSXTGatewayPolicyListResultType returnValue = default(NSXTGatewayPolicyListResultType);
-            StringBuilder ViewTier0LocaleServicesGatewayFirewallServiceURL = new StringBuilder("/infra/tier-0s/{tier-0-id}/locale-services/{locale-services-id}/gateway-firewall");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ViewTier0LocaleServicesGatewayFirewallServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            ViewTier0LocaleServicesGatewayFirewallServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ViewTier0LocaleServicesGatewayFirewallServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ViewTier0LocaleServicesGatewayFirewallServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGatewayPolicyListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGatewayPolicyListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTRuleType GlobalReviseGatewayRuleRevise(string DomainId, string GatewayPolicyId, string RuleId, NSXTRuleType Rule, string? AnchorPath = null, string? Operation = null)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (GatewayPolicyId == null) { throw new System.ArgumentNullException("GatewayPolicyId cannot be null"); }
-            if (RuleId == null) { throw new System.ArgumentNullException("RuleId cannot be null"); }
-            if (Rule == null) { throw new System.ArgumentNullException("Rule cannot be null"); }
-            NSXTRuleType returnValue = default(NSXTRuleType);
-            StringBuilder ReviseGatewayRuleReviseServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/gateway-policies/{gateway-policy-id}/rules/{rule-id}?action=revise");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.POST
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReviseGatewayRuleReviseServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReviseGatewayRuleReviseServiceURL.Replace("{gateway-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GatewayPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReviseGatewayRuleReviseServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(Rule, defaultSerializationSettings));
-            if (AnchorPath != null) { request.AddQueryParameter("anchor_path", AnchorPath.ToString()); }
-            if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
-            request.Resource = ReviseGatewayRuleReviseServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP POST operation to " + ReviseGatewayRuleReviseServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTRuleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTRuleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTGatewayPolicyType GlobalCreateOrReplaceGatewayPolicyForDomain(string DomainId, string GatewayPolicyId, NSXTGatewayPolicyType GatewayPolicy)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (GatewayPolicyId == null) { throw new System.ArgumentNullException("GatewayPolicyId cannot be null"); }
-            if (GatewayPolicy == null) { throw new System.ArgumentNullException("GatewayPolicy cannot be null"); }
-            NSXTGatewayPolicyType returnValue = default(NSXTGatewayPolicyType);
-            StringBuilder CreateOrReplaceGatewayPolicyForDomainServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/gateway-policies/{gateway-policy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            CreateOrReplaceGatewayPolicyForDomainServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            CreateOrReplaceGatewayPolicyForDomainServiceURL.Replace("{gateway-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GatewayPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(GatewayPolicy, defaultSerializationSettings));
-            request.Resource = CreateOrReplaceGatewayPolicyForDomainServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + CreateOrReplaceGatewayPolicyForDomainServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGatewayPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGatewayPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteGatewayPolicy(string DomainId, string GatewayPolicyId)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (GatewayPolicyId == null) { throw new System.ArgumentNullException("GatewayPolicyId cannot be null"); }
-            
-            StringBuilder DeleteGatewayPolicyServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/gateway-policies/{gateway-policy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteGatewayPolicyServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteGatewayPolicyServiceURL.Replace("{gateway-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GatewayPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteGatewayPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteGatewayPolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchGatewayPolicyForDomain(string DomainId, string GatewayPolicyId, NSXTGatewayPolicyType GatewayPolicy)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (GatewayPolicyId == null) { throw new System.ArgumentNullException("GatewayPolicyId cannot be null"); }
-            if (GatewayPolicy == null) { throw new System.ArgumentNullException("GatewayPolicy cannot be null"); }
-            
-            StringBuilder PatchGatewayPolicyForDomainServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/gateway-policies/{gateway-policy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchGatewayPolicyForDomainServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchGatewayPolicyForDomainServiceURL.Replace("{gateway-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GatewayPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(GatewayPolicy, defaultSerializationSettings));
-            request.Resource = PatchGatewayPolicyForDomainServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchGatewayPolicyForDomainServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTGatewayPolicyType GlobalReadGatewayPolicyForDomain(string DomainId, string GatewayPolicyId)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (GatewayPolicyId == null) { throw new System.ArgumentNullException("GatewayPolicyId cannot be null"); }
-            NSXTGatewayPolicyType returnValue = default(NSXTGatewayPolicyType);
-            StringBuilder ReadGatewayPolicyForDomainServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/gateway-policies/{gateway-policy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadGatewayPolicyForDomainServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReadGatewayPolicyForDomainServiceURL.Replace("{gateway-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GatewayPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadGatewayPolicyForDomainServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadGatewayPolicyForDomainServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGatewayPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGatewayPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTGatewayPolicyListResultType GlobalViewTier0GatewayFirewall(string Tier0Id)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            NSXTGatewayPolicyListResultType returnValue = default(NSXTGatewayPolicyListResultType);
-            StringBuilder ViewTier0GatewayFirewallServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/gateway-firewall");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ViewTier0GatewayFirewallServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ViewTier0GatewayFirewallServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ViewTier0GatewayFirewallServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGatewayPolicyListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGatewayPolicyListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTRuleListResultType GlobalListGatewayRules(string DomainId, string GatewayPolicyId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTRuleListResultType ListGatewayRules(string DomainId, string GatewayPolicyId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GatewayPolicyId == null) { throw new System.ArgumentNullException("GatewayPolicyId cannot be null"); }
             NSXTRuleListResultType returnValue = default(NSXTRuleListResultType);
-            StringBuilder ListGatewayRulesServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/gateway-policies/{gateway-policy-id}/rules");
+            StringBuilder ListGatewayRulesServiceURL = new StringBuilder("/infra/domains/{domain-id}/gateway-policies/{gateway-policy-id}/rules");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -1376,31 +835,228 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRuleType ReviseGatewayRuleRevise(string DomainId, string GatewayPolicyId, string RuleId, NSXTRuleType Rule, string? AnchorPath = null, string? Operation = null)
+        public NSXTGatewayPolicyListResultType ViewTier0LocaleServicesGatewayFirewall(string Tier0Id, string LocaleServicesId)
+        {
+            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
+            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
+            NSXTGatewayPolicyListResultType returnValue = default(NSXTGatewayPolicyListResultType);
+            StringBuilder ViewTier0LocaleServicesGatewayFirewallServiceURL = new StringBuilder("/infra/tier-0s/{tier-0-id}/locale-services/{locale-services-id}/gateway-firewall");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            ViewTier0LocaleServicesGatewayFirewallServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            ViewTier0LocaleServicesGatewayFirewallServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = ViewTier0LocaleServicesGatewayFirewallServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + ViewTier0LocaleServicesGatewayFirewallServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTGatewayPolicyListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTGatewayPolicyListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTGatewayPolicyListResultType GlobalGlobalInfraViewTier1GatewayFirewall(string Tier1Id)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            NSXTGatewayPolicyListResultType returnValue = default(NSXTGatewayPolicyListResultType);
+            StringBuilder GlobalInfraViewTier1GatewayFirewallServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/gateway-firewall");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraViewTier1GatewayFirewallServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraViewTier1GatewayFirewallServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraViewTier1GatewayFirewallServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTGatewayPolicyListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTGatewayPolicyListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTGatewayPolicyType GlobalGlobalInfraReadGatewayPolicyForDomain(string DomainId, string GatewayPolicyId)
+        {
+            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
+            if (GatewayPolicyId == null) { throw new System.ArgumentNullException("GatewayPolicyId cannot be null"); }
+            NSXTGatewayPolicyType returnValue = default(NSXTGatewayPolicyType);
+            StringBuilder GlobalInfraReadGatewayPolicyForDomainServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/gateway-policies/{gateway-policy-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraReadGatewayPolicyForDomainServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraReadGatewayPolicyForDomainServiceURL.Replace("{gateway-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GatewayPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraReadGatewayPolicyForDomainServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraReadGatewayPolicyForDomainServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTGatewayPolicyType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTGatewayPolicyType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTGatewayPolicyListResultType GlobalGlobalInfraViewTier0GatewayFirewall(string Tier0Id)
+        {
+            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
+            NSXTGatewayPolicyListResultType returnValue = default(NSXTGatewayPolicyListResultType);
+            StringBuilder GlobalInfraViewTier0GatewayFirewallServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/gateway-firewall");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraViewTier0GatewayFirewallServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraViewTier0GatewayFirewallServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraViewTier0GatewayFirewallServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTGatewayPolicyListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTGatewayPolicyListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTRuleListResultType GlobalGlobalInfraListGatewayRules(string DomainId, string GatewayPolicyId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
+            if (GatewayPolicyId == null) { throw new System.ArgumentNullException("GatewayPolicyId cannot be null"); }
+            NSXTRuleListResultType returnValue = default(NSXTRuleListResultType);
+            StringBuilder GlobalInfraListGatewayRulesServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/gateway-policies/{gateway-policy-id}/rules");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraListGatewayRulesServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraListGatewayRulesServiceURL.Replace("{gateway-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GatewayPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = GlobalInfraListGatewayRulesServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraListGatewayRulesServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTRuleListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTRuleListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTRuleType ReviseGatewayRule(string DomainId, string GatewayPolicyId, string RuleId, NSXTRuleType Rule, string? AnchorPath = null, string? Operation = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GatewayPolicyId == null) { throw new System.ArgumentNullException("GatewayPolicyId cannot be null"); }
             if (RuleId == null) { throw new System.ArgumentNullException("RuleId cannot be null"); }
             if (Rule == null) { throw new System.ArgumentNullException("Rule cannot be null"); }
             NSXTRuleType returnValue = default(NSXTRuleType);
-            StringBuilder ReviseGatewayRuleReviseServiceURL = new StringBuilder("/infra/domains/{domain-id}/gateway-policies/{gateway-policy-id}/rules/{rule-id}?action=revise");
+            StringBuilder ReviseGatewayRuleServiceURL = new StringBuilder("/infra/domains/{domain-id}/gateway-policies/{gateway-policy-id}/rules/{rule-id}?action=revise");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            ReviseGatewayRuleReviseServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReviseGatewayRuleReviseServiceURL.Replace("{gateway-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GatewayPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReviseGatewayRuleReviseServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
+            ReviseGatewayRuleServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
+            ReviseGatewayRuleServiceURL.Replace("{gateway-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GatewayPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
+            ReviseGatewayRuleServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Rule, defaultSerializationSettings));
             if (AnchorPath != null) { request.AddQueryParameter("anchor_path", AnchorPath.ToString()); }
             if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
-            request.Resource = ReviseGatewayRuleReviseServiceURL.ToString();
+            request.Resource = ReviseGatewayRuleServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + ReviseGatewayRuleReviseServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + ReviseGatewayRuleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1421,26 +1077,27 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSecurityPolicyStatisticsListResultType GlobalGetGatewayPolicyStatistics(string DomainId, string GatewayPolicyId, string? EnforcementPointPath = null)
+        public NSXTSecurityPolicyStatisticsListResultType GlobalGlobalInfraGetGatewayPolicyStatistics(string DomainId, string GatewayPolicyId, string? ContainerClusterPath = null, string? EnforcementPointPath = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GatewayPolicyId == null) { throw new System.ArgumentNullException("GatewayPolicyId cannot be null"); }
             NSXTSecurityPolicyStatisticsListResultType returnValue = default(NSXTSecurityPolicyStatisticsListResultType);
-            StringBuilder GetGatewayPolicyStatisticsServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/gateway-policies/{gateway-policy-id}/statistics");
+            StringBuilder GlobalInfraGetGatewayPolicyStatisticsServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/gateway-policies/{gateway-policy-id}/statistics");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetGatewayPolicyStatisticsServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetGatewayPolicyStatisticsServiceURL.Replace("{gateway-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GatewayPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetGatewayPolicyStatisticsServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetGatewayPolicyStatisticsServiceURL.Replace("{gateway-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GatewayPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (ContainerClusterPath != null) { request.AddQueryParameter("container_cluster_path", ContainerClusterPath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = GetGatewayPolicyStatisticsServiceURL.ToString();
+            request.Resource = GlobalInfraGetGatewayPolicyStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetGatewayPolicyStatisticsServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetGatewayPolicyStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1485,45 +1142,6 @@ namespace nsxtapi.PolicyModules
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListGatewayPoliciesForDomainServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGatewayPolicyListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGatewayPolicyListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTGatewayPolicyListResultType GlobalViewTier0LocaleServicesGatewayFirewall(string Tier0Id, string LocaleServicesId)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            NSXTGatewayPolicyListResultType returnValue = default(NSXTGatewayPolicyListResultType);
-            StringBuilder ViewTier0LocaleServicesGatewayFirewallServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-services-id}/gateway-firewall");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ViewTier0LocaleServicesGatewayFirewallServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            ViewTier0LocaleServicesGatewayFirewallServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ViewTier0LocaleServicesGatewayFirewallServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ViewTier0LocaleServicesGatewayFirewallServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1688,18 +1306,18 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGroupListResultType GlobalListTier0Group(string Tier0Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, string? MemberTypes = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTGroupListResultType GlobalGlobalInfraListTier0Group(string Tier0Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, string? MemberTypes = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             NSXTGroupListResultType returnValue = default(NSXTGroupListResultType);
-            StringBuilder ListTier0GroupServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/groups");
+            StringBuilder GlobalInfraListTier0GroupServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/groups");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            ListTier0GroupServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraListTier0GroupServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
@@ -1707,11 +1325,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListTier0GroupServiceURL.ToString();
+            request.Resource = GlobalInfraListTier0GroupServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ListTier0GroupServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraListTier0GroupServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1732,7 +1350,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSecurityPolicyStatisticsListResultType GetGatewayPolicyStatistics(string DomainId, string GatewayPolicyId, string? EnforcementPointPath = null)
+        public NSXTSecurityPolicyStatisticsListResultType GetGatewayPolicyStatistics(string DomainId, string GatewayPolicyId, string? ContainerClusterPath = null, string? EnforcementPointPath = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GatewayPolicyId == null) { throw new System.ArgumentNullException("GatewayPolicyId cannot be null"); }
@@ -1746,6 +1364,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetGatewayPolicyStatisticsServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
             GetGatewayPolicyStatisticsServiceURL.Replace("{gateway-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GatewayPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (ContainerClusterPath != null) { request.AddQueryParameter("container_cluster_path", ContainerClusterPath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = GetGatewayPolicyStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);

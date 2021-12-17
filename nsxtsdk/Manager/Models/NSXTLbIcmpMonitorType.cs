@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbIcmpMonitorType : NSXTLbActiveMonitorType
     {
+        public NSXTLbIcmpMonitorType()
+        {
+            DataLength = test
+        }
         /// <summary>
         /// The data size(in byte) of the ICMP healthcheck packet
         /// </summary>
@@ -24,7 +28,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"The data size(in byte) of the ICMP healthcheck packet")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65507)]
-        [NSXTDefaultProperty(Default: "")]
         public long? DataLength { get; set; }
     }
 }

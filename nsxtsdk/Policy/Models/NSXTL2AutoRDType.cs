@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Layer 2 Auto assigned Route Distinguisher")]
     public class NSXTL2AutoRDType 
     {
+        public NSXTL2AutoRDType()
+        {
+        }
         /// <summary>
         /// Layer 2 Virtual Network Interface
         /// </summary>

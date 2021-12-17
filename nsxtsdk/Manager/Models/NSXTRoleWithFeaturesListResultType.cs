@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRoleWithFeaturesListResultType : NSXTListResultType
     {
+        public NSXTRoleWithFeaturesListResultType()
+        {
+        }
         /// <summary>
         /// List results
         /// </summary>

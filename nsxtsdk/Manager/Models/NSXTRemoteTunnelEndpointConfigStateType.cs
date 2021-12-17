@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Remote tunnel endpoint configuration state")]
     public class NSXTRemoteTunnelEndpointConfigStateType 
     {
+        public NSXTRemoteTunnelEndpointConfigStateType()
+        {
+        }
         /// <summary>
         /// List of remote tunnel endpoints which are configured on this node
         /// </summary>

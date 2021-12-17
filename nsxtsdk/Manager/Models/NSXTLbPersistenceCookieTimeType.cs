@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbPersistenceCookieTimeType : NSXTLbCookieTimeType
     {
+        public NSXTLbPersistenceCookieTimeType()
+        {
+        }
         /// <summary>
         /// HTTP cookie max-age to expire cookie, only available for insert mode.
         /// </summary>

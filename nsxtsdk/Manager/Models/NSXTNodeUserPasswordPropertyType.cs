@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeUserPasswordPropertyType 
     {
+        public NSXTNodeUserPasswordPropertyType()
+        {
+        }
         /// <summary>
         /// The new password for user
         /// </summary>

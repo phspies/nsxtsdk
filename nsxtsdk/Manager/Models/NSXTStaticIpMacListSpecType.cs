@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTStaticIpMacListSpecType : NSXTIpAssignmentSpecType
     {
+        public NSXTStaticIpMacListSpecType()
+        {
+        }
         /// <summary>
         /// Subnet mask
         /// </summary>

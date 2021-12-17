@@ -17,18 +17,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyTraceflowObservationForwardedLogicalType : NSXTTraceflowObservationForwardedLogicalType
     {
-        /// <summary>
-        /// The path of the ACL rule that was applied to forward the traceflow packet
-        /// </summary>
-        [JsonProperty(PropertyName = "acl_rule_path")]
-        [NSXTProperty(IsRequired: false, Description: @"The path of the ACL rule that was applied to forward the traceflow packet")]
-        public string? AclRulePath { get; set; }
+        public NSXTPolicyTraceflowObservationForwardedLogicalType()
+        {
+        }
         /// <summary>
         /// The path of the NAT rule that was applied to forward the traceflow packet
         /// </summary>
         [JsonProperty(PropertyName = "nat_rule_path")]
         [NSXTProperty(IsRequired: false, Description: @"The path of the NAT rule that was applied to forward the traceflow packet")]
         public string? NatRulePath { get; set; }
+        /// <summary>
+        /// The path of the jump-to rule that was applied to the traceflow packet
+        /// </summary>
+        [JsonProperty(PropertyName = "jumpto_rule_path")]
+        [NSXTProperty(IsRequired: false, Description: @"The path of the jump-to rule that was applied to the traceflow packet")]
+        public string? JumptoRulePath { get; set; }
         /// <summary>
         /// The path of the component that forwarded the traceflow packet
         /// </summary>
@@ -41,6 +44,18 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "segment_port_path")]
         [NSXTProperty(IsRequired: false, Description: @"The path of the segment port or router port through which the traceflow packet was forwarded")]
         public string? SegmentPortPath { get; set; }
+        /// <summary>
+        /// The path of the l2 rule that was applied to the traceflow packet
+        /// </summary>
+        [JsonProperty(PropertyName = "l2_rule_path")]
+        [NSXTProperty(IsRequired: false, Description: @"The path of the l2 rule that was applied to the traceflow packet")]
+        public string? L2RulePath { get; set; }
+        /// <summary>
+        /// The path of the ACL rule that was applied to forward the traceflow packet
+        /// </summary>
+        [JsonProperty(PropertyName = "acl_rule_path")]
+        [NSXTProperty(IsRequired: false, Description: @"The path of the ACL rule that was applied to forward the traceflow packet")]
+        public string? AclRulePath { get; set; }
         /// <summary>
         /// The path of the destination component to which the traceflow packet was forwarded
         /// </summary>

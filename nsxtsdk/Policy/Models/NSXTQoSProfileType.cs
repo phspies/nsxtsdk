@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTQoSProfileType : NSXTPolicyConfigResourceType
     {
+        public NSXTQoSProfileType()
+        {
+            ClassOfService = test
+        }
         /// <summary>
         /// Array of Rate limiter configurations to applied on Segment or Port.
         /// </summary>
@@ -33,8 +37,7 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Class of service groups similar types of traffic in the network andeach type of traffic is treated as a class with its own level of servicepriority. The lower priority traffic is slowed down or in some casesdropped to provide better throughput for higher priority traffic.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(7)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? ClassOfService { get; set; }
+        public int? ClassOfService { get; set; }
         /// <summary>
         /// 
         /// </summary>

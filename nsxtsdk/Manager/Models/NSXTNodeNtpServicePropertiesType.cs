@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeNtpServicePropertiesType : NSXTNodeServicePropertiesType
     {
+        public NSXTNodeNtpServicePropertiesType()
+        {
+        }
         /// <summary>
-        /// NTP Service properties
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "service_properties")]
-        [NSXTProperty(IsRequired: false, Description: @"NTP Service properties")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTNtpServicePropertiesType ServiceProperties { get; set; }
     }
 }

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTGatewayRouteCsvRecordType : NSXTCsvRecordType
     {
+        public NSXTGatewayRouteCsvRecordType()
+        {
+        }
         /// <summary>
         /// Logical router component(Service Router/Distributed Router) id
         /// </summary>

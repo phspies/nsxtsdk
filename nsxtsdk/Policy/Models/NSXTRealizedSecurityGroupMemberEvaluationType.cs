@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRealizedSecurityGroupMemberEvaluationType : NSXTPolicyRealizedResourceType
     {
+        public NSXTRealizedSecurityGroupMemberEvaluationType()
+        {
+        }
         /// <summary>
         /// list of virtual machines
         /// </summary>

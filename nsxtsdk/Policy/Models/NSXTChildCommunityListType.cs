@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildCommunityListType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildCommunityListType()
+        {
+        }
         /// <summary>
-        /// Contains the actual CommunityList object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "CommunityList", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual CommunityList object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTCommunityListType CommunityList { get; set; }
     }

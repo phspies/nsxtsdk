@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer VSDataScripts object")]
     public class NSXTALBVSDataScriptsType 
     {
+        public NSXTALBVSDataScriptsType()
+        {
+        }
         /// <summary>
         /// Index of the virtual service datascript collection.
         /// </summary>

@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsRrSet object")]
     public class NSXTALBDnsRrSetType 
     {
+        public NSXTALBDnsRrSetType()
+        {
+        }
         /// <summary>
-        /// Canonical name in CNAME record.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "cname")]
-        [NSXTProperty(IsRequired: false, Description: @"Canonical name in CNAME record.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBDnsCnameRdataType Cname { get; set; }
         /// <summary>
         /// Time To Live for this DNS record.

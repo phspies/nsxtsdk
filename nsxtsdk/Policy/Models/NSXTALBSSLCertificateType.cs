@@ -17,6 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer SSLCertificate object")]
     public class NSXTALBSSLCertificateType 
     {
+        public NSXTALBSSLCertificateType()
+        {
+            ExpiryStatus = test
+            DaysUntilExpire = test
+        }
         /// <summary>
         /// subjectAltName that provides additional subject identities.
         /// </summary>
@@ -43,11 +48,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"certificate of SSLCertificate.")]
         public string? Certificate { get; set; }
         /// <summary>
-        /// Placeholder for description of property issuer of obj type
-        /// SSLCertificate field type str  type ref.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "issuer")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property issuer of obj typeSSLCertificate field type str  type ref.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBSSLCertificateDescriptionType Issuer { get; set; }
         /// <summary>
         /// certificate_signing_request of SSLCertificate.
@@ -75,7 +79,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "expiry_status")]
         [NSXTProperty(IsRequired: false, Description: @"Enum options - SSL_CERTIFICATE_GOOD,SSL_CERTIFICATE_EXPIRY_WARNING, SSL_CERTIFICATE_EXPIRED.Default value when not specified in API or module isinterpreted by ALB Controller as SSL_CERTIFICATE_GOOD.")]
-        [NSXTDefaultProperty(Default: "SSL_CERTIFICATE_GOOD")]
         public NSXTAlbsslcertificateExpiryStatusEnumType? ExpiryStatus { get; set; }
         /// <summary>
         /// Placeholder for description of property chain_verified of
@@ -103,11 +106,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"fingerprint of SSLCertificate.")]
         public string? Fingerprint { get; set; }
         /// <summary>
-        /// Placeholder for description of property key_params of obj
-        /// type SSLCertificate field type str  type ref.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "key_params")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property key_params of objtype SSLCertificate field type str  type ref.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBSSLKeyParamsType KeyParams { get; set; }
         /// <summary>
         /// serial_number of SSLCertificate.
@@ -122,7 +124,7 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "days_until_expire")]
         [NSXTProperty(IsRequired: false, Description: @"Number of days_until_expire.Default value when not specified in API or module isinterpreted by ALB Controller as 365.")]
-        [NSXTDefaultProperty(Default: "")]
+        //[System.ComponentModel.DataAnnotations.MinLength(1)]
         public long? DaysUntilExpire { get; set; }
         /// <summary>
         /// signature of SSLCertificate.
@@ -137,11 +139,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"not_before of SSLCertificate.")]
         public string? NotBefore { get; set; }
         /// <summary>
-        /// Placeholder for description of property subject of obj type
-        /// SSLCertificate field type str  type ref.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "subject")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property subject of obj typeSSLCertificate field type str  type ref.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBSSLCertificateDescriptionType Subject { get; set; }
     }
 }

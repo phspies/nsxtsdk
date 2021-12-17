@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTManagementClusterRoleConfigType : NSXTClusterRoleConfigType
     {
+        public NSXTManagementClusterRoleConfigType()
+        {
+        }
         /// <summary>
-        /// The IP and port for the management cluster service on this node
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "mgmt_cluster_listen_addr")]
-        [NSXTProperty(IsRequired: false, Description: @"The IP and port for the management cluster service on this node")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTServiceEndpointType MgmtClusterListenAddr { get; set; }
         /// <summary>
         /// 
@@ -30,22 +33,22 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTMsgClientInfoType MpaMsgClientInfo { get; set; }
         /// <summary>
-        /// The IP and port for the public API service on this node
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "api_listen_addr")]
-        [NSXTProperty(IsRequired: false, Description: @"The IP and port for the public API service on this node")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTServiceEndpointType ApiListenAddr { get; set; }
         /// <summary>
-        /// The IP, port and certificate for connecting to appliance.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "appliance_connection_info")]
-        [NSXTProperty(IsRequired: false, Description: @"The IP, port and certificate for connecting to appliance.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTServiceEndpointType ApplianceConnectionInfo { get; set; }
         /// <summary>
-        /// The IP and port for the management plane service on this node
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "mgmt_plane_listen_addr")]
-        [NSXTProperty(IsRequired: false, Description: @"The IP and port for the management plane service on this node")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTServiceEndpointType MgmtPlaneListenAddr { get; set; }
     }
 }

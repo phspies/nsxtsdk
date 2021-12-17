@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Upgrade status summry")]
     public class NSXTUpgradeStatusSummaryType 
     {
+        public NSXTUpgradeStatusSummaryType()
+        {
+        }
         /// <summary>
         /// True if upgrade bundle is present
         /// </summary>

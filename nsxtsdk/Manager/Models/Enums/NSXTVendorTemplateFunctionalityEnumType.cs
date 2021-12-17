@@ -7,9 +7,9 @@ using nsxtsdk.Models;
 namespace nsxtsdk.ManagerModels
 {
     /// <summary>
-    /// The capabilities provided by the services. Needs to be one of the following | NG_FW - Next Generation Firewall | IDS_IPS - Intrusion detection System / Intrusion Prevention System | NET_MON - Network Monitoring | HCX - Hybrid Cloud Exchange | BYOD - Bring Your Own Device | EPP - Endpoint Protection.(Third party AntiVirus partners using NXGI should use this functionality for the service)
+    /// The capabilities provided by the services. Needs to be one of the following | NG_FW - Next Generation Firewall | IDS_IPS - Intrusion detection System / Intrusion Prevention System | NET_MON - Network Monitoring | HCX - Hybrid Cloud Exchange | BYOD - Bring Your Own Device | EPP - Endpoint Protection.(Third party AntiVirus partners using NXGI should use this functionality for the service) | MPS - Malware Prevention Solution
     /// </summary>
-    [NSXTProperty(Description: @"The capabilities provided by the services. Needs to be one of the following | NG_FW - Next Generation Firewall | IDS_IPS - Intrusion detection System / Intrusion Prevention System | NET_MON - Network Monitoring | HCX - Hybrid Cloud Exchange | BYOD - Bring Your Own Device | EPP - Endpoint Protection.(Third party AntiVirus partners using NXGI should use this functionality for the service)")]
+    [NSXTProperty(Description: @"The capabilities provided by the services. Needs to be one of the following | NG_FW - Next Generation Firewall | IDS_IPS - Intrusion detection System / Intrusion Prevention System | NET_MON - Network Monitoring | HCX - Hybrid Cloud Exchange | BYOD - Bring Your Own Device | EPP - Endpoint Protection.(Third party AntiVirus partners using NXGI should use this functionality for the service) | MPS - Malware Prevention Solution")]
     public enum NSXTVendorTemplateFunctionalityEnumType
     {
         [EnumMember(Value = "NG_FW")]
@@ -24,5 +24,7 @@ namespace nsxtsdk.ManagerModels
         BYOD = 5,
         [EnumMember(Value = "EPP")]
         EPP = 6,
+        [EnumMember(Value = "MPS")]
+        MPS = 7,
     }
 }

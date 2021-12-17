@@ -17,6 +17,11 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbHttpRequestUriArgumentsConditionType : NSXTLbRuleConditionType
     {
+        public NSXTLbHttpRequestUriArgumentsConditionType()
+        {
+            MatchType = test
+            CaseSensitive = test
+        }
         /// <summary>
         /// URI arguments, aka query string of URI.
         /// </summary>
@@ -29,14 +34,12 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "match_type")]
         [NSXTProperty(IsRequired: false, Description: @"Match type of URI arguments")]
-        [NSXTDefaultProperty(Default: "REGEX")]
         public NSXTLbHttpRequestUriArgumentsConditionMatchTypeEnumType? MatchType { get; set; }
         /// <summary>
         /// If true, case is significant when comparing URI arguments.
         /// </summary>
         [JsonProperty(PropertyName = "case_sensitive")]
         [NSXTProperty(IsRequired: false, Description: @"If true, case is significant when comparing URI arguments.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? CaseSensitive { get; set; }
     }
 }

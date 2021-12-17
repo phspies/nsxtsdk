@@ -18,6 +18,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"List of Users logged into VMs where intrusions of a given signaturewere detected.")]
     public class NSXTIdsUserStatsType 
     {
+        public NSXTIdsUserStatsType()
+        {
+        }
         /// <summary>
         /// Number of unique users logged into VMs on which a particular signature was detected.
         /// </summary>

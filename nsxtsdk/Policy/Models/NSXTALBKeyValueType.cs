@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer KeyValue object")]
     public class NSXTALBKeyValueType 
     {
+        public NSXTALBKeyValueType()
+        {
+        }
         /// <summary>
         /// Value.
         /// </summary>

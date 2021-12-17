@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRealizedNSGroupMemberEvaluationType : NSXTPolicyRealizedResourceType
     {
+        public NSXTRealizedNSGroupMemberEvaluationType()
+        {
+        }
         /// <summary>
         /// list of logical ports
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBPoolStatusType : NSXTLBPoolStatusPerEPType
     {
+        public NSXTLBPoolStatusType()
+        {
+        }
         /// <summary>
         /// UP means that all primary members are in UP status.
         /// PARTIALLY_UP means that some(not all) primary members are in UP

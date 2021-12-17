@@ -17,19 +17,22 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBSslSniConditionType : NSXTLBRuleConditionType
     {
+        public NSXTLBSslSniConditionType()
+        {
+            CaseSensitive = test
+            MatchType = test
+        }
         /// <summary>
         /// If true, case is significant when comparing SNI value.
         /// </summary>
         [JsonProperty(PropertyName = "case_sensitive")]
         [NSXTProperty(IsRequired: false, Description: @"If true, case is significant when comparing SNI value.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? CaseSensitive { get; set; }
         /// <summary>
         /// Match type of SNI
         /// </summary>
         [JsonProperty(PropertyName = "match_type")]
         [NSXTProperty(IsRequired: false, Description: @"Match type of SNI")]
-        [NSXTDefaultProperty(Default: "REGEX")]
         public NSXTLbsslSniConditionMatchTypeEnumType? MatchType { get; set; }
         /// <summary>
         /// The SNI(Server Name indication) in client hello message.

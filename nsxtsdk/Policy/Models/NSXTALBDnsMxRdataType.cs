@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsMxRdata object")]
     public class NSXTALBDnsMxRdataType 
     {
+        public NSXTALBDnsMxRdataType()
+        {
+        }
         /// <summary>
         /// The priority field identifies which mail server should be
         /// preferred.

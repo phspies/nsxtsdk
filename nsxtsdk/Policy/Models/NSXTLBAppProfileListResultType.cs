@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBAppProfileListResultType : NSXTListResultType
     {
+        public NSXTLBAppProfileListResultType()
+        {
+        }
         /// <summary>
         /// LBAppProfile list results
         /// </summary>

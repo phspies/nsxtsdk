@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIntervalSamplingType : NSXTSamplingArgumentType
     {
+        public NSXTIntervalSamplingType()
+        {
+        }
         /// <summary>
         /// Time interval in ms between two sampling actions.
         /// </summary>

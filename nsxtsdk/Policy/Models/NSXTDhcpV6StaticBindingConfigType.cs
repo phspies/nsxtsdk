@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpV6StaticBindingConfigType : NSXTDhcpStaticBindingConfigType
     {
+        public NSXTDhcpV6StaticBindingConfigType()
+        {
+            LeaseTime = test
+        }
         /// <summary>
         /// SNTP server IP addresses.
         /// </summary>
@@ -39,7 +43,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Lease time, in seconds.")]
         //[System.ComponentModel.DataAnnotations.MinLength(60)]
         //[System.ComponentModel.DataAnnotations.MaxLength(4294967295)]
-        [NSXTDefaultProperty(Default: "")]
         public long? LeaseTime { get; set; }
         /// <summary>
         /// The MAC address of the client host. Either client-duid or mac-address,

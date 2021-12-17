@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBHttpRejectActionType : NSXTLBRuleActionType
     {
+        public NSXTLBHttpRejectActionType()
+        {
+        }
         /// <summary>
         /// HTTP response status code.
         /// </summary>

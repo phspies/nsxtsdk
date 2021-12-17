@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpPoolListResultType : NSXTListResultType
     {
+        public NSXTIpPoolListResultType()
+        {
+        }
         /// <summary>
         /// IP pool list results
         /// </summary>

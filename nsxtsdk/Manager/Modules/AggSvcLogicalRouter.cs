@@ -116,26 +116,26 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalRouterRouteTableInCsvFormatType GetLogicalRouterRouteTableInCsvFormatCsv(string LogicalRouterId, string TransportNodeId, string? Source = null)
+        public NSXTLogicalRouterRouteTableInCsvFormatType GetLogicalRouterRouteTableInCsvFormat(string LogicalRouterId, string TransportNodeId, string? Source = null)
         {
             if (LogicalRouterId == null) { throw new System.ArgumentNullException("LogicalRouterId cannot be null"); }
             if (TransportNodeId == null) { throw new System.ArgumentNullException("TransportNodeId cannot be null"); }
             NSXTLogicalRouterRouteTableInCsvFormatType returnValue = default(NSXTLogicalRouterRouteTableInCsvFormatType);
-            StringBuilder GetLogicalRouterRouteTableInCsvFormatCsvServiceURL = new StringBuilder("/logical-routers/{logical-router-id}/routing/route-table?format=csv");
+            StringBuilder GetLogicalRouterRouteTableInCsvFormatServiceURL = new StringBuilder("/logical-routers/{logical-router-id}/routing/route-table?format=csv");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetLogicalRouterRouteTableInCsvFormatCsvServiceURL.Replace("{logical-router-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalRouterId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetLogicalRouterRouteTableInCsvFormatServiceURL.Replace("{logical-router-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalRouterId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
-            request.Resource = GetLogicalRouterRouteTableInCsvFormatCsvServiceURL.ToString();
+            request.Resource = GetLogicalRouterRouteTableInCsvFormatServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetLogicalRouterRouteTableInCsvFormatCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GetLogicalRouterRouteTableInCsvFormatServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -238,25 +238,25 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBgpNeighborRouteDetailsInCsvFormatType GetBgpNeighborRoutesInCsvFormatCsv(string LogicalRouterId, string NeighborId)
+        public NSXTBgpNeighborRouteDetailsInCsvFormatType GetBgpNeighborRoutesInCsvFormat(string LogicalRouterId, string NeighborId)
         {
             if (LogicalRouterId == null) { throw new System.ArgumentNullException("LogicalRouterId cannot be null"); }
             if (NeighborId == null) { throw new System.ArgumentNullException("NeighborId cannot be null"); }
             NSXTBgpNeighborRouteDetailsInCsvFormatType returnValue = default(NSXTBgpNeighborRouteDetailsInCsvFormatType);
-            StringBuilder GetBgpNeighborRoutesInCsvFormatCsvServiceURL = new StringBuilder("/logical-routers/{logical-router-id}/routing/bgp/neighbors/{neighbor-id}/routes?format=csv");
+            StringBuilder GetBgpNeighborRoutesInCsvFormatServiceURL = new StringBuilder("/logical-routers/{logical-router-id}/routing/bgp/neighbors/{neighbor-id}/routes?format=csv");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetBgpNeighborRoutesInCsvFormatCsvServiceURL.Replace("{logical-router-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalRouterId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetBgpNeighborRoutesInCsvFormatCsvServiceURL.Replace("{neighbor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NeighborId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = GetBgpNeighborRoutesInCsvFormatCsvServiceURL.ToString();
+            GetBgpNeighborRoutesInCsvFormatServiceURL.Replace("{logical-router-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalRouterId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetBgpNeighborRoutesInCsvFormatServiceURL.Replace("{neighbor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NeighborId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GetBgpNeighborRoutesInCsvFormatServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetBgpNeighborRoutesInCsvFormatCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GetBgpNeighborRoutesInCsvFormatServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -361,27 +361,27 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalRouterRouteTableInCsvFormatType GetLogicalRouterForwardingTableInCsvFormatCsv(string LogicalRouterId, string TransportNodeId, string? NetworkPrefix = null, string? Source = null)
+        public NSXTLogicalRouterRouteTableInCsvFormatType GetLogicalRouterForwardingTableInCsvFormat(string LogicalRouterId, string TransportNodeId, string? NetworkPrefix = null, string? Source = null)
         {
             if (LogicalRouterId == null) { throw new System.ArgumentNullException("LogicalRouterId cannot be null"); }
             if (TransportNodeId == null) { throw new System.ArgumentNullException("TransportNodeId cannot be null"); }
             NSXTLogicalRouterRouteTableInCsvFormatType returnValue = default(NSXTLogicalRouterRouteTableInCsvFormatType);
-            StringBuilder GetLogicalRouterForwardingTableInCsvFormatCsvServiceURL = new StringBuilder("/logical-routers/{logical-router-id}/routing/forwarding-table?format=csv");
+            StringBuilder GetLogicalRouterForwardingTableInCsvFormatServiceURL = new StringBuilder("/logical-routers/{logical-router-id}/routing/forwarding-table?format=csv");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetLogicalRouterForwardingTableInCsvFormatCsvServiceURL.Replace("{logical-router-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalRouterId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetLogicalRouterForwardingTableInCsvFormatServiceURL.Replace("{logical-router-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalRouterId, System.Globalization.CultureInfo.InvariantCulture)));
             if (NetworkPrefix != null) { request.AddQueryParameter("network_prefix", NetworkPrefix.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
-            request.Resource = GetLogicalRouterForwardingTableInCsvFormatCsvServiceURL.ToString();
+            request.Resource = GetLogicalRouterForwardingTableInCsvFormatServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetLogicalRouterForwardingTableInCsvFormatCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GetLogicalRouterForwardingTableInCsvFormatServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -526,25 +526,25 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBgpNeighborRouteDetailsInCsvFormatType GetBgpNeighborAdvertisedRoutesInCsvFormatCsv(string LogicalRouterId, string NeighborId)
+        public NSXTBgpNeighborRouteDetailsInCsvFormatType GetBgpNeighborAdvertisedRoutesInCsvFormat(string LogicalRouterId, string NeighborId)
         {
             if (LogicalRouterId == null) { throw new System.ArgumentNullException("LogicalRouterId cannot be null"); }
             if (NeighborId == null) { throw new System.ArgumentNullException("NeighborId cannot be null"); }
             NSXTBgpNeighborRouteDetailsInCsvFormatType returnValue = default(NSXTBgpNeighborRouteDetailsInCsvFormatType);
-            StringBuilder GetBgpNeighborAdvertisedRoutesInCsvFormatCsvServiceURL = new StringBuilder("/logical-routers/{logical-router-id}/routing/bgp/neighbors/{neighbor-id}/advertised-routes?format=csv");
+            StringBuilder GetBgpNeighborAdvertisedRoutesInCsvFormatServiceURL = new StringBuilder("/logical-routers/{logical-router-id}/routing/bgp/neighbors/{neighbor-id}/advertised-routes?format=csv");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetBgpNeighborAdvertisedRoutesInCsvFormatCsvServiceURL.Replace("{logical-router-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalRouterId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetBgpNeighborAdvertisedRoutesInCsvFormatCsvServiceURL.Replace("{neighbor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NeighborId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = GetBgpNeighborAdvertisedRoutesInCsvFormatCsvServiceURL.ToString();
+            GetBgpNeighborAdvertisedRoutesInCsvFormatServiceURL.Replace("{logical-router-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalRouterId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetBgpNeighborAdvertisedRoutesInCsvFormatServiceURL.Replace("{neighbor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NeighborId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GetBgpNeighborAdvertisedRoutesInCsvFormatServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetBgpNeighborAdvertisedRoutesInCsvFormatCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GetBgpNeighborAdvertisedRoutesInCsvFormatServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -565,29 +565,29 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalRouterRouteTableInCsvFormatType GetLogicalRouterRoutingTableInCsvFormatCsv(string LogicalRouterId, string TransportNodeId, string? NetworkPrefix = null, string? RouteSource = null, string? Source = null, string? VrfTable = null)
+        public NSXTLogicalRouterRouteTableInCsvFormatType GetLogicalRouterRoutingTableInCsvFormat(string LogicalRouterId, string TransportNodeId, string? NetworkPrefix = null, string? RouteSource = null, string? Source = null, string? VrfTable = null)
         {
             if (LogicalRouterId == null) { throw new System.ArgumentNullException("LogicalRouterId cannot be null"); }
             if (TransportNodeId == null) { throw new System.ArgumentNullException("TransportNodeId cannot be null"); }
             NSXTLogicalRouterRouteTableInCsvFormatType returnValue = default(NSXTLogicalRouterRouteTableInCsvFormatType);
-            StringBuilder GetLogicalRouterRoutingTableInCsvFormatCsvServiceURL = new StringBuilder("/logical-routers/{logical-router-id}/routing/routing-table?format=csv");
+            StringBuilder GetLogicalRouterRoutingTableInCsvFormatServiceURL = new StringBuilder("/logical-routers/{logical-router-id}/routing/routing-table?format=csv");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetLogicalRouterRoutingTableInCsvFormatCsvServiceURL.Replace("{logical-router-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalRouterId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetLogicalRouterRoutingTableInCsvFormatServiceURL.Replace("{logical-router-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalRouterId, System.Globalization.CultureInfo.InvariantCulture)));
             if (NetworkPrefix != null) { request.AddQueryParameter("network_prefix", NetworkPrefix.ToString()); }
             if (RouteSource != null) { request.AddQueryParameter("route_source", RouteSource.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
             if (VrfTable != null) { request.AddQueryParameter("vrf_table", VrfTable.ToString()); }
-            request.Resource = GetLogicalRouterRoutingTableInCsvFormatCsvServiceURL.ToString();
+            request.Resource = GetLogicalRouterRoutingTableInCsvFormatServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetLogicalRouterRoutingTableInCsvFormatCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GetLogicalRouterRoutingTableInCsvFormatServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else

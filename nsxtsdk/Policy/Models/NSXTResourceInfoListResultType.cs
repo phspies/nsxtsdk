@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTResourceInfoListResultType : NSXTListResultType
     {
+        public NSXTResourceInfoListResultType()
+        {
+        }
         /// <summary>
         /// Resource info list results
         /// </summary>

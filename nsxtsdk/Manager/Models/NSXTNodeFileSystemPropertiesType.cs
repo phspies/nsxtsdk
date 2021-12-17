@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"File system properties")]
     public class NSXTNodeFileSystemPropertiesType 
     {
+        public NSXTNodeFileSystemPropertiesType()
+        {
+        }
         /// <summary>
         /// File system mount
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDistributedVirtualSwitchType : NSXTVirtualSwitchType
     {
+        public NSXTDistributedVirtualSwitchType()
+        {
+        }
         /// <summary>
         /// Array of discovered nodes connected to this switch.
         /// </summary>
@@ -24,10 +27,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Array of discovered nodes connected to this switch.")]
         public IList<NSXTDiscoveredNodeType> DiscoveredNodes { get; set; }
         /// <summary>
-        /// Uplink portgroup of distributed virtual switch
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "uplink_portgroup")]
-        [NSXTProperty(IsRequired: false, Description: @"Uplink portgroup of distributed virtual switch")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTDistributedVirtualPortgroupType UplinkPortgroup { get; set; }
         /// <summary>
         /// UUID of the switch

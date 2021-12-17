@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTEvpnEncapConfigType : NSXTPolicyConfigResourceType
     {
+        public NSXTEvpnEncapConfigType()
+        {
+        }
         /// <summary>
         /// vni pool path
         /// </summary>

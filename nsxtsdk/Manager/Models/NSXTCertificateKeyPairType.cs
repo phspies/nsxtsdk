@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTCertificateKeyPairType 
     {
+        public NSXTCertificateKeyPairType()
+        {
+        }
         /// <summary>
         /// The private key must include the enclosing "-----BEGIN RSA PRIVATE KEY-----" and "-----END RSA PRIVATE KEY-----". An
         /// empty string is returned in read responses.

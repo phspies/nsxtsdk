@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Runtime Info Per Enforcement Point.")]
     public class NSXTPolicyRuntimeInfoPerEPType 
     {
+        public NSXTPolicyRuntimeInfoPerEPType()
+        {
+        }
         /// <summary>
-        /// Alarm information details.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "alarm")]
-        [NSXTProperty(IsRequired: false, Description: @"Alarm information details.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTPolicyRuntimeAlarmType Alarm { get; set; }
         /// <summary>
         /// Policy Path referencing the enforcement point where the info is fetched.

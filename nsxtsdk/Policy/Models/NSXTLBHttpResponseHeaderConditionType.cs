@@ -17,6 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBHttpResponseHeaderConditionType : NSXTLBRuleConditionType
     {
+        public NSXTLBHttpResponseHeaderConditionType()
+        {
+            CaseSensitive = test
+            MatchType = test
+        }
         /// <summary>
         /// Value of HTTP header field
         /// </summary>
@@ -29,14 +34,12 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "case_sensitive")]
         [NSXTProperty(IsRequired: false, Description: @"If true, case is significant when comparing HTTP header value.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? CaseSensitive { get; set; }
         /// <summary>
         /// Match type of HTTP header value
         /// </summary>
         [JsonProperty(PropertyName = "match_type")]
         [NSXTProperty(IsRequired: false, Description: @"Match type of HTTP header value")]
-        [NSXTDefaultProperty(Default: "REGEX")]
         public NSXTLbhttpResponseHeaderConditionMatchTypeEnumType? MatchType { get; set; }
         /// <summary>
         /// Name of HTTP header field

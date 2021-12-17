@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Parameters for nvds upgrade precheck")]
     public class NSXTPrecheckParametersType 
     {
+        public NSXTPrecheckParametersType()
+        {
+        }
         /// <summary>
         /// Cluster ID list for nvds upgrade precheck
         /// </summary>

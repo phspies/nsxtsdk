@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBPoolListResultType : NSXTListResultType
     {
+        public NSXTLBPoolListResultType()
+        {
+        }
         /// <summary>
         /// LBPool list results.
         /// </summary>

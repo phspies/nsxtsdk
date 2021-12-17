@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalDhcpServerType : NSXTManagedResourceType
     {
+        public NSXTLogicalDhcpServerType()
+        {
+        }
         /// <summary>
         /// The uuid of the attached logical port. Read only.
         /// </summary>
@@ -24,16 +27,16 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"The uuid of the attached logical port. Read only.")]
         public string? AttachedLogicalPortId { get; set; }
         /// <summary>
-        /// The DHCP server for ipv6 addresses allocation service.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ipv6_dhcp_server")]
-        [NSXTProperty(IsRequired: false, Description: @"The DHCP server for ipv6 addresses allocation service.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPv6DhcpServerType Ipv6DhcpServer { get; set; }
         /// <summary>
-        /// The DHCP server for ipv4 addresses allocation service.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ipv4_dhcp_server")]
-        [NSXTProperty(IsRequired: false, Description: @"The DHCP server for ipv4 addresses allocation service.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPv4DhcpServerType Ipv4DhcpServer { get; set; }
         /// <summary>
         /// The DHCP profile uuid the logical DHCP server references.

@@ -17,19 +17,39 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Represents a reference to a widget that is held by a container or a multi-widget or a View.")]
     public class NSXTWidgetItemType 
     {
+        public NSXTWidgetItemType()
+        {
+            Weight = test
+            Alignment = test
+        }
         /// <summary>
-        /// Aligns widget either left or right.
+        /// Represents the vertical span of the widget / container
         /// </summary>
-        [JsonProperty(PropertyName = "alignment")]
-        [NSXTProperty(IsRequired: false, Description: @"Aligns widget either left or right.")]
-        [NSXTDefaultProperty(Default: "LEFT")]
-        public NSXTWidgetItemAlignmentEnumType? Alignment { get; set; }
+        [JsonProperty(PropertyName = "rowspan")]
+        [NSXTProperty(IsRequired: false, Description: @"Represents the vertical span of the widget / container")]
+        //[System.ComponentModel.DataAnnotations.MinLength(1)]
+        public int? Rowspan { get; set; }
         /// <summary>
         /// If true, separates this widget in a container.
         /// </summary>
         [JsonProperty(PropertyName = "separator")]
         [NSXTProperty(IsRequired: false, Description: @"If true, separates this widget in a container.")]
         public bool? Separator { get; set; }
+        /// <summary>
+        /// Determines placement of widget or container relative to other widgets and containers. The lower the weight, the higher
+        /// it is in the placement order.
+        /// </summary>
+        [JsonProperty(PropertyName = "weight")]
+        [NSXTProperty(IsRequired: false, Description: @"Determines placement of widget or container relative to other widgets and containers. The lower the weight, the higher it is in the placement order.")]
+        public int? Weight { get; set; }
+        /// <summary>
+        /// Represents the horizontal span of the widget / container.
+        /// </summary>
+        [JsonProperty(PropertyName = "span")]
+        [NSXTProperty(IsRequired: false, Description: @"Represents the horizontal span of the widget / container.")]
+        //[System.ComponentModel.DataAnnotations.MinLength(1)]
+        //[System.ComponentModel.DataAnnotations.MaxLength(12)]
+        public int? Span { get; set; }
         /// <summary>
         /// Id of the widget configuration that is held by a multi-widget or a container or a view.
         /// </summary>
@@ -38,19 +58,16 @@ namespace nsxtsdk.PolicyModels
         [System.ComponentModel.DataAnnotations.Required]
         public string WidgetId { get; set; }
         /// <summary>
-        /// Determines placement of widget or container relative to other widgets and containers. The lower the weight, the higher
-        /// it is in the placement order.
+        /// Aligns widget either left or right.
         /// </summary>
-        [JsonProperty(PropertyName = "weight")]
-        [NSXTProperty(IsRequired: false, Description: @"Determines placement of widget or container relative to other widgets and containers. The lower the weight, the higher it is in the placement order.")]
-        [NSXTDefaultProperty(Default: "")]
-        public long? Weight { get; set; }
+        [JsonProperty(PropertyName = "alignment")]
+        [NSXTProperty(IsRequired: false, Description: @"Aligns widget either left or right.")]
+        public NSXTWidgetItemAlignmentEnumType? Alignment { get; set; }
         /// <summary>
-        /// Applicable for 'DonutConfiguration' and 'StatsConfiguration' reports only. If label is not specified, then it defaults
-        /// to the label of the donut or stats report.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "label")]
-        [NSXTProperty(IsRequired: false, Description: @"Applicable for &apos;DonutConfiguration&apos; and &apos;StatsConfiguration&apos; reports only. If label is not specified, then it defaults to the label of the donut or stats report.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLabelType Label { get; set; }
     }
 }

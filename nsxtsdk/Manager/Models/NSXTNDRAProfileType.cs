@@ -17,19 +17,24 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNDRAProfileType : NSXTManagedResourceType
     {
+        public NSXTNDRAProfileType()
+        {
+            RaMode = test
+            RetransmitInterval = test
+            ReachableTimer = test
+        }
         /// <summary>
         /// RA Mode
         /// </summary>
         [JsonProperty(PropertyName = "ra_mode", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"RA Mode")]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "SLAAC_DNS_THROUGH_RA")]
         public NSXTNdraprofileRaModeEnumType RaMode { get; set; }
         /// <summary>
-        /// RA Configuration
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ra_config", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"RA Configuration")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTRAConfigType RaConfig { get; set; }
         /// <summary>
@@ -40,13 +45,18 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"The time, in milliseconds, between retransmitted neighboursolicitation messages.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(4294967295)]
-        [NSXTDefaultProperty(Default: "")]
         public long? RetransmitInterval { get; set; }
         /// <summary>
-        /// DNS Configuration
+        /// Route advertised in NDRAProfile.
+        /// </summary>
+        [JsonProperty(PropertyName = "ndra_advertised_route")]
+        [NSXTProperty(IsRequired: false, Description: @"Route advertised in NDRAProfile.")]
+        public IList<NSXTNDRAAdvertisedRouteType> NdraAdvertisedRoute { get; set; }
+        /// <summary>
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "dns_config")]
-        [NSXTProperty(IsRequired: false, Description: @"DNS Configuration")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTRaDNSConfigType DnsConfig { get; set; }
         /// <summary>
         /// Neighbour reachable time duration in milliseconds.
@@ -56,7 +66,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Neighbour reachable time duration in milliseconds.A value of 0 means unspecified.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(3600000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ReachableTimer { get; set; }
     }
 }

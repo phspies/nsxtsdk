@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTResourceOperationType : NSXTSourceType
     {
+        public NSXTResourceOperationType()
+        {
+        }
         /// <summary>
         /// Regex path representing a regex expression on resources. This regex is used
         /// to identify the object(s) that is/are the source of the Event. For instance:

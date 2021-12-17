@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTHaVipConfigType 
     {
+        public NSXTHaVipConfigType()
+        {
+            Enabled = test
+        }
         /// <summary>
         /// Array of IP address subnets which will be used as floating IP addresses. | Note - this configuration is applicable only
         /// for Active-Standby LogicalRouter. | For Active-Active LogicalRouter this configuration will be rejected.
@@ -38,7 +42,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Flag to enable this ha vip config.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enabled { get; set; }
     }
 }

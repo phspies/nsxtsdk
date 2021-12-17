@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBWafProfileType : NSXTPolicyConfigResourceType
     {
+        public NSXTALBWafProfileType()
+        {
+        }
         /// <summary>
         /// List of Data Files Used for WAF Rules.
         /// Maximum of 64 items allowed.
@@ -25,11 +28,19 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"List of Data Files Used for WAF Rules.Maximum of 64 items allowed.")]
         public IList<NSXTALBWafDataFileType> Files { get; set; }
         /// <summary>
-        /// Config params for WAF.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "config", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Config params for WAF.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBWafConfigType Config { get; set; }
+        /// <summary>
+        /// List of labels to be used for granular RBAC.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
+        /// </summary>
+        [JsonProperty(PropertyName = "markers")]
+        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
+        public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
     }
 }

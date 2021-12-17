@@ -30,11 +30,11 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRecommendedFeaturePermissionListResultType ValidateAndRecommendPermissionsValidate(NSXTFeaturePermissionArrayType FeaturePermissionArray)
+        public NSXTRecommendedFeaturePermissionListResultType ValidateAndRecommendPermissions(NSXTFeaturePermissionArrayType FeaturePermissionArray)
         {
             if (FeaturePermissionArray == null) { throw new System.ArgumentNullException("FeaturePermissionArray cannot be null"); }
             NSXTRecommendedFeaturePermissionListResultType returnValue = default(NSXTRecommendedFeaturePermissionListResultType);
-            StringBuilder ValidateAndRecommendPermissionsValidateServiceURL = new StringBuilder("/aaa/roles?action=validate");
+            StringBuilder ValidateAndRecommendPermissionsServiceURL = new StringBuilder("/aaa/roles?action=validate");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -42,11 +42,11 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(FeaturePermissionArray, defaultSerializationSettings));
-            request.Resource = ValidateAndRecommendPermissionsValidateServiceURL.ToString();
+            request.Resource = ValidateAndRecommendPermissionsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + ValidateAndRecommendPermissionsValidateServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + ValidateAndRecommendPermissionsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -67,21 +67,31 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAllStaleRoleBindingsDeleteStaleBindings()
+        public void DeleteAllStaleRoleBindings(string? Cursor = null, string? IdentitySourceId = null, string? IdentitySourceType = null, string? IncludedFields = null, string? Name = null, long? PageSize = null, string? Role = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
         {
             
-            StringBuilder DeleteAllStaleRoleBindingsDeleteStaleBindingsServiceURL = new StringBuilder("/aaa/role-bindings?action=delete_stale_bindings");
+            StringBuilder DeleteAllStaleRoleBindingsServiceURL = new StringBuilder("/aaa/role-bindings?action=delete_stale_bindings");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            request.Resource = DeleteAllStaleRoleBindingsDeleteStaleBindingsServiceURL.ToString();
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (IdentitySourceId != null) { request.AddQueryParameter("identity_source_id", IdentitySourceId.ToString()); }
+            if (IdentitySourceType != null) { request.AddQueryParameter("identity_source_type", IdentitySourceType.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (Name != null) { request.AddQueryParameter("name", Name.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (Role != null) { request.AddQueryParameter("role", Role.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            if (Type != null) { request.AddQueryParameter("type", Type.ToString()); }
+            request.Resource = DeleteAllStaleRoleBindingsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + DeleteAllStaleRoleBindingsDeleteStaleBindingsServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + DeleteAllStaleRoleBindingsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -209,25 +219,25 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNewRoleType CloneRoleClone(string Role, NSXTNewRoleType NewRole)
+        public NSXTNewRoleType CloneRole(string Role, NSXTNewRoleType NewRole)
         {
             if (Role == null) { throw new System.ArgumentNullException("Role cannot be null"); }
             if (NewRole == null) { throw new System.ArgumentNullException("NewRole cannot be null"); }
             NSXTNewRoleType returnValue = default(NSXTNewRoleType);
-            StringBuilder CloneRoleCloneServiceURL = new StringBuilder("/aaa/roles/{role}?action=clone");
+            StringBuilder CloneRoleServiceURL = new StringBuilder("/aaa/roles/{role}?action=clone");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            CloneRoleCloneServiceURL.Replace("{role}", System.Uri.EscapeDataString(Helpers.ConvertToString(Role, System.Globalization.CultureInfo.InvariantCulture)));
+            CloneRoleServiceURL.Replace("{role}", System.Uri.EscapeDataString(Helpers.ConvertToString(Role, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(NewRole, defaultSerializationSettings));
-            request.Resource = CloneRoleCloneServiceURL.ToString();
+            request.Resource = CloneRoleServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + CloneRoleCloneServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + CloneRoleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -431,7 +441,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUserInfoType GetCurrentUserInfo()
+        public NSXTUserInfoType GetCurrentUserInfo(string? RootPath = null)
         {
             NSXTUserInfoType returnValue = default(NSXTUserInfoType);
             StringBuilder GetCurrentUserInfoServiceURL = new StringBuilder("/aaa/user-info");
@@ -441,6 +451,7 @@ namespace nsxtapi.PolicyModules
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
+            if (RootPath != null) { request.AddQueryParameter("root_path", RootPath.ToString()); }
             request.Resource = GetCurrentUserInfoServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
@@ -547,7 +558,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteRoleBinding(string BindingId)
+        public void DeleteRoleBinding(string BindingId, string? Cursor = null, string? IdentitySourceId = null, string? IdentitySourceType = null, string? IncludedFields = null, string? Name = null, long? PageSize = null, string? Role = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
         {
             if (BindingId == null) { throw new System.ArgumentNullException("BindingId cannot be null"); }
             
@@ -559,6 +570,16 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             DeleteRoleBindingServiceURL.Replace("{binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BindingId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (IdentitySourceId != null) { request.AddQueryParameter("identity_source_id", IdentitySourceId.ToString()); }
+            if (IdentitySourceType != null) { request.AddQueryParameter("identity_source_type", IdentitySourceType.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (Name != null) { request.AddQueryParameter("name", Name.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (Role != null) { request.AddQueryParameter("role", Role.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            if (Type != null) { request.AddQueryParameter("type", Type.ToString()); }
             request.Resource = DeleteRoleBindingServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
@@ -572,7 +593,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRoleBindingType GetRoleBinding(string BindingId)
+        public NSXTRoleBindingType GetRoleBinding(string BindingId, string? Cursor = null, string? IdentitySourceId = null, string? IdentitySourceType = null, string? IncludedFields = null, string? Name = null, long? PageSize = null, string? Role = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
         {
             if (BindingId == null) { throw new System.ArgumentNullException("BindingId cannot be null"); }
             NSXTRoleBindingType returnValue = default(NSXTRoleBindingType);
@@ -584,6 +605,16 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             GetRoleBindingServiceURL.Replace("{binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BindingId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (IdentitySourceId != null) { request.AddQueryParameter("identity_source_id", IdentitySourceId.ToString()); }
+            if (IdentitySourceType != null) { request.AddQueryParameter("identity_source_type", IdentitySourceType.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (Name != null) { request.AddQueryParameter("name", Name.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (Role != null) { request.AddQueryParameter("role", Role.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            if (Type != null) { request.AddQueryParameter("type", Type.ToString()); }
             request.Resource = GetRoleBindingServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)

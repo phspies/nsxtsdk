@@ -17,47 +17,50 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTransportProtocolHeaderType 
     {
+        public NSXTTransportProtocolHeaderType()
+        {
+        }
         /// <summary>
-        /// UDP header
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "udp_header")]
-        [NSXTProperty(IsRequired: false, Description: @"UDP header")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTUdpHeaderType UdpHeader { get; set; }
         /// <summary>
-        /// DHCP header
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "dhcp_header")]
-        [NSXTProperty(IsRequired: false, Description: @"DHCP header")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTDhcpHeaderType DhcpHeader { get; set; }
         /// <summary>
-        /// TCP header
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "tcp_header")]
-        [NSXTProperty(IsRequired: false, Description: @"TCP header")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTTcpHeaderType TcpHeader { get; set; }
         /// <summary>
-        /// ICMP echo request header
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "icmp_echo_request_header")]
-        [NSXTProperty(IsRequired: false, Description: @"ICMP echo request header")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIcmpEchoRequestHeaderType IcmpEchoRequestHeader { get; set; }
         /// <summary>
-        /// DHCP v6 header
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "dhcpv6_header")]
-        [NSXTProperty(IsRequired: false, Description: @"DHCP v6 header")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTDhcpv6HeaderType Dhcpv6Header { get; set; }
         /// <summary>
-        /// Neighbor discovery protocol header
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ndp_header")]
-        [NSXTProperty(IsRequired: false, Description: @"Neighbor discovery protocol header")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTNdpHeaderType NdpHeader { get; set; }
         /// <summary>
-        /// DNS header
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "dns_header")]
-        [NSXTProperty(IsRequired: false, Description: @"DNS header")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTDnsHeaderType DnsHeader { get; set; }
     }
 }

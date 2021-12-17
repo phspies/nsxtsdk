@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBFastUdpProfileType : NSXTLBAppProfileType
     {
+        public NSXTLBFastUdpProfileType()
+        {
+            IdleTimeout = test
+        }
         /// <summary>
         /// Though UDP is a connectionless protocol, for the purposes of load
         /// balancing, all UDP packets with the same flow signature (source and
@@ -30,7 +34,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Though UDP is a connectionless protocol, for the purposes of loadbalancing, all UDP packets with the same flow signature (source anddestination IP/ports and IP protocol) received within the idle timeoutperiod are considered to belong to the same connection and are sent tothe same backend server. If no packets are received for idle timeoutperiod, the connection (association between flow signature and theselected server) is cleaned up.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
-        [NSXTDefaultProperty(Default: "")]
         public long? IdleTimeout { get; set; }
         /// <summary>
         /// If flow mirroring is enabled, all the flows to the bounded virtual

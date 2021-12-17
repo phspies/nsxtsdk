@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUpgradeCheckCsvRecordType : NSXTCsvRecordType
     {
+        public NSXTUpgradeCheckCsvRecordType()
+        {
+        }
         /// <summary>
         /// Status of the pre/post-upgrade check
         /// </summary>

@@ -17,11 +17,24 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBVirtualServiceType : NSXTPolicyConfigResourceType
     {
+        public NSXTALBVirtualServiceType()
+        {
+            FlowDist = test
+            CloudType = test
+            Weight = test
+            MaxCpsPerClient = test
+            TrafficEnabled = test
+            SslSessCacheAvgSize = test
+            ActiveStandbySeTag = test
+            Type = test
+            Enabled = test
+            FlowLabelType = test
+        }
         /// <summary>
-        /// HTTP authentication configuration for protected resources.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "client_auth")]
-        [NSXTProperty(IsRequired: false, Description: @"HTTP authentication configuration for protected resources.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHTTPClientAuthenticationParamsType ClientAuth { get; set; }
         /// <summary>
         /// The pool is an object that contains destination servers and
@@ -33,9 +46,11 @@ namespace nsxtsdk.PolicyModels
         public string? PoolPath { get; set; }
         /// <summary>
         /// Select SSL Profile based on client IP address match.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
         /// </summary>
         [JsonProperty(PropertyName = "ssl_profile_selectors")]
-        [NSXTProperty(IsRequired: false, Description: @"Select SSL Profile based on client IP address match.")]
+        [NSXTProperty(IsRequired: false, Description: @"Select SSL Profile based on client IP address match.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
         public IList<NSXTALBSSLProfileSelectorType> SslProfileSelectors { get; set; }
         /// <summary>
         /// The pool group is an object that contains pools.
@@ -58,12 +73,14 @@ namespace nsxtsdk.PolicyModels
         /// Enum options - LOAD_AWARE,
         /// CONSISTENT_HASH_SOURCE_IP_ADDRESS,
         /// CONSISTENT_HASH_SOURCE_IP_ADDRESS_AND_PORT.
+        /// Allowed in Basic(Allowed values- LOAD_AWARE) edition,
+        /// Essentials(Allowed values- LOAD_AWARE) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as LOAD_AWARE.
         /// </summary>
         [JsonProperty(PropertyName = "flow_dist")]
-        [NSXTProperty(IsRequired: false, Description: @"Criteria for flow distribution among SEs.Enum options - LOAD_AWARE,CONSISTENT_HASH_SOURCE_IP_ADDRESS,CONSISTENT_HASH_SOURCE_IP_ADDRESS_AND_PORT.Default value when not specified in API or module isinterpreted by ALB Controller as LOAD_AWARE.")]
-        [NSXTDefaultProperty(Default: "LOAD_AWARE")]
+        [NSXTProperty(IsRequired: false, Description: @"Criteria for flow distribution among SEs.Enum options - LOAD_AWARE,CONSISTENT_HASH_SOURCE_IP_ADDRESS,CONSISTENT_HASH_SOURCE_IP_ADDRESS_AND_PORT.Allowed in Basic(Allowed values- LOAD_AWARE) edition,Essentials(Allowed values- LOAD_AWARE) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as LOAD_AWARE.")]
         public NSXTAlbvirtualServiceFlowDistEnumType? FlowDist { get; set; }
         /// <summary>
         /// Determines the set of SSL versions and ciphers to accept
@@ -74,22 +91,24 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Determines the set of SSL versions and ciphers to acceptfor SSL/TLS terminated connections.It is a reference to an object of type SSLProfile.")]
         public string? SslProfilePath { get; set; }
         /// <summary>
-        /// Profile used to match and rewrite strings in request and/or
-        /// response body.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "content_rewrite")]
-        [NSXTProperty(IsRequired: false, Description: @"Profile used to match and rewrite strings in request and/orresponse body.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBContentRewriteProfileType ContentRewrite { get; set; }
         /// <summary>
         /// Select the algorithm for QoS fairness.
         /// This determines how multiple Virtual Services sharing the
         /// same Service Engines will prioritize traffic over a
         /// congested network.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "delay_fairness")]
-        [NSXTProperty(IsRequired: false, Description: @"Select the algorithm for QoS fairness.This determines how multiple Virtual Services sharing thesame Service Engines will prioritize traffic over acongested network.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"Select the algorithm for QoS fairness.This determines how multiple Virtual Services sharing thesame Service Engines will prioritize traffic over acongested network.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? DelayFairness { get; set; }
         /// <summary>
         /// List of Virtual Service IPs.
@@ -118,18 +137,23 @@ namespace nsxtsdk.PolicyModels
         /// Service.
         /// Should be in the <Contract name> <Graph name> format.
         /// This is applicable only for Service Integration mode with
-        /// Cisco APIC Controller .
+        /// Cisco APIC Controller.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
         /// </summary>
         [JsonProperty(PropertyName = "apic_contract_graph")]
-        [NSXTProperty(IsRequired: false, Description: @"The name of the Contract/Graph associated with the VirtualService.Should be in the &lt;Contract name&gt; &lt;Graph name&gt; format.This is applicable only for Service Integration mode withCisco APIC Controller .")]
+        [NSXTProperty(IsRequired: false, Description: @"The name of the Contract/Graph associated with the VirtualService.Should be in the &lt;Contract name&gt; &lt;Graph name&gt; format.This is applicable only for Service Integration mode withCisco APIC Controller.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
         public string? ApicContractGraph { get; set; }
         /// <summary>
-        /// WAF policy for the Virtual Service.
-        /// It is a reference to an object of type WafPolicy.
+        /// Virtual Routing Context that the Virtual Service is bound
+        /// to.
+        /// This is used to provide the isolation of the set of
+        /// networks the application is attached to.
+        /// It is a reference to an object of type VrfContext.
         /// </summary>
-        [JsonProperty(PropertyName = "waf_policy_path")]
-        [NSXTProperty(IsRequired: false, Description: @"WAF policy for the Virtual Service.It is a reference to an object of type WafPolicy.")]
-        public string? WafPolicyPath { get; set; }
+        [JsonProperty(PropertyName = "vrf_context_name")]
+        [NSXTProperty(IsRequired: false, Description: @"Virtual Routing Context that the Virtual Service is boundto.This is used to provide the isolation of the set ofnetworks the application is attached to.It is a reference to an object of type VrfContext.")]
+        public string? VrfContextName { get; set; }
         /// <summary>
         /// Enable Route Health Injection for Source NAT'ted floating
         /// IP Address using the BGP Config in the vrf context.
@@ -141,9 +165,11 @@ namespace nsxtsdk.PolicyModels
         /// Determines network settings such as protocol, TCP or UDP,
         /// and related options for the protocol.
         /// It is a reference to an object of type NetworkProfile.
+        /// Special default for Essentials edition is
+        /// System-TCP-Fast-Path.
         /// </summary>
         [JsonProperty(PropertyName = "network_profile_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Determines network settings such as protocol, TCP or UDP,and related options for the protocol.It is a reference to an object of type NetworkProfile.")]
+        [NSXTProperty(IsRequired: false, Description: @"Determines network settings such as protocol, TCP or UDP,and related options for the protocol.It is a reference to an object of type NetworkProfile.Special default for Essentials edition isSystem-TCP-Fast-Path.")]
         public string? NetworkProfilePath { get; set; }
         /// <summary>
         /// Metadata pertaining to the Service provided by this virtual
@@ -157,25 +183,25 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Metadata pertaining to the Service provided by this virtualservice.In Openshift/Kubernetes environments, egress pod info isstored.Any user input to this field will be overwritten by AviVantage.")]
         public string? ServiceMetadata { get; set; }
         /// <summary>
-        /// Sideband configuration to be used for this
-        /// virtualservice.It can be used for sending traffic to
-        /// sideband VIPs for external inspection etc.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "sideband_profile")]
-        [NSXTProperty(IsRequired: false, Description: @"Sideband configuration to be used for thisvirtualservice.It can be used for sending traffic tosideband VIPs for external inspection etc.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBSidebandProfileType SidebandProfile { get; set; }
         /// <summary>
         /// Server network or list of servers for cloning traffic.
         /// It is a reference to an object of type TrafficCloneProfile.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
         /// </summary>
         [JsonProperty(PropertyName = "traffic_clone_profile_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Server network or list of servers for cloning traffic.It is a reference to an object of type TrafficCloneProfile.")]
+        [NSXTProperty(IsRequired: false, Description: @"Server network or list of servers for cloning traffic.It is a reference to an object of type TrafficCloneProfile.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
         public string? TrafficCloneProfilePath { get; set; }
         /// <summary>
-        /// Rate limit the incoming requests to this virtual service.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "requests_rate_limit")]
-        [NSXTProperty(IsRequired: false, Description: @"Rate limit the incoming requests to this virtual service.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBRateProfileType RequestsRateLimit { get; set; }
         /// <summary>
         /// (This is a beta feature).
@@ -184,30 +210,37 @@ namespace nsxtsdk.PolicyModels
         /// When the VS is scaled out, the SSL session information is
         /// synced to the new SE, allowing existing SSL sessions to be
         /// reused on the new SE.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "bulk_sync_kvcache")]
-        [NSXTProperty(IsRequired: false, Description: @"(This is a beta feature).Sync Key-Value cache to the new SEs when VS is scaled out.For ex  SSL sessions are stored using VS&apos;s Key-Value cache.When the VS is scaled out, the SSL session information issynced to the new SE, allowing existing SSL sessions to bereused on the new SE.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"(This is a beta feature).Sync Key-Value cache to the new SEs when VS is scaled out.For ex  SSL sessions are stored using VS&apos;s Key-Value cache.When the VS is scaled out, the SSL session information issynced to the new SE, allowing existing SSL sessions to bereused on the new SE.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? BulkSyncKvcache { get; set; }
         /// <summary>
         /// The SSO Policy attached to the virtualservice.
         /// It is a reference to an object of type SSOPolicy.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
         /// </summary>
         [JsonProperty(PropertyName = "sso_policy_path")]
-        [NSXTProperty(IsRequired: false, Description: @"The SSO Policy attached to the virtualservice.It is a reference to an object of type SSOPolicy.")]
+        [NSXTProperty(IsRequired: false, Description: @"The SSO Policy attached to the virtualservice.It is a reference to an object of type SSOPolicy.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
         public string? SsoPolicyPath { get; set; }
         /// <summary>
         /// Enum options - CLOUD_NONE, CLOUD_VCENTER, CLOUD_OPENSTACK,
         /// CLOUD_AWS, CLOUD_VCA, CLOUD_APIC, CLOUD_MESOS,
         /// CLOUD_LINUXSERVER, CLOUD_DOCKER_UCP, CLOUD_RANCHER,
         /// CLOUD_OSHIFT_K8S, CLOUD_AZURE, CLOUD_GCP, CLOUD_NSXT.
+        /// Allowed in Basic(Allowed values- CLOUD_NONE,CLOUD_NSXT)
+        /// edition, Essentials(Allowed values-
+        /// CLOUD_NONE,CLOUD_VCENTER) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as CLOUD_NONE.
         /// </summary>
         [JsonProperty(PropertyName = "cloud_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Enum options - CLOUD_NONE, CLOUD_VCENTER, CLOUD_OPENSTACK,CLOUD_AWS, CLOUD_VCA, CLOUD_APIC, CLOUD_MESOS,CLOUD_LINUXSERVER, CLOUD_DOCKER_UCP, CLOUD_RANCHER,CLOUD_OSHIFT_K8S, CLOUD_AZURE, CLOUD_GCP, CLOUD_NSXT.Default value when not specified in API or module isinterpreted by ALB Controller as CLOUD_NONE.")]
-        [NSXTDefaultProperty(Default: "CLOUD_NONE")]
+        [NSXTProperty(IsRequired: false, Description: @"Enum options - CLOUD_NONE, CLOUD_VCENTER, CLOUD_OPENSTACK,CLOUD_AWS, CLOUD_VCA, CLOUD_APIC, CLOUD_MESOS,CLOUD_LINUXSERVER, CLOUD_DOCKER_UCP, CLOUD_RANCHER,CLOUD_OSHIFT_K8S, CLOUD_AZURE, CLOUD_GCP, CLOUD_NSXT.Allowed in Basic(Allowed values- CLOUD_NONE,CLOUD_NSXT)edition, Essentials(Allowed values-CLOUD_NONE,CLOUD_VCENTER) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as CLOUD_NONE.")]
         public NSXTAlbvirtualServiceCloudTypeEnumType? CloudType { get; set; }
         /// <summary>
         /// The Quality of Service weight to assign to traffic
@@ -215,14 +248,15 @@ namespace nsxtsdk.PolicyModels
         /// A higher weight will prioritize traffic versus other
         /// Virtual Services sharing the same Service Engines.
         /// Allowed values are 1-128.
+        /// Allowed in Basic(Allowed values- 1) edition,
+        /// Essentials(Allowed values- 1) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 1.
         /// </summary>
         [JsonProperty(PropertyName = "weight")]
-        [NSXTProperty(IsRequired: false, Description: @"The Quality of Service weight to assign to traffictransmitted from this Virtual Service.A higher weight will prioritize traffic versus otherVirtual Services sharing the same Service Engines.Allowed values are 1-128.Default value when not specified in API or module isinterpreted by ALB Controller as 1.")]
+        [NSXTProperty(IsRequired: false, Description: @"The Quality of Service weight to assign to traffictransmitted from this Virtual Service.A higher weight will prioritize traffic versus otherVirtual Services sharing the same Service Engines.Allowed values are 1-128.Allowed in Basic(Allowed values- 1) edition,Essentials(Allowed values- 1) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 1.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(128)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Weight { get; set; }
         /// <summary>
         /// The exact name requested from the client's SNI-enabled TLS
@@ -239,17 +273,20 @@ namespace nsxtsdk.PolicyModels
         /// This setting takes effect for future Virtual Service flaps.
         /// To advertise current VSes that are down, please disable and
         /// re-enable the Virtual Service.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "advertise_down_vs")]
-        [NSXTProperty(IsRequired: false, Description: @"Keep advertising Virtual Service via BGP even if it ismarked down by health monitor.This setting takes effect for future Virtual Service flaps.To advertise current VSes that are down, please disable andre-enable the Virtual Service.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"Keep advertising Virtual Service via BGP even if it ismarked down by health monitor.This setting takes effect for future Virtual Service flaps.To advertise current VSes that are down, please disable andre-enable the Virtual Service.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? AdvertiseDownVs { get; set; }
         /// <summary>
-        /// Application-specific SAML config.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "saml_sp_config")]
-        [NSXTProperty(IsRequired: false, Description: @"Application-specific SAML config.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBSAMLSPConfigType SamlSpConfig { get; set; }
         /// <summary>
         /// Mostly used during the creation of Shared VS, this field
@@ -261,14 +298,14 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Mostly used during the creation of Shared VS, this fieldrefers to entities that can be shared across VirtualServices.It is a reference to an object of type VsVip.")]
         public string? VsvipPath { get; set; }
         /// <summary>
-        /// Ignore Pool servers network reachability constraints for
-        /// Virtual Service placement.
-        /// Default value when not specified in API or module is
-        /// interpreted by ALB Controller as false.
+        /// Topology Policies applied on the dns traffic of the Virtual
+        /// Service based onGSLB Topology algorithm.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
         /// </summary>
-        [JsonProperty(PropertyName = "ign_pool_net_reach")]
-        [NSXTProperty(IsRequired: false, Description: @"Ignore Pool servers network reachability constraints forVirtual Service placement.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
-        public bool? IgnPoolNetReach { get; set; }
+        [JsonProperty(PropertyName = "topology_policies")]
+        [NSXTProperty(IsRequired: false, Description: @"Topology Policies applied on the dns traffic of the VirtualService based onGSLB Topology algorithm.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
+        public IList<NSXTALBDnsPoliciesType> TopologyPolicies { get; set; }
         /// <summary>
         /// Minimum number of UP pools to mark VS up.
         /// </summary>
@@ -286,7 +323,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Maximum connections per second per client IP.Allowed values are 10-1000.Special values are 0- &apos;unlimited&apos;.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(1000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? MaxCpsPerClient { get; set; }
         /// <summary>
         /// Network security policies for the Virtual Service.
@@ -313,7 +349,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "traffic_enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Knob to enable the Virtual Service traffic on its assignedservice engines.This setting is effective only when the enabled flag is setto True.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? TrafficEnabled { get; set; }
         /// <summary>
         /// (internal-use)Applicable for Azure only.
@@ -334,7 +369,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Expected number of SSL session cache entries (may beexceeded).Allowed values are 1024-16383.Default value when not specified in API or module isinterpreted by ALB Controller as 1024.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1024)]
         //[System.ComponentModel.DataAnnotations.MaxLength(16383)]
-        [NSXTDefaultProperty(Default: "")]
         public long? SslSessCacheAvgSize { get; set; }
         /// <summary>
         /// Datascripts applied on the data traffic of the Virtual
@@ -352,29 +386,34 @@ namespace nsxtsdk.PolicyModels
         public IList<NSXTALBL4PoliciesType> L4Policies { get; set; }
         /// <summary>
         /// Use Bridge IP as VIP on each Host in Mesos deployments.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "use_bridge_ip_as_vip")]
-        [NSXTProperty(IsRequired: false, Description: @"Use Bridge IP as VIP on each Host in Mesos deployments.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"Use Bridge IP as VIP on each Host in Mesos deployments.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? UseBridgeIpAsVip { get; set; }
         /// <summary>
         /// Process request even if invalid client certificate is
         /// presented.
         /// Datascript APIs need to be used for processing of such
         /// requests.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "allow_invalid_client_cert")]
-        [NSXTProperty(IsRequired: false, Description: @"Process request even if invalid client certificate ispresented.Datascript APIs need to be used for processing of suchrequests.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"Process request even if invalid client certificate ispresented.Datascript APIs need to be used for processing of suchrequests.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? AllowInvalidClientCert { get; set; }
         /// <summary>
-        /// Optional settings that determine performance limits like
-        /// max connections or bandwdith etc.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "performance_limits")]
-        [NSXTProperty(IsRequired: false, Description: @"Optional settings that determine performance limits likemax connections or bandwdith etc.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBPerformanceLimitsType PerformanceLimits { get; set; }
         /// <summary>
         /// HTTP Policies applied on the data traffic of the Virtual
@@ -383,6 +422,15 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "http_policies")]
         [NSXTProperty(IsRequired: false, Description: @"HTTP Policies applied on the data traffic of the VirtualService.")]
         public IList<NSXTALBHTTPPoliciesType> HttpPolicies { get; set; }
+        /// <summary>
+        /// WAF policy for the Virtual Service.
+        /// It is a reference to an object of type WafPolicy.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
+        /// </summary>
+        [JsonProperty(PropertyName = "waf_policy_path")]
+        [NSXTProperty(IsRequired: false, Description: @"WAF policy for the Virtual Service.It is a reference to an object of type WafPolicy.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
+        public string? WafPolicyPath { get; set; }
         /// <summary>
         /// GSLB pools used to manage site-persistence functionality.
         /// Each site-persistence pool contains the virtualservices in
@@ -416,7 +464,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "active_standby_se_tag")]
         [NSXTProperty(IsRequired: false, Description: @"This configuration only applies if the VirtualService is inLegacy Active Standby HA mode and Load Distribution amongActive Standby is enabled.This field is used to tag the VirtualService so thatVirtualServices with the same tag will share the same ActiveServiceEngine.VirtualServices with different tags will have differentActive ServiceEngines.If one of the ServiceEngine&apos;s in the ServiceEngineGroupfails, all VirtualServices will end up using the same ActiveServiceEngine.Redistribution of the VirtualServices can be either manualor automated when the failed ServiceEngine recovers.Redistribution is based on the auto redistribute propertyof the ServiceEngineGroup.Enum options - ACTIVE_STANDBY_SE_1, ACTIVE_STANDBY_SE_2.Default value when not specified in API or module isinterpreted by ALB Controller as ACTIVE_STANDBY_SE_1.")]
-        [NSXTDefaultProperty(Default: "ACTIVE_STANDBY_SE_1")]
         public NSXTAlbvirtualServiceActiveStandbySeTagEnumType? ActiveStandbySeTag { get; set; }
         /// <summary>
         /// Select or create one or two certificates, EC and/or RSA,
@@ -428,6 +475,12 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Select or create one or two certificates, EC and/or RSA,that will be presented to SSL/TLS terminated connections.It is a reference to an object of typeSSLKeyAndCertificate.")]
         public IList<string> SslKeyAndCertificatePaths { get; set; }
         /// <summary>
+        /// It is a reference to an object of type Cloud.
+        /// </summary>
+        [JsonProperty(PropertyName = "cloud_name")]
+        [NSXTProperty(IsRequired: false, Description: @"It is a reference to an object of type Cloud.")]
+        public string? CloudName { get; set; }
+        /// <summary>
         /// Translate the host name sent to the servers to this value.
         /// Translate the host name sent from servers back to the value
         /// used by the client.
@@ -436,27 +489,39 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Translate the host name sent to the servers to this value.Translate the host name sent from servers back to the valueused by the client.")]
         public string? HostNameXlate { get; set; }
         /// <summary>
+        /// Select BGP peers, using peer label, for VsVip
+        /// advertisement.
+        /// Maximum of 128 items allowed.
+        /// </summary>
+        [JsonProperty(PropertyName = "bgp_peer_labels")]
+        [NSXTProperty(IsRequired: false, Description: @"Select BGP peers, using peer label, for VsVipadvertisement.Maximum of 128 items allowed.")]
+        public IList<string> BgpPeerLabels { get; set; }
+        /// <summary>
         /// Use the Virtual IP as the SNAT IP for health monitoring and
         /// sending traffic to the backend servers instead of the
         /// Service Engine interface IP.
         /// The caveat of enabling this option is that the
-        /// VirtualService cannot be configued in an Active-Active HA
+        /// VirtualService cannot be configured in an Active-Active HA
         /// mode.
         /// DNS based Multi VIP solution has to be used for HA &
         /// Non-disruptive Upgrade purposes.
+        /// Allowed in Essentials(Allowed values- false) edition,
+        /// Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "use_vip_as_snat")]
-        [NSXTProperty(IsRequired: false, Description: @"Use the Virtual IP as the SNAT IP for health monitoring andsending traffic to the backend servers instead of theService Engine interface IP.The caveat of enabling this option is that theVirtualService cannot be configued in an Active-Active HAmode.DNS based Multi VIP solution has to be used for HA &amp;Non-disruptive Upgrade purposes.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"Use the Virtual IP as the SNAT IP for health monitoring andsending traffic to the backend servers instead of theService Engine interface IP.The caveat of enabling this option is that theVirtualService cannot be configured in an Active-Active HAmode.DNS based Multi VIP solution has to be used for HA &amp;Non-disruptive Upgrade purposes.Allowed in Essentials(Allowed values- false) edition,Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? UseVipAsSnat { get; set; }
         /// <summary>
         /// Enable application layer specific features for the Virtual
         /// Service.
         /// It is a reference to an object of type ApplicationProfile.
+        /// Special default for Essentials edition is
+        /// System-L4-Application.
         /// </summary>
         [JsonProperty(PropertyName = "application_profile_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable application layer specific features for the VirtualService.It is a reference to an object of type ApplicationProfile.")]
+        [NSXTProperty(IsRequired: false, Description: @"Enable application layer specific features for the VirtualService.It is a reference to an object of type ApplicationProfile.Special default for Essentials edition isSystem-L4-Application.")]
         public string? ApplicationProfilePath { get; set; }
         /// <summary>
         /// Specifies the Virtual Service acting as Virtual Hosting
@@ -466,11 +531,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Specifies the Virtual Service acting as Virtual Hosting(SNI) parent.")]
         public string? VhParentVsUuid { get; set; }
         /// <summary>
-        /// Rate limit the incoming connections to this virtual
-        /// service.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "connections_rate_limit")]
-        [NSXTProperty(IsRequired: false, Description: @"Rate limit the incoming connections to this virtualservice.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBRateProfileType ConnectionsRateLimit { get; set; }
         /// <summary>
         /// The Service Engine Group to use for this Virtual Service.
@@ -482,29 +546,44 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"The Service Engine Group to use for this Virtual Service.Moving to a new SE Group is disruptive to existingconnections for this VS.It is a reference to an object of type ServiceEngineGroup.")]
         public string? SeGroupName { get; set; }
         /// <summary>
-        /// Topology Policies applied on the dns traffic of the Virtual
-        /// Service based onGSLB Topology algorithm.
+        /// Ignore Pool servers network reachability constraints for
+        /// Virtual Service placement.
+        /// Default value when not specified in API or module is
+        /// interpreted by ALB Controller as false.
         /// </summary>
-        [JsonProperty(PropertyName = "topology_policies")]
-        [NSXTProperty(IsRequired: false, Description: @"Topology Policies applied on the dns traffic of the VirtualService based onGSLB Topology algorithm.")]
-        public IList<NSXTALBDnsPoliciesType> TopologyPolicies { get; set; }
+        [JsonProperty(PropertyName = "ign_pool_net_reach")]
+        [NSXTProperty(IsRequired: false, Description: @"Ignore Pool servers network reachability constraints forVirtual Service placement.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        public bool? IgnPoolNetReach { get; set; }
+        /// <summary>
+        /// List of labels to be used for granular RBAC.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
+        /// </summary>
+        [JsonProperty(PropertyName = "markers")]
+        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
+        public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
         /// <summary>
         /// Force placement on all SE's in service group (Mesos mode
         /// only).
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "east_west_placement")]
-        [NSXTProperty(IsRequired: false, Description: @"Force placement on all SE&apos;s in service group (Mesos modeonly).Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"Force placement on all SE&apos;s in service group (Mesos modeonly).Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? EastWestPlacement { get; set; }
         /// <summary>
         /// Error Page Profile to be used for this virtualservice.This
         /// profile is used to send the custom error page to the client
         /// generated by the proxy.
         /// It is a reference to an object of type ErrorPageProfile.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
         /// </summary>
         [JsonProperty(PropertyName = "error_page_profile_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Error Page Profile to be used for this virtualservice.Thisprofile is used to send the custom error page to the clientgenerated by the proxy.It is a reference to an object of type ErrorPageProfile.")]
+        [NSXTProperty(IsRequired: false, Description: @"Error Page Profile to be used for this virtualservice.Thisprofile is used to send the custom error page to the clientgenerated by the proxy.It is a reference to an object of type ErrorPageProfile.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
         public string? ErrorPageProfilePath { get; set; }
         /// <summary>
         /// Limit potential DoS attackers who exceed max_cps_per_client
@@ -524,11 +603,14 @@ namespace nsxtsdk.PolicyModels
         public IList<NSXTALBServicePoolSelectorType> ServicePoolSelect { get; set; }
         /// <summary>
         /// close client connection on vs config update.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "close_client_conn_on_config_update")]
-        [NSXTProperty(IsRequired: false, Description: @"close client connection on vs config update.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"close client connection on vs config update.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? CloseClientConnOnConfigUpdate { get; set; }
         /// <summary>
         /// Specify if this is a normal Virtual Service, or if it is
@@ -536,23 +618,30 @@ namespace nsxtsdk.PolicyModels
         /// Service.
         /// Enum options - VS_TYPE_NORMAL, VS_TYPE_VH_PARENT,
         /// VS_TYPE_VH_CHILD.
+        /// Allowed in Basic(Allowed values-
+        /// VS_TYPE_NORMAL,VS_TYPE_VH_PARENT) edition,
+        /// Essentials(Allowed values- VS_TYPE_NORMAL) edition,
+        /// Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as VS_TYPE_NORMAL.
         /// </summary>
         [JsonProperty(PropertyName = "type")]
-        [NSXTProperty(IsRequired: false, Description: @"Specify if this is a normal Virtual Service, or if it isthe parent or child of an SNI-enabled virtual hosted VirtualService.Enum options - VS_TYPE_NORMAL, VS_TYPE_VH_PARENT,VS_TYPE_VH_CHILD.Default value when not specified in API or module isinterpreted by ALB Controller as VS_TYPE_NORMAL.")]
-        [NSXTDefaultProperty(Default: "VS_TYPE_NORMAL")]
+        [NSXTProperty(IsRequired: false, Description: @"Specify if this is a normal Virtual Service, or if it isthe parent or child of an SNI-enabled virtual hosted VirtualService.Enum options - VS_TYPE_NORMAL, VS_TYPE_VH_PARENT,VS_TYPE_VH_CHILD.Allowed in Basic(Allowed values-VS_TYPE_NORMAL,VS_TYPE_VH_PARENT) edition,Essentials(Allowed values- VS_TYPE_NORMAL) edition,Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as VS_TYPE_NORMAL.")]
         public NSXTAlbvirtualServiceTypeEnumType? Type { get; set; }
         /// <summary>
         /// Response traffic to clients will be sent back to the source
         /// MAC address of the connection, rather than statically sent
         /// to a default gateway.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
+        /// Special default for Basic edition is false, Essentials
+        /// edition is false, Enterprise is True.
         /// Default value when not specified in API or module is
-        /// interpreted by ALB Controller as true.
+        /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "enable_autogw")]
-        [NSXTProperty(IsRequired: false, Description: @"Response traffic to clients will be sent back to the sourceMAC address of the connection, rather than statically sentto a default gateway.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Response traffic to clients will be sent back to the sourceMAC address of the connection, rather than statically sentto a default gateway.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Special default for Basic edition is false, Essentialsedition is false, Enterprise is True.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? EnableAutogw { get; set; }
         /// <summary>
         /// A list of NSX Groups representing the Clients which can
@@ -568,7 +657,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Enable or disable the Virtual Service.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// Remove listening port if VirtualService is down.
@@ -589,9 +677,11 @@ namespace nsxtsdk.PolicyModels
         /// <summary>
         /// DNS Policies applied on the dns traffic of the Virtual
         /// Service.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
         /// </summary>
         [JsonProperty(PropertyName = "dns_policies")]
-        [NSXTProperty(IsRequired: false, Description: @"DNS Policies applied on the dns traffic of the VirtualService.")]
+        [NSXTProperty(IsRequired: false, Description: @"DNS Policies applied on the dns traffic of the VirtualService.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
         public IList<NSXTALBDnsPoliciesType> DnsPolicies { get; set; }
         /// <summary>
         /// List of static DNS records applied to this Virtual Service.
@@ -610,10 +700,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"List of Services defined for this Virtual Service.Maximum of 2048 items allowed.")]
         public IList<NSXTALBServiceType> Services { get; set; }
         /// <summary>
-        /// Determines analytics settings for the application.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "analytics_policy")]
-        [NSXTProperty(IsRequired: false, Description: @"Determines analytics settings for the application.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBAnalyticsPolicyType AnalyticsPolicy { get; set; }
         /// <summary>
         /// Enable Route Health Injection using the BGP Config in the
@@ -645,9 +735,11 @@ namespace nsxtsdk.PolicyModels
         /// This policy is used to perform security actions such as
         /// Distributed Denial of Service (DDoS) attack mitigation, etc.
         /// It is a reference to an object of type SecurityPolicy.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
         /// </summary>
         [JsonProperty(PropertyName = "security_policy_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Security policy applied on the traffic of the VirtualService.This policy is used to perform security actions such asDistributed Denial of Service (DDoS) attack mitigation, etc.It is a reference to an object of type SecurityPolicy.")]
+        [NSXTProperty(IsRequired: false, Description: @"Security policy applied on the traffic of the VirtualService.This policy is used to perform security actions such asDistributed Denial of Service (DDoS) attack mitigation, etc.It is a reference to an object of type SecurityPolicy.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
         public string? SecurityPolicyPath { get; set; }
         /// <summary>
         /// Criteria for flow labelling.
@@ -657,7 +749,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "flow_label_type")]
         [NSXTProperty(IsRequired: false, Description: @"Criteria for flow labelling.Enum options - NO_LABEL, APPLICATION_LABEL, SERVICE_LABEL.Default value when not specified in API or module isinterpreted by ALB Controller as NO_LABEL.")]
-        [NSXTDefaultProperty(Default: "NO_LABEL")]
         public NSXTAlbvirtualServiceFlowLabelTypeEnumType? FlowLabelType { get; set; }
     }
 }

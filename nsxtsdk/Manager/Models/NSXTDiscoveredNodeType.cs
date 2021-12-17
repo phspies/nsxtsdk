@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDiscoveredNodeType : NSXTDiscoveredResourceType
     {
+        public NSXTDiscoveredNodeType()
+        {
+        }
         /// <summary>
         /// The stateless property describes whether host persists its state across reboot or not. If state persists, value is set
         /// as false otherwise true.

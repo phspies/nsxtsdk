@@ -12,11 +12,14 @@ using System.ComponentModel;
 namespace nsxtsdk.PolicyModels
 {
     /// <summary>
-    /// Status of tag bulk operation
+    /// Status of tag bulk operation.
     /// </summary>
-    [NSXTProperty(Description: @"Status of tag bulk operation")]
+    [NSXTProperty(Description: @"Status of tag bulk operation.")]
     public class NSXTTagBulkOperationStatusType 
     {
+        public NSXTTagBulkOperationStatusType()
+        {
+        }
         /// <summary>
         /// Overall status
         /// </summary>
@@ -38,17 +41,17 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Tag apply operation status per resource type.")]
         public IList<NSXTResourceTypeTagStatusType> ApplyTo { get; set; }
         /// <summary>
-        /// Tag
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "tag", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Tag")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTTagType Tag { get; set; }
         /// <summary>
-        /// Tag remove operation status per resource type
+        /// Tag remove operation status per resource type.
         /// </summary>
         [JsonProperty(PropertyName = "remove_from")]
-        [NSXTProperty(IsRequired: false, Description: @"Tag remove operation status per resource type")]
+        [NSXTProperty(IsRequired: false, Description: @"Tag remove operation status per resource type.")]
         public IList<NSXTResourceTypeTagStatusType> RemoveFrom { get; set; }
     }
 }

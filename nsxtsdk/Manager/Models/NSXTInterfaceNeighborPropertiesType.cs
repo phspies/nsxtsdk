@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTInterfaceNeighborPropertiesType : NSXTManagedResourceType
     {
+        public NSXTInterfaceNeighborPropertiesType()
+        {
+        }
         /// <summary>
         /// Interface index
         /// </summary>

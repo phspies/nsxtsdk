@@ -17,12 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"This object contains SNMP v2c community identifier, shared secret and access properties.")]
     public class NSXTSnmpv2cCommunityType 
     {
+        public NSXTSnmpv2cCommunityType()
+        {
+            Access = test
+        }
         /// <summary>
         /// Access permissions for polling NSX nodes over SNMP v2c.
         /// </summary>
         [JsonProperty(PropertyName = "access")]
         [NSXTProperty(IsRequired: false, Description: @"Access permissions for polling NSX nodes over SNMP v2c.")]
-        [NSXTDefaultProperty(Default: "READ_ONLY")]
         public NSXTSnmpv2cCommunityAccessEnumType? Access { get; set; }
         /// <summary>
         /// Unique, non-sensitive community name to identify community.

@@ -17,19 +17,20 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HealthMonitorAuthInfo object")]
     public class NSXTALBHealthMonitorAuthInfoType 
     {
+        public NSXTALBHealthMonitorAuthInfoType()
+        {
+        }
         /// <summary>
         /// Username for server authentication.
         /// </summary>
-        [JsonProperty(PropertyName = "username", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Username for server authentication.")]
-        [System.ComponentModel.DataAnnotations.Required]
-        public string Username { get; set; }
+        [JsonProperty(PropertyName = "username")]
+        [NSXTProperty(IsRequired: false, Description: @"Username for server authentication.")]
+        public string? Username { get; set; }
         /// <summary>
         /// Password for server authentication.
         /// </summary>
-        [JsonProperty(PropertyName = "password", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Password for server authentication.")]
-        [System.ComponentModel.DataAnnotations.Required]
-        public string Password { get; set; }
+        [JsonProperty(PropertyName = "password")]
+        [NSXTProperty(IsRequired: false, Description: @"Password for server authentication.")]
+        public string? Password { get; set; }
     }
 }

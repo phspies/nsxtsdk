@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUpgradeUnitAggregateInfoType : NSXTResourceType
     {
+        public NSXTUpgradeUnitAggregateInfoType()
+        {
+        }
         /// <summary>
         /// Status of upgrade unit
         /// </summary>
@@ -60,10 +63,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"This is component version e.g. if upgrade unit is of type edge, then this is edge version.")]
         public string? CurrentVersion { get; set; }
         /// <summary>
-        /// Info of the group to which this upgrade unit belongs
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "group")]
-        [NSXTProperty(IsRequired: false, Description: @"Info of the group to which this upgrade unit belongs")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTUpgradeUnitGroupInfoType Group { get; set; }
         /// <summary>
         /// Indicator of upgrade progress in percentage

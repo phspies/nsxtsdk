@@ -17,18 +17,23 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbSourceIpPersistenceProfileType : NSXTLbPersistenceProfileType
     {
+        public NSXTLbSourceIpPersistenceProfileType()
+        {
+            Purge = test
+            Timeout = test
+        }
         /// <summary>
         /// persistence purge setting
         /// </summary>
         [JsonProperty(PropertyName = "purge")]
         [NSXTProperty(IsRequired: false, Description: @"persistence purge setting")]
-        [NSXTDefaultProperty(Default: "FULL")]
         public NSXTLbSourceIpPersistenceProfilePurgeEnumType? Purge { get; set; }
         /// <summary>
         /// Persistence entries are not synchronized to the HA peer by default.
+        /// The property is deprecated as NSX-T Load Balancer is deprecated.
         /// </summary>
         [JsonProperty(PropertyName = "ha_persistence_mirroring_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Persistence entries are not synchronized to the HA peer by default.")]
+        [NSXTProperty(IsRequired: false, Description: @"Persistence entries are not synchronized to the HA peer by default.The property is deprecated as NSX-T Load Balancer is deprecated.")]
         public bool? HaPersistenceMirroringEnabled { get; set; }
         /// <summary>
         /// When all connections complete (reference count reaches 0), persistence
@@ -38,7 +43,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"When all connections complete (reference count reaches 0), persistenceentry timer is started with the expiration time.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Timeout { get; set; }
     }
 }

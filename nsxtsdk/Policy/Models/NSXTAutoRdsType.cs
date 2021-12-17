@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"This object holds auto assigned route distinguishers for Layer 2 and Layer 3 configurations.")]
     public class NSXTAutoRdsType 
     {
+        public NSXTAutoRdsType()
+        {
+        }
         /// <summary>
         /// This field is auto assigned by the system.
         /// The auto RD seed is populated when user does not assign a

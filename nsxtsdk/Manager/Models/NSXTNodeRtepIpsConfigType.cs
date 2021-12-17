@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeRtepIpsConfigType 
     {
+        public NSXTNodeRtepIpsConfigType()
+        {
+        }
         /// <summary>
         /// System generated index for cluster member
         /// </summary>

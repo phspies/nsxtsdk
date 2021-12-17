@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbStatisticsCounterType 
     {
+        public NSXTLbStatisticsCounterType()
+        {
+        }
         /// <summary>
         /// Number of source IP persistence entries
         /// </summary>

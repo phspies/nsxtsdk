@@ -17,11 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLiveTraceRequestType : NSXTManagedResourceType
     {
+        public NSXTLiveTraceRequestType()
+        {
+            Timeout = test
+        }
         /// <summary>
-        /// Packet filter for flows of interest
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "filter")]
-        [NSXTProperty(IsRequired: false, Description: @"Packet filter for flows of interest")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLiveTraceFilterDataType Filter { get; set; }
         /// <summary>
         /// Timeout in seconds for livetrace session
@@ -30,13 +34,12 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Timeout in seconds for livetrace session")]
         //[System.ComponentModel.DataAnnotations.MinLength(5)]
         //[System.ComponentModel.DataAnnotations.MaxLength(300)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Timeout { get; set; }
         /// <summary>
-        /// Actions to the filtered packet
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "actions")]
-        [NSXTProperty(IsRequired: false, Description: @"Actions to the filtered packet")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLiveTraceActionConfigType Actions { get; set; }
         /// <summary>
         /// Source logical port

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTCloudNativeServiceInstanceType : NSXTDiscoveredResourceType
     {
+        public NSXTCloudNativeServiceInstanceType()
+        {
+        }
         /// <summary>
         /// Type of cloud native service.
         /// </summary>
@@ -24,10 +27,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Type of cloud native service.")]
         public string? ServiceType { get; set; }
         /// <summary>
-        /// Reference of the public cloud gateway that reported the service instance.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "source")]
-        [NSXTProperty(IsRequired: false, Description: @"Reference of the public cloud gateway that reported the service instance.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType Source { get; set; }
         /// <summary>
         /// Id of service instance fetched from public cloud.

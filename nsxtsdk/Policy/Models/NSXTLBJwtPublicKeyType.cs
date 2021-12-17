@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBJwtPublicKeyType : NSXTLBJwtKeyType
     {
+        public NSXTLBJwtPublicKeyType()
+        {
+        }
         /// <summary>
         /// Content of public key
         /// </summary>

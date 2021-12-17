@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer AutoScaleOpenStackSettings object")]
     public class NSXTALBAutoScaleOpenStackSettingsType 
     {
+        public NSXTALBAutoScaleOpenStackSettingsType()
+        {
+        }
         /// <summary>
         /// Avi Controller will use this URL to scale upthe pool.
         /// Cloud connector will automatically update the membership.

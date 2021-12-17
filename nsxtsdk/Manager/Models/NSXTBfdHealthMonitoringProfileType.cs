@@ -17,13 +17,16 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBfdHealthMonitoringProfileType : NSXTTransportZoneProfileType
     {
+        public NSXTBfdHealthMonitoringProfileType()
+        {
+            ProbeInterval = test
+        }
         /// <summary>
         /// The time interval (in millisec) between probe packets for tunnels between transport nodes.
         /// </summary>
         [JsonProperty(PropertyName = "probe_interval")]
         [NSXTProperty(IsRequired: false, Description: @"The time interval (in millisec) between probe packets for tunnels between transport nodes.")]
         //[System.ComponentModel.DataAnnotations.MinLength(300)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ProbeInterval { get; set; }
         /// <summary>
         /// The flag is to turn on/off latency. A POST or PUT request with "latency_enabled" true will enable NSX to send the

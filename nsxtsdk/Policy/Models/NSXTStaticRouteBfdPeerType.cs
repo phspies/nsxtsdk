@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTStaticRouteBfdPeerType : NSXTPolicyConfigResourceType
     {
+        public NSXTStaticRouteBfdPeerType()
+        {
+            Enabled = test
+        }
         /// <summary>
         /// Bfd Profile is not supported for IPv6 networks.
         /// </summary>
@@ -42,7 +46,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Flag to enable BFD peer.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// Represents the array of policy paths of locale services where this BFD peer should

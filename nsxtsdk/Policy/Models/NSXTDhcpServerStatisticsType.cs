@@ -17,5 +17,8 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpServerStatisticsType : NSXTDhcpStatisticsType
     {
+        public NSXTDhcpServerStatisticsType()
+        {
+        }
     }
 }

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMigrationFeedbackSummaryListResultType : NSXTListResultType
     {
+        public NSXTMigrationFeedbackSummaryListResultType()
+        {
+        }
         /// <summary>
         /// Feedback resolution job status
         /// </summary>

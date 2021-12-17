@@ -30,50 +30,6 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalRouterPortArpTableType GetLogicalRouterPortArpTable(string LogicalRouterPortId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
-        {
-            if (LogicalRouterPortId == null) { throw new System.ArgumentNullException("LogicalRouterPortId cannot be null"); }
-            NSXTLogicalRouterPortArpTableType returnValue = default(NSXTLogicalRouterPortArpTableType);
-            StringBuilder GetLogicalRouterPortArpTableServiceURL = new StringBuilder("/logical-router-ports/{logical-router-port-id}/arp-table");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetLogicalRouterPortArpTableServiceURL.Replace("{logical-router-port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalRouterPortId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
-            if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
-            request.Resource = GetLogicalRouterPortArpTableServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetLogicalRouterPortArpTableServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLogicalRouterPortArpTableType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLogicalRouterPortArpTableType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTLogicalRouterPortStatisticsSummaryType GetLogicalRouterPortStatisticsSummary(string LogicalRouterPortId, string? Source = null)
         {
             if (LogicalRouterPortId == null) { throw new System.ArgumentNullException("LogicalRouterPortId cannot be null"); }
@@ -151,25 +107,69 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalRouterPortArpTableInCsvFormatType GetLogicalRouterPortArpTableInCsvFormatCsv(string LogicalRouterPortId, string? Source = null, string? TransportNodeId = null)
+        public NSXTLogicalRouterPortArpTableType GetLogicalRouterPortArpTable(string LogicalRouterPortId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
         {
             if (LogicalRouterPortId == null) { throw new System.ArgumentNullException("LogicalRouterPortId cannot be null"); }
-            NSXTLogicalRouterPortArpTableInCsvFormatType returnValue = default(NSXTLogicalRouterPortArpTableInCsvFormatType);
-            StringBuilder GetLogicalRouterPortArpTableInCsvFormatCsvServiceURL = new StringBuilder("/logical-router-ports/{logical-router-port-id}/arp-table?format=csv");
+            NSXTLogicalRouterPortArpTableType returnValue = default(NSXTLogicalRouterPortArpTableType);
+            StringBuilder GetLogicalRouterPortArpTableServiceURL = new StringBuilder("/logical-router-ports/{logical-router-port-id}/arp-table");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetLogicalRouterPortArpTableInCsvFormatCsvServiceURL.Replace("{logical-router-port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalRouterPortId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetLogicalRouterPortArpTableServiceURL.Replace("{logical-router-port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalRouterPortId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
-            request.Resource = GetLogicalRouterPortArpTableInCsvFormatCsvServiceURL.ToString();
+            request.Resource = GetLogicalRouterPortArpTableServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetLogicalRouterPortArpTableInCsvFormatCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GetLogicalRouterPortArpTableServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTLogicalRouterPortArpTableType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTLogicalRouterPortArpTableType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTLogicalRouterPortArpTableInCsvFormatType GetLogicalRouterPortArpTableInCsvFormat(string LogicalRouterPortId, string? Source = null, string? TransportNodeId = null)
+        {
+            if (LogicalRouterPortId == null) { throw new System.ArgumentNullException("LogicalRouterPortId cannot be null"); }
+            NSXTLogicalRouterPortArpTableInCsvFormatType returnValue = default(NSXTLogicalRouterPortArpTableInCsvFormatType);
+            StringBuilder GetLogicalRouterPortArpTableInCsvFormatServiceURL = new StringBuilder("/logical-router-ports/{logical-router-port-id}/arp-table?format=csv");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GetLogicalRouterPortArpTableInCsvFormatServiceURL.Replace("{logical-router-port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalRouterPortId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
+            if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
+            request.Resource = GetLogicalRouterPortArpTableInCsvFormatServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetLogicalRouterPortArpTableInCsvFormatServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else

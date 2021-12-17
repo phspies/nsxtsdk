@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTnNodeAgentStatusListResultType : NSXTListResultType
     {
+        public NSXTTnNodeAgentStatusListResultType()
+        {
+        }
         /// <summary>
         /// Container agent status
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUpgradeCheckListResultType : NSXTListResultType
     {
+        public NSXTUpgradeCheckListResultType()
+        {
+        }
         /// <summary>
         /// Paged Collection of pre/post-upgrade checks
         /// </summary>

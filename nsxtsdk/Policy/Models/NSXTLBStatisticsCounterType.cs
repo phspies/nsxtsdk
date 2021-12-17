@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBStatisticsCounterType 
     {
+        public NSXTLBStatisticsCounterType()
+        {
+        }
         /// <summary>
         /// Number of source IP persistence entries
         /// </summary>

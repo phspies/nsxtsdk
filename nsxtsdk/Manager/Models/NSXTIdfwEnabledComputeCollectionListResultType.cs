@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdfwEnabledComputeCollectionListResultType : NSXTListResultType
     {
+        public NSXTIdfwEnabledComputeCollectionListResultType()
+        {
+        }
         /// <summary>
         /// Array of IDFW Enabled Compute Collections.
         /// </summary>

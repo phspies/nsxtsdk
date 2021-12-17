@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Health check result on specific host switch of specific transport node.")]
     public class NSXTHealthCheckResultOnHostSwitchType 
     {
+        public NSXTHealthCheckResultOnHostSwitchType()
+        {
+        }
         /// <summary>
         /// Status of VLAN-MTU health check result on host switch.
         /// </summary>

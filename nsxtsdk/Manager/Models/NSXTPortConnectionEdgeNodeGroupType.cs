@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPortConnectionEdgeNodeGroupType : NSXTPortConnectionEntityType
     {
+        public NSXTPortConnectionEdgeNodeGroupType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

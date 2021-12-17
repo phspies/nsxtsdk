@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildPolicyFirewallCPUMemThresholdsProfileBindingMapType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildPolicyFirewallCPUMemThresholdsProfileBindingMapType()
+        {
+        }
         /// <summary>
-        /// Contains the actual PolicyFirewallCPUMemThresholdsProfileBindingMap object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "PolicyFirewallCPUMemThresholdsProfileBindingMap", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual PolicyFirewallCPUMemThresholdsProfileBindingMap object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapType PolicyFirewallCPUMemThresholdsProfileBindingMap { get; set; }
     }

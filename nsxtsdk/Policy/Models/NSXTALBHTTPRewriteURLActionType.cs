@@ -17,23 +17,26 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HTTPRewriteURLAction object")]
     public class NSXTALBHTTPRewriteURLActionType 
     {
+        public NSXTALBHTTPRewriteURLActionType()
+        {
+        }
         /// <summary>
-        /// Host config.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "host_hdr")]
-        [NSXTProperty(IsRequired: false, Description: @"Host config.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBURIParamType HostHdr { get; set; }
         /// <summary>
-        /// Query config.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "query")]
-        [NSXTProperty(IsRequired: false, Description: @"Query config.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBURIParamQueryType Query { get; set; }
         /// <summary>
-        /// Path config.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "path")]
-        [NSXTProperty(IsRequired: false, Description: @"Path config.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBURIParamType Path { get; set; }
     }
 }

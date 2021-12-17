@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBGPCommunityListType : NSXTManagedResourceType
     {
+        public NSXTBGPCommunityListType()
+        {
+            CommunityType = test
+        }
         /// <summary>
         /// Array of BGP communities
         /// </summary>
@@ -41,7 +45,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "community_type")]
         [NSXTProperty(IsRequired: false, Description: @"BGP community type. It has two types asNormalBGPCommunity BGP normal community which includes well-knowncommunity name as well as community value in range from [1-4294967295]or value in aa:nn format(aa/nn range from 1-65535).LargeBGPCommunity BGP large community which includes community valuein aa:bb:nn format where aa, bb, nn are unsigned integers in the range[1-4294967295].")]
-        [NSXTDefaultProperty(Default: "NormalBGPCommunity")]
         public NSXTBgpcommunityListCommunityTypeEnumType? CommunityType { get; set; }
     }
 }

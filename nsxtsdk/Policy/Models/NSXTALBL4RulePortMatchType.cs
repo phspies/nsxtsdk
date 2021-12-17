@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer L4RulePortMatch object")]
     public class NSXTALBL4RulePortMatchType 
     {
+        public NSXTALBL4RulePortMatchType()
+        {
+        }
         /// <summary>
         /// Range of TCP/UDP port numbers of the Virtual Service.
         /// </summary>

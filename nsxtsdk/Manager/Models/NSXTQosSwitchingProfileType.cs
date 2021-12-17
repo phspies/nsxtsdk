@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTQosSwitchingProfileType : NSXTBaseSwitchingProfileType
     {
+        public NSXTQosSwitchingProfileType()
+        {
+            ClassOfService = test
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -30,7 +34,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Class of service")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(7)]
-        [NSXTDefaultProperty(Default: "")]
         public int? ClassOfService { get; set; }
         /// <summary>
         /// 

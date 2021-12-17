@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Tier1 gateway state")]
     public class NSXTTier1GatewayStateType 
     {
+        public NSXTTier1GatewayStateType()
+        {
+        }
         /// <summary>
-        /// Detailed realized status information for Tier1
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "tier1_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Detailed realized status information for Tier1")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLogicalRouterStatusType Tier1Status { get; set; }
         /// <summary>
         /// IPv6 DAD status for interfaces configured on Tier1
@@ -30,11 +33,17 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"IPv6 DAD status for interfaces configured on Tier1")]
         public IList<NSXTIPv6StatusType> Ipv6Status { get; set; }
         /// <summary>
-        /// Detailed realized state information for Tier1
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "tier1_state")]
-        [NSXTProperty(IsRequired: false, Description: @"Detailed realized state information for Tier1")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLogicalRouterStateType Tier1State { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "transport_zone")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTPolicyTransportZoneType TransportZone { get; set; }
         /// <summary>
         /// String Path of the enforcement point.
         /// When not specified, routes from all enforcement-points are returned.

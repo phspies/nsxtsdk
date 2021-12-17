@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Used to provide the deployment spec for Upgrade.")]
     public class NSXTDeploymentSpecNameType 
     {
+        public NSXTDeploymentSpecNameType()
+        {
+        }
         /// <summary>
         /// This indicates the deployment spec.
         /// </summary>

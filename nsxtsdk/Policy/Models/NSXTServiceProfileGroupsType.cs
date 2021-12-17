@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceProfileGroupsType : NSXTManagedResourceType
     {
+        public NSXTServiceProfileGroupsType()
+        {
+        }
         /// <summary>
         /// List of Groups Used in ServiceInsertion Rules.
         /// </summary>

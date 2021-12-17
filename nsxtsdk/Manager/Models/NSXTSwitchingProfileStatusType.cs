@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSwitchingProfileStatusType 
     {
+        public NSXTSwitchingProfileStatusType()
+        {
+        }
         /// <summary>
         /// Number of logical ports using a switching profile
         /// </summary>

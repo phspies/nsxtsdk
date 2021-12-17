@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTStaticRoutesType : NSXTPolicyConfigResourceType
     {
+        public NSXTStaticRoutesType()
+        {
+        }
         /// <summary>
         /// Specify next hop routes for network.
         /// </summary>

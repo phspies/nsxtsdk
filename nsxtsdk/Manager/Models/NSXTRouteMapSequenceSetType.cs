@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRouteMapSequenceSetType 
     {
+        public NSXTRouteMapSequenceSetType()
+        {
+        }
         /// <summary>
         /// For incoming and import route_maps on receiving both v6 global
         /// and v6 link-local address for the route, prefer to use the global

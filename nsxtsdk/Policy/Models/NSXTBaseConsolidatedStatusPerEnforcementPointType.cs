@@ -19,6 +19,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTBaseConsolidatedStatusPerEnforcementPointType : NSXTPolicyRuntimeInfoPerEPType
     {
+        public NSXTBaseConsolidatedStatusPerEnforcementPointType()
+        {
+        }
         /// <summary>
         /// The site where this enforcement point resides.
         /// </summary>
@@ -26,10 +29,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"The site where this enforcement point resides.")]
         public string? SitePath { get; set; }
         /// <summary>
-        /// Consolidated Realized Status of an Intent object per enforcement point.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "consolidated_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Consolidated Realized Status of an Intent object per enforcement point.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTConsolidatedStatusType ConsolidatedStatus { get; set; }
         /// <summary>
         /// 

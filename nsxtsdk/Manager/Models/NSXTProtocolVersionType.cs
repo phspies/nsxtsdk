@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"TLS protocol version")]
     public class NSXTProtocolVersionType 
     {
+        public NSXTProtocolVersionType()
+        {
+        }
         /// <summary>
         /// Enable status for this protocol version
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyBasedL3VpnSessionType : NSXTL3VpnSessionType
     {
+        public NSXTPolicyBasedL3VpnSessionType()
+        {
+        }
         /// <summary>
         /// L3Vpn rules that are specific to the L3Vpn. Only L3Vpn rules with PROTECT action
         /// are supported.

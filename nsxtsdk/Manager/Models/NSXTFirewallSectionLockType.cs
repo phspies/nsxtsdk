@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFirewallSectionLockType 
     {
+        public NSXTFirewallSectionLockType()
+        {
+        }
         /// <summary>
         /// Comments for section lock/unlock.
         /// </summary>

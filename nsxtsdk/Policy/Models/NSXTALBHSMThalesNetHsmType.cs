@@ -17,6 +17,12 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HSMThalesNetHsm object")]
     public class NSXTALBHSMThalesNetHsmType 
     {
+        public NSXTALBHSMThalesNetHsmType()
+        {
+            Priority = test
+            ModuleId = test
+            RemotePort = test
+        }
         /// <summary>
         /// Priority class of the nethsm in an high availability setup.
         /// 1 is the highest priority and 100 is the lowest priority.
@@ -29,7 +35,6 @@ namespace nsxtsdk.PolicyModels
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(100)]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "")]
         public long Priority { get; set; }
         /// <summary>
         /// Hash of the key that netHSM device uses to authenticate
@@ -47,7 +52,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "module_id")]
         [NSXTProperty(IsRequired: false, Description: @"Local module id of the netHSM device.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
-        [NSXTDefaultProperty(Default: "")]
         public long? ModuleId { get; set; }
         /// <summary>
         /// Electronic serial number of the netHSM device.
@@ -67,13 +71,12 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Port at which the netHSM device accepts the connection.Allowed values are 1-65535.Default value when not specified in API or module isinterpreted by ALB Controller as 9004.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [NSXTDefaultProperty(Default: "")]
         public long? RemotePort { get; set; }
         /// <summary>
-        /// IP address of the netHSM device.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "remote_ip", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IP address of the netHSM device.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBIpAddrType RemoteIp { get; set; }
     }

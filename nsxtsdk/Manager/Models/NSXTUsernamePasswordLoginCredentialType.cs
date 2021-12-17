@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUsernamePasswordLoginCredentialType : NSXTLoginCredentialType
     {
+        public NSXTUsernamePasswordLoginCredentialType()
+        {
+        }
         /// <summary>
         /// The username for login
         /// </summary>

@@ -12,22 +12,31 @@ using System.ComponentModel;
 namespace nsxtsdk.ManagerModels
 {
     /// <summary>
-    /// NSX Intelligence node form factor
+    /// Napp cluster form factor
     /// </summary>
-    [NSXTProperty(Description: @"NSX Intelligence node form factor")]
+    [NSXTProperty(Description: @"Napp cluster form factor")]
     public class NSXTIntelligenceFormFactorType 
     {
+        public NSXTIntelligenceFormFactorType()
+        {
+        }
         /// <summary>
-        /// Number of virtual cpus on the Intelligence nodes
+        /// Number of virtual cpus on the Napp worker nodes
         /// </summary>
         [JsonProperty(PropertyName = "vcpu")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of virtual cpus on the Intelligence nodes")]
+        [NSXTProperty(IsRequired: false, Description: @"Number of virtual cpus on the Napp worker nodes")]
         public long? Vcpu { get; set; }
         /// <summary>
-        /// Disk size of the Intelligence nodes in GBs.
+        /// Default number of Napp worker nodes.
+        /// </summary>
+        [JsonProperty(PropertyName = "default_worker_count")]
+        [NSXTProperty(IsRequired: false, Description: @"Default number of Napp worker nodes.")]
+        public long? DefaultWorkerCount { get; set; }
+        /// <summary>
+        /// Disk size of the Napp worker nodes in GBs.
         /// </summary>
         [JsonProperty(PropertyName = "disk")]
-        [NSXTProperty(IsRequired: false, Description: @"Disk size of the Intelligence nodes in GBs.")]
+        [NSXTProperty(IsRequired: false, Description: @"Disk size of the Napp worker nodes in GBs.")]
         public long? Disk { get; set; }
         /// <summary>
         /// NSX Intelligence node form factor type
@@ -36,10 +45,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"NSX Intelligence node form factor type")]
         public NSXTIntelligenceFormFactorTypeEnumType? Type { get; set; }
         /// <summary>
-        /// Memory size of the Intelligence nodes in GBs
+        /// Memory size of the Napp worker nodes in GBs
         /// </summary>
         [JsonProperty(PropertyName = "memory")]
-        [NSXTProperty(IsRequired: false, Description: @"Memory size of the Intelligence nodes in GBs")]
+        [NSXTProperty(IsRequired: false, Description: @"Memory size of the Napp worker nodes in GBs")]
         public long? Memory { get; set; }
     }
 }

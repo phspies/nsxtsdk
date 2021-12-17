@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeSnmpV3EngineIDType : NSXTNodeServicePropertiesType
     {
+        public NSXTNodeSnmpV3EngineIDType()
+        {
+        }
         /// <summary>
         /// SNMP v3 engine id
         /// </summary>

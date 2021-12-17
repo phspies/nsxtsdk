@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTGatewayPolicyListResultType : NSXTPolicyListResultType
     {
+        public NSXTGatewayPolicyListResultType()
+        {
+        }
         /// <summary>
         /// GatewayPolicy list results
         /// </summary>

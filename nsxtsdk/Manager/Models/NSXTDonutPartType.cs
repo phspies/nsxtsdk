@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Represents an entity or portion to be plotted on a donut or stats chart.")]
     public class NSXTDonutPartType 
     {
+        public NSXTDonutPartType()
+        {
+        }
         /// <summary>
         /// A numerical value that represents the portion or entity of the donut or stats chart.
         /// </summary>
@@ -47,11 +50,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Id of drilldown widget, if any. Id should be a valid id of an existing widget. A widget is considered as drilldown widget when it is associated with any other widget and provides more detailed information about any data item from the parent widget.")]
         public string? DrilldownId { get; set; }
         /// <summary>
-        /// If a section 'template' holds this donut or stats part, then the label is auto-generated from the fetched field values
-        /// after applying the template.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "label")]
-        [NSXTProperty(IsRequired: false, Description: @"If a section &apos;template&apos; holds this donut or stats part, then the label is auto-generated from the fetched field values after applying the template.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLabelType Label { get; set; }
         /// <summary>
         /// Hyperlink of the specified UI page that provides details. If drilldown_id is provided, then navigation cannot be used.

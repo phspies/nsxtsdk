@@ -17,6 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBFastTcpProfileType : NSXTLBAppProfileType
     {
+        public NSXTLBFastTcpProfileType()
+        {
+            CloseTimeout = test
+            IdleTimeout = test
+        }
         /// <summary>
         /// It is used to specify how long a closing TCP connection (both FINs
         /// received or a RST is received) should be kept for this application
@@ -26,7 +31,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"It is used to specify how long a closing TCP connection (both FINsreceived or a RST is received) should be kept for this applicationbefore cleaning up the connection.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(60)]
-        [NSXTDefaultProperty(Default: "")]
         public long? CloseTimeout { get; set; }
         /// <summary>
         /// It is used to configure how long an idle TCP connection in ESTABLISHED
@@ -36,7 +40,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"It is used to configure how long an idle TCP connection in ESTABLISHEDstate should be kept for this application before cleaning up.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
-        [NSXTDefaultProperty(Default: "")]
         public long? IdleTimeout { get; set; }
         /// <summary>
         /// If flow mirroring is enabled, all the flows to the bounded virtual

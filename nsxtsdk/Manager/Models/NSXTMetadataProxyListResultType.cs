@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMetadataProxyListResultType : NSXTListResultType
     {
+        public NSXTMetadataProxyListResultType()
+        {
+        }
         /// <summary>
         /// paginated list of metadata proxies
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTApiRequestBodyType : NSXTSourceType
     {
+        public NSXTApiRequestBodyType()
+        {
+        }
         /// <summary>
         /// Regex path representing a regex expression on resources. This regex is used
         /// to identify the request body(ies) that is/are the source of the Event. For

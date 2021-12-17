@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTokenBasedPrincipalIdentityType : NSXTManagedResourceType
     {
+        public NSXTTokenBasedPrincipalIdentityType()
+        {
+        }
         /// <summary>
         /// Unique node-id of a principal. This is used primarily in the case
         /// where a cluster of nodes is used to make calls to the NSX Manager and

@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildPortQoSProfileBindingMapType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildPortQoSProfileBindingMapType()
+        {
+        }
         /// <summary>
-        /// Contains the actual PortQoSProfileBindingMap object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "PortQoSProfileBindingMap", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual PortQoSProfileBindingMap object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTPortQoSProfileBindingMapType PortQoSProfileBindingMap { get; set; }
     }

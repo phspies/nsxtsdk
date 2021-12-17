@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSegmentConfigurationStateListResultType : NSXTListResultType
     {
+        public NSXTSegmentConfigurationStateListResultType()
+        {
+        }
         /// <summary>
         /// Paged Collection of Segment State on specific Enforcement Point
         /// </summary>

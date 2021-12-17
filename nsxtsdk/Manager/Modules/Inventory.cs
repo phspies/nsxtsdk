@@ -65,7 +65,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTVirtualMachineListResultType ListVirtualMachines(string? Cursor = null, string? DisplayName = null, string? ExternalId = null, string? HostId = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTVirtualMachineListResultType ListVirtualMachines(string? Cursor = null, string? DisplayName = null, string? ExcludeVmType = null, string? ExternalId = null, string? HostId = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTVirtualMachineListResultType returnValue = default(NSXTVirtualMachineListResultType);
             StringBuilder ListVirtualMachinesServiceURL = new StringBuilder("/fabric/virtual-machines");
@@ -77,6 +77,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (DisplayName != null) { request.AddQueryParameter("display_name", DisplayName.ToString()); }
+            if (ExcludeVmType != null) { request.AddQueryParameter("exclude_vm_type", ExcludeVmType.ToString()); }
             if (ExternalId != null) { request.AddQueryParameter("external_id", ExternalId.ToString()); }
             if (HostId != null) { request.AddQueryParameter("host_id", HostId.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }

@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Remote server")]
     public class NSXTRemoteServerFingerprintType 
     {
+        public NSXTRemoteServerFingerprintType()
+        {
+            Port = test
+        }
         /// <summary>
         /// SSH fingerprint of server
         /// </summary>
@@ -31,7 +35,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Server port")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Port { get; set; }
         /// <summary>
         /// Remote server hostname or IP address

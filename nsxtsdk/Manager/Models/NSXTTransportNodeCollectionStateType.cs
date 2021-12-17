@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Realization state of attaching or detaching Transport node profile on compute collection.")]
     public class NSXTTransportNodeCollectionStateType 
     {
+        public NSXTTransportNodeCollectionStateType()
+        {
+        }
         /// <summary>
         /// Transport node profile(TNP) will not be applied to a discovered node(DN) if some validations are not passed. In this
         /// case transport node is not created or existing transport node is not updated with TNP configurations.

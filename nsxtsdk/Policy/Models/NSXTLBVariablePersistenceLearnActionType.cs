@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBVariablePersistenceLearnActionType : NSXTLBRuleActionType
     {
+        public NSXTLBVariablePersistenceLearnActionType()
+        {
+        }
         /// <summary>
         /// The property is used to enable a hash operation for variable value
         /// when composing the persistence key.

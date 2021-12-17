@@ -17,23 +17,26 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUpgradeStatusType 
     {
+        public NSXTUpgradeStatusType()
+        {
+        }
         /// <summary>
-        /// Host upgrade status
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "host_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Host upgrade status")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTHostUpgradeStatusType HostStatus { get; set; }
         /// <summary>
-        /// CCP upgrade status
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ccp_status")]
-        [NSXTProperty(IsRequired: false, Description: @"CCP upgrade status")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTCCPUpgradeStatusType CcpStatus { get; set; }
         /// <summary>
-        /// Edge upgrade status
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "edge_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Edge upgrade status")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTEdgeUpgradeStatusType EdgeStatus { get; set; }
         /// <summary>
         /// Status of upgrade

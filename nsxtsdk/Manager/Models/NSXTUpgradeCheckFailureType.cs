@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Pre/post-upgrade check failure")]
     public class NSXTUpgradeCheckFailureType 
     {
+        public NSXTUpgradeCheckFailureType()
+        {
+        }
         /// <summary>
         /// Component type of the origin of failure
         /// </summary>
@@ -30,10 +33,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Name of origin of pre/post-upgrade check failure")]
         public string? OriginName { get; set; }
         /// <summary>
-        /// Pre/post-upgrade check failure message
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "message")]
-        [NSXTProperty(IsRequired: false, Description: @"Pre/post-upgrade check failure message")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTUpgradeCheckFailureMessageType Message { get; set; }
         /// <summary>
         /// Unique id of origin of pre/post-upgrade check failure

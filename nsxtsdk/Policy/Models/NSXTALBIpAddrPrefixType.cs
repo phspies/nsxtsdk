@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer IpAddrPrefix object")]
     public class NSXTALBIpAddrPrefixType 
     {
+        public NSXTALBIpAddrPrefixType()
+        {
+        }
         /// <summary>
         /// Number of mask.
         /// </summary>
@@ -25,11 +28,10 @@ namespace nsxtsdk.PolicyModels
         [System.ComponentModel.DataAnnotations.Required]
         public long Mask { get; set; }
         /// <summary>
-        /// Placeholder for description of property ip_addr of obj type
-        /// IpAddrPrefix field type str  type ref.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ip_addr", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Placeholder for description of property ip_addr of obj typeIpAddrPrefix field type str  type ref.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBIpAddrType IpAddr { get; set; }
     }

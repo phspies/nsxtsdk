@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpProfileType : NSXTManagedResourceType
     {
+        public NSXTDhcpProfileType()
+        {
+        }
         /// <summary>
         /// The Edge nodes on which the DHCP servers run. If none is provided, the
         /// NSX will auto-select two edge-nodes from the given edge cluster. If only

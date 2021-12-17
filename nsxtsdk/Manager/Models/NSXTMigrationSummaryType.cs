@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMigrationSummaryType 
     {
+        public NSXTMigrationSummaryType()
+        {
+        }
         /// <summary>
         /// Target system version
         /// </summary>

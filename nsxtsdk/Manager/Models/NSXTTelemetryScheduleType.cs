@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Abstract base type for telemetry schedule configuration")]
     public class NSXTTelemetryScheduleType 
     {
+        public NSXTTelemetryScheduleType()
+        {
+        }
         /// <summary>
         /// Specify one of DailyTelemetrySchedule, WeeklyTelemetrySchedule, or MonthlyTelemetrySchedule.
         /// </summary>

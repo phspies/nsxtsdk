@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Migration spec for a VM group that will be used in pre VM group migration step.")]
     public class NSXTPreVmGroupMigrationSpecType 
     {
+        public NSXTPreVmGroupMigrationSpecType()
+        {
+        }
         /// <summary>
         /// Flag to indicate whether to re-run the pre migrate steps for the VM group if they are already run before.
         /// </summary>

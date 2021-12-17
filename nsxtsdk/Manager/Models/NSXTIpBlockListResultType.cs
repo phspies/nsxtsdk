@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpBlockListResultType : NSXTListResultType
     {
+        public NSXTIpBlockListResultType()
+        {
+        }
         /// <summary>
         /// IP block list results
         /// </summary>

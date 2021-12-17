@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceInsertionRuleType : NSXTDSRuleType
     {
+        public NSXTServiceInsertionRuleType()
+        {
+        }
         /// <summary>
         /// List of the services. Null will be treated as any.
         /// </summary>

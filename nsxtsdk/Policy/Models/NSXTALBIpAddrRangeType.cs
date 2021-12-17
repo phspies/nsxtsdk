@@ -17,18 +17,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer IpAddrRange object")]
     public class NSXTALBIpAddrRangeType 
     {
+        public NSXTALBIpAddrRangeType()
+        {
+        }
         /// <summary>
-        /// Starting IP address of the range.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "begin", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Starting IP address of the range.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBIpAddrType Begin { get; set; }
         /// <summary>
-        /// Ending IP address of the range.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "end", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Ending IP address of the range.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBIpAddrType End { get; set; }
     }

@@ -30,44 +30,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdfwComputeCollectionStatusType GlobalGetIdfwstatusForAcomputeCollection(string ComputeCollectionId, string? EnforcementPointPath = null)
-        {
-            if (ComputeCollectionId == null) { throw new System.ArgumentNullException("ComputeCollectionId cannot be null"); }
-            NSXTIdfwComputeCollectionStatusType returnValue = default(NSXTIdfwComputeCollectionStatusType);
-            StringBuilder GetIdfwstatusForAcomputeCollectionServiceURL = new StringBuilder("/global-infra/settings/firewall/idfw/compute-collections/{compute-collection-id}/status");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetIdfwstatusForAcomputeCollectionServiceURL.Replace("{compute-collection-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ComputeCollectionId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = GetIdfwstatusForAcomputeCollectionServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetIdfwstatusForAcomputeCollectionServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdfwComputeCollectionStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdfwComputeCollectionStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTIdfwVirtualMachineStatusListResultType ListVirtualMachineIdfwstatusByTransportNode(string TransportNodeId, string? EnforcementPointPath = null)
         {
             if (TransportNodeId == null) { throw new System.ArgumentNullException("TransportNodeId cannot be null"); }
@@ -144,260 +106,35 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDirectoryLdapServerType GlobalCreateOrReplaceFirewallIdentityStoreLdapServer(string FirewallIdentityStoreId, string LdapServerId, NSXTDirectoryLdapServerType DirectoryLdapServer, string? EnforcementPointPath = null)
+        public NSXTDirectoryOrgUnitListResultsType FetchFirewallIdentityStoreOrgUnitsForIdentityStore(string FirewallIdentityStoreId, string? EnforcementPointPath = null)
         {
             if (FirewallIdentityStoreId == null) { throw new System.ArgumentNullException("FirewallIdentityStoreId cannot be null"); }
-            if (LdapServerId == null) { throw new System.ArgumentNullException("LdapServerId cannot be null"); }
-            if (DirectoryLdapServer == null) { throw new System.ArgumentNullException("DirectoryLdapServer cannot be null"); }
-            NSXTDirectoryLdapServerType returnValue = default(NSXTDirectoryLdapServerType);
-            StringBuilder CreateOrReplaceFirewallIdentityStoreLdapServerServiceURL = new StringBuilder("/global-infra/firewall-identity-stores/{firewall-identity-store-id}/ldap-servers/{ldap-server-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            CreateOrReplaceFirewallIdentityStoreLdapServerServiceURL.Replace("{firewall-identity-store-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallIdentityStoreId, System.Globalization.CultureInfo.InvariantCulture)));
-            CreateOrReplaceFirewallIdentityStoreLdapServerServiceURL.Replace("{ldap-server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LdapServerId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(DirectoryLdapServer, defaultSerializationSettings));
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = CreateOrReplaceFirewallIdentityStoreLdapServerServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + CreateOrReplaceFirewallIdentityStoreLdapServerServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryLdapServerType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryLdapServerType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTDirectoryLdapServerType GlobalCreateOrPatchFirewallIdentityStoreLdapServer(string FirewallIdentityStoreId, string LdapServerId, NSXTDirectoryLdapServerType DirectoryLdapServer, string? EnforcementPointPath = null)
-        {
-            if (FirewallIdentityStoreId == null) { throw new System.ArgumentNullException("FirewallIdentityStoreId cannot be null"); }
-            if (LdapServerId == null) { throw new System.ArgumentNullException("LdapServerId cannot be null"); }
-            if (DirectoryLdapServer == null) { throw new System.ArgumentNullException("DirectoryLdapServer cannot be null"); }
-            NSXTDirectoryLdapServerType returnValue = default(NSXTDirectoryLdapServerType);
-            StringBuilder CreateOrPatchFirewallIdentityStoreLdapServerServiceURL = new StringBuilder("/global-infra/firewall-identity-stores/{firewall-identity-store-id}/ldap-servers/{ldap-server-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            CreateOrPatchFirewallIdentityStoreLdapServerServiceURL.Replace("{firewall-identity-store-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallIdentityStoreId, System.Globalization.CultureInfo.InvariantCulture)));
-            CreateOrPatchFirewallIdentityStoreLdapServerServiceURL.Replace("{ldap-server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LdapServerId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(DirectoryLdapServer, defaultSerializationSettings));
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = CreateOrPatchFirewallIdentityStoreLdapServerServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + CreateOrPatchFirewallIdentityStoreLdapServerServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryLdapServerType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryLdapServerType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalTestFirewallIdentityStoreLdapServer(string FirewallIdentityStoreId, string LdapServerId, string Action, string? EnforcementPointPath = null)
-        {
-            if (FirewallIdentityStoreId == null) { throw new System.ArgumentNullException("FirewallIdentityStoreId cannot be null"); }
-            if (LdapServerId == null) { throw new System.ArgumentNullException("LdapServerId cannot be null"); }
-            if (Action == null) { throw new System.ArgumentNullException("Action cannot be null"); }
-            
-            StringBuilder TestFirewallIdentityStoreLdapServerServiceURL = new StringBuilder("/global-infra/firewall-identity-stores/{firewall-identity-store-id}/ldap-servers/{ldap-server-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.POST
-            };
-            request.AddHeader("Content-type", "application/json");
-            TestFirewallIdentityStoreLdapServerServiceURL.Replace("{firewall-identity-store-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallIdentityStoreId, System.Globalization.CultureInfo.InvariantCulture)));
-            TestFirewallIdentityStoreLdapServerServiceURL.Replace("{ldap-server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LdapServerId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = TestFirewallIdentityStoreLdapServerServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP POST operation to " + TestFirewallIdentityStoreLdapServerServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTDirectoryLdapServerType GlobalReadFirewallIdentityStoreLdapServer(string FirewallIdentityStoreId, string LdapServerId, string? EnforcementPointPath = null)
-        {
-            if (FirewallIdentityStoreId == null) { throw new System.ArgumentNullException("FirewallIdentityStoreId cannot be null"); }
-            if (LdapServerId == null) { throw new System.ArgumentNullException("LdapServerId cannot be null"); }
-            NSXTDirectoryLdapServerType returnValue = default(NSXTDirectoryLdapServerType);
-            StringBuilder ReadFirewallIdentityStoreLdapServerServiceURL = new StringBuilder("/global-infra/firewall-identity-stores/{firewall-identity-store-id}/ldap-servers/{ldap-server-id}");
+            NSXTDirectoryOrgUnitListResultsType returnValue = default(NSXTDirectoryOrgUnitListResultsType);
+            StringBuilder FetchFirewallIdentityStoreOrgUnitsForIdentityStoreServiceURL = new StringBuilder("/infra/firewall-identity-stores/{firewall-identity-store-id}/org-units");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            ReadFirewallIdentityStoreLdapServerServiceURL.Replace("{firewall-identity-store-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallIdentityStoreId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReadFirewallIdentityStoreLdapServerServiceURL.Replace("{ldap-server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LdapServerId, System.Globalization.CultureInfo.InvariantCulture)));
+            FetchFirewallIdentityStoreOrgUnitsForIdentityStoreServiceURL.Replace("{firewall-identity-store-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallIdentityStoreId, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = ReadFirewallIdentityStoreLdapServerServiceURL.ToString();
+            request.Resource = FetchFirewallIdentityStoreOrgUnitsForIdentityStoreServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ReadFirewallIdentityStoreLdapServerServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + FetchFirewallIdentityStoreOrgUnitsForIdentityStoreServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
 			{
 				try
 				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryLdapServerType>(response.Content, defaultSerializationSettings);
+					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryOrgUnitListResultsType>(response.Content, defaultSerializationSettings);
 				}
 				catch (Exception ex)
 				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryLdapServerType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteFirewallIdentityStoreLdapServer(string FirewallIdentityStoreId, string LdapServerId, string? EnforcementPointPath = null)
-        {
-            if (FirewallIdentityStoreId == null) { throw new System.ArgumentNullException("FirewallIdentityStoreId cannot be null"); }
-            if (LdapServerId == null) { throw new System.ArgumentNullException("LdapServerId cannot be null"); }
-            
-            StringBuilder DeleteFirewallIdentityStoreLdapServerServiceURL = new StringBuilder("/global-infra/firewall-identity-stores/{firewall-identity-store-id}/ldap-servers/{ldap-server-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteFirewallIdentityStoreLdapServerServiceURL.Replace("{firewall-identity-store-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallIdentityStoreId, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteFirewallIdentityStoreLdapServerServiceURL.Replace("{ldap-server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LdapServerId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = DeleteFirewallIdentityStoreLdapServerServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteFirewallIdentityStoreLdapServerServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTDirectoryLdapServerListResultsType GlobalListFirewallIdentityStoreLdapServers(string FirewallIdentityStoreId, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (FirewallIdentityStoreId == null) { throw new System.ArgumentNullException("FirewallIdentityStoreId cannot be null"); }
-            NSXTDirectoryLdapServerListResultsType returnValue = default(NSXTDirectoryLdapServerListResultsType);
-            StringBuilder ListFirewallIdentityStoreLdapServersServiceURL = new StringBuilder("/global-infra/firewall-identity-stores/{firewall-identity-store-id}/ldap-servers");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ListFirewallIdentityStoreLdapServersServiceURL.Replace("{firewall-identity-store-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallIdentityStoreId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListFirewallIdentityStoreLdapServersServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListFirewallIdentityStoreLdapServersServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryLdapServerListResultsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryLdapServerListResultsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIdfwTransportNodeStatusListResultType GlobalListIdfwstatusForAllTransportNodesInAcomputeCollection(string ComputeCollectionId, string? EnforcementPointPath = null)
-        {
-            if (ComputeCollectionId == null) { throw new System.ArgumentNullException("ComputeCollectionId cannot be null"); }
-            NSXTIdfwTransportNodeStatusListResultType returnValue = default(NSXTIdfwTransportNodeStatusListResultType);
-            StringBuilder ListIdfwstatusForAllTransportNodesInAcomputeCollectionServiceURL = new StringBuilder("/global-infra/settings/firewall/idfw/compute-collections/{compute-collection-id}/transport-nodes/status");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ListIdfwstatusForAllTransportNodesInAcomputeCollectionServiceURL.Replace("{compute-collection-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ComputeCollectionId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = ListIdfwstatusForAllTransportNodesInAcomputeCollectionServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListIdfwstatusForAllTransportNodesInAcomputeCollectionServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdfwTransportNodeStatusListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdfwTransportNodeStatusListResultType).FullName + ".";
+					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryOrgUnitListResultsType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -481,44 +218,6 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryGroupListResultsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTDirectoryDomainSizeType GlobalScanFirewallIdentityStoreSize(NSXTDirectoryDomainType DirectoryDomain, string? EnforcementPointPath = null)
-        {
-            if (DirectoryDomain == null) { throw new System.ArgumentNullException("DirectoryDomain cannot be null"); }
-            NSXTDirectoryDomainSizeType returnValue = default(NSXTDirectoryDomainSizeType);
-            StringBuilder ScanFirewallIdentityStoreSizeServiceURL = new StringBuilder("/global-infra/firewall-identity-store-size");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.POST
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.AddJsonBody(JsonConvert.SerializeObject(DirectoryDomain, defaultSerializationSettings));
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = ScanFirewallIdentityStoreSizeServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP POST operation to " + ScanFirewallIdentityStoreSizeServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryDomainSizeType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryDomainSizeType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -786,6 +485,44 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
+        public NSXTDirectoryOrgUnitListResultsType FetchFirewallIdentityStoreOrgUnits(NSXTDirectoryLdapServerType DirectoryLdapServer, string? EnforcementPointPath = null)
+        {
+            if (DirectoryLdapServer == null) { throw new System.ArgumentNullException("DirectoryLdapServer cannot be null"); }
+            NSXTDirectoryOrgUnitListResultsType returnValue = default(NSXTDirectoryOrgUnitListResultsType);
+            StringBuilder FetchFirewallIdentityStoreOrgUnitsServiceURL = new StringBuilder("/infra/firewall-identity-stores-org-units");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.POST
+            };
+            request.AddHeader("Content-type", "application/json");
+            request.AddJsonBody(JsonConvert.SerializeObject(DirectoryLdapServer, defaultSerializationSettings));
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            request.Resource = FetchFirewallIdentityStoreOrgUnitsServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP POST operation to " + FetchFirewallIdentityStoreOrgUnitsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryOrgUnitListResultsType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryOrgUnitListResultsType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
         public NSXTDirectoryGroupMemberListResultsType ListFirewallIdentityStoreGroupMemberGroups(string FirewallIdentityStoreId, string GroupId, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (FirewallIdentityStoreId == null) { throw new System.ArgumentNullException("FirewallIdentityStoreId cannot be null"); }
@@ -831,73 +568,37 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdfwVirtualMachineStatusListResultType GlobalListVirtualMachineIdfwstatusByTransportNode(string TransportNodeId, string? EnforcementPointPath = null)
+        public NSXTDirectoryLdapServerStatusType VerifyFirewallIdentityStoreLdapServer(NSXTDirectoryLdapServerType DirectoryLdapServer, string Action, string? EnforcementPointPath = null)
         {
-            if (TransportNodeId == null) { throw new System.ArgumentNullException("TransportNodeId cannot be null"); }
-            NSXTIdfwVirtualMachineStatusListResultType returnValue = default(NSXTIdfwVirtualMachineStatusListResultType);
-            StringBuilder ListVirtualMachineIdfwstatusByTransportNodeServiceURL = new StringBuilder("/global-infra/settings/firewall/idfw/transport-nodes/{transport-node-id}/vms/status");
+            if (DirectoryLdapServer == null) { throw new System.ArgumentNullException("DirectoryLdapServer cannot be null"); }
+            if (Action == null) { throw new System.ArgumentNullException("Action cannot be null"); }
+            NSXTDirectoryLdapServerStatusType returnValue = default(NSXTDirectoryLdapServerStatusType);
+            StringBuilder VerifyFirewallIdentityStoreLdapServerServiceURL = new StringBuilder("/infra/firewall-identity-store-ldap-server");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
-                Method = Method.GET
+                Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            ListVirtualMachineIdfwstatusByTransportNodeServiceURL.Replace("{transport-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TransportNodeId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.AddJsonBody(JsonConvert.SerializeObject(DirectoryLdapServer, defaultSerializationSettings));
+            if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = ListVirtualMachineIdfwstatusByTransportNodeServiceURL.ToString();
+            request.Resource = VerifyFirewallIdentityStoreLdapServerServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ListVirtualMachineIdfwstatusByTransportNodeServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + VerifyFirewallIdentityStoreLdapServerServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
 			{
 				try
 				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdfwVirtualMachineStatusListResultType>(response.Content, defaultSerializationSettings);
+					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryLdapServerStatusType>(response.Content, defaultSerializationSettings);
 				}
 				catch (Exception ex)
 				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdfwVirtualMachineStatusListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIdfwVmStatsType GlobalGetUserLoginEventsForAVM(string VmId, string? EnforcementPointPath = null)
-        {
-            if (VmId == null) { throw new System.ArgumentNullException("VmId cannot be null"); }
-            NSXTIdfwVmStatsType returnValue = default(NSXTIdfwVmStatsType);
-            StringBuilder GetUserLoginEventsForAVMServiceURL = new StringBuilder("/global-infra/settings/firewall/idfw/vm-stats/{vm-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetUserLoginEventsForAVMServiceURL.Replace("{vm-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(VmId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = GetUserLoginEventsForAVMServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetUserLoginEventsForAVMServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdfwVmStatsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdfwVmStatsType).FullName + ".";
+					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryLdapServerStatusType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -1094,82 +795,6 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryLdapServerListResultsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIdfwUserStatsType GlobalGetUserLoginEvents(string UserId, string? EnforcementPointPath = null)
-        {
-            if (UserId == null) { throw new System.ArgumentNullException("UserId cannot be null"); }
-            NSXTIdfwUserStatsType returnValue = default(NSXTIdfwUserStatsType);
-            StringBuilder GetUserLoginEventsServiceURL = new StringBuilder("/global-infra/settings/firewall/idfw/user-stats/{user-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetUserLoginEventsServiceURL.Replace("{user-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(UserId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = GetUserLoginEventsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetUserLoginEventsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdfwUserStatsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdfwUserStatsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTPolicyIdfwGroupVmDetailListResultType GlobalGetGroupVmDetails(string GroupPath, string? EnforcementPointPath = null)
-        {
-            if (GroupPath == null) { throw new System.ArgumentNullException("GroupPath cannot be null"); }
-            NSXTPolicyIdfwGroupVmDetailListResultType returnValue = default(NSXTPolicyIdfwGroupVmDetailListResultType);
-            StringBuilder GetGroupVmDetailsServiceURL = new StringBuilder("/global-infra/settings/firewall/idfw/group-vm-details");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            if (GroupPath != null) { request.AddQueryParameter("group_path", GroupPath.ToString()); }
-            request.Resource = GetGroupVmDetailsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetGroupVmDetailsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyIdfwGroupVmDetailListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyIdfwGroupVmDetailListResultType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -1376,42 +1001,34 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDirectoryGroupMemberListResultsType GlobalListFirewallIdentityStoreGroupMemberGroups(string FirewallIdentityStoreId, string GroupId, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTDirectoryEventLogServerStatusType VerifyFirewallIdentityStoreEventLogServer(NSXTDirectoryEventLogServerType DirectoryEventLogServer)
         {
-            if (FirewallIdentityStoreId == null) { throw new System.ArgumentNullException("FirewallIdentityStoreId cannot be null"); }
-            if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
-            NSXTDirectoryGroupMemberListResultsType returnValue = default(NSXTDirectoryGroupMemberListResultsType);
-            StringBuilder ListFirewallIdentityStoreGroupMemberGroupsServiceURL = new StringBuilder("/global-infra/firewall-identity-stores/{firewall-identity-store-id}/groups/{group-id}/member-groups");
+            if (DirectoryEventLogServer == null) { throw new System.ArgumentNullException("DirectoryEventLogServer cannot be null"); }
+            NSXTDirectoryEventLogServerStatusType returnValue = default(NSXTDirectoryEventLogServerStatusType);
+            StringBuilder VerifyFirewallIdentityStoreEventLogServerServiceURL = new StringBuilder("/infra/firewall-identity-store-event-log-servers/status");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
-                Method = Method.GET
+                Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            ListFirewallIdentityStoreGroupMemberGroupsServiceURL.Replace("{firewall-identity-store-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallIdentityStoreId, System.Globalization.CultureInfo.InvariantCulture)));
-            ListFirewallIdentityStoreGroupMemberGroupsServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListFirewallIdentityStoreGroupMemberGroupsServiceURL.ToString();
+            request.AddJsonBody(JsonConvert.SerializeObject(DirectoryEventLogServer, defaultSerializationSettings));
+            request.Resource = VerifyFirewallIdentityStoreEventLogServerServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ListFirewallIdentityStoreGroupMemberGroupsServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + VerifyFirewallIdentityStoreEventLogServerServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
 			{
 				try
 				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryGroupMemberListResultsType>(response.Content, defaultSerializationSettings);
+					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryEventLogServerStatusType>(response.Content, defaultSerializationSettings);
 				}
 				catch (Exception ex)
 				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryGroupMemberListResultsType).FullName + ".";
+					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryEventLogServerStatusType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -1457,37 +1074,39 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDirectoryDomainType GlobalCreateOrReplaceFirewallIdentityStore(string FirewallIdentityStoreId, NSXTDirectoryDomainType DirectoryDomain, string? EnforcementPointPath = null)
+        public NSXTDirectoryEventLogServerType CreateOrReplaceFirewallIdentityStoreEventLogServer(string FirewallIdentityStoreId, string EventLogServerId, NSXTDirectoryEventLogServerType DirectoryEventLogServer, string? EnforcementPointPath = null)
         {
             if (FirewallIdentityStoreId == null) { throw new System.ArgumentNullException("FirewallIdentityStoreId cannot be null"); }
-            if (DirectoryDomain == null) { throw new System.ArgumentNullException("DirectoryDomain cannot be null"); }
-            NSXTDirectoryDomainType returnValue = default(NSXTDirectoryDomainType);
-            StringBuilder CreateOrReplaceFirewallIdentityStoreServiceURL = new StringBuilder("/global-infra/firewall-identity-stores/{firewall-identity-store-id}");
+            if (EventLogServerId == null) { throw new System.ArgumentNullException("EventLogServerId cannot be null"); }
+            if (DirectoryEventLogServer == null) { throw new System.ArgumentNullException("DirectoryEventLogServer cannot be null"); }
+            NSXTDirectoryEventLogServerType returnValue = default(NSXTDirectoryEventLogServerType);
+            StringBuilder CreateOrReplaceFirewallIdentityStoreEventLogServerServiceURL = new StringBuilder("/infra/firewall-identity-stores/{firewall-identity-store-id}/event-log-servers/{event-log-server-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.PUT
             };
             request.AddHeader("Content-type", "application/json");
-            CreateOrReplaceFirewallIdentityStoreServiceURL.Replace("{firewall-identity-store-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallIdentityStoreId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(DirectoryDomain, defaultSerializationSettings));
+            CreateOrReplaceFirewallIdentityStoreEventLogServerServiceURL.Replace("{firewall-identity-store-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallIdentityStoreId, System.Globalization.CultureInfo.InvariantCulture)));
+            CreateOrReplaceFirewallIdentityStoreEventLogServerServiceURL.Replace("{event-log-server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EventLogServerId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.AddJsonBody(JsonConvert.SerializeObject(DirectoryEventLogServer, defaultSerializationSettings));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = CreateOrReplaceFirewallIdentityStoreServiceURL.ToString();
+            request.Resource = CreateOrReplaceFirewallIdentityStoreEventLogServerServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP PUT operation to " + CreateOrReplaceFirewallIdentityStoreServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP PUT operation to " + CreateOrReplaceFirewallIdentityStoreEventLogServerServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
 			{
 				try
 				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryDomainType>(response.Content, defaultSerializationSettings);
+					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryEventLogServerType>(response.Content, defaultSerializationSettings);
 				}
 				catch (Exception ex)
 				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryDomainType).FullName + ".";
+					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryEventLogServerType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -1497,24 +1116,26 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalDeleteFirewallIdentityStore(string FirewallIdentityStoreId, string? EnforcementPointPath = null)
+        public void DeleteFirewallIdentityStoreEventLogServer(string FirewallIdentityStoreId, string EventLogServerId, string? EnforcementPointPath = null)
         {
             if (FirewallIdentityStoreId == null) { throw new System.ArgumentNullException("FirewallIdentityStoreId cannot be null"); }
+            if (EventLogServerId == null) { throw new System.ArgumentNullException("EventLogServerId cannot be null"); }
             
-            StringBuilder DeleteFirewallIdentityStoreServiceURL = new StringBuilder("/global-infra/firewall-identity-stores/{firewall-identity-store-id}");
+            StringBuilder DeleteFirewallIdentityStoreEventLogServerServiceURL = new StringBuilder("/infra/firewall-identity-stores/{firewall-identity-store-id}/event-log-servers/{event-log-server-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.DELETE
             };
             request.AddHeader("Content-type", "application/json");
-            DeleteFirewallIdentityStoreServiceURL.Replace("{firewall-identity-store-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallIdentityStoreId, System.Globalization.CultureInfo.InvariantCulture)));
+            DeleteFirewallIdentityStoreEventLogServerServiceURL.Replace("{firewall-identity-store-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallIdentityStoreId, System.Globalization.CultureInfo.InvariantCulture)));
+            DeleteFirewallIdentityStoreEventLogServerServiceURL.Replace("{event-log-server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EventLogServerId, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = DeleteFirewallIdentityStoreServiceURL.ToString();
+            request.Resource = DeleteFirewallIdentityStoreEventLogServerServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP DELETE operation to " + DeleteFirewallIdentityStoreServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP DELETE operation to " + DeleteFirewallIdentityStoreEventLogServerServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -1523,93 +1144,28 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalRequestFirewallIdentityStoreSync(string FirewallIdentityStoreId, string Action, long? Delay = null, string? EnforcementPointPath = null)
+        public void CreateOrPatchFirewallIdentityStoreEventLogServer(string FirewallIdentityStoreId, string EventLogServerId, NSXTDirectoryEventLogServerType DirectoryEventLogServer, string? EnforcementPointPath = null)
         {
             if (FirewallIdentityStoreId == null) { throw new System.ArgumentNullException("FirewallIdentityStoreId cannot be null"); }
-            if (Action == null) { throw new System.ArgumentNullException("Action cannot be null"); }
+            if (EventLogServerId == null) { throw new System.ArgumentNullException("EventLogServerId cannot be null"); }
+            if (DirectoryEventLogServer == null) { throw new System.ArgumentNullException("DirectoryEventLogServer cannot be null"); }
             
-            StringBuilder RequestFirewallIdentityStoreSyncServiceURL = new StringBuilder("/global-infra/firewall-identity-stores/{firewall-identity-store-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.POST
-            };
-            request.AddHeader("Content-type", "application/json");
-            RequestFirewallIdentityStoreSyncServiceURL.Replace("{firewall-identity-store-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallIdentityStoreId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
-            if (Delay != null) { request.AddQueryParameter("delay", Delay.ToString()); }
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = RequestFirewallIdentityStoreSyncServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP POST operation to " + RequestFirewallIdentityStoreSyncServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTDirectoryDomainType GlobalReadFirewallIdentityStore(string FirewallIdentityStoreId, string? EnforcementPointPath = null)
-        {
-            if (FirewallIdentityStoreId == null) { throw new System.ArgumentNullException("FirewallIdentityStoreId cannot be null"); }
-            NSXTDirectoryDomainType returnValue = default(NSXTDirectoryDomainType);
-            StringBuilder ReadFirewallIdentityStoreServiceURL = new StringBuilder("/global-infra/firewall-identity-stores/{firewall-identity-store-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadFirewallIdentityStoreServiceURL.Replace("{firewall-identity-store-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallIdentityStoreId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = ReadFirewallIdentityStoreServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadFirewallIdentityStoreServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryDomainType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryDomainType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalCreateOrPatchFirewallIdentityStore(string FirewallIdentityStoreId, NSXTDirectoryDomainType DirectoryDomain, string? EnforcementPointPath = null)
-        {
-            if (FirewallIdentityStoreId == null) { throw new System.ArgumentNullException("FirewallIdentityStoreId cannot be null"); }
-            if (DirectoryDomain == null) { throw new System.ArgumentNullException("DirectoryDomain cannot be null"); }
-            
-            StringBuilder CreateOrPatchFirewallIdentityStoreServiceURL = new StringBuilder("/global-infra/firewall-identity-stores/{firewall-identity-store-id}");
+            StringBuilder CreateOrPatchFirewallIdentityStoreEventLogServerServiceURL = new StringBuilder("/infra/firewall-identity-stores/{firewall-identity-store-id}/event-log-servers/{event-log-server-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.PATCH
             };
             request.AddHeader("Content-type", "application/json");
-            CreateOrPatchFirewallIdentityStoreServiceURL.Replace("{firewall-identity-store-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallIdentityStoreId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(DirectoryDomain, defaultSerializationSettings));
+            CreateOrPatchFirewallIdentityStoreEventLogServerServiceURL.Replace("{firewall-identity-store-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallIdentityStoreId, System.Globalization.CultureInfo.InvariantCulture)));
+            CreateOrPatchFirewallIdentityStoreEventLogServerServiceURL.Replace("{event-log-server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EventLogServerId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.AddJsonBody(JsonConvert.SerializeObject(DirectoryEventLogServer, defaultSerializationSettings));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = CreateOrPatchFirewallIdentityStoreServiceURL.ToString();
+            request.Resource = CreateOrPatchFirewallIdentityStoreEventLogServerServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP PATCH operation to " + CreateOrPatchFirewallIdentityStoreServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP PATCH operation to " + CreateOrPatchFirewallIdentityStoreEventLogServerServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -1618,33 +1174,37 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdfwSystemStatsType GlobalGetIdfwsystemStatisticsData(string? EnforcementPointPath = null)
+        public NSXTDirectoryEventLogServerType ReadFirewallIdentityStoreEventLogServer(string FirewallIdentityStoreId, string EventLogServerId, string? EnforcementPointPath = null)
         {
-            NSXTIdfwSystemStatsType returnValue = default(NSXTIdfwSystemStatsType);
-            StringBuilder GetIdfwsystemStatisticsDataServiceURL = new StringBuilder("/global-infra/settings/firewall/idfw/system-stats");
+            if (FirewallIdentityStoreId == null) { throw new System.ArgumentNullException("FirewallIdentityStoreId cannot be null"); }
+            if (EventLogServerId == null) { throw new System.ArgumentNullException("EventLogServerId cannot be null"); }
+            NSXTDirectoryEventLogServerType returnValue = default(NSXTDirectoryEventLogServerType);
+            StringBuilder ReadFirewallIdentityStoreEventLogServerServiceURL = new StringBuilder("/infra/firewall-identity-stores/{firewall-identity-store-id}/event-log-servers/{event-log-server-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
+            ReadFirewallIdentityStoreEventLogServerServiceURL.Replace("{firewall-identity-store-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallIdentityStoreId, System.Globalization.CultureInfo.InvariantCulture)));
+            ReadFirewallIdentityStoreEventLogServerServiceURL.Replace("{event-log-server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EventLogServerId, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = GetIdfwsystemStatisticsDataServiceURL.ToString();
+            request.Resource = ReadFirewallIdentityStoreEventLogServerServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetIdfwsystemStatisticsDataServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + ReadFirewallIdentityStoreEventLogServerServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
 			{
 				try
 				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdfwSystemStatsType>(response.Content, defaultSerializationSettings);
+					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryEventLogServerType>(response.Content, defaultSerializationSettings);
 				}
 				catch (Exception ex)
 				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdfwSystemStatsType).FullName + ".";
+					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryEventLogServerType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -1683,282 +1243,6 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTIdfwTransportNodeStatusListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTDirectoryDomainListResultsType GlobalListFirewallIdentityStores(string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTDirectoryDomainListResultsType returnValue = default(NSXTDirectoryDomainListResultsType);
-            StringBuilder ListFirewallIdentityStoresServiceURL = new StringBuilder("/global-infra/firewall-identity-stores");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListFirewallIdentityStoresServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListFirewallIdentityStoresServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryDomainListResultsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryDomainListResultsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTDirectoryDomainSyncStatsType GlobalGetFirewallIdentityStoreSyncStats(string FirewallIdentityStoreId, string? EnforcementPointPath = null)
-        {
-            if (FirewallIdentityStoreId == null) { throw new System.ArgumentNullException("FirewallIdentityStoreId cannot be null"); }
-            NSXTDirectoryDomainSyncStatsType returnValue = default(NSXTDirectoryDomainSyncStatsType);
-            StringBuilder GetFirewallIdentityStoreSyncStatsServiceURL = new StringBuilder("/global-infra/firewall-identity-stores/{firewall-identity-store-id}/sync-stats");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetFirewallIdentityStoreSyncStatsServiceURL.Replace("{firewall-identity-store-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallIdentityStoreId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = GetFirewallIdentityStoreSyncStatsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetFirewallIdentityStoreSyncStatsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryDomainSyncStatsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryDomainSyncStatsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIdfwComputeCollectionListResultType GlobalGetIdfwstatusForAllComputeCollections(string? EnforcementPointPath = null)
-        {
-            NSXTIdfwComputeCollectionListResultType returnValue = default(NSXTIdfwComputeCollectionListResultType);
-            StringBuilder GetIdfwstatusForAllComputeCollectionsServiceURL = new StringBuilder("/global-infra/settings/firewall/idfw/compute-collections/status");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = GetIdfwstatusForAllComputeCollectionsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetIdfwstatusForAllComputeCollectionsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdfwComputeCollectionListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdfwComputeCollectionListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIdfwUserSessionDataAndMappingsType GlobalGetUserSessionData(string? EnforcementPointPath = null)
-        {
-            NSXTIdfwUserSessionDataAndMappingsType returnValue = default(NSXTIdfwUserSessionDataAndMappingsType);
-            StringBuilder GetUserSessionDataServiceURL = new StringBuilder("/global-infra/settings/firewall/idfw/user-session-data");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = GetUserSessionDataServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetUserSessionDataServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdfwUserSessionDataAndMappingsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdfwUserSessionDataAndMappingsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTDirectoryLdapServerStatusType VerifyFirewallIdentityStoreLdapServer(NSXTDirectoryLdapServerType DirectoryLdapServer, string Action, string? EnforcementPointPath = null)
-        {
-            if (DirectoryLdapServer == null) { throw new System.ArgumentNullException("DirectoryLdapServer cannot be null"); }
-            if (Action == null) { throw new System.ArgumentNullException("Action cannot be null"); }
-            NSXTDirectoryLdapServerStatusType returnValue = default(NSXTDirectoryLdapServerStatusType);
-            StringBuilder VerifyFirewallIdentityStoreLdapServerServiceURL = new StringBuilder("/infra/firewall-identity-store-ldap-server");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.POST
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.AddJsonBody(JsonConvert.SerializeObject(DirectoryLdapServer, defaultSerializationSettings));
-            if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = VerifyFirewallIdentityStoreLdapServerServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP POST operation to " + VerifyFirewallIdentityStoreLdapServerServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryLdapServerStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryLdapServerStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTDirectoryLdapServerStatusType GlobalVerifyFirewallIdentityStoreLdapServer(NSXTDirectoryLdapServerType DirectoryLdapServer, string Action, string? EnforcementPointPath = null)
-        {
-            if (DirectoryLdapServer == null) { throw new System.ArgumentNullException("DirectoryLdapServer cannot be null"); }
-            if (Action == null) { throw new System.ArgumentNullException("Action cannot be null"); }
-            NSXTDirectoryLdapServerStatusType returnValue = default(NSXTDirectoryLdapServerStatusType);
-            StringBuilder VerifyFirewallIdentityStoreLdapServerServiceURL = new StringBuilder("/global-infra/firewall-identity-store-ldap-server");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.POST
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.AddJsonBody(JsonConvert.SerializeObject(DirectoryLdapServer, defaultSerializationSettings));
-            if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = VerifyFirewallIdentityStoreLdapServerServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP POST operation to " + VerifyFirewallIdentityStoreLdapServerServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryLdapServerStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryLdapServerStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTDirectoryGroupListResultsType GlobalSearchFirewallIdentityGroups(string FirewallIdentityStoreId, string FilterValue, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (FirewallIdentityStoreId == null) { throw new System.ArgumentNullException("FirewallIdentityStoreId cannot be null"); }
-            if (FilterValue == null) { throw new System.ArgumentNullException("FilterValue cannot be null"); }
-            NSXTDirectoryGroupListResultsType returnValue = default(NSXTDirectoryGroupListResultsType);
-            StringBuilder SearchFirewallIdentityGroupsServiceURL = new StringBuilder("/global-infra/firewall-identity-stores/{firewall-identity-store-id}/groups");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            SearchFirewallIdentityGroupsServiceURL.Replace("{firewall-identity-store-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallIdentityStoreId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            if (FilterValue != null) { request.AddQueryParameter("filter_value", FilterValue.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = SearchFirewallIdentityGroupsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + SearchFirewallIdentityGroupsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryGroupListResultsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryGroupListResultsType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}

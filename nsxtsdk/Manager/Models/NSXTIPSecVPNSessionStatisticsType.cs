@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Session statistics gives aggregated statistics of all policies for all the tunnels.")]
     public class NSXTIPSecVPNSessionStatisticsType 
     {
+        public NSXTIPSecVPNSessionStatisticsType()
+        {
+        }
         /// <summary>
-        /// Traffic statistics for IPSec VPN IKE session. Note - Not supported in this release.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ike_traffic_statistics")]
-        [NSXTProperty(IsRequired: false, Description: @"Traffic statistics for IPSec VPN IKE session. Note - Not supported in this release.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPSecVPNIKETrafficStatisticsType IkeTrafficStatistics { get; set; }
         /// <summary>
         /// Display name of vpn session.
@@ -54,16 +57,16 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Timestamp when the data was last updated.")]
         public long? LastUpdateTimestamp { get; set; }
         /// <summary>
-        /// Status for IPSec VPN IKE session UP/DOWN and fail reason if IKE session is down.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ike_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Status for IPSec VPN IKE session UP/DOWN and fail reason if IKE session is down.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPSecVPNIKESessionStatusType IkeStatus { get; set; }
         /// <summary>
-        /// Aggregate traffic statistics across all ipsec tunnels.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "aggregate_traffic_counters")]
-        [NSXTProperty(IsRequired: false, Description: @"Aggregate traffic statistics across all ipsec tunnels.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPSecVPNTrafficCountersType AggregateTrafficCounters { get; set; }
     }
 }

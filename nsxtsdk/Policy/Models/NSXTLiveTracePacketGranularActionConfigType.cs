@@ -17,13 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Configuration of livetrace packet granular action")]
     public class NSXTLiveTracePacketGranularActionConfigType 
     {
+        public NSXTLiveTracePacketGranularActionConfigType()
+        {
+        }
         /// <summary>
-        /// Filter for flows of interest at the reverse direction. It is required only when the trace type is bidirectional.
-        /// Multiple bi-directional actions in a livetrace session should have the same filter specified for the reverse
-        /// direction.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "reverse_filter")]
-        [NSXTProperty(IsRequired: false, Description: @"Filter for flows of interest at the reverse direction. It is required only when the trace type is bidirectional.Multiple bi-directional actions in a livetrace session should have the same filter specified for the reversedirection.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLiveTraceFilterDataType ReverseFilter { get; set; }
         /// <summary>
         /// Type of trace
@@ -41,10 +42,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Policy path of logical port for the reverse direction of a livetrace session. It is required only when thetrace type is bidirectional. Multiple bi-directional actions in a livetrace session should have the sameport specified for the reverse direction.")]
         public string? DestPortPath { get; set; }
         /// <summary>
-        /// Sampling parameter for the action. Trace action and packet capture action only support first-N sampling.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "sampling", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Sampling parameter for the action. Trace action and packet capture action only support first-N sampling.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTLiveTraceSamplingConfigType Sampling { get; set; }
     }

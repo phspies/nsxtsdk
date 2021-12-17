@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeSshServicePropertiesType : NSXTNodeServicePropertiesType
     {
+        public NSXTNodeSshServicePropertiesType()
+        {
+        }
         /// <summary>
-        /// SSH Service properties
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "service_properties")]
-        [NSXTProperty(IsRequired: false, Description: @"SSH Service properties")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTSshServicePropertiesType ServiceProperties { get; set; }
     }
 }

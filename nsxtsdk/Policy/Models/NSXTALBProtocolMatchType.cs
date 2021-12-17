@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer ProtocolMatch object")]
     public class NSXTALBProtocolMatchType 
     {
+        public NSXTALBProtocolMatchType()
+        {
+        }
         /// <summary>
         /// HTTP or HTTPS protocol.
         /// Enum options - HTTP, HTTPS.

@@ -17,6 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"An instance of a datasource configuration.")]
     public class NSXTDatasourceType 
     {
+        public NSXTDatasourceType()
+        {
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "keystore_info")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTKeyStoreInfoType KeystoreInfo { get; set; }
         /// <summary>
         /// Name of a datasource instance.
         /// </summary>

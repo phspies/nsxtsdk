@@ -17,6 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer TacacsPlusAuthSettings object")]
     public class NSXTALBTacacsPlusAuthSettingsType 
     {
+        public NSXTALBTacacsPlusAuthSettingsType()
+        {
+            Port = test
+            Service = test
+        }
         /// <summary>
         /// TACACS+ authorization attribute value pairs.
         /// </summary>
@@ -36,7 +41,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "port")]
         [NSXTProperty(IsRequired: false, Description: @"TACACS+ server listening port.Default value when not specified in API or module isinterpreted by ALB Controller as 49.")]
-        [NSXTDefaultProperty(Default: "")]
         public long? Port { get; set; }
         /// <summary>
         /// TACACS+ service.
@@ -53,7 +57,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "service")]
         [NSXTProperty(IsRequired: false, Description: @"TACACS+ service.Enum options - AUTH_TACACS_PLUS_SERVICE_NONE,AUTH_TACACS_PLUS_SERVICE_LOGIN,AUTH_TACACS_PLUS_SERVICE_ENABLE,AUTH_TACACS_PLUS_SERVICE_PPP, AUTH_TACACS_PLUS_SERVICE_ARAP,AUTH_TACACS_PLUS_SERVICE_PT, AUTH_TACACS_PLUS_SERVICE_RCMD,AUTH_TACACS_PLUS_SERVICE_X25, AUTH_TACACS_PLUS_SERVICE_NASI,AUTH_TACACS_PLUS_SERVICE_FWPROXY.Default value when not specified in API or module isinterpreted by ALB Controller asAUTH_TACACS_PLUS_SERVICE_LOGIN.")]
-        [NSXTDefaultProperty(Default: "AUTH_TACACS_PLUS_SERVICE_LOGIN")]
         public NSXTAlbtacacsPlusAuthSettingsServiceEnumType? Service { get; set; }
         /// <summary>
         /// TACACS+ server IP address or FQDN.

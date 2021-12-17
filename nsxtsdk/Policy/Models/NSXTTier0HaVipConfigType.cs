@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Tier0 HA VIP Config")]
     public class NSXTTier0HaVipConfigType 
     {
+        public NSXTTier0HaVipConfigType()
+        {
+            Enabled = test
+        }
         /// <summary>
         /// Policy paths to Tier0 external interfaces which are to be paired to provide redundancy. Floating IP will be owned by one
         /// of these interfaces depending upon which edge node is Active.
@@ -37,7 +41,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Flag to enable this HA VIP config.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enabled { get; set; }
     }
 }

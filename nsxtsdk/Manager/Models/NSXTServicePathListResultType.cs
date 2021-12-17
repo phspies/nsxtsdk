@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTServicePathListResultType : NSXTListResultType
     {
+        public NSXTServicePathListResultType()
+        {
+        }
         /// <summary>
         /// List of homogenous service paths
         /// </summary>

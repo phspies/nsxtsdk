@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Pool usage statistics in a pool")]
     public class NSXTVtepLabelPoolUsageType 
     {
+        public NSXTVtepLabelPoolUsageType()
+        {
+        }
         /// <summary>
         /// Total number of IDs in a pool
         /// </summary>

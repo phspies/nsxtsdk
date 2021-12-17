@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"The Deployment Config contains settings that are applied during install time.")]
     public class NSXTServiceDeploymentConfigType 
     {
+        public NSXTServiceDeploymentConfigType()
+        {
+        }
         /// <summary>
         /// Moref of the datastore in VC. If it is to be taken from 'Agent VM Settings', then it should be empty.
         /// </summary>
@@ -40,10 +43,10 @@ namespace nsxtsdk.ManagerModels
         [System.ComponentModel.DataAnnotations.Required]
         public string ComputeCollectionId { get; set; }
         /// <summary>
-        /// VM NIC information for VMs
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "vm_nic_info")]
-        [NSXTProperty(IsRequired: false, Description: @"VM NIC information for VMs")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTVmNicInfoType VmNicInfo { get; set; }
         /// <summary>
         /// Context Id or VCenter Id.

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbTcpMonitorType : NSXTLbActiveMonitorType
     {
+        public NSXTLbTcpMonitorType()
+        {
+        }
         /// <summary>
         /// Expected data, if specified, can be anywhere in the response and it has to
         /// be a string, regular expressions are not supported.

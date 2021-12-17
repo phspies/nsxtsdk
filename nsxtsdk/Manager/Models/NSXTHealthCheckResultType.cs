@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Result of health check.")]
     public class NSXTHealthCheckResultType 
     {
+        public NSXTHealthCheckResultType()
+        {
+        }
         /// <summary>
         /// Overall status of VLAN-MTU health check result.
         /// </summary>

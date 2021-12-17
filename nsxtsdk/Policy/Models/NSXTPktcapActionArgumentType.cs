@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPktcapActionArgumentType 
     {
+        public NSXTPktcapActionArgumentType()
+        {
+        }
         /// <summary>
         /// Type of packet capture
         /// </summary>
@@ -24,18 +27,17 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Type of packet capture")]
         public NSXTPktcapActionArgumentPktcapTypeEnumType? PktcapType { get; set; }
         /// <summary>
-        /// Please keep this aligned with trace_config, if you
-        /// specify dest_lport at trace_config.
+        /// It is required only when the type of packet capture is bidirectional. Please keep this aligned with the
+        /// destination logical port of trace action config when the type of trace action is bidirectional.
         /// </summary>
         [JsonProperty(PropertyName = "dest_lport")]
-        [NSXTProperty(IsRequired: false, Description: @"Please keep this aligned with trace_config, if youspecify dest_lport at trace_config.")]
+        [NSXTProperty(IsRequired: false, Description: @"It is required only when the type of packet capture is bidirectional. Please keep this aligned with thedestination logical port of trace action config when the type of trace action is bidirectional.")]
         public string? DestLport { get; set; }
         /// <summary>
-        /// Please keep this aligned with trace_config, if you
-        /// specify dest_lport at trace_config.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "reverse_filter")]
-        [NSXTProperty(IsRequired: false, Description: @"Please keep this aligned with trace_config, if youspecify dest_lport at trace_config.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLiveTraceFilterDataType ReverseFilter { get; set; }
     }
 }

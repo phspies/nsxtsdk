@@ -7,9 +7,9 @@ using nsxtsdk.Models;
 namespace nsxtsdk.PolicyModels
 {
     /// <summary>
-    /// Specifies behavior when a persistent server has been markeddown by a health monitor.Enum options - HM_DOWN_PICK_NEW_SERVER,HM_DOWN_ABORT_CONNECTION,HM_DOWN_CONTINUE_PERSISTENT_SERVER.Default value when not specified in API or module isinterpreted by ALB Controller as HM_DOWN_PICK_NEW_SERVER.
+    /// Specifies behavior when a persistent server has been markeddown by a health monitor.Enum options - HM_DOWN_PICK_NEW_SERVER,HM_DOWN_ABORT_CONNECTION,HM_DOWN_CONTINUE_PERSISTENT_SERVER.Allowed in Basic(Allowed values- HM_DOWN_PICK_NEW_SERVER)edition, Essentials(Allowed values- HM_DOWN_PICK_NEW_SERVER)edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as HM_DOWN_PICK_NEW_SERVER.
     /// </summary>
-    [NSXTProperty(Description: @"Specifies behavior when a persistent server has been markeddown by a health monitor.Enum options - HM_DOWN_PICK_NEW_SERVER,HM_DOWN_ABORT_CONNECTION,HM_DOWN_CONTINUE_PERSISTENT_SERVER.Default value when not specified in API or module isinterpreted by ALB Controller as HM_DOWN_PICK_NEW_SERVER.")]
+    [NSXTProperty(Description: @"Specifies behavior when a persistent server has been markeddown by a health monitor.Enum options - HM_DOWN_PICK_NEW_SERVER,HM_DOWN_ABORT_CONNECTION,HM_DOWN_CONTINUE_PERSISTENT_SERVER.Allowed in Basic(Allowed values- HM_DOWN_PICK_NEW_SERVER)edition, Essentials(Allowed values- HM_DOWN_PICK_NEW_SERVER)edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as HM_DOWN_PICK_NEW_SERVER.")]
     public enum NSXTAlbapplicationPersistenceProfileServerHmDownRecoveryEnumType
     {
         [EnumMember(Value = "HM_DOWN_PICK_NEW_SERVER")]

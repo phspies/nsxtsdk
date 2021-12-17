@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Contains the details of resource field")]
     public class NSXTPolicyFineTuningResourceInfoDetailType 
     {
+        public NSXTPolicyFineTuningResourceInfoDetailType()
+        {
+        }
         /// <summary>
         /// It will represent resource with name and fields.
         /// </summary>
@@ -25,10 +28,10 @@ namespace nsxtsdk.PolicyModels
         [System.ComponentModel.DataAnnotations.Required]
         public string FieldName { get; set; }
         /// <summary>
-        /// List of all field of any resource
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "sub_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"List of all field of any resource")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTPolicyFineTuningResourceInfoType SubType { get; set; }
     }

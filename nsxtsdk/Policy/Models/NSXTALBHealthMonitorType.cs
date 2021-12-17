@@ -17,26 +17,18 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBHealthMonitorType : NSXTPolicyConfigResourceType
     {
+        public NSXTALBHealthMonitorType()
+        {
+            ReceiveTimeout = test
+            SendInterval = test
+            SuccessfulChecks = test
+            FailedChecks = test
+        }
         /// <summary>
-        /// Use this port instead of the port defined for the server in
-        /// the Pool.
-        /// If the monitor succeeds to this port, the load balanced
-        /// traffic will still be sent to the port of the server defined
-        /// within the Pool.
-        /// Allowed values are 1-65535.
-        /// Special values are 0 - 'Use server port'.
-        /// </summary>
-        [JsonProperty(PropertyName = "monitor_port")]
-        [NSXTProperty(IsRequired: false, Description: @"Use this port instead of the port defined for the server inthe Pool.If the monitor succeeds to this port, the load balancedtraffic will still be sent to the port of the server definedwithin the Pool.Allowed values are 1-65535.Special values are 0 - &apos;Use server port&apos;.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        public long? MonitorPort { get; set; }
-        /// <summary>
-        /// Placeholder for description of property https_monitor of
-        /// obj type HealthMonitor field type str  type ref.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "https_monitor")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property https_monitor ofobj type HealthMonitor field type str  type ref.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHealthMonitorHttpType HttpsMonitor { get; set; }
         /// <summary>
         /// A valid response from the server is expected within the
@@ -53,63 +45,13 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"A valid response from the server is expected within thereceive timeout window.This timeout must be less than the send interval.If server status is regularly flapping up and down,consider increasing this value.Allowed values are 1-2400.Unit is SEC.Default value when not specified in API or module isinterpreted by ALB Controller as 4.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(2400)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ReceiveTimeout { get; set; }
         /// <summary>
-        /// During addition of a server or healthmonitors or during
-        /// bootup, Avi performs sequential health checks rather than
-        /// waiting for send-interval to kick in, to mark the server up
-        /// as soon as possible.
-        /// This knob may be used to turn this feature off.
-        /// </summary>
-        [JsonProperty(PropertyName = "disable_quickstart")]
-        [NSXTProperty(IsRequired: false, Description: @"During addition of a server or healthmonitors or duringbootup, Avi performs sequential health checks rather thanwaiting for send-interval to kick in, to mark the server upas soon as possible.This knob may be used to turn this feature off.")]
-        public bool? DisableQuickstart { get; set; }
-        /// <summary>
-        /// Health monitor for Radius.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "radius_monitor")]
-        [NSXTProperty(IsRequired: false, Description: @"Health monitor for Radius.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHealthMonitorRadiusType RadiusMonitor { get; set; }
-        /// <summary>
-        /// Placeholder for description of property dns_monitor of obj
-        /// type HealthMonitor field type str  type ref.
-        /// </summary>
-        [JsonProperty(PropertyName = "dns_monitor")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property dns_monitor of objtype HealthMonitor field type str  type ref.")]
-        public NSXTALBHealthMonitorDNSType DnsMonitor { get; set; }
-        /// <summary>
-        /// This field describes the object's replication scope.
-        /// If the field is set to false, then the object is visible
-        /// within the controller-cluster and its associated
-        /// service-engines.
-        /// If the field is set to true, then the object is replicated
-        /// across the federation.
-        /// Default value when not specified in API or module is
-        /// interpreted by ALB Controller as false.
-        /// </summary>
-        [JsonProperty(PropertyName = "is_federated")]
-        [NSXTProperty(IsRequired: false, Description: @"This field describes the object&apos;s replication scope.If the field is set to false, then the object is visiblewithin the controller-cluster and its associatedservice-engines.If the field is set to true, then the object is replicatedacross the federation.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
-        public bool? IsFederated { get; set; }
-        /// <summary>
-        /// Health monitor for SIP.
-        /// </summary>
-        [JsonProperty(PropertyName = "sip_monitor")]
-        [NSXTProperty(IsRequired: false, Description: @"Health monitor for SIP.")]
-        public NSXTALBHealthMonitorSIPType SipMonitor { get; set; }
-        /// <summary>
-        /// Placeholder for description of property tcp_monitor of obj
-        /// type HealthMonitor field type str  type ref.
-        /// </summary>
-        [JsonProperty(PropertyName = "tcp_monitor")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property tcp_monitor of objtype HealthMonitor field type str  type ref.")]
-        public NSXTALBHealthMonitorTcpType TcpMonitor { get; set; }
-        /// <summary>
-        /// Authentication information for username/password.
-        /// </summary>
-        [JsonProperty(PropertyName = "authentication")]
-        [NSXTProperty(IsRequired: false, Description: @"Authentication information for username/password.")]
-        public NSXTALBHealthMonitorAuthInfoType Authentication { get; set; }
         /// <summary>
         /// Frequency, in seconds, that monitors are sent to a server.
         /// Allowed values are 1-3600.
@@ -121,65 +63,25 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Frequency, in seconds, that monitors are sent to a server.Allowed values are 1-3600.Unit is SEC.Default value when not specified in API or module isinterpreted by ALB Controller as 10.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(3600)]
-        [NSXTDefaultProperty(Default: "")]
         public long? SendInterval { get; set; }
         /// <summary>
-        /// Placeholder for description of property udp_monitor of obj
-        /// type HealthMonitor field type str  type ref.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "udp_monitor")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property udp_monitor of objtype HealthMonitor field type str  type ref.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHealthMonitorUdpType UdpMonitor { get; set; }
         /// <summary>
-        /// Type of the health monitor.
-        /// Enum options - HEALTH_MONITOR_PING, HEALTH_MONITOR_TCP,
-        /// HEALTH_MONITOR_HTTP, HEALTH_MONITOR_HTTPS,
-        /// HEALTH_MONITOR_EXTERNAL, HEALTH_MONITOR_UDP,
-        /// HEALTH_MONITOR_DNS, HEALTH_MONITOR_GSLB, HEALTH_MONITOR_SIP,
-        /// HEALTH_MONITOR_RADIUS.
-        /// </summary>
-        [JsonProperty(PropertyName = "type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Type of the health monitor.Enum options - HEALTH_MONITOR_PING, HEALTH_MONITOR_TCP,HEALTH_MONITOR_HTTP, HEALTH_MONITOR_HTTPS,HEALTH_MONITOR_EXTERNAL, HEALTH_MONITOR_UDP,HEALTH_MONITOR_DNS, HEALTH_MONITOR_GSLB, HEALTH_MONITOR_SIP,HEALTH_MONITOR_RADIUS.")]
-        [System.ComponentModel.DataAnnotations.Required]
-        public NSXTAlbhealthMonitorTypeEnumType Type { get; set; }
-        /// <summary>
-        /// Placeholder for description of property http_monitor of obj
-        /// type HealthMonitor field type str  type ref.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "http_monitor")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property http_monitor of objtype HealthMonitor field type str  type ref.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHealthMonitorHttpType HttpMonitor { get; set; }
         /// <summary>
-        /// Placeholder for description of property external_monitor of
-        /// obj type HealthMonitor field type str  type ref.
+        /// 
         /// </summary>
-        [JsonProperty(PropertyName = "external_monitor")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property external_monitor ofobj type HealthMonitor field type str  type ref.")]
-        public NSXTALBHealthMonitorExternalType ExternalMonitor { get; set; }
-        /// <summary>
-        /// By default, multiple instances of the same healthmonitor to
-        /// the same server are suppressed intelligently.
-        /// In rare cases, the monitor may have specific constructs
-        /// that go beyond the server keys (ip, port, etc.) during which
-        /// such suppression is not desired.
-        /// Use this knob to allow duplicates.
-        /// </summary>
-        [JsonProperty(PropertyName = "allow_duplicate_monitors")]
-        [NSXTProperty(IsRequired: false, Description: @"By default, multiple instances of the same healthmonitor tothe same server are suppressed intelligently.In rare cases, the monitor may have specific constructsthat go beyond the server keys (ip, port, etc.) during whichsuch suppression is not desired.Use this knob to allow duplicates.")]
-        public bool? AllowDuplicateMonitors { get; set; }
-        /// <summary>
-        /// Number of continuous failed health checks before the server
-        /// is marked down.
-        /// Allowed values are 1-50.
-        /// Default value when not specified in API or module is
-        /// interpreted by ALB Controller as 2.
-        /// </summary>
-        [JsonProperty(PropertyName = "failed_checks")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of continuous failed health checks before the serveris marked down.Allowed values are 1-50.Default value when not specified in API or module isinterpreted by ALB Controller as 2.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(50)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? FailedChecks { get; set; }
+        [JsonProperty(PropertyName = "imap_monitor")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTALBHealthMonitorImapType ImapMonitor { get; set; }
         /// <summary>
         /// Number of continuous successful health checks before server
         /// is marked up.
@@ -191,7 +93,163 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Number of continuous successful health checks before serveris marked up.Allowed values are 1-50.Default value when not specified in API or module isinterpreted by ALB Controller as 2.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(50)]
-        [NSXTDefaultProperty(Default: "")]
         public long? SuccessfulChecks { get; set; }
+        /// <summary>
+        /// Use this port instead of the port defined for the server in
+        /// the Pool.
+        /// If the monitor succeeds to this port, the load balanced
+        /// traffic will still be sent to the port of the server defined
+        /// within the Pool.
+        /// Allowed values are 1-65535.
+        /// Special values are 0 - 'Use server port'.
+        /// </summary>
+        [JsonProperty(PropertyName = "monitor_port")]
+        [NSXTProperty(IsRequired: false, Description: @"Use this port instead of the port defined for the server inthe Pool.If the monitor succeeds to this port, the load balancedtraffic will still be sent to the port of the server definedwithin the Pool.Allowed values are 1-65535.Special values are 0 - &apos;Use server port&apos;.")]
+        //[System.ComponentModel.DataAnnotations.MinLength(0)]
+        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
+        public long? MonitorPort { get; set; }
+        /// <summary>
+        /// By default, multiple instances of the same healthmonitor to
+        /// the same server are suppressed intelligently.
+        /// In rare cases, the monitor may have specific constructs
+        /// that go beyond the server keys (ip, port, etc.) during which
+        /// such suppression is not desired.
+        /// Use this knob to allow duplicates.
+        /// Allowed in Basic(Allowed values- true) edition,
+        /// Essentials(Allowed values- true) edition, Enterprise
+        /// edition.
+        /// </summary>
+        [JsonProperty(PropertyName = "allow_duplicate_monitors")]
+        [NSXTProperty(IsRequired: false, Description: @"By default, multiple instances of the same healthmonitor tothe same server are suppressed intelligently.In rare cases, the monitor may have specific constructsthat go beyond the server keys (ip, port, etc.) during whichsuch suppression is not desired.Use this knob to allow duplicates.Allowed in Basic(Allowed values- true) edition,Essentials(Allowed values- true) edition, Enterpriseedition.")]
+        public bool? AllowDuplicateMonitors { get; set; }
+        /// <summary>
+        /// During addition of a server or healthmonitors or during
+        /// bootup, Avi performs sequential health checks rather than
+        /// waiting for send-interval to kick in, to mark the server up
+        /// as soon as possible.
+        /// This knob may be used to turn this feature off.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
+        /// </summary>
+        [JsonProperty(PropertyName = "disable_quickstart")]
+        [NSXTProperty(IsRequired: false, Description: @"During addition of a server or healthmonitors or duringbootup, Avi performs sequential health checks rather thanwaiting for send-interval to kick in, to mark the server upas soon as possible.This knob may be used to turn this feature off.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.")]
+        public bool? DisableQuickstart { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "dns_monitor")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTALBHealthMonitorDNSType DnsMonitor { get; set; }
+        /// <summary>
+        /// This field describes the object's replication scope.
+        /// If the field is set to false, then the object is visible
+        /// within the controller-cluster and its associated
+        /// service-engines.
+        /// If the field is set to true, then the object is replicated
+        /// across the federation.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
+        /// Default value when not specified in API or module is
+        /// interpreted by ALB Controller as false.
+        /// </summary>
+        [JsonProperty(PropertyName = "is_federated")]
+        [NSXTProperty(IsRequired: false, Description: @"This field describes the object&apos;s replication scope.If the field is set to false, then the object is visiblewithin the controller-cluster and its associatedservice-engines.If the field is set to true, then the object is replicatedacross the federation.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        public bool? IsFederated { get; set; }
+        /// <summary>
+        /// List of labels to be used for granular RBAC.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
+        /// </summary>
+        [JsonProperty(PropertyName = "markers")]
+        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
+        public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "smtp_monitor")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTALBHealthMonitorSmtpType SmtpMonitor { get; set; }
+        /// <summary>
+        /// Number of continuous failed health checks before the server
+        /// is marked down.
+        /// Allowed values are 1-50.
+        /// Default value when not specified in API or module is
+        /// interpreted by ALB Controller as 2.
+        /// </summary>
+        [JsonProperty(PropertyName = "failed_checks")]
+        [NSXTProperty(IsRequired: false, Description: @"Number of continuous failed health checks before the serveris marked down.Allowed values are 1-50.Default value when not specified in API or module isinterpreted by ALB Controller as 2.")]
+        //[System.ComponentModel.DataAnnotations.MinLength(1)]
+        //[System.ComponentModel.DataAnnotations.MaxLength(50)]
+        public long? FailedChecks { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "tcp_monitor")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTALBHealthMonitorTcpType TcpMonitor { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "authentication")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTALBHealthMonitorAuthInfoType Authentication { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "pop3_monitor")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTALBHealthMonitorPop3Type Pop3Monitor { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "pop3s_monitor")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTALBHealthMonitorPop3Type Pop3sMonitor { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "smtps_monitor")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTALBHealthMonitorSmtpType SmtpsMonitor { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "external_monitor")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTALBHealthMonitorExternalType ExternalMonitor { get; set; }
+        /// <summary>
+        /// Type of the health monitor.
+        /// Enum options - HEALTH_MONITOR_PING, HEALTH_MONITOR_TCP,
+        /// HEALTH_MONITOR_HTTP, HEALTH_MONITOR_HTTPS,
+        /// HEALTH_MONITOR_EXTERNAL, HEALTH_MONITOR_UDP,
+        /// HEALTH_MONITOR_DNS, HEALTH_MONITOR_GSLB, HEALTH_MONITOR_SIP,
+        /// HEALTH_MONITOR_RADIUS, HEALTH_MONITOR_SMTP,
+        /// HEALTH_MONITOR_SMTPS, HEALTH_MONITOR_POP3,
+        /// HEALTH_MONITOR_POP3S, HEALTH_MONITOR_IMAP,
+        /// HEALTH_MONITOR_IMAPS.
+        /// Allowed in Basic(Allowed values-
+        /// HEALTH_MONITOR_PING,HEALTH_MONITOR_TCP,HEALTH_MONITOR_UDP,HEALTH_MONITOR_HTTP,HEALTH_MONITOR_HTTPS)
+        /// edition, Essentials(Allowed values-
+        /// HEALTH_MONITOR_PING,HEALTH_MONITOR_TCP,HEALTH_MONITOR_UDP)
+        /// edition, Enterprise edition.
+        /// </summary>
+        [JsonProperty(PropertyName = "type", Required = Required.AllowNull)]
+        [NSXTProperty(IsRequired: true, Description: @"Type of the health monitor.Enum options - HEALTH_MONITOR_PING, HEALTH_MONITOR_TCP,HEALTH_MONITOR_HTTP, HEALTH_MONITOR_HTTPS,HEALTH_MONITOR_EXTERNAL, HEALTH_MONITOR_UDP,HEALTH_MONITOR_DNS, HEALTH_MONITOR_GSLB, HEALTH_MONITOR_SIP,HEALTH_MONITOR_RADIUS, HEALTH_MONITOR_SMTP,HEALTH_MONITOR_SMTPS, HEALTH_MONITOR_POP3,HEALTH_MONITOR_POP3S, HEALTH_MONITOR_IMAP,HEALTH_MONITOR_IMAPS.Allowed in Basic(Allowed values-HEALTH_MONITOR_PING,HEALTH_MONITOR_TCP,HEALTH_MONITOR_UDP,HEALTH_MONITOR_HTTP,HEALTH_MONITOR_HTTPS)edition, Essentials(Allowed values-HEALTH_MONITOR_PING,HEALTH_MONITOR_TCP,HEALTH_MONITOR_UDP)edition, Enterprise edition.")]
+        [System.ComponentModel.DataAnnotations.Required]
+        public NSXTAlbhealthMonitorTypeEnumType Type { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "imaps_monitor")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTALBHealthMonitorImapType ImapsMonitor { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "sip_monitor")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTALBHealthMonitorSIPType SipMonitor { get; set; }
     }
 }

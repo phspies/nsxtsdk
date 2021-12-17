@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdfwComputeCollectionListResultType : NSXTListResultType
     {
+        public NSXTIdfwComputeCollectionListResultType()
+        {
+        }
         /// <summary>
         /// Array of IDFW compute collection Ids and status connected to VC.
         /// </summary>

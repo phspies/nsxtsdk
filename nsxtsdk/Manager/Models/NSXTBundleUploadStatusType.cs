@@ -12,16 +12,19 @@ using System.ComponentModel;
 namespace nsxtsdk.ManagerModels
 {
     /// <summary>
-    /// Upload status of bundle uploaded from local or remote location
+    /// Upload status of bundle uploaded from local or remote location.
     /// </summary>
-    [NSXTProperty(Description: @"Upload status of bundle uploaded from local or remote location")]
+    [NSXTProperty(Description: @"Upload status of bundle uploaded from local or remote location.")]
     public class NSXTBundleUploadStatusType 
     {
+        public NSXTBundleUploadStatusType()
+        {
+        }
         /// <summary>
-        /// URL for uploading bundle
+        /// URL for uploading bundle.
         /// </summary>
         [JsonProperty(PropertyName = "url")]
-        [NSXTProperty(IsRequired: false, Description: @"URL for uploading bundle")]
+        [NSXTProperty(IsRequired: false, Description: @"URL for uploading bundle.")]
         public string? Url { get; set; }
         /// <summary>
         /// Name of the uploaded bundle.
@@ -30,22 +33,22 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Name of the uploaded bundle.")]
         public string? BundleName { get; set; }
         /// <summary>
-        /// Detailed status of bundle upload
+        /// Detailed status of bundle upload.
         /// </summary>
         [JsonProperty(PropertyName = "detailed_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Detailed status of bundle upload")]
+        [NSXTProperty(IsRequired: false, Description: @"Detailed status of bundle upload.")]
         public string? DetailedStatus { get; set; }
         /// <summary>
-        /// Percent of bundle uploaded from remote location
+        /// Percent of bundle uploaded from remote location.
         /// </summary>
         [JsonProperty(PropertyName = "percent")]
-        [NSXTProperty(IsRequired: false, Description: @"Percent of bundle uploaded from remote location")]
+        [NSXTProperty(IsRequired: false, Description: @"Percent of bundle uploaded from remote location.")]
         public double? Percent { get; set; }
         /// <summary>
-        /// Current status of bundle upload
+        /// Current status of bundle upload.
         /// </summary>
         [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"Current status of bundle upload")]
+        [NSXTProperty(IsRequired: false, Description: @"Current status of bundle upload.")]
         public NSXTBundleUploadStatusStatusEnumType? Status { get; set; }
     }
 }

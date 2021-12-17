@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTL2VPNServiceType : NSXTPolicyConfigResourceType
     {
+        public NSXTL2VPNServiceType()
+        {
+            Mode = test
+        }
         /// <summary>
         /// IP Pool to allocate local and peer endpoint IPs for
         /// L2VpnSession logical tap.
@@ -29,7 +33,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "mode")]
         [NSXTProperty(IsRequired: false, Description: @"Specify an L2VPN service mode as SERVER or CLIENT.")]
-        [NSXTDefaultProperty(Default: "SERVER")]
         public NSXTL2VpnserviceModeEnumType? Mode { get; set; }
         /// <summary>
         /// This property applies only in SERVER mode. If set to true,

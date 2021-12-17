@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNotificationWatcherListResultType : NSXTListResultType
     {
+        public NSXTNotificationWatcherListResultType()
+        {
+        }
         /// <summary>
         /// List of notification watchers
         /// </summary>

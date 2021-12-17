@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTKeyValueType 
     {
+        public NSXTKeyValueType()
+        {
+        }
         /// <summary>
         /// Key value.
         /// </summary>

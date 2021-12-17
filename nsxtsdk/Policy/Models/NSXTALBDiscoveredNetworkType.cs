@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DiscoveredNetwork object")]
     public class NSXTALBDiscoveredNetworkType 
     {
-        /// <summary>
-        /// Discovered network for this IP.
-        /// It is a reference to an object of type Network.
-        /// </summary>
-        [JsonProperty(PropertyName = "network_path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Discovered network for this IP.It is a reference to an object of type Network.")]
-        [System.ComponentModel.DataAnnotations.Required]
-        public string NetworkPath { get; set; }
+        public NSXTALBDiscoveredNetworkType()
+        {
+        }
         /// <summary>
         /// Discovered subnet for this IP.
         /// </summary>
@@ -37,5 +32,13 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "subnet6")]
         [NSXTProperty(IsRequired: false, Description: @"Discovered IPv6 subnet for this IP.")]
         public IList<NSXTALBIpAddrPrefixType> Subnet6 { get; set; }
+        /// <summary>
+        /// Discovered network for this IP.
+        /// It is a reference to an object of type Network.
+        /// </summary>
+        [JsonProperty(PropertyName = "network_name", Required = Required.AllowNull)]
+        [NSXTProperty(IsRequired: true, Description: @"Discovered network for this IP.It is a reference to an object of type Network.")]
+        [System.ComponentModel.DataAnnotations.Required]
+        public string NetworkName { get; set; }
     }
 }

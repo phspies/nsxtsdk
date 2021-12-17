@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Status LDAP server of directory domain")]
     public class NSXTDirectoryLdapServerStatusType 
     {
+        public NSXTDirectoryLdapServerStatusType()
+        {
+        }
         /// <summary>
         /// Error ID of the directory LDAP server status maintained by the NSX directory service.
         /// </summary>

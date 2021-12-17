@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Describes status of configuration of an entity")]
     public class NSXTConfigurationStateElementType 
     {
+        public NSXTConfigurationStateElementType()
+        {
+        }
         /// <summary>
         /// URI of backing resource on sub system
         /// </summary>

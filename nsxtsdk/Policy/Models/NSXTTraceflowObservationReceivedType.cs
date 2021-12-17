@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTraceflowObservationReceivedType : NSXTTraceflowObservationType
     {
+        public NSXTTraceflowObservationReceivedType()
+        {
+        }
         /// <summary>
         /// The virtual tunnel endpoint label
         /// </summary>

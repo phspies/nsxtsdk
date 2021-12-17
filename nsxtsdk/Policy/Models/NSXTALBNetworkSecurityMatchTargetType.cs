@@ -17,26 +17,26 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer NetworkSecurityMatchTarget object")]
     public class NSXTALBNetworkSecurityMatchTargetType 
     {
+        public NSXTALBNetworkSecurityMatchTargetType()
+        {
+        }
         /// <summary>
-        /// Placeholder for description of property microservice of obj
-        /// type NetworkSecurityMatchTarget field type str  type ref.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "microservice")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property microservice of objtype NetworkSecurityMatchTarget field type str  type ref.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBMicroServiceMatchType Microservice { get; set; }
         /// <summary>
-        /// Placeholder for description of property vs_port of obj type
-        /// NetworkSecurityMatchTarget field type str  type ref.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "vs_port")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property vs_port of obj typeNetworkSecurityMatchTarget field type str  type ref.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBPortMatchType VsPort { get; set; }
         /// <summary>
-        /// Placeholder for description of property client_ip of obj
-        /// type NetworkSecurityMatchTarget field type str  type ref.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "client_ip")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property client_ip of objtype NetworkSecurityMatchTarget field type str  type ref.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBIpAddrMatchType ClientIp { get; set; }
     }
 }

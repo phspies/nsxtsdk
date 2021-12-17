@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIDSEventsBySignatureType : NSXTResourceType
     {
+        public NSXTIDSEventsBySignatureType()
+        {
+        }
         /// <summary>
         /// Number of times this particular signature was detected.
         /// </summary>

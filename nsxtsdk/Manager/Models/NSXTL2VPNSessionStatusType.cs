@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"L2VPN session status.")]
     public class NSXTL2VPNSessionStatusType 
     {
+        public NSXTL2VPNSessionStatusType()
+        {
+        }
         /// <summary>
         /// L2 VPN session status, specifies UP/DOWN.
         /// </summary>

@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildALBVsVipType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildALBVsVipType()
+        {
+        }
         /// <summary>
-        /// Contains the actual ALBVsVip object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ALBVsVip", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual ALBVsVip object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBVsVipType ALBVsVip { get; set; }
     }

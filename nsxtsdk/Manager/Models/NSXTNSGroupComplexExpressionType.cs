@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNSGroupComplexExpressionType : NSXTNSGroupExpressionType
     {
+        public NSXTNSGroupComplexExpressionType()
+        {
+        }
         /// <summary>
         /// Represents expressions which are to be logically 'AND'ed.The array cannot contain
         /// NSGroupComplexExpression.Only NSGroupTagExpression and NSGroupSimpleExpressions

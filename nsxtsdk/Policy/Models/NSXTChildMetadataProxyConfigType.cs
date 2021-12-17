@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildMetadataProxyConfigType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildMetadataProxyConfigType()
+        {
+        }
         /// <summary>
-        /// Contains the actual MetadataProxyConfig object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "MetadataProxyConfig", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual MetadataProxyConfig object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTMetadataProxyConfigType MetadataProxyConfig { get; set; }
     }

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Vidm Info")]
     public class NSXTVidmInfoType 
     {
+        public NSXTVidmInfoType()
+        {
+        }
         /// <summary>
         /// User's Full Name Or User Group's Display Name
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyServiceChainListResultType : NSXTListResultType
     {
+        public NSXTPolicyServiceChainListResultType()
+        {
+        }
         /// <summary>
         /// All PolicyServiceChain objects
         /// </summary>

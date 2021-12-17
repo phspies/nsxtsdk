@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceRouterAllocationConfigType 
     {
+        public NSXTServiceRouterAllocationConfigType()
+        {
+        }
         /// <summary>
         /// For TIER 1 logical router, for manual placement of service router
         /// within the cluster, edge cluster member indices needs to be provided
@@ -27,13 +30,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"For TIER 1 logical router, for manual placement of service routerwithin the cluster, edge cluster member indices needs to be providedelse same will be auto-allocated. You can provide maximum two indicesfor HA ACTIVE_STANDBY.")]
         public long? EdgeClusterMemberIndices { get; set; }
         /// <summary>
-        /// Logical router allocation can be tracked for specific services and
-        /// services may have their own hard limits and allocation sizes. For
-        /// example load balancer pool should be specified if load balancer
-        /// service will be attached to logical router.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "allocation_pool")]
-        [NSXTProperty(IsRequired: false, Description: @"Logical router allocation can be tracked for specific services andservices may have their own hard limits and allocation sizes. Forexample load balancer pool should be specified if load balancerservice will be attached to logical router.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTEdgeClusterMemberAllocationPoolType AllocationPool { get; set; }
         /// <summary>
         /// To reallocate TIER1 logical router on new or existing edge cluster

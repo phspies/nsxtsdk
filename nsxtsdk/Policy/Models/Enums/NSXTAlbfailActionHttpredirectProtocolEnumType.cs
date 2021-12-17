@@ -7,14 +7,14 @@ using nsxtsdk.Models;
 namespace nsxtsdk.PolicyModels
 {
     /// <summary>
-    /// Enum options - HTTP, HTTPS.Default value when not specified in API or module isinterpreted by ALB Controller as HTTPS.
+    /// Enum options - HTTP, HTTPS.Allowed in Basic(Allowed values- HTTP) edition, Enterpriseedition.Special default for Basic edition is HTTP, Enterprise isHTTPS.Default value when not specified in API or module isinterpreted by ALB Controller as HTTP.
     /// </summary>
-    [NSXTProperty(Description: @"Enum options - HTTP, HTTPS.Default value when not specified in API or module isinterpreted by ALB Controller as HTTPS.")]
+    [NSXTProperty(Description: @"Enum options - HTTP, HTTPS.Allowed in Basic(Allowed values- HTTP) edition, Enterpriseedition.Special default for Basic edition is HTTP, Enterprise isHTTPS.Default value when not specified in API or module isinterpreted by ALB Controller as HTTP.")]
     public enum NSXTAlbfailActionHttpredirectProtocolEnumType
     {
         [EnumMember(Value = "HTTP")]
         HTTP = 1,
         [EnumMember(Value = "HTTPS")]
-        HTTPS = 0,
+        HTTPS = 2,
     }
 }

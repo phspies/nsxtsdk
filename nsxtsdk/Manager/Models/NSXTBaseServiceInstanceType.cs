@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBaseServiceInstanceType : NSXTManagedResourceType
     {
+        public NSXTBaseServiceInstanceType()
+        {
+        }
         /// <summary>
         /// Failure policy of the service instance - if it has to be different from the service. By default the service instance
         /// inherits the FailurePolicy of the service it belongs to.
@@ -26,10 +29,10 @@ namespace nsxtsdk.ManagerModels
         public NSXTBaseServiceInstanceOnFailurePolicyEnumType? OnFailurePolicy { get; set; }
         /// <summary>
         /// Transport to be used by this service instance for deploying the Service-VM. This field is to be set Not Applicable(NA)
-        /// if the service only caters to functionality EPP(Endpoint Protection).
+        /// if the service only caters to functionality EPP(Endpoint Protection) and MPS.
         /// </summary>
         [JsonProperty(PropertyName = "transport_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Transport to be used by this service instance for deploying the Service-VM. This field is to be set Not Applicable(NA) if the service only caters to functionality EPP(Endpoint Protection).")]
+        [NSXTProperty(IsRequired: true, Description: @"Transport to be used by this service instance for deploying the Service-VM. This field is to be set Not Applicable(NA) if the service only caters to functionality EPP(Endpoint Protection) and MPS.")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTBaseServiceInstanceTransportTypeEnumType TransportType { get; set; }
         /// <summary>

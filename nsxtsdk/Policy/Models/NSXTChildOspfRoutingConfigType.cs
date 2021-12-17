@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildOspfRoutingConfigType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildOspfRoutingConfigType()
+        {
+        }
         /// <summary>
-        /// Contains actual OspfRoutingConfig.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "OspfRoutingConfig", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains actual OspfRoutingConfig.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTOspfRoutingConfigType OspfRoutingConfig { get; set; }
     }

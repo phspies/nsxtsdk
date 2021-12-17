@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTControllerClusterRoleConfigType : NSXTClusterRoleConfigType
     {
+        public NSXTControllerClusterRoleConfigType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -30,16 +33,16 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTMsgClientInfoType HostMsgClientInfo { get; set; }
         /// <summary>
-        /// The IP and port for the control plane service on this node
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "control_plane_listen_addr")]
-        [NSXTProperty(IsRequired: false, Description: @"The IP and port for the control plane service on this node")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTServiceEndpointType ControlPlaneListenAddr { get; set; }
         /// <summary>
-        /// The IP and port for the control cluster service on this node
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "control_cluster_listen_addr")]
-        [NSXTProperty(IsRequired: false, Description: @"The IP and port for the control cluster service on this node")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTServiceEndpointType ControlClusterListenAddr { get; set; }
     }
 }

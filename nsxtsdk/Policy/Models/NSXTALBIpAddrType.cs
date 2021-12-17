@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer IpAddr object")]
     public class NSXTALBIpAddrType 
     {
+        public NSXTALBIpAddrType()
+        {
+        }
         /// <summary>
         /// Enum options - V4, DNS, V6.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRedirectionRuleListResultType : NSXTBaseRuleListResultType
     {
+        public NSXTRedirectionRuleListResultType()
+        {
+        }
         /// <summary>
         /// RedirectionRule list results
         /// </summary>

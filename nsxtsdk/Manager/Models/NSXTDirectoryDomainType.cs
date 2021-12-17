@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDirectoryDomainType : NSXTManagedResourceType
     {
+        public NSXTDirectoryDomainType()
+        {
+        }
         /// <summary>
         /// Directory domain LDAP servers' information including host, name, port, protocol and so on.
         /// </summary>
@@ -40,5 +43,11 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: true, Description: @"Domain resource type comes from multiple sub-classes extending this base class. For example, DirectoryAdDomain is one accepted resource_type. If there are more sub-classes defined, they will also be accepted resource_type.")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTDirectoryDomainResourceTypeEnumType ResourceType { get; set; }
+        /// <summary>
+        /// Directory domain Event Log server's information including host, name, protocol and so on.
+        /// </summary>
+        [JsonProperty(PropertyName = "event_log_servers")]
+        [NSXTProperty(IsRequired: false, Description: @"Directory domain Event Log server&apos;s information including host, name, protocol and so on.")]
+        public IList<NSXTDirectoryEventLogServerType> EventLogServers { get; set; }
     }
 }

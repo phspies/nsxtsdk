@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNSXProfileReferenceType : NSXTResourceReferenceType
     {
+        public NSXTNSXProfileReferenceType()
+        {
+        }
         /// <summary>
         /// Profile type of the ServiceConfig
         /// </summary>

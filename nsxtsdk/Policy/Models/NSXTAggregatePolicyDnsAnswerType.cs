@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Aggregate of DNS forwarder nslookup answer across enforcement points.")]
     public class NSXTAggregatePolicyDnsAnswerType 
     {
+        public NSXTAggregatePolicyDnsAnswerType()
+        {
+        }
         /// <summary>
         /// List of DNS forwarder nslookup answer per enforcement point.
         /// </summary>

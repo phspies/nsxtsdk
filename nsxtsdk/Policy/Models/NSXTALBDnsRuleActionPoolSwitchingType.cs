@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsRuleActionPoolSwitching object")]
     public class NSXTALBDnsRuleActionPoolSwitchingType 
     {
+        public NSXTALBDnsRuleActionPoolSwitchingType()
+        {
+        }
         /// <summary>
         /// Reference of the pool to serve the passthrough DNS query
         /// which cannot be served locally.

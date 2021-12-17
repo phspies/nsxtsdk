@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Community match operation")]
     public class NSXTCommunityMatchOperationType 
     {
+        public NSXTCommunityMatchOperationType()
+        {
+            MatchOperator = test
+        }
         /// <summary>
         /// Match operator for communities from provided community list id.
         /// MATCH_ANY will match any community
@@ -30,7 +34,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "match_operator")]
         [NSXTProperty(IsRequired: false, Description: @"Match operator for communities from provided community list id.MATCH_ANY will match any communityMATCH_ALL will match all communitiesMATCH_EXACT will do exact match on communityMATCH_NONE [operator not supported] will not match any communityMATCH_REGEX will match normal communities by evaluating regularexpressionMATCH_LARGE_COMMUNITY_REGEX will match large communities by evaluatingregular expression")]
-        [NSXTDefaultProperty(Default: "MATCH_ANY")]
         public NSXTCommunityMatchOperationMatchOperatorEnumType? MatchOperator { get; set; }
         /// <summary>
         /// Regular expression to match BGP communities. If match_operator

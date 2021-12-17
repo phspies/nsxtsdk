@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIDSEventsSummaryType : NSXTResourceType
     {
+        public NSXTIDSEventsSummaryType()
+        {
+        }
         /// <summary>
         /// First occurence of the intrusion, in epoch milliseconds.
         /// </summary>

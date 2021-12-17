@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTStaticRouteNextHopType 
     {
+        public NSXTStaticRouteNextHopType()
+        {
+            AdministrativeDistance = test
+        }
         /// <summary>
         /// Action to be taken on matching packets for NULL routes.
         /// </summary>
@@ -30,7 +34,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Administrative Distance for the next hop IP")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(255)]
-        [NSXTDefaultProperty(Default: "")]
         public long? AdministrativeDistance { get; set; }
         /// <summary>
         /// Next Hop IP
@@ -46,10 +49,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Status of bfd for this next hop where bfd_enabled = true indicate bfd is enabled for this next hop and bfd_enabled = false indicate bfd peer is disabled or not configured for this next hop.")]
         public bool? BfdEnabled { get; set; }
         /// <summary>
-        /// Reference of logical router port to be used for next hop
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "logical_router_port_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Reference of logical router port to be used for next hop")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType LogicalRouterPortId { get; set; }
     }
 }

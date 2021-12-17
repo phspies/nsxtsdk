@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"The Attached interface is only effective for the port on Bare metal server.")]
     public class NSXTAttachedInterfaceType 
     {
+        public NSXTAttachedInterfaceType()
+        {
+        }
         /// <summary>
         /// Routing rules
         /// </summary>

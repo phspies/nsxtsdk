@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Credential info to connect to a node in the federated remote site.")]
     public class NSXTSiteNodeConnectionInfoType 
     {
+        public NSXTSiteNodeConnectionInfoType()
+        {
+        }
         /// <summary>
         /// Username to connect to Site's Local Manager.
         /// </summary>

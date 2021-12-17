@@ -19,6 +19,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"The summary of the failed DNS query. The query result represents a fullquery chain from client VM to dns forwarder, and upstream server if noforwarder cache was hit.")]
     public class NSXTDnsFailedQueryType 
     {
+        public NSXTDnsFailedQueryType()
+        {
+        }
         /// <summary>
         /// The time the query took before it got a failed answer, in ms.
         /// </summary>

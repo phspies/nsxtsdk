@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Identifier of the upgrade bundle")]
     public class NSXTUpgradeBundleIdType 
     {
+        public NSXTUpgradeBundleIdType()
+        {
+        }
         /// <summary>
         /// Identifier of bundle upload
         /// </summary>

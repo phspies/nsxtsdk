@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Mapping of all vmk interfaces to destination networks")]
     public class NSXTVmknicNetworkType 
     {
+        public NSXTVmknicNetworkType()
+        {
+        }
         /// <summary>
         /// When migrating vmks to N-VDS/logical switches, the id is the logical switch id. When migrating out of N-VDS/logical
         /// switches, the id is the vSphere Switch portgroup name in a single vSphere Standard Switch (VSS), or distributed virtual

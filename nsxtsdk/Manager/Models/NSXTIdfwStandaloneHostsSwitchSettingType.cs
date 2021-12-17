@@ -18,6 +18,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Identity Firewall standalone hosts switch setting. This setting enables ordisables Identity Firewall feature on all standalone hosts.")]
     public class NSXTIdfwStandaloneHostsSwitchSettingType 
     {
+        public NSXTIdfwStandaloneHostsSwitchSettingType()
+        {
+        }
         /// <summary>
         /// IDFW standalone hosts switch (true=Enabled / false=Disabled).
         /// </summary>

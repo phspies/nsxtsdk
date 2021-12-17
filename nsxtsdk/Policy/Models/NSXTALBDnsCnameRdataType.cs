@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsCnameRdata object")]
     public class NSXTALBDnsCnameRdataType 
     {
+        public NSXTALBDnsCnameRdataType()
+        {
+        }
         /// <summary>
         /// Canonical name.
         /// </summary>

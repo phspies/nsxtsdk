@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTVirtualMachineTagUpdateType 
     {
+        public NSXTVirtualMachineTagUpdateType()
+        {
+        }
         /// <summary>
         /// External id of the virtual machine to which tags are to be applied
         /// </summary>

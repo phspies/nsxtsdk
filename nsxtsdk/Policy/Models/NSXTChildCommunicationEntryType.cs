@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildCommunicationEntryType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildCommunicationEntryType()
+        {
+        }
         /// <summary>
-        /// Contains the actual CommunicationEntry object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "CommunicationEntry", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual CommunicationEntry object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTCommunicationEntryType CommunicationEntry { get; set; }
     }

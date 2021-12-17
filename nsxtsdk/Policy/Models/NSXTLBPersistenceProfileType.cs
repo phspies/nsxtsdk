@@ -21,6 +21,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBPersistenceProfileType : NSXTPolicyConfigResourceType
     {
+        public NSXTLBPersistenceProfileType()
+        {
+        }
         /// <summary>
         /// Persistence shared setting indicates that all LBVirtualServers
         /// that consume this LBPersistenceProfile should share the same
@@ -47,9 +50,11 @@ namespace nsxtsdk.PolicyModels
         public bool? PersistenceShared { get; set; }
         /// <summary>
         /// The resource_type property identifies persistence profile type.
+        /// LBCookiePersistenceProfile and LBGenericPersistenceProfile are
+        /// deprecated as NSX-T Load Balancer is deprecated.
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The resource_type property identifies persistence profile type.")]
+        [NSXTProperty(IsRequired: true, Description: @"The resource_type property identifies persistence profile type.LBCookiePersistenceProfile and LBGenericPersistenceProfile aredeprecated as NSX-T Load Balancer is deprecated.")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTLbpersistenceProfileResourceTypeEnumType ResourceType { get; set; }
     }

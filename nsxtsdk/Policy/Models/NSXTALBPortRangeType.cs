@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer PortRange object")]
     public class NSXTALBPortRangeType 
     {
+        public NSXTALBPortRangeType()
+        {
+        }
         /// <summary>
         /// TCP/UDP port range start (inclusive).
         /// Allowed values are 1-65535.

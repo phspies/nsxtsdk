@@ -20,5 +20,7 @@ namespace nsxtsdk.PolicyModels
         MEDIUM = 3,
         [EnumMember(Value = "LOW")]
         LOW = 4,
+        [EnumMember(Value = "SUSPICIOUS")]
+        SUSPICIOUS = 5,
     }
 }

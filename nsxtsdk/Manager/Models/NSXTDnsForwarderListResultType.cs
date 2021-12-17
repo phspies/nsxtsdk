@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDnsForwarderListResultType : NSXTListResultType
     {
+        public NSXTDnsForwarderListResultType()
+        {
+        }
         /// <summary>
         /// Paginated list of DNS forwarders
         /// </summary>

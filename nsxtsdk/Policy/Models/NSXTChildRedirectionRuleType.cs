@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildRedirectionRuleType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildRedirectionRuleType()
+        {
+        }
         /// <summary>
-        /// Contains actual RedirectionRule.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "RedirectionRule", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains actual RedirectionRule.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTRedirectionRuleType RedirectionRule { get; set; }
     }

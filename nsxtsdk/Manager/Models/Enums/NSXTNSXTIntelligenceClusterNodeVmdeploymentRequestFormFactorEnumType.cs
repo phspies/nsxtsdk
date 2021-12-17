@@ -12,11 +12,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Specifies the desired &quot;size&quot; of the VM")]
     public enum NSXTIntelligenceClusterNodeVmdeploymentRequestFormFactorEnumType
     {
+        [EnumMember(Value = "EVALUATION")]
+        EVALUATION = 1,
+        [EnumMember(Value = "STANDARD")]
+        STANDARD = 2,
+        [EnumMember(Value = "ADVANCED")]
+        ADVANCED = 3,
         [EnumMember(Value = "SMALL")]
-        SMALL = 1,
+        SMALL = 0,
         [EnumMember(Value = "LARGE")]
-        LARGE = 2,
+        LARGE = 1,
         [EnumMember(Value = "EXTRA_LARGE")]
-        EXTRALARGE = 3,
+        EXTRALARGE = 2,
     }
 }

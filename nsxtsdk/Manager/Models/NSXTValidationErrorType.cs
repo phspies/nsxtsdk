@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Error while applying transport node profile on discovered node")]
     public class NSXTValidationErrorType 
     {
+        public NSXTValidationErrorType()
+        {
+        }
         /// <summary>
         /// Discovered Node Id
         /// </summary>

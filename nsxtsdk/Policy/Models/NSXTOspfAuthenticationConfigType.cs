@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Enables OSPF authentication with specified mode and password.")]
     public class NSXTOspfAuthenticationConfigType 
     {
+        public NSXTOspfAuthenticationConfigType()
+        {
+            Mode = test
+        }
         /// <summary>
         /// Authentication secret key id is mandatory for type md5 with min value of 1 and max value 255.
         /// </summary>
@@ -37,7 +41,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "mode")]
         [NSXTProperty(IsRequired: false, Description: @"If mode is MD5 or PASSWORD, Authentication secret key is mandatoryif mode is NONE, then authentication is disabled.")]
-        [NSXTDefaultProperty(Default: "NONE")]
         public NSXTOspfAuthenticationConfigModeEnumType? Mode { get; set; }
     }
 }

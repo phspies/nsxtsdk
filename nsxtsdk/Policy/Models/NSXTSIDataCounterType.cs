@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSIDataCounterType 
     {
+        public NSXTSIDataCounterType()
+        {
+        }
         /// <summary>
         /// The total packets or bytes
         /// </summary>

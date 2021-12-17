@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HTTPSecurityPolicy object")]
     public class NSXTALBHTTPSecurityPolicyType 
     {
+        public NSXTALBHTTPSecurityPolicyType()
+        {
+        }
         /// <summary>
         /// Add rules to the HTTP security policy.
         /// </summary>

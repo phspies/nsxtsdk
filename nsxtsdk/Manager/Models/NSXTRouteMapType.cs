@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRouteMapType : NSXTManagedResourceType
     {
+        public NSXTRouteMapType()
+        {
+        }
         /// <summary>
         /// Logical router id
         /// </summary>

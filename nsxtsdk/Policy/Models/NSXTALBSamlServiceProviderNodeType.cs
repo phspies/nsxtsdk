@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer SamlServiceProviderNode object")]
     public class NSXTALBSamlServiceProviderNodeType 
     {
+        public NSXTALBSamlServiceProviderNodeType()
+        {
+        }
         /// <summary>
         /// Single Signon URL to be programmed on the IDP.
         /// </summary>

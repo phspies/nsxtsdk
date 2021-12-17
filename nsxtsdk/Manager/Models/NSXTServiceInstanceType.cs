@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceInstanceType : NSXTBaseServiceInstanceType
     {
+        public NSXTServiceInstanceType()
+        {
+            DeploymentMode = test
+        }
         /// <summary>
         /// Name of the deployment spec to be used by this service instance.
         /// </summary>
@@ -25,11 +29,10 @@ namespace nsxtsdk.ManagerModels
         [System.ComponentModel.DataAnnotations.Required]
         public string DeploymentSpecName { get; set; }
         /// <summary>
-        /// The deployment template to be used by this service instance. The attribute values specific to this instance can be
-        /// added.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "instance_deployment_template", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The deployment template to be used by this service instance. The attribute values specific to this instance can be added.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTDeploymentTemplateType InstanceDeploymentTemplate { get; set; }
         /// <summary>
@@ -47,11 +50,10 @@ namespace nsxtsdk.ManagerModels
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTServiceInstanceAttachmentPointEnumType AttachmentPoint { get; set; }
         /// <summary>
-        /// Instance Deployment Config contains the information to be injected during Service-VM deployment. This field is optional
-        /// if the service only caters to functionality EPP(Endpoint Protection).
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "instance_deployment_config")]
-        [NSXTProperty(IsRequired: false, Description: @"Instance Deployment Config contains the information to be injected during Service-VM deployment. This field is optional if the service only caters to functionality EPP(Endpoint Protection).")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTInstanceDeploymentConfigType InstanceDeploymentConfig { get; set; }
         /// <summary>
         /// Deployment mode specifies where the partner appliance will be deployed in HA or non-HA i.e standalone mode.
@@ -59,7 +61,6 @@ namespace nsxtsdk.ManagerModels
         [JsonProperty(PropertyName = "deployment_mode", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"Deployment mode specifies where the partner appliance will be deployed in HA or non-HA i.e standalone mode.")]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "ACTIVE_STANDBY")]
         public NSXTServiceInstanceDeploymentModeEnumType DeploymentMode { get; set; }
         /// <summary>
         /// List of resource references where service instance be deployed. Ex. Tier 0 Logical Router in case of N-S

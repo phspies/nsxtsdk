@@ -30,26 +30,26 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPFIXDFWCollectorProfileType GlobalCreateOrReplaceIpfixdfwcollectorProfile(string IpfixDfwCollectorProfileId, NSXTIPFIXDFWCollectorProfileType IpfixdfwcollectorProfile, bool? Override = null)
+        public NSXTIPFIXDFWCollectorProfileType GlobalGlobalInfraCreateOrReplaceIpfixdfwcollectorProfile(string IpfixDfwCollectorProfileId, NSXTIPFIXDFWCollectorProfileType IpfixdfwcollectorProfile, bool? Override = null)
         {
             if (IpfixDfwCollectorProfileId == null) { throw new System.ArgumentNullException("IpfixDfwCollectorProfileId cannot be null"); }
             if (IpfixdfwcollectorProfile == null) { throw new System.ArgumentNullException("IpfixdfwcollectorProfile cannot be null"); }
             NSXTIPFIXDFWCollectorProfileType returnValue = default(NSXTIPFIXDFWCollectorProfileType);
-            StringBuilder CreateOrReplaceIpfixdfwcollectorProfileServiceURL = new StringBuilder("/global-infra/ipfix-dfw-collector-profiles/{ipfix-dfw-collector-profile-id}");
+            StringBuilder GlobalInfraCreateOrReplaceIpfixdfwcollectorProfileServiceURL = new StringBuilder("/global-infra/ipfix-dfw-collector-profiles/{ipfix-dfw-collector-profile-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.PUT
             };
             request.AddHeader("Content-type", "application/json");
-            CreateOrReplaceIpfixdfwcollectorProfileServiceURL.Replace("{ipfix-dfw-collector-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpfixDfwCollectorProfileId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraCreateOrReplaceIpfixdfwcollectorProfileServiceURL.Replace("{ipfix-dfw-collector-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpfixDfwCollectorProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(IpfixdfwcollectorProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
-            request.Resource = CreateOrReplaceIpfixdfwcollectorProfileServiceURL.ToString();
+            request.Resource = GlobalInfraCreateOrReplaceIpfixdfwcollectorProfileServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP PUT operation to " + CreateOrReplaceIpfixdfwcollectorProfileServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP PUT operation to " + GlobalInfraCreateOrReplaceIpfixdfwcollectorProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -70,26 +70,26 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalPatchIpfixdfwcollectorProfile(string IpfixDfwCollectorProfileId, NSXTIPFIXDFWCollectorProfileType IpfixdfwcollectorProfile, bool? Override = null)
+        public void GlobalGlobalInfraPatchIpfixdfwcollectorProfile(string IpfixDfwCollectorProfileId, NSXTIPFIXDFWCollectorProfileType IpfixdfwcollectorProfile, bool? Override = null)
         {
             if (IpfixDfwCollectorProfileId == null) { throw new System.ArgumentNullException("IpfixDfwCollectorProfileId cannot be null"); }
             if (IpfixdfwcollectorProfile == null) { throw new System.ArgumentNullException("IpfixdfwcollectorProfile cannot be null"); }
             
-            StringBuilder PatchIpfixdfwcollectorProfileServiceURL = new StringBuilder("/global-infra/ipfix-dfw-collector-profiles/{ipfix-dfw-collector-profile-id}");
+            StringBuilder GlobalInfraPatchIpfixdfwcollectorProfileServiceURL = new StringBuilder("/global-infra/ipfix-dfw-collector-profiles/{ipfix-dfw-collector-profile-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.PATCH
             };
             request.AddHeader("Content-type", "application/json");
-            PatchIpfixdfwcollectorProfileServiceURL.Replace("{ipfix-dfw-collector-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpfixDfwCollectorProfileId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraPatchIpfixdfwcollectorProfileServiceURL.Replace("{ipfix-dfw-collector-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpfixDfwCollectorProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(IpfixdfwcollectorProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
-            request.Resource = PatchIpfixdfwcollectorProfileServiceURL.ToString();
+            request.Resource = GlobalInfraPatchIpfixdfwcollectorProfileServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP PATCH operation to " + PatchIpfixdfwcollectorProfileServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP PATCH operation to " + GlobalInfraPatchIpfixdfwcollectorProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -98,23 +98,23 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPFIXDFWCollectorProfileType GlobalReadIpfixdfwcollectorProfile(string IpfixDfwCollectorProfileId)
+        public NSXTIPFIXDFWCollectorProfileType GlobalGlobalInfraReadIpfixdfwcollectorProfile(string IpfixDfwCollectorProfileId)
         {
             if (IpfixDfwCollectorProfileId == null) { throw new System.ArgumentNullException("IpfixDfwCollectorProfileId cannot be null"); }
             NSXTIPFIXDFWCollectorProfileType returnValue = default(NSXTIPFIXDFWCollectorProfileType);
-            StringBuilder ReadIpfixdfwcollectorProfileServiceURL = new StringBuilder("/global-infra/ipfix-dfw-collector-profiles/{ipfix-dfw-collector-profile-id}");
+            StringBuilder GlobalInfraReadIpfixdfwcollectorProfileServiceURL = new StringBuilder("/global-infra/ipfix-dfw-collector-profiles/{ipfix-dfw-collector-profile-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            ReadIpfixdfwcollectorProfileServiceURL.Replace("{ipfix-dfw-collector-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpfixDfwCollectorProfileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadIpfixdfwcollectorProfileServiceURL.ToString();
+            GlobalInfraReadIpfixdfwcollectorProfileServiceURL.Replace("{ipfix-dfw-collector-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpfixDfwCollectorProfileId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraReadIpfixdfwcollectorProfileServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ReadIpfixdfwcollectorProfileServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraReadIpfixdfwcollectorProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -135,24 +135,24 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalDeleteIpfixdfwcollectorProfile(string IpfixDfwCollectorProfileId, bool? Override = null)
+        public void GlobalGlobalInfraDeleteIpfixdfwcollectorProfile(string IpfixDfwCollectorProfileId, bool? Override = null)
         {
             if (IpfixDfwCollectorProfileId == null) { throw new System.ArgumentNullException("IpfixDfwCollectorProfileId cannot be null"); }
             
-            StringBuilder DeleteIpfixdfwcollectorProfileServiceURL = new StringBuilder("/global-infra/ipfix-dfw-collector-profiles/{ipfix-dfw-collector-profile-id}");
+            StringBuilder GlobalInfraDeleteIpfixdfwcollectorProfileServiceURL = new StringBuilder("/global-infra/ipfix-dfw-collector-profiles/{ipfix-dfw-collector-profile-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.DELETE
             };
             request.AddHeader("Content-type", "application/json");
-            DeleteIpfixdfwcollectorProfileServiceURL.Replace("{ipfix-dfw-collector-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpfixDfwCollectorProfileId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraDeleteIpfixdfwcollectorProfileServiceURL.Replace("{ipfix-dfw-collector-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpfixDfwCollectorProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
-            request.Resource = DeleteIpfixdfwcollectorProfileServiceURL.ToString();
+            request.Resource = GlobalInfraDeleteIpfixdfwcollectorProfileServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP DELETE operation to " + DeleteIpfixdfwcollectorProfileServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP DELETE operation to " + GlobalInfraDeleteIpfixdfwcollectorProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -505,10 +505,10 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPFIXDFWProfileListResultType GlobalListIpfixdfwprofiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTIPFIXDFWProfileListResultType GlobalGlobalInfraListIpfixdfwprofiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTIPFIXDFWProfileListResultType returnValue = default(NSXTIPFIXDFWProfileListResultType);
-            StringBuilder ListIpfixdfwprofilesServiceURL = new StringBuilder("/global-infra/ipfix-dfw-profiles");
+            StringBuilder GlobalInfraListIpfixdfwprofilesServiceURL = new StringBuilder("/global-infra/ipfix-dfw-profiles");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -521,11 +521,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListIpfixdfwprofilesServiceURL.ToString();
+            request.Resource = GlobalInfraListIpfixdfwprofilesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ListIpfixdfwprofilesServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraListIpfixdfwprofilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -546,26 +546,26 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPFIXDFWProfileType GlobalCreateOrReplaceIpfixdfwprofile(string IpfixDfwProfileId, NSXTIPFIXDFWProfileType Ipfixdfwprofile, bool? Override = null)
+        public NSXTIPFIXDFWProfileType GlobalGlobalInfraCreateOrReplaceIpfixdfwprofile(string IpfixDfwProfileId, NSXTIPFIXDFWProfileType Ipfixdfwprofile, bool? Override = null)
         {
             if (IpfixDfwProfileId == null) { throw new System.ArgumentNullException("IpfixDfwProfileId cannot be null"); }
             if (Ipfixdfwprofile == null) { throw new System.ArgumentNullException("Ipfixdfwprofile cannot be null"); }
             NSXTIPFIXDFWProfileType returnValue = default(NSXTIPFIXDFWProfileType);
-            StringBuilder CreateOrReplaceIpfixdfwprofileServiceURL = new StringBuilder("/global-infra/ipfix-dfw-profiles/{ipfix-dfw-profile-id}");
+            StringBuilder GlobalInfraCreateOrReplaceIpfixdfwprofileServiceURL = new StringBuilder("/global-infra/ipfix-dfw-profiles/{ipfix-dfw-profile-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.PUT
             };
             request.AddHeader("Content-type", "application/json");
-            CreateOrReplaceIpfixdfwprofileServiceURL.Replace("{ipfix-dfw-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpfixDfwProfileId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraCreateOrReplaceIpfixdfwprofileServiceURL.Replace("{ipfix-dfw-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpfixDfwProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Ipfixdfwprofile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
-            request.Resource = CreateOrReplaceIpfixdfwprofileServiceURL.ToString();
+            request.Resource = GlobalInfraCreateOrReplaceIpfixdfwprofileServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP PUT operation to " + CreateOrReplaceIpfixdfwprofileServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP PUT operation to " + GlobalInfraCreateOrReplaceIpfixdfwprofileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -586,24 +586,24 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalDeleteIpfixdfwprofile(string IpfixDfwProfileId, bool? Override = null)
+        public void GlobalGlobalInfraDeleteIpfixdfwprofile(string IpfixDfwProfileId, bool? Override = null)
         {
             if (IpfixDfwProfileId == null) { throw new System.ArgumentNullException("IpfixDfwProfileId cannot be null"); }
             
-            StringBuilder DeleteIpfixdfwprofileServiceURL = new StringBuilder("/global-infra/ipfix-dfw-profiles/{ipfix-dfw-profile-id}");
+            StringBuilder GlobalInfraDeleteIpfixdfwprofileServiceURL = new StringBuilder("/global-infra/ipfix-dfw-profiles/{ipfix-dfw-profile-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.DELETE
             };
             request.AddHeader("Content-type", "application/json");
-            DeleteIpfixdfwprofileServiceURL.Replace("{ipfix-dfw-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpfixDfwProfileId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraDeleteIpfixdfwprofileServiceURL.Replace("{ipfix-dfw-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpfixDfwProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
-            request.Resource = DeleteIpfixdfwprofileServiceURL.ToString();
+            request.Resource = GlobalInfraDeleteIpfixdfwprofileServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP DELETE operation to " + DeleteIpfixdfwprofileServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP DELETE operation to " + GlobalInfraDeleteIpfixdfwprofileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -612,26 +612,26 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalPatchIpfixdfwprofile(string IpfixDfwProfileId, NSXTIPFIXDFWProfileType Ipfixdfwprofile, bool? Override = null)
+        public void GlobalGlobalInfraPatchIpfixdfwprofile(string IpfixDfwProfileId, NSXTIPFIXDFWProfileType Ipfixdfwprofile, bool? Override = null)
         {
             if (IpfixDfwProfileId == null) { throw new System.ArgumentNullException("IpfixDfwProfileId cannot be null"); }
             if (Ipfixdfwprofile == null) { throw new System.ArgumentNullException("Ipfixdfwprofile cannot be null"); }
             
-            StringBuilder PatchIpfixdfwprofileServiceURL = new StringBuilder("/global-infra/ipfix-dfw-profiles/{ipfix-dfw-profile-id}");
+            StringBuilder GlobalInfraPatchIpfixdfwprofileServiceURL = new StringBuilder("/global-infra/ipfix-dfw-profiles/{ipfix-dfw-profile-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.PATCH
             };
             request.AddHeader("Content-type", "application/json");
-            PatchIpfixdfwprofileServiceURL.Replace("{ipfix-dfw-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpfixDfwProfileId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraPatchIpfixdfwprofileServiceURL.Replace("{ipfix-dfw-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpfixDfwProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Ipfixdfwprofile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
-            request.Resource = PatchIpfixdfwprofileServiceURL.ToString();
+            request.Resource = GlobalInfraPatchIpfixdfwprofileServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP PATCH operation to " + PatchIpfixdfwprofileServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP PATCH operation to " + GlobalInfraPatchIpfixdfwprofileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -640,23 +640,23 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPFIXDFWProfileType GlobalReadIpfixdfwprofile(string IpfixDfwProfileId)
+        public NSXTIPFIXDFWProfileType GlobalGlobalInfraReadIpfixdfwprofile(string IpfixDfwProfileId)
         {
             if (IpfixDfwProfileId == null) { throw new System.ArgumentNullException("IpfixDfwProfileId cannot be null"); }
             NSXTIPFIXDFWProfileType returnValue = default(NSXTIPFIXDFWProfileType);
-            StringBuilder ReadIpfixdfwprofileServiceURL = new StringBuilder("/global-infra/ipfix-dfw-profiles/{ipfix-dfw-profile-id}");
+            StringBuilder GlobalInfraReadIpfixdfwprofileServiceURL = new StringBuilder("/global-infra/ipfix-dfw-profiles/{ipfix-dfw-profile-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            ReadIpfixdfwprofileServiceURL.Replace("{ipfix-dfw-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpfixDfwProfileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadIpfixdfwprofileServiceURL.ToString();
+            GlobalInfraReadIpfixdfwprofileServiceURL.Replace("{ipfix-dfw-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpfixDfwProfileId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraReadIpfixdfwprofileServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ReadIpfixdfwprofileServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraReadIpfixdfwprofileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -677,10 +677,10 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPFIXDFWCollectorProfileListResultType GlobalListIpfixdfwcollectorProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTIPFIXDFWCollectorProfileListResultType GlobalGlobalInfraListIpfixdfwcollectorProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTIPFIXDFWCollectorProfileListResultType returnValue = default(NSXTIPFIXDFWCollectorProfileListResultType);
-            StringBuilder ListIpfixdfwcollectorProfilesServiceURL = new StringBuilder("/global-infra/ipfix-dfw-collector-profiles");
+            StringBuilder GlobalInfraListIpfixdfwcollectorProfilesServiceURL = new StringBuilder("/global-infra/ipfix-dfw-collector-profiles");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -693,11 +693,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListIpfixdfwcollectorProfilesServiceURL.ToString();
+            request.Resource = GlobalInfraListIpfixdfwcollectorProfilesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ListIpfixdfwcollectorProfilesServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraListIpfixdfwcollectorProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else

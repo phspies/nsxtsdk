@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Multicast route details.")]
     public class NSXTMulticastRouteType 
     {
+        public NSXTMulticastRouteType()
+        {
+        }
         /// <summary>
         /// Time for which multicast route entry is active.
         /// </summary>

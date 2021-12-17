@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTCidrArrayConstraintValueType : NSXTConstraintValueType
     {
+        public NSXTCidrArrayConstraintValueType()
+        {
+        }
         /// <summary>
         /// This array can consist of a single IP address, IP address range or a subnet. Its type can be of either IPv4 or IPv6.
         /// Both IPv4 and IPv6 addresses within one expression is not allowed. Supported list of formats are, "192.168.1.1",

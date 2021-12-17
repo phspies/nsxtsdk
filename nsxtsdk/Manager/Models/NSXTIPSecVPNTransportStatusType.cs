@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVPNTransportStatusType : NSXTL2VPNTransportTunnelStatusType
     {
+        public NSXTIPSecVPNTransportStatusType()
+        {
+        }
         /// <summary>
-        /// VPN session status provides IKE session status and aggregate of traffic across all tunnel.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"VPN session status provides IKE session status and aggregate of traffic across all tunnel.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPSecVPNSessionStatusType Status { get; set; }
     }
 }

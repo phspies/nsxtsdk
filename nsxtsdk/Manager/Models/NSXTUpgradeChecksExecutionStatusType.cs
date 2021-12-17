@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Execution status of pre/post-upgrade checks")]
     public class NSXTUpgradeChecksExecutionStatusType 
     {
+        public NSXTUpgradeChecksExecutionStatusType()
+        {
+        }
         /// <summary>
         /// Status of execution of pre/post-upgrade checks
         /// </summary>
@@ -25,10 +28,11 @@ namespace nsxtsdk.ManagerModels
         public NSXTUpgradeChecksExecutionStatusStatusEnumType? Status { get; set; }
         /// <summary>
         /// Number of nodes which generated failures or warnings in last execution
-        /// of pre/post-upgrade checks
+        /// of pre/post-upgrade checks. This field has been deprecated. Please use
+        /// failure_count instead.
         /// </summary>
         [JsonProperty(PropertyName = "node_with_issues_count")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of nodes which generated failures or warnings in last executionof pre/post-upgrade checks")]
+        [NSXTProperty(IsRequired: false, Description: @"Number of nodes which generated failures or warnings in last executionof pre/post-upgrade checks. This field has been deprecated. Please usefailure_count instead.")]
         public int? NodeWithIssuesCount { get; set; }
         /// <summary>
         /// Details about current execution of pre/post-upgrade checks

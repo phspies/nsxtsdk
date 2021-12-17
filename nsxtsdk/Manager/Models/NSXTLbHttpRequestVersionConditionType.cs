@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbHttpRequestVersionConditionType : NSXTLbRuleConditionType
     {
+        public NSXTLbHttpRequestVersionConditionType()
+        {
+        }
         /// <summary>
         /// HTTP version
         /// </summary>

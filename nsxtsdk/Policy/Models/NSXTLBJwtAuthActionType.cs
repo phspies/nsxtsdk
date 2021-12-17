@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBJwtAuthActionType : NSXTLBRuleActionType
     {
+        public NSXTLBJwtAuthActionType()
+        {
+        }
         /// <summary>
         /// JWT is an open standard that defines a compact and
         /// self-contained way for securely transmitting information between
@@ -47,10 +50,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"A description of the protected area. If no realm is specified, clientsoften display a formatted hostname instead. The configured realm isreturned when client request is rejected with 401 http status. In theresponse, it will be &quot;WWW-Authentication: Bearer realm=&amp;lt;realm&amp;gt;&quot;.")]
         public string? Realm { get; set; }
         /// <summary>
-        /// LBJwtKey used for verifying the signature of JWT token
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "key")]
-        [NSXTProperty(IsRequired: false, Description: @"LBJwtKey used for verifying the signature of JWT token")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLBJwtKeyType Key { get; set; }
     }
 }

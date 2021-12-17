@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeSyslogExporterPropertiesListResultType : NSXTListResultType
     {
+        public NSXTNodeSyslogExporterPropertiesListResultType()
+        {
+        }
         /// <summary>
         /// Node syslog exporter results
         /// </summary>

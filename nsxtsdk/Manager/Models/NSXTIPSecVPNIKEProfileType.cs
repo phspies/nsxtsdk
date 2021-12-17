@@ -17,6 +17,11 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVPNIKEProfileType : NSXTManagedResourceType
     {
+        public NSXTIPSecVPNIKEProfileType()
+        {
+            SaLifeTime = test
+            IkeVersion = test
+        }
         /// <summary>
         /// Algorithm to be used for message digest during Internet Key Exchange(IKE) negotiation. Default is SHA2_256.
         /// </summary>
@@ -42,14 +47,12 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Life time for security association. Default is 86400 seconds (1 day).")]
         //[System.ComponentModel.DataAnnotations.MinLength(21600)]
         //[System.ComponentModel.DataAnnotations.MaxLength(31536000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? SaLifeTime { get; set; }
         /// <summary>
         /// IKE protocol version to be used. IKE-Flex will initiate IKE-V2 and responds to both IKE-V1 and IKE-V2.
         /// </summary>
         [JsonProperty(PropertyName = "ike_version")]
         [NSXTProperty(IsRequired: false, Description: @"IKE protocol version to be used. IKE-Flex will initiate IKE-V2 and responds to both IKE-V1 and IKE-V2.")]
-        [NSXTDefaultProperty(Default: "IKE_V2")]
         public NSXTIpsecVpnikeprofileIkeVersionEnumType? IkeVersion { get; set; }
     }
 }

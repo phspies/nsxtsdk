@@ -7,9 +7,9 @@ using nsxtsdk.Models;
 namespace nsxtsdk.PolicyModels
 {
     /// <summary>
-    /// Configure one of either proxy or fast path profiles.Enum options - PROTOCOL_TYPE_TCP_PROXY,PROTOCOL_TYPE_TCP_FAST_PATH, PROTOCOL_TYPE_UDP_FAST_PATH,PROTOCOL_TYPE_UDP_PROXY.Default value when not specified in API or module isinterpreted by ALB Controller as PROTOCOL_TYPE_TCP_PROXY.
+    /// Configure one of either proxy or fast path profiles.Enum options - PROTOCOL_TYPE_TCP_PROXY,PROTOCOL_TYPE_TCP_FAST_PATH, PROTOCOL_TYPE_UDP_FAST_PATH,PROTOCOL_TYPE_UDP_PROXY.Allowed in Basic(Allowed values-PROTOCOL_TYPE_TCP_PROXY,PROTOCOL_TYPE_TCP_FAST_PATH,PROTOCOL_TYPE_UDP_FAST_PATH)edition, Essentials(Allowed values-PROTOCOL_TYPE_TCP_FAST_PATH,PROTOCOL_TYPE_UDP_FAST_PATH)edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as PROTOCOL_TYPE_TCP_PROXY.
     /// </summary>
-    [NSXTProperty(Description: @"Configure one of either proxy or fast path profiles.Enum options - PROTOCOL_TYPE_TCP_PROXY,PROTOCOL_TYPE_TCP_FAST_PATH, PROTOCOL_TYPE_UDP_FAST_PATH,PROTOCOL_TYPE_UDP_PROXY.Default value when not specified in API or module isinterpreted by ALB Controller as PROTOCOL_TYPE_TCP_PROXY.")]
+    [NSXTProperty(Description: @"Configure one of either proxy or fast path profiles.Enum options - PROTOCOL_TYPE_TCP_PROXY,PROTOCOL_TYPE_TCP_FAST_PATH, PROTOCOL_TYPE_UDP_FAST_PATH,PROTOCOL_TYPE_UDP_PROXY.Allowed in Basic(Allowed values-PROTOCOL_TYPE_TCP_PROXY,PROTOCOL_TYPE_TCP_FAST_PATH,PROTOCOL_TYPE_UDP_FAST_PATH)edition, Essentials(Allowed values-PROTOCOL_TYPE_TCP_FAST_PATH,PROTOCOL_TYPE_UDP_FAST_PATH)edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as PROTOCOL_TYPE_TCP_PROXY.")]
     public enum NSXTAlbnetworkProfileUnionTypeEnumType
     {
         [EnumMember(Value = "PROTOCOL_TYPE_TCP_PROXY")]

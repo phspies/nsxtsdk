@@ -17,6 +17,11 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"BGP Graceful Restart timers configuration")]
     public class NSXTGracefulRestartTimerType 
     {
+        public NSXTGracefulRestartTimerType()
+        {
+            RestartTimer = test
+            StaleTimer = test
+        }
         /// <summary>
         /// Maximum time BGP speaker will take for the BGP session to be
         /// re-established after a restart. Ranges from 1 sec to 3600 sec.
@@ -30,7 +35,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Maximum time BGP speaker will take for the BGP session to bere-established after a restart. Ranges from 1 sec to 3600 sec.This can be used to speed up routing convergence by its peer incase that the BGP speaker does not come back after a restart.If the session does not get re-established within the &quot;Restart Time&quot;that the Restarting Speaker advertised previously, the ReceivingSpeaker will delete all the stale routes from that peer.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(3600)]
-        [NSXTDefaultProperty(Default: "")]
         public long? RestartTimer { get; set; }
         /// <summary>
         /// Maximum time before stale routes are removed from the RIB when the
@@ -40,7 +44,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Maximum time before stale routes are removed from the RIB when thelocal BGP process restarts. Ranges from 1 sec to 3600 sec.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(3600)]
-        [NSXTDefaultProperty(Default: "")]
         public long? StaleTimer { get; set; }
     }
 }

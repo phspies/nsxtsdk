@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyType : NSXTPolicyConfigResourceType
     {
+        public NSXTPolicyType()
+        {
+        }
         /// <summary>
         /// - Distributed Firewall -
         /// Policy framework provides five pre-defined categories for classifying
@@ -79,7 +82,7 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "rule_count")]
         [NSXTProperty(IsRequired: false, Description: @"The count of rules in the policy.")]
-        public long? RuleCount { get; set; }
+        public int? RuleCount { get; set; }
         /// <summary>
         /// Comments for security policy lock/unlock.
         /// </summary>
@@ -92,7 +95,7 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "internal_sequence_number")]
         [NSXTProperty(IsRequired: false, Description: @"This field is to indicate the internal sequence number of a policywith respect to the policies across categories.")]
-        public long? InternalSequenceNumber { get; set; }
+        public int? InternalSequenceNumber { get; set; }
         /// <summary>
         /// Stateful or Stateless nature of security policy is enforced on all
         /// rules in this security policy. When it is stateful, the state of
@@ -153,6 +156,6 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "sequence_number")]
         [NSXTProperty(IsRequired: false, Description: @"This field is used to resolve conflicts between security policiesacross domains. In order to change the sequence number of a policyone can fire a POST request on the policy entity witha query parameter action=reviseThe sequence number field will reflect the value of the computedsequence number upon execution of the above mentioned POST request.For scenarios where the administrator is using a template to updateseveral security policies, the only way to set the sequence number isto explicitly specify the sequence number for each security policy.If no sequence number is specified in the payload, a value of 0 isassigned by default. If there are multiple policies with the samesequence number then their order is not deterministic. If a specificorder of policies is desired, then one has to specify unique sequencenumbers or use the POST request on the policy entity witha query parameter action=revise to let the framework assign asequence number.The value of sequence number must be between 0 and 999,999.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        public long? SequenceNumber { get; set; }
+        public int? SequenceNumber { get; set; }
     }
 }

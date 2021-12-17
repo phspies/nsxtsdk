@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMACAddressElementListResultType : NSXTListResultType
     {
+        public NSXTMACAddressElementListResultType()
+        {
+        }
         /// <summary>
         /// MAC address element list
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceProfileNSGroupsType : NSXTManagedResourceType
     {
+        public NSXTServiceProfileNSGroupsType()
+        {
+        }
         /// <summary>
         /// List of NSGroups Used in ServiceInsertion Rules.
         /// </summary>

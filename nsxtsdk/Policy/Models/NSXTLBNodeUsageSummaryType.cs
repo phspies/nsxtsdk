@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBNodeUsageSummaryType : NSXTPolicyRuntimeInfoPerEPType
     {
+        public NSXTLBNodeUsageSummaryType()
+        {
+        }
         /// <summary>
         /// Current load balancer credits in use for all nodes.
         /// For example, configuring a medium load balancer on a node consumes

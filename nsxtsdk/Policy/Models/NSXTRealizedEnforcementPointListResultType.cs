@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRealizedEnforcementPointListResultType : NSXTListResultType
     {
+        public NSXTRealizedEnforcementPointListResultType()
+        {
+        }
         /// <summary>
         /// Paged Collection of Enforcement Point's
         /// </summary>

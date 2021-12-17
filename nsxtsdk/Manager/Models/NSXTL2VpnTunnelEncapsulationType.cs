@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"L2VPN tunnel encapsulation config")]
     public class NSXTL2VpnTunnelEncapsulationType 
     {
+        public NSXTL2VpnTunnelEncapsulationType()
+        {
+            Protocol = test
+        }
         /// <summary>
         /// IP Address of the tunnel port. For hub, the IP is allocated from L2VpnService logical_tap_ip_pool. All sessions on same
         /// L2VpnService get the same local_endpoint_ip. For spoke, the IP must be provided.
@@ -29,7 +33,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "protocol")]
         [NSXTProperty(IsRequired: false, Description: @"Encapsulation protocol used by the tunnel")]
-        [NSXTDefaultProperty(Default: "GRE")]
         public NSXTL2VpnTunnelEncapsulationProtocolEnumType? Protocol { get; set; }
         /// <summary>
         /// IP Address of the peer tunnel port. For hub, the IP is allocated from L2VpnService logical_tap_ip_pool. For spoke, the

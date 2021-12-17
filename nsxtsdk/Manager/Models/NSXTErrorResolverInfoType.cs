@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Metadata related to a given error_id")]
     public class NSXTErrorResolverInfoType 
     {
+        public NSXTErrorResolverInfoType()
+        {
+        }
         /// <summary>
         /// The error id for which metadata information is needed
         /// </summary>
@@ -32,10 +35,10 @@ namespace nsxtsdk.ManagerModels
         [System.ComponentModel.DataAnnotations.Required]
         public bool ResolverPresent { get; set; }
         /// <summary>
-        /// User supplied metadata that might be required by the resolver
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "user_metadata")]
-        [NSXTProperty(IsRequired: false, Description: @"User supplied metadata that might be required by the resolver")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTErrorResolverUserMetadataType UserMetadata { get; set; }
     }
 }

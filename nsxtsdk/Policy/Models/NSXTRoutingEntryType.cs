@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Routing table entry.")]
     public class NSXTRoutingEntryType 
     {
+        public NSXTRoutingEntryType()
+        {
+        }
         /// <summary>
         /// Logical router component(Service Router/Distributed Router) id
         /// </summary>
@@ -70,6 +73,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "admin_distance")]
         [NSXTProperty(IsRequired: false, Description: @"Admin distance.")]
-        public long? AdminDistance { get; set; }
+        public int? AdminDistance { get; set; }
     }
 }

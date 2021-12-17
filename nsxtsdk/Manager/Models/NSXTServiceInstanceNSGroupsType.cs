@@ -18,6 +18,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"ServiceInstanceNSGroups contains list of NS Groups referenced in North-South Service Insertion Rules for a particular Service Instance.")]
     public class NSXTServiceInstanceNSGroupsType 
     {
+        public NSXTServiceInstanceNSGroupsType()
+        {
+        }
         /// <summary>
         /// List of NSGroups Used in ServiceInsertion Rules.
         /// </summary>

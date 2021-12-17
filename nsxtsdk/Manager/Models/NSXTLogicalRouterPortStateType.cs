@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalRouterPortStateType : NSXTEdgeConfigurationStateType
     {
+        public NSXTLogicalRouterPortStateType()
+        {
+        }
         /// <summary>
         /// Array of DAD status which contains DAD information for IP addresses
         /// on the port.

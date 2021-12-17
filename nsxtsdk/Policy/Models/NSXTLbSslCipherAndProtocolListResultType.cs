@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbSslCipherAndProtocolListResultType : NSXTListResultType
     {
+        public NSXTLbSslCipherAndProtocolListResultType()
+        {
+        }
         /// <summary>
         /// List of SSL ciphers
         /// </summary>

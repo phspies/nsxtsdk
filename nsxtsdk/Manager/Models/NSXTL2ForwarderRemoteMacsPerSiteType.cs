@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTL2ForwarderRemoteMacsPerSiteType 
     {
+        public NSXTL2ForwarderRemoteMacsPerSiteType()
+        {
+        }
         /// <summary>
         /// Remote standby IP addresses.
         /// </summary>
@@ -30,10 +33,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"32 bit unique RTEP group id of the logical switch per site.")]
         public long? RtepGroupId { get; set; }
         /// <summary>
-        /// Remote site details.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "remote_site")]
-        [NSXTProperty(IsRequired: false, Description: @"Remote site details.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType RemoteSite { get; set; }
         /// <summary>
         /// Remote active IP addresses.

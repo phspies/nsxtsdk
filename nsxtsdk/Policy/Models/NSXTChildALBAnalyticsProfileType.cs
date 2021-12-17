@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildALBAnalyticsProfileType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildALBAnalyticsProfileType()
+        {
+        }
         /// <summary>
-        /// Contains the actual ALBAnalyticsProfile object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ALBAnalyticsProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual ALBAnalyticsProfile object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBAnalyticsProfileType ALBAnalyticsProfile { get; set; }
     }

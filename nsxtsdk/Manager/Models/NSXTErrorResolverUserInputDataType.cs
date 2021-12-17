@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Corresponds to one property entered by the user")]
     public class NSXTErrorResolverUserInputDataType 
     {
+        public NSXTErrorResolverUserInputDataType()
+        {
+        }
         /// <summary>
         /// The datatype of the given property. Useful for data validation
         /// </summary>

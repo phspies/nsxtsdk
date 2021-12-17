@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbServiceInstanceDetailType 
     {
+        public NSXTLbServiceInstanceDetailType()
+        {
+        }
         /// <summary>
         /// The error message for the load balancer instance. If the instance
         /// status is NOT_READY, error message will be attached.
@@ -25,10 +28,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"The error message for the load balancer instance. If the instancestatus is NOT_READY, error message will be attached.")]
         public string? ErrorMessage { get; set; }
         /// <summary>
-        /// The resource reference which the load balancer instance deploys on.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "attachment")]
-        [NSXTProperty(IsRequired: false, Description: @"The resource reference which the load balancer instance deploys on.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType Attachment { get; set; }
     }
 }

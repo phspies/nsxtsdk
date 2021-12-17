@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HTTPSecurityRule object")]
     public class NSXTALBHTTPSecurityRuleType 
     {
+        public NSXTALBHTTPSecurityRuleType()
+        {
+            Enable = test
+        }
         /// <summary>
         /// Index of the rule.
         /// </summary>
@@ -32,7 +36,6 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "enable", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"Enable or disable the rule.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "")]
         public bool Enable { get; set; }
         /// <summary>
         /// Log HTTP request upon rule match.
@@ -41,16 +44,16 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Log HTTP request upon rule match.")]
         public bool? Log { get; set; }
         /// <summary>
-        /// Action to be performed upon successful matching.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "action")]
-        [NSXTProperty(IsRequired: false, Description: @"Action to be performed upon successful matching.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHTTPSecurityActionType Action { get; set; }
         /// <summary>
-        /// Add match criteria to the rule.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "match")]
-        [NSXTProperty(IsRequired: false, Description: @"Add match criteria to the rule.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBMatchTargetType Match { get; set; }
         /// <summary>
         /// Name of the rule.

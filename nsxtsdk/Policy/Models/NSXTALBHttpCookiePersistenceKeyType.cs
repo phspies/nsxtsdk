@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HttpCookiePersistenceKey object")]
     public class NSXTALBHttpCookiePersistenceKeyType 
     {
+        public NSXTALBHttpCookiePersistenceKeyType()
+        {
+        }
         /// <summary>
         /// hmac_key of HttpCookiePersistenceKey.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPortQoSProfileBindingMapListResultType : NSXTListResultType
     {
+        public NSXTPortQoSProfileBindingMapListResultType()
+        {
+        }
         /// <summary>
         /// Port QoS Profile Binding Map list results
         /// </summary>

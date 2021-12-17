@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Inter SR IBGP configuration")]
     public class NSXTInterSRRoutingConfigType 
     {
+        public NSXTInterSRRoutingConfigType()
+        {
+            Enabled = test
+        }
         /// <summary>
         /// While creation of BGP config this flag will be set to
         /// - true for Tier0 logical router with Active-Active high-availability
@@ -27,7 +31,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "enabled")]
         [NSXTProperty(IsRequired: false, Description: @"While creation of BGP config this flag will be set to- true for Tier0 logical router with Active-Active high-availabilitymode- false for Tier0 logical router with Active-Standby high-availabilitymode.User can change this value while updating inter-sr config.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enabled { get; set; }
     }
 }

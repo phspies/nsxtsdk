@@ -415,23 +415,23 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPSecVPNPeerEndpointType GetIpsecVpnpeerEndpointWithPskshowSensitiveData(string IpsecVpnPeerEndpointId)
+        public NSXTIPSecVPNPeerEndpointType GetIpsecVpnpeerEndpointWithPSK(string IpsecVpnPeerEndpointId)
         {
             if (IpsecVpnPeerEndpointId == null) { throw new System.ArgumentNullException("IpsecVpnPeerEndpointId cannot be null"); }
             NSXTIPSecVPNPeerEndpointType returnValue = default(NSXTIPSecVPNPeerEndpointType);
-            StringBuilder GetIpsecVpnpeerEndpointWithPskshowSensitiveDataServiceURL = new StringBuilder("/vpn/ipsec/peer-endpoints/{ipsec-vpn-peer-endpoint-id}?action=show-sensitive-data");
+            StringBuilder GetIpsecVpnpeerEndpointWithPSKServiceURL = new StringBuilder("/vpn/ipsec/peer-endpoints/{ipsec-vpn-peer-endpoint-id}?action=show-sensitive-data");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetIpsecVpnpeerEndpointWithPskshowSensitiveDataServiceURL.Replace("{ipsec-vpn-peer-endpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpsecVpnPeerEndpointId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = GetIpsecVpnpeerEndpointWithPskshowSensitiveDataServiceURL.ToString();
+            GetIpsecVpnpeerEndpointWithPSKServiceURL.Replace("{ipsec-vpn-peer-endpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpsecVpnPeerEndpointId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GetIpsecVpnpeerEndpointWithPSKServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetIpsecVpnpeerEndpointWithPskshowSensitiveDataServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GetIpsecVpnpeerEndpointWithPSKServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else

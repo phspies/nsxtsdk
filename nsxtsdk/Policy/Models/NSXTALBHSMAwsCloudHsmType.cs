@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HSMAwsCloudHsm object")]
     public class NSXTALBHSMAwsCloudHsmType 
     {
+        public NSXTALBHSMAwsCloudHsmType()
+        {
+        }
         /// <summary>
         /// AWS CloudHSM Cluster Certificate.
         /// </summary>

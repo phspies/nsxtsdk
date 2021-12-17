@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Size of Directory Domain")]
     public class NSXTDirectoryDomainSizeType 
     {
+        public NSXTDirectoryDomainSizeType()
+        {
+        }
         /// <summary>
         /// Number of groups
         /// </summary>

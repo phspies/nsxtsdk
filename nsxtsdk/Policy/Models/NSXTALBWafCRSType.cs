@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBWafCRSType : NSXTPolicyConfigResourceType
     {
+        public NSXTALBWafCRSType()
+        {
+        }
         /// <summary>
         /// The release date of this version in RFC 3339 / ISO 8601
         /// format.
@@ -39,6 +42,14 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: true, Description: @"Integrity protection value.")]
         [System.ComponentModel.DataAnnotations.Required]
         public string Integrity { get; set; }
+        /// <summary>
+        /// List of labels to be used for granular RBAC.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
+        /// </summary>
+        [JsonProperty(PropertyName = "markers")]
+        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
+        public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
         /// <summary>
         /// WAF Rules are sorted in groups based on their
         /// characterization.

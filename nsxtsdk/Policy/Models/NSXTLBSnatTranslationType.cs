@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Snat Translation.")]
     public class NSXTLBSnatTranslationType 
     {
+        public NSXTLBSnatTranslationType()
+        {
+        }
         /// <summary>
         /// Snat translation type.
         /// </summary>

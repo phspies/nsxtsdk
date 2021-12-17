@@ -30,10 +30,10 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTlsCrlListResultType GlobalListTlsCrls(string? Cursor = null, bool? Details = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
+        public NSXTTlsCsrListResultType ListTlsCsrs(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
-            NSXTTlsCrlListResultType returnValue = default(NSXTTlsCrlListResultType);
-            StringBuilder ListTlsCrlsServiceURL = new StringBuilder("/global-infra/crls");
+            NSXTTlsCsrListResultType returnValue = default(NSXTTlsCsrListResultType);
+            StringBuilder ListTlsCsrsServiceURL = new StringBuilder("/infra/csrs");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -41,28 +41,26 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (Details != null) { request.AddQueryParameter("details", Details.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            if (Type != null) { request.AddQueryParameter("type", Type.ToString()); }
-            request.Resource = ListTlsCrlsServiceURL.ToString();
+            request.Resource = ListTlsCsrsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ListTlsCrlsServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + ListTlsCsrsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
 			{
 				try
 				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTlsCrlListResultType>(response.Content, defaultSerializationSettings);
+					returnValue = JsonConvert.DeserializeObject<NSXTTlsCsrListResultType>(response.Content, defaultSerializationSettings);
 				}
 				catch (Exception ex)
 				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsCrlListResultType).FullName + ".";
+					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsCsrListResultType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -114,216 +112,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTlsCrlListResultType GlobalCreateTlsCrlImport(string CrlId, NSXTTlsCrlType TlsCrl)
-        {
-            if (CrlId == null) { throw new System.ArgumentNullException("CrlId cannot be null"); }
-            if (TlsCrl == null) { throw new System.ArgumentNullException("TlsCrl cannot be null"); }
-            NSXTTlsCrlListResultType returnValue = default(NSXTTlsCrlListResultType);
-            StringBuilder CreateTlsCrlImportServiceURL = new StringBuilder("/global-infra/crls/{crl-id}?action=import");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.POST
-            };
-            request.AddHeader("Content-type", "application/json");
-            CreateTlsCrlImportServiceURL.Replace("{crl-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CrlId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(TlsCrl, defaultSerializationSettings));
-            request.Resource = CreateTlsCrlImportServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP POST operation to " + CreateTlsCrlImportServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTlsCrlListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsCrlListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTTlsCrlType GlobalCreateOrUpdateTlsCrl(string CrlId, NSXTTlsCrlType TlsCrl)
-        {
-            if (CrlId == null) { throw new System.ArgumentNullException("CrlId cannot be null"); }
-            if (TlsCrl == null) { throw new System.ArgumentNullException("TlsCrl cannot be null"); }
-            NSXTTlsCrlType returnValue = default(NSXTTlsCrlType);
-            StringBuilder CreateOrUpdateTlsCrlServiceURL = new StringBuilder("/global-infra/crls/{crl-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            CreateOrUpdateTlsCrlServiceURL.Replace("{crl-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CrlId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(TlsCrl, defaultSerializationSettings));
-            request.Resource = CreateOrUpdateTlsCrlServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + CreateOrUpdateTlsCrlServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTlsCrlType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsCrlType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteTlsCrl(string CrlId)
-        {
-            if (CrlId == null) { throw new System.ArgumentNullException("CrlId cannot be null"); }
-            
-            StringBuilder DeleteTlsCrlServiceURL = new StringBuilder("/global-infra/crls/{crl-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteTlsCrlServiceURL.Replace("{crl-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CrlId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteTlsCrlServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteTlsCrlServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTTlsCrlType GlobalGetTlsCrl(string CrlId, bool? Details = null)
-        {
-            if (CrlId == null) { throw new System.ArgumentNullException("CrlId cannot be null"); }
-            NSXTTlsCrlType returnValue = default(NSXTTlsCrlType);
-            StringBuilder GetTlsCrlServiceURL = new StringBuilder("/global-infra/crls/{crl-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetTlsCrlServiceURL.Replace("{crl-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CrlId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Details != null) { request.AddQueryParameter("details", Details.ToString()); }
-            request.Resource = GetTlsCrlServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetTlsCrlServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTlsCrlType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsCrlType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalCreateOrPatchTlsCrl(string CrlId, NSXTTlsCrlType TlsCrl)
-        {
-            if (CrlId == null) { throw new System.ArgumentNullException("CrlId cannot be null"); }
-            if (TlsCrl == null) { throw new System.ArgumentNullException("TlsCrl cannot be null"); }
-            
-            StringBuilder CreateOrPatchTlsCrlServiceURL = new StringBuilder("/global-infra/crls/{crl-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            CreateOrPatchTlsCrlServiceURL.Replace("{crl-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CrlId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(TlsCrl, defaultSerializationSettings));
-            request.Resource = CreateOrPatchTlsCrlServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + CreateOrPatchTlsCrlServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTTlsCertificateListType GlobalListTlsCertificates(string? Cursor = null, bool? Details = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
-        {
-            NSXTTlsCertificateListType returnValue = default(NSXTTlsCertificateListType);
-            StringBuilder ListTlsCertificatesServiceURL = new StringBuilder("/global-infra/certificates");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (Details != null) { request.AddQueryParameter("details", Details.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            if (Type != null) { request.AddQueryParameter("type", Type.ToString()); }
-            request.Resource = ListTlsCertificatesServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListTlsCertificatesServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTlsCertificateListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsCertificateListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTTlsCertificateListType ListTlsCertificates(string? Cursor = null, bool? Details = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
         {
             NSXTTlsCertificateListType returnValue = default(NSXTTlsCertificateListType);
@@ -357,6 +145,461 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsCertificateListType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTTlsCsrType GenerateTlsCsr(string CsrId, NSXTTlsCsrType TlsCsr)
+        {
+            if (CsrId == null) { throw new System.ArgumentNullException("CsrId cannot be null"); }
+            if (TlsCsr == null) { throw new System.ArgumentNullException("TlsCsr cannot be null"); }
+            NSXTTlsCsrType returnValue = default(NSXTTlsCsrType);
+            StringBuilder GenerateTlsCsrServiceURL = new StringBuilder("/infra/csrs/{csr-id}?action=create");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.POST
+            };
+            request.AddHeader("Content-type", "application/json");
+            GenerateTlsCsrServiceURL.Replace("{csr-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CsrId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.AddJsonBody(JsonConvert.SerializeObject(TlsCsr, defaultSerializationSettings));
+            request.Resource = GenerateTlsCsrServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP POST operation to " + GenerateTlsCsrServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTTlsCsrType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsCsrType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public string GetCaBundlePemFile(string CabundleId)
+        {
+            if (CabundleId == null) { throw new System.ArgumentNullException("CabundleId cannot be null"); }
+            string returnValue  = default(string);
+            StringBuilder GetCaBundlePemFileServiceURL = new StringBuilder("/infra/cabundles/{cabundle-id}/pem-file");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GetCaBundlePemFileServiceURL.Replace("{cabundle-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CabundleId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GetCaBundlePemFileServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetCaBundlePemFileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<string>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(string).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTTlsCrlType GlobalGlobalInfraGetTlsCrl(string CrlId, bool? Details = null)
+        {
+            if (CrlId == null) { throw new System.ArgumentNullException("CrlId cannot be null"); }
+            NSXTTlsCrlType returnValue = default(NSXTTlsCrlType);
+            StringBuilder GlobalInfraGetTlsCrlServiceURL = new StringBuilder("/global-infra/crls/{crl-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetTlsCrlServiceURL.Replace("{crl-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CrlId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Details != null) { request.AddQueryParameter("details", Details.ToString()); }
+            request.Resource = GlobalInfraGetTlsCrlServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetTlsCrlServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTTlsCrlType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsCrlType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTTlsCrlListResultType GlobalGlobalInfraListTlsCrls(string? Cursor = null, bool? Details = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
+        {
+            NSXTTlsCrlListResultType returnValue = default(NSXTTlsCrlListResultType);
+            StringBuilder GlobalInfraListTlsCrlsServiceURL = new StringBuilder("/global-infra/crls");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (Details != null) { request.AddQueryParameter("details", Details.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            if (Type != null) { request.AddQueryParameter("type", Type.ToString()); }
+            request.Resource = GlobalInfraListTlsCrlsServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraListTlsCrlsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTTlsCrlListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsCrlListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTTlsCertificateListType GlobalGlobalInfraListTlsCertificates(string? Cursor = null, bool? Details = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
+        {
+            NSXTTlsCertificateListType returnValue = default(NSXTTlsCertificateListType);
+            StringBuilder GlobalInfraListTlsCertificatesServiceURL = new StringBuilder("/global-infra/certificates");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (Details != null) { request.AddQueryParameter("details", Details.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            if (Type != null) { request.AddQueryParameter("type", Type.ToString()); }
+            request.Resource = GlobalInfraListTlsCertificatesServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraListTlsCertificatesServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTTlsCertificateListType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsCertificateListType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTTlsCertificateType ImportSignedTlsCertificate(string CsrId, NSXTTlsTrustDataType TlsTrustData)
+        {
+            if (CsrId == null) { throw new System.ArgumentNullException("CsrId cannot be null"); }
+            if (TlsTrustData == null) { throw new System.ArgumentNullException("TlsTrustData cannot be null"); }
+            NSXTTlsCertificateType returnValue = default(NSXTTlsCertificateType);
+            StringBuilder ImportSignedTlsCertificateServiceURL = new StringBuilder("/infra/csrs/{csr-id}?action=import");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.POST
+            };
+            request.AddHeader("Content-type", "application/json");
+            ImportSignedTlsCertificateServiceURL.Replace("{csr-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CsrId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.AddJsonBody(JsonConvert.SerializeObject(TlsTrustData, defaultSerializationSettings));
+            request.Resource = ImportSignedTlsCertificateServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP POST operation to " + ImportSignedTlsCertificateServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTTlsCertificateType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsCertificateType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTCaBundleType AddOrReplaceCaBundle(string CabundleId, NSXTCaBundleType CaBundle)
+        {
+            if (CabundleId == null) { throw new System.ArgumentNullException("CabundleId cannot be null"); }
+            if (CaBundle == null) { throw new System.ArgumentNullException("CaBundle cannot be null"); }
+            NSXTCaBundleType returnValue = default(NSXTCaBundleType);
+            StringBuilder AddOrReplaceCaBundleServiceURL = new StringBuilder("/infra/cabundles/{cabundle-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.PUT
+            };
+            request.AddHeader("Content-type", "application/json");
+            AddOrReplaceCaBundleServiceURL.Replace("{cabundle-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CabundleId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.AddJsonBody(JsonConvert.SerializeObject(CaBundle, defaultSerializationSettings));
+            request.Resource = AddOrReplaceCaBundleServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP PUT operation to " + AddOrReplaceCaBundleServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTCaBundleType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTCaBundleType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTCaBundleType AddOrReplaceCaBundleUpload(string CabundleId, string File, string? Description = null, string? DisplayName = null)
+        {
+            if (CabundleId == null) { throw new System.ArgumentNullException("CabundleId cannot be null"); }
+            if (File == null) { throw new System.ArgumentNullException("File cannot be null"); }
+            NSXTCaBundleType returnValue = default(NSXTCaBundleType);
+            StringBuilder AddOrReplaceCaBundleUploadServiceURL = new StringBuilder("/infra/cabundles/{cabundle-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.POST
+            };
+            request.AddHeader("Content-type", "application/json");
+            AddOrReplaceCaBundleUploadServiceURL.Replace("{cabundle-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CabundleId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Description != null) { request.AddQueryParameter("description", Description.ToString()); }
+            if (DisplayName != null) { request.AddQueryParameter("display_name", DisplayName.ToString()); }
+            
+            request.Resource = AddOrReplaceCaBundleUploadServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP POST operation to " + AddOrReplaceCaBundleUploadServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTCaBundleType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTCaBundleType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTCaBundleType AddOrPatchCaBundle(string CabundleId, NSXTCaBundleType CaBundle)
+        {
+            if (CabundleId == null) { throw new System.ArgumentNullException("CabundleId cannot be null"); }
+            if (CaBundle == null) { throw new System.ArgumentNullException("CaBundle cannot be null"); }
+            NSXTCaBundleType returnValue = default(NSXTCaBundleType);
+            StringBuilder AddOrPatchCaBundleServiceURL = new StringBuilder("/infra/cabundles/{cabundle-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.PATCH
+            };
+            request.AddHeader("Content-type", "application/json");
+            AddOrPatchCaBundleServiceURL.Replace("{cabundle-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CabundleId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.AddJsonBody(JsonConvert.SerializeObject(CaBundle, defaultSerializationSettings));
+            request.Resource = AddOrPatchCaBundleServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP PATCH operation to " + AddOrPatchCaBundleServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTCaBundleType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTCaBundleType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTCaBundleType GetCaBundle(string CabundleId)
+        {
+            if (CabundleId == null) { throw new System.ArgumentNullException("CabundleId cannot be null"); }
+            NSXTCaBundleType returnValue = default(NSXTCaBundleType);
+            StringBuilder GetCaBundleServiceURL = new StringBuilder("/infra/cabundles/{cabundle-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GetCaBundleServiceURL.Replace("{cabundle-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CabundleId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GetCaBundleServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetCaBundleServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTCaBundleType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTCaBundleType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public void DeleteCaBundle(string CabundleId)
+        {
+            if (CabundleId == null) { throw new System.ArgumentNullException("CabundleId cannot be null"); }
+            
+            StringBuilder DeleteCaBundleServiceURL = new StringBuilder("/infra/cabundles/{cabundle-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.DELETE
+            };
+            request.AddHeader("Content-type", "application/json");
+            DeleteCaBundleServiceURL.Replace("{cabundle-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CabundleId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = DeleteCaBundleServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP DELETE operation to " + DeleteCaBundleServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public string GetTlsCsrPem(string CsrId)
+        {
+            if (CsrId == null) { throw new System.ArgumentNullException("CsrId cannot be null"); }
+            string returnValue  = default(string);
+            StringBuilder GetTlsCsrPemServiceURL = new StringBuilder("/infra/csrs/{csr-id}/pem-file");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GetTlsCsrPemServiceURL.Replace("{csr-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CsrId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GetTlsCsrPemServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetTlsCsrPemServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<string>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(string).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -495,63 +738,24 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTlsCertificateType GlobalAddTlsCertificate(string CertificateId, NSXTTlsTrustDataType TlsTrustData)
-        {
-            if (CertificateId == null) { throw new System.ArgumentNullException("CertificateId cannot be null"); }
-            if (TlsTrustData == null) { throw new System.ArgumentNullException("TlsTrustData cannot be null"); }
-            NSXTTlsCertificateType returnValue = default(NSXTTlsCertificateType);
-            StringBuilder AddTlsCertificateServiceURL = new StringBuilder("/global-infra/certificates/{certificate-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            AddTlsCertificateServiceURL.Replace("{certificate-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CertificateId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(TlsTrustData, defaultSerializationSettings));
-            request.Resource = AddTlsCertificateServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + AddTlsCertificateServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTlsCertificateType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsCertificateType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTTlsCertificateType GlobalGetTlsCertificate(string CertificateId, bool? Details = null)
+        public NSXTTlsCertificateType GlobalGlobalInfraGetTlsCertificate(string CertificateId, bool? Details = null)
         {
             if (CertificateId == null) { throw new System.ArgumentNullException("CertificateId cannot be null"); }
             NSXTTlsCertificateType returnValue = default(NSXTTlsCertificateType);
-            StringBuilder GetTlsCertificateServiceURL = new StringBuilder("/global-infra/certificates/{certificate-id}");
+            StringBuilder GlobalInfraGetTlsCertificateServiceURL = new StringBuilder("/global-infra/certificates/{certificate-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTlsCertificateServiceURL.Replace("{certificate-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CertificateId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTlsCertificateServiceURL.Replace("{certificate-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CertificateId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Details != null) { request.AddQueryParameter("details", Details.ToString()); }
-            request.Resource = GetTlsCertificateServiceURL.ToString();
+            request.Resource = GlobalInfraGetTlsCertificateServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTlsCertificateServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTlsCertificateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -567,58 +771,6 @@ namespace nsxtapi.PolicyModules
 				}
 			}
 			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchTlsCertificate(string CertificateId, NSXTTlsTrustDataType TlsTrustData)
-        {
-            if (CertificateId == null) { throw new System.ArgumentNullException("CertificateId cannot be null"); }
-            if (TlsTrustData == null) { throw new System.ArgumentNullException("TlsTrustData cannot be null"); }
-            
-            StringBuilder PatchTlsCertificateServiceURL = new StringBuilder("/global-infra/certificates/{certificate-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchTlsCertificateServiceURL.Replace("{certificate-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CertificateId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(TlsTrustData, defaultSerializationSettings));
-            request.Resource = PatchTlsCertificateServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchTlsCertificateServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteTlsCertificate(string CertificateId)
-        {
-            if (CertificateId == null) { throw new System.ArgumentNullException("CertificateId cannot be null"); }
-            
-            StringBuilder DeleteTlsCertificateServiceURL = new StringBuilder("/global-infra/certificates/{certificate-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteTlsCertificateServiceURL.Replace("{certificate-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CertificateId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteTlsCertificateServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteTlsCertificateServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
         }
         /// <summary>
         /// 
@@ -753,25 +905,25 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTlsCrlListResultType CreateTlsCrlImport(string CrlId, NSXTTlsCrlType TlsCrl)
+        public NSXTTlsCrlListResultType CreateTlsCrl(string CrlId, NSXTTlsCrlType TlsCrl)
         {
             if (CrlId == null) { throw new System.ArgumentNullException("CrlId cannot be null"); }
             if (TlsCrl == null) { throw new System.ArgumentNullException("TlsCrl cannot be null"); }
             NSXTTlsCrlListResultType returnValue = default(NSXTTlsCrlListResultType);
-            StringBuilder CreateTlsCrlImportServiceURL = new StringBuilder("/infra/crls/{crl-id}?action=import");
+            StringBuilder CreateTlsCrlServiceURL = new StringBuilder("/infra/crls/{crl-id}?action=import");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            CreateTlsCrlImportServiceURL.Replace("{crl-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CrlId, System.Globalization.CultureInfo.InvariantCulture)));
+            CreateTlsCrlServiceURL.Replace("{crl-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CrlId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(TlsCrl, defaultSerializationSettings));
-            request.Resource = CreateTlsCrlImportServiceURL.ToString();
+            request.Resource = CreateTlsCrlServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + CreateTlsCrlImportServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + CreateTlsCrlServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -783,6 +935,269 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsCrlListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTTlsCertificateType UploadPemSignedTlsCertificate(string CsrId, string File, string? Description = null, string? DisplayName = null)
+        {
+            if (CsrId == null) { throw new System.ArgumentNullException("CsrId cannot be null"); }
+            if (File == null) { throw new System.ArgumentNullException("File cannot be null"); }
+            NSXTTlsCertificateType returnValue = default(NSXTTlsCertificateType);
+            StringBuilder UploadPemSignedTlsCertificateServiceURL = new StringBuilder("/infra/csrs/{csr-id}?action=upload");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.POST
+            };
+            request.AddHeader("Content-type", "application/json");
+            UploadPemSignedTlsCertificateServiceURL.Replace("{csr-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CsrId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Description != null) { request.AddQueryParameter("description", Description.ToString()); }
+            if (DisplayName != null) { request.AddQueryParameter("display_name", DisplayName.ToString()); }
+            
+            request.Resource = UploadPemSignedTlsCertificateServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP POST operation to " + UploadPemSignedTlsCertificateServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTTlsCertificateType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsCertificateType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTTlsCertificateType GenerateSelfSignedTlsCertificate(NSXTTlsCsrWithDaysValidType TlsCsrWithDaysValid)
+        {
+            if (TlsCsrWithDaysValid == null) { throw new System.ArgumentNullException("TlsCsrWithDaysValid cannot be null"); }
+            NSXTTlsCertificateType returnValue = default(NSXTTlsCertificateType);
+            StringBuilder GenerateSelfSignedTlsCertificateServiceURL = new StringBuilder("/infra/csrs?action=self_sign");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.POST
+            };
+            request.AddHeader("Content-type", "application/json");
+            request.AddJsonBody(JsonConvert.SerializeObject(TlsCsrWithDaysValid, defaultSerializationSettings));
+            request.Resource = GenerateSelfSignedTlsCertificateServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP POST operation to " + GenerateSelfSignedTlsCertificateServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTTlsCertificateType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsCertificateType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTCaBundleListResultType ListCaBundles(string? Cursor = null, bool? Details = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
+        {
+            NSXTCaBundleListResultType returnValue = default(NSXTCaBundleListResultType);
+            StringBuilder ListCaBundlesServiceURL = new StringBuilder("/infra/cabundles");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (Details != null) { request.AddQueryParameter("details", Details.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            if (Type != null) { request.AddQueryParameter("type", Type.ToString()); }
+            request.Resource = ListCaBundlesServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + ListCaBundlesServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTCaBundleListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTCaBundleListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTTlsCrlType UploadTlsCrl(string CrlId, string File, string? CrlType = null, string? Description = null, string? DisplayName = null)
+        {
+            if (CrlId == null) { throw new System.ArgumentNullException("CrlId cannot be null"); }
+            if (File == null) { throw new System.ArgumentNullException("File cannot be null"); }
+            NSXTTlsCrlType returnValue = default(NSXTTlsCrlType);
+            StringBuilder UploadTlsCrlServiceURL = new StringBuilder("/infra/crls/{crl-id}?action=upload");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.POST
+            };
+            request.AddHeader("Content-type", "application/json");
+            UploadTlsCrlServiceURL.Replace("{crl-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CrlId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (CrlType != null) { request.AddQueryParameter("crl_type", CrlType.ToString()); }
+            if (Description != null) { request.AddQueryParameter("description", Description.ToString()); }
+            if (DisplayName != null) { request.AddQueryParameter("display_name", DisplayName.ToString()); }
+            
+            request.Resource = UploadTlsCrlServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP POST operation to " + UploadTlsCrlServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTTlsCrlType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsCrlType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTTlsCsrType GetTlsCsr(string CsrId)
+        {
+            if (CsrId == null) { throw new System.ArgumentNullException("CsrId cannot be null"); }
+            NSXTTlsCsrType returnValue = default(NSXTTlsCsrType);
+            StringBuilder GetTlsCsrServiceURL = new StringBuilder("/infra/csrs/{csr-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GetTlsCsrServiceURL.Replace("{csr-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CsrId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GetTlsCsrServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetTlsCsrServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTTlsCsrType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsCsrType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public void DeleteTlsCsr(string CsrId)
+        {
+            if (CsrId == null) { throw new System.ArgumentNullException("CsrId cannot be null"); }
+            
+            StringBuilder DeleteTlsCsrServiceURL = new StringBuilder("/infra/csrs/{csr-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.DELETE
+            };
+            request.AddHeader("Content-type", "application/json");
+            DeleteTlsCsrServiceURL.Replace("{csr-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CsrId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = DeleteTlsCsrServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP DELETE operation to " + DeleteTlsCsrServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTTlsCertificateType SelfSignTlsCertificate(string CsrId, long DaysValid)
+        {
+            if (CsrId == null) { throw new System.ArgumentNullException("CsrId cannot be null"); }
+            if (DaysValid == null) { throw new System.ArgumentNullException("DaysValid cannot be null"); }
+            NSXTTlsCertificateType returnValue = default(NSXTTlsCertificateType);
+            StringBuilder SelfSignTlsCertificateServiceURL = new StringBuilder("/infra/csrs/{csr-id}?action=self_sign");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.POST
+            };
+            request.AddHeader("Content-type", "application/json");
+            SelfSignTlsCertificateServiceURL.Replace("{csr-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CsrId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (DaysValid != null) { request.AddQueryParameter("days_valid", DaysValid.ToString()); }
+            request.Resource = SelfSignTlsCertificateServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP POST operation to " + SelfSignTlsCertificateServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTTlsCertificateType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsCertificateType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}

@@ -16,5 +16,9 @@ namespace nsxtsdk.ManagerModels
         PHYSICAL = 1,
         [EnumMember(Value = "VIRTUAL")]
         VIRTUAL = 2,
+        [EnumMember(Value = "BOND")]
+        BOND = 3,
+        [EnumMember(Value = "TEAMING")]
+        TEAMING = 4,
     }
 }

@@ -18,6 +18,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Global Manager federation configuration. This configuration is distributedto all Sites participating in federation.")]
     public class NSXTFederationConfigType 
     {
+        public NSXTFederationConfigType()
+        {
+        }
         /// <summary>
         /// Federation configurations of all Sites
         /// </summary>

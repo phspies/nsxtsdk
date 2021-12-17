@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildALBWafPolicyPSMGroupType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildALBWafPolicyPSMGroupType()
+        {
+        }
         /// <summary>
-        /// Contains the actual ALBWafPolicyPSMGroup object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ALBWafPolicyPSMGroup", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual ALBWafPolicyPSMGroup object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBWafPolicyPSMGroupType ALBWafPolicyPSMGroup { get; set; }
     }

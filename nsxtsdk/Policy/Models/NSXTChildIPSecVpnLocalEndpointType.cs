@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildIPSecVpnLocalEndpointType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildIPSecVpnLocalEndpointType()
+        {
+        }
         /// <summary>
-        /// Contains the actual IPSecVpnLocalEndpoint object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "IPSecVpnLocalEndpoint", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual IPSecVpnLocalEndpoint object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTIPSecVpnLocalEndpointType IPSecVpnLocalEndpoint { get; set; }
     }

@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Route Redistribution config")]
     public class NSXTTier0RouteRedistributionConfigType 
     {
+        public NSXTTier0RouteRedistributionConfigType()
+        {
+            BgpEnabled = test
+        }
         /// <summary>
         /// List of redistribution rules.
         /// </summary>
@@ -34,7 +38,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "bgp_enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Flag to enable route redistribution for BGP.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? BgpEnabled { get; set; }
     }
 }

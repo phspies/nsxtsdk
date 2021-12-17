@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbMonitorListResultType : NSXTListResultType
     {
+        public NSXTLbMonitorListResultType()
+        {
+        }
         /// <summary>
         /// paginated list of load balancer monitors
         /// </summary>

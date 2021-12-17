@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Field Setting.")]
     public class NSXTFieldSettingType 
     {
+        public NSXTFieldSettingType()
+        {
+        }
         /// <summary>
-        /// Value that the field must be set to.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "value", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Value that the field must be set to.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTFieldSettingValueType Value { get; set; }
         /// <summary>

@@ -18,11 +18,13 @@ namespace nsxtsdk.PolicyModels
         AWS = 2,
         [EnumMember(Value = "AZURE")]
         Azure = 3,
+        [EnumMember(Value = "GOOGLE")]
+        Google = 4,
         [EnumMember(Value = "VMC")]
-        VMC = 4,
+        VMC = 5,
         [EnumMember(Value = "KVM")]
-        KVM = 5,
+        KVM = 6,
         [EnumMember(Value = "BAREMETAL")]
-        Baremetal = 6,
+        Baremetal = 7,
     }
 }

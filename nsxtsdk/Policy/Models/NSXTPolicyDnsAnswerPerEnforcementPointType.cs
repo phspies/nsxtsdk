@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"DNS forwarder nslookup answer per enforcement point.")]
     public class NSXTPolicyDnsAnswerPerEnforcementPointType 
     {
+        public NSXTPolicyDnsAnswerPerEnforcementPointType()
+        {
+        }
         /// <summary>
         /// Resource type of the DNS forwarder nslookup answer.
         /// </summary>

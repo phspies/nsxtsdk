@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpfixCollectorConfigListResultType : NSXTListResultType
     {
+        public NSXTIpfixCollectorConfigListResultType()
+        {
+        }
         /// <summary>
         /// IPFIX Collector Config
         /// </summary>

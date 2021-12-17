@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceInsertionSectionType : NSXTDSSectionType
     {
+        public NSXTServiceInsertionSectionType()
+        {
+        }
         /// <summary>
         /// Ensures that a three way TCP handshake is done before the data packets are sent if the value is set to be true.
         /// tcp_strict=true is supported only for stateful sections.

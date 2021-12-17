@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbSessionCookieTimeType : NSXTLbCookieTimeType
     {
+        public NSXTLbSessionCookieTimeType()
+        {
+        }
         /// <summary>
         /// Instead of using HTTP Cookie max-age and relying on client to expire
         /// the cookie, max idle time and/or max lifetime of the cookie can be used.

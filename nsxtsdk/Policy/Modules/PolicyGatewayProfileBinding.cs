@@ -166,122 +166,25 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFloodProtectionProfileBindingMapType GlobalUpdateTier0FloodProtectionProfileBinding(string Tier0Id, string FloodProtectionProfileBindingId, NSXTFloodProtectionProfileBindingMapType FloodProtectionProfileBindingMap)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (FloodProtectionProfileBindingId == null) { throw new System.ArgumentNullException("FloodProtectionProfileBindingId cannot be null"); }
-            if (FloodProtectionProfileBindingMap == null) { throw new System.ArgumentNullException("FloodProtectionProfileBindingMap cannot be null"); }
-            NSXTFloodProtectionProfileBindingMapType returnValue = default(NSXTFloodProtectionProfileBindingMapType);
-            StringBuilder UpdateTier0FloodProtectionProfileBindingServiceURL = new StringBuilder("/global-infra/tier-0s/{tier0-id}/flood-protection-profile-bindings/{flood-protection-profile-binding-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateTier0FloodProtectionProfileBindingServiceURL.Replace("{tier0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            UpdateTier0FloodProtectionProfileBindingServiceURL.Replace("{flood-protection-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FloodProtectionProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(FloodProtectionProfileBindingMap, defaultSerializationSettings));
-            request.Resource = UpdateTier0FloodProtectionProfileBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateTier0FloodProtectionProfileBindingServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFloodProtectionProfileBindingMapType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFloodProtectionProfileBindingMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchTier0FloodProtectionProfileBindingMap(string Tier0Id, string FloodProtectionProfileBindingId, NSXTFloodProtectionProfileBindingMapType FloodProtectionProfileBindingMap)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (FloodProtectionProfileBindingId == null) { throw new System.ArgumentNullException("FloodProtectionProfileBindingId cannot be null"); }
-            if (FloodProtectionProfileBindingMap == null) { throw new System.ArgumentNullException("FloodProtectionProfileBindingMap cannot be null"); }
-            
-            StringBuilder PatchTier0FloodProtectionProfileBindingMapServiceURL = new StringBuilder("/global-infra/tier-0s/{tier0-id}/flood-protection-profile-bindings/{flood-protection-profile-binding-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchTier0FloodProtectionProfileBindingMapServiceURL.Replace("{tier0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchTier0FloodProtectionProfileBindingMapServiceURL.Replace("{flood-protection-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FloodProtectionProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(FloodProtectionProfileBindingMap, defaultSerializationSettings));
-            request.Resource = PatchTier0FloodProtectionProfileBindingMapServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchTier0FloodProtectionProfileBindingMapServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteTier0FloodProtectionProfileBinding(string Tier0Id, string FloodProtectionProfileBindingId)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (FloodProtectionProfileBindingId == null) { throw new System.ArgumentNullException("FloodProtectionProfileBindingId cannot be null"); }
-            
-            StringBuilder DeleteTier0FloodProtectionProfileBindingServiceURL = new StringBuilder("/global-infra/tier-0s/{tier0-id}/flood-protection-profile-bindings/{flood-protection-profile-binding-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteTier0FloodProtectionProfileBindingServiceURL.Replace("{tier0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteTier0FloodProtectionProfileBindingServiceURL.Replace("{flood-protection-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FloodProtectionProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteTier0FloodProtectionProfileBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteTier0FloodProtectionProfileBindingServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTFloodProtectionProfileBindingMapType GlobalGetTier0FloodProtectionProfileBinding(string Tier0Id, string FloodProtectionProfileBindingId)
+        public NSXTFloodProtectionProfileBindingMapType GlobalGlobalInfraGetTier0FloodProtectionProfileBinding(string Tier0Id, string FloodProtectionProfileBindingId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (FloodProtectionProfileBindingId == null) { throw new System.ArgumentNullException("FloodProtectionProfileBindingId cannot be null"); }
             NSXTFloodProtectionProfileBindingMapType returnValue = default(NSXTFloodProtectionProfileBindingMapType);
-            StringBuilder GetTier0FloodProtectionProfileBindingServiceURL = new StringBuilder("/global-infra/tier-0s/{tier0-id}/flood-protection-profile-bindings/{flood-protection-profile-binding-id}");
+            StringBuilder GlobalInfraGetTier0FloodProtectionProfileBindingServiceURL = new StringBuilder("/global-infra/tier-0s/{tier0-id}/flood-protection-profile-bindings/{flood-protection-profile-binding-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier0FloodProtectionProfileBindingServiceURL.Replace("{tier0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0FloodProtectionProfileBindingServiceURL.Replace("{flood-protection-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FloodProtectionProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = GetTier0FloodProtectionProfileBindingServiceURL.ToString();
+            GlobalInfraGetTier0FloodProtectionProfileBindingServiceURL.Replace("{tier0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0FloodProtectionProfileBindingServiceURL.Replace("{flood-protection-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FloodProtectionProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraGetTier0FloodProtectionProfileBindingServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier0FloodProtectionProfileBindingServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier0FloodProtectionProfileBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -489,35 +392,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteTier0LocaleServicesSessionTimerProfileBinding(string Tier0Id, string LocaleServicesId, string SessionTimerProfileBindingId)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            if (SessionTimerProfileBindingId == null) { throw new System.ArgumentNullException("SessionTimerProfileBindingId cannot be null"); }
-            
-            StringBuilder DeleteTier0LocaleServicesSessionTimerProfileBindingServiceURL = new StringBuilder("/infra/tier-0s/{tier0-id}/locale-services/{locale-services-id}/session-timer-profile-bindings/{session-timer-profile-binding-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteTier0LocaleServicesSessionTimerProfileBindingServiceURL.Replace("{tier0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteTier0LocaleServicesSessionTimerProfileBindingServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteTier0LocaleServicesSessionTimerProfileBindingServiceURL.Replace("{session-timer-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionTimerProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteTier0LocaleServicesSessionTimerProfileBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteTier0LocaleServicesSessionTimerProfileBindingServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTSessionTimerProfileBindingMapType GetTier0LocaleServicesSessionTimerProfileBinding(string Tier0Id, string LocaleServicesId, string SessionTimerProfileBindingId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
@@ -559,6 +433,35 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
+        public void DeleteTier0LocaleServicesSessionTimerProfileBinding(string Tier0Id, string LocaleServicesId, string SessionTimerProfileBindingId)
+        {
+            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
+            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
+            if (SessionTimerProfileBindingId == null) { throw new System.ArgumentNullException("SessionTimerProfileBindingId cannot be null"); }
+            
+            StringBuilder DeleteTier0LocaleServicesSessionTimerProfileBindingServiceURL = new StringBuilder("/infra/tier-0s/{tier0-id}/locale-services/{locale-services-id}/session-timer-profile-bindings/{session-timer-profile-binding-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.DELETE
+            };
+            request.AddHeader("Content-type", "application/json");
+            DeleteTier0LocaleServicesSessionTimerProfileBindingServiceURL.Replace("{tier0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            DeleteTier0LocaleServicesSessionTimerProfileBindingServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
+            DeleteTier0LocaleServicesSessionTimerProfileBindingServiceURL.Replace("{session-timer-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionTimerProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = DeleteTier0LocaleServicesSessionTimerProfileBindingServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP DELETE operation to " + DeleteTier0LocaleServicesSessionTimerProfileBindingServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
         public void PatchTier0LocalServicesSessionTimerProfileBindingMap(string Tier0Id, string LocaleServicesId, string SessionTimerProfileBindingId, NSXTSessionTimerProfileBindingMapType SessionTimerProfileBindingMap)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
@@ -590,130 +493,27 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSessionTimerProfileBindingMapType GlobalUpdateTier1LocaleServicesSessionTimerProfileBinding(string Tier1Id, string LocaleServicesId, string SessionTimerProfileBindingId, NSXTSessionTimerProfileBindingMapType SessionTimerProfileBindingMap)
-        {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            if (SessionTimerProfileBindingId == null) { throw new System.ArgumentNullException("SessionTimerProfileBindingId cannot be null"); }
-            if (SessionTimerProfileBindingMap == null) { throw new System.ArgumentNullException("SessionTimerProfileBindingMap cannot be null"); }
-            NSXTSessionTimerProfileBindingMapType returnValue = default(NSXTSessionTimerProfileBindingMapType);
-            StringBuilder UpdateTier1LocaleServicesSessionTimerProfileBindingServiceURL = new StringBuilder("/global-infra/tier-1s/{tier1-id}/locale-services/{locale-services-id}/session-timer-profile-bindings/{session-timer-profile-binding-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateTier1LocaleServicesSessionTimerProfileBindingServiceURL.Replace("{tier1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            UpdateTier1LocaleServicesSessionTimerProfileBindingServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
-            UpdateTier1LocaleServicesSessionTimerProfileBindingServiceURL.Replace("{session-timer-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionTimerProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(SessionTimerProfileBindingMap, defaultSerializationSettings));
-            request.Resource = UpdateTier1LocaleServicesSessionTimerProfileBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateTier1LocaleServicesSessionTimerProfileBindingServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSessionTimerProfileBindingMapType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSessionTimerProfileBindingMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchTier1LocaleServicesSessionTimerProfileBindingMap(string Tier1Id, string LocaleServicesId, string SessionTimerProfileBindingId, NSXTSessionTimerProfileBindingMapType SessionTimerProfileBindingMap)
-        {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            if (SessionTimerProfileBindingId == null) { throw new System.ArgumentNullException("SessionTimerProfileBindingId cannot be null"); }
-            if (SessionTimerProfileBindingMap == null) { throw new System.ArgumentNullException("SessionTimerProfileBindingMap cannot be null"); }
-            
-            StringBuilder PatchTier1LocaleServicesSessionTimerProfileBindingMapServiceURL = new StringBuilder("/global-infra/tier-1s/{tier1-id}/locale-services/{locale-services-id}/session-timer-profile-bindings/{session-timer-profile-binding-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchTier1LocaleServicesSessionTimerProfileBindingMapServiceURL.Replace("{tier1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchTier1LocaleServicesSessionTimerProfileBindingMapServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchTier1LocaleServicesSessionTimerProfileBindingMapServiceURL.Replace("{session-timer-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionTimerProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(SessionTimerProfileBindingMap, defaultSerializationSettings));
-            request.Resource = PatchTier1LocaleServicesSessionTimerProfileBindingMapServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchTier1LocaleServicesSessionTimerProfileBindingMapServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteTier1LocaleServicesSessionTimerProfileBinding(string Tier1Id, string LocaleServicesId, string SessionTimerProfileBindingId)
-        {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            if (SessionTimerProfileBindingId == null) { throw new System.ArgumentNullException("SessionTimerProfileBindingId cannot be null"); }
-            
-            StringBuilder DeleteTier1LocaleServicesSessionTimerProfileBindingServiceURL = new StringBuilder("/global-infra/tier-1s/{tier1-id}/locale-services/{locale-services-id}/session-timer-profile-bindings/{session-timer-profile-binding-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteTier1LocaleServicesSessionTimerProfileBindingServiceURL.Replace("{tier1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteTier1LocaleServicesSessionTimerProfileBindingServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteTier1LocaleServicesSessionTimerProfileBindingServiceURL.Replace("{session-timer-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionTimerProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteTier1LocaleServicesSessionTimerProfileBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteTier1LocaleServicesSessionTimerProfileBindingServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTSessionTimerProfileBindingMapType GlobalGetTier1LocaleServicesSessionTimerProfileBinding(string Tier1Id, string LocaleServicesId, string SessionTimerProfileBindingId)
+        public NSXTSessionTimerProfileBindingMapType GlobalGlobalInfraGetTier1LocaleServicesSessionTimerProfileBinding(string Tier1Id, string LocaleServicesId, string SessionTimerProfileBindingId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
             if (SessionTimerProfileBindingId == null) { throw new System.ArgumentNullException("SessionTimerProfileBindingId cannot be null"); }
             NSXTSessionTimerProfileBindingMapType returnValue = default(NSXTSessionTimerProfileBindingMapType);
-            StringBuilder GetTier1LocaleServicesSessionTimerProfileBindingServiceURL = new StringBuilder("/global-infra/tier-1s/{tier1-id}/locale-services/{locale-services-id}/session-timer-profile-bindings/{session-timer-profile-binding-id}");
+            StringBuilder GlobalInfraGetTier1LocaleServicesSessionTimerProfileBindingServiceURL = new StringBuilder("/global-infra/tier-1s/{tier1-id}/locale-services/{locale-services-id}/session-timer-profile-bindings/{session-timer-profile-binding-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier1LocaleServicesSessionTimerProfileBindingServiceURL.Replace("{tier1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1LocaleServicesSessionTimerProfileBindingServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1LocaleServicesSessionTimerProfileBindingServiceURL.Replace("{session-timer-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionTimerProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = GetTier1LocaleServicesSessionTimerProfileBindingServiceURL.ToString();
+            GlobalInfraGetTier1LocaleServicesSessionTimerProfileBindingServiceURL.Replace("{tier1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1LocaleServicesSessionTimerProfileBindingServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1LocaleServicesSessionTimerProfileBindingServiceURL.Replace("{session-timer-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionTimerProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraGetTier1LocaleServicesSessionTimerProfileBindingServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier1LocaleServicesSessionTimerProfileBindingServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier1LocaleServicesSessionTimerProfileBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -734,29 +534,27 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFloodProtectionProfileBindingMapType GlobalUpdateTier1LocaleServicesFloodProtectionProfileBinding(string Tier1Id, string LocaleServicesId, string FloodProtectionProfileBindingId, NSXTFloodProtectionProfileBindingMapType FloodProtectionProfileBindingMap)
+        public NSXTFloodProtectionProfileBindingMapType GlobalGlobalInfraGetTier1LocaleServicesFloodProtectionProfileBinding(string Tier1Id, string LocaleServicesId, string FloodProtectionProfileBindingId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
             if (FloodProtectionProfileBindingId == null) { throw new System.ArgumentNullException("FloodProtectionProfileBindingId cannot be null"); }
-            if (FloodProtectionProfileBindingMap == null) { throw new System.ArgumentNullException("FloodProtectionProfileBindingMap cannot be null"); }
             NSXTFloodProtectionProfileBindingMapType returnValue = default(NSXTFloodProtectionProfileBindingMapType);
-            StringBuilder UpdateTier1LocaleServicesFloodProtectionProfileBindingServiceURL = new StringBuilder("/global-infra/tier-1s/{tier1-id}/locale-services/{locale-services-id}/flood-protection-profile-bindings/{flood-protection-profile-binding-id}");
+            StringBuilder GlobalInfraGetTier1LocaleServicesFloodProtectionProfileBindingServiceURL = new StringBuilder("/global-infra/tier-1s/{tier1-id}/locale-services/{locale-services-id}/flood-protection-profile-bindings/{flood-protection-profile-binding-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
-                Method = Method.PUT
+                Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            UpdateTier1LocaleServicesFloodProtectionProfileBindingServiceURL.Replace("{tier1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            UpdateTier1LocaleServicesFloodProtectionProfileBindingServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
-            UpdateTier1LocaleServicesFloodProtectionProfileBindingServiceURL.Replace("{flood-protection-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FloodProtectionProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(FloodProtectionProfileBindingMap, defaultSerializationSettings));
-            request.Resource = UpdateTier1LocaleServicesFloodProtectionProfileBindingServiceURL.ToString();
+            GlobalInfraGetTier1LocaleServicesFloodProtectionProfileBindingServiceURL.Replace("{tier1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1LocaleServicesFloodProtectionProfileBindingServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1LocaleServicesFloodProtectionProfileBindingServiceURL.Replace("{flood-protection-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FloodProtectionProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraGetTier1LocaleServicesFloodProtectionProfileBindingServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP PUT operation to " + UpdateTier1LocaleServicesFloodProtectionProfileBindingServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier1LocaleServicesFloodProtectionProfileBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -772,251 +570,6 @@ namespace nsxtapi.PolicyModules
 				}
 			}
 			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteTier1LocaleServicesFloodProtectionProfileBinding(string Tier1Id, string LocaleServicesId, string FloodProtectionProfileBindingId)
-        {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            if (FloodProtectionProfileBindingId == null) { throw new System.ArgumentNullException("FloodProtectionProfileBindingId cannot be null"); }
-            
-            StringBuilder DeleteTier1LocaleServicesFloodProtectionProfileBindingServiceURL = new StringBuilder("/global-infra/tier-1s/{tier1-id}/locale-services/{locale-services-id}/flood-protection-profile-bindings/{flood-protection-profile-binding-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteTier1LocaleServicesFloodProtectionProfileBindingServiceURL.Replace("{tier1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteTier1LocaleServicesFloodProtectionProfileBindingServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteTier1LocaleServicesFloodProtectionProfileBindingServiceURL.Replace("{flood-protection-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FloodProtectionProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteTier1LocaleServicesFloodProtectionProfileBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteTier1LocaleServicesFloodProtectionProfileBindingServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchTier1LocaleServicesFloodProtectionProfileBindingMap(string Tier1Id, string LocaleServicesId, string FloodProtectionProfileBindingId, NSXTFloodProtectionProfileBindingMapType FloodProtectionProfileBindingMap)
-        {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            if (FloodProtectionProfileBindingId == null) { throw new System.ArgumentNullException("FloodProtectionProfileBindingId cannot be null"); }
-            if (FloodProtectionProfileBindingMap == null) { throw new System.ArgumentNullException("FloodProtectionProfileBindingMap cannot be null"); }
-            
-            StringBuilder PatchTier1LocaleServicesFloodProtectionProfileBindingMapServiceURL = new StringBuilder("/global-infra/tier-1s/{tier1-id}/locale-services/{locale-services-id}/flood-protection-profile-bindings/{flood-protection-profile-binding-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchTier1LocaleServicesFloodProtectionProfileBindingMapServiceURL.Replace("{tier1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchTier1LocaleServicesFloodProtectionProfileBindingMapServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchTier1LocaleServicesFloodProtectionProfileBindingMapServiceURL.Replace("{flood-protection-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FloodProtectionProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(FloodProtectionProfileBindingMap, defaultSerializationSettings));
-            request.Resource = PatchTier1LocaleServicesFloodProtectionProfileBindingMapServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchTier1LocaleServicesFloodProtectionProfileBindingMapServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTFloodProtectionProfileBindingMapType GlobalGetTier1LocaleServicesFloodProtectionProfileBinding(string Tier1Id, string LocaleServicesId, string FloodProtectionProfileBindingId)
-        {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            if (FloodProtectionProfileBindingId == null) { throw new System.ArgumentNullException("FloodProtectionProfileBindingId cannot be null"); }
-            NSXTFloodProtectionProfileBindingMapType returnValue = default(NSXTFloodProtectionProfileBindingMapType);
-            StringBuilder GetTier1LocaleServicesFloodProtectionProfileBindingServiceURL = new StringBuilder("/global-infra/tier-1s/{tier1-id}/locale-services/{locale-services-id}/flood-protection-profile-bindings/{flood-protection-profile-binding-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetTier1LocaleServicesFloodProtectionProfileBindingServiceURL.Replace("{tier1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1LocaleServicesFloodProtectionProfileBindingServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1LocaleServicesFloodProtectionProfileBindingServiceURL.Replace("{flood-protection-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FloodProtectionProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = GetTier1LocaleServicesFloodProtectionProfileBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetTier1LocaleServicesFloodProtectionProfileBindingServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFloodProtectionProfileBindingMapType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFloodProtectionProfileBindingMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTSessionTimerProfileBindingMapType GlobalUpdateTier0LocaleServicesSessionTimerProfileBinding(string Tier0Id, string LocaleServicesId, string SessionTimerProfileBindingId, NSXTSessionTimerProfileBindingMapType SessionTimerProfileBindingMap)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            if (SessionTimerProfileBindingId == null) { throw new System.ArgumentNullException("SessionTimerProfileBindingId cannot be null"); }
-            if (SessionTimerProfileBindingMap == null) { throw new System.ArgumentNullException("SessionTimerProfileBindingMap cannot be null"); }
-            NSXTSessionTimerProfileBindingMapType returnValue = default(NSXTSessionTimerProfileBindingMapType);
-            StringBuilder UpdateTier0LocaleServicesSessionTimerProfileBindingServiceURL = new StringBuilder("/global-infra/tier-0s/{tier0-id}/locale-services/{locale-services-id}/session-timer-profile-bindings/{session-timer-profile-binding-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateTier0LocaleServicesSessionTimerProfileBindingServiceURL.Replace("{tier0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            UpdateTier0LocaleServicesSessionTimerProfileBindingServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
-            UpdateTier0LocaleServicesSessionTimerProfileBindingServiceURL.Replace("{session-timer-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionTimerProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(SessionTimerProfileBindingMap, defaultSerializationSettings));
-            request.Resource = UpdateTier0LocaleServicesSessionTimerProfileBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateTier0LocaleServicesSessionTimerProfileBindingServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSessionTimerProfileBindingMapType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSessionTimerProfileBindingMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteTier0LocaleServicesSessionTimerProfileBinding(string Tier0Id, string LocaleServicesId, string SessionTimerProfileBindingId)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            if (SessionTimerProfileBindingId == null) { throw new System.ArgumentNullException("SessionTimerProfileBindingId cannot be null"); }
-            
-            StringBuilder DeleteTier0LocaleServicesSessionTimerProfileBindingServiceURL = new StringBuilder("/global-infra/tier-0s/{tier0-id}/locale-services/{locale-services-id}/session-timer-profile-bindings/{session-timer-profile-binding-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteTier0LocaleServicesSessionTimerProfileBindingServiceURL.Replace("{tier0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteTier0LocaleServicesSessionTimerProfileBindingServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteTier0LocaleServicesSessionTimerProfileBindingServiceURL.Replace("{session-timer-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionTimerProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteTier0LocaleServicesSessionTimerProfileBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteTier0LocaleServicesSessionTimerProfileBindingServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTSessionTimerProfileBindingMapType GlobalGetTier0LocaleServicesSessionTimerProfileBinding(string Tier0Id, string LocaleServicesId, string SessionTimerProfileBindingId)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            if (SessionTimerProfileBindingId == null) { throw new System.ArgumentNullException("SessionTimerProfileBindingId cannot be null"); }
-            NSXTSessionTimerProfileBindingMapType returnValue = default(NSXTSessionTimerProfileBindingMapType);
-            StringBuilder GetTier0LocaleServicesSessionTimerProfileBindingServiceURL = new StringBuilder("/global-infra/tier-0s/{tier0-id}/locale-services/{locale-services-id}/session-timer-profile-bindings/{session-timer-profile-binding-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetTier0LocaleServicesSessionTimerProfileBindingServiceURL.Replace("{tier0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0LocaleServicesSessionTimerProfileBindingServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0LocaleServicesSessionTimerProfileBindingServiceURL.Replace("{session-timer-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionTimerProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = GetTier0LocaleServicesSessionTimerProfileBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetTier0LocaleServicesSessionTimerProfileBindingServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSessionTimerProfileBindingMapType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSessionTimerProfileBindingMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchTier0LocalServicesSessionTimerProfileBindingMap(string Tier0Id, string LocaleServicesId, string SessionTimerProfileBindingId, NSXTSessionTimerProfileBindingMapType SessionTimerProfileBindingMap)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            if (SessionTimerProfileBindingId == null) { throw new System.ArgumentNullException("SessionTimerProfileBindingId cannot be null"); }
-            if (SessionTimerProfileBindingMap == null) { throw new System.ArgumentNullException("SessionTimerProfileBindingMap cannot be null"); }
-            
-            StringBuilder PatchTier0LocalServicesSessionTimerProfileBindingMapServiceURL = new StringBuilder("/global-infra/tier-0s/{tier0-id}/locale-services/{locale-services-id}/session-timer-profile-bindings/{session-timer-profile-binding-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchTier0LocalServicesSessionTimerProfileBindingMapServiceURL.Replace("{tier0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchTier0LocalServicesSessionTimerProfileBindingMapServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchTier0LocalServicesSessionTimerProfileBindingMapServiceURL.Replace("{session-timer-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionTimerProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(SessionTimerProfileBindingMap, defaultSerializationSettings));
-            request.Resource = PatchTier0LocalServicesSessionTimerProfileBindingMapServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchTier0LocalServicesSessionTimerProfileBindingMapServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
         }
         /// <summary>
         /// 
@@ -1238,37 +791,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchTier1LocaleServicesFloodProtectionProfileBindingMap(string Tier1Id, string LocaleServicesId, string FloodProtectionProfileBindingId, NSXTFloodProtectionProfileBindingMapType FloodProtectionProfileBindingMap)
-        {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            if (FloodProtectionProfileBindingId == null) { throw new System.ArgumentNullException("FloodProtectionProfileBindingId cannot be null"); }
-            if (FloodProtectionProfileBindingMap == null) { throw new System.ArgumentNullException("FloodProtectionProfileBindingMap cannot be null"); }
-            
-            StringBuilder PatchTier1LocaleServicesFloodProtectionProfileBindingMapServiceURL = new StringBuilder("/infra/tier-1s/{tier1-id}/locale-services/{locale-services-id}/flood-protection-profile-bindings/{flood-protection-profile-binding-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchTier1LocaleServicesFloodProtectionProfileBindingMapServiceURL.Replace("{tier1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchTier1LocaleServicesFloodProtectionProfileBindingMapServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchTier1LocaleServicesFloodProtectionProfileBindingMapServiceURL.Replace("{flood-protection-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FloodProtectionProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(FloodProtectionProfileBindingMap, defaultSerializationSettings));
-            request.Resource = PatchTier1LocaleServicesFloodProtectionProfileBindingMapServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchTier1LocaleServicesFloodProtectionProfileBindingMapServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTFloodProtectionProfileBindingMapType GetTier1LocaleServicesFloodProtectionProfileBinding(string Tier1Id, string LocaleServicesId, string FloodProtectionProfileBindingId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
@@ -1310,6 +832,37 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
+        public void PatchTier1LocaleServicesFloodProtectionProfileBindingMap(string Tier1Id, string LocaleServicesId, string FloodProtectionProfileBindingId, NSXTFloodProtectionProfileBindingMapType FloodProtectionProfileBindingMap)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
+            if (FloodProtectionProfileBindingId == null) { throw new System.ArgumentNullException("FloodProtectionProfileBindingId cannot be null"); }
+            if (FloodProtectionProfileBindingMap == null) { throw new System.ArgumentNullException("FloodProtectionProfileBindingMap cannot be null"); }
+            
+            StringBuilder PatchTier1LocaleServicesFloodProtectionProfileBindingMapServiceURL = new StringBuilder("/infra/tier-1s/{tier1-id}/locale-services/{locale-services-id}/flood-protection-profile-bindings/{flood-protection-profile-binding-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.PATCH
+            };
+            request.AddHeader("Content-type", "application/json");
+            PatchTier1LocaleServicesFloodProtectionProfileBindingMapServiceURL.Replace("{tier1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            PatchTier1LocaleServicesFloodProtectionProfileBindingMapServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
+            PatchTier1LocaleServicesFloodProtectionProfileBindingMapServiceURL.Replace("{flood-protection-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FloodProtectionProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.AddJsonBody(JsonConvert.SerializeObject(FloodProtectionProfileBindingMap, defaultSerializationSettings));
+            request.Resource = PatchTier1LocaleServicesFloodProtectionProfileBindingMapServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP PATCH operation to " + PatchTier1LocaleServicesFloodProtectionProfileBindingMapServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
         public NSXTSessionTimerProfileBindingMapType UpdateTier0SessionTimerProfileBinding(string Tier0Id, string SessionTimerProfileBindingId, NSXTSessionTimerProfileBindingMapType SessionTimerProfileBindingMap)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
@@ -1331,45 +884,6 @@ namespace nsxtapi.PolicyModules
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateTier0SessionTimerProfileBindingServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSessionTimerProfileBindingMapType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSessionTimerProfileBindingMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTSessionTimerProfileBindingMapType GetTier0SessionTimerProfileBinding(string Tier0Id, string SessionTimerProfileBindingId)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (SessionTimerProfileBindingId == null) { throw new System.ArgumentNullException("SessionTimerProfileBindingId cannot be null"); }
-            NSXTSessionTimerProfileBindingMapType returnValue = default(NSXTSessionTimerProfileBindingMapType);
-            StringBuilder GetTier0SessionTimerProfileBindingServiceURL = new StringBuilder("/infra/tier-0s/{tier0-id}/session-timer-profile-bindings/{session-timer-profile-binding-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetTier0SessionTimerProfileBindingServiceURL.Replace("{tier0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0SessionTimerProfileBindingServiceURL.Replace("{session-timer-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionTimerProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = GetTier0SessionTimerProfileBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetTier0SessionTimerProfileBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1417,82 +931,12 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchTier0SessionTimerProfileBindingMap(string Tier0Id, string SessionTimerProfileBindingId, NSXTSessionTimerProfileBindingMapType SessionTimerProfileBindingMap)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (SessionTimerProfileBindingId == null) { throw new System.ArgumentNullException("SessionTimerProfileBindingId cannot be null"); }
-            if (SessionTimerProfileBindingMap == null) { throw new System.ArgumentNullException("SessionTimerProfileBindingMap cannot be null"); }
-            
-            StringBuilder PatchTier0SessionTimerProfileBindingMapServiceURL = new StringBuilder("/infra/tier-0s/{tier0-id}/session-timer-profile-bindings/{session-timer-profile-binding-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchTier0SessionTimerProfileBindingMapServiceURL.Replace("{tier0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchTier0SessionTimerProfileBindingMapServiceURL.Replace("{session-timer-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionTimerProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(SessionTimerProfileBindingMap, defaultSerializationSettings));
-            request.Resource = PatchTier0SessionTimerProfileBindingMapServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchTier0SessionTimerProfileBindingMapServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTSessionTimerProfileBindingMapType GlobalUpdateTier0SessionTimerProfileBinding(string Tier0Id, string SessionTimerProfileBindingId, NSXTSessionTimerProfileBindingMapType SessionTimerProfileBindingMap)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (SessionTimerProfileBindingId == null) { throw new System.ArgumentNullException("SessionTimerProfileBindingId cannot be null"); }
-            if (SessionTimerProfileBindingMap == null) { throw new System.ArgumentNullException("SessionTimerProfileBindingMap cannot be null"); }
-            NSXTSessionTimerProfileBindingMapType returnValue = default(NSXTSessionTimerProfileBindingMapType);
-            StringBuilder UpdateTier0SessionTimerProfileBindingServiceURL = new StringBuilder("/global-infra/tier-0s/{tier0-id}/session-timer-profile-bindings/{session-timer-profile-binding-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateTier0SessionTimerProfileBindingServiceURL.Replace("{tier0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            UpdateTier0SessionTimerProfileBindingServiceURL.Replace("{session-timer-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionTimerProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(SessionTimerProfileBindingMap, defaultSerializationSettings));
-            request.Resource = UpdateTier0SessionTimerProfileBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateTier0SessionTimerProfileBindingServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSessionTimerProfileBindingMapType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSessionTimerProfileBindingMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTSessionTimerProfileBindingMapType GlobalGetTier0SessionTimerProfileBinding(string Tier0Id, string SessionTimerProfileBindingId)
+        public NSXTSessionTimerProfileBindingMapType GetTier0SessionTimerProfileBinding(string Tier0Id, string SessionTimerProfileBindingId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (SessionTimerProfileBindingId == null) { throw new System.ArgumentNullException("SessionTimerProfileBindingId cannot be null"); }
             NSXTSessionTimerProfileBindingMapType returnValue = default(NSXTSessionTimerProfileBindingMapType);
-            StringBuilder GetTier0SessionTimerProfileBindingServiceURL = new StringBuilder("/global-infra/tier-0s/{tier0-id}/session-timer-profile-bindings/{session-timer-profile-binding-id}");
+            StringBuilder GetTier0SessionTimerProfileBindingServiceURL = new StringBuilder("/infra/tier-0s/{tier0-id}/session-timer-profile-bindings/{session-timer-profile-binding-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -1526,40 +970,13 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalDeleteTier0SessionTimerProfileBinding(string Tier0Id, string SessionTimerProfileBindingId)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (SessionTimerProfileBindingId == null) { throw new System.ArgumentNullException("SessionTimerProfileBindingId cannot be null"); }
-            
-            StringBuilder DeleteTier0SessionTimerProfileBindingServiceURL = new StringBuilder("/global-infra/tier-0s/{tier0-id}/session-timer-profile-bindings/{session-timer-profile-binding-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteTier0SessionTimerProfileBindingServiceURL.Replace("{tier0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteTier0SessionTimerProfileBindingServiceURL.Replace("{session-timer-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionTimerProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteTier0SessionTimerProfileBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteTier0SessionTimerProfileBindingServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchTier0SessionTimerProfileBindingMap(string Tier0Id, string SessionTimerProfileBindingId, NSXTSessionTimerProfileBindingMapType SessionTimerProfileBindingMap)
+        public void PatchTier0SessionTimerProfileBindingMap(string Tier0Id, string SessionTimerProfileBindingId, NSXTSessionTimerProfileBindingMapType SessionTimerProfileBindingMap)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (SessionTimerProfileBindingId == null) { throw new System.ArgumentNullException("SessionTimerProfileBindingId cannot be null"); }
             if (SessionTimerProfileBindingMap == null) { throw new System.ArgumentNullException("SessionTimerProfileBindingMap cannot be null"); }
             
-            StringBuilder PatchTier0SessionTimerProfileBindingMapServiceURL = new StringBuilder("/global-infra/tier-0s/{tier0-id}/session-timer-profile-bindings/{session-timer-profile-binding-id}");
+            StringBuilder PatchTier0SessionTimerProfileBindingMapServiceURL = new StringBuilder("/infra/tier-0s/{tier0-id}/session-timer-profile-bindings/{session-timer-profile-binding-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -1582,81 +999,36 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFloodProtectionProfileBindingMapType GlobalUpdateTier0LocaleServicesFloodProtectionProfileBinding(string Tier0Id, string LocaleServicesId, string FloodProtectionProfileBindingId, NSXTFloodProtectionProfileBindingMapType FloodProtectionProfileBindingMap)
+        public NSXTTlsConfigProfileBindingMapType GlobalGlobalInfraGetTier1TlsConfigProfileBindingMap(string Tier1Id, string TlsInspectionConfigProfileBindingId)
         {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            if (FloodProtectionProfileBindingId == null) { throw new System.ArgumentNullException("FloodProtectionProfileBindingId cannot be null"); }
-            if (FloodProtectionProfileBindingMap == null) { throw new System.ArgumentNullException("FloodProtectionProfileBindingMap cannot be null"); }
-            NSXTFloodProtectionProfileBindingMapType returnValue = default(NSXTFloodProtectionProfileBindingMapType);
-            StringBuilder UpdateTier0LocaleServicesFloodProtectionProfileBindingServiceURL = new StringBuilder("/global-infra/tier-0s/{tier0-id}/locale-services/{locale-services-id}/flood-protection-profile-bindings/{flood-protection-profile-binding-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateTier0LocaleServicesFloodProtectionProfileBindingServiceURL.Replace("{tier0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            UpdateTier0LocaleServicesFloodProtectionProfileBindingServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
-            UpdateTier0LocaleServicesFloodProtectionProfileBindingServiceURL.Replace("{flood-protection-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FloodProtectionProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(FloodProtectionProfileBindingMap, defaultSerializationSettings));
-            request.Resource = UpdateTier0LocaleServicesFloodProtectionProfileBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateTier0LocaleServicesFloodProtectionProfileBindingServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFloodProtectionProfileBindingMapType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFloodProtectionProfileBindingMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTFloodProtectionProfileBindingMapType GlobalGetTier0LocaleServicesFloodProtectionProfileBinding(string Tier0Id, string LocaleServicesId, string FloodProtectionProfileBindingId)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            if (FloodProtectionProfileBindingId == null) { throw new System.ArgumentNullException("FloodProtectionProfileBindingId cannot be null"); }
-            NSXTFloodProtectionProfileBindingMapType returnValue = default(NSXTFloodProtectionProfileBindingMapType);
-            StringBuilder GetTier0LocaleServicesFloodProtectionProfileBindingServiceURL = new StringBuilder("/global-infra/tier-0s/{tier0-id}/locale-services/{locale-services-id}/flood-protection-profile-bindings/{flood-protection-profile-binding-id}");
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            if (TlsInspectionConfigProfileBindingId == null) { throw new System.ArgumentNullException("TlsInspectionConfigProfileBindingId cannot be null"); }
+            NSXTTlsConfigProfileBindingMapType returnValue = default(NSXTTlsConfigProfileBindingMapType);
+            StringBuilder GlobalInfraGetTier1TlsConfigProfileBindingMapServiceURL = new StringBuilder("/global-infra/tier-1s/{tier1-id}/tls-inspection-config-profile-bindings/{tls-inspection-config-profile-binding-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier0LocaleServicesFloodProtectionProfileBindingServiceURL.Replace("{tier0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0LocaleServicesFloodProtectionProfileBindingServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0LocaleServicesFloodProtectionProfileBindingServiceURL.Replace("{flood-protection-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FloodProtectionProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = GetTier0LocaleServicesFloodProtectionProfileBindingServiceURL.ToString();
+            GlobalInfraGetTier1TlsConfigProfileBindingMapServiceURL.Replace("{tier1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1TlsConfigProfileBindingMapServiceURL.Replace("{tls-inspection-config-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TlsInspectionConfigProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraGetTier1TlsConfigProfileBindingMapServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier0LocaleServicesFloodProtectionProfileBindingServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier1TlsConfigProfileBindingMapServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
 			{
 				try
 				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFloodProtectionProfileBindingMapType>(response.Content, defaultSerializationSettings);
+					returnValue = JsonConvert.DeserializeObject<NSXTTlsConfigProfileBindingMapType>(response.Content, defaultSerializationSettings);
 				}
 				catch (Exception ex)
 				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFloodProtectionProfileBindingMapType).FullName + ".";
+					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsConfigProfileBindingMapType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -1666,87 +1038,25 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalDeleteTier0LocaleServicesFloodProtectionProfileBinding(string Tier0Id, string LocaleServicesId, string FloodProtectionProfileBindingId)
+        public NSXTSessionTimerProfileBindingMapType GlobalGlobalInfraGetTier0SessionTimerProfileBinding(string Tier0Id, string SessionTimerProfileBindingId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            if (FloodProtectionProfileBindingId == null) { throw new System.ArgumentNullException("FloodProtectionProfileBindingId cannot be null"); }
-            
-            StringBuilder DeleteTier0LocaleServicesFloodProtectionProfileBindingServiceURL = new StringBuilder("/global-infra/tier-0s/{tier0-id}/locale-services/{locale-services-id}/flood-protection-profile-bindings/{flood-protection-profile-binding-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteTier0LocaleServicesFloodProtectionProfileBindingServiceURL.Replace("{tier0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteTier0LocaleServicesFloodProtectionProfileBindingServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteTier0LocaleServicesFloodProtectionProfileBindingServiceURL.Replace("{flood-protection-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FloodProtectionProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteTier0LocaleServicesFloodProtectionProfileBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteTier0LocaleServicesFloodProtectionProfileBindingServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchTier0LocaleServicesFloodProtectionProfileBindingMap(string Tier0Id, string LocaleServicesId, string FloodProtectionProfileBindingId, NSXTFloodProtectionProfileBindingMapType FloodProtectionProfileBindingMap)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            if (FloodProtectionProfileBindingId == null) { throw new System.ArgumentNullException("FloodProtectionProfileBindingId cannot be null"); }
-            if (FloodProtectionProfileBindingMap == null) { throw new System.ArgumentNullException("FloodProtectionProfileBindingMap cannot be null"); }
-            
-            StringBuilder PatchTier0LocaleServicesFloodProtectionProfileBindingMapServiceURL = new StringBuilder("/global-infra/tier-0s/{tier0-id}/locale-services/{locale-services-id}/flood-protection-profile-bindings/{flood-protection-profile-binding-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchTier0LocaleServicesFloodProtectionProfileBindingMapServiceURL.Replace("{tier0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchTier0LocaleServicesFloodProtectionProfileBindingMapServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchTier0LocaleServicesFloodProtectionProfileBindingMapServiceURL.Replace("{flood-protection-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FloodProtectionProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(FloodProtectionProfileBindingMap, defaultSerializationSettings));
-            request.Resource = PatchTier0LocaleServicesFloodProtectionProfileBindingMapServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchTier0LocaleServicesFloodProtectionProfileBindingMapServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTSessionTimerProfileBindingMapType GlobalUpdateTier1SessionTimerProfileBinding(string Tier1Id, string SessionTimerProfileBindingId, NSXTSessionTimerProfileBindingMapType SessionTimerProfileBindingMap)
-        {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SessionTimerProfileBindingId == null) { throw new System.ArgumentNullException("SessionTimerProfileBindingId cannot be null"); }
-            if (SessionTimerProfileBindingMap == null) { throw new System.ArgumentNullException("SessionTimerProfileBindingMap cannot be null"); }
             NSXTSessionTimerProfileBindingMapType returnValue = default(NSXTSessionTimerProfileBindingMapType);
-            StringBuilder UpdateTier1SessionTimerProfileBindingServiceURL = new StringBuilder("/global-infra/tier-1s/{tier1-id}/session-timer-profile-bindings/{session-timer-profile-binding-id}");
+            StringBuilder GlobalInfraGetTier0SessionTimerProfileBindingServiceURL = new StringBuilder("/global-infra/tier-0s/{tier0-id}/session-timer-profile-bindings/{session-timer-profile-binding-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
-                Method = Method.PUT
+                Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            UpdateTier1SessionTimerProfileBindingServiceURL.Replace("{tier1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            UpdateTier1SessionTimerProfileBindingServiceURL.Replace("{session-timer-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionTimerProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(SessionTimerProfileBindingMap, defaultSerializationSettings));
-            request.Resource = UpdateTier1SessionTimerProfileBindingServiceURL.ToString();
+            GlobalInfraGetTier0SessionTimerProfileBindingServiceURL.Replace("{tier0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0SessionTimerProfileBindingServiceURL.Replace("{session-timer-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionTimerProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraGetTier0SessionTimerProfileBindingServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP PUT operation to " + UpdateTier1SessionTimerProfileBindingServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier0SessionTimerProfileBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1767,52 +1077,66 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalDeleteTier1SessionTimerProfileBinding(string Tier1Id, string SessionTimerProfileBindingId)
+        public NSXTFloodProtectionProfileBindingMapType GlobalGlobalInfraGetTier0LocaleServicesFloodProtectionProfileBinding(string Tier0Id, string LocaleServicesId, string FloodProtectionProfileBindingId)
         {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (SessionTimerProfileBindingId == null) { throw new System.ArgumentNullException("SessionTimerProfileBindingId cannot be null"); }
-            
-            StringBuilder DeleteTier1SessionTimerProfileBindingServiceURL = new StringBuilder("/global-infra/tier-1s/{tier1-id}/session-timer-profile-bindings/{session-timer-profile-binding-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteTier1SessionTimerProfileBindingServiceURL.Replace("{tier1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteTier1SessionTimerProfileBindingServiceURL.Replace("{session-timer-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionTimerProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteTier1SessionTimerProfileBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteTier1SessionTimerProfileBindingServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTSessionTimerProfileBindingMapType GlobalGetTier1SessionTimerProfileBinding(string Tier1Id, string SessionTimerProfileBindingId)
-        {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (SessionTimerProfileBindingId == null) { throw new System.ArgumentNullException("SessionTimerProfileBindingId cannot be null"); }
-            NSXTSessionTimerProfileBindingMapType returnValue = default(NSXTSessionTimerProfileBindingMapType);
-            StringBuilder GetTier1SessionTimerProfileBindingServiceURL = new StringBuilder("/global-infra/tier-1s/{tier1-id}/session-timer-profile-bindings/{session-timer-profile-binding-id}");
+            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
+            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
+            if (FloodProtectionProfileBindingId == null) { throw new System.ArgumentNullException("FloodProtectionProfileBindingId cannot be null"); }
+            NSXTFloodProtectionProfileBindingMapType returnValue = default(NSXTFloodProtectionProfileBindingMapType);
+            StringBuilder GlobalInfraGetTier0LocaleServicesFloodProtectionProfileBindingServiceURL = new StringBuilder("/global-infra/tier-0s/{tier0-id}/locale-services/{locale-services-id}/flood-protection-profile-bindings/{flood-protection-profile-binding-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier1SessionTimerProfileBindingServiceURL.Replace("{tier1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1SessionTimerProfileBindingServiceURL.Replace("{session-timer-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionTimerProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = GetTier1SessionTimerProfileBindingServiceURL.ToString();
+            GlobalInfraGetTier0LocaleServicesFloodProtectionProfileBindingServiceURL.Replace("{tier0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0LocaleServicesFloodProtectionProfileBindingServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0LocaleServicesFloodProtectionProfileBindingServiceURL.Replace("{flood-protection-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FloodProtectionProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraGetTier0LocaleServicesFloodProtectionProfileBindingServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier1SessionTimerProfileBindingServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier0LocaleServicesFloodProtectionProfileBindingServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTFloodProtectionProfileBindingMapType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTFloodProtectionProfileBindingMapType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTSessionTimerProfileBindingMapType GlobalGlobalInfraGetTier1SessionTimerProfileBinding(string Tier1Id, string SessionTimerProfileBindingId)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            if (SessionTimerProfileBindingId == null) { throw new System.ArgumentNullException("SessionTimerProfileBindingId cannot be null"); }
+            NSXTSessionTimerProfileBindingMapType returnValue = default(NSXTSessionTimerProfileBindingMapType);
+            StringBuilder GlobalInfraGetTier1SessionTimerProfileBindingServiceURL = new StringBuilder("/global-infra/tier-1s/{tier1-id}/session-timer-profile-bindings/{session-timer-profile-binding-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetTier1SessionTimerProfileBindingServiceURL.Replace("{tier1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1SessionTimerProfileBindingServiceURL.Replace("{session-timer-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionTimerProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraGetTier1SessionTimerProfileBindingServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetTier1SessionTimerProfileBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1828,35 +1152,6 @@ namespace nsxtapi.PolicyModules
 				}
 			}
 			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchTier1SessionTimerProfileBindingMap(string Tier1Id, string SessionTimerProfileBindingId, NSXTSessionTimerProfileBindingMapType SessionTimerProfileBindingMap)
-        {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (SessionTimerProfileBindingId == null) { throw new System.ArgumentNullException("SessionTimerProfileBindingId cannot be null"); }
-            if (SessionTimerProfileBindingMap == null) { throw new System.ArgumentNullException("SessionTimerProfileBindingMap cannot be null"); }
-            
-            StringBuilder PatchTier1SessionTimerProfileBindingMapServiceURL = new StringBuilder("/global-infra/tier-1s/{tier1-id}/session-timer-profile-bindings/{session-timer-profile-binding-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchTier1SessionTimerProfileBindingMapServiceURL.Replace("{tier1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchTier1SessionTimerProfileBindingMapServiceURL.Replace("{session-timer-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionTimerProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(SessionTimerProfileBindingMap, defaultSerializationSettings));
-            request.Resource = PatchTier1SessionTimerProfileBindingMapServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchTier1SessionTimerProfileBindingMapServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
         }
         /// <summary>
         /// 
@@ -1998,38 +1293,38 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFloodProtectionProfileBindingMapType GlobalUpdateTier1FloodProtectionProfileBinding(string Tier1Id, string FloodProtectionProfileBindingId, NSXTFloodProtectionProfileBindingMapType FloodProtectionProfileBindingMap)
+        public NSXTTlsConfigProfileBindingMapType UpdateTier1TlsConfigProfileBindingMap(string Tier1Id, string TlsInspectionConfigProfileBindingId, NSXTTlsConfigProfileBindingMapType TlsConfigProfileBindingMap)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (FloodProtectionProfileBindingId == null) { throw new System.ArgumentNullException("FloodProtectionProfileBindingId cannot be null"); }
-            if (FloodProtectionProfileBindingMap == null) { throw new System.ArgumentNullException("FloodProtectionProfileBindingMap cannot be null"); }
-            NSXTFloodProtectionProfileBindingMapType returnValue = default(NSXTFloodProtectionProfileBindingMapType);
-            StringBuilder UpdateTier1FloodProtectionProfileBindingServiceURL = new StringBuilder("/global-infra/tier-1s/{tier1-id}/flood-protection-profile-bindings/{flood-protection-profile-binding-id}");
+            if (TlsInspectionConfigProfileBindingId == null) { throw new System.ArgumentNullException("TlsInspectionConfigProfileBindingId cannot be null"); }
+            if (TlsConfigProfileBindingMap == null) { throw new System.ArgumentNullException("TlsConfigProfileBindingMap cannot be null"); }
+            NSXTTlsConfigProfileBindingMapType returnValue = default(NSXTTlsConfigProfileBindingMapType);
+            StringBuilder UpdateTier1TlsConfigProfileBindingMapServiceURL = new StringBuilder("/infra/tier-1s/{tier1-id}/tls-inspection-config-profile-bindings/{tls-inspection-config-profile-binding-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.PUT
             };
             request.AddHeader("Content-type", "application/json");
-            UpdateTier1FloodProtectionProfileBindingServiceURL.Replace("{tier1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            UpdateTier1FloodProtectionProfileBindingServiceURL.Replace("{flood-protection-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FloodProtectionProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(FloodProtectionProfileBindingMap, defaultSerializationSettings));
-            request.Resource = UpdateTier1FloodProtectionProfileBindingServiceURL.ToString();
+            UpdateTier1TlsConfigProfileBindingMapServiceURL.Replace("{tier1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            UpdateTier1TlsConfigProfileBindingMapServiceURL.Replace("{tls-inspection-config-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TlsInspectionConfigProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.AddJsonBody(JsonConvert.SerializeObject(TlsConfigProfileBindingMap, defaultSerializationSettings));
+            request.Resource = UpdateTier1TlsConfigProfileBindingMapServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP PUT operation to " + UpdateTier1FloodProtectionProfileBindingServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP PUT operation to " + UpdateTier1TlsConfigProfileBindingMapServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
 			{
 				try
 				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFloodProtectionProfileBindingMapType>(response.Content, defaultSerializationSettings);
+					returnValue = JsonConvert.DeserializeObject<NSXTTlsConfigProfileBindingMapType>(response.Content, defaultSerializationSettings);
 				}
 				catch (Exception ex)
 				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFloodProtectionProfileBindingMapType).FullName + ".";
+					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsConfigProfileBindingMapType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -2039,25 +1334,25 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalDeleteTier1FloodProtectionProfileBinding(string Tier1Id, string FloodProtectionProfileBindingId)
+        public void DeleteTier1TlsConfigProfileBindingMap(string Tier1Id, string TlsInspectionConfigProfileBindingId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (FloodProtectionProfileBindingId == null) { throw new System.ArgumentNullException("FloodProtectionProfileBindingId cannot be null"); }
+            if (TlsInspectionConfigProfileBindingId == null) { throw new System.ArgumentNullException("TlsInspectionConfigProfileBindingId cannot be null"); }
             
-            StringBuilder DeleteTier1FloodProtectionProfileBindingServiceURL = new StringBuilder("/global-infra/tier-1s/{tier1-id}/flood-protection-profile-bindings/{flood-protection-profile-binding-id}");
+            StringBuilder DeleteTier1TlsConfigProfileBindingMapServiceURL = new StringBuilder("/infra/tier-1s/{tier1-id}/tls-inspection-config-profile-bindings/{tls-inspection-config-profile-binding-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.DELETE
             };
             request.AddHeader("Content-type", "application/json");
-            DeleteTier1FloodProtectionProfileBindingServiceURL.Replace("{tier1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteTier1FloodProtectionProfileBindingServiceURL.Replace("{flood-protection-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FloodProtectionProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteTier1FloodProtectionProfileBindingServiceURL.ToString();
+            DeleteTier1TlsConfigProfileBindingMapServiceURL.Replace("{tier1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            DeleteTier1TlsConfigProfileBindingMapServiceURL.Replace("{tls-inspection-config-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TlsInspectionConfigProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = DeleteTier1TlsConfigProfileBindingMapServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP DELETE operation to " + DeleteTier1FloodProtectionProfileBindingServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP DELETE operation to " + DeleteTier1TlsConfigProfileBindingMapServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -2066,25 +1361,105 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFloodProtectionProfileBindingMapType GlobalGetTier1FloodProtectionProfileBinding(string Tier1Id, string FloodProtectionProfileBindingId)
+        public NSXTTlsConfigProfileBindingMapType GetTier1TlsConfigProfileBindingMap(string Tier1Id, string TlsInspectionConfigProfileBindingId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (FloodProtectionProfileBindingId == null) { throw new System.ArgumentNullException("FloodProtectionProfileBindingId cannot be null"); }
-            NSXTFloodProtectionProfileBindingMapType returnValue = default(NSXTFloodProtectionProfileBindingMapType);
-            StringBuilder GetTier1FloodProtectionProfileBindingServiceURL = new StringBuilder("/global-infra/tier-1s/{tier1-id}/flood-protection-profile-bindings/{flood-protection-profile-binding-id}");
+            if (TlsInspectionConfigProfileBindingId == null) { throw new System.ArgumentNullException("TlsInspectionConfigProfileBindingId cannot be null"); }
+            NSXTTlsConfigProfileBindingMapType returnValue = default(NSXTTlsConfigProfileBindingMapType);
+            StringBuilder GetTier1TlsConfigProfileBindingMapServiceURL = new StringBuilder("/infra/tier-1s/{tier1-id}/tls-inspection-config-profile-bindings/{tls-inspection-config-profile-binding-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier1FloodProtectionProfileBindingServiceURL.Replace("{tier1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1FloodProtectionProfileBindingServiceURL.Replace("{flood-protection-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FloodProtectionProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = GetTier1FloodProtectionProfileBindingServiceURL.ToString();
+            GetTier1TlsConfigProfileBindingMapServiceURL.Replace("{tier1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GetTier1TlsConfigProfileBindingMapServiceURL.Replace("{tls-inspection-config-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TlsInspectionConfigProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GetTier1TlsConfigProfileBindingMapServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier1FloodProtectionProfileBindingServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GetTier1TlsConfigProfileBindingMapServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTTlsConfigProfileBindingMapType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsConfigProfileBindingMapType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTTlsConfigProfileBindingMapType PatchTier1TlsConfigProfileBindingMap(string Tier1Id, string TlsInspectionConfigProfileBindingId, NSXTTlsConfigProfileBindingMapType TlsConfigProfileBindingMap)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            if (TlsInspectionConfigProfileBindingId == null) { throw new System.ArgumentNullException("TlsInspectionConfigProfileBindingId cannot be null"); }
+            if (TlsConfigProfileBindingMap == null) { throw new System.ArgumentNullException("TlsConfigProfileBindingMap cannot be null"); }
+            NSXTTlsConfigProfileBindingMapType returnValue = default(NSXTTlsConfigProfileBindingMapType);
+            StringBuilder PatchTier1TlsConfigProfileBindingMapServiceURL = new StringBuilder("/infra/tier-1s/{tier1-id}/tls-inspection-config-profile-bindings/{tls-inspection-config-profile-binding-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.PATCH
+            };
+            request.AddHeader("Content-type", "application/json");
+            PatchTier1TlsConfigProfileBindingMapServiceURL.Replace("{tier1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            PatchTier1TlsConfigProfileBindingMapServiceURL.Replace("{tls-inspection-config-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TlsInspectionConfigProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.AddJsonBody(JsonConvert.SerializeObject(TlsConfigProfileBindingMap, defaultSerializationSettings));
+            request.Resource = PatchTier1TlsConfigProfileBindingMapServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP PATCH operation to " + PatchTier1TlsConfigProfileBindingMapServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTTlsConfigProfileBindingMapType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsConfigProfileBindingMapType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTFloodProtectionProfileBindingMapType GlobalGlobalInfraGetTier1FloodProtectionProfileBinding(string Tier1Id, string FloodProtectionProfileBindingId)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            if (FloodProtectionProfileBindingId == null) { throw new System.ArgumentNullException("FloodProtectionProfileBindingId cannot be null"); }
+            NSXTFloodProtectionProfileBindingMapType returnValue = default(NSXTFloodProtectionProfileBindingMapType);
+            StringBuilder GlobalInfraGetTier1FloodProtectionProfileBindingServiceURL = new StringBuilder("/global-infra/tier-1s/{tier1-id}/flood-protection-profile-bindings/{flood-protection-profile-binding-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetTier1FloodProtectionProfileBindingServiceURL.Replace("{tier1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1FloodProtectionProfileBindingServiceURL.Replace("{flood-protection-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FloodProtectionProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraGetTier1FloodProtectionProfileBindingServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetTier1FloodProtectionProfileBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -2100,35 +1475,6 @@ namespace nsxtapi.PolicyModules
 				}
 			}
 			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchTier1FloodProtectionProfileBindingMap(string Tier1Id, string FloodProtectionProfileBindingId, NSXTFloodProtectionProfileBindingMapType FloodProtectionProfileBindingMap)
-        {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (FloodProtectionProfileBindingId == null) { throw new System.ArgumentNullException("FloodProtectionProfileBindingId cannot be null"); }
-            if (FloodProtectionProfileBindingMap == null) { throw new System.ArgumentNullException("FloodProtectionProfileBindingMap cannot be null"); }
-            
-            StringBuilder PatchTier1FloodProtectionProfileBindingMapServiceURL = new StringBuilder("/global-infra/tier-1s/{tier1-id}/flood-protection-profile-bindings/{flood-protection-profile-binding-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchTier1FloodProtectionProfileBindingMapServiceURL.Replace("{tier1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchTier1FloodProtectionProfileBindingMapServiceURL.Replace("{flood-protection-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FloodProtectionProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(FloodProtectionProfileBindingMap, defaultSerializationSettings));
-            request.Resource = PatchTier1FloodProtectionProfileBindingMapServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchTier1FloodProtectionProfileBindingMapServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
         }
         /// <summary>
         /// 
@@ -2265,6 +1611,47 @@ namespace nsxtapi.PolicyModules
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTSessionTimerProfileBindingMapType GlobalGlobalInfraGetTier0LocaleServicesSessionTimerProfileBinding(string Tier0Id, string LocaleServicesId, string SessionTimerProfileBindingId)
+        {
+            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
+            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
+            if (SessionTimerProfileBindingId == null) { throw new System.ArgumentNullException("SessionTimerProfileBindingId cannot be null"); }
+            NSXTSessionTimerProfileBindingMapType returnValue = default(NSXTSessionTimerProfileBindingMapType);
+            StringBuilder GlobalInfraGetTier0LocaleServicesSessionTimerProfileBindingServiceURL = new StringBuilder("/global-infra/tier-0s/{tier0-id}/locale-services/{locale-services-id}/session-timer-profile-bindings/{session-timer-profile-binding-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetTier0LocaleServicesSessionTimerProfileBindingServiceURL.Replace("{tier0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0LocaleServicesSessionTimerProfileBindingServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0LocaleServicesSessionTimerProfileBindingServiceURL.Replace("{session-timer-profile-binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionTimerProfileBindingId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraGetTier0LocaleServicesSessionTimerProfileBindingServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetTier0LocaleServicesSessionTimerProfileBindingServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTSessionTimerProfileBindingMapType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTSessionTimerProfileBindingMapType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
     }
 }

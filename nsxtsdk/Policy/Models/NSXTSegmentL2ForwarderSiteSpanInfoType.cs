@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSegmentL2ForwarderSiteSpanInfoType 
     {
+        public NSXTSegmentL2ForwarderSiteSpanInfoType()
+        {
+        }
         /// <summary>
         /// Timestamp when the L2 forwarder remote mac addresses was last updated.
         /// </summary>

@@ -18,6 +18,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Query statistics counters to an upstream server including successfullyforwarded queries and failed queries.")]
     public class NSXTNsxTUpstreamServerStatisticsType 
     {
+        public NSXTNsxTUpstreamServerStatisticsType()
+        {
+        }
         /// <summary>
         /// Queries failed to forward.
         /// </summary>

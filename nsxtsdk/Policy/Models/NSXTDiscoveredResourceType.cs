@@ -19,6 +19,7 @@ namespace nsxtsdk.PolicyModels
     [JsonInheritanceAttribute("VirtualSwitch", typeof(NSXTVirtualSwitchType))]
     [JsonInheritanceAttribute("ContainerNetworkPolicy", typeof(NSXTContainerNetworkPolicyType))]
     [JsonInheritanceAttribute("DiscoveredNode", typeof(NSXTDiscoveredNodeType))]
+    [JsonInheritanceAttribute("SvmConnectivityStatus", typeof(NSXTSvmConnectivityStatusType))]
     [JsonInheritanceAttribute("VmToolsInfo", typeof(NSXTVmToolsInfoType))]
     [JsonInheritanceAttribute("ContainerApplication", typeof(NSXTContainerApplicationType))]
     [JsonInheritanceAttribute("ContainerApplicationInstance", typeof(NSXTContainerApplicationInstanceType))]
@@ -33,12 +34,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDiscoveredResourceType : NSXTResourceType
     {
-        /// <summary>
-        /// Timestamp of last modification
-        /// </summary>
-        [JsonProperty(PropertyName = "_last_sync_time")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp of last modification")]
-        public long? LastSyncTime { get; set; }
+        public NSXTDiscoveredResourceType()
+        {
+        }
         /// <summary>
         /// Defaults to ID if not set
         /// </summary>
@@ -52,17 +50,31 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Description of this resource")]
         public string? Description { get; set; }
         /// <summary>
-        /// The type of this resource.
+        /// Timestamp of last modification
         /// </summary>
-        [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The type of this resource.")]
-        [System.ComponentModel.DataAnnotations.Required]
-        public string ResourceType { get; set; }
+        [JsonProperty(PropertyName = "_last_sync_time")]
+        [NSXTProperty(IsRequired: false, Description: @"Timestamp of last modification")]
+        public long? LastSyncTime { get; set; }
         /// <summary>
         /// Opaque identifiers meaningful to the API user
         /// </summary>
         [JsonProperty(PropertyName = "tags")]
         [NSXTProperty(IsRequired: false, Description: @"Opaque identifiers meaningful to the API user")]
         public IList<NSXTTagType> Tags { get; set; }
+        /// <summary>
+        /// Specifies list of scope of discovered resource. e.g. if VHC path is associated with
+        /// principal identity, who owns the discovered resource, then scope id will be VHC path
+        /// and scope type will be VHC.
+        /// </summary>
+        [JsonProperty(PropertyName = "scope")]
+        [NSXTProperty(IsRequired: false, Description: @"Specifies list of scope of discovered resource. e.g. if VHC path is associated withprincipal identity, who owns the discovered resource, then scope id will be VHC pathand scope type will be VHC.")]
+        public IList<NSXTDiscoveredResourceScopeType> Scope { get; set; }
+        /// <summary>
+        /// The type of this resource.
+        /// </summary>
+        [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
+        [NSXTProperty(IsRequired: true, Description: @"The type of this resource.")]
+        [System.ComponentModel.DataAnnotations.Required]
+        public string ResourceType { get; set; }
     }
 }

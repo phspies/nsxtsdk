@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTComputeClusterIdfwConfigurationListResultType : NSXTListResultType
     {
+        public NSXTComputeClusterIdfwConfigurationListResultType()
+        {
+        }
         /// <summary>
         /// Compute cluster wise identity firewall configuration list results
         /// </summary>

@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildGlobalManagerType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildGlobalManagerType()
+        {
+        }
         /// <summary>
-        /// Contains the actual Global Manager object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "GlobalManager", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual Global Manager object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTGlobalManagerType GlobalManager { get; set; }
     }

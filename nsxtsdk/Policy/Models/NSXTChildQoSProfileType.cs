@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildQoSProfileType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildQoSProfileType()
+        {
+        }
         /// <summary>
-        /// Contains the actual QoSProfile object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "QoSProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual QoSProfile object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTQoSProfileType QoSProfile { get; set; }
     }

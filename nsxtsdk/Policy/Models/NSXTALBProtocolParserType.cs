@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBProtocolParserType : NSXTPolicyConfigResourceType
     {
+        public NSXTALBProtocolParserType()
+        {
+        }
         /// <summary>
         /// Command script provided inline.
         /// </summary>
@@ -24,5 +27,13 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: true, Description: @"Command script provided inline.")]
         [System.ComponentModel.DataAnnotations.Required]
         public string ParserCode { get; set; }
+        /// <summary>
+        /// List of labels to be used for granular RBAC.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
+        /// </summary>
+        [JsonProperty(PropertyName = "markers")]
+        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
+        public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
     }
 }

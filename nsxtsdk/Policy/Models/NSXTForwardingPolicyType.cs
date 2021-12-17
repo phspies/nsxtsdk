@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTForwardingPolicyType : NSXTPolicyType
     {
+        public NSXTForwardingPolicyType()
+        {
+        }
         /// <summary>
         /// Rules that are a part of this ForwardingPolicy
         /// </summary>

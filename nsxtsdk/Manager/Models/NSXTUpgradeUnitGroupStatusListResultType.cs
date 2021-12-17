@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUpgradeUnitGroupStatusListResultType : NSXTListResultType
     {
+        public NSXTUpgradeUnitGroupStatusListResultType()
+        {
+        }
         /// <summary>
         /// Paged collection of upgrade status for upgrade unit groups
         /// </summary>

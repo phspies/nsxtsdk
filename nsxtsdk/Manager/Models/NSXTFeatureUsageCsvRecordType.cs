@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFeatureUsageCsvRecordType : NSXTCsvRecordType
     {
+        public NSXTFeatureUsageCsvRecordType()
+        {
+        }
         /// <summary>
         /// count of number of concurrent users
         /// </summary>

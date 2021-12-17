@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Remote file server")]
     public class NSXTRemoteFileServerType 
     {
+        public NSXTRemoteFileServerType()
+        {
+            Port = test
+        }
         /// <summary>
         /// Remote server directory to copy bundle files to
         /// </summary>
@@ -25,10 +29,10 @@ namespace nsxtsdk.ManagerModels
         [System.ComponentModel.DataAnnotations.Required]
         public string DirectoryPath { get; set; }
         /// <summary>
-        /// Protocol to use to copy file
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "protocol", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Protocol to use to copy file")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTFileTransferProtocolType Protocol { get; set; }
         /// <summary>
@@ -38,7 +42,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Server port")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Port { get; set; }
         /// <summary>
         /// Remote server hostname or IP address

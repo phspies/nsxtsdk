@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTransportNodeCollectionType : NSXTManagedResourceType
     {
+        public NSXTTransportNodeCollectionType()
+        {
+        }
         /// <summary>
         /// Flag indicating if applied profile has NVDS
         /// </summary>
@@ -37,5 +40,11 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: true, Description: @"Compute collection id")]
         [System.ComponentModel.DataAnnotations.Required]
         public string ComputeCollectionId { get; set; }
+        /// <summary>
+        /// Flag indicating security status of Transport Node Collection
+        /// </summary>
+        [JsonProperty(PropertyName = "install_mode")]
+        [NSXTProperty(IsRequired: false, Description: @"Flag indicating security status of Transport Node Collection")]
+        public NSXTTransportNodeCollectionInstallModeEnumType? InstallMode { get; set; }
     }
 }

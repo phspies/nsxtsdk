@@ -17,6 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdsSignatureType : NSXTPolicyConfigResourceType
     {
+        public NSXTIdsSignatureType()
+        {
+        }
+        /// <summary>
+        /// Mitre Attack details of Signature.
+        /// </summary>
+        [JsonProperty(PropertyName = "mitre_attack")]
+        [NSXTProperty(IsRequired: false, Description: @"Mitre Attack details of Signature.")]
+        public IList<NSXTMitreAttackType> MitreAttack { get; set; }
         /// <summary>
         /// Source-destination direction.
         /// </summary>
@@ -48,11 +57,20 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Flow established from server, from client etc.")]
         public string? Flow { get; set; }
         /// <summary>
-        /// Signature action.
+        /// Signature cvssv3 score.
         /// </summary>
-        [JsonProperty(PropertyName = "action")]
-        [NSXTProperty(IsRequired: false, Description: @"Signature action.")]
-        public string? Action { get; set; }
+        [JsonProperty(PropertyName = "cvssv3")]
+        [NSXTProperty(IsRequired: false, Description: @"Signature cvssv3 score.")]
+        public string? Cvssv3 { get; set; }
+        /// <summary>
+        /// Represents the cvss value of a Signature.
+        /// The value is derived from cvssv3 or cvssv2 score.
+        /// If cvssv3 exists, then this is the cvssv3 score, else
+        /// it is the cvssv2 score.
+        /// </summary>
+        [JsonProperty(PropertyName = "cvss_score")]
+        [NSXTProperty(IsRequired: false, Description: @"Represents the cvss value of a Signature.The value is derived from cvssv3 or cvssv2 score.If cvssv3 exists, then this is the cvssv3 score, elseit is the cvssv2 score.")]
+        public string? CvssScore { get; set; }
         /// <summary>
         /// Vendor assigned classification tag.
         /// </summary>
@@ -60,23 +78,35 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Vendor assigned classification tag.")]
         public IList<string> Tag { get; set; }
         /// <summary>
-        /// Represents the internal categories a signature belongs to.
+        /// Signature action.
         /// </summary>
-        [JsonProperty(PropertyName = "categories")]
-        [NSXTProperty(IsRequired: false, Description: @"Represents the internal categories a signature belongs to.")]
-        public IList<string> Categories { get; set; }
+        [JsonProperty(PropertyName = "action")]
+        [NSXTProperty(IsRequired: false, Description: @"Signature action.")]
+        public string? Action { get; set; }
         /// <summary>
-        /// Signature name.
+        /// Family of the malware tracked in the signature.
         /// </summary>
-        [JsonProperty(PropertyName = "name")]
-        [NSXTProperty(IsRequired: false, Description: @"Signature name.")]
-        public string? Name { get; set; }
+        [JsonProperty(PropertyName = "malware_family")]
+        [NSXTProperty(IsRequired: false, Description: @"Family of the malware tracked in the signature.")]
+        public string? MalwareFamily { get; set; }
         /// <summary>
-        /// Signature cvssv3 score.
+        /// CVE score
         /// </summary>
-        [JsonProperty(PropertyName = "cvssv3")]
-        [NSXTProperty(IsRequired: false, Description: @"Signature cvssv3 score.")]
-        public string? Cvssv3 { get; set; }
+        [JsonProperty(PropertyName = "cves")]
+        [NSXTProperty(IsRequired: false, Description: @"CVE score")]
+        public IList<string> Cves { get; set; }
+        /// <summary>
+        /// Impact of Signature.
+        /// </summary>
+        [JsonProperty(PropertyName = "impact")]
+        [NSXTProperty(IsRequired: false, Description: @"Impact of Signature.")]
+        public string? Impact { get; set; }
+        /// <summary>
+        /// Signature's confidence score.
+        /// </summary>
+        [JsonProperty(PropertyName = "confidence")]
+        [NSXTProperty(IsRequired: false, Description: @"Signature&apos;s confidence score.")]
+        public string? Confidence { get; set; }
         /// <summary>
         /// Signature cvssv2 score.
         /// </summary>
@@ -108,17 +138,29 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Product affected by this signature.")]
         public string? ProductAffected { get; set; }
         /// <summary>
+        /// Signature name.
+        /// </summary>
+        [JsonProperty(PropertyName = "name")]
+        [NSXTProperty(IsRequired: false, Description: @"Signature name.")]
+        public string? Name { get; set; }
+        /// <summary>
+        /// Risk score of signature.
+        /// </summary>
+        [JsonProperty(PropertyName = "risk_score")]
+        [NSXTProperty(IsRequired: false, Description: @"Risk score of signature.")]
+        public string? RiskScore { get; set; }
+        /// <summary>
         /// Signature vendor set severity of the signature rule.
         /// </summary>
         [JsonProperty(PropertyName = "signature_severity")]
         [NSXTProperty(IsRequired: false, Description: @"Signature vendor set severity of the signature rule.")]
         public string? SignatureSeverity { get; set; }
         /// <summary>
-        /// Family of the malware tracked in the signature.
+        /// Represents the internal categories a signature belongs to.
         /// </summary>
-        [JsonProperty(PropertyName = "malware_family")]
-        [NSXTProperty(IsRequired: false, Description: @"Family of the malware tracked in the signature.")]
-        public string? MalwareFamily { get; set; }
+        [JsonProperty(PropertyName = "categories")]
+        [NSXTProperty(IsRequired: false, Description: @"Represents the internal categories a signature belongs to.")]
+        public IList<string> Categories { get; set; }
         /// <summary>
         /// List of mitre attack URLs pertaining to signature
         /// </summary>
@@ -143,12 +185,6 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "signature_id")]
         [NSXTProperty(IsRequired: false, Description: @"Represents the Signature&apos;s id.")]
         public string? SignatureId { get; set; }
-        /// <summary>
-        /// CVE score
-        /// </summary>
-        [JsonProperty(PropertyName = "cves")]
-        [NSXTProperty(IsRequired: false, Description: @"CVE score")]
-        public IList<string> Cves { get; set; }
         /// <summary>
         /// Signature type.
         /// </summary>

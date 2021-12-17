@@ -17,11 +17,22 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBErrorPageProfileType : NSXTPolicyConfigResourceType
     {
+        public NSXTALBErrorPageProfileType()
+        {
+        }
         /// <summary>
         /// Defined Error Pages for HTTP status codes.
         /// </summary>
         [JsonProperty(PropertyName = "error_pages")]
         [NSXTProperty(IsRequired: false, Description: @"Defined Error Pages for HTTP status codes.")]
         public IList<NSXTALBErrorPageType> ErrorPages { get; set; }
+        /// <summary>
+        /// List of labels to be used for granular RBAC.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
+        /// </summary>
+        [JsonProperty(PropertyName = "markers")]
+        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
+        public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
     }
 }

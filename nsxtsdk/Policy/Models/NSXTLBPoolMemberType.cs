@@ -17,6 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Pool member.")]
     public class NSXTLBPoolMemberType 
     {
+        public NSXTLBPoolMemberType()
+        {
+            AdminState = test
+            Weight = test
+        }
         /// <summary>
         /// To ensure members are not overloaded, connections to a member can be
         /// capped by the load balancer. When a member reaches this limit, it is
@@ -33,7 +38,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "admin_state")]
         [NSXTProperty(IsRequired: false, Description: @"Member admin state.")]
-        [NSXTDefaultProperty(Default: "ENABLED")]
         public NSXTLbpoolMemberAdminStateEnumType? AdminState { get; set; }
         /// <summary>
         /// Backup servers are typically configured with a sorry page indicating to
@@ -53,7 +57,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Pool member weight is used for WEIGHTED_ROUND_ROBIN balancingalgorithm. The weight value would be ignored in other algorithms.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(256)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Weight { get; set; }
         /// <summary>
         /// Pool member name.

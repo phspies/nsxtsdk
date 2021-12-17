@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPrincipalIdentityWithCertificateType : NSXTPrincipalIdentityType
     {
+        public NSXTPrincipalIdentityWithCertificateType()
+        {
+        }
         /// <summary>
         /// PEM encoding of the new certificate.
         /// </summary>

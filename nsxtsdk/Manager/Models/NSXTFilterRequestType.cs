@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Filter request parameters")]
     public class NSXTFilterRequestType 
     {
+        public NSXTFilterRequestType()
+        {
+            CaseSensitive = test
+        }
         /// <summary>
         /// Comma seperated fields to be filtered on
         /// </summary>
@@ -31,5 +35,11 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: true, Description: @"Filter value")]
         [System.ComponentModel.DataAnnotations.Required]
         public string Value { get; set; }
+        /// <summary>
+        /// Set this flag to true to make filtering case-sensitive.
+        /// </summary>
+        [JsonProperty(PropertyName = "case_sensitive")]
+        [NSXTProperty(IsRequired: false, Description: @"Set this flag to true to make filtering case-sensitive.")]
+        public bool? CaseSensitive { get; set; }
     }
 }

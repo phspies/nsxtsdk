@@ -17,6 +17,12 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpv4HeaderType 
     {
+        public NSXTIpv4HeaderType()
+        {
+            Flags = test
+            Ttl = test
+            Protocol = test
+        }
         /// <summary>
         /// The source ip address.
         /// </summary>
@@ -30,7 +36,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"IP flags")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(8)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Flags { get; set; }
         /// <summary>
         /// The destination ip address.
@@ -54,7 +59,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Time to live (ttl)")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(255)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Ttl { get; set; }
         /// <summary>
         /// IP protocol - defaults to ICMP
@@ -63,7 +67,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"IP protocol - defaults to ICMP")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(255)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Protocol { get; set; }
     }
 }

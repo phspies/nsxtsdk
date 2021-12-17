@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTL2VpnServiceType : NSXTManagedResourceType
     {
+        public NSXTL2VpnServiceType()
+        {
+            Mode = test
+        }
         /// <summary>
         /// Full mesh topology auto disables traffic replication between connected
         /// peers. However, this property is deprecated. Please refer enable_hub
@@ -51,7 +55,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "mode")]
         [NSXTProperty(IsRequired: false, Description: @"Specify an L2VPN service mode as SERVER or CLIENT. L2VPN servicein SERVER mode requires user to configure L2VPN session explicitly.L2VPN service in CLIENT mode can use peercode generated from SERVERto configure L2VPN session.")]
-        [NSXTDefaultProperty(Default: "SERVER")]
         public NSXTL2VpnServiceModeEnumType? Mode { get; set; }
         /// <summary>
         /// IP Pool to allocate local and peer endpoint IPs for L2VpnSession logical Tap.

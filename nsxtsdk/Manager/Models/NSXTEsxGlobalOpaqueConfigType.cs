@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTEsxGlobalOpaqueConfigType : NSXTGlobalConfigsType
     {
+        public NSXTEsxGlobalOpaqueConfigType()
+        {
+        }
         /// <summary>
         /// A list of global opaque configuration for ESX hosts.
         /// </summary>

@@ -17,11 +17,16 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HTTPRedirectAction object")]
     public class NSXTALBHTTPRedirectActionType 
     {
+        public NSXTALBHTTPRedirectActionType()
+        {
+            KeepQuery = test
+            StatusCode = test
+        }
         /// <summary>
-        /// Host config.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "host")]
-        [NSXTProperty(IsRequired: false, Description: @"Host config.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBURIParamType Host { get; set; }
         /// <summary>
         /// Protocol type.
@@ -32,10 +37,10 @@ namespace nsxtsdk.PolicyModels
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTAlbhttpredirectActionProtocolEnumType Protocol { get; set; }
         /// <summary>
-        /// Path config.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "path")]
-        [NSXTProperty(IsRequired: false, Description: @"Path config.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBURIParamType Path { get; set; }
         /// <summary>
         /// Keep or drop the query of the incoming request URI in the
@@ -45,7 +50,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "keep_query")]
         [NSXTProperty(IsRequired: false, Description: @"Keep or drop the query of the incoming request URI in theredirected URI.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? KeepQuery { get; set; }
         /// <summary>
         /// HTTP redirect status code.
@@ -58,7 +62,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "status_code")]
         [NSXTProperty(IsRequired: false, Description: @"HTTP redirect status code.Enum options - HTTP_REDIRECT_STATUS_CODE_301,HTTP_REDIRECT_STATUS_CODE_302,HTTP_REDIRECT_STATUS_CODE_307.Default value when not specified in API or module isinterpreted by ALB Controller asHTTP_REDIRECT_STATUS_CODE_302.")]
-        [NSXTDefaultProperty(Default: "HTTP_REDIRECT_STATUS_CODE_302")]
         public NSXTAlbhttpredirectActionStatusCodeEnumType? StatusCode { get; set; }
         /// <summary>
         /// Port to which redirect the request.

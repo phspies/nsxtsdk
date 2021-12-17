@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeSyslogExporterPropertiesType : NSXTResourceType
     {
+        public NSXTNodeSyslogExporterPropertiesType()
+        {
+        }
         /// <summary>
         /// CA certificate PEM of TLS server to export to
         /// </summary>

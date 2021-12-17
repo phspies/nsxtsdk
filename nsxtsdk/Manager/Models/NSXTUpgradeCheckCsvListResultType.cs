@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUpgradeCheckCsvListResultType : NSXTCsvListResultType
     {
+        public NSXTUpgradeCheckCsvListResultType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

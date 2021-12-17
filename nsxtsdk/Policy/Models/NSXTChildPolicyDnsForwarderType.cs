@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildPolicyDnsForwarderType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildPolicyDnsForwarderType()
+        {
+        }
         /// <summary>
-        /// Contains the actual PolicyDnsForwarder object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "PolicyDnsForwarder", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual PolicyDnsForwarder object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTPolicyDnsForwarderType PolicyDnsForwarder { get; set; }
     }

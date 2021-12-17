@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Details of the member belonging to a Group")]
     public class NSXTPolicyGroupMemberDetailsType 
     {
+        public NSXTPolicyGroupMemberDetailsType()
+        {
+        }
         /// <summary>
         /// The path of the member, if relevant
         /// </summary>

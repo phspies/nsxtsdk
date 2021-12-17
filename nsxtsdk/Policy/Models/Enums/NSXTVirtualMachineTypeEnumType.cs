@@ -18,5 +18,13 @@ namespace nsxtsdk.PolicyModels
         SERVICE = 2,
         [EnumMember(Value = "REGULAR")]
         REGULAR = 3,
+        [EnumMember(Value = "MP")]
+        MP = 4,
+        [EnumMember(Value = "INTELLIGENCE")]
+        INTELLIGENCE = 5,
+        [EnumMember(Value = "VC_SYSTEM")]
+        VCSYSTEM = 6,
+        [EnumMember(Value = "UNKNOWN")]
+        UNKNOWN = 7,
     }
 }

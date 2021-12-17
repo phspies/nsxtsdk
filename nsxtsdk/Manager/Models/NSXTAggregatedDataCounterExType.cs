@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAggregatedDataCounterExType : NSXTAggregatedDataCounterType
     {
+        public NSXTAggregatedDataCounterExType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

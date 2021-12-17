@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"LACP group")]
     public class NSXTLagType 
     {
+        public NSXTLagType()
+        {
+            TimeoutType = test
+        }
         /// <summary>
         /// uplink names
         /// </summary>
@@ -44,7 +48,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "timeout_type")]
         [NSXTProperty(IsRequired: false, Description: @"LACP timeout type")]
-        [NSXTDefaultProperty(Default: "SLOW")]
         public NSXTLagTimeoutTypeEnumType? TimeoutType { get; set; }
         /// <summary>
         /// LACP load balance Algorithm

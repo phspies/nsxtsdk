@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBSslModeSelectionActionType : NSXTLBRuleActionType
     {
+        public NSXTLBSslModeSelectionActionType()
+        {
+        }
         /// <summary>
         /// SSL Passthrough: LB establishes a TCP connection with client and another
         /// connection with selected backend server. LB won't inspect the stream

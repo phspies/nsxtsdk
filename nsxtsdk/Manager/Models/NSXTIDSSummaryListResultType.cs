@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIDSSummaryListResultType : NSXTListResultType
     {
+        public NSXTIDSSummaryListResultType()
+        {
+        }
         /// <summary>
         /// Paged collection of the detected intrusions.
         /// </summary>

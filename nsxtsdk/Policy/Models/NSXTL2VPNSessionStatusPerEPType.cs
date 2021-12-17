@@ -19,6 +19,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTL2VPNSessionStatusPerEPType : NSXTPolicyRuntimeInfoPerEPType
     {
+        public NSXTL2VPNSessionStatusPerEPType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

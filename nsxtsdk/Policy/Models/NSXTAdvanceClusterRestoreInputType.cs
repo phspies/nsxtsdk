@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTAdvanceClusterRestoreInputType 
     {
+        public NSXTAdvanceClusterRestoreInputType()
+        {
+        }
         /// <summary>
         /// Unique id of an instruction (as returned by the GET /restore/status
         /// call) for which input is to be provided

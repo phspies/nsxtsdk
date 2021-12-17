@@ -67,10 +67,36 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFullSyncStateListResultType GlobalListFullSyncStates(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public void FullSyncActions(string Action, string? SyncType = null)
+        {
+            if (Action == null) { throw new System.ArgumentNullException("Action cannot be null"); }
+            
+            StringBuilder FullSyncActionsServiceURL = new StringBuilder("/infra/full-sync-action");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.POST
+            };
+            request.AddHeader("Content-type", "application/json");
+            if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
+            if (SyncType != null) { request.AddQueryParameter("sync_type", SyncType.ToString()); }
+            request.Resource = FullSyncActionsServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP POST operation to " + FullSyncActionsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTFullSyncStateListResultType GlobalGlobalInfraListFullSyncStates(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTFullSyncStateListResultType returnValue = default(NSXTFullSyncStateListResultType);
-            StringBuilder ListFullSyncStatesServiceURL = new StringBuilder("/global-infra/full-sync-states");
+            StringBuilder GlobalInfraListFullSyncStatesServiceURL = new StringBuilder("/global-infra/full-sync-states");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -83,11 +109,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListFullSyncStatesServiceURL.ToString();
+            request.Resource = GlobalInfraListFullSyncStatesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ListFullSyncStatesServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraListFullSyncStatesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -108,23 +134,23 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFullSyncStateType GlobalGetFullSyncStates(string FullSyncId)
+        public NSXTFullSyncStateType GlobalGlobalInfraGetFullSyncStates(string FullSyncId)
         {
             if (FullSyncId == null) { throw new System.ArgumentNullException("FullSyncId cannot be null"); }
             NSXTFullSyncStateType returnValue = default(NSXTFullSyncStateType);
-            StringBuilder GetFullSyncStatesServiceURL = new StringBuilder("/global-infra/full-sync-states/{full-sync-id}");
+            StringBuilder GlobalInfraGetFullSyncStatesServiceURL = new StringBuilder("/global-infra/full-sync-states/{full-sync-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetFullSyncStatesServiceURL.Replace("{full-sync-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FullSyncId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = GetFullSyncStatesServiceURL.ToString();
+            GlobalInfraGetFullSyncStatesServiceURL.Replace("{full-sync-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FullSyncId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraGetFullSyncStatesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetFullSyncStatesServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetFullSyncStatesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else

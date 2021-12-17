@@ -17,6 +17,11 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceChainType : NSXTManagedResourceType
     {
+        public NSXTServiceChainType()
+        {
+            PathSelectionPolicy = test
+            OnFailurePolicy = test
+        }
         /// <summary>
         /// List of ServiceInsertionServiceProfiles id. Reverse path service profiles are applied to egress traffic and is optional.
         /// 2 different set of profiles can be defined for forward and reverse path. If not defined, the reverse of the forward path
@@ -53,7 +58,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "path_selection_policy")]
         [NSXTProperty(IsRequired: false, Description: @"Path selection policy can be - ANY - Service Insertion is free to redirect to any service path regardless of any load balancing considerations or flow pinning. LOCAL - means to prefer local service insances. REMOTE - preference is to redirect to the SVM co-located on the same host.")]
-        [NSXTDefaultProperty(Default: "ANY")]
         public NSXTServiceChainPathSelectionPolicyEnumType? PathSelectionPolicy { get; set; }
         /// <summary>
         /// Failure policy for the service tells datapath, the action to take i.e to allow or block traffic during failure
@@ -61,7 +65,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "on_failure_policy")]
         [NSXTProperty(IsRequired: false, Description: @"Failure policy for the service tells datapath, the action to take i.e to allow or block traffic during failure scenarios.")]
-        [NSXTDefaultProperty(Default: "ALLOW")]
         public NSXTServiceChainOnFailurePolicyEnumType? OnFailurePolicy { get; set; }
     }
 }

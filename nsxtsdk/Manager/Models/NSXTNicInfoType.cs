@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Information of a network interface present on the partner appliance that needs to be configured by the NSX Manager.")]
     public class NSXTNicInfoType 
     {
+        public NSXTNicInfoType()
+        {
+        }
         /// <summary>
         /// Subnet mask associated with the NIC metadata.
         /// </summary>
@@ -36,10 +39,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"IP allocation type with values STATIC, DHCP, or NONE indicating that IP address is not required.")]
         public NSXTNicInfoIpAllocationTypeEnumType? IpAllocationType { get; set; }
         /// <summary>
-        /// NIC metadata information.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "nic_metadata")]
-        [NSXTProperty(IsRequired: false, Description: @"NIC metadata information.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTNicMetadataType NicMetadata { get; set; }
         /// <summary>
         /// Network Id associated with the NIC metadata. It can be a moref, or a logical switch ID. If it is to be taken from 'Agent

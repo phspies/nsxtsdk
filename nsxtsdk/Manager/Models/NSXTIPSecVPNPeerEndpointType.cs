@@ -17,6 +17,11 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVPNPeerEndpointType : NSXTManagedResourceType
     {
+        public NSXTIPSecVPNPeerEndpointType()
+        {
+            AuthenticationMode = test
+            ConnectionInitiationMode = test
+        }
         /// <summary>
         /// IPSec Pre-shared key. Maximum length of this field is 128 characters.
         /// </summary>
@@ -42,7 +47,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "authentication_mode")]
         [NSXTProperty(IsRequired: false, Description: @"Authentication mode used for the peer authentication. For PSK (Pre Shared Key) authentication mode, &apos;psk&apos; property is mandatory and for the CERTIFICATE authentication mode, &apos;peer_id&apos; property is mandatory.")]
-        [NSXTDefaultProperty(Default: "PSK")]
         public NSXTIpsecVpnpeerEndpointAuthenticationModeEnumType? AuthenticationMode { get; set; }
         /// <summary>
         /// IPV4 address of peer endpoint on remote site.
@@ -66,7 +70,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "connection_initiation_mode")]
         [NSXTProperty(IsRequired: false, Description: @"Connection initiation mode used by localendpoint to establish ike connection with peer endpoint.INITIATOR - In this mode local endpoint initiates tunnelsetup and will also respond to incoming tunnel setup requestsfrom peer gateway.RESPOND_ONLY - In this mode, local endpoint shall onlyrespond to incoming tunnel setup requests. It shall notinitiate the tunnel setup.ON_DEMAND - In this mode local endpoint will initiate tunnelcreation once first packet matching the policy rule isreceived and will also respond to incoming initiation request.")]
-        [NSXTDefaultProperty(Default: "INITIATOR")]
         public NSXTIpsecVpnpeerEndpointConnectionInitiationModeEnumType? ConnectionInitiationMode { get; set; }
         /// <summary>
         /// Dead peer detection (DPD) profile id. Default will be set according to system default policy.

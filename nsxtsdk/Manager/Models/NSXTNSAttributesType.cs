@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"NS Attributes data holder structure")]
     public class NSXTNSAttributesType 
     {
+        public NSXTNSAttributesType()
+        {
+        }
         /// <summary>
         /// Reference to sub attributes for the attribute
         /// </summary>
@@ -24,10 +27,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Reference to sub attributes for the attribute")]
         public IList<NSXTNSAttributesDataType> SubAttributes { get; set; }
         /// <summary>
-        /// Data for attribute
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "attributes_data", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Data for attribute")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTNSAttributesDataType AttributesData { get; set; }
     }

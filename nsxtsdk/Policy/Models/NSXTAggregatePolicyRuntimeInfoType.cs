@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Aggregate of PolicyRuntimeInfoPerEP across Enforcement Points.")]
     public class NSXTAggregatePolicyRuntimeInfoType 
     {
+        public NSXTAggregatePolicyRuntimeInfoType()
+        {
+        }
         /// <summary>
         /// Intent path of object, forward slashes must be escaped using %2F.
         /// </summary>

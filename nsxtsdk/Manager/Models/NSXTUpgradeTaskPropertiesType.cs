@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Task properties")]
     public class NSXTUpgradeTaskPropertiesType 
     {
+        public NSXTUpgradeTaskPropertiesType()
+        {
+        }
         /// <summary>
         /// Name of Bundle
         /// </summary>

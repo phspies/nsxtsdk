@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAuthenticationSchemeType 
     {
+        public NSXTAuthenticationSchemeType()
+        {
+        }
         /// <summary>
         /// Authentication scheme name
         /// </summary>

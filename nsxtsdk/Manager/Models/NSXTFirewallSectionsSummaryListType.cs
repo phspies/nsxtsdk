@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFirewallSectionsSummaryListType 
     {
+        public NSXTFirewallSectionsSummaryListType()
+        {
+        }
         /// <summary>
         /// Timestamp of the last computation, in epoch milliseconds.
         /// </summary>

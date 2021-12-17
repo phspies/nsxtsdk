@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Arbitrary key-value pairs that may be attached to an entity")]
     public class NSXTTagType 
     {
+        public NSXTTagType()
+        {
+        }
         /// <summary>
         /// Tag searches may optionally be restricted by scope
         /// </summary>

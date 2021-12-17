@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildEvpnTunnelEndpointConfigType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildEvpnTunnelEndpointConfigType()
+        {
+        }
         /// <summary>
-        /// Contains the actual EvpnTunnelEndpointConfig object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "EvpnTunnelEndpointConfig", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual EvpnTunnelEndpointConfig object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTEvpnTunnelEndpointConfigType EvpnTunnelEndpointConfig { get; set; }
     }

@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Host Switch State")]
     public class NSXTHostSwitchStateType 
     {
+        public NSXTHostSwitchStateType()
+        {
+            HostSwitchType = test
+        }
         /// <summary>
         /// VDS represents VMware vSphere Distributed Switch from vSphere that is used as HostSwitch through TransportNode or
         /// TransportNodeProfile configuration. When VDS is used as a HostSwitch, Hosts have to be added to VDS from vSphere and VDS
@@ -27,7 +31,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "host_switch_type")]
         [NSXTProperty(IsRequired: false, Description: @"VDS represents VMware vSphere Distributed Switch from vSphere that is used as HostSwitch through TransportNode or TransportNodeProfile configuration. When VDS is used as a HostSwitch, Hosts have to be added to VDS from vSphere and VDS instance is created on Hosts. To configure NSX on such hosts, you can use this VDS as a HostSwitch from NSX manager. vCenter has the ownership of MTU, LAG, NIOC and LLDP configuration of such VDS backed HostSwitch. Remaining configuration (e.g. UplinkHostswitchProfile) will be managed by NSX. NVDS represents NSX Virtual Switch which is NSX native HostSwitch. All configurations of NVDS will be managed by NSX.")]
-        [NSXTDefaultProperty(Default: "NVDS")]
         public NSXTHostSwitchStateHostSwitchTypeEnumType? HostSwitchType { get; set; }
         /// <summary>
         /// External ID of the HostSwitch

@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Information about a single LDAP server.")]
     public class NSXTIdentitySourceLdapServerType 
     {
+        public NSXTIdentitySourceLdapServerType()
+        {
+            Enabled = test
+        }
         /// <summary>
         /// If using LDAPS or STARTTLS, provide the X.509 certificate of the LDAP server in PEM format. This property is not
         /// required when connecting without TLS encryption and is ignored in that case.
@@ -64,7 +68,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Allows the LDAP server to be enabled or disabled. When disabled, this LDAP server will not be used to authenticate users.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enabled { get; set; }
     }
 }

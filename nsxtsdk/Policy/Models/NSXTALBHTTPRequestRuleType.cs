@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HTTPRequestRule object")]
     public class NSXTALBHTTPRequestRuleType 
     {
+        public NSXTALBHTTPRequestRuleType()
+        {
+            Enable = test
+        }
         /// <summary>
         /// Index of the rule.
         /// </summary>
@@ -32,7 +36,6 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "enable", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"Enable or disable the rule.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "")]
         public bool Enable { get; set; }
         /// <summary>
         /// Log HTTP request upon rule match.
@@ -47,22 +50,22 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Log all HTTP headers upon rule match.")]
         public bool? AllHeaders { get; set; }
         /// <summary>
-        /// HTTP request URL rewrite action.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "rewrite_url_action")]
-        [NSXTProperty(IsRequired: false, Description: @"HTTP request URL rewrite action.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHTTPRewriteURLActionType RewriteUrlAction { get; set; }
         /// <summary>
-        /// Content switching action.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "switching_action")]
-        [NSXTProperty(IsRequired: false, Description: @"Content switching action.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHTTPSwitchingActionType SwitchingAction { get; set; }
         /// <summary>
-        /// HTTP redirect action.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "redirect_action")]
-        [NSXTProperty(IsRequired: false, Description: @"HTTP redirect action.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHTTPRedirectActionType RedirectAction { get; set; }
         /// <summary>
         /// Name of the rule.
@@ -72,10 +75,10 @@ namespace nsxtsdk.PolicyModels
         [System.ComponentModel.DataAnnotations.Required]
         public string Name { get; set; }
         /// <summary>
-        /// Add match criteria to the rule.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "match")]
-        [NSXTProperty(IsRequired: false, Description: @"Add match criteria to the rule.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBMatchTargetType Match { get; set; }
         /// <summary>
         /// HTTP header rewrite action.

@@ -17,6 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Domain synchronization settings")]
     public class NSXTDirectoryDomainSyncSettingsType 
     {
+        public NSXTDirectoryDomainSyncSettingsType()
+        {
+            SyncDelayInSec = test
+            DeltaSyncInterval = test
+        }
         /// <summary>
         /// Sync delay after Directory domain has been successfully created.
         /// if delay is -1, initial full sync will not be triggered.
@@ -25,8 +30,7 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Sync delay after Directory domain has been successfully created.if delay is -1, initial full sync will not be triggered.")]
         //[System.ComponentModel.DataAnnotations.MinLength(-1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(600)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? SyncDelayInSec { get; set; }
+        public int? SyncDelayInSec { get; set; }
         /// <summary>
         /// Directory domain full synchronization schedule using cron expression. For example, cron expression "0 0 12 ? * SUN *"
         /// means full sync is scheduled every Sunday midnight. If this object is null, it means there is no background cron job
@@ -42,7 +46,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Directory domain delta synchronization interval time between two delta sync in minutes.")]
         //[System.ComponentModel.DataAnnotations.MinLength(5)]
         //[System.ComponentModel.DataAnnotations.MaxLength(720)]
-        [NSXTDefaultProperty(Default: "")]
         public long? DeltaSyncInterval { get; set; }
     }
 }

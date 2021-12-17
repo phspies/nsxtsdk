@@ -205,7 +205,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTransportZoneListResultType ListTransportZones(string? Cursor = null, bool? IncludeSystemOwned = null, string? IncludedFields = null, bool? IsDefault = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? TransportType = null, string? UplinkTeamingPolicyName = null)
+        public NSXTTransportZoneListResultType ListTransportZones(string? Cursor = null, string? DisplayName = null, bool? IncludeSystemOwned = null, string? IncludedFields = null, bool? IsDefault = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? TransportType = null, string? UplinkTeamingPolicyName = null)
         {
             NSXTTransportZoneListResultType returnValue = default(NSXTTransportZoneListResultType);
             StringBuilder ListTransportZonesServiceURL = new StringBuilder("/transport-zones");
@@ -216,6 +216,7 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (DisplayName != null) { request.AddQueryParameter("display_name", DisplayName.ToString()); }
             if (IncludeSystemOwned != null) { request.AddQueryParameter("include_system_owned", IncludeSystemOwned.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (IsDefault != null) { request.AddQueryParameter("is_default", IsDefault.ToString()); }

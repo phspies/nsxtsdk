@@ -111,30 +111,31 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterfaceArpTableInCsvFormatType GlobalGetInfraSegmentInterfaceArpTableCsv(string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTInterfaceArpTableInCsvFormatType GlobalGlobalInfraGetInfraSegmentInterfaceArpTableCsv(string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? HostTransportNodePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             NSXTInterfaceArpTableInCsvFormatType returnValue = default(NSXTInterfaceArpTableInCsvFormatType);
-            StringBuilder GetInfraSegmentInterfaceArpTableCsvServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/arp-table?format=csv");
+            StringBuilder GlobalInfraGetInfraSegmentInterfaceArpTableCsvServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/arp-table?format=csv");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetInfraSegmentInterfaceArpTableCsvServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetInfraSegmentInterfaceArpTableCsvServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (HostTransportNodePath != null) { request.AddQueryParameter("host_transport_node_path", HostTransportNodePath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetInfraSegmentInterfaceArpTableCsvServiceURL.ToString();
+            request.Resource = GlobalInfraGetInfraSegmentInterfaceArpTableCsvServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetInfraSegmentInterfaceArpTableCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetInfraSegmentInterfaceArpTableCsvServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -196,19 +197,19 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpServerStatisticsType GlobalReadDhcpServerStats(string ConfigId, string ConnectivityPath, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTDhcpServerStatisticsType GlobalGlobalInfraReadDhcpServerStats(string ConfigId, string ConnectivityPath, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (ConfigId == null) { throw new System.ArgumentNullException("ConfigId cannot be null"); }
             if (ConnectivityPath == null) { throw new System.ArgumentNullException("ConnectivityPath cannot be null"); }
             NSXTDhcpServerStatisticsType returnValue = default(NSXTDhcpServerStatisticsType);
-            StringBuilder ReadDhcpServerStatsServiceURL = new StringBuilder("/global-infra/dhcp-server-configs/{config-id}/stats");
+            StringBuilder GlobalInfraReadDhcpServerStatsServiceURL = new StringBuilder("/global-infra/dhcp-server-configs/{config-id}/stats");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            ReadDhcpServerStatsServiceURL.Replace("{config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ConfigId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraReadDhcpServerStatsServiceURL.Replace("{config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             if (ConnectivityPath != null) { request.AddQueryParameter("connectivity_path", ConnectivityPath.ToString()); }
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
@@ -217,11 +218,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ReadDhcpServerStatsServiceURL.ToString();
+            request.Resource = GlobalInfraReadDhcpServerStatsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ReadDhcpServerStatsServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraReadDhcpServerStatsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -242,19 +243,19 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpServerStateType GlobalReadDhcpServerState(string ConfigId, string ConnectivityPath, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTDhcpServerStateType GlobalGlobalInfraReadDhcpServerState(string ConfigId, string ConnectivityPath, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (ConfigId == null) { throw new System.ArgumentNullException("ConfigId cannot be null"); }
             if (ConnectivityPath == null) { throw new System.ArgumentNullException("ConnectivityPath cannot be null"); }
             NSXTDhcpServerStateType returnValue = default(NSXTDhcpServerStateType);
-            StringBuilder ReadDhcpServerStateServiceURL = new StringBuilder("/global-infra/dhcp-server-configs/{config-id}/state");
+            StringBuilder GlobalInfraReadDhcpServerStateServiceURL = new StringBuilder("/global-infra/dhcp-server-configs/{config-id}/state");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            ReadDhcpServerStateServiceURL.Replace("{config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ConfigId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraReadDhcpServerStateServiceURL.Replace("{config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             if (ConnectivityPath != null) { request.AddQueryParameter("connectivity_path", ConnectivityPath.ToString()); }
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
@@ -263,11 +264,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ReadDhcpServerStateServiceURL.ToString();
+            request.Resource = GlobalInfraReadDhcpServerStateServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ReadDhcpServerStateServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraReadDhcpServerStateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -335,7 +336,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterfaceArpTableInCsvFormatType GetDownlinkPortArpTableForInfraSegmentInCsv(string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTInterfaceArpTableInCsvFormatType GetDownlinkPortArpTableForInfraSegmentInCsv(string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? HostTransportNodePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             NSXTInterfaceArpTableInCsvFormatType returnValue = default(NSXTInterfaceArpTableInCsvFormatType);
@@ -350,6 +351,7 @@ namespace nsxtapi.PolicyModules
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (HostTransportNodePath != null) { request.AddQueryParameter("host_transport_node_path", HostTransportNodePath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
@@ -468,6 +470,53 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
+        public NSXTPolicyInterfaceStatisticsSummaryType GetTier0RouterLinkSummaryStatistics(string Tier0Id, string Tier1Path, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
+            if (Tier1Path == null) { throw new System.ArgumentNullException("Tier1Path cannot be null"); }
+            NSXTPolicyInterfaceStatisticsSummaryType returnValue = default(NSXTPolicyInterfaceStatisticsSummaryType);
+            StringBuilder GetTier0RouterLinkSummaryStatisticsServiceURL = new StringBuilder("/infra/tier-0s/{tier-0-id}/tier-1-interface/statistics/summary");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GetTier0RouterLinkSummaryStatisticsServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            if (Tier1Path != null) { request.AddQueryParameter("tier1_path", Tier1Path.ToString()); }
+            request.Resource = GetTier0RouterLinkSummaryStatisticsServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetTier0RouterLinkSummaryStatisticsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyInterfaceStatisticsSummaryType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyInterfaceStatisticsSummaryType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
         public NSXTPolicyMulticastForwardingType GetPolicyMulticastForwarding(string Tier0Id, string LocaleServicesId, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
@@ -513,7 +562,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterfaceArpTableInCsvFormatType GetInfraSegmentInterfaceArpTableCsv(string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTInterfaceArpTableInCsvFormatType GetInfraSegmentInterfaceArpTableCsv(string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? HostTransportNodePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             NSXTInterfaceArpTableInCsvFormatType returnValue = default(NSXTInterfaceArpTableInCsvFormatType);
@@ -528,6 +577,7 @@ namespace nsxtapi.PolicyModules
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (HostTransportNodePath != null) { request.AddQueryParameter("host_transport_node_path", HostTransportNodePath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
@@ -557,22 +607,22 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBgpNeighborRoutesListResultType GlobalGetTier0BgpNeighborRoutes(string Tier0Id, string LocaleServiceId, string NeighborId, long? Count = null, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTBgpNeighborRoutesListResultType GlobalGlobalInfraGetTier0BgpNeighborRoutes(string Tier0Id, string LocaleServiceId, string NeighborId, int? Count = null, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
             if (NeighborId == null) { throw new System.ArgumentNullException("NeighborId cannot be null"); }
             NSXTBgpNeighborRoutesListResultType returnValue = default(NSXTBgpNeighborRoutesListResultType);
-            StringBuilder GetTier0BgpNeighborRoutesServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/bgp/neighbors/{neighbor-id}/routes");
+            StringBuilder GlobalInfraGetTier0BgpNeighborRoutesServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/bgp/neighbors/{neighbor-id}/routes");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier0BgpNeighborRoutesServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0BgpNeighborRoutesServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0BgpNeighborRoutesServiceURL.Replace("{neighbor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NeighborId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0BgpNeighborRoutesServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0BgpNeighborRoutesServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0BgpNeighborRoutesServiceURL.Replace("{neighbor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NeighborId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Count != null) { request.AddQueryParameter("count", Count.ToString()); }
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
@@ -580,11 +630,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetTier0BgpNeighborRoutesServiceURL.ToString();
+            request.Resource = GlobalInfraGetTier0BgpNeighborRoutesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier0BgpNeighborRoutesServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier0BgpNeighborRoutesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -605,34 +655,35 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterfaceArpTableInCsvFormatType GlobalGetTier0InterfaceArpTableCsv(string Tier0Id, string LocaleServiceId, string InterfaceId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTInterfaceArpTableInCsvFormatType GlobalGlobalInfraGetTier0InterfaceArpTableCsv(string Tier0Id, string LocaleServiceId, string InterfaceId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? HostTransportNodePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
             if (InterfaceId == null) { throw new System.ArgumentNullException("InterfaceId cannot be null"); }
             NSXTInterfaceArpTableInCsvFormatType returnValue = default(NSXTInterfaceArpTableInCsvFormatType);
-            StringBuilder GetTier0InterfaceArpTableCsvServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/interfaces/{interface-id}/arp-table?format=csv");
+            StringBuilder GlobalInfraGetTier0InterfaceArpTableCsvServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/interfaces/{interface-id}/arp-table?format=csv");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier0InterfaceArpTableCsvServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0InterfaceArpTableCsvServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0InterfaceArpTableCsvServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0InterfaceArpTableCsvServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0InterfaceArpTableCsvServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0InterfaceArpTableCsvServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (HostTransportNodePath != null) { request.AddQueryParameter("host_transport_node_path", HostTransportNodePath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetTier0InterfaceArpTableCsvServiceURL.ToString();
+            request.Resource = GlobalInfraGetTier0InterfaceArpTableCsvServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier0InterfaceArpTableCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier0InterfaceArpTableCsvServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -644,95 +695,6 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTInterfaceArpTableInCsvFormatType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTTier0GatewayStateType GlobalGetTier0State(string Tier0Id, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, string? InterfacePath = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            NSXTTier0GatewayStateType returnValue = default(NSXTTier0GatewayStateType);
-            StringBuilder GetTier0StateServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/state");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetTier0StateServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (InterfacePath != null) { request.AddQueryParameter("interface_path", InterfacePath.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetTier0StateServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetTier0StateServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTier0GatewayStateType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTier0GatewayStateType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIgmpMembershipsInCsvFormatType GlobalGetPolicyIgmpMembershipsInCsvFormatCsv(string Tier0Id, string LocaleServicesId, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            NSXTIgmpMembershipsInCsvFormatType returnValue = default(NSXTIgmpMembershipsInCsvFormatType);
-            StringBuilder GetPolicyIgmpMembershipsInCsvFormatCsvServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-services-id}/multicast/igmp-memberships?format=csv");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetPolicyIgmpMembershipsInCsvFormatCsvServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetPolicyIgmpMembershipsInCsvFormatCsvServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetPolicyIgmpMembershipsInCsvFormatCsvServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetPolicyIgmpMembershipsInCsvFormatCsvServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIgmpMembershipsInCsvFormatType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIgmpMembershipsInCsvFormatType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -784,29 +746,35 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyArpProxyTableListResultType GlobalGetTier0InterfaceArpProxies(string Tier0Id, string LocaleServiceId, string InterfaceId, string? EnforcementPointPath = null, string? Source = null)
+        public NSXTPolicyArpProxyTableListResultType GlobalGlobalInfraGetTier0InterfaceArpProxies(string Tier0Id, string LocaleServiceId, string InterfaceId, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
             if (InterfaceId == null) { throw new System.ArgumentNullException("InterfaceId cannot be null"); }
             NSXTPolicyArpProxyTableListResultType returnValue = default(NSXTPolicyArpProxyTableListResultType);
-            StringBuilder GetTier0InterfaceArpProxiesServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/interfaces/{interface-id}/arp-proxy");
+            StringBuilder GlobalInfraGetTier0InterfaceArpProxiesServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/interfaces/{interface-id}/arp-proxy");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier0InterfaceArpProxiesServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0InterfaceArpProxiesServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0InterfaceArpProxiesServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0InterfaceArpProxiesServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0InterfaceArpProxiesServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0InterfaceArpProxiesServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
-            request.Resource = GetTier0InterfaceArpProxiesServiceURL.ToString();
+            if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
+            request.Resource = GlobalInfraGetTier0InterfaceArpProxiesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier0InterfaceArpProxiesServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier0InterfaceArpProxiesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -827,42 +795,44 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPimRpMappingsInCsvFormatType GlobalGetPolicyPimRpMappingsInCsvFormatCsv(string Tier0Id, string LocaleServicesId, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyInterfaceStatisticsType GetTier0RouterLinkStatistics(string Tier0Id, string Tier1Path, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            NSXTPimRpMappingsInCsvFormatType returnValue = default(NSXTPimRpMappingsInCsvFormatType);
-            StringBuilder GetPolicyPimRpMappingsInCsvFormatCsvServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-services-id}/multicast/pim-rp-mappings?format=csv");
+            if (Tier1Path == null) { throw new System.ArgumentNullException("Tier1Path cannot be null"); }
+            NSXTPolicyInterfaceStatisticsType returnValue = default(NSXTPolicyInterfaceStatisticsType);
+            StringBuilder GetTier0RouterLinkStatisticsServiceURL = new StringBuilder("/infra/tier-0s/{tier-0-id}/tier-1-interface/statistics");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetPolicyPimRpMappingsInCsvFormatCsvServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetPolicyPimRpMappingsInCsvFormatCsvServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetTier0RouterLinkStatisticsServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetPolicyPimRpMappingsInCsvFormatCsvServiceURL.ToString();
+            if (Tier1Path != null) { request.AddQueryParameter("tier1_path", Tier1Path.ToString()); }
+            request.Resource = GetTier0RouterLinkStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetPolicyPimRpMappingsInCsvFormatCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GetTier0RouterLinkStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
 			{
 				try
 				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPimRpMappingsInCsvFormatType>(response.Content, defaultSerializationSettings);
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyInterfaceStatisticsType>(response.Content, defaultSerializationSettings);
 				}
 				catch (Exception ex)
 				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPimRpMappingsInCsvFormatType).FullName + ".";
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyInterfaceStatisticsType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -872,28 +842,148 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentPortMacAddressCsvListResultType GlobalGetInfraSegmentPortMacTableInCsv(string SegmentId, string PortId, string? EnforcementPointPath = null, string? Source = null, string? TransportNodeId = null)
+        public NSXTPolicyArpProxyTableCsvListResultType GlobalGlobalInfraGetTier1GatewayArpProxiesInCsv(string Tier1Id, string? EnforcementPointPath = null, string? Source = null, string? TransportNodeId = null)
         {
-            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
-            if (PortId == null) { throw new System.ArgumentNullException("PortId cannot be null"); }
-            NSXTSegmentPortMacAddressCsvListResultType returnValue = default(NSXTSegmentPortMacAddressCsvListResultType);
-            StringBuilder GetInfraSegmentPortMacTableInCsvServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/ports/{port-id}/mac-table?format=csv");
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            NSXTPolicyArpProxyTableCsvListResultType returnValue = default(NSXTPolicyArpProxyTableCsvListResultType);
+            StringBuilder GlobalInfraGetTier1GatewayArpProxiesInCsvServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/arp-proxies?format=csv");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetInfraSegmentPortMacTableInCsvServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetInfraSegmentPortMacTableInCsvServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1GatewayArpProxiesInCsvServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
-            request.Resource = GetInfraSegmentPortMacTableInCsvServiceURL.ToString();
+            request.Resource = GlobalInfraGetTier1GatewayArpProxiesInCsvServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetInfraSegmentPortMacTableInCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier1GatewayArpProxiesInCsvServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyArpProxyTableCsvListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyArpProxyTableCsvListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTBridgeEndpointStatusType InfraSegmentBridgeEndpointStatus(string SegmentId, string BridgeProfilePath, string? EnforcementPointPath = null)
+        {
+            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
+            if (BridgeProfilePath == null) { throw new System.ArgumentNullException("BridgeProfilePath cannot be null"); }
+            NSXTBridgeEndpointStatusType returnValue = default(NSXTBridgeEndpointStatusType);
+            StringBuilder InfraSegmentBridgeEndpointStatusServiceURL = new StringBuilder("/infra/segments/{segment-id}/bep-status");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            InfraSegmentBridgeEndpointStatusServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (BridgeProfilePath != null) { request.AddQueryParameter("bridge_profile_path", BridgeProfilePath.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            request.Resource = InfraSegmentBridgeEndpointStatusServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + InfraSegmentBridgeEndpointStatusServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTBridgeEndpointStatusType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTBridgeEndpointStatusType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPolicyArpProxyTableCsvListResultType GlobalGlobalInfraGetTier0GatewayArpProxiesInCsv(string Tier0Id, string? EnforcementPointPath = null, string? Source = null, string? TransportNodeId = null)
+        {
+            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
+            NSXTPolicyArpProxyTableCsvListResultType returnValue = default(NSXTPolicyArpProxyTableCsvListResultType);
+            StringBuilder GlobalInfraGetTier0GatewayArpProxiesInCsvServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/arp-proxies?format=csv");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetTier0GatewayArpProxiesInCsvServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
+            if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
+            request.Resource = GlobalInfraGetTier0GatewayArpProxiesInCsvServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetTier0GatewayArpProxiesInCsvServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyArpProxyTableCsvListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyArpProxyTableCsvListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTSegmentPortMacAddressCsvListResultType GlobalGlobalInfraGetInfraSegmentPortMacTableInCsv(string SegmentId, string PortId, string? EnforcementPointPath = null, string? Source = null, string? TransportNodeId = null)
+        {
+            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
+            if (PortId == null) { throw new System.ArgumentNullException("PortId cannot be null"); }
+            NSXTSegmentPortMacAddressCsvListResultType returnValue = default(NSXTSegmentPortMacAddressCsvListResultType);
+            StringBuilder GlobalInfraGetInfraSegmentPortMacTableInCsvServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/ports/{port-id}/mac-table?format=csv");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetInfraSegmentPortMacTableInCsvServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetInfraSegmentPortMacTableInCsvServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
+            if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
+            request.Resource = GlobalInfraGetInfraSegmentPortMacTableInCsvServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetInfraSegmentPortMacTableInCsvServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -914,31 +1004,31 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIgmpMembershipsInCsvFormatType GetPolicyIgmpMembershipsInCsvFormatCsv(string Tier0Id, string LocaleServicesId, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTIgmpMembershipsInCsvFormatType GetPolicyIgmpMembershipsInCsvFormat(string Tier0Id, string LocaleServicesId, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
             NSXTIgmpMembershipsInCsvFormatType returnValue = default(NSXTIgmpMembershipsInCsvFormatType);
-            StringBuilder GetPolicyIgmpMembershipsInCsvFormatCsvServiceURL = new StringBuilder("/infra/tier-0s/{tier-0-id}/locale-services/{locale-services-id}/multicast/igmp-memberships?format=csv");
+            StringBuilder GetPolicyIgmpMembershipsInCsvFormatServiceURL = new StringBuilder("/infra/tier-0s/{tier-0-id}/locale-services/{locale-services-id}/multicast/igmp-memberships?format=csv");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetPolicyIgmpMembershipsInCsvFormatCsvServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetPolicyIgmpMembershipsInCsvFormatCsvServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetPolicyIgmpMembershipsInCsvFormatServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GetPolicyIgmpMembershipsInCsvFormatServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetPolicyIgmpMembershipsInCsvFormatCsvServiceURL.ToString();
+            request.Resource = GetPolicyIgmpMembershipsInCsvFormatServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetPolicyIgmpMembershipsInCsvFormatCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GetPolicyIgmpMembershipsInCsvFormatServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -959,27 +1049,33 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyArpProxyTableListResultType GlobalGetTier1ArpProxies(string Tier1Id, string LocaleServiceId, string? EnforcementPointPath = null, string? Source = null)
+        public NSXTPolicyArpProxyTableListResultType GlobalGlobalInfraGetTier1ArpProxies(string Tier1Id, string LocaleServiceId, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
             NSXTPolicyArpProxyTableListResultType returnValue = default(NSXTPolicyArpProxyTableListResultType);
-            StringBuilder GetTier1ArpProxiesServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/locale-services/{locale-service-id}/arp-proxies");
+            StringBuilder GlobalInfraGetTier1ArpProxiesServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/locale-services/{locale-service-id}/arp-proxies");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier1ArpProxiesServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1ArpProxiesServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1ArpProxiesServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1ArpProxiesServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
-            request.Resource = GetTier1ArpProxiesServiceURL.ToString();
+            if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
+            request.Resource = GlobalInfraGetTier1ArpProxiesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier1ArpProxiesServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier1ArpProxiesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1000,20 +1096,20 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentMacAddressListResultType GlobalGetTier1SegmentMacTable(string Tier1Id, string SegmentId, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
+        public NSXTSegmentMacAddressListResultType GlobalGlobalInfraGetTier1SegmentMacTable(string Tier1Id, string SegmentId, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             NSXTSegmentMacAddressListResultType returnValue = default(NSXTSegmentMacAddressListResultType);
-            StringBuilder GetTier1SegmentMacTableServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/mac-table");
+            StringBuilder GlobalInfraGetTier1SegmentMacTableServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/mac-table");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier1SegmentMacTableServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1SegmentMacTableServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1SegmentMacTableServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1SegmentMacTableServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
@@ -1022,11 +1118,11 @@ namespace nsxtapi.PolicyModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
-            request.Resource = GetTier1SegmentMacTableServiceURL.ToString();
+            request.Resource = GlobalInfraGetTier1SegmentMacTableServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier1SegmentMacTableServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier1SegmentMacTableServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1047,90 +1143,40 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTOspfNeighborsStatusListResultType GlobalGetOspfNeighbors(string Tier0Id, string LocaleServiceId, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, string? NeighborAddress = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
-            NSXTOspfNeighborsStatusListResultType returnValue = default(NSXTOspfNeighborsStatusListResultType);
-            StringBuilder GetOspfNeighborsServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/ospf/neighbors");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetOspfNeighborsServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetOspfNeighborsServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (NeighborAddress != null) { request.AddQueryParameter("neighbor_address", NeighborAddress.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetOspfNeighborsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetOspfNeighborsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTOspfNeighborsStatusListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTOspfNeighborsStatusListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTSegmentL2ForwarderSiteSpanInfoType GetSegmentCsSpanInfo(string Tier1Id, string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyInterfaceStatisticsSummaryType GetTier1RouterLinkSummaryStatistics(string Tier1Id, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
-            NSXTSegmentL2ForwarderSiteSpanInfoType returnValue = default(NSXTSegmentL2ForwarderSiteSpanInfoType);
-            StringBuilder GetSegmentCsSpanInfoServiceURL = new StringBuilder("/infra/tier-1s/{tier-1-id}/segments/{segment-id}/inter-site-forwarder/site-span-info");
+            NSXTPolicyInterfaceStatisticsSummaryType returnValue = default(NSXTPolicyInterfaceStatisticsSummaryType);
+            StringBuilder GetTier1RouterLinkSummaryStatisticsServiceURL = new StringBuilder("/infra/tier-1s/{tier-1-id}/tier-0-interface/statistics/summary");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetSegmentCsSpanInfoServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetSegmentCsSpanInfoServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetTier1RouterLinkSummaryStatisticsServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetSegmentCsSpanInfoServiceURL.ToString();
+            request.Resource = GetTier1RouterLinkSummaryStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetSegmentCsSpanInfoServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GetTier1RouterLinkSummaryStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
 			{
 				try
 				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentL2ForwarderSiteSpanInfoType>(response.Content, defaultSerializationSettings);
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyInterfaceStatisticsSummaryType>(response.Content, defaultSerializationSettings);
 				}
 				catch (Exception ex)
 				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentL2ForwarderSiteSpanInfoType).FullName + ".";
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyInterfaceStatisticsSummaryType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -1140,20 +1186,20 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyTepListResultType GlobalGetTier1SegmentTepTable(string Tier1Id, string SegmentId, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
+        public NSXTPolicyTepListResultType GlobalGlobalInfraGetTier1SegmentTepTable(string Tier1Id, string SegmentId, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             NSXTPolicyTepListResultType returnValue = default(NSXTPolicyTepListResultType);
-            StringBuilder GetTier1SegmentTepTableServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/tep-table");
+            StringBuilder GlobalInfraGetTier1SegmentTepTableServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/tep-table");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier1SegmentTepTableServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1SegmentTepTableServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1SegmentTepTableServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1SegmentTepTableServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
@@ -1162,11 +1208,11 @@ namespace nsxtapi.PolicyModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
-            request.Resource = GetTier1SegmentTepTableServiceURL.ToString();
+            request.Resource = GlobalInfraGetTier1SegmentTepTableServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier1SegmentTepTableServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier1SegmentTepTableServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1187,7 +1233,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterfaceArpTableType GetSegmentInterfaceArpTable(string Tier1Id, string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTInterfaceArpTableType GetSegmentInterfaceArpTable(string Tier1Id, string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? HostTransportNodePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -1204,6 +1250,7 @@ namespace nsxtapi.PolicyModules
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (HostTransportNodePath != null) { request.AddQueryParameter("host_transport_node_path", HostTransportNodePath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
@@ -1233,7 +1280,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyArpProxyTableListResultType GetTier1ArpProxies(string Tier1Id, string LocaleServiceId, string? EnforcementPointPath = null, string? Source = null)
+        public NSXTPolicyArpProxyTableListResultType GetTier1ArpProxies(string Tier1Id, string LocaleServiceId, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -1247,8 +1294,14 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetTier1ArpProxiesServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             GetTier1ArpProxiesServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
+            if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
             request.Resource = GetTier1ArpProxiesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
@@ -1274,29 +1327,29 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentPortStateType GlobalGetTier1SegmentPortState(string Tier1Id, string SegmentId, string PortId, string? EnforcementPointPath = null, string? Source = null)
+        public NSXTSegmentPortStateType GlobalGlobalInfraGetTier1SegmentPortState(string Tier1Id, string SegmentId, string PortId, string? EnforcementPointPath = null, string? Source = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (PortId == null) { throw new System.ArgumentNullException("PortId cannot be null"); }
             NSXTSegmentPortStateType returnValue = default(NSXTSegmentPortStateType);
-            StringBuilder GetTier1SegmentPortStateServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/ports/{port-id}/state");
+            StringBuilder GlobalInfraGetTier1SegmentPortStateServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/ports/{port-id}/state");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier1SegmentPortStateServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1SegmentPortStateServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1SegmentPortStateServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1SegmentPortStateServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1SegmentPortStateServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1SegmentPortStateServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
-            request.Resource = GetTier1SegmentPortStateServiceURL.ToString();
+            request.Resource = GlobalInfraGetTier1SegmentPortStateServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier1SegmentPortStateServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier1SegmentPortStateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1364,53 +1417,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTOspfRoutesListResultType GlobalGetOspfRoutes(string Tier0Id, string LocaleServiceId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, string? NetworkPrefix = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
-            NSXTOspfRoutesListResultType returnValue = default(NSXTOspfRoutesListResultType);
-            StringBuilder GetOspfRoutesServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/ospf/routes");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetOspfRoutesServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetOspfRoutesServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (NetworkPrefix != null) { request.AddQueryParameter("network_prefix", NetworkPrefix.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetOspfRoutesServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetOspfRoutesServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTOspfRoutesListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTOspfRoutesListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTPolicyInterfaceStatisticsType GetTier1InterfaceStatistics(string Tier1Id, string LocaleServiceId, string InterfaceId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
@@ -1460,62 +1466,22 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyTepCsvListResultType GetInfraSegmentTepTableInCsv(string SegmentId, string? EnforcementPointPath = null, string? Source = null, string? TransportNodeId = null)
-        {
-            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
-            NSXTPolicyTepCsvListResultType returnValue = default(NSXTPolicyTepCsvListResultType);
-            StringBuilder GetInfraSegmentTepTableInCsvServiceURL = new StringBuilder("/infra/segments/{segment-id}/tep-table?format=csv");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetInfraSegmentTepTableInCsvServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
-            if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
-            request.Resource = GetInfraSegmentTepTableInCsvServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetInfraSegmentTepTableInCsvServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyTepCsvListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyTepCsvListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTPolicyInterfaceStatisticsType GlobalGetTier0InterfaceStatistics(string Tier0Id, string LocaleServiceId, string InterfaceId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyInterfaceStatisticsType GlobalGlobalInfraGetTier0InterfaceStatistics(string Tier0Id, string LocaleServiceId, string InterfaceId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
             if (InterfaceId == null) { throw new System.ArgumentNullException("InterfaceId cannot be null"); }
             NSXTPolicyInterfaceStatisticsType returnValue = default(NSXTPolicyInterfaceStatisticsType);
-            StringBuilder GetTier0InterfaceStatisticsServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/interfaces/{interface-id}/statistics");
+            StringBuilder GlobalInfraGetTier0InterfaceStatisticsServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/interfaces/{interface-id}/statistics");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier0InterfaceStatisticsServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0InterfaceStatisticsServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0InterfaceStatisticsServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0InterfaceStatisticsServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0InterfaceStatisticsServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0InterfaceStatisticsServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
@@ -1524,11 +1490,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetTier0InterfaceStatisticsServiceURL.ToString();
+            request.Resource = GlobalInfraGetTier0InterfaceStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier0InterfaceStatisticsServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier0InterfaceStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1594,78 +1560,33 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyMulticastForwardingInCsvFormatType GlobalGetPolicyMulticastForwardingInCsvFormatCsv(string Tier0Id, string LocaleServicesId, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            NSXTPolicyMulticastForwardingInCsvFormatType returnValue = default(NSXTPolicyMulticastForwardingInCsvFormatType);
-            StringBuilder GetPolicyMulticastForwardingInCsvFormatCsvServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-services-id}/multicast/forwarding?format=csv");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetPolicyMulticastForwardingInCsvFormatCsvServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetPolicyMulticastForwardingInCsvFormatCsvServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetPolicyMulticastForwardingInCsvFormatCsvServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetPolicyMulticastForwardingInCsvFormatCsvServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyMulticastForwardingInCsvFormatType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyMulticastForwardingInCsvFormatType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTPolicyInterfaceStatisticsSummaryType GlobalGetTier0InterfaceStatisticsSummary(string Tier0Id, string LocaleServiceId, string InterfaceId, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyInterfaceStatisticsSummaryType GlobalGlobalInfraGetTier0InterfaceStatisticsSummary(string Tier0Id, string LocaleServiceId, string InterfaceId, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
             if (InterfaceId == null) { throw new System.ArgumentNullException("InterfaceId cannot be null"); }
             NSXTPolicyInterfaceStatisticsSummaryType returnValue = default(NSXTPolicyInterfaceStatisticsSummaryType);
-            StringBuilder GetTier0InterfaceStatisticsSummaryServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/interfaces/{interface-id}/statistics/summary");
+            StringBuilder GlobalInfraGetTier0InterfaceStatisticsSummaryServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/interfaces/{interface-id}/statistics/summary");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier0InterfaceStatisticsSummaryServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0InterfaceStatisticsSummaryServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0InterfaceStatisticsSummaryServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0InterfaceStatisticsSummaryServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0InterfaceStatisticsSummaryServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0InterfaceStatisticsSummaryServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetTier0InterfaceStatisticsSummaryServiceURL.ToString();
+            request.Resource = GlobalInfraGetTier0InterfaceStatisticsSummaryServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier0InterfaceStatisticsSummaryServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier0InterfaceStatisticsSummaryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1686,31 +1607,71 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyMulticastForwardingInCsvFormatType GetTier1PolicyMulticastForwardingInCsvFormatCsv(string Tier1Id, string LocaleServicesId, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyArpProxyTableCsvListResultType GetTier0GatewayArpProxiesInCsv(string Tier0Id, string? EnforcementPointPath = null, string? Source = null, string? TransportNodeId = null)
         {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            NSXTPolicyMulticastForwardingInCsvFormatType returnValue = default(NSXTPolicyMulticastForwardingInCsvFormatType);
-            StringBuilder GetTier1PolicyMulticastForwardingInCsvFormatCsvServiceURL = new StringBuilder("/infra/tier-1s/{tier-1-id}/locale-services/{locale-services-id}/multicast/forwarding?format=csv");
+            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
+            NSXTPolicyArpProxyTableCsvListResultType returnValue = default(NSXTPolicyArpProxyTableCsvListResultType);
+            StringBuilder GetTier0GatewayArpProxiesInCsvServiceURL = new StringBuilder("/infra/tier-0s/{tier-0-id}/arp-proxies?format=csv");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier1PolicyMulticastForwardingInCsvFormatCsvServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1PolicyMulticastForwardingInCsvFormatCsvServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetTier0GatewayArpProxiesInCsvServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
+            if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
+            request.Resource = GetTier0GatewayArpProxiesInCsvServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetTier0GatewayArpProxiesInCsvServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyArpProxyTableCsvListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyArpProxyTableCsvListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPolicyMulticastForwardingInCsvFormatType GetTier1PolicyMulticastForwardingInCsvFormat(string Tier1Id, string LocaleServicesId, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
+            NSXTPolicyMulticastForwardingInCsvFormatType returnValue = default(NSXTPolicyMulticastForwardingInCsvFormatType);
+            StringBuilder GetTier1PolicyMulticastForwardingInCsvFormatServiceURL = new StringBuilder("/infra/tier-1s/{tier-1-id}/locale-services/{locale-services-id}/multicast/forwarding?format=csv");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GetTier1PolicyMulticastForwardingInCsvFormatServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GetTier1PolicyMulticastForwardingInCsvFormatServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetTier1PolicyMulticastForwardingInCsvFormatCsvServiceURL.ToString();
+            request.Resource = GetTier1PolicyMulticastForwardingInCsvFormatServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier1PolicyMulticastForwardingInCsvFormatCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GetTier1PolicyMulticastForwardingInCsvFormatServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1722,6 +1683,93 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyMulticastForwardingInCsvFormatType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTInterfaceArpTableInCsvFormatType GetTier0RouterLinkArpTableCsv(string Tier0Id, string Tier1Path, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
+            if (Tier1Path == null) { throw new System.ArgumentNullException("Tier1Path cannot be null"); }
+            NSXTInterfaceArpTableInCsvFormatType returnValue = default(NSXTInterfaceArpTableInCsvFormatType);
+            StringBuilder GetTier0RouterLinkArpTableCsvServiceURL = new StringBuilder("/infra/tier-0s/{tier-0-id}/tier-1-interface/arp-table?format=csv");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GetTier0RouterLinkArpTableCsvServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            if (Tier1Path != null) { request.AddQueryParameter("tier1_path", Tier1Path.ToString()); }
+            request.Resource = GetTier0RouterLinkArpTableCsvServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetTier0RouterLinkArpTableCsvServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTInterfaceArpTableInCsvFormatType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTInterfaceArpTableInCsvFormatType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTBridgeEndpointStatisticsType InfraSegmentBridgeEndpointStatistics(string SegmentId, string BridgeProfilePath, string? EnforcementPointPath = null)
+        {
+            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
+            if (BridgeProfilePath == null) { throw new System.ArgumentNullException("BridgeProfilePath cannot be null"); }
+            NSXTBridgeEndpointStatisticsType returnValue = default(NSXTBridgeEndpointStatisticsType);
+            StringBuilder InfraSegmentBridgeEndpointStatisticsServiceURL = new StringBuilder("/infra/segments/{segment-id}/bep-statistics");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            InfraSegmentBridgeEndpointStatisticsServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (BridgeProfilePath != null) { request.AddQueryParameter("bridge_profile_path", BridgeProfilePath.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            request.Resource = InfraSegmentBridgeEndpointStatisticsServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + InfraSegmentBridgeEndpointStatisticsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTBridgeEndpointStatisticsType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTBridgeEndpointStatisticsType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -1770,22 +1818,22 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBgpNeighborRouteDetailsInCsvFormatType GetTier0BgpNeighborAdvertisedRoutesInCsvFormatCsv(string Tier0Id, string LocaleServiceId, string NeighborId, long? Count = null, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTBgpNeighborRouteDetailsInCsvFormatType GetTier0BgpNeighborAdvertisedRoutesInCsvFormat(string Tier0Id, string LocaleServiceId, string NeighborId, int? Count = null, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
             if (NeighborId == null) { throw new System.ArgumentNullException("NeighborId cannot be null"); }
             NSXTBgpNeighborRouteDetailsInCsvFormatType returnValue = default(NSXTBgpNeighborRouteDetailsInCsvFormatType);
-            StringBuilder GetTier0BgpNeighborAdvertisedRoutesInCsvFormatCsvServiceURL = new StringBuilder("/infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/bgp/neighbors/{neighbor-id}/advertised-routes?format=csv");
+            StringBuilder GetTier0BgpNeighborAdvertisedRoutesInCsvFormatServiceURL = new StringBuilder("/infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/bgp/neighbors/{neighbor-id}/advertised-routes?format=csv");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier0BgpNeighborAdvertisedRoutesInCsvFormatCsvServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0BgpNeighborAdvertisedRoutesInCsvFormatCsvServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0BgpNeighborAdvertisedRoutesInCsvFormatCsvServiceURL.Replace("{neighbor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NeighborId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetTier0BgpNeighborAdvertisedRoutesInCsvFormatServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GetTier0BgpNeighborAdvertisedRoutesInCsvFormatServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetTier0BgpNeighborAdvertisedRoutesInCsvFormatServiceURL.Replace("{neighbor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NeighborId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Count != null) { request.AddQueryParameter("count", Count.ToString()); }
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
@@ -1793,11 +1841,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetTier0BgpNeighborAdvertisedRoutesInCsvFormatCsvServiceURL.ToString();
+            request.Resource = GetTier0BgpNeighborAdvertisedRoutesInCsvFormatServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier0BgpNeighborAdvertisedRoutesInCsvFormatCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GetTier0BgpNeighborAdvertisedRoutesInCsvFormatServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1818,18 +1866,105 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentL2ForwarderSiteSpanInfoType GlobalGetInfraSegmentCsSpanInfo(string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyArpProxyTableListResultType GlobalGlobalInfraGetDownlinkPortArpProxiesForInfraSegment(string SegmentId, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
-            NSXTSegmentL2ForwarderSiteSpanInfoType returnValue = default(NSXTSegmentL2ForwarderSiteSpanInfoType);
-            StringBuilder GetInfraSegmentCsSpanInfoServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/inter-site-forwarder/site-span-info");
+            NSXTPolicyArpProxyTableListResultType returnValue = default(NSXTPolicyArpProxyTableListResultType);
+            StringBuilder GlobalInfraGetDownlinkPortArpProxiesForInfraSegmentServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/arp-proxy");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetInfraSegmentCsSpanInfoServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetDownlinkPortArpProxiesForInfraSegmentServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
+            if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
+            request.Resource = GlobalInfraGetDownlinkPortArpProxiesForInfraSegmentServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetDownlinkPortArpProxiesForInfraSegmentServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyArpProxyTableListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyArpProxyTableListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPolicyArpProxyTableCsvListResultType GlobalGlobalInfraGetDownlinkPortArpProxiesForTier1SegmentInCsv(string Tier1Id, string SegmentId, string? EnforcementPointPath = null, string? Source = null, string? TransportNodeId = null)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
+            NSXTPolicyArpProxyTableCsvListResultType returnValue = default(NSXTPolicyArpProxyTableCsvListResultType);
+            StringBuilder GlobalInfraGetDownlinkPortArpProxiesForTier1SegmentInCsvServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/arp-proxy?format=csv");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetDownlinkPortArpProxiesForTier1SegmentInCsvServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetDownlinkPortArpProxiesForTier1SegmentInCsvServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
+            if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
+            request.Resource = GlobalInfraGetDownlinkPortArpProxiesForTier1SegmentInCsvServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetDownlinkPortArpProxiesForTier1SegmentInCsvServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyArpProxyTableCsvListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyArpProxyTableCsvListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTSegmentL2ForwarderSiteSpanInfoType GlobalGlobalInfraGetInfraSegmentCsSpanInfo(string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
+            NSXTSegmentL2ForwarderSiteSpanInfoType returnValue = default(NSXTSegmentL2ForwarderSiteSpanInfoType);
+            StringBuilder GlobalInfraGetInfraSegmentCsSpanInfoServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/inter-site-forwarder/site-span-info");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetInfraSegmentCsSpanInfoServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
@@ -1838,11 +1973,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetInfraSegmentCsSpanInfoServiceURL.ToString();
+            request.Resource = GlobalInfraGetInfraSegmentCsSpanInfoServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetInfraSegmentCsSpanInfoServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetInfraSegmentCsSpanInfoServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1903,30 +2038,31 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterfaceArpTableType GlobalGetDownlinkPortArpTableForInfraSegment(string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTInterfaceArpTableType GlobalGlobalInfraGetDownlinkPortArpTableForInfraSegment(string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? HostTransportNodePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             NSXTInterfaceArpTableType returnValue = default(NSXTInterfaceArpTableType);
-            StringBuilder GetDownlinkPortArpTableForInfraSegmentServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/gateway-interface-arp-table");
+            StringBuilder GlobalInfraGetDownlinkPortArpTableForInfraSegmentServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/gateway-interface-arp-table");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetDownlinkPortArpTableForInfraSegmentServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetDownlinkPortArpTableForInfraSegmentServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (HostTransportNodePath != null) { request.AddQueryParameter("host_transport_node_path", HostTransportNodePath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetDownlinkPortArpTableForInfraSegmentServiceURL.ToString();
+            request.Resource = GlobalInfraGetDownlinkPortArpTableForInfraSegmentServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetDownlinkPortArpTableForInfraSegmentServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetDownlinkPortArpTableForInfraSegmentServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1947,34 +2083,82 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterfaceArpTableInCsvFormatType GlobalGetTier1InterfaceArpTableCsv(string Tier1Id, string LocaleServiceId, string InterfaceId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTSegmentPortStatusType GlobalGlobalInfraGetInfraSegmentPortStatus(string SegmentsId, string PortId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
-            if (InterfaceId == null) { throw new System.ArgumentNullException("InterfaceId cannot be null"); }
-            NSXTInterfaceArpTableInCsvFormatType returnValue = default(NSXTInterfaceArpTableInCsvFormatType);
-            StringBuilder GetTier1InterfaceArpTableCsvServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/locale-services/{locale-service-id}/interfaces/{interface-id}/arp-table?format=csv");
+            if (SegmentsId == null) { throw new System.ArgumentNullException("SegmentsId cannot be null"); }
+            if (PortId == null) { throw new System.ArgumentNullException("PortId cannot be null"); }
+            NSXTSegmentPortStatusType returnValue = default(NSXTSegmentPortStatusType);
+            StringBuilder GlobalInfraGetInfraSegmentPortStatusServiceURL = new StringBuilder("/global-infra/segments/{segments-id}/ports/{port-id}/status");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier1InterfaceArpTableCsvServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1InterfaceArpTableCsvServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1InterfaceArpTableCsvServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetInfraSegmentPortStatusServiceURL.Replace("{segments-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentsId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetInfraSegmentPortStatusServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetTier1InterfaceArpTableCsvServiceURL.ToString();
+            request.Resource = GlobalInfraGetInfraSegmentPortStatusServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier1InterfaceArpTableCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetInfraSegmentPortStatusServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTSegmentPortStatusType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentPortStatusType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTInterfaceArpTableInCsvFormatType GlobalGlobalInfraGetTier1InterfaceArpTableCsv(string Tier1Id, string LocaleServiceId, string InterfaceId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? HostTransportNodePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
+            if (InterfaceId == null) { throw new System.ArgumentNullException("InterfaceId cannot be null"); }
+            NSXTInterfaceArpTableInCsvFormatType returnValue = default(NSXTInterfaceArpTableInCsvFormatType);
+            StringBuilder GlobalInfraGetTier1InterfaceArpTableCsvServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/locale-services/{locale-service-id}/interfaces/{interface-id}/arp-table?format=csv");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetTier1InterfaceArpTableCsvServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1InterfaceArpTableCsvServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1InterfaceArpTableCsvServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (HostTransportNodePath != null) { request.AddQueryParameter("host_transport_node_path", HostTransportNodePath.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = GlobalInfraGetTier1InterfaceArpTableCsvServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetTier1InterfaceArpTableCsvServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1995,79 +2179,35 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentCrossSiteTrafficStatsType GetInfraSegmentCsTrafficStats(string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
-            NSXTSegmentCrossSiteTrafficStatsType returnValue = default(NSXTSegmentCrossSiteTrafficStatsType);
-            StringBuilder GetInfraSegmentCsTrafficStatsServiceURL = new StringBuilder("/infra/segments/{segment-id}/inter-site-forwarder/status");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetInfraSegmentCsTrafficStatsServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetInfraSegmentCsTrafficStatsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetInfraSegmentCsTrafficStatsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentCrossSiteTrafficStatsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentCrossSiteTrafficStatsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTInterfaceArpTableType GlobalGetTier1InterfaceArpTable(string Tier1Id, string LocaleServiceId, string InterfaceId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTInterfaceArpTableType GlobalGlobalInfraGetTier1InterfaceArpTable(string Tier1Id, string LocaleServiceId, string InterfaceId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? HostTransportNodePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
             if (InterfaceId == null) { throw new System.ArgumentNullException("InterfaceId cannot be null"); }
             NSXTInterfaceArpTableType returnValue = default(NSXTInterfaceArpTableType);
-            StringBuilder GetTier1InterfaceArpTableServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/locale-services/{locale-service-id}/interfaces/{interface-id}/arp-table");
+            StringBuilder GlobalInfraGetTier1InterfaceArpTableServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/locale-services/{locale-service-id}/interfaces/{interface-id}/arp-table");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier1InterfaceArpTableServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1InterfaceArpTableServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1InterfaceArpTableServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1InterfaceArpTableServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1InterfaceArpTableServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1InterfaceArpTableServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (HostTransportNodePath != null) { request.AddQueryParameter("host_transport_node_path", HostTransportNodePath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetTier1InterfaceArpTableServiceURL.ToString();
+            request.Resource = GlobalInfraGetTier1InterfaceArpTableServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier1InterfaceArpTableServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier1InterfaceArpTableServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -2088,20 +2228,20 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentPortMacAddressListResultType GlobalGetInfraSegmentPortMacTable(string SegmentId, string PortId, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
+        public NSXTSegmentPortMacAddressListResultType GlobalGlobalInfraGetInfraSegmentPortMacTable(string SegmentId, string PortId, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (PortId == null) { throw new System.ArgumentNullException("PortId cannot be null"); }
             NSXTSegmentPortMacAddressListResultType returnValue = default(NSXTSegmentPortMacAddressListResultType);
-            StringBuilder GetInfraSegmentPortMacTableServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/ports/{port-id}/mac-table");
+            StringBuilder GlobalInfraGetInfraSegmentPortMacTableServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/ports/{port-id}/mac-table");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetInfraSegmentPortMacTableServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetInfraSegmentPortMacTableServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetInfraSegmentPortMacTableServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetInfraSegmentPortMacTableServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
@@ -2110,11 +2250,11 @@ namespace nsxtapi.PolicyModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
-            request.Resource = GetInfraSegmentPortMacTableServiceURL.ToString();
+            request.Resource = GlobalInfraGetInfraSegmentPortMacTableServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetInfraSegmentPortMacTableServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetInfraSegmentPortMacTableServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -2135,7 +2275,49 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyInterfaceStatisticsType GetDownlinkPortStatisticsForTier1Segment(string Tier1Id, string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTBridgeEndpointStatusType GlobalGlobalInfraTier1SegmentBridgeEndpointStatus(string Tier1Id, string SegmentId, string BridgeProfilePath, string? EnforcementPointPath = null)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
+            if (BridgeProfilePath == null) { throw new System.ArgumentNullException("BridgeProfilePath cannot be null"); }
+            NSXTBridgeEndpointStatusType returnValue = default(NSXTBridgeEndpointStatusType);
+            StringBuilder GlobalInfraTier1SegmentBridgeEndpointStatusServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/bep-status");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraTier1SegmentBridgeEndpointStatusServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraTier1SegmentBridgeEndpointStatusServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (BridgeProfilePath != null) { request.AddQueryParameter("bridge_profile_path", BridgeProfilePath.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            request.Resource = GlobalInfraTier1SegmentBridgeEndpointStatusServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraTier1SegmentBridgeEndpointStatusServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTBridgeEndpointStatusType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTBridgeEndpointStatusType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPolicyInterfaceStatisticsType GetDownlinkPortStatisticsForTier1Segment(string Tier1Id, string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? HostTransportNodePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -2152,6 +2334,7 @@ namespace nsxtapi.PolicyModules
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (HostTransportNodePath != null) { request.AddQueryParameter("host_transport_node_path", HostTransportNodePath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
@@ -2181,18 +2364,18 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGatewayRouteTableInCsvFormatType GlobalGetTier1ForwardingTableCsv(string Tier1Id, string? Cursor = null, string? EdgeId = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, string? NetworkPrefix = null, long? PageSize = null, string? RouteSource = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTGatewayRouteTableInCsvFormatType GlobalGlobalInfraGetTier1ForwardingTableCsv(string Tier1Id, string? Cursor = null, string? EdgeId = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, string? NetworkPrefix = null, long? PageSize = null, string? RouteSource = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             NSXTGatewayRouteTableInCsvFormatType returnValue = default(NSXTGatewayRouteTableInCsvFormatType);
-            StringBuilder GetTier1ForwardingTableCsvServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/forwarding-table?format=csv");
+            StringBuilder GlobalInfraGetTier1ForwardingTableCsvServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/forwarding-table?format=csv");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier1ForwardingTableCsvServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1ForwardingTableCsvServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgeId != null) { request.AddQueryParameter("edge_id", EdgeId.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
@@ -2203,11 +2386,11 @@ namespace nsxtapi.PolicyModules
             if (RouteSource != null) { request.AddQueryParameter("route_source", RouteSource.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetTier1ForwardingTableCsvServiceURL.ToString();
+            request.Resource = GlobalInfraGetTier1ForwardingTableCsvServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier1ForwardingTableCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier1ForwardingTableCsvServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -2228,20 +2411,20 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTOspfRoutesListResultInCsvFormatType GetOspfRoutesInCsvFormatCsv(string Tier0Id, string LocaleServiceId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, string? NetworkPrefix = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTOspfRoutesListResultInCsvFormatType GetOspfRoutesInCsvFormat(string Tier0Id, string LocaleServiceId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, string? NetworkPrefix = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
             NSXTOspfRoutesListResultInCsvFormatType returnValue = default(NSXTOspfRoutesListResultInCsvFormatType);
-            StringBuilder GetOspfRoutesInCsvFormatCsvServiceURL = new StringBuilder("/infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/ospf/routes?format=csv");
+            StringBuilder GetOspfRoutesInCsvFormatServiceURL = new StringBuilder("/infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/ospf/routes?format=csv");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetOspfRoutesInCsvFormatCsvServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetOspfRoutesInCsvFormatCsvServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetOspfRoutesInCsvFormatServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GetOspfRoutesInCsvFormatServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
@@ -2250,11 +2433,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetOspfRoutesInCsvFormatCsvServiceURL.ToString();
+            request.Resource = GetOspfRoutesInCsvFormatServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetOspfRoutesInCsvFormatCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GetOspfRoutesInCsvFormatServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -2275,28 +2458,28 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMacAddressCsvListResultType GlobalGetTier1SegmentMacTableInCsv(string Tier1Id, string SegmentId, string? EnforcementPointPath = null, string? Source = null, string? TransportNodeId = null)
+        public NSXTMacAddressCsvListResultType GlobalGlobalInfraGetTier1SegmentMacTableInCsv(string Tier1Id, string SegmentId, string? EnforcementPointPath = null, string? Source = null, string? TransportNodeId = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             NSXTMacAddressCsvListResultType returnValue = default(NSXTMacAddressCsvListResultType);
-            StringBuilder GetTier1SegmentMacTableInCsvServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/mac-table?format=csv");
+            StringBuilder GlobalInfraGetTier1SegmentMacTableInCsvServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/mac-table?format=csv");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier1SegmentMacTableInCsvServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1SegmentMacTableInCsvServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1SegmentMacTableInCsvServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1SegmentMacTableInCsvServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
-            request.Resource = GetTier1SegmentMacTableInCsvServiceURL.ToString();
+            request.Resource = GlobalInfraGetTier1SegmentMacTableInCsvServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier1SegmentMacTableInCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier1SegmentMacTableInCsvServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -2409,53 +2592,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTOspfRoutesListResultInCsvFormatType GlobalGetOspfRoutesInCsvFormatCsv(string Tier0Id, string LocaleServiceId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, string? NetworkPrefix = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
-            NSXTOspfRoutesListResultInCsvFormatType returnValue = default(NSXTOspfRoutesListResultInCsvFormatType);
-            StringBuilder GetOspfRoutesInCsvFormatCsvServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/ospf/routes?format=csv");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetOspfRoutesInCsvFormatCsvServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetOspfRoutesInCsvFormatCsvServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (NetworkPrefix != null) { request.AddQueryParameter("network_prefix", NetworkPrefix.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetOspfRoutesInCsvFormatCsvServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetOspfRoutesInCsvFormatCsvServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTOspfRoutesListResultInCsvFormatType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTOspfRoutesListResultInCsvFormatType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTInterfaceDADStateType GetDownlinkPortDadStateForInfraSegment(string SegmentId, string? EnforcementPointPath = null, string? Source = null)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -2495,52 +2631,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIgmpMembershipsInCsvFormatType GlobalGetTier1PolicyIgmpMembershipsInCsvFormatCsv(string Tier1Id, string LocaleServicesId, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            NSXTIgmpMembershipsInCsvFormatType returnValue = default(NSXTIgmpMembershipsInCsvFormatType);
-            StringBuilder GetTier1PolicyIgmpMembershipsInCsvFormatCsvServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/locale-services/{locale-services-id}/multicast/igmp-memberships?format=csv");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetTier1PolicyIgmpMembershipsInCsvFormatCsvServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1PolicyIgmpMembershipsInCsvFormatCsvServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetTier1PolicyIgmpMembershipsInCsvFormatCsvServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetTier1PolicyIgmpMembershipsInCsvFormatCsvServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIgmpMembershipsInCsvFormatType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIgmpMembershipsInCsvFormatType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTInterfaceArpTableType GetDownlinkPortArpTableForInfraSegment(string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTInterfaceArpTableType GetDownlinkPortArpTableForInfraSegment(string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? HostTransportNodePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             NSXTInterfaceArpTableType returnValue = default(NSXTInterfaceArpTableType);
@@ -2555,6 +2646,7 @@ namespace nsxtapi.PolicyModules
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (HostTransportNodePath != null) { request.AddQueryParameter("host_transport_node_path", HostTransportNodePath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
@@ -2584,18 +2676,60 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRoutingTableListResultType GlobalGetTier0Routes(string Tier0Id, string? Cursor = null, string? EdgeId = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, string? NetworkPrefix = null, long? PageSize = null, string? RouteSource = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTInterfaceDADStateType GlobalGlobalInfraGetTier1InterfaceDadstate(string Tier1Id, string LocaleServiceId, string InterfaceId, string? EnforcementPointPath = null)
         {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            NSXTRoutingTableListResultType returnValue = default(NSXTRoutingTableListResultType);
-            StringBuilder GetTier0RoutesServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/routing-table");
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
+            if (InterfaceId == null) { throw new System.ArgumentNullException("InterfaceId cannot be null"); }
+            NSXTInterfaceDADStateType returnValue = default(NSXTInterfaceDADStateType);
+            StringBuilder GlobalInfraGetTier1InterfaceDadstateServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/locale-services/{locale-service-id}/interfaces/{interface-id}/dad-state");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier0RoutesServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1InterfaceDadstateServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1InterfaceDadstateServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1InterfaceDadstateServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            request.Resource = GlobalInfraGetTier1InterfaceDadstateServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetTier1InterfaceDadstateServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTInterfaceDADStateType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTInterfaceDADStateType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTRoutingTableListResultType GlobalGlobalInfraGetTier0Routes(string Tier0Id, string? Cursor = null, string? EdgeId = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, string? NetworkPrefix = null, long? PageSize = null, string? RouteSource = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
+            NSXTRoutingTableListResultType returnValue = default(NSXTRoutingTableListResultType);
+            StringBuilder GlobalInfraGetTier0RoutesServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/routing-table");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetTier0RoutesServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgeId != null) { request.AddQueryParameter("edge_id", EdgeId.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
@@ -2606,11 +2740,11 @@ namespace nsxtapi.PolicyModules
             if (RouteSource != null) { request.AddQueryParameter("route_source", RouteSource.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetTier0RoutesServiceURL.ToString();
+            request.Resource = GlobalInfraGetTier0RoutesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier0RoutesServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier0RoutesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -2631,7 +2765,53 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterfaceArpTableType GetInfraSegmentInterfaceArpTable(string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTDhcpServerStatusType GlobalGlobalInfraReadDhcpServerStatus(string ConfigId, string ConnectivityPath, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (ConfigId == null) { throw new System.ArgumentNullException("ConfigId cannot be null"); }
+            if (ConnectivityPath == null) { throw new System.ArgumentNullException("ConnectivityPath cannot be null"); }
+            NSXTDhcpServerStatusType returnValue = default(NSXTDhcpServerStatusType);
+            StringBuilder GlobalInfraReadDhcpServerStatusServiceURL = new StringBuilder("/global-infra/dhcp-server-configs/{config-id}/status");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraReadDhcpServerStatusServiceURL.Replace("{config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ConfigId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (ConnectivityPath != null) { request.AddQueryParameter("connectivity_path", ConnectivityPath.ToString()); }
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = GlobalInfraReadDhcpServerStatusServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraReadDhcpServerStatusServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTDhcpServerStatusType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpServerStatusType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTInterfaceArpTableType GetInfraSegmentInterfaceArpTable(string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? HostTransportNodePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             NSXTInterfaceArpTableType returnValue = default(NSXTInterfaceArpTableType);
@@ -2646,6 +2826,7 @@ namespace nsxtapi.PolicyModules
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (HostTransportNodePath != null) { request.AddQueryParameter("host_transport_node_path", HostTransportNodePath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
@@ -2675,18 +2856,109 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGatewayRouteTableInCsvFormatType GlobalGetTier0RoutesCsv(string Tier0Id, string? Cursor = null, string? EdgeId = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, string? NetworkPrefix = null, long? PageSize = null, string? RouteSource = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTSegmentPortStatusType GlobalGlobalInfraGetSegmentPortStatus(string Tier1Id, string SegmentsId, string PortId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            NSXTGatewayRouteTableInCsvFormatType returnValue = default(NSXTGatewayRouteTableInCsvFormatType);
-            StringBuilder GetTier0RoutesCsvServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/routing-table?format=csv");
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            if (SegmentsId == null) { throw new System.ArgumentNullException("SegmentsId cannot be null"); }
+            if (PortId == null) { throw new System.ArgumentNullException("PortId cannot be null"); }
+            NSXTSegmentPortStatusType returnValue = default(NSXTSegmentPortStatusType);
+            StringBuilder GlobalInfraGetSegmentPortStatusServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segments-id}/ports/{port-id}/status");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier0RoutesCsvServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetSegmentPortStatusServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetSegmentPortStatusServiceURL.Replace("{segments-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentsId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetSegmentPortStatusServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = GlobalInfraGetSegmentPortStatusServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetSegmentPortStatusServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTSegmentPortStatusType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentPortStatusType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTInterfaceDADStateType GetTier1InterfaceDadstate(string Tier1Id, string LocaleServiceId, string InterfaceId, string? EnforcementPointPath = null)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
+            if (InterfaceId == null) { throw new System.ArgumentNullException("InterfaceId cannot be null"); }
+            NSXTInterfaceDADStateType returnValue = default(NSXTInterfaceDADStateType);
+            StringBuilder GetTier1InterfaceDadstateServiceURL = new StringBuilder("/infra/tier-1s/{tier-1-id}/locale-services/{locale-service-id}/interfaces/{interface-id}/dad-state");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GetTier1InterfaceDadstateServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GetTier1InterfaceDadstateServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetTier1InterfaceDadstateServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            request.Resource = GetTier1InterfaceDadstateServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetTier1InterfaceDadstateServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTInterfaceDADStateType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTInterfaceDADStateType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTGatewayRouteTableInCsvFormatType GlobalGlobalInfraGetTier0RoutesCsv(string Tier0Id, string? Cursor = null, string? EdgeId = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, string? NetworkPrefix = null, long? PageSize = null, string? RouteSource = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
+            NSXTGatewayRouteTableInCsvFormatType returnValue = default(NSXTGatewayRouteTableInCsvFormatType);
+            StringBuilder GlobalInfraGetTier0RoutesCsvServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/routing-table?format=csv");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetTier0RoutesCsvServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgeId != null) { request.AddQueryParameter("edge_id", EdgeId.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
@@ -2697,11 +2969,11 @@ namespace nsxtapi.PolicyModules
             if (RouteSource != null) { request.AddQueryParameter("route_source", RouteSource.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetTier0RoutesCsvServiceURL.ToString();
+            request.Resource = GlobalInfraGetTier0RoutesCsvServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier0RoutesCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier0RoutesCsvServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -2722,32 +2994,78 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterfaceArpTableInCsvFormatType GlobalGetSegmentInterfaceArpTableCsv(string Tier1Id, string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTSegmentMacAddressListResultType GlobalGlobalInfraGetInfraSegmentMacTable(string SegmentId, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
         {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
-            NSXTInterfaceArpTableInCsvFormatType returnValue = default(NSXTInterfaceArpTableInCsvFormatType);
-            StringBuilder GetSegmentInterfaceArpTableCsvServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/arp-table?format=csv");
+            NSXTSegmentMacAddressListResultType returnValue = default(NSXTSegmentMacAddressListResultType);
+            StringBuilder GlobalInfraGetInfraSegmentMacTableServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/mac-table");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetSegmentInterfaceArpTableCsvServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetSegmentInterfaceArpTableCsvServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetInfraSegmentMacTableServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetSegmentInterfaceArpTableCsvServiceURL.ToString();
+            if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
+            if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
+            request.Resource = GlobalInfraGetInfraSegmentMacTableServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetSegmentInterfaceArpTableCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetInfraSegmentMacTableServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTSegmentMacAddressListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentMacAddressListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTInterfaceArpTableInCsvFormatType GlobalGlobalInfraGetSegmentInterfaceArpTableCsv(string Tier1Id, string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? HostTransportNodePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
+            NSXTInterfaceArpTableInCsvFormatType returnValue = default(NSXTInterfaceArpTableInCsvFormatType);
+            StringBuilder GlobalInfraGetSegmentInterfaceArpTableCsvServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/arp-table?format=csv");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetSegmentInterfaceArpTableCsvServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetSegmentInterfaceArpTableCsvServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (HostTransportNodePath != null) { request.AddQueryParameter("host_transport_node_path", HostTransportNodePath.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = GlobalInfraGetSegmentInterfaceArpTableCsvServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetSegmentInterfaceArpTableCsvServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -2768,20 +3086,20 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentStatisticsType GlobalGetSegmentStatistics(string Tier1Id, string SegmentsId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTSegmentStatisticsType GlobalGlobalInfraGetSegmentStatistics(string Tier1Id, string SegmentsId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentsId == null) { throw new System.ArgumentNullException("SegmentsId cannot be null"); }
             NSXTSegmentStatisticsType returnValue = default(NSXTSegmentStatisticsType);
-            StringBuilder GetSegmentStatisticsServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segments-id}/statistics");
+            StringBuilder GlobalInfraGetSegmentStatisticsServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segments-id}/statistics");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetSegmentStatisticsServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetSegmentStatisticsServiceURL.Replace("{segments-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentsId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetSegmentStatisticsServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetSegmentStatisticsServiceURL.Replace("{segments-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentsId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
@@ -2790,11 +3108,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetSegmentStatisticsServiceURL.ToString();
+            request.Resource = GlobalInfraGetSegmentStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetSegmentStatisticsServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetSegmentStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -2862,44 +3180,84 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentCrossSiteTrafficStatsType GetSegmentCsTrafficStats(string Tier1Id, string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyArpProxyTableListResultType GlobalGlobalInfraGetDownlinkPortArpProxiesForTier1Segment(string Tier1Id, string SegmentId, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
-            NSXTSegmentCrossSiteTrafficStatsType returnValue = default(NSXTSegmentCrossSiteTrafficStatsType);
-            StringBuilder GetSegmentCsTrafficStatsServiceURL = new StringBuilder("/infra/tier-1s/{tier-1-id}/segments/{segment-id}/inter-site-forwarder/status");
+            NSXTPolicyArpProxyTableListResultType returnValue = default(NSXTPolicyArpProxyTableListResultType);
+            StringBuilder GlobalInfraGetDownlinkPortArpProxiesForTier1SegmentServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/arp-proxy");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetSegmentCsTrafficStatsServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetSegmentCsTrafficStatsServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetDownlinkPortArpProxiesForTier1SegmentServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetDownlinkPortArpProxiesForTier1SegmentServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetSegmentCsTrafficStatsServiceURL.ToString();
+            if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
+            if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
+            request.Resource = GlobalInfraGetDownlinkPortArpProxiesForTier1SegmentServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetSegmentCsTrafficStatsServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetDownlinkPortArpProxiesForTier1SegmentServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
 			{
 				try
 				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentCrossSiteTrafficStatsType>(response.Content, defaultSerializationSettings);
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyArpProxyTableListResultType>(response.Content, defaultSerializationSettings);
 				}
 				catch (Exception ex)
 				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentCrossSiteTrafficStatsType).FullName + ".";
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyArpProxyTableListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPolicyTepCsvListResultType GetInfraSegmentTepTableInCsv(string SegmentId, string? EnforcementPointPath = null, string? Source = null, string? TransportNodeId = null)
+        {
+            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
+            NSXTPolicyTepCsvListResultType returnValue = default(NSXTPolicyTepCsvListResultType);
+            StringBuilder GetInfraSegmentTepTableInCsvServiceURL = new StringBuilder("/infra/segments/{segment-id}/tep-table?format=csv");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GetInfraSegmentTepTableInCsvServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
+            if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
+            request.Resource = GetInfraSegmentTepTableInCsvServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetInfraSegmentTepTableInCsvServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyTepCsvListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyTepCsvListResultType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -2955,32 +3313,33 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterfaceArpTableType GlobalGetDownlinkPortArpTableForTier1Segment(string Tier1Id, string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTInterfaceArpTableType GlobalGlobalInfraGetDownlinkPortArpTableForTier1Segment(string Tier1Id, string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? HostTransportNodePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             NSXTInterfaceArpTableType returnValue = default(NSXTInterfaceArpTableType);
-            StringBuilder GetDownlinkPortArpTableForTier1SegmentServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/gateway-interface-arp-table");
+            StringBuilder GlobalInfraGetDownlinkPortArpTableForTier1SegmentServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/gateway-interface-arp-table");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetDownlinkPortArpTableForTier1SegmentServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetDownlinkPortArpTableForTier1SegmentServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetDownlinkPortArpTableForTier1SegmentServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetDownlinkPortArpTableForTier1SegmentServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (HostTransportNodePath != null) { request.AddQueryParameter("host_transport_node_path", HostTransportNodePath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetDownlinkPortArpTableForTier1SegmentServiceURL.ToString();
+            request.Resource = GlobalInfraGetDownlinkPortArpTableForTier1SegmentServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetDownlinkPortArpTableForTier1SegmentServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetDownlinkPortArpTableForTier1SegmentServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -2992,6 +3351,51 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTInterfaceArpTableType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPolicyArpProxyTableListResultType GlobalGlobalInfraGetTier1GatewayArpProxies(string Tier1Id, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            NSXTPolicyArpProxyTableListResultType returnValue = default(NSXTPolicyArpProxyTableListResultType);
+            StringBuilder GlobalInfraGetTier1GatewayArpProxiesServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/arp-proxies");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetTier1GatewayArpProxiesServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
+            if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
+            request.Resource = GlobalInfraGetTier1GatewayArpProxiesServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetTier1GatewayArpProxiesServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyArpProxyTableListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyArpProxyTableListResultType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -3046,239 +3450,22 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterfaceArpTableInCsvFormatType GetTier0InterfaceArpTableCsv(string Tier0Id, string LocaleServiceId, string InterfaceId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
-            if (InterfaceId == null) { throw new System.ArgumentNullException("InterfaceId cannot be null"); }
-            NSXTInterfaceArpTableInCsvFormatType returnValue = default(NSXTInterfaceArpTableInCsvFormatType);
-            StringBuilder GetTier0InterfaceArpTableCsvServiceURL = new StringBuilder("/infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/interfaces/{interface-id}/arp-table?format=csv");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetTier0InterfaceArpTableCsvServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0InterfaceArpTableCsvServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0InterfaceArpTableCsvServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetTier0InterfaceArpTableCsvServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetTier0InterfaceArpTableCsvServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTInterfaceArpTableInCsvFormatType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTInterfaceArpTableInCsvFormatType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIgmpMembershipsType GlobalGetPolicyIgmpMemberships(string Tier0Id, string LocaleServicesId, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            NSXTIgmpMembershipsType returnValue = default(NSXTIgmpMembershipsType);
-            StringBuilder GetPolicyIgmpMembershipsServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-services-id}/multicast/igmp-memberships");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetPolicyIgmpMembershipsServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetPolicyIgmpMembershipsServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetPolicyIgmpMembershipsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetPolicyIgmpMembershipsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIgmpMembershipsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIgmpMembershipsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIgmpMembershipsType GlobalGetTier1PolicyIgmpMemberships(string Tier1Id, string LocaleServicesId, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTSegmentPortStatusType GetSegmentPortStatus(string Tier1Id, string SegmentsId, string PortId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            NSXTIgmpMembershipsType returnValue = default(NSXTIgmpMembershipsType);
-            StringBuilder GetTier1PolicyIgmpMembershipsServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/locale-services/{locale-services-id}/multicast/igmp-memberships");
+            if (SegmentsId == null) { throw new System.ArgumentNullException("SegmentsId cannot be null"); }
+            if (PortId == null) { throw new System.ArgumentNullException("PortId cannot be null"); }
+            NSXTSegmentPortStatusType returnValue = default(NSXTSegmentPortStatusType);
+            StringBuilder GetSegmentPortStatusServiceURL = new StringBuilder("/infra/tier-1s/{tier-1-id}/segments/{segments-id}/ports/{port-id}/status");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier1PolicyIgmpMembershipsServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1PolicyIgmpMembershipsServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetTier1PolicyIgmpMembershipsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetTier1PolicyIgmpMembershipsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIgmpMembershipsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIgmpMembershipsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTPolicyEdgeClusterInterSiteBgpSummaryType GetPolicyInterSiteBgpSummary(string Tier0Id, string LocaleServicesId, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            NSXTPolicyEdgeClusterInterSiteBgpSummaryType returnValue = default(NSXTPolicyEdgeClusterInterSiteBgpSummaryType);
-            StringBuilder GetPolicyInterSiteBgpSummaryServiceURL = new StringBuilder("/infra/tier-0s/{tier-0-id}/locale-services/{locale-services-id}/inter-site/bgp-summary");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetPolicyInterSiteBgpSummaryServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetPolicyInterSiteBgpSummaryServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetPolicyInterSiteBgpSummaryServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetPolicyInterSiteBgpSummaryServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyEdgeClusterInterSiteBgpSummaryType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyEdgeClusterInterSiteBgpSummaryType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTSegmentConfigurationStateListResultType GetInfraSegmentsByState(string? ConfigurationState = null, string? EnforcementPointPath = null, string? Source = null)
-        {
-            NSXTSegmentConfigurationStateListResultType returnValue = default(NSXTSegmentConfigurationStateListResultType);
-            StringBuilder GetInfraSegmentsByStateServiceURL = new StringBuilder("/infra/segments/state");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (ConfigurationState != null) { request.AddQueryParameter("configuration_state", ConfigurationState.ToString()); }
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
-            request.Resource = GetInfraSegmentsByStateServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetInfraSegmentsByStateServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentConfigurationStateListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentConfigurationStateListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTSegmentL2ForwarderSiteSpanInfoType GetInfraSegmentCsSpanInfo(string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
-            NSXTSegmentL2ForwarderSiteSpanInfoType returnValue = default(NSXTSegmentL2ForwarderSiteSpanInfoType);
-            StringBuilder GetInfraSegmentCsSpanInfoServiceURL = new StringBuilder("/infra/segments/{segment-id}/inter-site-forwarder/site-span-info");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetInfraSegmentCsSpanInfoServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetSegmentPortStatusServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GetSegmentPortStatusServiceURL.Replace("{segments-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentsId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetSegmentPortStatusServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
@@ -3287,22 +3474,22 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetInfraSegmentCsSpanInfoServiceURL.ToString();
+            request.Resource = GetSegmentPortStatusServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetInfraSegmentCsSpanInfoServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GetSegmentPortStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
 			{
 				try
 				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentL2ForwarderSiteSpanInfoType>(response.Content, defaultSerializationSettings);
+					returnValue = JsonConvert.DeserializeObject<NSXTSegmentPortStatusType>(response.Content, defaultSerializationSettings);
 				}
 				catch (Exception ex)
 				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentL2ForwarderSiteSpanInfoType).FullName + ".";
+					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentPortStatusType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -3312,62 +3499,22 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentConfigurationStateListResultType GlobalGetTier1SegmentsByState(string Tier1Id, string? ConfigurationState = null, string? EnforcementPointPath = null, string? Source = null)
-        {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            NSXTSegmentConfigurationStateListResultType returnValue = default(NSXTSegmentConfigurationStateListResultType);
-            StringBuilder GetTier1SegmentsByStateServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/state");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetTier1SegmentsByStateServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            if (ConfigurationState != null) { request.AddQueryParameter("configuration_state", ConfigurationState.ToString()); }
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
-            request.Resource = GetTier1SegmentsByStateServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetTier1SegmentsByStateServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentConfigurationStateListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentConfigurationStateListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTBgpNeighborRouteDetailsInCsvFormatType GlobalGetTier0BgpNeighborAdvertisedRoutesInCsvFormatCsv(string Tier0Id, string LocaleServiceId, string NeighborId, long? Count = null, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTBgpNeighborRouteDetailsInCsvFormatType GlobalGlobalInfraGetTier0BgpNeighborAdvertisedRoutesInCsvFormat(string Tier0Id, string LocaleServiceId, string NeighborId, int? Count = null, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
             if (NeighborId == null) { throw new System.ArgumentNullException("NeighborId cannot be null"); }
             NSXTBgpNeighborRouteDetailsInCsvFormatType returnValue = default(NSXTBgpNeighborRouteDetailsInCsvFormatType);
-            StringBuilder GetTier0BgpNeighborAdvertisedRoutesInCsvFormatCsvServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/bgp/neighbors/{neighbor-id}/advertised-routes?format=csv");
+            StringBuilder GlobalInfraGetTier0BgpNeighborAdvertisedRoutesInCsvFormatServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/bgp/neighbors/{neighbor-id}/advertised-routes?format=csv");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier0BgpNeighborAdvertisedRoutesInCsvFormatCsvServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0BgpNeighborAdvertisedRoutesInCsvFormatCsvServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0BgpNeighborAdvertisedRoutesInCsvFormatCsvServiceURL.Replace("{neighbor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NeighborId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0BgpNeighborAdvertisedRoutesInCsvFormatServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0BgpNeighborAdvertisedRoutesInCsvFormatServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0BgpNeighborAdvertisedRoutesInCsvFormatServiceURL.Replace("{neighbor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NeighborId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Count != null) { request.AddQueryParameter("count", Count.ToString()); }
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
@@ -3375,11 +3522,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetTier0BgpNeighborAdvertisedRoutesInCsvFormatCsvServiceURL.ToString();
+            request.Resource = GlobalInfraGetTier0BgpNeighborAdvertisedRoutesInCsvFormatServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier0BgpNeighborAdvertisedRoutesInCsvFormatCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier0BgpNeighborAdvertisedRoutesInCsvFormatServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -3391,6 +3538,135 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTBgpNeighborRouteDetailsInCsvFormatType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTBridgeEndpointStatisticsType Tier1SegmentBridgeEndpointStatistics(string Tier1Id, string SegmentId, string BridgeProfilePath, string? EnforcementPointPath = null)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
+            if (BridgeProfilePath == null) { throw new System.ArgumentNullException("BridgeProfilePath cannot be null"); }
+            NSXTBridgeEndpointStatisticsType returnValue = default(NSXTBridgeEndpointStatisticsType);
+            StringBuilder Tier1SegmentBridgeEndpointStatisticsServiceURL = new StringBuilder("/infra/tier-1s/{tier-1-id}/segments/{segment-id}/bep-statistics");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            Tier1SegmentBridgeEndpointStatisticsServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            Tier1SegmentBridgeEndpointStatisticsServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (BridgeProfilePath != null) { request.AddQueryParameter("bridge_profile_path", BridgeProfilePath.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            request.Resource = Tier1SegmentBridgeEndpointStatisticsServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + Tier1SegmentBridgeEndpointStatisticsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTBridgeEndpointStatisticsType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTBridgeEndpointStatisticsType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTSegmentConfigurationStateListResultType GlobalGlobalInfraGetTier1SegmentsByState(string Tier1Id, string? ConfigurationState = null, string? EnforcementPointPath = null, string? Source = null)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            NSXTSegmentConfigurationStateListResultType returnValue = default(NSXTSegmentConfigurationStateListResultType);
+            StringBuilder GlobalInfraGetTier1SegmentsByStateServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/state");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetTier1SegmentsByStateServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            if (ConfigurationState != null) { request.AddQueryParameter("configuration_state", ConfigurationState.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
+            request.Resource = GlobalInfraGetTier1SegmentsByStateServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetTier1SegmentsByStateServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTSegmentConfigurationStateListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentConfigurationStateListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPolicyInterfaceStatisticsType GlobalGlobalInfraGetTier0RouterLinkStatistics(string Tier0Id, string Tier1Path, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
+            if (Tier1Path == null) { throw new System.ArgumentNullException("Tier1Path cannot be null"); }
+            NSXTPolicyInterfaceStatisticsType returnValue = default(NSXTPolicyInterfaceStatisticsType);
+            StringBuilder GlobalInfraGetTier0RouterLinkStatisticsServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/tier-1-interface/statistics");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetTier0RouterLinkStatisticsServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            if (Tier1Path != null) { request.AddQueryParameter("tier1_path", Tier1Path.ToString()); }
+            request.Resource = GlobalInfraGetTier0RouterLinkStatisticsServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetTier0RouterLinkStatisticsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyInterfaceStatisticsType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyInterfaceStatisticsType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -3432,6 +3708,48 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpStaticBindingStateType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTBridgeEndpointStatisticsType GlobalGlobalInfraTier1SegmentBridgeEndpointStatistics(string Tier1Id, string SegmentId, string BridgeProfilePath, string? EnforcementPointPath = null)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
+            if (BridgeProfilePath == null) { throw new System.ArgumentNullException("BridgeProfilePath cannot be null"); }
+            NSXTBridgeEndpointStatisticsType returnValue = default(NSXTBridgeEndpointStatisticsType);
+            StringBuilder GlobalInfraTier1SegmentBridgeEndpointStatisticsServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/bep-statistics");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraTier1SegmentBridgeEndpointStatisticsServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraTier1SegmentBridgeEndpointStatisticsServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (BridgeProfilePath != null) { request.AddQueryParameter("bridge_profile_path", BridgeProfilePath.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            request.Resource = GlobalInfraTier1SegmentBridgeEndpointStatisticsServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraTier1SegmentBridgeEndpointStatisticsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTBridgeEndpointStatisticsType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTBridgeEndpointStatisticsType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -3488,76 +3806,31 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyMulticastForwardingInCsvFormatType GlobalGetTier1PolicyMulticastForwardingInCsvFormatCsv(string Tier1Id, string LocaleServicesId, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            NSXTPolicyMulticastForwardingInCsvFormatType returnValue = default(NSXTPolicyMulticastForwardingInCsvFormatType);
-            StringBuilder GetTier1PolicyMulticastForwardingInCsvFormatCsvServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/locale-services/{locale-services-id}/multicast/forwarding?format=csv");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetTier1PolicyMulticastForwardingInCsvFormatCsvServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1PolicyMulticastForwardingInCsvFormatCsvServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetTier1PolicyMulticastForwardingInCsvFormatCsvServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetTier1PolicyMulticastForwardingInCsvFormatCsvServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyMulticastForwardingInCsvFormatType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyMulticastForwardingInCsvFormatType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTPolicyMulticastRoutesInCsvFormatType GetPolicyMulticastRoutesInCsvFormatCsv(string Tier0Id, string LocaleServicesId, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyMulticastRoutesInCsvFormatType GetPolicyMulticastRoutesInCsvFormat(string Tier0Id, string LocaleServicesId, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
             NSXTPolicyMulticastRoutesInCsvFormatType returnValue = default(NSXTPolicyMulticastRoutesInCsvFormatType);
-            StringBuilder GetPolicyMulticastRoutesInCsvFormatCsvServiceURL = new StringBuilder("/infra/tier-0s/{tier-0-id}/locale-services/{locale-services-id}/multicast/routes?format=csv");
+            StringBuilder GetPolicyMulticastRoutesInCsvFormatServiceURL = new StringBuilder("/infra/tier-0s/{tier-0-id}/locale-services/{locale-services-id}/multicast/routes?format=csv");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetPolicyMulticastRoutesInCsvFormatCsvServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetPolicyMulticastRoutesInCsvFormatCsvServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetPolicyMulticastRoutesInCsvFormatServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GetPolicyMulticastRoutesInCsvFormatServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetPolicyMulticastRoutesInCsvFormatCsvServiceURL.ToString();
+            request.Resource = GetPolicyMulticastRoutesInCsvFormatServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetPolicyMulticastRoutesInCsvFormatCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GetPolicyMulticastRoutesInCsvFormatServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -3578,18 +3851,18 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentCrossSiteTrafficStatsType GlobalGetInfraSegmentCsTrafficStats(string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTSegmentCrossSiteTrafficStatsType GlobalGlobalInfraGetInfraSegmentCsTrafficStats(string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             NSXTSegmentCrossSiteTrafficStatsType returnValue = default(NSXTSegmentCrossSiteTrafficStatsType);
-            StringBuilder GetInfraSegmentCsTrafficStatsServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/inter-site-forwarder/status");
+            StringBuilder GlobalInfraGetInfraSegmentCsTrafficStatsServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/inter-site-forwarder/status");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetInfraSegmentCsTrafficStatsServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetInfraSegmentCsTrafficStatsServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
@@ -3598,11 +3871,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetInfraSegmentCsTrafficStatsServiceURL.ToString();
+            request.Resource = GlobalInfraGetInfraSegmentCsTrafficStatsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetInfraSegmentCsTrafficStatsServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetInfraSegmentCsTrafficStatsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -3614,6 +3887,44 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentCrossSiteTrafficStatsType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTSegmentConfigurationStateListResultType GetInfraSegmentsByState(string? ConfigurationState = null, string? EnforcementPointPath = null, string? Source = null)
+        {
+            NSXTSegmentConfigurationStateListResultType returnValue = default(NSXTSegmentConfigurationStateListResultType);
+            StringBuilder GetInfraSegmentsByStateServiceURL = new StringBuilder("/infra/segments/state");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            if (ConfigurationState != null) { request.AddQueryParameter("configuration_state", ConfigurationState.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
+            request.Resource = GetInfraSegmentsByStateServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetInfraSegmentsByStateServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTSegmentConfigurationStateListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentConfigurationStateListResultType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -3715,30 +4026,31 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyInterfaceStatisticsType GlobalGetDownlinkPortStatisticsForInfraSegment(string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyInterfaceStatisticsType GlobalGlobalInfraGetDownlinkPortStatisticsForInfraSegment(string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? HostTransportNodePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             NSXTPolicyInterfaceStatisticsType returnValue = default(NSXTPolicyInterfaceStatisticsType);
-            StringBuilder GetDownlinkPortStatisticsForInfraSegmentServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/gateway-interface-statistics");
+            StringBuilder GlobalInfraGetDownlinkPortStatisticsForInfraSegmentServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/gateway-interface-statistics");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetDownlinkPortStatisticsForInfraSegmentServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetDownlinkPortStatisticsForInfraSegmentServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (HostTransportNodePath != null) { request.AddQueryParameter("host_transport_node_path", HostTransportNodePath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetDownlinkPortStatisticsForInfraSegmentServiceURL.ToString();
+            request.Resource = GlobalInfraGetDownlinkPortStatisticsForInfraSegmentServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetDownlinkPortStatisticsForInfraSegmentServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetDownlinkPortStatisticsForInfraSegmentServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -3750,51 +4062,6 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyInterfaceStatisticsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTPolicyEdgeClusterInterSiteStatusType GetPolicyInterSiteStatus(string Tier0Id, string LocaleServicesId, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            NSXTPolicyEdgeClusterInterSiteStatusType returnValue = default(NSXTPolicyEdgeClusterInterSiteStatusType);
-            StringBuilder GetPolicyInterSiteStatusServiceURL = new StringBuilder("/infra/tier-0s/{tier-0-id}/locale-services/{locale-services-id}/inter-site/status");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetPolicyInterSiteStatusServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetPolicyInterSiteStatusServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetPolicyInterSiteStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetPolicyInterSiteStatusServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyEdgeClusterInterSiteStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyEdgeClusterInterSiteStatusType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -3851,31 +4118,31 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIgmpMembershipsInCsvFormatType GetTier1PolicyIgmpMembershipsInCsvFormatCsv(string Tier1Id, string LocaleServicesId, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTIgmpMembershipsInCsvFormatType GetTier1PolicyIgmpMembershipsInCsvFormat(string Tier1Id, string LocaleServicesId, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
             NSXTIgmpMembershipsInCsvFormatType returnValue = default(NSXTIgmpMembershipsInCsvFormatType);
-            StringBuilder GetTier1PolicyIgmpMembershipsInCsvFormatCsvServiceURL = new StringBuilder("/infra/tier-1s/{tier-1-id}/locale-services/{locale-services-id}/multicast/igmp-memberships?format=csv");
+            StringBuilder GetTier1PolicyIgmpMembershipsInCsvFormatServiceURL = new StringBuilder("/infra/tier-1s/{tier-1-id}/locale-services/{locale-services-id}/multicast/igmp-memberships?format=csv");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier1PolicyIgmpMembershipsInCsvFormatCsvServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1PolicyIgmpMembershipsInCsvFormatCsvServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetTier1PolicyIgmpMembershipsInCsvFormatServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GetTier1PolicyIgmpMembershipsInCsvFormatServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetTier1PolicyIgmpMembershipsInCsvFormatCsvServiceURL.ToString();
+            request.Resource = GetTier1PolicyIgmpMembershipsInCsvFormatServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier1PolicyIgmpMembershipsInCsvFormatCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GetTier1PolicyIgmpMembershipsInCsvFormatServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -3941,31 +4208,31 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyEdgeClusterInterSiteBgpSummaryType GlobalGetPolicyInterSiteBgpSummary(string Tier0Id, string LocaleServicesId, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyEdgeClusterInterSiteBgpSummaryType GlobalGlobalInfraGetPolicyInterSiteBgpSummary(string Tier0Id, string LocaleServicesId, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
             NSXTPolicyEdgeClusterInterSiteBgpSummaryType returnValue = default(NSXTPolicyEdgeClusterInterSiteBgpSummaryType);
-            StringBuilder GetPolicyInterSiteBgpSummaryServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-services-id}/inter-site/bgp-summary");
+            StringBuilder GlobalInfraGetPolicyInterSiteBgpSummaryServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-services-id}/inter-site/bgp-summary");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetPolicyInterSiteBgpSummaryServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetPolicyInterSiteBgpSummaryServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetPolicyInterSiteBgpSummaryServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetPolicyInterSiteBgpSummaryServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetPolicyInterSiteBgpSummaryServiceURL.ToString();
+            request.Resource = GlobalInfraGetPolicyInterSiteBgpSummaryServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetPolicyInterSiteBgpSummaryServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetPolicyInterSiteBgpSummaryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -3977,6 +4244,88 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyEdgeClusterInterSiteBgpSummaryType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPolicyArpProxyTableCsvListResultType GetDownlinkPortArpProxiesForTier1SegmentInCsv(string Tier1Id, string SegmentId, string? EnforcementPointPath = null, string? Source = null, string? TransportNodeId = null)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
+            NSXTPolicyArpProxyTableCsvListResultType returnValue = default(NSXTPolicyArpProxyTableCsvListResultType);
+            StringBuilder GetDownlinkPortArpProxiesForTier1SegmentInCsvServiceURL = new StringBuilder("/infra/tier-1s/{tier-1-id}/segments/{segment-id}/arp-proxy?format=csv");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GetDownlinkPortArpProxiesForTier1SegmentInCsvServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GetDownlinkPortArpProxiesForTier1SegmentInCsvServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
+            if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
+            request.Resource = GetDownlinkPortArpProxiesForTier1SegmentInCsvServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetDownlinkPortArpProxiesForTier1SegmentInCsvServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyArpProxyTableCsvListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyArpProxyTableCsvListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPolicyArpProxyTableCsvListResultType GetDownlinkPortArpProxiesForInfraSegmentInCsv(string SegmentId, string? EnforcementPointPath = null, string? Source = null, string? TransportNodeId = null)
+        {
+            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
+            NSXTPolicyArpProxyTableCsvListResultType returnValue = default(NSXTPolicyArpProxyTableCsvListResultType);
+            StringBuilder GetDownlinkPortArpProxiesForInfraSegmentInCsvServiceURL = new StringBuilder("/infra/segments/{segment-id}/arp-proxy?format=csv");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GetDownlinkPortArpProxiesForInfraSegmentInCsvServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
+            if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
+            request.Resource = GetDownlinkPortArpProxiesForInfraSegmentInCsvServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetDownlinkPortArpProxiesForInfraSegmentInCsvServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyArpProxyTableCsvListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyArpProxyTableCsvListResultType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -4033,7 +4382,47 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterfaceArpTableInCsvFormatType GetTier1InterfaceArpTableCsv(string Tier1Id, string LocaleServiceId, string InterfaceId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyArpProxyTableCsvListResultType GlobalGlobalInfraGetDownlinkPortArpProxiesForInfraSegmentInCsv(string SegmentId, string? EnforcementPointPath = null, string? Source = null, string? TransportNodeId = null)
+        {
+            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
+            NSXTPolicyArpProxyTableCsvListResultType returnValue = default(NSXTPolicyArpProxyTableCsvListResultType);
+            StringBuilder GlobalInfraGetDownlinkPortArpProxiesForInfraSegmentInCsvServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/arp-proxy?format=csv");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetDownlinkPortArpProxiesForInfraSegmentInCsvServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
+            if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
+            request.Resource = GlobalInfraGetDownlinkPortArpProxiesForInfraSegmentInCsvServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetDownlinkPortArpProxiesForInfraSegmentInCsvServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyArpProxyTableCsvListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyArpProxyTableCsvListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTInterfaceArpTableInCsvFormatType GetTier1InterfaceArpTableCsv(string Tier1Id, string LocaleServiceId, string InterfaceId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? HostTransportNodePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -4052,6 +4441,7 @@ namespace nsxtapi.PolicyModules
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (HostTransportNodePath != null) { request.AddQueryParameter("host_transport_node_path", HostTransportNodePath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
@@ -4081,7 +4471,52 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterfaceArpTableType GetDownlinkPortArpTableForTier1Segment(string Tier1Id, string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTTier0GatewayStateType GlobalGlobalInfraGetTier0State(string Tier0Id, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, string? InterfacePath = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
+        {
+            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
+            NSXTTier0GatewayStateType returnValue = default(NSXTTier0GatewayStateType);
+            StringBuilder GlobalInfraGetTier0StateServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/state");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetTier0StateServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (InterfacePath != null) { request.AddQueryParameter("interface_path", InterfacePath.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            if (Type != null) { request.AddQueryParameter("type", Type.ToString()); }
+            request.Resource = GlobalInfraGetTier0StateServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetTier0StateServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTTier0GatewayStateType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTTier0GatewayStateType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTInterfaceArpTableType GetDownlinkPortArpTableForTier1Segment(string Tier1Id, string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? HostTransportNodePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -4098,6 +4533,7 @@ namespace nsxtapi.PolicyModules
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (HostTransportNodePath != null) { request.AddQueryParameter("host_transport_node_path", HostTransportNodePath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
@@ -4127,28 +4563,73 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyTepCsvListResultType GlobalGetTier1SegmentTepTableInCsv(string Tier1Id, string SegmentId, string? EnforcementPointPath = null, string? Source = null, string? TransportNodeId = null)
+        public NSXTPolicyArpProxyTableListResultType GlobalGlobalInfraGetTier0GatewayArpProxies(string Tier0Id, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
         {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
-            NSXTPolicyTepCsvListResultType returnValue = default(NSXTPolicyTepCsvListResultType);
-            StringBuilder GetTier1SegmentTepTableInCsvServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/tep-table?format=csv");
+            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
+            NSXTPolicyArpProxyTableListResultType returnValue = default(NSXTPolicyArpProxyTableListResultType);
+            StringBuilder GlobalInfraGetTier0GatewayArpProxiesServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/arp-proxies");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier1SegmentTepTableInCsvServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1SegmentTepTableInCsvServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0GatewayArpProxiesServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
-            request.Resource = GetTier1SegmentTepTableInCsvServiceURL.ToString();
+            request.Resource = GlobalInfraGetTier0GatewayArpProxiesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier1SegmentTepTableInCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier0GatewayArpProxiesServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyArpProxyTableListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyArpProxyTableListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPolicyTepCsvListResultType GlobalGlobalInfraGetTier1SegmentTepTableInCsv(string Tier1Id, string SegmentId, string? EnforcementPointPath = null, string? Source = null, string? TransportNodeId = null)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
+            NSXTPolicyTepCsvListResultType returnValue = default(NSXTPolicyTepCsvListResultType);
+            StringBuilder GlobalInfraGetTier1SegmentTepTableInCsvServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/tep-table?format=csv");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetTier1SegmentTepTableInCsvServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1SegmentTepTableInCsvServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
+            if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
+            request.Resource = GlobalInfraGetTier1SegmentTepTableInCsvServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetTier1SegmentTepTableInCsvServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -4169,84 +4650,41 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterfaceDADStateType GetTier1InterfaceDadstate(string Tier1Id, string LocaleServiceId, string InterfaceId, string? EnforcementPointPath = null)
+        public NSXTPolicyArpProxyTableCsvListResultType GetTier1InterfaceArpProxiesInCsv(string Tier1Id, string LocaleServiceId, string InterfaceId, string? EnforcementPointPath = null, string? Source = null, string? TransportNodeId = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
             if (InterfaceId == null) { throw new System.ArgumentNullException("InterfaceId cannot be null"); }
-            NSXTInterfaceDADStateType returnValue = default(NSXTInterfaceDADStateType);
-            StringBuilder GetTier1InterfaceDadstateServiceURL = new StringBuilder("/infra/tier-1s/{tier-1-id}/locale-services/{locale-service-id}/interfaces/{interface-id}/dad-state");
+            NSXTPolicyArpProxyTableCsvListResultType returnValue = default(NSXTPolicyArpProxyTableCsvListResultType);
+            StringBuilder GetTier1InterfaceArpProxiesInCsvServiceURL = new StringBuilder("/infra/tier-1s/{tier-1-id}/locale-services/{locale-service-id}/interfaces/{interface-id}/arp-proxy?format=csv");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier1InterfaceDadstateServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1InterfaceDadstateServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1InterfaceDadstateServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetTier1InterfaceArpProxiesInCsvServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GetTier1InterfaceArpProxiesInCsvServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetTier1InterfaceArpProxiesInCsvServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = GetTier1InterfaceDadstateServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetTier1InterfaceDadstateServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTInterfaceDADStateType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTInterfaceDADStateType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTSegmentMacAddressListResultType GlobalGetInfraSegmentMacTable(string SegmentId, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
-        {
-            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
-            NSXTSegmentMacAddressListResultType returnValue = default(NSXTSegmentMacAddressListResultType);
-            StringBuilder GetInfraSegmentMacTableServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/mac-table");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetInfraSegmentMacTableServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
-            request.Resource = GetInfraSegmentMacTableServiceURL.ToString();
+            request.Resource = GetTier1InterfaceArpProxiesInCsvServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetInfraSegmentMacTableServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GetTier1InterfaceArpProxiesInCsvServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
 			{
 				try
 				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentMacAddressListResultType>(response.Content, defaultSerializationSettings);
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyArpProxyTableCsvListResultType>(response.Content, defaultSerializationSettings);
 				}
 				catch (Exception ex)
 				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentMacAddressListResultType).FullName + ".";
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyArpProxyTableCsvListResultType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -4256,116 +4694,26 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyMulticastForwardingType GlobalGetPolicyMulticastForwarding(string Tier0Id, string LocaleServicesId, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            NSXTPolicyMulticastForwardingType returnValue = default(NSXTPolicyMulticastForwardingType);
-            StringBuilder GetPolicyMulticastForwardingServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-services-id}/multicast/forwarding");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetPolicyMulticastForwardingServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetPolicyMulticastForwardingServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetPolicyMulticastForwardingServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetPolicyMulticastForwardingServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyMulticastForwardingType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyMulticastForwardingType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTPolicyMulticastRoutesType GlobalGetPolicyMulticastRoutes(string Tier0Id, string LocaleServicesId, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            NSXTPolicyMulticastRoutesType returnValue = default(NSXTPolicyMulticastRoutesType);
-            StringBuilder GetPolicyMulticastRoutesServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-services-id}/multicast/routes");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetPolicyMulticastRoutesServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetPolicyMulticastRoutesServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetPolicyMulticastRoutesServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetPolicyMulticastRoutesServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyMulticastRoutesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyMulticastRoutesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTPolicyTepCsvListResultType GlobalGetInfraSegmentTepTableInCsv(string SegmentId, string? EnforcementPointPath = null, string? Source = null, string? TransportNodeId = null)
+        public NSXTPolicyTepCsvListResultType GlobalGlobalInfraGetInfraSegmentTepTableInCsv(string SegmentId, string? EnforcementPointPath = null, string? Source = null, string? TransportNodeId = null)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             NSXTPolicyTepCsvListResultType returnValue = default(NSXTPolicyTepCsvListResultType);
-            StringBuilder GetInfraSegmentTepTableInCsvServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/tep-table?format=csv");
+            StringBuilder GlobalInfraGetInfraSegmentTepTableInCsvServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/tep-table?format=csv");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetInfraSegmentTepTableInCsvServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetInfraSegmentTepTableInCsvServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
-            request.Resource = GetInfraSegmentTepTableInCsvServiceURL.ToString();
+            request.Resource = GlobalInfraGetInfraSegmentTepTableInCsvServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetInfraSegmentTepTableInCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetInfraSegmentTepTableInCsvServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -4386,18 +4734,18 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentConfigurationStateType GlobalGetInfraSegmentState(string SegmentsId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTSegmentConfigurationStateType GlobalGlobalInfraGetInfraSegmentState(string SegmentsId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (SegmentsId == null) { throw new System.ArgumentNullException("SegmentsId cannot be null"); }
             NSXTSegmentConfigurationStateType returnValue = default(NSXTSegmentConfigurationStateType);
-            StringBuilder GetInfraSegmentStateServiceURL = new StringBuilder("/global-infra/segments/{segments-id}/state");
+            StringBuilder GlobalInfraGetInfraSegmentStateServiceURL = new StringBuilder("/global-infra/segments/{segments-id}/state");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetInfraSegmentStateServiceURL.Replace("{segments-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentsId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetInfraSegmentStateServiceURL.Replace("{segments-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentsId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
@@ -4406,11 +4754,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetInfraSegmentStateServiceURL.ToString();
+            request.Resource = GlobalInfraGetInfraSegmentStateServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetInfraSegmentStateServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetInfraSegmentStateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -4431,7 +4779,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyArpProxyTableListResultType GetTier0InterfaceArpProxies(string Tier0Id, string LocaleServiceId, string InterfaceId, string? EnforcementPointPath = null, string? Source = null)
+        public NSXTPolicyArpProxyTableListResultType GetTier0InterfaceArpProxies(string Tier0Id, string LocaleServiceId, string InterfaceId, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -4447,8 +4795,14 @@ namespace nsxtapi.PolicyModules
             GetTier0InterfaceArpProxiesServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             GetTier0InterfaceArpProxiesServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             GetTier0InterfaceArpProxiesServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
+            if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
             request.Resource = GetTier0InterfaceArpProxiesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
@@ -4474,18 +4828,18 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRoutingTableListResultType GlobalGetTier0ForwardingTable(string Tier0Id, string? Cursor = null, string? EdgeId = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, string? NetworkPrefix = null, long? PageSize = null, string? RouteSource = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTRoutingTableListResultType GlobalGlobalInfraGetTier0ForwardingTable(string Tier0Id, string? Cursor = null, string? EdgeId = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, string? NetworkPrefix = null, long? PageSize = null, string? RouteSource = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             NSXTRoutingTableListResultType returnValue = default(NSXTRoutingTableListResultType);
-            StringBuilder GetTier0ForwardingTableServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/forwarding-table");
+            StringBuilder GlobalInfraGetTier0ForwardingTableServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/forwarding-table");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier0ForwardingTableServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0ForwardingTableServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgeId != null) { request.AddQueryParameter("edge_id", EdgeId.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
@@ -4496,11 +4850,11 @@ namespace nsxtapi.PolicyModules
             if (RouteSource != null) { request.AddQueryParameter("route_source", RouteSource.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetTier0ForwardingTableServiceURL.ToString();
+            request.Resource = GlobalInfraGetTier0ForwardingTableServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier0ForwardingTableServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier0ForwardingTableServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -4521,31 +4875,76 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPimRpMappingsInCsvFormatType GetPolicyPimRpMappingsInCsvFormatCsv(string Tier0Id, string LocaleServicesId, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyArpProxyTableListResultType GetTier0GatewayArpProxies(string Tier0Id, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            NSXTPimRpMappingsInCsvFormatType returnValue = default(NSXTPimRpMappingsInCsvFormatType);
-            StringBuilder GetPolicyPimRpMappingsInCsvFormatCsvServiceURL = new StringBuilder("/infra/tier-0s/{tier-0-id}/locale-services/{locale-services-id}/multicast/pim-rp-mappings?format=csv");
+            NSXTPolicyArpProxyTableListResultType returnValue = default(NSXTPolicyArpProxyTableListResultType);
+            StringBuilder GetTier0GatewayArpProxiesServiceURL = new StringBuilder("/infra/tier-0s/{tier-0-id}/arp-proxies");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetPolicyPimRpMappingsInCsvFormatCsvServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetPolicyPimRpMappingsInCsvFormatCsvServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetTier0GatewayArpProxiesServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
+            if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
+            request.Resource = GetTier0GatewayArpProxiesServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetTier0GatewayArpProxiesServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyArpProxyTableListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyArpProxyTableListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPimRpMappingsInCsvFormatType GetPolicyPimRpMappingsInCsvFormat(string Tier0Id, string LocaleServicesId, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
+            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
+            NSXTPimRpMappingsInCsvFormatType returnValue = default(NSXTPimRpMappingsInCsvFormatType);
+            StringBuilder GetPolicyPimRpMappingsInCsvFormatServiceURL = new StringBuilder("/infra/tier-0s/{tier-0-id}/locale-services/{locale-services-id}/multicast/pim-rp-mappings?format=csv");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GetPolicyPimRpMappingsInCsvFormatServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GetPolicyPimRpMappingsInCsvFormatServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetPolicyPimRpMappingsInCsvFormatCsvServiceURL.ToString();
+            request.Resource = GetPolicyPimRpMappingsInCsvFormatServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetPolicyPimRpMappingsInCsvFormatCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GetPolicyPimRpMappingsInCsvFormatServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -4612,52 +5011,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyOspfDatabaseListResultType GlobalGetOspfDatabase(string Tier0Id, string LocaleServiceId, string? AreaId = null, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
-            NSXTPolicyOspfDatabaseListResultType returnValue = default(NSXTPolicyOspfDatabaseListResultType);
-            StringBuilder GetOspfDatabaseServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/ospf/database");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetOspfDatabaseServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetOspfDatabaseServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (AreaId != null) { request.AddQueryParameter("area_id", AreaId.ToString()); }
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetOspfDatabaseServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetOspfDatabaseServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyOspfDatabaseListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyOspfDatabaseListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTDhcpServerStateType ReadDhcpServerState(string ConfigId, string ConnectivityPath, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (ConfigId == null) { throw new System.ArgumentNullException("ConfigId cannot be null"); }
@@ -4704,25 +5057,25 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpStaticBindingStateType GlobalReadInfraSegmentDhcpStaticBindingState(string SegmentId, string BindingId)
+        public NSXTDhcpStaticBindingStateType GlobalGlobalInfraReadInfraSegmentDhcpStaticBindingState(string SegmentId, string BindingId)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (BindingId == null) { throw new System.ArgumentNullException("BindingId cannot be null"); }
             NSXTDhcpStaticBindingStateType returnValue = default(NSXTDhcpStaticBindingStateType);
-            StringBuilder ReadInfraSegmentDhcpStaticBindingStateServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/dhcp-static-bindings/{binding-id}/state");
+            StringBuilder GlobalInfraReadInfraSegmentDhcpStaticBindingStateServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/dhcp-static-bindings/{binding-id}/state");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            ReadInfraSegmentDhcpStaticBindingStateServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReadInfraSegmentDhcpStaticBindingStateServiceURL.Replace("{binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadInfraSegmentDhcpStaticBindingStateServiceURL.ToString();
+            GlobalInfraReadInfraSegmentDhcpStaticBindingStateServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraReadInfraSegmentDhcpStaticBindingStateServiceURL.Replace("{binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BindingId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraReadInfraSegmentDhcpStaticBindingStateServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ReadInfraSegmentDhcpStaticBindingStateServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraReadInfraSegmentDhcpStaticBindingStateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -4878,33 +5231,33 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyInterfaceStatisticsSummaryType GlobalGetTier1InterfaceStatisticsSummary(string Tier1Id, string LocaleServiceId, string InterfaceId, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyInterfaceStatisticsSummaryType GlobalGlobalInfraGetTier1InterfaceStatisticsSummary(string Tier1Id, string LocaleServiceId, string InterfaceId, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
             if (InterfaceId == null) { throw new System.ArgumentNullException("InterfaceId cannot be null"); }
             NSXTPolicyInterfaceStatisticsSummaryType returnValue = default(NSXTPolicyInterfaceStatisticsSummaryType);
-            StringBuilder GetTier1InterfaceStatisticsSummaryServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/locale-services/{locale-service-id}/interfaces/{interface-id}/statistics/summary");
+            StringBuilder GlobalInfraGetTier1InterfaceStatisticsSummaryServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/locale-services/{locale-service-id}/interfaces/{interface-id}/statistics/summary");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier1InterfaceStatisticsSummaryServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1InterfaceStatisticsSummaryServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1InterfaceStatisticsSummaryServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1InterfaceStatisticsSummaryServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1InterfaceStatisticsSummaryServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1InterfaceStatisticsSummaryServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetTier1InterfaceStatisticsSummaryServiceURL.ToString();
+            request.Resource = GlobalInfraGetTier1InterfaceStatisticsSummaryServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier1InterfaceStatisticsSummaryServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier1InterfaceStatisticsSummaryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -4925,7 +5278,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTier0GatewayStateType GetTier0State(string Tier0Id, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, string? InterfacePath = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTTier0GatewayStateType GetTier0State(string Tier0Id, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, string? InterfacePath = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             NSXTTier0GatewayStateType returnValue = default(NSXTTier0GatewayStateType);
@@ -4944,6 +5297,7 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            if (Type != null) { request.AddQueryParameter("type", Type.ToString()); }
             request.Resource = GetTier0StateServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
@@ -4969,18 +5323,65 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGatewayRouteTableInCsvFormatType GlobalGetTier0ForwardingTableCsv(string Tier0Id, string? Cursor = null, string? EdgeId = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, string? NetworkPrefix = null, long? PageSize = null, string? RouteSource = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTSegmentPortStatusType GetInfraSegmentPortStatus(string SegmentsId, string PortId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            NSXTGatewayRouteTableInCsvFormatType returnValue = default(NSXTGatewayRouteTableInCsvFormatType);
-            StringBuilder GetTier0ForwardingTableCsvServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/forwarding-table?format=csv");
+            if (SegmentsId == null) { throw new System.ArgumentNullException("SegmentsId cannot be null"); }
+            if (PortId == null) { throw new System.ArgumentNullException("PortId cannot be null"); }
+            NSXTSegmentPortStatusType returnValue = default(NSXTSegmentPortStatusType);
+            StringBuilder GetInfraSegmentPortStatusServiceURL = new StringBuilder("/infra/segments/{segments-id}/ports/{port-id}/status");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier0ForwardingTableCsvServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GetInfraSegmentPortStatusServiceURL.Replace("{segments-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentsId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetInfraSegmentPortStatusServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = GetInfraSegmentPortStatusServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetInfraSegmentPortStatusServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTSegmentPortStatusType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentPortStatusType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTGatewayRouteTableInCsvFormatType GlobalGlobalInfraGetTier0ForwardingTableCsv(string Tier0Id, string? Cursor = null, string? EdgeId = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, string? NetworkPrefix = null, long? PageSize = null, string? RouteSource = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
+            NSXTGatewayRouteTableInCsvFormatType returnValue = default(NSXTGatewayRouteTableInCsvFormatType);
+            StringBuilder GlobalInfraGetTier0ForwardingTableCsvServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/forwarding-table?format=csv");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetTier0ForwardingTableCsvServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgeId != null) { request.AddQueryParameter("edge_id", EdgeId.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
@@ -4991,11 +5392,11 @@ namespace nsxtapi.PolicyModules
             if (RouteSource != null) { request.AddQueryParameter("route_source", RouteSource.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetTier0ForwardingTableCsvServiceURL.ToString();
+            request.Resource = GlobalInfraGetTier0ForwardingTableCsvServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier0ForwardingTableCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier0ForwardingTableCsvServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -5016,28 +5417,28 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterfaceDADStateType GlobalGetTier0InterfaceDadstate(string Tier0Id, string LocaleServiceId, string InterfaceId, string? EnforcementPointPath = null)
+        public NSXTInterfaceDADStateType GlobalGlobalInfraGetTier0InterfaceDadstate(string Tier0Id, string LocaleServiceId, string InterfaceId, string? EnforcementPointPath = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
             if (InterfaceId == null) { throw new System.ArgumentNullException("InterfaceId cannot be null"); }
             NSXTInterfaceDADStateType returnValue = default(NSXTInterfaceDADStateType);
-            StringBuilder GetTier0InterfaceDadstateServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/interfaces/{interface-id}/dad-state");
+            StringBuilder GlobalInfraGetTier0InterfaceDadstateServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/interfaces/{interface-id}/dad-state");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier0InterfaceDadstateServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0InterfaceDadstateServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0InterfaceDadstateServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0InterfaceDadstateServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0InterfaceDadstateServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0InterfaceDadstateServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = GetTier0InterfaceDadstateServiceURL.ToString();
+            request.Resource = GlobalInfraGetTier0InterfaceDadstateServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier0InterfaceDadstateServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier0InterfaceDadstateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -5058,19 +5459,19 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpLeasesResultType GlobalReadDhcpServerLeases(string ConfigId, string ConnectivityPath, string? Address = null, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, string? SegmentPath = null, bool? SortAscending = null, string? SortBy = null, string? Source = null)
+        public NSXTDhcpLeasesResultType GlobalGlobalInfraReadDhcpServerLeases(string ConfigId, string ConnectivityPath, string? Address = null, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, string? SegmentPath = null, bool? SortAscending = null, string? SortBy = null, string? Source = null)
         {
             if (ConfigId == null) { throw new System.ArgumentNullException("ConfigId cannot be null"); }
             if (ConnectivityPath == null) { throw new System.ArgumentNullException("ConnectivityPath cannot be null"); }
             NSXTDhcpLeasesResultType returnValue = default(NSXTDhcpLeasesResultType);
-            StringBuilder ReadDhcpServerLeasesServiceURL = new StringBuilder("/global-infra/dhcp-server-configs/{config-id}/leases");
+            StringBuilder GlobalInfraReadDhcpServerLeasesServiceURL = new StringBuilder("/global-infra/dhcp-server-configs/{config-id}/leases");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            ReadDhcpServerLeasesServiceURL.Replace("{config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ConfigId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraReadDhcpServerLeasesServiceURL.Replace("{config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Address != null) { request.AddQueryParameter("address", Address.ToString()); }
             if (ConnectivityPath != null) { request.AddQueryParameter("connectivity_path", ConnectivityPath.ToString()); }
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
@@ -5082,11 +5483,11 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
-            request.Resource = ReadDhcpServerLeasesServiceURL.ToString();
+            request.Resource = GlobalInfraReadDhcpServerLeasesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ReadDhcpServerLeasesServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraReadDhcpServerLeasesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -5098,6 +5499,95 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpLeasesResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTInterfaceArpTableInCsvFormatType GlobalGlobalInfraGetTier1RouterLinkArpTableCsv(string Tier1Id, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? HostTransportNodePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            NSXTInterfaceArpTableInCsvFormatType returnValue = default(NSXTInterfaceArpTableInCsvFormatType);
+            StringBuilder GlobalInfraGetTier1RouterLinkArpTableCsvServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/tier-0-interface/arp-table?format=csv");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetTier1RouterLinkArpTableCsvServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (HostTransportNodePath != null) { request.AddQueryParameter("host_transport_node_path", HostTransportNodePath.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = GlobalInfraGetTier1RouterLinkArpTableCsvServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetTier1RouterLinkArpTableCsvServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTInterfaceArpTableInCsvFormatType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTInterfaceArpTableInCsvFormatType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPolicyArpProxyTableCsvListResultType GlobalGlobalInfraGetTier1InterfaceArpProxiesInCsv(string Tier1Id, string LocaleServiceId, string InterfaceId, string? EnforcementPointPath = null, string? Source = null, string? TransportNodeId = null)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
+            if (InterfaceId == null) { throw new System.ArgumentNullException("InterfaceId cannot be null"); }
+            NSXTPolicyArpProxyTableCsvListResultType returnValue = default(NSXTPolicyArpProxyTableCsvListResultType);
+            StringBuilder GlobalInfraGetTier1InterfaceArpProxiesInCsvServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/locale-services/{locale-service-id}/interfaces/{interface-id}/arp-proxy?format=csv");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetTier1InterfaceArpProxiesInCsvServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1InterfaceArpProxiesInCsvServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1InterfaceArpProxiesInCsvServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
+            if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
+            request.Resource = GlobalInfraGetTier1InterfaceArpProxiesInCsvServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetTier1InterfaceArpProxiesInCsvServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyArpProxyTableCsvListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyArpProxyTableCsvListResultType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -5154,70 +5644,26 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTier1GatewayStateType GlobalGetTier1State(string Tier1Id, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, string? InterfacePath = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            NSXTTier1GatewayStateType returnValue = default(NSXTTier1GatewayStateType);
-            StringBuilder GetTier1StateServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/state");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetTier1StateServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (InterfacePath != null) { request.AddQueryParameter("interface_path", InterfacePath.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetTier1StateServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetTier1StateServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTier1GatewayStateType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTier1GatewayStateType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTMacAddressCsvListResultType GlobalGetInfraSegmentMacTableInCsv(string SegmentId, string? EnforcementPointPath = null, string? Source = null, string? TransportNodeId = null)
+        public NSXTMacAddressCsvListResultType GlobalGlobalInfraGetInfraSegmentMacTableInCsv(string SegmentId, string? EnforcementPointPath = null, string? Source = null, string? TransportNodeId = null)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             NSXTMacAddressCsvListResultType returnValue = default(NSXTMacAddressCsvListResultType);
-            StringBuilder GetInfraSegmentMacTableInCsvServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/mac-table?format=csv");
+            StringBuilder GlobalInfraGetInfraSegmentMacTableInCsvServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/mac-table?format=csv");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetInfraSegmentMacTableInCsvServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetInfraSegmentMacTableInCsvServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
-            request.Resource = GetInfraSegmentMacTableInCsvServiceURL.ToString();
+            request.Resource = GlobalInfraGetInfraSegmentMacTableInCsvServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetInfraSegmentMacTableInCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetInfraSegmentMacTableInCsvServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -5238,27 +5684,33 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyArpProxyTableListResultType GlobalGetTier0ArpProxies(string Tier0Id, string LocaleServiceId, string? EnforcementPointPath = null, string? Source = null)
+        public NSXTPolicyArpProxyTableListResultType GlobalGlobalInfraGetTier0ArpProxies(string Tier0Id, string LocaleServiceId, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
             NSXTPolicyArpProxyTableListResultType returnValue = default(NSXTPolicyArpProxyTableListResultType);
-            StringBuilder GetTier0ArpProxiesServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/arp-proxies");
+            StringBuilder GlobalInfraGetTier0ArpProxiesServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/arp-proxies");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier0ArpProxiesServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0ArpProxiesServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0ArpProxiesServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0ArpProxiesServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
-            request.Resource = GetTier0ArpProxiesServiceURL.ToString();
+            if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
+            request.Resource = GlobalInfraGetTier0ArpProxiesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier0ArpProxiesServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier0ArpProxiesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -5279,52 +5731,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentConfigurationStateType GetInfraSegmentState(string SegmentsId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (SegmentsId == null) { throw new System.ArgumentNullException("SegmentsId cannot be null"); }
-            NSXTSegmentConfigurationStateType returnValue = default(NSXTSegmentConfigurationStateType);
-            StringBuilder GetInfraSegmentStateServiceURL = new StringBuilder("/infra/segments/{segments-id}/state");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetInfraSegmentStateServiceURL.Replace("{segments-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentsId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetInfraSegmentStateServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetInfraSegmentStateServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentConfigurationStateType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentConfigurationStateType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTTier1GatewayStateType GetTier1State(string Tier1Id, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, string? InterfacePath = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTTier1GatewayStateType GetTier1State(string Tier1Id, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, string? InterfacePath = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             NSXTTier1GatewayStateType returnValue = default(NSXTTier1GatewayStateType);
@@ -5343,6 +5750,7 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            if (Type != null) { request.AddQueryParameter("type", Type.ToString()); }
             request.Resource = GetTier1StateServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
@@ -5459,22 +5867,22 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentPortMacAddressListResultType GlobalGetTier1SegmentPortMacTable(string Tier1Id, string SegmentId, string PortId, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
+        public NSXTSegmentPortMacAddressListResultType GlobalGlobalInfraGetTier1SegmentPortMacTable(string Tier1Id, string SegmentId, string PortId, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (PortId == null) { throw new System.ArgumentNullException("PortId cannot be null"); }
             NSXTSegmentPortMacAddressListResultType returnValue = default(NSXTSegmentPortMacAddressListResultType);
-            StringBuilder GetTier1SegmentPortMacTableServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/ports/{port-id}/mac-table");
+            StringBuilder GlobalInfraGetTier1SegmentPortMacTableServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/ports/{port-id}/mac-table");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier1SegmentPortMacTableServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1SegmentPortMacTableServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1SegmentPortMacTableServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1SegmentPortMacTableServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1SegmentPortMacTableServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1SegmentPortMacTableServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
@@ -5483,11 +5891,11 @@ namespace nsxtapi.PolicyModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
-            request.Resource = GetTier1SegmentPortMacTableServiceURL.ToString();
+            request.Resource = GlobalInfraGetTier1SegmentPortMacTableServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier1SegmentPortMacTableServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier1SegmentPortMacTableServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -5508,20 +5916,20 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentL2ForwarderSiteSpanInfoType GlobalGetSegmentCsSpanInfo(string Tier1Id, string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTSegmentL2ForwarderSiteSpanInfoType GlobalGlobalInfraGetSegmentCsSpanInfo(string Tier1Id, string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             NSXTSegmentL2ForwarderSiteSpanInfoType returnValue = default(NSXTSegmentL2ForwarderSiteSpanInfoType);
-            StringBuilder GetSegmentCsSpanInfoServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/inter-site-forwarder/site-span-info");
+            StringBuilder GlobalInfraGetSegmentCsSpanInfoServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/inter-site-forwarder/site-span-info");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetSegmentCsSpanInfoServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetSegmentCsSpanInfoServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetSegmentCsSpanInfoServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetSegmentCsSpanInfoServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
@@ -5530,11 +5938,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetSegmentCsSpanInfoServiceURL.ToString();
+            request.Resource = GlobalInfraGetSegmentCsSpanInfoServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetSegmentCsSpanInfoServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetSegmentCsSpanInfoServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -5555,31 +5963,31 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyEdgeClusterInterSiteStatusType GlobalGetPolicyInterSiteStatus(string Tier0Id, string LocaleServicesId, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyEdgeClusterInterSiteStatusType GlobalGlobalInfraGetPolicyInterSiteStatus(string Tier0Id, string LocaleServicesId, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
             NSXTPolicyEdgeClusterInterSiteStatusType returnValue = default(NSXTPolicyEdgeClusterInterSiteStatusType);
-            StringBuilder GetPolicyInterSiteStatusServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-services-id}/inter-site/status");
+            StringBuilder GlobalInfraGetPolicyInterSiteStatusServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-services-id}/inter-site/status");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetPolicyInterSiteStatusServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetPolicyInterSiteStatusServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetPolicyInterSiteStatusServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetPolicyInterSiteStatusServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetPolicyInterSiteStatusServiceURL.ToString();
+            request.Resource = GlobalInfraGetPolicyInterSiteStatusServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetPolicyInterSiteStatusServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetPolicyInterSiteStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -5600,32 +6008,33 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterfaceArpTableInCsvFormatType GlobalGetDownlinkPortArpTableForTier1SegmentInCsv(string Tier1Id, string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTInterfaceArpTableInCsvFormatType GlobalGlobalInfraGetDownlinkPortArpTableForTier1SegmentInCsv(string Tier1Id, string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? HostTransportNodePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             NSXTInterfaceArpTableInCsvFormatType returnValue = default(NSXTInterfaceArpTableInCsvFormatType);
-            StringBuilder GetDownlinkPortArpTableForTier1SegmentInCsvServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/gateway-interface-arp-table?format=csv");
+            StringBuilder GlobalInfraGetDownlinkPortArpTableForTier1SegmentInCsvServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/gateway-interface-arp-table?format=csv");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetDownlinkPortArpTableForTier1SegmentInCsvServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetDownlinkPortArpTableForTier1SegmentInCsvServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetDownlinkPortArpTableForTier1SegmentInCsvServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetDownlinkPortArpTableForTier1SegmentInCsvServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (HostTransportNodePath != null) { request.AddQueryParameter("host_transport_node_path", HostTransportNodePath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetDownlinkPortArpTableForTier1SegmentInCsvServiceURL.ToString();
+            request.Resource = GlobalInfraGetDownlinkPortArpTableForTier1SegmentInCsvServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetDownlinkPortArpTableForTier1SegmentInCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetDownlinkPortArpTableForTier1SegmentInCsvServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -5646,20 +6055,19 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentCrossSiteTrafficStatsType GlobalGetSegmentCsTrafficStats(string Tier1Id, string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyInterfaceStatisticsSummaryType GlobalGlobalInfraGetTier0RouterLinkSummaryStatistics(string Tier0Id, string Tier1Path, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
-            NSXTSegmentCrossSiteTrafficStatsType returnValue = default(NSXTSegmentCrossSiteTrafficStatsType);
-            StringBuilder GetSegmentCsTrafficStatsServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/inter-site-forwarder/status");
+            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
+            if (Tier1Path == null) { throw new System.ArgumentNullException("Tier1Path cannot be null"); }
+            NSXTPolicyInterfaceStatisticsSummaryType returnValue = default(NSXTPolicyInterfaceStatisticsSummaryType);
+            StringBuilder GlobalInfraGetTier0RouterLinkSummaryStatisticsServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/tier-1-interface/statistics/summary");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetSegmentCsTrafficStatsServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetSegmentCsTrafficStatsServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0RouterLinkSummaryStatisticsServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
@@ -5668,11 +6076,59 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetSegmentCsTrafficStatsServiceURL.ToString();
+            if (Tier1Path != null) { request.AddQueryParameter("tier1_path", Tier1Path.ToString()); }
+            request.Resource = GlobalInfraGetTier0RouterLinkSummaryStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetSegmentCsTrafficStatsServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier0RouterLinkSummaryStatisticsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyInterfaceStatisticsSummaryType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyInterfaceStatisticsSummaryType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTSegmentCrossSiteTrafficStatsType GlobalGlobalInfraGetSegmentCsTrafficStats(string Tier1Id, string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
+            NSXTSegmentCrossSiteTrafficStatsType returnValue = default(NSXTSegmentCrossSiteTrafficStatsType);
+            StringBuilder GlobalInfraGetSegmentCsTrafficStatsServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/inter-site-forwarder/status");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetSegmentCsTrafficStatsServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetSegmentCsTrafficStatsServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = GlobalInfraGetSegmentCsTrafficStatsServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetSegmentCsTrafficStatsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -5693,7 +6149,49 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyInterfaceStatisticsType GetDownlinkPortStatisticsForInfraSegment(string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTBridgeEndpointStatusType Tier1SegmentBridgeEndpointStatus(string Tier1Id, string SegmentId, string BridgeProfilePath, string? EnforcementPointPath = null)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
+            if (BridgeProfilePath == null) { throw new System.ArgumentNullException("BridgeProfilePath cannot be null"); }
+            NSXTBridgeEndpointStatusType returnValue = default(NSXTBridgeEndpointStatusType);
+            StringBuilder Tier1SegmentBridgeEndpointStatusServiceURL = new StringBuilder("/infra/tier-1s/{tier-1-id}/segments/{segment-id}/bep-status");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            Tier1SegmentBridgeEndpointStatusServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            Tier1SegmentBridgeEndpointStatusServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (BridgeProfilePath != null) { request.AddQueryParameter("bridge_profile_path", BridgeProfilePath.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            request.Resource = Tier1SegmentBridgeEndpointStatusServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + Tier1SegmentBridgeEndpointStatusServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTBridgeEndpointStatusType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTBridgeEndpointStatusType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPolicyInterfaceStatisticsType GetDownlinkPortStatisticsForInfraSegment(string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? HostTransportNodePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             NSXTPolicyInterfaceStatisticsType returnValue = default(NSXTPolicyInterfaceStatisticsType);
@@ -5708,6 +6206,7 @@ namespace nsxtapi.PolicyModules
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (HostTransportNodePath != null) { request.AddQueryParameter("host_transport_node_path", HostTransportNodePath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
@@ -5737,20 +6236,67 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentConfigurationStateType GlobalGetSegmentState(string Tier1Id, string SegmentsId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyArpProxyTableListResultType GetDownlinkPortArpProxiesForTier1Segment(string Tier1Id, string SegmentId, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (SegmentsId == null) { throw new System.ArgumentNullException("SegmentsId cannot be null"); }
-            NSXTSegmentConfigurationStateType returnValue = default(NSXTSegmentConfigurationStateType);
-            StringBuilder GetSegmentStateServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segments-id}/state");
+            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
+            NSXTPolicyArpProxyTableListResultType returnValue = default(NSXTPolicyArpProxyTableListResultType);
+            StringBuilder GetDownlinkPortArpProxiesForTier1SegmentServiceURL = new StringBuilder("/infra/tier-1s/{tier-1-id}/segments/{segment-id}/arp-proxy");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetSegmentStateServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetSegmentStateServiceURL.Replace("{segments-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentsId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetDownlinkPortArpProxiesForTier1SegmentServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GetDownlinkPortArpProxiesForTier1SegmentServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
+            if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
+            request.Resource = GetDownlinkPortArpProxiesForTier1SegmentServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetDownlinkPortArpProxiesForTier1SegmentServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyArpProxyTableListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyArpProxyTableListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTSegmentConfigurationStateType GlobalGlobalInfraGetSegmentState(string Tier1Id, string SegmentsId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            if (SegmentsId == null) { throw new System.ArgumentNullException("SegmentsId cannot be null"); }
+            NSXTSegmentConfigurationStateType returnValue = default(NSXTSegmentConfigurationStateType);
+            StringBuilder GlobalInfraGetSegmentStateServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segments-id}/state");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetSegmentStateServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetSegmentStateServiceURL.Replace("{segments-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentsId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
@@ -5759,11 +6305,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetSegmentStateServiceURL.ToString();
+            request.Resource = GlobalInfraGetSegmentStateServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetSegmentStateServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetSegmentStateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -5827,7 +6373,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterfaceArpTableInCsvFormatType GetSegmentInterfaceArpTableCsv(string Tier1Id, string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTInterfaceArpTableInCsvFormatType GetSegmentInterfaceArpTableCsv(string Tier1Id, string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? HostTransportNodePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -5844,6 +6390,7 @@ namespace nsxtapi.PolicyModules
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (HostTransportNodePath != null) { request.AddQueryParameter("host_transport_node_path", HostTransportNodePath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
@@ -5873,20 +6420,20 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentPortStatisticsType GlobalGetInfraSegmentPortStatistics(string SegmentsId, string PortId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTSegmentPortStatisticsType GlobalGlobalInfraGetInfraSegmentPortStatistics(string SegmentsId, string PortId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (SegmentsId == null) { throw new System.ArgumentNullException("SegmentsId cannot be null"); }
             if (PortId == null) { throw new System.ArgumentNullException("PortId cannot be null"); }
             NSXTSegmentPortStatisticsType returnValue = default(NSXTSegmentPortStatisticsType);
-            StringBuilder GetInfraSegmentPortStatisticsServiceURL = new StringBuilder("/global-infra/segments/{segments-id}/ports/{port-id}/statistics");
+            StringBuilder GlobalInfraGetInfraSegmentPortStatisticsServiceURL = new StringBuilder("/global-infra/segments/{segments-id}/ports/{port-id}/statistics");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetInfraSegmentPortStatisticsServiceURL.Replace("{segments-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentsId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetInfraSegmentPortStatisticsServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetInfraSegmentPortStatisticsServiceURL.Replace("{segments-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentsId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetInfraSegmentPortStatisticsServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
@@ -5895,11 +6442,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetInfraSegmentPortStatisticsServiceURL.ToString();
+            request.Resource = GlobalInfraGetInfraSegmentPortStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetInfraSegmentPortStatisticsServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetInfraSegmentPortStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -5969,27 +6516,27 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterfaceDADStateType GlobalGetDownlinkPortDadStateForTier1Segment(string Tier1Id, string SegmentId, string? EnforcementPointPath = null, string? Source = null)
+        public NSXTInterfaceDADStateType GlobalGlobalInfraGetDownlinkPortDadStateForTier1Segment(string Tier1Id, string SegmentId, string? EnforcementPointPath = null, string? Source = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             NSXTInterfaceDADStateType returnValue = default(NSXTInterfaceDADStateType);
-            StringBuilder GetDownlinkPortDadStateForTier1SegmentServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/gateway-interface-dad-state");
+            StringBuilder GlobalInfraGetDownlinkPortDadStateForTier1SegmentServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/gateway-interface-dad-state");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetDownlinkPortDadStateForTier1SegmentServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetDownlinkPortDadStateForTier1SegmentServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetDownlinkPortDadStateForTier1SegmentServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetDownlinkPortDadStateForTier1SegmentServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
-            request.Resource = GetDownlinkPortDadStateForTier1SegmentServiceURL.ToString();
+            request.Resource = GlobalInfraGetDownlinkPortDadStateForTier1SegmentServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetDownlinkPortDadStateForTier1SegmentServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetDownlinkPortDadStateForTier1SegmentServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -6001,6 +6548,98 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTInterfaceDADStateType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTInterfaceArpTableType GetTier0RouterLinkArpTable(string Tier0Id, string Tier1Path, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
+            if (Tier1Path == null) { throw new System.ArgumentNullException("Tier1Path cannot be null"); }
+            NSXTInterfaceArpTableType returnValue = default(NSXTInterfaceArpTableType);
+            StringBuilder GetTier0RouterLinkArpTableServiceURL = new StringBuilder("/infra/tier-0s/{tier-0-id}/tier-1-interface/arp-table");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GetTier0RouterLinkArpTableServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            if (Tier1Path != null) { request.AddQueryParameter("tier1_path", Tier1Path.ToString()); }
+            request.Resource = GetTier0RouterLinkArpTableServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetTier0RouterLinkArpTableServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTInterfaceArpTableType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTInterfaceArpTableType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPolicyArpProxyTableListResultType GetTier1GatewayArpProxies(string Tier1Id, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            NSXTPolicyArpProxyTableListResultType returnValue = default(NSXTPolicyArpProxyTableListResultType);
+            StringBuilder GetTier1GatewayArpProxiesServiceURL = new StringBuilder("/infra/tier-1s/{tier-1-id}/arp-proxies");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GetTier1GatewayArpProxiesServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
+            if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
+            request.Resource = GetTier1GatewayArpProxiesServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetTier1GatewayArpProxiesServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyArpProxyTableListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyArpProxyTableListResultType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -6055,18 +6694,18 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRoutingTableListResultType GlobalGetTier1ForwardingTable(string Tier1Id, string? Cursor = null, string? EdgeId = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, string? NetworkPrefix = null, long? PageSize = null, string? RouteSource = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTRoutingTableListResultType GlobalGlobalInfraGetTier1ForwardingTable(string Tier1Id, string? Cursor = null, string? EdgeId = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, string? NetworkPrefix = null, long? PageSize = null, string? RouteSource = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             NSXTRoutingTableListResultType returnValue = default(NSXTRoutingTableListResultType);
-            StringBuilder GetTier1ForwardingTableServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/forwarding-table");
+            StringBuilder GlobalInfraGetTier1ForwardingTableServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/forwarding-table");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier1ForwardingTableServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1ForwardingTableServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgeId != null) { request.AddQueryParameter("edge_id", EdgeId.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
@@ -6077,11 +6716,11 @@ namespace nsxtapi.PolicyModules
             if (RouteSource != null) { request.AddQueryParameter("route_source", RouteSource.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetTier1ForwardingTableServiceURL.ToString();
+            request.Resource = GlobalInfraGetTier1ForwardingTableServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier1ForwardingTableServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier1ForwardingTableServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -6102,112 +6741,22 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyMulticastRoutesInCsvFormatType GlobalGetPolicyMulticastRoutesInCsvFormatCsv(string Tier0Id, string LocaleServicesId, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            NSXTPolicyMulticastRoutesInCsvFormatType returnValue = default(NSXTPolicyMulticastRoutesInCsvFormatType);
-            StringBuilder GetPolicyMulticastRoutesInCsvFormatCsvServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-services-id}/multicast/routes?format=csv");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetPolicyMulticastRoutesInCsvFormatCsvServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetPolicyMulticastRoutesInCsvFormatCsvServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetPolicyMulticastRoutesInCsvFormatCsvServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetPolicyMulticastRoutesInCsvFormatCsvServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyMulticastRoutesInCsvFormatType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyMulticastRoutesInCsvFormatType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTPimRpMappingsType GlobalGetPolicyPimRpMappings(string Tier0Id, string LocaleServicesId, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            NSXTPimRpMappingsType returnValue = default(NSXTPimRpMappingsType);
-            StringBuilder GetPolicyPimRpMappingsServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-services-id}/multicast/pim-rp-mappings");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetPolicyPimRpMappingsServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetPolicyPimRpMappingsServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetPolicyPimRpMappingsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetPolicyPimRpMappingsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPimRpMappingsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPimRpMappingsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTBgpNeighborRoutesListResultType GlobalGetTier0BgpNeighborAdvertisedRoutes(string Tier0Id, string LocaleServiceId, string NeighborId, long? Count = null, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTBgpNeighborRoutesListResultType GlobalGlobalInfraGetTier0BgpNeighborAdvertisedRoutes(string Tier0Id, string LocaleServiceId, string NeighborId, int? Count = null, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
             if (NeighborId == null) { throw new System.ArgumentNullException("NeighborId cannot be null"); }
             NSXTBgpNeighborRoutesListResultType returnValue = default(NSXTBgpNeighborRoutesListResultType);
-            StringBuilder GetTier0BgpNeighborAdvertisedRoutesServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/bgp/neighbors/{neighbor-id}/advertised-routes");
+            StringBuilder GlobalInfraGetTier0BgpNeighborAdvertisedRoutesServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/bgp/neighbors/{neighbor-id}/advertised-routes");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier0BgpNeighborAdvertisedRoutesServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0BgpNeighborAdvertisedRoutesServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0BgpNeighborAdvertisedRoutesServiceURL.Replace("{neighbor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NeighborId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0BgpNeighborAdvertisedRoutesServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0BgpNeighborAdvertisedRoutesServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0BgpNeighborAdvertisedRoutesServiceURL.Replace("{neighbor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NeighborId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Count != null) { request.AddQueryParameter("count", Count.ToString()); }
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
@@ -6215,11 +6764,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetTier0BgpNeighborAdvertisedRoutesServiceURL.ToString();
+            request.Resource = GlobalInfraGetTier0BgpNeighborAdvertisedRoutesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier0BgpNeighborAdvertisedRoutesServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier0BgpNeighborAdvertisedRoutesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -6280,18 +6829,18 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyTepListResultType GlobalGetInfraSegmentTepTable(string SegmentId, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
+        public NSXTPolicyTepListResultType GlobalGlobalInfraGetInfraSegmentTepTable(string SegmentId, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             NSXTPolicyTepListResultType returnValue = default(NSXTPolicyTepListResultType);
-            StringBuilder GetInfraSegmentTepTableServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/tep-table");
+            StringBuilder GlobalInfraGetInfraSegmentTepTableServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/tep-table");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetInfraSegmentTepTableServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetInfraSegmentTepTableServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
@@ -6300,11 +6849,11 @@ namespace nsxtapi.PolicyModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
-            request.Resource = GetInfraSegmentTepTableServiceURL.ToString();
+            request.Resource = GlobalInfraGetInfraSegmentTepTableServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetInfraSegmentTepTableServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetInfraSegmentTepTableServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -6325,34 +6874,35 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterfaceArpTableType GlobalGetTier0InterfaceArpTable(string Tier0Id, string LocaleServiceId, string InterfaceId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTInterfaceArpTableType GlobalGlobalInfraGetTier0InterfaceArpTable(string Tier0Id, string LocaleServiceId, string InterfaceId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? HostTransportNodePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
             if (InterfaceId == null) { throw new System.ArgumentNullException("InterfaceId cannot be null"); }
             NSXTInterfaceArpTableType returnValue = default(NSXTInterfaceArpTableType);
-            StringBuilder GetTier0InterfaceArpTableServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/interfaces/{interface-id}/arp-table");
+            StringBuilder GlobalInfraGetTier0InterfaceArpTableServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/interfaces/{interface-id}/arp-table");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier0InterfaceArpTableServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0InterfaceArpTableServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0InterfaceArpTableServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0InterfaceArpTableServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0InterfaceArpTableServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0InterfaceArpTableServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (HostTransportNodePath != null) { request.AddQueryParameter("host_transport_node_path", HostTransportNodePath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetTier0InterfaceArpTableServiceURL.ToString();
+            request.Resource = GlobalInfraGetTier0InterfaceArpTableServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier0InterfaceArpTableServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier0InterfaceArpTableServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -6373,10 +6923,10 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentConfigurationStateListResultType GlobalGetInfraSegmentsByState(string? ConfigurationState = null, string? EnforcementPointPath = null, string? Source = null)
+        public NSXTSegmentConfigurationStateListResultType GlobalGlobalInfraGetInfraSegmentsByState(string? ConfigurationState = null, string? EnforcementPointPath = null, string? Source = null)
         {
             NSXTSegmentConfigurationStateListResultType returnValue = default(NSXTSegmentConfigurationStateListResultType);
-            StringBuilder GetInfraSegmentsByStateServiceURL = new StringBuilder("/global-infra/segments/state");
+            StringBuilder GlobalInfraGetInfraSegmentsByStateServiceURL = new StringBuilder("/global-infra/segments/state");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -6386,11 +6936,11 @@ namespace nsxtapi.PolicyModules
             if (ConfigurationState != null) { request.AddQueryParameter("configuration_state", ConfigurationState.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
-            request.Resource = GetInfraSegmentsByStateServiceURL.ToString();
+            request.Resource = GlobalInfraGetInfraSegmentsByStateServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetInfraSegmentsByStateServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetInfraSegmentsByStateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -6552,22 +7102,22 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBgpNeighborRouteDetailsInCsvFormatType GlobalGetTier0BgpNeighborRoutesInCsvFormatCsv(string Tier0Id, string LocaleServiceId, string NeighborId, long? Count = null, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTBgpNeighborRouteDetailsInCsvFormatType GlobalGlobalInfraGetTier0BgpNeighborRoutesInCsvFormat(string Tier0Id, string LocaleServiceId, string NeighborId, int? Count = null, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
             if (NeighborId == null) { throw new System.ArgumentNullException("NeighborId cannot be null"); }
             NSXTBgpNeighborRouteDetailsInCsvFormatType returnValue = default(NSXTBgpNeighborRouteDetailsInCsvFormatType);
-            StringBuilder GetTier0BgpNeighborRoutesInCsvFormatCsvServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/bgp/neighbors/{neighbor-id}/routes?format=csv");
+            StringBuilder GlobalInfraGetTier0BgpNeighborRoutesInCsvFormatServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/bgp/neighbors/{neighbor-id}/routes?format=csv");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier0BgpNeighborRoutesInCsvFormatCsvServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0BgpNeighborRoutesInCsvFormatCsvServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0BgpNeighborRoutesInCsvFormatCsvServiceURL.Replace("{neighbor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NeighborId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0BgpNeighborRoutesInCsvFormatServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0BgpNeighborRoutesInCsvFormatServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0BgpNeighborRoutesInCsvFormatServiceURL.Replace("{neighbor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NeighborId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Count != null) { request.AddQueryParameter("count", Count.ToString()); }
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
@@ -6575,11 +7125,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetTier0BgpNeighborRoutesInCsvFormatCsvServiceURL.ToString();
+            request.Resource = GlobalInfraGetTier0BgpNeighborRoutesInCsvFormatServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier0BgpNeighborRoutesInCsvFormatCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier0BgpNeighborRoutesInCsvFormatServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -6600,40 +7150,41 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyArpProxyTableListResultType GlobalGetTier1InterfaceArpProxies(string Tier1Id, string LocaleServiceId, string InterfaceId, string? EnforcementPointPath = null, string? Source = null)
+        public NSXTPolicyArpProxyTableCsvListResultType GlobalGlobalInfraGetTier0InterfaceArpProxiesInCsv(string Tier0Id, string LocaleServiceId, string InterfaceId, string? EnforcementPointPath = null, string? Source = null, string? TransportNodeId = null)
         {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
             if (InterfaceId == null) { throw new System.ArgumentNullException("InterfaceId cannot be null"); }
-            NSXTPolicyArpProxyTableListResultType returnValue = default(NSXTPolicyArpProxyTableListResultType);
-            StringBuilder GetTier1InterfaceArpProxiesServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/locale-services/{locale-service-id}/interfaces/{interface-id}/arp-proxy");
+            NSXTPolicyArpProxyTableCsvListResultType returnValue = default(NSXTPolicyArpProxyTableCsvListResultType);
+            StringBuilder GlobalInfraGetTier0InterfaceArpProxiesInCsvServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/interfaces/{interface-id}/arp-proxy?format=csv");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier1InterfaceArpProxiesServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1InterfaceArpProxiesServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1InterfaceArpProxiesServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0InterfaceArpProxiesInCsvServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0InterfaceArpProxiesInCsvServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0InterfaceArpProxiesInCsvServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
-            request.Resource = GetTier1InterfaceArpProxiesServiceURL.ToString();
+            if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
+            request.Resource = GlobalInfraGetTier0InterfaceArpProxiesInCsvServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier1InterfaceArpProxiesServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier0InterfaceArpProxiesInCsvServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
 			{
 				try
 				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyArpProxyTableListResultType>(response.Content, defaultSerializationSettings);
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyArpProxyTableCsvListResultType>(response.Content, defaultSerializationSettings);
 				}
 				catch (Exception ex)
 				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyArpProxyTableListResultType).FullName + ".";
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyArpProxyTableCsvListResultType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -6643,30 +7194,35 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterfaceArpTableInCsvFormatType GlobalGetDownlinkPortArpTableForInfraSegmentInCsv(string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTInterfaceArpTableInCsvFormatType GetTier0InterfaceArpTableCsv(string Tier0Id, string LocaleServiceId, string InterfaceId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? HostTransportNodePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
-            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
+            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
+            if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
+            if (InterfaceId == null) { throw new System.ArgumentNullException("InterfaceId cannot be null"); }
             NSXTInterfaceArpTableInCsvFormatType returnValue = default(NSXTInterfaceArpTableInCsvFormatType);
-            StringBuilder GetDownlinkPortArpTableForInfraSegmentInCsvServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/gateway-interface-arp-table?format=csv");
+            StringBuilder GetTier0InterfaceArpTableCsvServiceURL = new StringBuilder("/infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/interfaces/{interface-id}/arp-table?format=csv");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetDownlinkPortArpTableForInfraSegmentInCsvServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetTier0InterfaceArpTableCsvServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GetTier0InterfaceArpTableCsvServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetTier0InterfaceArpTableCsvServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (HostTransportNodePath != null) { request.AddQueryParameter("host_transport_node_path", HostTransportNodePath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetDownlinkPortArpTableForInfraSegmentInCsvServiceURL.ToString();
+            request.Resource = GetTier0InterfaceArpTableCsvServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetDownlinkPortArpTableForInfraSegmentInCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GetTier0InterfaceArpTableCsvServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -6687,27 +7243,211 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpStaticBindingStateType GlobalReadSegmentDhcpStaticBindingState(string Tier1Id, string SegmentId, string BindingId)
+        public NSXTInterfaceArpTableType GetTier1RouterLinkArpTable(string Tier1Id, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? HostTransportNodePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
-            if (BindingId == null) { throw new System.ArgumentNullException("BindingId cannot be null"); }
-            NSXTDhcpStaticBindingStateType returnValue = default(NSXTDhcpStaticBindingStateType);
-            StringBuilder ReadSegmentDhcpStaticBindingStateServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/dhcp-static-bindings/{binding-id}/state");
+            NSXTInterfaceArpTableType returnValue = default(NSXTInterfaceArpTableType);
+            StringBuilder GetTier1RouterLinkArpTableServiceURL = new StringBuilder("/infra/tier-1s/{tier-1-id}/tier-0-interface/arp-table");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            ReadSegmentDhcpStaticBindingStateServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            ReadSegmentDhcpStaticBindingStateServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReadSegmentDhcpStaticBindingStateServiceURL.Replace("{binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BindingId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadSegmentDhcpStaticBindingStateServiceURL.ToString();
+            GetTier1RouterLinkArpTableServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (HostTransportNodePath != null) { request.AddQueryParameter("host_transport_node_path", HostTransportNodePath.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = GetTier1RouterLinkArpTableServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ReadSegmentDhcpStaticBindingStateServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GetTier1RouterLinkArpTableServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTInterfaceArpTableType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTInterfaceArpTableType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPolicyArpProxyTableListResultType GetDownlinkPortArpProxiesForInfraSegment(string SegmentId, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
+        {
+            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
+            NSXTPolicyArpProxyTableListResultType returnValue = default(NSXTPolicyArpProxyTableListResultType);
+            StringBuilder GetDownlinkPortArpProxiesForInfraSegmentServiceURL = new StringBuilder("/infra/segments/{segment-id}/arp-proxy");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GetDownlinkPortArpProxiesForInfraSegmentServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
+            if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
+            request.Resource = GetDownlinkPortArpProxiesForInfraSegmentServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetDownlinkPortArpProxiesForInfraSegmentServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyArpProxyTableListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyArpProxyTableListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPolicyArpProxyTableListResultType GlobalGlobalInfraGetTier1InterfaceArpProxies(string Tier1Id, string LocaleServiceId, string InterfaceId, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
+            if (InterfaceId == null) { throw new System.ArgumentNullException("InterfaceId cannot be null"); }
+            NSXTPolicyArpProxyTableListResultType returnValue = default(NSXTPolicyArpProxyTableListResultType);
+            StringBuilder GlobalInfraGetTier1InterfaceArpProxiesServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/locale-services/{locale-service-id}/interfaces/{interface-id}/arp-proxy");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetTier1InterfaceArpProxiesServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1InterfaceArpProxiesServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1InterfaceArpProxiesServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
+            if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
+            request.Resource = GlobalInfraGetTier1InterfaceArpProxiesServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetTier1InterfaceArpProxiesServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyArpProxyTableListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyArpProxyTableListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTInterfaceArpTableInCsvFormatType GlobalGlobalInfraGetDownlinkPortArpTableForInfraSegmentInCsv(string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? HostTransportNodePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
+            NSXTInterfaceArpTableInCsvFormatType returnValue = default(NSXTInterfaceArpTableInCsvFormatType);
+            StringBuilder GlobalInfraGetDownlinkPortArpTableForInfraSegmentInCsvServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/gateway-interface-arp-table?format=csv");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetDownlinkPortArpTableForInfraSegmentInCsvServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (HostTransportNodePath != null) { request.AddQueryParameter("host_transport_node_path", HostTransportNodePath.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = GlobalInfraGetDownlinkPortArpTableForInfraSegmentInCsvServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetDownlinkPortArpTableForInfraSegmentInCsvServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTInterfaceArpTableInCsvFormatType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTInterfaceArpTableInCsvFormatType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTDhcpStaticBindingStateType GlobalGlobalInfraReadSegmentDhcpStaticBindingState(string Tier1Id, string SegmentId, string BindingId)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
+            if (BindingId == null) { throw new System.ArgumentNullException("BindingId cannot be null"); }
+            NSXTDhcpStaticBindingStateType returnValue = default(NSXTDhcpStaticBindingStateType);
+            StringBuilder GlobalInfraReadSegmentDhcpStaticBindingStateServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/dhcp-static-bindings/{binding-id}/state");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraReadSegmentDhcpStaticBindingStateServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraReadSegmentDhcpStaticBindingStateServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraReadSegmentDhcpStaticBindingStateServiceURL.Replace("{binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BindingId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraReadSegmentDhcpStaticBindingStateServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraReadSegmentDhcpStaticBindingStateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -6777,32 +7517,31 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyInterfaceStatisticsType GlobalGetDownlinkPortStatisticsForTier1Segment(string Tier1Id, string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyInterfaceStatisticsType GetTier1RouterLinkStatistics(string Tier1Id, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             NSXTPolicyInterfaceStatisticsType returnValue = default(NSXTPolicyInterfaceStatisticsType);
-            StringBuilder GetDownlinkPortStatisticsForTier1SegmentServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/gateway-interface-statistics");
+            StringBuilder GetTier1RouterLinkStatisticsServiceURL = new StringBuilder("/infra/tier-1s/{tier-1-id}/tier-0-interface/statistics");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetDownlinkPortStatisticsForTier1SegmentServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetDownlinkPortStatisticsForTier1SegmentServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetTier1RouterLinkStatisticsServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetDownlinkPortStatisticsForTier1SegmentServiceURL.ToString();
+            request.Resource = GetTier1RouterLinkStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetDownlinkPortStatisticsForTier1SegmentServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GetTier1RouterLinkStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -6823,7 +7562,51 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyArpProxyTableListResultType GetTier1InterfaceArpProxies(string Tier1Id, string LocaleServiceId, string InterfaceId, string? EnforcementPointPath = null, string? Source = null)
+        public NSXTPolicyArpProxyTableCsvListResultType GetTier0InterfaceArpProxiesInCsv(string Tier0Id, string LocaleServiceId, string InterfaceId, string? EnforcementPointPath = null, string? Source = null, string? TransportNodeId = null)
+        {
+            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
+            if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
+            if (InterfaceId == null) { throw new System.ArgumentNullException("InterfaceId cannot be null"); }
+            NSXTPolicyArpProxyTableCsvListResultType returnValue = default(NSXTPolicyArpProxyTableCsvListResultType);
+            StringBuilder GetTier0InterfaceArpProxiesInCsvServiceURL = new StringBuilder("/infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/interfaces/{interface-id}/arp-proxy?format=csv");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GetTier0InterfaceArpProxiesInCsvServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GetTier0InterfaceArpProxiesInCsvServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetTier0InterfaceArpProxiesInCsvServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
+            if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
+            request.Resource = GetTier0InterfaceArpProxiesInCsvServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetTier0InterfaceArpProxiesInCsvServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyArpProxyTableCsvListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyArpProxyTableCsvListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPolicyArpProxyTableListResultType GetTier1InterfaceArpProxies(string Tier1Id, string LocaleServiceId, string InterfaceId, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -6839,8 +7622,14 @@ namespace nsxtapi.PolicyModules
             GetTier1InterfaceArpProxiesServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             GetTier1InterfaceArpProxiesServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             GetTier1InterfaceArpProxiesServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
+            if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
             request.Resource = GetTier1InterfaceArpProxiesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
@@ -6866,25 +7655,25 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterfaceDADStateType GlobalGetDownlinkPortDadStateForInfraSegment(string SegmentId, string? EnforcementPointPath = null, string? Source = null)
+        public NSXTInterfaceDADStateType GlobalGlobalInfraGetDownlinkPortDadStateForInfraSegment(string SegmentId, string? EnforcementPointPath = null, string? Source = null)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             NSXTInterfaceDADStateType returnValue = default(NSXTInterfaceDADStateType);
-            StringBuilder GetDownlinkPortDadStateForInfraSegmentServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/gateway-interface-dad-state");
+            StringBuilder GlobalInfraGetDownlinkPortDadStateForInfraSegmentServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/gateway-interface-dad-state");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetDownlinkPortDadStateForInfraSegmentServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetDownlinkPortDadStateForInfraSegmentServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
-            request.Resource = GetDownlinkPortDadStateForInfraSegmentServiceURL.ToString();
+            request.Resource = GlobalInfraGetDownlinkPortDadStateForInfraSegmentServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetDownlinkPortDadStateForInfraSegmentServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetDownlinkPortDadStateForInfraSegmentServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -6905,27 +7694,27 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentPortStateType GlobalGetInfraSegmentPortState(string SegmentId, string PortId, string? EnforcementPointPath = null, string? Source = null)
+        public NSXTSegmentPortStateType GlobalGlobalInfraGetInfraSegmentPortState(string SegmentId, string PortId, string? EnforcementPointPath = null, string? Source = null)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (PortId == null) { throw new System.ArgumentNullException("PortId cannot be null"); }
             NSXTSegmentPortStateType returnValue = default(NSXTSegmentPortStateType);
-            StringBuilder GetInfraSegmentPortStateServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/ports/{port-id}/state");
+            StringBuilder GlobalInfraGetInfraSegmentPortStateServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/ports/{port-id}/state");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetInfraSegmentPortStateServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetInfraSegmentPortStateServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetInfraSegmentPortStateServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetInfraSegmentPortStateServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
-            request.Resource = GetInfraSegmentPortStateServiceURL.ToString();
+            request.Resource = GlobalInfraGetInfraSegmentPortStateServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetInfraSegmentPortStateServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetInfraSegmentPortStateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -6946,7 +7735,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyArpProxyTableListResultType GetTier0ArpProxies(string Tier0Id, string LocaleServiceId, string? EnforcementPointPath = null, string? Source = null)
+        public NSXTPolicyArpProxyTableListResultType GetTier0ArpProxies(string Tier0Id, string LocaleServiceId, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -6960,8 +7749,14 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetTier0ArpProxiesServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             GetTier0ArpProxiesServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
+            if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
             request.Resource = GetTier0ArpProxiesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
@@ -6987,22 +7782,22 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBgpNeighborRouteDetailsInCsvFormatType GetTier0BgpNeighborRoutesInCsvFormatCsv(string Tier0Id, string LocaleServiceId, string NeighborId, long? Count = null, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTBgpNeighborRouteDetailsInCsvFormatType GetTier0BgpNeighborRoutesInCsvFormat(string Tier0Id, string LocaleServiceId, string NeighborId, int? Count = null, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
             if (NeighborId == null) { throw new System.ArgumentNullException("NeighborId cannot be null"); }
             NSXTBgpNeighborRouteDetailsInCsvFormatType returnValue = default(NSXTBgpNeighborRouteDetailsInCsvFormatType);
-            StringBuilder GetTier0BgpNeighborRoutesInCsvFormatCsvServiceURL = new StringBuilder("/infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/bgp/neighbors/{neighbor-id}/routes?format=csv");
+            StringBuilder GetTier0BgpNeighborRoutesInCsvFormatServiceURL = new StringBuilder("/infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/bgp/neighbors/{neighbor-id}/routes?format=csv");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier0BgpNeighborRoutesInCsvFormatCsvServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0BgpNeighborRoutesInCsvFormatCsvServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0BgpNeighborRoutesInCsvFormatCsvServiceURL.Replace("{neighbor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NeighborId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetTier0BgpNeighborRoutesInCsvFormatServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GetTier0BgpNeighborRoutesInCsvFormatServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetTier0BgpNeighborRoutesInCsvFormatServiceURL.Replace("{neighbor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NeighborId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Count != null) { request.AddQueryParameter("count", Count.ToString()); }
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
@@ -7010,11 +7805,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetTier0BgpNeighborRoutesInCsvFormatCsvServiceURL.ToString();
+            request.Resource = GetTier0BgpNeighborRoutesInCsvFormatServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier0BgpNeighborRoutesInCsvFormatCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GetTier0BgpNeighborRoutesInCsvFormatServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -7035,7 +7830,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBgpNeighborRoutesListResultType GetTier0BgpNeighborRoutes(string Tier0Id, string LocaleServiceId, string NeighborId, long? Count = null, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTBgpNeighborRoutesListResultType GetTier0BgpNeighborRoutes(string Tier0Id, string LocaleServiceId, string NeighborId, int? Count = null, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -7083,43 +7878,42 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTOspfDatabaseListResultInCsvFormatType GlobalGetOspfDatabaseInCsvFormatCsv(string Tier0Id, string LocaleServiceId, string? AreaId = null, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTInterfaceArpTableType GlobalGlobalInfraGetTier1RouterLinkArpTable(string Tier1Id, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? HostTransportNodePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
-            NSXTOspfDatabaseListResultInCsvFormatType returnValue = default(NSXTOspfDatabaseListResultInCsvFormatType);
-            StringBuilder GetOspfDatabaseInCsvFormatCsvServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/ospf/database?format=csv");
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            NSXTInterfaceArpTableType returnValue = default(NSXTInterfaceArpTableType);
+            StringBuilder GlobalInfraGetTier1RouterLinkArpTableServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/tier-0-interface/arp-table");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetOspfDatabaseInCsvFormatCsvServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetOspfDatabaseInCsvFormatCsvServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (AreaId != null) { request.AddQueryParameter("area_id", AreaId.ToString()); }
+            GlobalInfraGetTier1RouterLinkArpTableServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (HostTransportNodePath != null) { request.AddQueryParameter("host_transport_node_path", HostTransportNodePath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetOspfDatabaseInCsvFormatCsvServiceURL.ToString();
+            request.Resource = GlobalInfraGetTier1RouterLinkArpTableServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetOspfDatabaseInCsvFormatCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier1RouterLinkArpTableServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
 			{
 				try
 				{
-					returnValue = JsonConvert.DeserializeObject<NSXTOspfDatabaseListResultInCsvFormatType>(response.Content, defaultSerializationSettings);
+					returnValue = JsonConvert.DeserializeObject<NSXTInterfaceArpTableType>(response.Content, defaultSerializationSettings);
 				}
 				catch (Exception ex)
 				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTOspfDatabaseListResultInCsvFormatType).FullName + ".";
+					var message = "Could not deserialize the response body string as " + typeof(NSXTInterfaceArpTableType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -7129,32 +7923,33 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterfaceArpTableType GlobalGetSegmentInterfaceArpTable(string Tier1Id, string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTInterfaceArpTableType GlobalGlobalInfraGetSegmentInterfaceArpTable(string Tier1Id, string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? HostTransportNodePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             NSXTInterfaceArpTableType returnValue = default(NSXTInterfaceArpTableType);
-            StringBuilder GetSegmentInterfaceArpTableServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/arp-table");
+            StringBuilder GlobalInfraGetSegmentInterfaceArpTableServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/arp-table");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetSegmentInterfaceArpTableServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetSegmentInterfaceArpTableServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetSegmentInterfaceArpTableServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetSegmentInterfaceArpTableServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (HostTransportNodePath != null) { request.AddQueryParameter("host_transport_node_path", HostTransportNodePath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetSegmentInterfaceArpTableServiceURL.ToString();
+            request.Resource = GlobalInfraGetSegmentInterfaceArpTableServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetSegmentInterfaceArpTableServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetSegmentInterfaceArpTableServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -7220,42 +8015,43 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyMulticastForwardingType GlobalGetTier1PolicyMulticastForwarding(string Tier1Id, string LocaleServicesId, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyOspfDatabaseListResultType GetOspfDatabase(string Tier0Id, string LocaleServiceId, string? AreaId = null, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
-            NSXTPolicyMulticastForwardingType returnValue = default(NSXTPolicyMulticastForwardingType);
-            StringBuilder GetTier1PolicyMulticastForwardingServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/locale-services/{locale-services-id}/multicast/forwarding");
+            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
+            if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
+            NSXTPolicyOspfDatabaseListResultType returnValue = default(NSXTPolicyOspfDatabaseListResultType);
+            StringBuilder GetOspfDatabaseServiceURL = new StringBuilder("/infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/ospf/database");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier1PolicyMulticastForwardingServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1PolicyMulticastForwardingServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetOspfDatabaseServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GetOspfDatabaseServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (AreaId != null) { request.AddQueryParameter("area_id", AreaId.ToString()); }
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetTier1PolicyMulticastForwardingServiceURL.ToString();
+            request.Resource = GetOspfDatabaseServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier1PolicyMulticastForwardingServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GetOspfDatabaseServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
 			{
 				try
 				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyMulticastForwardingType>(response.Content, defaultSerializationSettings);
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyOspfDatabaseListResultType>(response.Content, defaultSerializationSettings);
 				}
 				catch (Exception ex)
 				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyMulticastForwardingType).FullName + ".";
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyOspfDatabaseListResultType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -7265,18 +8061,63 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentStatisticsType GlobalGetInfraSegmentStatistics(string SegmentsId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTTier1GatewayStateType GlobalGlobalInfraGetTier1State(string Tier1Id, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, string? InterfacePath = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
         {
-            if (SegmentsId == null) { throw new System.ArgumentNullException("SegmentsId cannot be null"); }
-            NSXTSegmentStatisticsType returnValue = default(NSXTSegmentStatisticsType);
-            StringBuilder GetInfraSegmentStatisticsServiceURL = new StringBuilder("/global-infra/segments/{segments-id}/statistics");
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            NSXTTier1GatewayStateType returnValue = default(NSXTTier1GatewayStateType);
+            StringBuilder GlobalInfraGetTier1StateServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/state");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetInfraSegmentStatisticsServiceURL.Replace("{segments-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentsId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1StateServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (InterfacePath != null) { request.AddQueryParameter("interface_path", InterfacePath.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            if (Type != null) { request.AddQueryParameter("type", Type.ToString()); }
+            request.Resource = GlobalInfraGetTier1StateServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetTier1StateServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTTier1GatewayStateType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTTier1GatewayStateType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTSegmentStatisticsType GlobalGlobalInfraGetInfraSegmentStatistics(string SegmentsId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (SegmentsId == null) { throw new System.ArgumentNullException("SegmentsId cannot be null"); }
+            NSXTSegmentStatisticsType returnValue = default(NSXTSegmentStatisticsType);
+            StringBuilder GlobalInfraGetInfraSegmentStatisticsServiceURL = new StringBuilder("/global-infra/segments/{segments-id}/statistics");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetInfraSegmentStatisticsServiceURL.Replace("{segments-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentsId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
@@ -7285,11 +8126,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetInfraSegmentStatisticsServiceURL.ToString();
+            request.Resource = GlobalInfraGetInfraSegmentStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetInfraSegmentStatisticsServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetInfraSegmentStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -7310,39 +8151,93 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterfaceDADStateType GlobalGetTier1InterfaceDadstate(string Tier1Id, string LocaleServiceId, string InterfaceId, string? EnforcementPointPath = null)
+        public NSXTInterfaceArpTableType GlobalGlobalInfraGetTier0RouterLinkArpTable(string Tier0Id, string Tier1Path, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
-            if (InterfaceId == null) { throw new System.ArgumentNullException("InterfaceId cannot be null"); }
-            NSXTInterfaceDADStateType returnValue = default(NSXTInterfaceDADStateType);
-            StringBuilder GetTier1InterfaceDadstateServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/locale-services/{locale-service-id}/interfaces/{interface-id}/dad-state");
+            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
+            if (Tier1Path == null) { throw new System.ArgumentNullException("Tier1Path cannot be null"); }
+            NSXTInterfaceArpTableType returnValue = default(NSXTInterfaceArpTableType);
+            StringBuilder GlobalInfraGetTier0RouterLinkArpTableServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/tier-1-interface/arp-table");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier1InterfaceDadstateServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1InterfaceDadstateServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1InterfaceDadstateServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0RouterLinkArpTableServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = GetTier1InterfaceDadstateServiceURL.ToString();
+            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            if (Tier1Path != null) { request.AddQueryParameter("tier1_path", Tier1Path.ToString()); }
+            request.Resource = GlobalInfraGetTier0RouterLinkArpTableServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier1InterfaceDadstateServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier0RouterLinkArpTableServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
 			{
 				try
 				{
-					returnValue = JsonConvert.DeserializeObject<NSXTInterfaceDADStateType>(response.Content, defaultSerializationSettings);
+					returnValue = JsonConvert.DeserializeObject<NSXTInterfaceArpTableType>(response.Content, defaultSerializationSettings);
 				}
 				catch (Exception ex)
 				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTInterfaceDADStateType).FullName + ".";
+					var message = "Could not deserialize the response body string as " + typeof(NSXTInterfaceArpTableType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTSegmentPortStatisticsType GlobalGlobalInfraGetSegmentPortStatistics(string Tier1Id, string SegmentsId, string PortId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            if (SegmentsId == null) { throw new System.ArgumentNullException("SegmentsId cannot be null"); }
+            if (PortId == null) { throw new System.ArgumentNullException("PortId cannot be null"); }
+            NSXTSegmentPortStatisticsType returnValue = default(NSXTSegmentPortStatisticsType);
+            StringBuilder GlobalInfraGetSegmentPortStatisticsServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segments-id}/ports/{port-id}/statistics");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetSegmentPortStatisticsServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetSegmentPortStatisticsServiceURL.Replace("{segments-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentsId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetSegmentPortStatisticsServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = GlobalInfraGetSegmentPortStatisticsServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetSegmentPortStatisticsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTSegmentPortStatisticsType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentPortStatisticsType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -7396,7 +8291,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterfaceArpTableInCsvFormatType GetDownlinkPortArpTableForTier1SegmentInCsv(string Tier1Id, string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTInterfaceArpTableInCsvFormatType GetDownlinkPortArpTableForTier1SegmentInCsv(string Tier1Id, string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? HostTransportNodePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -7413,6 +8308,7 @@ namespace nsxtapi.PolicyModules
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (HostTransportNodePath != null) { request.AddQueryParameter("host_transport_node_path", HostTransportNodePath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
@@ -7442,25 +8338,25 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyInterfaceStatisticsSummaryType GlobalGetDownlinkPortStatisticsSummaryForInfraSegment(string SegmentId, string? EnforcementPointPath = null, string? Source = null)
+        public NSXTPolicyInterfaceStatisticsSummaryType GlobalGlobalInfraGetDownlinkPortStatisticsSummaryForInfraSegment(string SegmentId, string? EnforcementPointPath = null, string? Source = null)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             NSXTPolicyInterfaceStatisticsSummaryType returnValue = default(NSXTPolicyInterfaceStatisticsSummaryType);
-            StringBuilder GetDownlinkPortStatisticsSummaryForInfraSegmentServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/gateway-interface-statistics/summary");
+            StringBuilder GlobalInfraGetDownlinkPortStatisticsSummaryForInfraSegmentServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/gateway-interface-statistics/summary");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetDownlinkPortStatisticsSummaryForInfraSegmentServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetDownlinkPortStatisticsSummaryForInfraSegmentServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
-            request.Resource = GetDownlinkPortStatisticsSummaryForInfraSegmentServiceURL.ToString();
+            request.Resource = GlobalInfraGetDownlinkPortStatisticsSummaryForInfraSegmentServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetDownlinkPortStatisticsSummaryForInfraSegmentServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetDownlinkPortStatisticsSummaryForInfraSegmentServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -7481,7 +8377,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterfaceArpTableType GetTier0InterfaceArpTable(string Tier0Id, string LocaleServiceId, string InterfaceId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTInterfaceArpTableType GetTier0InterfaceArpTable(string Tier0Id, string LocaleServiceId, string InterfaceId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? HostTransportNodePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -7500,6 +8396,7 @@ namespace nsxtapi.PolicyModules
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (HostTransportNodePath != null) { request.AddQueryParameter("host_transport_node_path", HostTransportNodePath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
@@ -7520,6 +8417,53 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTInterfaceArpTableType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPolicyInterfaceStatisticsType GlobalGlobalInfraGetDownlinkPortStatisticsForTier1Segment(string Tier1Id, string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? HostTransportNodePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
+            NSXTPolicyInterfaceStatisticsType returnValue = default(NSXTPolicyInterfaceStatisticsType);
+            StringBuilder GlobalInfraGetDownlinkPortStatisticsForTier1SegmentServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/gateway-interface-statistics");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetDownlinkPortStatisticsForTier1SegmentServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetDownlinkPortStatisticsForTier1SegmentServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (HostTransportNodePath != null) { request.AddQueryParameter("host_transport_node_path", HostTransportNodePath.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = GlobalInfraGetDownlinkPortStatisticsForTier1SegmentServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetDownlinkPortStatisticsForTier1SegmentServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyInterfaceStatisticsType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyInterfaceStatisticsType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -7576,20 +8520,18 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyBgpNeighborsStatusListResultType GlobalGetTier0BgpNeighborsStatus(string Tier0Id, string LocaleServiceId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTSegmentConfigurationStateType GetInfraSegmentState(string SegmentsId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
-            NSXTPolicyBgpNeighborsStatusListResultType returnValue = default(NSXTPolicyBgpNeighborsStatusListResultType);
-            StringBuilder GetTier0BgpNeighborsStatusServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/bgp/neighbors/status");
+            if (SegmentsId == null) { throw new System.ArgumentNullException("SegmentsId cannot be null"); }
+            NSXTSegmentConfigurationStateType returnValue = default(NSXTSegmentConfigurationStateType);
+            StringBuilder GetInfraSegmentStateServiceURL = new StringBuilder("/infra/segments/{segments-id}/state");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier0BgpNeighborsStatusServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier0BgpNeighborsStatusServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetInfraSegmentStateServiceURL.Replace("{segments-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentsId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
@@ -7598,11 +8540,143 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetTier0BgpNeighborsStatusServiceURL.ToString();
+            request.Resource = GetInfraSegmentStateServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier0BgpNeighborsStatusServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GetInfraSegmentStateServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTSegmentConfigurationStateType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentConfigurationStateType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPolicyArpProxyTableCsvListResultType GetTier1GatewayArpProxiesInCsv(string Tier1Id, string? EnforcementPointPath = null, string? Source = null, string? TransportNodeId = null)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            NSXTPolicyArpProxyTableCsvListResultType returnValue = default(NSXTPolicyArpProxyTableCsvListResultType);
+            StringBuilder GetTier1GatewayArpProxiesInCsvServiceURL = new StringBuilder("/infra/tier-1s/{tier-1-id}/arp-proxies?format=csv");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GetTier1GatewayArpProxiesInCsvServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
+            if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
+            request.Resource = GetTier1GatewayArpProxiesInCsvServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetTier1GatewayArpProxiesInCsvServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyArpProxyTableCsvListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyArpProxyTableCsvListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTInterfaceArpTableInCsvFormatType GetTier1RouterLinkArpTableCsv(string Tier1Id, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? HostTransportNodePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            NSXTInterfaceArpTableInCsvFormatType returnValue = default(NSXTInterfaceArpTableInCsvFormatType);
+            StringBuilder GetTier1RouterLinkArpTableCsvServiceURL = new StringBuilder("/infra/tier-1s/{tier-1-id}/tier-0-interface/arp-table?format=csv");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GetTier1RouterLinkArpTableCsvServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (HostTransportNodePath != null) { request.AddQueryParameter("host_transport_node_path", HostTransportNodePath.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = GetTier1RouterLinkArpTableCsvServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetTier1RouterLinkArpTableCsvServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTInterfaceArpTableInCsvFormatType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTInterfaceArpTableInCsvFormatType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPolicyBgpNeighborsStatusListResultType GlobalGlobalInfraGetTier0BgpNeighborsStatus(string Tier0Id, string LocaleServiceId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
+            if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
+            NSXTPolicyBgpNeighborsStatusListResultType returnValue = default(NSXTPolicyBgpNeighborsStatusListResultType);
+            StringBuilder GlobalInfraGetTier0BgpNeighborsStatusServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/bgp/neighbors/status");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetTier0BgpNeighborsStatusServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier0BgpNeighborsStatusServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = GlobalInfraGetTier0BgpNeighborsStatusServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetTier0BgpNeighborsStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -7623,7 +8697,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBgpNeighborRoutesListResultType GetTier0BgpNeighborAdvertisedRoutes(string Tier0Id, string LocaleServiceId, string NeighborId, long? Count = null, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTBgpNeighborRoutesListResultType GetTier0BgpNeighborAdvertisedRoutes(string Tier0Id, string LocaleServiceId, string NeighborId, int? Count = null, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -7712,22 +8786,22 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyInterfaceStatisticsType GlobalGetTier1InterfaceStatistics(string Tier1Id, string LocaleServiceId, string InterfaceId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyInterfaceStatisticsType GlobalGlobalInfraGetTier1InterfaceStatistics(string Tier1Id, string LocaleServiceId, string InterfaceId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
             if (InterfaceId == null) { throw new System.ArgumentNullException("InterfaceId cannot be null"); }
             NSXTPolicyInterfaceStatisticsType returnValue = default(NSXTPolicyInterfaceStatisticsType);
-            StringBuilder GetTier1InterfaceStatisticsServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/locale-services/{locale-service-id}/interfaces/{interface-id}/statistics");
+            StringBuilder GlobalInfraGetTier1InterfaceStatisticsServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/locale-services/{locale-service-id}/interfaces/{interface-id}/statistics");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier1InterfaceStatisticsServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1InterfaceStatisticsServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1InterfaceStatisticsServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1InterfaceStatisticsServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1InterfaceStatisticsServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1InterfaceStatisticsServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
@@ -7736,11 +8810,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetTier1InterfaceStatisticsServiceURL.ToString();
+            request.Resource = GlobalInfraGetTier1InterfaceStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier1InterfaceStatisticsServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier1InterfaceStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -7761,30 +8835,74 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterfaceArpTableType GlobalGetInfraSegmentInterfaceArpTable(string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyInterfaceStatisticsSummaryType GlobalGlobalInfraGetTier1RouterLinkSummaryStatistics(string Tier1Id, string? Cursor = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
-            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
-            NSXTInterfaceArpTableType returnValue = default(NSXTInterfaceArpTableType);
-            StringBuilder GetInfraSegmentInterfaceArpTableServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/arp-table");
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            NSXTPolicyInterfaceStatisticsSummaryType returnValue = default(NSXTPolicyInterfaceStatisticsSummaryType);
+            StringBuilder GlobalInfraGetTier1RouterLinkSummaryStatisticsServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/tier-0-interface/statistics/summary");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetInfraSegmentInterfaceArpTableServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1RouterLinkSummaryStatisticsServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetInfraSegmentInterfaceArpTableServiceURL.ToString();
+            request.Resource = GlobalInfraGetTier1RouterLinkSummaryStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetInfraSegmentInterfaceArpTableServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier1RouterLinkSummaryStatisticsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyInterfaceStatisticsSummaryType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyInterfaceStatisticsSummaryType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTInterfaceArpTableType GlobalGlobalInfraGetInfraSegmentInterfaceArpTable(string SegmentId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? HostTransportNodePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
+            NSXTInterfaceArpTableType returnValue = default(NSXTInterfaceArpTableType);
+            StringBuilder GlobalInfraGetInfraSegmentInterfaceArpTableServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/arp-table");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetInfraSegmentInterfaceArpTableServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (HostTransportNodePath != null) { request.AddQueryParameter("host_transport_node_path", HostTransportNodePath.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = GlobalInfraGetInfraSegmentInterfaceArpTableServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetInfraSegmentInterfaceArpTableServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -7805,20 +8923,20 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTOspfDatabaseListResultInCsvFormatType GetOspfDatabaseInCsvFormatCsv(string Tier0Id, string LocaleServiceId, string? AreaId = null, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTOspfDatabaseListResultInCsvFormatType GetOspfDatabaseInCsvFormat(string Tier0Id, string LocaleServiceId, string? AreaId = null, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
             NSXTOspfDatabaseListResultInCsvFormatType returnValue = default(NSXTOspfDatabaseListResultInCsvFormatType);
-            StringBuilder GetOspfDatabaseInCsvFormatCsvServiceURL = new StringBuilder("/infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/ospf/database?format=csv");
+            StringBuilder GetOspfDatabaseInCsvFormatServiceURL = new StringBuilder("/infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/ospf/database?format=csv");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetOspfDatabaseInCsvFormatCsvServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetOspfDatabaseInCsvFormatCsvServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetOspfDatabaseInCsvFormatServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GetOspfDatabaseInCsvFormatServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             if (AreaId != null) { request.AddQueryParameter("area_id", AreaId.ToString()); }
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
@@ -7826,11 +8944,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetOspfDatabaseInCsvFormatCsvServiceURL.ToString();
+            request.Resource = GetOspfDatabaseInCsvFormatServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetOspfDatabaseInCsvFormatCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GetOspfDatabaseInCsvFormatServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -7842,6 +8960,51 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTOspfDatabaseListResultInCsvFormatType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPolicyInterfaceStatisticsType GlobalGlobalInfraGetTier1RouterLinkStatistics(string Tier1Id, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
+            NSXTPolicyInterfaceStatisticsType returnValue = default(NSXTPolicyInterfaceStatisticsType);
+            StringBuilder GlobalInfraGetTier1RouterLinkStatisticsServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/tier-0-interface/statistics");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetTier1RouterLinkStatisticsServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = GlobalInfraGetTier1RouterLinkStatisticsServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetTier1RouterLinkStatisticsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyInterfaceStatisticsType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyInterfaceStatisticsType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -7944,73 +9107,27 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpServerStatusType GlobalReadDhcpServerStatus(string ConfigId, string ConnectivityPath, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (ConfigId == null) { throw new System.ArgumentNullException("ConfigId cannot be null"); }
-            if (ConnectivityPath == null) { throw new System.ArgumentNullException("ConnectivityPath cannot be null"); }
-            NSXTDhcpServerStatusType returnValue = default(NSXTDhcpServerStatusType);
-            StringBuilder ReadDhcpServerStatusServiceURL = new StringBuilder("/global-infra/dhcp-server-configs/{config-id}/status");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadDhcpServerStatusServiceURL.Replace("{config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ConfigId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (ConnectivityPath != null) { request.AddQueryParameter("connectivity_path", ConnectivityPath.ToString()); }
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ReadDhcpServerStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadDhcpServerStatusServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpServerStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpServerStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTPolicyInterfaceStatisticsSummaryType GlobalGetDownlinkPortStatisticsSummaryForTier1Segment(string Tier1Id, string SegmentId, string? EnforcementPointPath = null, string? Source = null)
+        public NSXTPolicyInterfaceStatisticsSummaryType GlobalGlobalInfraGetDownlinkPortStatisticsSummaryForTier1Segment(string Tier1Id, string SegmentId, string? EnforcementPointPath = null, string? Source = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             NSXTPolicyInterfaceStatisticsSummaryType returnValue = default(NSXTPolicyInterfaceStatisticsSummaryType);
-            StringBuilder GetDownlinkPortStatisticsSummaryForTier1SegmentServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/gateway-interface-statistics/summary");
+            StringBuilder GlobalInfraGetDownlinkPortStatisticsSummaryForTier1SegmentServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/gateway-interface-statistics/summary");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetDownlinkPortStatisticsSummaryForTier1SegmentServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetDownlinkPortStatisticsSummaryForTier1SegmentServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetDownlinkPortStatisticsSummaryForTier1SegmentServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetDownlinkPortStatisticsSummaryForTier1SegmentServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
-            request.Resource = GetDownlinkPortStatisticsSummaryForTier1SegmentServiceURL.ToString();
+            request.Resource = GlobalInfraGetDownlinkPortStatisticsSummaryForTier1SegmentServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetDownlinkPortStatisticsSummaryForTier1SegmentServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetDownlinkPortStatisticsSummaryForTier1SegmentServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -8078,31 +9195,31 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyMulticastForwardingInCsvFormatType GetPolicyMulticastForwardingInCsvFormatCsv(string Tier0Id, string LocaleServicesId, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyMulticastForwardingInCsvFormatType GetPolicyMulticastForwardingInCsvFormat(string Tier0Id, string LocaleServicesId, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
             NSXTPolicyMulticastForwardingInCsvFormatType returnValue = default(NSXTPolicyMulticastForwardingInCsvFormatType);
-            StringBuilder GetPolicyMulticastForwardingInCsvFormatCsvServiceURL = new StringBuilder("/infra/tier-0s/{tier-0-id}/locale-services/{locale-services-id}/multicast/forwarding?format=csv");
+            StringBuilder GetPolicyMulticastForwardingInCsvFormatServiceURL = new StringBuilder("/infra/tier-0s/{tier-0-id}/locale-services/{locale-services-id}/multicast/forwarding?format=csv");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetPolicyMulticastForwardingInCsvFormatCsvServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetPolicyMulticastForwardingInCsvFormatCsvServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetPolicyMulticastForwardingInCsvFormatServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GetPolicyMulticastForwardingInCsvFormatServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetPolicyMulticastForwardingInCsvFormatCsvServiceURL.ToString();
+            request.Resource = GetPolicyMulticastForwardingInCsvFormatServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetPolicyMulticastForwardingInCsvFormatCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GetPolicyMulticastForwardingInCsvFormatServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -8123,125 +9240,30 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentPortStatisticsType GlobalGetSegmentPortStatistics(string Tier1Id, string SegmentsId, string PortId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (SegmentsId == null) { throw new System.ArgumentNullException("SegmentsId cannot be null"); }
-            if (PortId == null) { throw new System.ArgumentNullException("PortId cannot be null"); }
-            NSXTSegmentPortStatisticsType returnValue = default(NSXTSegmentPortStatisticsType);
-            StringBuilder GetSegmentPortStatisticsServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segments-id}/ports/{port-id}/statistics");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetSegmentPortStatisticsServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetSegmentPortStatisticsServiceURL.Replace("{segments-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentsId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetSegmentPortStatisticsServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetSegmentPortStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetSegmentPortStatisticsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentPortStatisticsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentPortStatisticsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTPolicyOspfDatabaseListResultType GetOspfDatabase(string Tier0Id, string LocaleServiceId, string? AreaId = null, string? Cursor = null, string? EdgePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
-            NSXTPolicyOspfDatabaseListResultType returnValue = default(NSXTPolicyOspfDatabaseListResultType);
-            StringBuilder GetOspfDatabaseServiceURL = new StringBuilder("/infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/ospf/database");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetOspfDatabaseServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetOspfDatabaseServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (AreaId != null) { request.AddQueryParameter("area_id", AreaId.ToString()); }
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetOspfDatabaseServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetOspfDatabaseServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyOspfDatabaseListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyOspfDatabaseListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTSegmentPortMacAddressCsvListResultType GlobalGetTier1SegmentPortMacTableInCsv(string Tier1Id, string SegmentId, string PortId, string? EnforcementPointPath = null, string? Source = null, string? TransportNodeId = null)
+        public NSXTSegmentPortMacAddressCsvListResultType GlobalGlobalInfraGetTier1SegmentPortMacTableInCsv(string Tier1Id, string SegmentId, string PortId, string? EnforcementPointPath = null, string? Source = null, string? TransportNodeId = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (PortId == null) { throw new System.ArgumentNullException("PortId cannot be null"); }
             NSXTSegmentPortMacAddressCsvListResultType returnValue = default(NSXTSegmentPortMacAddressCsvListResultType);
-            StringBuilder GetTier1SegmentPortMacTableInCsvServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/ports/{port-id}/mac-table?format=csv");
+            StringBuilder GlobalInfraGetTier1SegmentPortMacTableInCsvServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/ports/{port-id}/mac-table?format=csv");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetTier1SegmentPortMacTableInCsvServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1SegmentPortMacTableInCsvServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetTier1SegmentPortMacTableInCsvServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1SegmentPortMacTableInCsvServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1SegmentPortMacTableInCsvServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetTier1SegmentPortMacTableInCsvServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
-            request.Resource = GetTier1SegmentPortMacTableInCsvServiceURL.ToString();
+            request.Resource = GlobalInfraGetTier1SegmentPortMacTableInCsvServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetTier1SegmentPortMacTableInCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetTier1SegmentPortMacTableInCsvServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -8262,7 +9284,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterfaceArpTableType GetTier1InterfaceArpTable(string Tier1Id, string LocaleServiceId, string InterfaceId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTInterfaceArpTableType GetTier1InterfaceArpTable(string Tier1Id, string LocaleServiceId, string InterfaceId, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, string? HostTransportNodePath = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -8281,6 +9303,7 @@ namespace nsxtapi.PolicyModules
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (HostTransportNodePath != null) { request.AddQueryParameter("host_transport_node_path", HostTransportNodePath.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
@@ -8301,6 +9324,53 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTInterfaceArpTableType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTInterfaceArpTableInCsvFormatType GlobalGlobalInfraGetTier0RouterLinkArpTableCsv(string Tier0Id, string Tier1Path, string? Cursor = null, string? EdgePath = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
+            if (Tier1Path == null) { throw new System.ArgumentNullException("Tier1Path cannot be null"); }
+            NSXTInterfaceArpTableInCsvFormatType returnValue = default(NSXTInterfaceArpTableInCsvFormatType);
+            StringBuilder GlobalInfraGetTier0RouterLinkArpTableCsvServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/tier-1-interface/arp-table?format=csv");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetTier0RouterLinkArpTableCsvServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (EdgePath != null) { request.AddQueryParameter("edge_path", EdgePath.ToString()); }
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            if (Tier1Path != null) { request.AddQueryParameter("tier1_path", Tier1Path.ToString()); }
+            request.Resource = GlobalInfraGetTier0RouterLinkArpTableCsvServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetTier0RouterLinkArpTableCsvServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTInterfaceArpTableInCsvFormatType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTInterfaceArpTableInCsvFormatType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}

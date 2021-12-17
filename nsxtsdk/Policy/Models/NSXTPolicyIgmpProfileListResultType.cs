@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyIgmpProfileListResultType : NSXTListResultType
     {
+        public NSXTPolicyIgmpProfileListResultType()
+        {
+        }
         /// <summary>
         /// Igmp Profile list results
         /// </summary>

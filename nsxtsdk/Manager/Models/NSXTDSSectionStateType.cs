@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDSSectionStateType : NSXTConfigurationStateType
     {
+        public NSXTDSSectionStateType()
+        {
+        }
         /// <summary>
         /// This attribute represents revision number of section's desired state.
         /// </summary>

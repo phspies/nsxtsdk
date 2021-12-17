@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyFirewallSchedulerType : NSXTPolicyConfigResourceType
     {
+        public NSXTPolicyFirewallSchedulerType()
+        {
+            Recurring = test
+        }
         /// <summary>
         /// The recurring time interval in a day during which the schedule will be
         /// applicable. It should not be present when the recurring flag is false.
@@ -64,7 +68,6 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "recurring", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"Flag to indicate whether firewall schedule recurs or not. The defaultvalue is true and it should be set to false when the firewall scheduledoes not recur and is a one time time interval.")]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "")]
         public bool Recurring { get; set; }
         /// <summary>
         /// Days of week on which rules will be enforced. If property is omitted,

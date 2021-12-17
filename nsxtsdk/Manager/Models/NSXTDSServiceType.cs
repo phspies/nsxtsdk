@@ -17,12 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDSServiceType : NSXTResourceReferenceType
     {
+        public NSXTDSServiceType()
+        {
+        }
         /// <summary>
-        /// Distributed Service API accepts raw protocol and ports as part of NS service element
-        /// in Distributed Service Rule that describes traffic corresponding to an NSService.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "service")]
-        [NSXTProperty(IsRequired: false, Description: @"Distributed Service API accepts raw protocol and ports as part of NS service elementin Distributed Service Rule that describes traffic corresponding to an NSService.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTNSServiceElementType Service { get; set; }
     }
 }

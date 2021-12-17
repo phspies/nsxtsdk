@@ -17,22 +17,30 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer UDPFastPathProfile object")]
     public class NSXTALBUDPFastPathProfileType 
     {
+        public NSXTALBUDPFastPathProfileType()
+        {
+            Snat = test
+            SessionIdleTimeout = test
+        }
         /// <summary>
-        /// DSR profile information.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "dsr_profile")]
-        [NSXTProperty(IsRequired: false, Description: @"DSR profile information.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBDsrProfileType DsrProfile { get; set; }
         /// <summary>
         /// When enabled, every UDP packet is considered a new
         /// transaction and may be load balanced to a different server.
         /// When disabled, packets from the same client source IP and
         /// port are sent to the same server.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "per_pkt_loadbalance")]
-        [NSXTProperty(IsRequired: false, Description: @"When enabled, every UDP packet is considered a newtransaction and may be load balanced to a different server.When disabled, packets from the same client source IP andport are sent to the same server.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"When enabled, every UDP packet is considered a newtransaction and may be load balanced to a different server.When disabled, packets from the same client source IP andport are sent to the same server.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? PerPktLoadbalance { get; set; }
         /// <summary>
         /// When disabled, Source NAT will not be performed for all
@@ -42,7 +50,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "snat")]
         [NSXTProperty(IsRequired: false, Description: @"When disabled, Source NAT will not be performed for allclient UDP packets.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Snat { get; set; }
         /// <summary>
         /// The amount of time (in sec) for which a flow needs to be
@@ -56,7 +63,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"The amount of time (in sec) for which a flow needs to beidle before it is deleted.Allowed values are 2-3600.Unit is SEC.Default value when not specified in API or module isinterpreted by ALB Controller as 10.")]
         //[System.ComponentModel.DataAnnotations.MinLength(2)]
         //[System.ComponentModel.DataAnnotations.MaxLength(3600)]
-        [NSXTDefaultProperty(Default: "")]
         public long? SessionIdleTimeout { get; set; }
     }
 }

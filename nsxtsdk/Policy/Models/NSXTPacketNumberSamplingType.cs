@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPacketNumberSamplingType : NSXTSamplingArgumentType
     {
+        public NSXTPacketNumberSamplingType()
+        {
+        }
         /// <summary>
         /// 1 out of how many packets is sampled
         /// </summary>

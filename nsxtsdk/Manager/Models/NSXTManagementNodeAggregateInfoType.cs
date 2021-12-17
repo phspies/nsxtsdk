@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTManagementNodeAggregateInfoType : NSXTBaseNodeAggregateInfoType
     {
+        public NSXTManagementNodeAggregateInfoType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

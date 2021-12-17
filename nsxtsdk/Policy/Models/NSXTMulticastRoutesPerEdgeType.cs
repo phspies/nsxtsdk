@@ -12,11 +12,14 @@ using System.ComponentModel;
 namespace nsxtsdk.PolicyModels
 {
     /// <summary>
-    /// Multicast Routes Per Edge.
+    /// 
     /// </summary>
-    [NSXTProperty(Description: @"Multicast Routes Per Edge.")]
-    public class NSXTMulticastRoutesPerEdgeType 
+    [NSXTProperty(Description: @"")]
+    public class NSXTMulticastRoutesPerEdgeType : NSXTListResultType
     {
+        public NSXTMulticastRoutesPerEdgeType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

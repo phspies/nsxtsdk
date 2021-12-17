@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildIpAddressAllocationType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildIpAddressAllocationType()
+        {
+        }
         /// <summary>
-        /// Contains the actual IpAddressAllocation object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "IpAddressAllocation", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual IpAddressAllocation object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTIpAddressAllocationType IpAddressAllocation { get; set; }
     }

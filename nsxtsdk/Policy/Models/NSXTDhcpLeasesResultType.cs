@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpLeasesResultType : NSXTDhcpLeasesType
     {
+        public NSXTDhcpLeasesResultType()
+        {
+        }
         /// <summary>
         /// Policy path to Segment, Tier0 or Tier1 gateway where DHCP server
         /// is attached.

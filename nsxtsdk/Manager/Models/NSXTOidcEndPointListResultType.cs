@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTOidcEndPointListResultType : NSXTListResultType
     {
+        public NSXTOidcEndPointListResultType()
+        {
+        }
         /// <summary>
         /// OidcEndPoint list.
         /// </summary>

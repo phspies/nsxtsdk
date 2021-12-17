@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"The DVS Configuration")]
     public class NSXTDVSConfigType 
     {
+        public NSXTDVSConfigType()
+        {
+        }
         /// <summary>
         /// The DVS name
         /// </summary>

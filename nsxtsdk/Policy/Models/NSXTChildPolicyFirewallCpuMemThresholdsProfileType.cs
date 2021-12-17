@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildPolicyFirewallCpuMemThresholdsProfileType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildPolicyFirewallCpuMemThresholdsProfileType()
+        {
+        }
         /// <summary>
-        /// Contains the actual PolicyFirewallCpuMemThresholdsProfile object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "PolicyFirewallCpuMemThresholdsProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual PolicyFirewallCpuMemThresholdsProfile object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTPolicyFirewallCpuMemThresholdsProfileType PolicyFirewallCpuMemThresholdsProfile { get; set; }
     }

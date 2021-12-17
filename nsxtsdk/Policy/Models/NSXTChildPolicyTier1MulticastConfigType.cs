@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildPolicyTier1MulticastConfigType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildPolicyTier1MulticastConfigType()
+        {
+        }
         /// <summary>
-        /// Contains actual PolicyTier1MulticastConfig.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "PolicyTier1MulticastConfig", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains actual PolicyTier1MulticastConfig.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTPolicyTier1MulticastConfigType PolicyTier1MulticastConfig { get; set; }
     }

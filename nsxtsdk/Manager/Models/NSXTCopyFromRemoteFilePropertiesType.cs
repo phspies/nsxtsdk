@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTCopyFromRemoteFilePropertiesType : NSXTCopyRemoteFilePropertiesType
     {
+        public NSXTCopyFromRemoteFilePropertiesType()
+        {
+        }
         /// <summary>
-        /// Protocol to use to copy file
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "protocol", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Protocol to use to copy file")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTProtocolType Protocol { get; set; }
     }

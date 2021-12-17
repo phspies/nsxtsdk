@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalRouterPortArpCsvRecordType : NSXTCsvRecordType
     {
+        public NSXTLogicalRouterPortArpCsvRecordType()
+        {
+        }
         /// <summary>
         /// The IP address
         /// </summary>

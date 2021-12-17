@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTAggregateLBServiceStatisticsType : NSXTAggregatePolicyRuntimeInfoType
     {
+        public NSXTAggregateLBServiceStatisticsType()
+        {
+        }
         /// <summary>
         /// LBServiceStatisticsPerEP list results.
         /// </summary>

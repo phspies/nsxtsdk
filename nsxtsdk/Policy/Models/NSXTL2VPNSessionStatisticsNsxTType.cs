@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTL2VPNSessionStatisticsNsxTType : NSXTL2VPNSessionStatisticsPerEPType
     {
+        public NSXTL2VPNSessionStatisticsNsxTType()
+        {
+        }
         /// <summary>
         /// Traffic statistics per segment.
         /// </summary>

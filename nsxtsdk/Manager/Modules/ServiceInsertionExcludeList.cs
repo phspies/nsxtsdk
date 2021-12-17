@@ -30,11 +30,11 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTResourceReferenceType AddServiceInsertionExcludeListMemberAddMember(NSXTResourceReferenceType ResourceReference)
+        public NSXTResourceReferenceType AddServiceInsertionExcludeListMember(NSXTResourceReferenceType ResourceReference)
         {
             if (ResourceReference == null) { throw new System.ArgumentNullException("ResourceReference cannot be null"); }
             NSXTResourceReferenceType returnValue = default(NSXTResourceReferenceType);
-            StringBuilder AddServiceInsertionExcludeListMemberAddMemberServiceURL = new StringBuilder("/serviceinsertion/excludelist?action=add_member");
+            StringBuilder AddServiceInsertionExcludeListMemberServiceURL = new StringBuilder("/serviceinsertion/excludelist?action=add_member");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -42,11 +42,11 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(ResourceReference, defaultSerializationSettings));
-            request.Resource = AddServiceInsertionExcludeListMemberAddMemberServiceURL.ToString();
+            request.Resource = AddServiceInsertionExcludeListMemberServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + AddServiceInsertionExcludeListMemberAddMemberServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + AddServiceInsertionExcludeListMemberServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -139,11 +139,11 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTResourceReferenceType RemoveServiceInsertionExcludeListMemberRemoveMember(string ObjectId)
+        public NSXTResourceReferenceType RemoveServiceInsertionExcludeListMember(string ObjectId)
         {
             if (ObjectId == null) { throw new System.ArgumentNullException("ObjectId cannot be null"); }
             NSXTResourceReferenceType returnValue = default(NSXTResourceReferenceType);
-            StringBuilder RemoveServiceInsertionExcludeListMemberRemoveMemberServiceURL = new StringBuilder("/serviceinsertion/excludelist?action=remove_member");
+            StringBuilder RemoveServiceInsertionExcludeListMemberServiceURL = new StringBuilder("/serviceinsertion/excludelist?action=remove_member");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -151,11 +151,11 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             if (ObjectId != null) { request.AddQueryParameter("object_id", ObjectId.ToString()); }
-            request.Resource = RemoveServiceInsertionExcludeListMemberRemoveMemberServiceURL.ToString();
+            request.Resource = RemoveServiceInsertionExcludeListMemberServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + RemoveServiceInsertionExcludeListMemberRemoveMemberServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + RemoveServiceInsertionExcludeListMemberServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else

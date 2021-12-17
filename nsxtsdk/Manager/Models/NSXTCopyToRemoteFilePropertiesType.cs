@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTCopyToRemoteFilePropertiesType : NSXTCopyRemoteFilePropertiesType
     {
+        public NSXTCopyToRemoteFilePropertiesType()
+        {
+        }
         /// <summary>
-        /// Only scp and sftp may be used.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "protocol", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Only scp and sftp may be used.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTProtocolType Protocol { get; set; }
     }

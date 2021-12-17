@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildBgpNeighborConfigType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildBgpNeighborConfigType()
+        {
+        }
         /// <summary>
-        /// Contains the actual BgpNeighborConfig object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "BgpNeighborConfig", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual BgpNeighborConfig object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTBgpNeighborConfigType BgpNeighborConfig { get; set; }
     }

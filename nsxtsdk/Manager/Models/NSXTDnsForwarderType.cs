@@ -17,6 +17,12 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDnsForwarderType : NSXTManagedResourceType
     {
+        public NSXTDnsForwarderType()
+        {
+            CacheSize = test
+            LogLevel = test
+            Enabled = test
+        }
         /// <summary>
         /// The conditional zone forwarders. During matching a zone forwarder,
         /// the DNS forwarder will use the conditional fowarder with the longest
@@ -42,14 +48,12 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"One DNS answer cache entry will consume ~120 bytes. Hence 1 KB cachesize can cache ~8 DNS answer entries, and the default 1024 KB cachesize can hold ~8k DNS answer entries.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(16777216)]
-        [NSXTDefaultProperty(Default: "")]
         public int? CacheSize { get; set; }
         /// <summary>
-        /// The default zone forwarder that catches all other domain names except
-        /// those matched by conditional forwarder zone.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "default_forwarder", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The default zone forwarder that catches all other domain names exceptthose matched by conditional forwarder zone.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTForwarderZoneType DefaultForwarder { get; set; }
         /// <summary>
@@ -57,14 +61,12 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "log_level")]
         [NSXTProperty(IsRequired: false, Description: @"Log level of the DNS forwarder")]
-        [NSXTDefaultProperty(Default: "INFO")]
         public NSXTDnsForwarderLogLevelEnumType? LogLevel { get; set; }
         /// <summary>
         /// Flag to enable/disable the forwarder
         /// </summary>
         [JsonProperty(PropertyName = "enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Flag to enable/disable the forwarder")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// The ip address the DNS forwarder listens on. It can be an ip address

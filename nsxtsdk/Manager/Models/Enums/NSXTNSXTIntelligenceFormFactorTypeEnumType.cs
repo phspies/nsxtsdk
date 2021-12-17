@@ -12,11 +12,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"NSX Intelligence node form factor type")]
     public enum NSXTIntelligenceFormFactorTypeEnumType
     {
+        [EnumMember(Value = "EVALUATION")]
+        EVALUATION = 1,
+        [EnumMember(Value = "STANDARD")]
+        STANDARD = 2,
+        [EnumMember(Value = "ADVANCED")]
+        ADVANCED = 3,
         [EnumMember(Value = "SMALL")]
-        SMALL = 1,
+        SMALL = 4,
         [EnumMember(Value = "LARGE")]
-        LARGE = 2,
+        LARGE = 5,
         [EnumMember(Value = "EXTRA_LARGE")]
-        EXTRALARGE = 3,
+        EXTRALARGE = 6,
     }
 }

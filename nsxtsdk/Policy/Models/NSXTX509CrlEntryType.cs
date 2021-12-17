@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Each revoked certificate is identified in a CRL by its certificate serial number.")]
     public class NSXTX509CrlEntryType 
     {
+        public NSXTX509CrlEntryType()
+        {
+        }
         /// <summary>
         /// Revocation date.
         /// </summary>

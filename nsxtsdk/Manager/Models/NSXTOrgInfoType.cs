@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Organization ID and role, predefined for a particular type of VMware support.")]
     public class NSXTOrgInfoType 
     {
+        public NSXTOrgInfoType()
+        {
+        }
         /// <summary>
         /// Organization ID, connected to a predefined role of a VMware support.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdfwVirtualMachineStatusListResultType : NSXTListResultType
     {
+        public NSXTIdfwVirtualMachineStatusListResultType()
+        {
+        }
         /// <summary>
         /// List of VM's on Identity Firewall Compute collection.
         /// </summary>

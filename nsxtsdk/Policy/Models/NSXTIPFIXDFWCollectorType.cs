@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPFIXDFWCollectorType : NSXTPolicyConfigResourceType
     {
+        public NSXTIPFIXDFWCollectorType()
+        {
+        }
         /// <summary>
         /// IP address for the IPFIX DFW collector.
         /// IP addresses such as 0.0.0.0, 127.0.0.1, 255.255.255.255 are invalid.
@@ -30,7 +33,9 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "collector_port", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"Port for the IPFIX DFW collector.")]
+        //[System.ComponentModel.DataAnnotations.MinLength(0)]
+        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         [System.ComponentModel.DataAnnotations.Required]
-        public long CollectorPort { get; set; }
+        public int CollectorPort { get; set; }
     }
 }

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpPoolSubnetType : NSXTResourceType
     {
+        public NSXTIpPoolSubnetType()
+        {
+        }
         /// <summary>
         /// The collection of upto 3 DNS servers for the subnet.
         /// </summary>

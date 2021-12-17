@@ -17,17 +17,20 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTunnelStatusCountType : NSXTStatusCountType
     {
+        public NSXTTunnelStatusCountType()
+        {
+        }
         /// <summary>
-        /// BFD Diagnostic
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "bfd_diagnostic")]
-        [NSXTProperty(IsRequired: false, Description: @"BFD Diagnostic")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTBFDDiagnosticCountType BfdDiagnostic { get; set; }
         /// <summary>
-        /// BFD Status
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "bfd_status")]
-        [NSXTProperty(IsRequired: false, Description: @"BFD Status")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTBFDStatusCountType BfdStatus { get; set; }
     }
 }

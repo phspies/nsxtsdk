@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPnicMirrorDestinationType : NSXTMirrorDestinationType
     {
+        public NSXTPnicMirrorDestinationType()
+        {
+        }
         /// <summary>
         /// Physical NIC device names to which to send the mirrored packets
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbPoolStatusType 
     {
+        public NSXTLbPoolStatusType()
+        {
+        }
         /// <summary>
         /// UP means that all primary members are in UP status.
         /// PARTIALLY_UP means that some(not all) primary members are in UP

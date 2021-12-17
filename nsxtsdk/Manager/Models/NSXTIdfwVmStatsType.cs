@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Identity Firewall user login/session data for a single VM.")]
     public class NSXTIdfwVmStatsType 
     {
+        public NSXTIdfwVmStatsType()
+        {
+        }
         /// <summary>
         /// Virtual machine (external ID or BIOS UUID) where login/logout event occurred.
         /// </summary>

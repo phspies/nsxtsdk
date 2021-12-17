@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildPrefixListType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildPrefixListType()
+        {
+        }
         /// <summary>
-        /// Contains the actual PrefixList object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "PrefixList", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual PrefixList object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTPrefixListType PrefixList { get; set; }
     }

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbServiceStatisticsType 
     {
+        public NSXTLbServiceStatisticsType()
+        {
+        }
         /// <summary>
         /// Statistics of load balancer pools
         /// </summary>
@@ -43,10 +46,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Timestamp when the data was last updated")]
         public long? LastUpdateTimestamp { get; set; }
         /// <summary>
-        /// Load balancer service statistics counter
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "statistics")]
-        [NSXTProperty(IsRequired: false, Description: @"Load balancer service statistics counter")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLbServiceStatisticsCounterType Statistics { get; set; }
     }
 }

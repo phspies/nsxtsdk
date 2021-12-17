@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTManualHealthCheckType : NSXTManagedResourceType
     {
+        public NSXTManualHealthCheckType()
+        {
+        }
         /// <summary>
         /// The entity ID works as a filter param. Entity ID and entity type should
         /// be both provided or not at a query.
@@ -26,10 +29,10 @@ namespace nsxtsdk.ManagerModels
         [System.ComponentModel.DataAnnotations.Required]
         public string TransportZoneId { get; set; }
         /// <summary>
-        /// VLANs specificied for manual health check
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "vlans", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"VLANs specificied for manual health check")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTHealthCheckSpecVlansType Vlans { get; set; }
         /// <summary>

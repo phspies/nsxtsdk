@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTrustObjectDataType : NSXTManagedResourceType
     {
+        public NSXTTrustObjectDataType()
+        {
+        }
         /// <summary>
         /// Key algorithm contained in this certificate.
         /// </summary>
@@ -42,5 +45,11 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: true, Description: @"PEM encoded certificate data.")]
         [System.ComponentModel.DataAnnotations.Required]
         public string PemEncoded { get; set; }
+        /// <summary>
+        /// Purpose of this certificate. Can be empty or set to "signing-ca".
+        /// </summary>
+        [JsonProperty(PropertyName = "purpose")]
+        [NSXTProperty(IsRequired: false, Description: @"Purpose of this certificate. Can be empty or set to &quot;signing-ca&quot;.")]
+        public NSXTTrustObjectDataPurposeEnumType? Purpose { get; set; }
     }
 }

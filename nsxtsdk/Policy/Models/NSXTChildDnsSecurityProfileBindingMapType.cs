@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildDnsSecurityProfileBindingMapType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildDnsSecurityProfileBindingMapType()
+        {
+        }
         /// <summary>
-        /// Contains the actual DnsSecurityProfileBindingMap object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "DnsSecurityProfileBindingMap", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual DnsSecurityProfileBindingMap object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTDnsSecurityProfileBindingMapType DnsSecurityProfileBindingMap { get; set; }
     }

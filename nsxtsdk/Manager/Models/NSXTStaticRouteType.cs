@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTStaticRouteType : NSXTManagedResourceType
     {
+        public NSXTStaticRouteType()
+        {
+        }
         /// <summary>
         /// Next Hops
         /// </summary>

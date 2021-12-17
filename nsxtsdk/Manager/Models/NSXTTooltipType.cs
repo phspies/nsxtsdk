@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Tooltip to be shown while hovering over the dashboard UI element.")]
     public class NSXTTooltipType 
     {
+        public NSXTTooltipType()
+        {
+        }
         /// <summary>
         /// Text to be shown on tooltip while hovering over UI element. The text would be wrapped if it exceeds 80 chars.
         /// </summary>

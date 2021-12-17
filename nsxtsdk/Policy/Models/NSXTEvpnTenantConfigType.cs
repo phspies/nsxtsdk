@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTEvpnTenantConfigType : NSXTPolicyConfigResourceType
     {
+        public NSXTEvpnTenantConfigType()
+        {
+        }
         /// <summary>
         /// Policy path to transport zone. Only overlay transport zone is supported.
         /// </summary>

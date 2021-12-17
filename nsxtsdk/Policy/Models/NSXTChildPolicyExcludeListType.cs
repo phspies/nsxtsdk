@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildPolicyExcludeListType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildPolicyExcludeListType()
+        {
+        }
         /// <summary>
-        /// Contains the actual policy exclude list object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "PolicyExcludeList", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual policy exclude list object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTPolicyExcludeListType PolicyExcludeList { get; set; }
     }

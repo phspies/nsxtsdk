@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyArpProxyTableListResultType : NSXTListResultType
     {
+        public NSXTPolicyArpProxyTableListResultType()
+        {
+        }
         /// <summary>
         /// Paginated list of Gateway interface ARP proxy tables
         /// </summary>

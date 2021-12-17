@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSubnetType 
     {
+        public NSXTIPSubnetType()
+        {
+        }
         /// <summary>
         /// All IP addresses, some of which  may be automatically
         /// configured. When updating this field, the payload may

@@ -7,12 +7,12 @@ namespace nsxtsdk.Models
     [AttributeUsage(AttributeTargets.Property)]
     public class NSXTDefaultProperty : Attribute
     {
-        private string defaultValue { get; set; }
-        public NSXTDefaultProperty(string Default)
+        private string[] defaultValue { get; set; }
+        public NSXTDefaultProperty(string[] Default)
         {
             this.defaultValue = Default;
         }
-        public virtual string Default
+        public virtual string[] Default
         {
             get
             {

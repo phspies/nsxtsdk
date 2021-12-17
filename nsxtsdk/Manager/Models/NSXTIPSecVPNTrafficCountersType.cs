@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Traffic counters for IPSec VPN session.")]
     public class NSXTIPSecVPNTrafficCountersType 
     {
+        public NSXTIPSecVPNTrafficCountersType()
+        {
+        }
         /// <summary>
         /// Total number of packets sent.
         /// </summary>

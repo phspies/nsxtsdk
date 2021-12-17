@@ -17,6 +17,11 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNSGroupTagExpressionType : NSXTNSGroupExpressionType
     {
+        public NSXTNSGroupTagExpressionType()
+        {
+            TagOp = test
+            ScopeOp = test
+        }
         /// <summary>
         /// Target_type VirtualMachine supports all specified operators for
         /// tag expression while LogicalSwitch and LogicalPort supports only
@@ -25,7 +30,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "tag_op")]
         [NSXTProperty(IsRequired: false, Description: @"Target_type VirtualMachine supports all specified operators fortag expression while LogicalSwitch and LogicalPort supports onlyEQUALS operator.All operators perform a case insensitive match.")]
-        [NSXTDefaultProperty(Default: "EQUALS")]
         public NSXTNsgroupTagExpressionTagOpEnumType? TagOp { get; set; }
         /// <summary>
         /// The tag.scope attribute of the object
@@ -38,7 +42,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "scope_op")]
         [NSXTProperty(IsRequired: false, Description: @"Operator of the scope expression eg- tag.scope = &quot;S1&quot;.")]
-        [NSXTDefaultProperty(Default: "EQUALS")]
         public NSXTNsgroupTagExpressionScopeOpEnumType? ScopeOp { get; set; }
         /// <summary>
         /// The tag.tag attribute of the object

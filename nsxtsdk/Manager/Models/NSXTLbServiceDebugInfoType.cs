@@ -20,6 +20,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"The information for a given load balancer service could be used fordebugging and troubleshooting. It includes load balancer service,associated virtual servers, associated pools, associated profiles such aspersistence, SSL, application, associated monitors and associated rules.")]
     public class NSXTLbServiceDebugInfoType 
     {
+        public NSXTLbServiceDebugInfoType()
+        {
+        }
         /// <summary>
         /// The pools which are associated to the given load balancer service would
         /// be included. The pools could be defined in virtual server default pool,
@@ -42,29 +45,31 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"The virtual servers which are associated to the given load balancerservice would be included.")]
         public IList<NSXTLbVirtualServerType> VirtualServers { get; set; }
         /// <summary>
-        /// The client SSL profiles are associated to virtual servers
+        /// The client SSL profiles are associated to virtual servers.
+        /// The property is deprecated as NSX-T Load Balancer is deprecated.
         /// </summary>
         [JsonProperty(PropertyName = "client_ssl_profiles")]
-        [NSXTProperty(IsRequired: false, Description: @"The client SSL profiles are associated to virtual servers")]
+        [NSXTProperty(IsRequired: false, Description: @"The client SSL profiles are associated to virtual servers.The property is deprecated as NSX-T Load Balancer is deprecated.")]
         public IList<NSXTLbClientSslProfileType> ClientSslProfiles { get; set; }
         /// <summary>
-        /// The server SSL profiles are associated to virtual servers
+        /// The server SSL profiles are associated to virtual servers.
+        /// The property is deprecated as NSX-T Load Balancer is deprecated.
         /// </summary>
         [JsonProperty(PropertyName = "server_ssl_profiles")]
-        [NSXTProperty(IsRequired: false, Description: @"The server SSL profiles are associated to virtual servers")]
+        [NSXTProperty(IsRequired: false, Description: @"The server SSL profiles are associated to virtual servers.The property is deprecated as NSX-T Load Balancer is deprecated.")]
         public IList<NSXTLbServerSslProfileType> ServerSslProfiles { get; set; }
         /// <summary>
-        /// Load balancer service setting for a given load balancer service
-        /// identifier.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "service")]
-        [NSXTProperty(IsRequired: false, Description: @"Load balancer service setting for a given load balancer serviceidentifier.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLbServiceType Service { get; set; }
         /// <summary>
-        /// The load balancer rules are associated to virtual servers
+        /// The load balancer rules are associated to virtual servers.
+        /// The property is deprecated as NSX-T Load Balancer is deprecated.
         /// </summary>
         [JsonProperty(PropertyName = "rules")]
-        [NSXTProperty(IsRequired: false, Description: @"The load balancer rules are associated to virtual servers")]
+        [NSXTProperty(IsRequired: false, Description: @"The load balancer rules are associated to virtual servers.The property is deprecated as NSX-T Load Balancer is deprecated.")]
         public IList<NSXTLbRuleType> Rules { get; set; }
         /// <summary>
         /// The application profiles are associated to virtual servers
@@ -74,9 +79,10 @@ namespace nsxtsdk.ManagerModels
         public IList<NSXTLbAppProfileType> ApplicationProfiles { get; set; }
         /// <summary>
         /// The load balancer monitors are associated to pools.
+        /// The property is deprecated as NSX-T Load Balancer is deprecated.
         /// </summary>
         [JsonProperty(PropertyName = "monitors")]
-        [NSXTProperty(IsRequired: false, Description: @"The load balancer monitors are associated to pools.")]
+        [NSXTProperty(IsRequired: false, Description: @"The load balancer monitors are associated to pools.The property is deprecated as NSX-T Load Balancer is deprecated.")]
         public IList<NSXTLbMonitorType> Monitors { get; set; }
     }
 }

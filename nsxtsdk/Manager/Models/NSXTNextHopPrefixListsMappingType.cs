@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Next hop to prefix lists mapping.")]
     public class NSXTNextHopPrefixListsMappingType 
     {
+        public NSXTNextHopPrefixListsMappingType()
+        {
+        }
         /// <summary>
         /// Array of Prefix list UUIDs.
         /// </summary>

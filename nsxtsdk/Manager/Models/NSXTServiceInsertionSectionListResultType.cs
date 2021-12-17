@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceInsertionSectionListResultType : NSXTDSSectionListResultType
     {
+        public NSXTServiceInsertionSectionListResultType()
+        {
+        }
         /// <summary>
         /// List of the ServiceInsertion sections. The list has to be homogeneous.
         /// </summary>

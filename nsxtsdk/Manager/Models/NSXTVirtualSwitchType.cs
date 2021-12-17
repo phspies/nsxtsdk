@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTVirtualSwitchType : NSXTDiscoveredResourceType
     {
+        public NSXTVirtualSwitchType()
+        {
+        }
         /// <summary>
         /// ID of the virtual switch in compute manager
         /// </summary>

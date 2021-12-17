@@ -17,29 +17,32 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer MatchTarget object")]
     public class NSXTALBMatchTargetType 
     {
+        public NSXTALBMatchTargetType()
+        {
+        }
         /// <summary>
-        /// Configure the host header.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "host_hdr")]
-        [NSXTProperty(IsRequired: false, Description: @"Configure the host header.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHostHdrMatchType HostHdr { get; set; }
         /// <summary>
-        /// Configure client ip addresses.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "client_ip")]
-        [NSXTProperty(IsRequired: false, Description: @"Configure client ip addresses.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBIpAddrMatchType ClientIp { get; set; }
         /// <summary>
-        /// Configure versions of the HTTP protocol.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "version")]
-        [NSXTProperty(IsRequired: false, Description: @"Configure versions of the HTTP protocol.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHTTPVersionMatchType Version { get; set; }
         /// <summary>
-        /// Configure the type of HTTP protocol.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "protocol")]
-        [NSXTProperty(IsRequired: false, Description: @"Configure the type of HTTP protocol.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBProtocolMatchType Protocol { get; set; }
         /// <summary>
         /// Configure HTTP header(s).
@@ -48,34 +51,34 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Configure HTTP header(s).")]
         public IList<NSXTALBHdrMatchType> Hdrs { get; set; }
         /// <summary>
-        /// Configure request query.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "query")]
-        [NSXTProperty(IsRequired: false, Description: @"Configure request query.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBQueryMatchType Query { get; set; }
         /// <summary>
-        /// Configure HTTP cookie(s).
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "cookie")]
-        [NSXTProperty(IsRequired: false, Description: @"Configure HTTP cookie(s).")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBCookieMatchType Cookie { get; set; }
         /// <summary>
-        /// Configure request paths.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "path")]
-        [NSXTProperty(IsRequired: false, Description: @"Configure request paths.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBPathMatchType Path { get; set; }
         /// <summary>
-        /// Configure virtual service ports.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "vs_port")]
-        [NSXTProperty(IsRequired: false, Description: @"Configure virtual service ports.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBPortMatchType VsPort { get; set; }
         /// <summary>
-        /// Configure HTTP methods.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "method")]
-        [NSXTProperty(IsRequired: false, Description: @"Configure HTTP methods.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBMethodMatchType Method { get; set; }
     }
 }

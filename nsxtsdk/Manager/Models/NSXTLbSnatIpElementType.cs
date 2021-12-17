@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbSnatIpElementType 
     {
+        public NSXTLbSnatIpElementType()
+        {
+        }
         /// <summary>
         /// Ip address or ip range such as 1.1.1.1 or 1.1.1.101-1.1.1.160
         /// </summary>

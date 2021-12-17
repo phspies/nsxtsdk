@@ -15,8 +15,11 @@ namespace nsxtsdk.PolicyModels
     /// 
     /// </summary>
     [NSXTProperty(Description: @"")]
-    public class NSXTEULAAcceptanceType : NSXTResourceType
+    public class NSXTEULAAcceptanceType : NSXTManagedResourceType
     {
+        public NSXTEULAAcceptanceType()
+        {
+        }
         /// <summary>
         /// Acceptance status of End User License Agreement
         /// </summary>

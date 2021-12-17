@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTApplianceProcessListResultType : NSXTListResultType
     {
+        public NSXTApplianceProcessListResultType()
+        {
+        }
         /// <summary>
         /// Display the appliance process list.
         /// </summary>

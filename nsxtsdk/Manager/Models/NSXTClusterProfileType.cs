@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTClusterProfileType : NSXTManagedResourceType
     {
+        public NSXTClusterProfileType()
+        {
+        }
         /// <summary>
         /// Supported cluster profiles.
         /// </summary>

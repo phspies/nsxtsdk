@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Request parameters that represents a an intent path.")]
     public class NSXTIntentRuntimeRequestParametersType 
     {
+        public NSXTIntentRuntimeRequestParametersType()
+        {
+        }
         /// <summary>
         /// Policy Path referencing a site. This is applicable only on a GlobalManager. If no
         /// site_path is specified, then based on the span of the intent the response will be

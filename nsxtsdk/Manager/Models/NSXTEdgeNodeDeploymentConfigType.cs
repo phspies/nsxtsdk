@@ -17,13 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTEdgeNodeDeploymentConfigType 
     {
+        public NSXTEdgeNodeDeploymentConfigType()
+        {
+            FormFactor = test
+        }
         /// <summary>
-        /// Username and password settings for the node.
-        /// Note - these settings will be honored only during node deployment.
-        /// Post deployment, CLI must be used for changing the user settings, changes to these parameters will not have any effect.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "node_user_settings", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Username and password settings for the node.Note - these settings will be honored only during node deployment.Post deployment, CLI must be used for changing the user settings, changes to these parameters will not have any effect.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTNodeUserSettingsType NodeUserSettings { get; set; }
         /// <summary>
@@ -38,7 +40,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "form_factor")]
         [NSXTProperty(IsRequired: false, Description: @"Supported edge form factor.")]
-        [NSXTDefaultProperty(Default: "MEDIUM")]
         public NSXTEdgeNodeDeploymentConfigFormFactorEnumType? FormFactor { get; set; }
     }
 }

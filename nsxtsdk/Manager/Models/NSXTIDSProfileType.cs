@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIDSProfileType : NSXTManagedResourceType
     {
+        public NSXTIDSProfileType()
+        {
+        }
         /// <summary>
         /// List of IDS signatures ids which need to be detected.
         /// </summary>

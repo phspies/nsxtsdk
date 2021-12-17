@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVpnTunnelProfileListResultType : NSXTListResultType
     {
+        public NSXTIPSecVpnTunnelProfileListResultType()
+        {
+        }
         /// <summary>
         /// IPSecVpnTunnelProfile list results.
         /// </summary>

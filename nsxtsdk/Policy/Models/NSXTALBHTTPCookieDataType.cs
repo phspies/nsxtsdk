@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HTTPCookieData object")]
     public class NSXTALBHTTPCookieDataType 
     {
+        public NSXTALBHTTPCookieDataType()
+        {
+        }
         /// <summary>
         /// Cookie name.
         /// </summary>

@@ -18,6 +18,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"ID and status of the Identity Firewall enabled Compute collection&apos;stransport node.")]
     public class NSXTIdfwTransportNodeStatusType 
     {
+        public NSXTIdfwTransportNodeStatusType()
+        {
+        }
         /// <summary>
         /// Status of the IDFW transport node.
         /// </summary>

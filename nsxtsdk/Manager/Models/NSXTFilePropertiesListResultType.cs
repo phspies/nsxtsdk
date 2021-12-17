@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFilePropertiesListResultType : NSXTListResultType
     {
+        public NSXTFilePropertiesListResultType()
+        {
+        }
         /// <summary>
         /// File property results
         /// </summary>

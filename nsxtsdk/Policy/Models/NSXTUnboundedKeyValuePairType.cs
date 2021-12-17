@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"A key-value pair with no limitations on size")]
     public class NSXTUnboundedKeyValuePairType 
     {
+        public NSXTUnboundedKeyValuePairType()
+        {
+        }
         /// <summary>
         /// Value
         /// </summary>

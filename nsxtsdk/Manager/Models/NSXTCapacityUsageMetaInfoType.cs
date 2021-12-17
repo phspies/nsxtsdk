@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTCapacityUsageMetaInfoType 
     {
+        public NSXTCapacityUsageMetaInfoType()
+        {
+        }
         /// <summary>
         /// Indicates the maximum global threshold percentage
         /// </summary>

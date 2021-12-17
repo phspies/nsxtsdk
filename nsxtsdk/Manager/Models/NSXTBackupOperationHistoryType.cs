@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Past backup operation details")]
     public class NSXTBackupOperationHistoryType 
     {
+        public NSXTBackupOperationHistoryType()
+        {
+        }
         /// <summary>
         /// Statuses of previous inventory backups
         /// </summary>

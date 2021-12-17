@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Detailed feedback requests from the migration tool where user input is required.")]
     public class NSXTMigrationFeedbackResponseType 
     {
+        public NSXTMigrationFeedbackResponseType()
+        {
+        }
         /// <summary>
         /// Action selected in response to the feedback request.
         /// </summary>

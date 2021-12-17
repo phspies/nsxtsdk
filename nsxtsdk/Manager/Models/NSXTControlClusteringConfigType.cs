@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTControlClusteringConfigType : NSXTClusteringConfigType
     {
+        public NSXTControlClusteringConfigType()
+        {
+        }
         /// <summary>
         /// Specifies whether or not the cluster node VM should try to join to
         /// the existing control cluster or initialize a new one.

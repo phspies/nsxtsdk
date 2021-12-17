@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTComputeCollectionNetworkInterfacesListResultType : NSXTListResultType
     {
+        public NSXTComputeCollectionNetworkInterfacesListResultType()
+        {
+        }
         /// <summary>
         /// List of discovered node with network interfaces
         /// </summary>

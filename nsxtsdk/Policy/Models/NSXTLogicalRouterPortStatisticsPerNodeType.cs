@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalRouterPortStatisticsPerNodeType : NSXTAggregatedLogicalRouterPortCountersType
     {
+        public NSXTLogicalRouterPortStatisticsPerNodeType()
+        {
+        }
         /// <summary>
         /// The ID of the TransportNode
         /// </summary>

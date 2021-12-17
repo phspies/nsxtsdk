@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"List all the TNs spaned in L3PortMirrorSession mirror stack health status.")]
     public class NSXTTnNodeStackSpanStatusType 
     {
+        public NSXTTnNodeStackSpanStatusType()
+        {
+        }
         /// <summary>
         /// For L3PortMirrorSession configured mirror stack, show the TN node friendly
         /// name which spaned in L3PortMirrorSession.

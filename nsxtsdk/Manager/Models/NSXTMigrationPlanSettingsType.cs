@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMigrationPlanSettingsType 
     {
+        public NSXTMigrationPlanSettingsType()
+        {
+            Parallel = test
+        }
         /// <summary>
         /// Flag to indicate whether to pause the migration after migration of each group is completed
         /// </summary>
@@ -34,7 +38,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "parallel")]
         [NSXTProperty(IsRequired: false, Description: @"Migration Method to specify whether the migration is to be performed serially or in parallel")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Parallel { get; set; }
     }
 }

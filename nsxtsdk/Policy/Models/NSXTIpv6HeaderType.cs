@@ -17,6 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpv6HeaderType 
     {
+        public NSXTIpv6HeaderType()
+        {
+            NextHeader = test
+            HopLimit = test
+        }
         /// <summary>
         /// The source ip address.
         /// </summary>
@@ -36,7 +41,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Identifies the type of header immediately following the IPv6 header.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(255)]
-        [NSXTDefaultProperty(Default: "")]
         public long? NextHeader { get; set; }
         /// <summary>
         /// Decremented by 1 by each node that forwards the packets. The packet is discarded if Hop Limit is decremented to zero.
@@ -45,7 +49,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Decremented by 1 by each node that forwards the packets. The packet is discarded if Hop Limit is decremented to zero.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(255)]
-        [NSXTDefaultProperty(Default: "")]
         public long? HopLimit { get; set; }
     }
 }

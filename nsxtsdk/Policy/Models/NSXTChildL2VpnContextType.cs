@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildL2VpnContextType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildL2VpnContextType()
+        {
+        }
         /// <summary>
-        /// Contains the actual L2VpnContext object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "L2VpnContext", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual L2VpnContext object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTL2VpnContextType L2VpnContext { get; set; }
     }

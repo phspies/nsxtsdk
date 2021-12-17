@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"OSPF summary address configuration to summarize external routes")]
     public class NSXTOspfSummaryAddressConfigType 
     {
+        public NSXTOspfSummaryAddressConfigType()
+        {
+            Advertise = test
+        }
         /// <summary>
         /// OSPF Summary address in CIDR format
         /// </summary>
@@ -33,7 +37,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "advertise")]
         [NSXTProperty(IsRequired: false, Description: @"Used to filter the advertisement of external routes into the OSPF domain.Setting this field to &quot;TRUE&quot; will enable the summarization of external routes that are covered byip_prefix configuration.Setting this field to &quot;FALSE&quot; will filter the advertisement of external routes that are covered byip_prefix configuration.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Advertise { get; set; }
     }
 }

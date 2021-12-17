@@ -17,12 +17,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Routing table.")]
     public class NSXTRoutingTableType 
     {
+        public NSXTRoutingTableType()
+        {
+        }
         /// <summary>
         /// Entry count.
         /// </summary>
         [JsonProperty(PropertyName = "count")]
         [NSXTProperty(IsRequired: false, Description: @"Entry count.")]
-        public long? Count { get; set; }
+        public int? Count { get; set; }
+        /// <summary>
+        /// Routing table fetch status from Transport node.
+        /// </summary>
+        [JsonProperty(PropertyName = "status")]
+        [NSXTProperty(IsRequired: false, Description: @"Routing table fetch status from Transport node.")]
+        public NSXTRoutingTableStatusEnumType? Status { get; set; }
         /// <summary>
         /// Route entries.
         /// </summary>
@@ -30,6 +39,12 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: true, Description: @"Route entries.")]
         [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTRoutingEntryType> RouteEntries { get; set; }
+        /// <summary>
+        /// Routing table fetch error message, populated only if status if failure.
+        /// </summary>
+        [JsonProperty(PropertyName = "error_message")]
+        [NSXTProperty(IsRequired: false, Description: @"Routing table fetch error message, populated only if status if failure.")]
+        public string? ErrorMessage { get; set; }
         /// <summary>
         /// Transport node ID.
         /// </summary>

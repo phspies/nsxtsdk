@@ -26,6 +26,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTExpressionType : NSXTPolicyConfigResourceType
     {
+        public NSXTExpressionType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

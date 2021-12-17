@@ -18,6 +18,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"L2VPN Session Transport Tunnel Data uses a peer code which has all theinformation to create the transport tunnel.")]
     public class NSXTL2VPNSessionTransportTunnelDataType 
     {
+        public NSXTL2VPNSessionTransportTunnelDataType()
+        {
+        }
         /// <summary>
         /// IPv4 Address of local endpoint.
         /// </summary>

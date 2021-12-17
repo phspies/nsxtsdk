@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Enable address_families and route filtering in each direction")]
     public class NSXTBgpRouteFilteringType 
     {
+        public NSXTBgpRouteFilteringType()
+        {
+            Enabled = test
+        }
         /// <summary>
         /// Specify path of prefix-list or route map to filter routes for OUT direction.
         /// When not specified, a built-in prefix-list named 'prefixlist-out-default'
@@ -36,7 +40,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Flag to enable address family.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// Address family type.
@@ -53,6 +56,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Maximum number of routes for the address family.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(1000000)]
-        public long? MaximumRoutes { get; set; }
+        public int? MaximumRoutes { get; set; }
     }
 }

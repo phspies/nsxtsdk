@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNSProfileListResultType : NSXTListResultType
     {
+        public NSXTNSProfileListResultType()
+        {
+        }
         /// <summary>
         /// Paged collection of NSProfiles
         /// </summary>

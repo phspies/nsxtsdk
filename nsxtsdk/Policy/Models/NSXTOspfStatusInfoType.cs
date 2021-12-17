@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTOspfStatusInfoType 
     {
+        public NSXTOspfStatusInfoType()
+        {
+        }
         /// <summary>
         /// Retransmit request counter.
         /// </summary>

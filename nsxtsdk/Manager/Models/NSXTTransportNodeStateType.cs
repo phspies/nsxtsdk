@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTransportNodeStateType : NSXTConfigurationStateType
     {
+        public NSXTTransportNodeStateType()
+        {
+        }
         /// <summary>
-        /// Deployment progress state of transport node realization
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "deployment_progress_state")]
-        [NSXTProperty(IsRequired: false, Description: @"Deployment progress state of transport node realization")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTTransportNodeDeploymentProgressStateType DeploymentProgressState { get; set; }
         /// <summary>
         /// Unique Id of the TransportNode
@@ -30,10 +33,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Unique Id of the TransportNode")]
         public string? TransportNodeId { get; set; }
         /// <summary>
-        /// Remote tunnel endpoint configuration state
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "remote_tunnel_endpoint_state")]
-        [NSXTProperty(IsRequired: false, Description: @"Remote tunnel endpoint configuration state")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTRemoteTunnelEndpointConfigStateType RemoteTunnelEndpointState { get; set; }
         /// <summary>
         /// States of HostSwitches on the host
@@ -48,10 +51,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"the present realized maintenance mode state")]
         public NSXTTransportNodeStateMaintenanceModeStateEnumType? MaintenanceModeState { get; set; }
         /// <summary>
-        /// Deployment status of installation
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "node_deployment_state")]
-        [NSXTProperty(IsRequired: false, Description: @"Deployment status of installation")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTConfigurationStateType NodeDeploymentState { get; set; }
     }
 }

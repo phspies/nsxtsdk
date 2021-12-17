@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFirewallDnsProfileType : NSXTBaseFirewallProfileType
     {
+        public NSXTFirewallDnsProfileType()
+        {
+        }
         /// <summary>
-        /// Firewall to use TTL config to manage firewall cache to expire snooped FQDN entries from DNS response.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "dns_ttl_config")]
-        [NSXTProperty(IsRequired: false, Description: @"Firewall to use TTL config to manage firewall cache to expire snooped FQDN entries from DNS response.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTDnsTtlConfigType DnsTtlConfig { get; set; }
     }
 }

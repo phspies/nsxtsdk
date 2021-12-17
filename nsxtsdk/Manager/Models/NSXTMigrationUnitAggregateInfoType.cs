@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMigrationUnitAggregateInfoType : NSXTResourceType
     {
+        public NSXTMigrationUnitAggregateInfoType()
+        {
+        }
         /// <summary>
         /// Status of migration unit
         /// </summary>
@@ -36,10 +39,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"List of errors occurred during migration of this migration unit")]
         public IList<string> Errors { get; set; }
         /// <summary>
-        /// Details of the migration unit
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "unit")]
-        [NSXTProperty(IsRequired: false, Description: @"Details of the migration unit")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTMigrationUnitType Unit { get; set; }
     }
 }

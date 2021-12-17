@@ -18,6 +18,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"ServiceDeployment Spec consists of information required to deploy and configure the partner appliances. viz. Deployment template, deployment spec and NIC metatdata.")]
     public class NSXTServiceDeploymentSpecType 
     {
+        public NSXTServiceDeploymentSpecType()
+        {
+        }
         /// <summary>
         /// Deployment Specs holds information required to deploy the Service-VMs. i.e. OVF url where the partner Service-VM OVF is
         /// hosted. The host type on which the OVF can be deployed, Form factor to name a few.

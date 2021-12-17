@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpAddressPoolSubnetListResultType : NSXTListResultType
     {
+        public NSXTIpAddressPoolSubnetListResultType()
+        {
+        }
         /// <summary>
         /// IP Pool subnet list results
         /// </summary>

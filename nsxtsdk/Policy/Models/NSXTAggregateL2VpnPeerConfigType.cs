@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Aggregate of L2Vpn peer config across Enforcement Points.")]
     public class NSXTAggregateL2VpnPeerConfigType 
     {
+        public NSXTAggregateL2VpnPeerConfigType()
+        {
+        }
         /// <summary>
         /// List of L2Vpn peer config per Enforcement Point.
         /// </summary>

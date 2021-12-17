@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAgentStatusCountType 
     {
+        public NSXTAgentStatusCountType()
+        {
+        }
         /// <summary>
         /// Roll-up agent status
         /// </summary>

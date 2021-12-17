@@ -17,23 +17,34 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLiveTraceStatusType : NSXTManagedResourceType
     {
+        public NSXTLiveTraceStatusType()
+        {
+        }
         /// <summary>
-        /// Packet filter for flows of interest
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "filter")]
-        [NSXTProperty(IsRequired: false, Description: @"Packet filter for flows of interest")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLiveTraceFilterDataType Filter { get; set; }
         /// <summary>
-        /// The operation state of live trace.
+        /// The operation state of Livetrace.
         /// IN_PROGRESS - collecting the session results.
-        /// FINISHED - session results collect complete.
-        /// PARTIAL_FINISHED - some ssession results may be lost.
-        /// CANCELED - session cancelled by exception.
-        /// TIMEOUT - session result is incomplete until timeout.
+        /// FINISHED - session results collection completes.
+        /// PARTIAL_FINISHED - session results may be incomplete.
+        /// CANCELED - session is cancelled by exception.
+        /// INVALIDATED - session is invalidated by configuration changes such as VM migration.
+        /// TIMEOUT - session is not completed on time.
         /// </summary>
         [JsonProperty(PropertyName = "operation_state")]
-        [NSXTProperty(IsRequired: false, Description: @"The operation state of live trace.IN_PROGRESS - collecting the session results.FINISHED - session results collect complete.PARTIAL_FINISHED - some ssession results may be lost.CANCELED - session cancelled by exception.TIMEOUT - session result is incomplete until timeout.")]
+        [NSXTProperty(IsRequired: false, Description: @"The operation state of Livetrace.IN_PROGRESS - collecting the session results.FINISHED - session results collection completes.PARTIAL_FINISHED - session results may be incomplete.CANCELED - session is cancelled by exception.INVALIDATED - session is invalidated by configuration changes such as VM migration.TIMEOUT - session is not completed on time.")]
         public NSXTLiveTraceStatusOperationStateEnumType? OperationState { get; set; }
+        /// <summary>
+        /// The detail of invalid filter(s) in a Livetrace session.
+        /// This field is only applicable for filters of PlainFilterData type.
+        /// </summary>
+        [JsonProperty(PropertyName = "filter_invalid_info")]
+        [NSXTProperty(IsRequired: false, Description: @"The detail of invalid filter(s) in a Livetrace session.This field is only applicable for filters of PlainFilterData type.")]
+        public IList<NSXTLiveTraceFilterInvalidInfoType> FilterInvalidInfo { get; set; }
         /// <summary>
         /// Timeout in seconds for livetrace session
         /// </summary>
@@ -49,23 +60,32 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"The source logical port")]
         public string? SourceLport { get; set; }
         /// <summary>
-        /// The status of a live trace request.
+        /// The reason of invalidating a Livetrace session.
+        /// PORT_DISCONNECT - Source or destination logical port of the session is disconnected.
+        /// DP_DESTROY - Dataplane is destroyed.
+        /// UNKNOWN - The invalidation reason cannot be determined.
+        /// </summary>
+        [JsonProperty(PropertyName = "invalidation_reason")]
+        [NSXTProperty(IsRequired: false, Description: @"The reason of invalidating a Livetrace session.PORT_DISCONNECT - Source or destination logical port of the session is disconnected.DP_DESTROY - Dataplane is destroyed.UNKNOWN - The invalidation reason cannot be determined.")]
+        public NSXTLiveTraceStatusInvalidationReasonEnumType? InvalidationReason { get; set; }
+        /// <summary>
+        /// The status of a Livetrace request.
         /// SUCCESS_DELIVERED - The request is delivered successfully.
-        /// LCP_FAILURE - nsx-cfgagent fails to realize the request.
-        /// INVALID_FILTER - filter data invalid.
-        /// DATAPATH_FAILURE - DP fails to realize the request.
+        /// LCP_FAILURE - LCP agent fails to realize the request.
+        /// INVALID_FILTER - Filter is invalid.
+        /// DATAPATH_FAILURE - Dataplane fails to realize the request.
         /// TIMEOUT - The response to the request is not received within timeout.
-        /// CONNECTION_ERROR - There is connection error with host component.
+        /// CONNECTION_ERROR - There is connection error between host components.
         /// UNKNOWN - The status of request cannot be determined.
         /// </summary>
         [JsonProperty(PropertyName = "request_status")]
-        [NSXTProperty(IsRequired: false, Description: @"The status of a live trace request.SUCCESS_DELIVERED - The request is delivered successfully.LCP_FAILURE - nsx-cfgagent fails to realize the request.INVALID_FILTER - filter data invalid.DATAPATH_FAILURE - DP fails to realize the request.TIMEOUT - The response to the request is not received within timeout.CONNECTION_ERROR - There is connection error with host component.UNKNOWN - The status of request cannot be determined.")]
+        [NSXTProperty(IsRequired: false, Description: @"The status of a Livetrace request.SUCCESS_DELIVERED - The request is delivered successfully.LCP_FAILURE - LCP agent fails to realize the request.INVALID_FILTER - Filter is invalid.DATAPATH_FAILURE - Dataplane fails to realize the request.TIMEOUT - The response to the request is not received within timeout.CONNECTION_ERROR - There is connection error between host components.UNKNOWN - The status of request cannot be determined.")]
         public NSXTLiveTraceStatusRequestStatusEnumType? RequestStatus { get; set; }
         /// <summary>
-        /// Action to the filtered packet
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "actions")]
-        [NSXTProperty(IsRequired: false, Description: @"Action to the filtered packet")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLiveTraceActionConfigType Actions { get; set; }
     }
 }

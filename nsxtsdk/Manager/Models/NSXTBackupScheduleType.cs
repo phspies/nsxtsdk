@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Abstract base type for Weekly or Interval Backup Schedule")]
     public class NSXTBackupScheduleType 
     {
+        public NSXTBackupScheduleType()
+        {
+        }
         /// <summary>
         /// Schedule type
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTEffectiveMemberTypeListResultType 
     {
+        public NSXTEffectiveMemberTypeListResultType()
+        {
+        }
         /// <summary>
         /// Collection of member types for the given NSGroup
         /// </summary>

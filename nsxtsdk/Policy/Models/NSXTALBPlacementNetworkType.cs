@@ -17,20 +17,22 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer PlacementNetwork object")]
     public class NSXTALBPlacementNetworkType 
     {
+        public NSXTALBPlacementNetworkType()
+        {
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "subnet", Required = Required.AllowNull)]
+        [NSXTProperty(IsRequired: true, Description: @"")]
+        [System.ComponentModel.DataAnnotations.Required]
+        public NSXTALBIpAddrPrefixType Subnet { get; set; }
         /// <summary>
         /// It is a reference to an object of type Network.
         /// </summary>
-        [JsonProperty(PropertyName = "network_path", Required = Required.AllowNull)]
+        [JsonProperty(PropertyName = "network_name", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"It is a reference to an object of type Network.")]
         [System.ComponentModel.DataAnnotations.Required]
-        public string NetworkPath { get; set; }
-        /// <summary>
-        /// Placeholder for description of property subnet of obj type
-        /// PlacementNetwork field type str  type ref.
-        /// </summary>
-        [JsonProperty(PropertyName = "subnet", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Placeholder for description of property subnet of obj typePlacementNetwork field type str  type ref.")]
-        [System.ComponentModel.DataAnnotations.Required]
-        public NSXTALBIpAddrPrefixType Subnet { get; set; }
+        public string NetworkName { get; set; }
     }
 }

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Sampling parameter for a livetrace action")]
     public class NSXTLiveTraceSamplingConfigType 
     {
+        public NSXTLiveTraceSamplingConfigType()
+        {
+        }
         /// <summary>
         /// A packet is sampled for every given time interval in ms.
         /// </summary>
@@ -26,12 +29,13 @@ namespace nsxtsdk.PolicyModels
         //[System.ComponentModel.DataAnnotations.MaxLength(30000)]
         public long? SamplingInterval { get; set; }
         /// <summary>
-        /// First N packets are sampled.
+        /// First N packets are sampled. The upper limits of sampling number for trace and packet capture actions
+        /// are 50 and 500, respectively.
         /// </summary>
         [JsonProperty(PropertyName = "match_number")]
-        [NSXTProperty(IsRequired: false, Description: @"First N packets are sampled.")]
+        [NSXTProperty(IsRequired: false, Description: @"First N packets are sampled. The upper limits of sampling number for trace and packet capture actionsare 50 and 500, respectively.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(50)]
+        //[System.ComponentModel.DataAnnotations.MaxLength(500)]
         public long? MatchNumber { get; set; }
         /// <summary>
         /// 1 out of N packets is sampled on average.

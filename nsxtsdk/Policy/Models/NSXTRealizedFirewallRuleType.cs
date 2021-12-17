@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRealizedFirewallRuleType : NSXTPolicyRealizedResourceType
     {
+        public NSXTRealizedFirewallRuleType()
+        {
+            Direction = test
+        }
         /// <summary>
         /// Flag to disable rule. Disabled will only be persisted but never provisioned/realized.
         /// </summary>
@@ -35,7 +39,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "direction")]
         [NSXTProperty(IsRequired: false, Description: @"Rule direction in case of stateless firewall rules. This will only considered if section level parameter is set to stateless. Default to IN_OUT if not specified.")]
-        [NSXTDefaultProperty(Default: "IN_OUT")]
         public NSXTRealizedFirewallRuleDirectionEnumType? Direction { get; set; }
         /// <summary>
         /// List of the services. Null will be treated as any.

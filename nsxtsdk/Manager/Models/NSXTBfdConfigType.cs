@@ -17,6 +17,12 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBfdConfigType : NSXTManagedResourceType
     {
+        public NSXTBfdConfigType()
+        {
+            ReceiveInterval = test
+            DeclareDeadMultiple = test
+            TransmitInterval = test
+        }
         /// <summary>
         /// the time interval (in milliseconds) between heartbeat packets for BFD when receiving heartbeats.
         /// </summary>
@@ -24,7 +30,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"the time interval (in milliseconds) between heartbeat packets for BFD when receiving heartbeats.")]
         //[System.ComponentModel.DataAnnotations.MinLength(50)]
         //[System.ComponentModel.DataAnnotations.MaxLength(60000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ReceiveInterval { get; set; }
         /// <summary>
         /// Number of times a packet is missed before BFD declares the neighbor down.
@@ -33,7 +38,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Number of times a packet is missed before BFD declares the neighbor down.")]
         //[System.ComponentModel.DataAnnotations.MinLength(2)]
         //[System.ComponentModel.DataAnnotations.MaxLength(16)]
-        [NSXTDefaultProperty(Default: "")]
         public long? DeclareDeadMultiple { get; set; }
         /// <summary>
         /// Flag to enable BFD for this LogicalRouter
@@ -54,7 +58,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"the time interval (in milliseconds) between heartbeat packets for BFD when sending heartbeats.")]
         //[System.ComponentModel.DataAnnotations.MinLength(50)]
         //[System.ComponentModel.DataAnnotations.MaxLength(60000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? TransmitInterval { get; set; }
     }
 }

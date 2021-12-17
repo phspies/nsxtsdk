@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer QueryMatch object")]
     public class NSXTALBQueryMatchType 
     {
+        public NSXTALBQueryMatchType()
+        {
+            MatchCase = test
+        }
         /// <summary>
         /// Case sensitivity to use for the match.
         /// Enum options - SENSITIVE, INSENSITIVE.
@@ -25,7 +29,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "match_case")]
         [NSXTProperty(IsRequired: false, Description: @"Case sensitivity to use for the match.Enum options - SENSITIVE, INSENSITIVE.Default value when not specified in API or module isinterpreted by ALB Controller as INSENSITIVE.")]
-        [NSXTDefaultProperty(Default: "INSENSITIVE")]
         public NSXTAlbqueryMatchMatchCaseEnumType? MatchCase { get; set; }
         /// <summary>
         /// path of the string group(s).

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNormalizedResourceListResultType : NSXTListResultType
     {
+        public NSXTNormalizedResourceListResultType()
+        {
+        }
         /// <summary>
         /// Normalized resource list results
         /// </summary>

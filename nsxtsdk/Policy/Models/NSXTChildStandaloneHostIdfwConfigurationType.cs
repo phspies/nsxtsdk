@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildStandaloneHostIdfwConfigurationType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildStandaloneHostIdfwConfigurationType()
+        {
+        }
         /// <summary>
-        /// Contains the actual standalone host idfw configuration object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "StandaloneHostIdfwConfiguration", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual standalone host idfw configuration object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTStandaloneHostIdfwConfigurationType StandaloneHostIdfwConfiguration { get; set; }
     }

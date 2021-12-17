@@ -7,9 +7,9 @@ using nsxtsdk.Models;
 namespace nsxtsdk.PolicyModels
 {
     /// <summary>
-    /// Protocol to use for streaming logs.Enum options - LOG_STREAMING_PROTOCOL_UDP,LOG_STREAMING_PROTOCOL_SYSLOG_OVER_UDP,LOG_STREAMING_PROTOCOL_TCP,LOG_STREAMING_PROTOCOL_SYSLOG_OVER_TCP,LOG_STREAMING_PROTOCOL_RAW_OVER_UDP.Default value when not specified in API or module isinterpreted by ALB Controller as LOG_STREAMING_PROTOCOL_UDP.
+    /// Protocol to use for streaming logs.Enum options - LOG_STREAMING_PROTOCOL_UDP,LOG_STREAMING_PROTOCOL_SYSLOG_OVER_UDP,LOG_STREAMING_PROTOCOL_TCP,LOG_STREAMING_PROTOCOL_SYSLOG_OVER_TCP,LOG_STREAMING_PROTOCOL_RAW_OVER_UDP,LOG_STREAMING_PROTOCOL_TLS,LOG_STREAMING_PROTOCOL_SYSLOG_OVER_TLS.Default value when not specified in API or module isinterpreted by ALB Controller as LOG_STREAMING_PROTOCOL_UDP.
     /// </summary>
-    [NSXTProperty(Description: @"Protocol to use for streaming logs.Enum options - LOG_STREAMING_PROTOCOL_UDP,LOG_STREAMING_PROTOCOL_SYSLOG_OVER_UDP,LOG_STREAMING_PROTOCOL_TCP,LOG_STREAMING_PROTOCOL_SYSLOG_OVER_TCP,LOG_STREAMING_PROTOCOL_RAW_OVER_UDP.Default value when not specified in API or module isinterpreted by ALB Controller as LOG_STREAMING_PROTOCOL_UDP.")]
+    [NSXTProperty(Description: @"Protocol to use for streaming logs.Enum options - LOG_STREAMING_PROTOCOL_UDP,LOG_STREAMING_PROTOCOL_SYSLOG_OVER_UDP,LOG_STREAMING_PROTOCOL_TCP,LOG_STREAMING_PROTOCOL_SYSLOG_OVER_TCP,LOG_STREAMING_PROTOCOL_RAW_OVER_UDP,LOG_STREAMING_PROTOCOL_TLS,LOG_STREAMING_PROTOCOL_SYSLOG_OVER_TLS.Default value when not specified in API or module isinterpreted by ALB Controller as LOG_STREAMING_PROTOCOL_UDP.")]
     public enum NSXTAlbclientLogStreamingConfigProtocolEnumType
     {
         [EnumMember(Value = "LOG_STREAMING_PROTOCOL_UDP")]
@@ -22,5 +22,9 @@ namespace nsxtsdk.PolicyModels
         LOGSTREAMINGPROTOCOLSYSLOGOVERTCP = 4,
         [EnumMember(Value = "LOG_STREAMING_PROTOCOL_RAW_OVER_UDP")]
         LOGSTREAMINGPROTOCOLRAWOVERUDP = 5,
+        [EnumMember(Value = "LOG_STREAMING_PROTOCOL_TLS")]
+        LOGSTREAMINGPROTOCOLTLS = 6,
+        [EnumMember(Value = "LOG_STREAMING_PROTOCOL_SYSLOG_OVER_TLS")]
+        LOGSTREAMINGPROTOCOLSYSLOGOVERTLS = 7,
     }
 }

@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildDnsSecurityProfileType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildDnsSecurityProfileType()
+        {
+        }
         /// <summary>
-        /// Contains the actual DnsSecurityProfile object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "DnsSecurityProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual DnsSecurityProfile object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTDnsSecurityProfileType DnsSecurityProfile { get; set; }
     }

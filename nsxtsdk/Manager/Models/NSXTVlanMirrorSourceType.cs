@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTVlanMirrorSourceType : NSXTMirrorSourceType
     {
+        public NSXTVlanMirrorSourceType()
+        {
+        }
         /// <summary>
         /// Source VLAN ID list
         /// </summary>

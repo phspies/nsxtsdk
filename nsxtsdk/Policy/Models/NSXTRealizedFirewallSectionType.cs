@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRealizedFirewallSectionType : NSXTRealizedFirewallType
     {
+        public NSXTRealizedFirewallSectionType()
+        {
+        }
         /// <summary>
         /// List of firewall rules in the section.
         /// </summary>

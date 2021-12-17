@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTFederationUpgradeSummaryListResultType : NSXTListResultType
     {
+        public NSXTFederationUpgradeSummaryListResultType()
+        {
+        }
         /// <summary>
         /// Paged collection of site upgrade information
         /// </summary>

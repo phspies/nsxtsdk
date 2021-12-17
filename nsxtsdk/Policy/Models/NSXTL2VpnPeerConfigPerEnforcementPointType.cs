@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Peer config per Enforcement Point to configure the other side of the tunnel.")]
     public class NSXTL2VpnPeerConfigPerEnforcementPointType 
     {
+        public NSXTL2VpnPeerConfigPerEnforcementPointType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

@@ -19,6 +19,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBVirtualServerStatusPerEPType : NSXTPolicyRuntimeInfoPerEPType
     {
+        public NSXTLBVirtualServerStatusPerEPType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

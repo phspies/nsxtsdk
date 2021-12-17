@@ -17,6 +17,11 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTServerSslProfileBindingType 
     {
+        public NSXTServerSslProfileBindingType()
+        {
+            ServerAuth = test
+            CertificateChainDepth = test
+        }
         /// <summary>
         /// A Certificate Revocation List (CRL) can be specified in the server-side
         /// SSL profile binding to disallow compromised server certificates.
@@ -29,7 +34,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "server_auth")]
         [NSXTProperty(IsRequired: false, Description: @"server authentication mode")]
-        [NSXTDefaultProperty(Default: "IGNORE")]
         public NSXTServerSslProfileBindingServerAuthEnumType? ServerAuth { get; set; }
         /// <summary>
         /// authentication depth is used to set the verification depth in the server
@@ -39,7 +43,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"authentication depth is used to set the verification depth in the servercertificates chain.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
-        [NSXTDefaultProperty(Default: "")]
         public long? CertificateChainDepth { get; set; }
         /// <summary>
         /// To support client authentication (load balancer acting as a client

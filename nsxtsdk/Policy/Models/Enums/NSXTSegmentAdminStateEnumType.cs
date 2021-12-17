@@ -7,9 +7,9 @@ using nsxtsdk.Models;
 namespace nsxtsdk.PolicyModels
 {
     /// <summary>
-    /// Represents Desired state of the Segment
+    /// Admin state represents desired state of segment. It does not reflect the state of other logical entities connected/attached to the segment.
     /// </summary>
-    [NSXTProperty(Description: @"Represents Desired state of the Segment")]
+    [NSXTProperty(Description: @"Admin state represents desired state of segment. It does not reflect the state of other logical entities connected/attached to the segment.")]
     public enum NSXTSegmentAdminStateEnumType
     {
         [EnumMember(Value = "UP")]

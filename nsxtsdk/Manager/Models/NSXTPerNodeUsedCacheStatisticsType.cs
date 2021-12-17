@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Query statistics counters of used cache from node")]
     public class NSXTPerNodeUsedCacheStatisticsType 
     {
+        public NSXTPerNodeUsedCacheStatisticsType()
+        {
+        }
         /// <summary>
         /// The total number of cached entries
         /// </summary>

@@ -17,12 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpDiscoverySwitchingProfileType : NSXTBaseSwitchingProfileType
     {
+        public NSXTIpDiscoverySwitchingProfileType()
+        {
+            ArpSnoopingEnabled = test
+            ArpBindingsLimit = test
+            DhcpSnoopingEnabled = test
+            ArpNdBindingTimeout = test
+            VmToolsEnabled = test
+            TrustOnFirstUseEnabled = test
+            NdBindingsLimit = test
+        }
         /// <summary>
         /// Indicates whether ARP snooping is enabled
         /// </summary>
         [JsonProperty(PropertyName = "arp_snooping_enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Indicates whether ARP snooping is enabled")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? ArpSnoopingEnabled { get; set; }
         /// <summary>
         /// Indicates the number of arp snooped IP addresses to be remembered per LogicalPort. Decreasing this value, will retain
@@ -34,7 +43,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Indicates the number of arp snooped IP addresses to be remembered per LogicalPort. Decreasing this value, will retain the latest bindings from the existing list of address bindings. Increasing this value will retain existing bindings and also learn any new address bindings discovered on the port until the new limit is reached. This limit only applies to IPv4 addresses and is independent of the nd_bindings_limit used for IPv6 snooping.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(256)]
-        [NSXTDefaultProperty(Default: "")]
         public int? ArpBindingsLimit { get; set; }
         /// <summary>
         /// This option is the IPv6 equivalent of DHCP snooping.
@@ -59,7 +67,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "dhcp_snooping_enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Indicates whether DHCP snooping is enabled")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? DhcpSnoopingEnabled { get; set; }
         /// <summary>
         /// This property controls the ARP and ND cache timeout period.It
@@ -70,14 +77,12 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"This property controls the ARP and ND cache timeout period.Itis recommended that this property be greater than the ARP/NDcache timeout on the VM.")]
         //[System.ComponentModel.DataAnnotations.MinLength(5)]
         //[System.ComponentModel.DataAnnotations.MaxLength(120)]
-        [NSXTDefaultProperty(Default: "")]
         public int? ArpNdBindingTimeout { get; set; }
         /// <summary>
         /// This option is only supported on ESX where vm-tools is installed.
         /// </summary>
         [JsonProperty(PropertyName = "vm_tools_enabled")]
         [NSXTProperty(IsRequired: false, Description: @"This option is only supported on ESX where vm-tools is installed.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? VmToolsEnabled { get; set; }
         /// <summary>
         /// ARP snooping being inherently susceptible to ARP spoofing,
@@ -94,7 +99,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "trust_on_first_use_enabled")]
         [NSXTProperty(IsRequired: false, Description: @"ARP snooping being inherently susceptible to ARP spoofing,uses a turst-on-fisrt-use (TOFU) paradigm where only the first IP addressdiscovered via ARP snooping is trusted. The remaining are ignored.In order to allow for more flexibility, we allow the user toconfigure how many ARP snooped address bindings should be trustedfor the lifetime of the logical port. This is controlled by thearp_bindings_limit property in the IP Discovery profile. We referto this extension of TOFU as N-TOFU.However, if TOFU is disabled, then N ARP snooped IP addresses willbe trusted until they are timed out, where N is configured byarp_bindings_limit.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? TrustOnFirstUseEnabled { get; set; }
         /// <summary>
         /// Indicates the number of neighbor-discovery snooped IP addresses to be remembered per LogicalPort. Decreasing this value,
@@ -106,18 +110,12 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Indicates the number of neighbor-discovery snooped IP addresses to be remembered per LogicalPort. Decreasing this value, will retain the latest bindings from the existing list of address bindings. Increasing this value will retain existing bindings and also learn any new address bindings discovered on the port until the new limit is reached. This limit only applies to IPv6 addresses and is independent of the arp_bindings_limit used for IPv4 snooping.")]
         //[System.ComponentModel.DataAnnotations.MinLength(2)]
         //[System.ComponentModel.DataAnnotations.MaxLength(15)]
-        [NSXTDefaultProperty(Default: "")]
         public int? NdBindingsLimit { get; set; }
         /// <summary>
-        /// Duplicate IP detection is used to determine if there is any IP conflict
-        /// with any other port on the same logical switch. If a conflict is detected,
-        /// then the IP is marked as a duplicate on the port where the IP was
-        /// discovered last. The duplicate IP will not be added to the realized
-        /// address binings for the port and hence will not be used in DFW rules or
-        /// other security configurations for the port.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "duplicate_ip_detection")]
-        [NSXTProperty(IsRequired: false, Description: @"Duplicate IP detection is used to determine if there is any IP conflictwith any other port on the same logical switch. If a conflict is detected,then the IP is marked as a duplicate on the port where the IP wasdiscovered last. The duplicate IP will not be added to the realizedaddress binings for the port and hence will not be used in DFW rules orother security configurations for the port.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTDuplicateIPDetectionType DuplicateIpDetection { get; set; }
     }
 }

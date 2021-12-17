@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HTTPHdrData object")]
     public class NSXTALBHTTPHdrDataType 
     {
+        public NSXTALBHTTPHdrDataType()
+        {
+        }
         /// <summary>
         /// HTTP header name.
         /// </summary>
@@ -24,10 +27,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"HTTP header name.")]
         public string? Name { get; set; }
         /// <summary>
-        /// HTTP header value.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "value")]
-        [NSXTProperty(IsRequired: false, Description: @"HTTP header value.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHTTPHdrValueType Value { get; set; }
     }
 }

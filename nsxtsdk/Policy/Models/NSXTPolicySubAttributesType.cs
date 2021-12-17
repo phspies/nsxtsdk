@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Policy Sub Attributes data holder")]
     public class NSXTPolicySubAttributesType 
     {
+        public NSXTPolicySubAttributesType()
+        {
+        }
         /// <summary>
         /// Datatype for sub attribute
         /// </summary>

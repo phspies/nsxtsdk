@@ -17,13 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"This object contains SNMP v3 target/receiver where SNMP traps/notifications will be sent.")]
     public class NSXTSnmpv3TargetType 
     {
+        public NSXTSnmpv3TargetType()
+        {
+            SecurityLevel = test
+            Port = test
+        }
         /// <summary>
         /// Security level indicates whether SNMP communication involves authentication and privacy protocols for this user. Value
         /// "AUTH_PRIV" indicates both authentication and privacy protocols will be used for SNMP communication.
         /// </summary>
         [JsonProperty(PropertyName = "security_level")]
         [NSXTProperty(IsRequired: false, Description: @"Security level indicates whether SNMP communication involves authentication and privacy protocols for this user. Value &quot;AUTH_PRIV&quot; indicates both authentication and privacy protocols will be used for SNMP communication.")]
-        [NSXTDefaultProperty(Default: "AUTH_PRIV")]
         public NSXTSnmpv3TargetSecurityLevelEnumType? SecurityLevel { get; set; }
         /// <summary>
         /// SNMP v3 user id used to notify target server. This SNMP v3 user should already be added in this profile.
@@ -39,7 +43,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"SNMP v3 target server&apos;s port.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Port { get; set; }
         /// <summary>
         /// SNMP v3 target server's IP or FQDN.

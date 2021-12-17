@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"VIF attachment state of a logical port")]
     public class NSXTLogicalPortAttachmentStateType 
     {
+        public NSXTLogicalPortAttachmentStateType()
+        {
+        }
         /// <summary>
         /// A logicalPort must be in one of following state.
         /// FREE - If there are no active attachers. The LogicalPort may or

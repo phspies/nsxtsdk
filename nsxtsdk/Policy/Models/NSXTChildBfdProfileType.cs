@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildBfdProfileType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildBfdProfileType()
+        {
+        }
         /// <summary>
-        /// Contains the actual BfdProfile object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "BfdProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual BfdProfile object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTBfdProfileType BfdProfile { get; set; }
     }

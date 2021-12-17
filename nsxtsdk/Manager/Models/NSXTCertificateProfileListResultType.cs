@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTCertificateProfileListResultType : NSXTListResultType
     {
+        public NSXTCertificateProfileListResultType()
+        {
+        }
         /// <summary>
         /// CertificateProfile list.
         /// </summary>

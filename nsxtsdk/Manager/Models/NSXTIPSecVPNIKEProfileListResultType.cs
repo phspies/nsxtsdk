@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVPNIKEProfileListResultType : NSXTListResultType
     {
+        public NSXTIPSecVPNIKEProfileListResultType()
+        {
+        }
         /// <summary>
         /// IKE Profile list results
         /// </summary>

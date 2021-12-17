@@ -17,6 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBPoolGroupDeploymentPolicyType : NSXTPolicyConfigResourceType
     {
+        public NSXTALBPoolGroupDeploymentPolicyType()
+        {
+            TargetTestTrafficRatio = test
+            EvaluationDuration = test
+            TestTrafficRatioRampup = test
+            AutoDisableOldProdPools = test
+            Scheme = test
+        }
         /// <summary>
         /// Target traffic ratio before pool is made production.
         /// Allowed values are 1-100.
@@ -28,7 +36,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Target traffic ratio before pool is made production.Allowed values are 1-100.Unit is RATIO.Default value when not specified in API or module isinterpreted by ALB Controller as 100.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(100)]
-        [NSXTDefaultProperty(Default: "")]
         public long? TargetTestTrafficRatio { get; set; }
         /// <summary>
         /// Duration of evaluation period for automatic deployment.
@@ -41,7 +48,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Duration of evaluation period for automatic deployment.Allowed values are 60-86400.Unit is SEC.Default value when not specified in API or module isinterpreted by ALB Controller as 300.")]
         //[System.ComponentModel.DataAnnotations.MinLength(60)]
         //[System.ComponentModel.DataAnnotations.MaxLength(86400)]
-        [NSXTDefaultProperty(Default: "")]
         public long? EvaluationDuration { get; set; }
         /// <summary>
         /// Ratio of the traffic that is sent to the pool under test.
@@ -54,7 +60,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Ratio of the traffic that is sent to the pool under test.test ratio of 100 means blue green.Allowed values are 1-100.Default value when not specified in API or module isinterpreted by ALB Controller as 100.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(100)]
-        [NSXTDefaultProperty(Default: "")]
         public long? TestTrafficRatioRampup { get; set; }
         /// <summary>
         /// Placeholder for description of property rules of obj type
@@ -71,7 +76,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "auto_disable_old_prod_pools")]
         [NSXTProperty(IsRequired: false, Description: @"It will automatically disable old production pools oncethere is a new production candidate.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? AutoDisableOldProdPools { get; set; }
         /// <summary>
         /// deployment scheme.
@@ -81,8 +85,15 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "scheme")]
         [NSXTProperty(IsRequired: false, Description: @"deployment scheme.Enum options - BLUE_GREEN, CANARY.Default value when not specified in API or module isinterpreted by ALB Controller as BLUE_GREEN.")]
-        [NSXTDefaultProperty(Default: "BLUE_GREEN")]
         public NSXTAlbpoolGroupDeploymentPolicySchemeEnumType? Scheme { get; set; }
+        /// <summary>
+        /// List of labels to be used for granular RBAC.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
+        /// </summary>
+        [JsonProperty(PropertyName = "markers")]
+        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
+        public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
         /// <summary>
         /// Webhook configured with URL that Avi controller will pass
         /// back information about pool group, old and new pool

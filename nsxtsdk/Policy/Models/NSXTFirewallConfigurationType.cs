@@ -19,6 +19,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTFirewallConfigurationType : NSXTPolicyConfigResourceType
     {
+        public NSXTFirewallConfigurationType()
+        {
+            GlobalAddrsetModeEnabled = test
+            EnableFirewall = test
+        }
         /// <summary>
         /// To disable auto drafts, set it to true.
         /// By default, auto drafts are enabled.
@@ -26,6 +31,12 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "disable_auto_drafts")]
         [NSXTProperty(IsRequired: false, Description: @"To disable auto drafts, set it to true.By default, auto drafts are enabled.")]
         public bool? DisableAutoDrafts { get; set; }
+        /// <summary>
+        /// When this flag is set to true, global address set is enabled in Distributed Firewall.
+        /// </summary>
+        [JsonProperty(PropertyName = "global_addrset_mode_enabled")]
+        [NSXTProperty(IsRequired: false, Description: @"When this flag is set to true, global address set is enabled in Distributed Firewall.")]
+        public bool? GlobalAddrsetModeEnabled { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -38,7 +49,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "enable_firewall")]
         [NSXTProperty(IsRequired: false, Description: @"If set to true, Firewall is enabled.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? EnableFirewall { get; set; }
     }
 }

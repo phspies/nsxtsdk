@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNDRAProfileListResultType : NSXTListResultType
     {
+        public NSXTNDRAProfileListResultType()
+        {
+        }
         /// <summary>
         /// Paginated list of NDRAProfile
         /// </summary>

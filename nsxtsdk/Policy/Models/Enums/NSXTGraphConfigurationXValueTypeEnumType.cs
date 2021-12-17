@@ -18,5 +18,9 @@ namespace nsxtsdk.PolicyModels
         Number = 2,
         [EnumMember(Value = "DATE")]
         Date = 3,
+        [EnumMember(Value = "MILLISECOND")]
+        Millisecond = 4,
+        [EnumMember(Value = "SECOND")]
+        Second = 5,
     }
 }

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTNsxTDnsAnswerType : NSXTPolicyDnsAnswerPerEnforcementPointType
     {
+        public NSXTNsxTDnsAnswerType()
+        {
+        }
         /// <summary>
         /// Authoritative answers
         /// </summary>

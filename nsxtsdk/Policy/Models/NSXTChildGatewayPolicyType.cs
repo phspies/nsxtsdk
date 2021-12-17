@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildGatewayPolicyType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildGatewayPolicyType()
+        {
+        }
         /// <summary>
-        /// Contains the actual GatewayPolicy object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "GatewayPolicy", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual GatewayPolicy object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTGatewayPolicyType GatewayPolicy { get; set; }
     }

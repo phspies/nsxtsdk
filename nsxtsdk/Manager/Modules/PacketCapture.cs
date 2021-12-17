@@ -30,23 +30,23 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPacketCaptureSessionType TerminatePacketCaptureSessionTerminate(string SessionId)
+        public NSXTPacketCaptureSessionType TerminatePacketCaptureSession(string SessionId)
         {
             if (SessionId == null) { throw new System.ArgumentNullException("SessionId cannot be null"); }
             NSXTPacketCaptureSessionType returnValue = default(NSXTPacketCaptureSessionType);
-            StringBuilder TerminatePacketCaptureSessionTerminateServiceURL = new StringBuilder("/pktcap/session/{session-id}?action=terminate");
+            StringBuilder TerminatePacketCaptureSessionServiceURL = new StringBuilder("/pktcap/session/{session-id}?action=terminate");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            TerminatePacketCaptureSessionTerminateServiceURL.Replace("{session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = TerminatePacketCaptureSessionTerminateServiceURL.ToString();
+            TerminatePacketCaptureSessionServiceURL.Replace("{session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = TerminatePacketCaptureSessionServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + TerminatePacketCaptureSessionTerminateServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + TerminatePacketCaptureSessionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -92,23 +92,23 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPacketCaptureSessionType DeletePacketCaptureSessionDelete(string SessionId)
+        public NSXTPacketCaptureSessionType DeletePacketCaptureSession(string SessionId)
         {
             if (SessionId == null) { throw new System.ArgumentNullException("SessionId cannot be null"); }
             NSXTPacketCaptureSessionType returnValue = default(NSXTPacketCaptureSessionType);
-            StringBuilder DeletePacketCaptureSessionDeleteServiceURL = new StringBuilder("/pktcap/session/{session-id}?action=delete");
+            StringBuilder DeletePacketCaptureSessionServiceURL = new StringBuilder("/pktcap/session/{session-id}?action=delete");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            DeletePacketCaptureSessionDeleteServiceURL.Replace("{session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeletePacketCaptureSessionDeleteServiceURL.ToString();
+            DeletePacketCaptureSessionServiceURL.Replace("{session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = DeletePacketCaptureSessionServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + DeletePacketCaptureSessionDeleteServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + DeletePacketCaptureSessionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -201,23 +201,23 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPacketCaptureSessionType RestartPacketCaptureSessionRestart(string SessionId)
+        public NSXTPacketCaptureSessionType RestartPacketCaptureSession(string SessionId)
         {
             if (SessionId == null) { throw new System.ArgumentNullException("SessionId cannot be null"); }
             NSXTPacketCaptureSessionType returnValue = default(NSXTPacketCaptureSessionType);
-            StringBuilder RestartPacketCaptureSessionRestartServiceURL = new StringBuilder("/pktcap/session/{session-id}?action=restart");
+            StringBuilder RestartPacketCaptureSessionServiceURL = new StringBuilder("/pktcap/session/{session-id}?action=restart");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            RestartPacketCaptureSessionRestartServiceURL.Replace("{session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = RestartPacketCaptureSessionRestartServiceURL.ToString();
+            RestartPacketCaptureSessionServiceURL.Replace("{session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = RestartPacketCaptureSessionServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + RestartPacketCaptureSessionRestartServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + RestartPacketCaptureSessionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -238,21 +238,21 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPacketCaptureSessionListType DeleteAllCaptureSessionsDelete()
+        public NSXTPacketCaptureSessionListType DeleteAllCaptureSessions()
         {
             NSXTPacketCaptureSessionListType returnValue = default(NSXTPacketCaptureSessionListType);
-            StringBuilder DeleteAllCaptureSessionsDeleteServiceURL = new StringBuilder("/pktcap/sessions?action=delete");
+            StringBuilder DeleteAllCaptureSessionsServiceURL = new StringBuilder("/pktcap/sessions?action=delete");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            request.Resource = DeleteAllCaptureSessionsDeleteServiceURL.ToString();
+            request.Resource = DeleteAllCaptureSessionsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + DeleteAllCaptureSessionsDeleteServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + DeleteAllCaptureSessionsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else

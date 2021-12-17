@@ -30,25 +30,25 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void FullSyncEnforcementPointForSiteFullSync(string SiteId, string EnforcementPointId)
+        public void FullSyncEnforcementPointForSite(string SiteId, string EnforcementPointId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementPointId == null) { throw new System.ArgumentNullException("EnforcementPointId cannot be null"); }
             
-            StringBuilder FullSyncEnforcementPointForSiteFullSyncServiceURL = new StringBuilder("/infra/sites/{site-id}/enforcement-points/{enforcement-point-id}?action=full-sync");
+            StringBuilder FullSyncEnforcementPointForSiteServiceURL = new StringBuilder("/infra/sites/{site-id}/enforcement-points/{enforcement-point-id}?action=full-sync");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            FullSyncEnforcementPointForSiteFullSyncServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
-            FullSyncEnforcementPointForSiteFullSyncServiceURL.Replace("{enforcement-point-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementPointId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = FullSyncEnforcementPointForSiteFullSyncServiceURL.ToString();
+            FullSyncEnforcementPointForSiteServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
+            FullSyncEnforcementPointForSiteServiceURL.Replace("{enforcement-point-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementPointId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = FullSyncEnforcementPointForSiteServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + FullSyncEnforcementPointForSiteFullSyncServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + FullSyncEnforcementPointForSiteServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -57,133 +57,38 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEnforcementPointType GlobalCreateOrUpdateEnforcementPointForInfra(string DeploymentZoneId, string EnforcementpointId, NSXTEnforcementPointType EnforcementPoint)
+        public NSXTPolicyEdgeClusterType GlobalGlobalInfraReadEdgeClusterForEnforcementPoint(string SiteId, string EnforcementpointId, string EdgeClusterId)
         {
-            if (DeploymentZoneId == null) { throw new System.ArgumentNullException("DeploymentZoneId cannot be null"); }
+            if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
-            if (EnforcementPoint == null) { throw new System.ArgumentNullException("EnforcementPoint cannot be null"); }
-            NSXTEnforcementPointType returnValue = default(NSXTEnforcementPointType);
-            StringBuilder CreateOrUpdateEnforcementPointForInfraServiceURL = new StringBuilder("/global-infra/deployment-zones/{deployment-zone-id}/enforcement-points/{enforcementpoint-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            CreateOrUpdateEnforcementPointForInfraServiceURL.Replace("{deployment-zone-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DeploymentZoneId, System.Globalization.CultureInfo.InvariantCulture)));
-            CreateOrUpdateEnforcementPointForInfraServiceURL.Replace("{enforcementpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementpointId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(EnforcementPoint, defaultSerializationSettings));
-            request.Resource = CreateOrUpdateEnforcementPointForInfraServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + CreateOrUpdateEnforcementPointForInfraServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEnforcementPointType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEnforcementPointType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchEnforcementPointForInfra(string DeploymentZoneId, string EnforcementpointId, NSXTEnforcementPointType EnforcementPoint)
-        {
-            if (DeploymentZoneId == null) { throw new System.ArgumentNullException("DeploymentZoneId cannot be null"); }
-            if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
-            if (EnforcementPoint == null) { throw new System.ArgumentNullException("EnforcementPoint cannot be null"); }
-            
-            StringBuilder PatchEnforcementPointForInfraServiceURL = new StringBuilder("/global-infra/deployment-zones/{deployment-zone-id}/enforcement-points/{enforcementpoint-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchEnforcementPointForInfraServiceURL.Replace("{deployment-zone-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DeploymentZoneId, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchEnforcementPointForInfraServiceURL.Replace("{enforcementpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementpointId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(EnforcementPoint, defaultSerializationSettings));
-            request.Resource = PatchEnforcementPointForInfraServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchEnforcementPointForInfraServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteEnforcementPoint(string DeploymentZoneId, string EnforcementpointId)
-        {
-            if (DeploymentZoneId == null) { throw new System.ArgumentNullException("DeploymentZoneId cannot be null"); }
-            if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
-            
-            StringBuilder DeleteEnforcementPointServiceURL = new StringBuilder("/global-infra/deployment-zones/{deployment-zone-id}/enforcement-points/{enforcementpoint-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteEnforcementPointServiceURL.Replace("{deployment-zone-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DeploymentZoneId, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteEnforcementPointServiceURL.Replace("{enforcementpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementpointId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteEnforcementPointServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteEnforcementPointServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTEnforcementPointType GlobalReadEnforcementPointForInfra(string DeploymentZoneId, string EnforcementpointId)
-        {
-            if (DeploymentZoneId == null) { throw new System.ArgumentNullException("DeploymentZoneId cannot be null"); }
-            if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
-            NSXTEnforcementPointType returnValue = default(NSXTEnforcementPointType);
-            StringBuilder ReadEnforcementPointForInfraServiceURL = new StringBuilder("/global-infra/deployment-zones/{deployment-zone-id}/enforcement-points/{enforcementpoint-id}");
+            if (EdgeClusterId == null) { throw new System.ArgumentNullException("EdgeClusterId cannot be null"); }
+            NSXTPolicyEdgeClusterType returnValue = default(NSXTPolicyEdgeClusterType);
+            StringBuilder GlobalInfraReadEdgeClusterForEnforcementPointServiceURL = new StringBuilder("/global-infra/sites/{site-id}/enforcement-points/{enforcementpoint-id}/edge-clusters/{edge-cluster-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            ReadEnforcementPointForInfraServiceURL.Replace("{deployment-zone-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DeploymentZoneId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReadEnforcementPointForInfraServiceURL.Replace("{enforcementpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementpointId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadEnforcementPointForInfraServiceURL.ToString();
+            GlobalInfraReadEdgeClusterForEnforcementPointServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraReadEdgeClusterForEnforcementPointServiceURL.Replace("{enforcementpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementpointId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraReadEdgeClusterForEnforcementPointServiceURL.Replace("{edge-cluster-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EdgeClusterId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraReadEdgeClusterForEnforcementPointServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ReadEnforcementPointForInfraServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraReadEdgeClusterForEnforcementPointServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
 			{
 				try
 				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEnforcementPointType>(response.Content, defaultSerializationSettings);
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyEdgeClusterType>(response.Content, defaultSerializationSettings);
 				}
 				catch (Exception ex)
 				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEnforcementPointType).FullName + ".";
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyEdgeClusterType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -193,27 +98,25 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDomainDeploymentMapType GlobalCreateOrUpdateDomainDeploymentMapForInfra(string DomainId, string DomainDeploymentMapId, NSXTDomainDeploymentMapType DomainDeploymentMap)
+        public NSXTDomainDeploymentMapType GlobalGlobalInfraReadDomainDeploymentMapForInfra(string DomainId, string DomainDeploymentMapId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (DomainDeploymentMapId == null) { throw new System.ArgumentNullException("DomainDeploymentMapId cannot be null"); }
-            if (DomainDeploymentMap == null) { throw new System.ArgumentNullException("DomainDeploymentMap cannot be null"); }
             NSXTDomainDeploymentMapType returnValue = default(NSXTDomainDeploymentMapType);
-            StringBuilder CreateOrUpdateDomainDeploymentMapForInfraServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/domain-deployment-maps/{domain-deployment-map-id}");
+            StringBuilder GlobalInfraReadDomainDeploymentMapForInfraServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/domain-deployment-maps/{domain-deployment-map-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
-                Method = Method.PUT
+                Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            CreateOrUpdateDomainDeploymentMapForInfraServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            CreateOrUpdateDomainDeploymentMapForInfraServiceURL.Replace("{domain-deployment-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainDeploymentMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(DomainDeploymentMap, defaultSerializationSettings));
-            request.Resource = CreateOrUpdateDomainDeploymentMapForInfraServiceURL.ToString();
+            GlobalInfraReadDomainDeploymentMapForInfraServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraReadDomainDeploymentMapForInfraServiceURL.Replace("{domain-deployment-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainDeploymentMapId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraReadDomainDeploymentMapForInfraServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP PUT operation to " + CreateOrUpdateDomainDeploymentMapForInfraServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraReadDomainDeploymentMapForInfraServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -234,124 +137,29 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalPatchDomainDeploymentMapForInfra(string DomainId, string DomainDeploymentMapId, NSXTDomainDeploymentMapType DomainDeploymentMap)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (DomainDeploymentMapId == null) { throw new System.ArgumentNullException("DomainDeploymentMapId cannot be null"); }
-            if (DomainDeploymentMap == null) { throw new System.ArgumentNullException("DomainDeploymentMap cannot be null"); }
-            
-            StringBuilder PatchDomainDeploymentMapForInfraServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/domain-deployment-maps/{domain-deployment-map-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchDomainDeploymentMapForInfraServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchDomainDeploymentMapForInfraServiceURL.Replace("{domain-deployment-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainDeploymentMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(DomainDeploymentMap, defaultSerializationSettings));
-            request.Resource = PatchDomainDeploymentMapForInfraServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchDomainDeploymentMapForInfraServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTDomainDeploymentMapType GlobalReadDomainDeploymentMapForInfra(string DomainId, string DomainDeploymentMapId)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (DomainDeploymentMapId == null) { throw new System.ArgumentNullException("DomainDeploymentMapId cannot be null"); }
-            NSXTDomainDeploymentMapType returnValue = default(NSXTDomainDeploymentMapType);
-            StringBuilder ReadDomainDeploymentMapForInfraServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/domain-deployment-maps/{domain-deployment-map-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadDomainDeploymentMapForInfraServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReadDomainDeploymentMapForInfraServiceURL.Replace("{domain-deployment-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainDeploymentMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadDomainDeploymentMapForInfraServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadDomainDeploymentMapForInfraServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDomainDeploymentMapType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDomainDeploymentMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteDomainDeploymentMap(string DomainId, string DomainDeploymentMapId)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (DomainDeploymentMapId == null) { throw new System.ArgumentNullException("DomainDeploymentMapId cannot be null"); }
-            
-            StringBuilder DeleteDomainDeploymentMapServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/domain-deployment-maps/{domain-deployment-map-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteDomainDeploymentMapServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteDomainDeploymentMapServiceURL.Replace("{domain-deployment-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainDeploymentMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteDomainDeploymentMapServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteDomainDeploymentMapServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTEnforcementPointListResultType GlobalListEnforcementPointForSite(string SiteId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTEnforcementPointListResultType GlobalGlobalInfraListEnforcementPointForSite(string SiteId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             NSXTEnforcementPointListResultType returnValue = default(NSXTEnforcementPointListResultType);
-            StringBuilder ListEnforcementPointForSiteServiceURL = new StringBuilder("/global-infra/sites/{site-id}/enforcement-points");
+            StringBuilder GlobalInfraListEnforcementPointForSiteServiceURL = new StringBuilder("/global-infra/sites/{site-id}/enforcement-points");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            ListEnforcementPointForSiteServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraListEnforcementPointForSiteServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListEnforcementPointForSiteServiceURL.ToString();
+            request.Resource = GlobalInfraListEnforcementPointForSiteServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ListEnforcementPointForSiteServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraListEnforcementPointForSiteServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -450,70 +258,27 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTier0DeploymentMapType GlobalCreateOrUpdateTier0DeploymentMap(string Tier0Id, string LocaleServiceId, string Tier0DeploymentMapId, NSXTTier0DeploymentMapType Tier0DeploymentMap)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
-            if (Tier0DeploymentMapId == null) { throw new System.ArgumentNullException("Tier0DeploymentMapId cannot be null"); }
-            if (Tier0DeploymentMap == null) { throw new System.ArgumentNullException("Tier0DeploymentMap cannot be null"); }
-            NSXTTier0DeploymentMapType returnValue = default(NSXTTier0DeploymentMapType);
-            StringBuilder CreateOrUpdateTier0DeploymentMapServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/tier-0-deployment-maps/{tier-0-deployment-map-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            CreateOrUpdateTier0DeploymentMapServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            CreateOrUpdateTier0DeploymentMapServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            CreateOrUpdateTier0DeploymentMapServiceURL.Replace("{tier-0-deployment-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0DeploymentMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(Tier0DeploymentMap, defaultSerializationSettings));
-            request.Resource = CreateOrUpdateTier0DeploymentMapServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + CreateOrUpdateTier0DeploymentMapServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTier0DeploymentMapType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTier0DeploymentMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTTier0DeploymentMapType GlobalReadTier0DeploymentMap(string Tier0Id, string LocaleServiceId, string Tier0DeploymentMapId)
+        public NSXTTier0DeploymentMapType GlobalGlobalInfraReadTier0DeploymentMap(string Tier0Id, string LocaleServiceId, string Tier0DeploymentMapId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
             if (Tier0DeploymentMapId == null) { throw new System.ArgumentNullException("Tier0DeploymentMapId cannot be null"); }
             NSXTTier0DeploymentMapType returnValue = default(NSXTTier0DeploymentMapType);
-            StringBuilder ReadTier0DeploymentMapServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/tier-0-deployment-maps/{tier-0-deployment-map-id}");
+            StringBuilder GlobalInfraReadTier0DeploymentMapServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/tier-0-deployment-maps/{tier-0-deployment-map-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            ReadTier0DeploymentMapServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            ReadTier0DeploymentMapServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReadTier0DeploymentMapServiceURL.Replace("{tier-0-deployment-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0DeploymentMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadTier0DeploymentMapServiceURL.ToString();
+            GlobalInfraReadTier0DeploymentMapServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraReadTier0DeploymentMapServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraReadTier0DeploymentMapServiceURL.Replace("{tier-0-deployment-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0DeploymentMapId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraReadTier0DeploymentMapServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ReadTier0DeploymentMapServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraReadTier0DeploymentMapServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -525,119 +290,6 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTTier0DeploymentMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTTier0DeploymentMapType GlobalPatchTier0DeploymentMap(string Tier0Id, string LocaleServiceId, string Tier0DeploymentMapId, NSXTTier0DeploymentMapType Tier0DeploymentMap)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
-            if (Tier0DeploymentMapId == null) { throw new System.ArgumentNullException("Tier0DeploymentMapId cannot be null"); }
-            if (Tier0DeploymentMap == null) { throw new System.ArgumentNullException("Tier0DeploymentMap cannot be null"); }
-            NSXTTier0DeploymentMapType returnValue = default(NSXTTier0DeploymentMapType);
-            StringBuilder PatchTier0DeploymentMapServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/tier-0-deployment-maps/{tier-0-deployment-map-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchTier0DeploymentMapServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchTier0DeploymentMapServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchTier0DeploymentMapServiceURL.Replace("{tier-0-deployment-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0DeploymentMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(Tier0DeploymentMap, defaultSerializationSettings));
-            request.Resource = PatchTier0DeploymentMapServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchTier0DeploymentMapServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTier0DeploymentMapType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTier0DeploymentMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteTier0DeploymentMap(string Tier0Id, string LocaleServiceId, string Tier0DeploymentMapId)
-        {
-            if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
-            if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
-            if (Tier0DeploymentMapId == null) { throw new System.ArgumentNullException("Tier0DeploymentMapId cannot be null"); }
-            
-            StringBuilder DeleteTier0DeploymentMapServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/tier-0-deployment-maps/{tier-0-deployment-map-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteTier0DeploymentMapServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteTier0DeploymentMapServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteTier0DeploymentMapServiceURL.Replace("{tier-0-deployment-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0DeploymentMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteTier0DeploymentMapServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteTier0DeploymentMapServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTPolicyTransportZoneType ReadTransportZoneForEnforcementPoint(string SiteId, string EnforcementpointId, string TransportZoneId)
-        {
-            if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
-            if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
-            if (TransportZoneId == null) { throw new System.ArgumentNullException("TransportZoneId cannot be null"); }
-            NSXTPolicyTransportZoneType returnValue = default(NSXTPolicyTransportZoneType);
-            StringBuilder ReadTransportZoneForEnforcementPointServiceURL = new StringBuilder("/infra/sites/{site-id}/enforcement-points/{enforcementpoint-id}/transport-zones/{transport-zone-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadTransportZoneForEnforcementPointServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReadTransportZoneForEnforcementPointServiceURL.Replace("{enforcementpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementpointId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReadTransportZoneForEnforcementPointServiceURL.Replace("{transport-zone-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TransportZoneId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadTransportZoneForEnforcementPointServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadTransportZoneForEnforcementPointServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyTransportZoneType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyTransportZoneType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -690,62 +342,23 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSiteType GlobalCreateOrUpdateInfraSite(string SiteId, NSXTSiteType Site)
-        {
-            if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
-            if (Site == null) { throw new System.ArgumentNullException("Site cannot be null"); }
-            NSXTSiteType returnValue = default(NSXTSiteType);
-            StringBuilder CreateOrUpdateInfraSiteServiceURL = new StringBuilder("/global-infra/sites/{site-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            CreateOrUpdateInfraSiteServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(Site, defaultSerializationSettings));
-            request.Resource = CreateOrUpdateInfraSiteServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + CreateOrUpdateInfraSiteServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSiteType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSiteType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTSiteType GlobalReadSite(string SiteId)
+        public NSXTSiteType GlobalGlobalInfraReadSite(string SiteId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             NSXTSiteType returnValue = default(NSXTSiteType);
-            StringBuilder ReadSiteServiceURL = new StringBuilder("/global-infra/sites/{site-id}");
+            StringBuilder GlobalInfraReadSiteServiceURL = new StringBuilder("/global-infra/sites/{site-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            ReadSiteServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadSiteServiceURL.ToString();
+            GlobalInfraReadSiteServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraReadSiteServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ReadSiteServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraReadSiteServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -761,59 +374,6 @@ namespace nsxtapi.PolicyModules
 				}
 			}
 			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchInfraSite(string SiteId, NSXTSiteType Site)
-        {
-            if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
-            if (Site == null) { throw new System.ArgumentNullException("Site cannot be null"); }
-            
-            StringBuilder PatchInfraSiteServiceURL = new StringBuilder("/global-infra/sites/{site-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchInfraSiteServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(Site, defaultSerializationSettings));
-            request.Resource = PatchInfraSiteServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchInfraSiteServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteInfraSite(string SiteId, bool? Force = null)
-        {
-            if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
-            
-            StringBuilder DeleteInfraSiteServiceURL = new StringBuilder("/global-infra/sites/{site-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteInfraSiteServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteInfraSiteServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteInfraSiteServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
         }
         /// <summary>
         /// 
@@ -851,47 +411,6 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTDeploymentZoneListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTPolicyEdgeClusterType GlobalReadEdgeClusterForEnforcementPoint(string SiteId, string EnforcementpointId, string EdgeClusterId)
-        {
-            if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
-            if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
-            if (EdgeClusterId == null) { throw new System.ArgumentNullException("EdgeClusterId cannot be null"); }
-            NSXTPolicyEdgeClusterType returnValue = default(NSXTPolicyEdgeClusterType);
-            StringBuilder ReadEdgeClusterForEnforcementPointServiceURL = new StringBuilder("/global-infra/sites/{site-id}/enforcement-points/{enforcementpoint-id}/edge-clusters/{edge-cluster-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadEdgeClusterForEnforcementPointServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReadEdgeClusterForEnforcementPointServiceURL.Replace("{enforcementpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementpointId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReadEdgeClusterForEnforcementPointServiceURL.Replace("{edge-cluster-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EdgeClusterId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadEdgeClusterForEnforcementPointServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadEdgeClusterForEnforcementPointServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyEdgeClusterType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyEdgeClusterType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -1295,109 +814,25 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyTransportZoneType GlobalReadTransportZoneForEnforcementPoint(string SiteId, string EnforcementpointId, string TransportZoneId)
+        public NSXTEnforcementPointType GlobalGlobalInfraReadEnforcementPointForSite(string SiteId, string EnforcementpointId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
-            if (TransportZoneId == null) { throw new System.ArgumentNullException("TransportZoneId cannot be null"); }
-            NSXTPolicyTransportZoneType returnValue = default(NSXTPolicyTransportZoneType);
-            StringBuilder ReadTransportZoneForEnforcementPointServiceURL = new StringBuilder("/global-infra/sites/{site-id}/enforcement-points/{enforcementpoint-id}/transport-zones/{transport-zone-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadTransportZoneForEnforcementPointServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReadTransportZoneForEnforcementPointServiceURL.Replace("{enforcementpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementpointId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReadTransportZoneForEnforcementPointServiceURL.Replace("{transport-zone-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TransportZoneId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadTransportZoneForEnforcementPointServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadTransportZoneForEnforcementPointServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyTransportZoneType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyTransportZoneType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTDeploymentZoneListResultType GlobalListDeploymentZonesForInfra(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTDeploymentZoneListResultType returnValue = default(NSXTDeploymentZoneListResultType);
-            StringBuilder ListDeploymentZonesForInfraServiceURL = new StringBuilder("/global-infra/deployment-zones");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListDeploymentZonesForInfraServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListDeploymentZonesForInfraServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDeploymentZoneListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDeploymentZoneListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTEnforcementPointType GlobalCreateOrUpdateEnforcementPointForSite(string SiteId, string EnforcementpointId, NSXTEnforcementPointType EnforcementPoint)
-        {
-            if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
-            if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
-            if (EnforcementPoint == null) { throw new System.ArgumentNullException("EnforcementPoint cannot be null"); }
             NSXTEnforcementPointType returnValue = default(NSXTEnforcementPointType);
-            StringBuilder CreateOrUpdateEnforcementPointForSiteServiceURL = new StringBuilder("/global-infra/sites/{site-id}/enforcement-points/{enforcementpoint-id}");
+            StringBuilder GlobalInfraReadEnforcementPointForSiteServiceURL = new StringBuilder("/global-infra/sites/{site-id}/enforcement-points/{enforcementpoint-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
-                Method = Method.PUT
+                Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            CreateOrUpdateEnforcementPointForSiteServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
-            CreateOrUpdateEnforcementPointForSiteServiceURL.Replace("{enforcementpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementpointId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(EnforcementPoint, defaultSerializationSettings));
-            request.Resource = CreateOrUpdateEnforcementPointForSiteServiceURL.ToString();
+            GlobalInfraReadEnforcementPointForSiteServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraReadEnforcementPointForSiteServiceURL.Replace("{enforcementpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementpointId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraReadEnforcementPointForSiteServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP PUT operation to " + CreateOrUpdateEnforcementPointForSiteServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraReadEnforcementPointForSiteServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1409,138 +844,6 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTEnforcementPointType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchEnforcementPointForSite(string SiteId, string EnforcementpointId, NSXTEnforcementPointType EnforcementPoint)
-        {
-            if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
-            if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
-            if (EnforcementPoint == null) { throw new System.ArgumentNullException("EnforcementPoint cannot be null"); }
-            
-            StringBuilder PatchEnforcementPointForSiteServiceURL = new StringBuilder("/global-infra/sites/{site-id}/enforcement-points/{enforcementpoint-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchEnforcementPointForSiteServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchEnforcementPointForSiteServiceURL.Replace("{enforcementpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementpointId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(EnforcementPoint, defaultSerializationSettings));
-            request.Resource = PatchEnforcementPointForSiteServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchEnforcementPointForSiteServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTEnforcementPointType GlobalReadEnforcementPointForSite(string SiteId, string EnforcementpointId)
-        {
-            if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
-            if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
-            NSXTEnforcementPointType returnValue = default(NSXTEnforcementPointType);
-            StringBuilder ReadEnforcementPointForSiteServiceURL = new StringBuilder("/global-infra/sites/{site-id}/enforcement-points/{enforcementpoint-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadEnforcementPointForSiteServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReadEnforcementPointForSiteServiceURL.Replace("{enforcementpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementpointId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadEnforcementPointForSiteServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadEnforcementPointForSiteServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEnforcementPointType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEnforcementPointType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteEnforcementPointForSite(string SiteId, string EnforcementpointId)
-        {
-            if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
-            if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
-            
-            StringBuilder DeleteEnforcementPointForSiteServiceURL = new StringBuilder("/global-infra/sites/{site-id}/enforcement-points/{enforcementpoint-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteEnforcementPointForSiteServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteEnforcementPointForSiteServiceURL.Replace("{enforcementpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementpointId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteEnforcementPointForSiteServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteEnforcementPointForSiteServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTDeploymentZoneType GlobalReadDeploymentZoneInfra(string DeploymentZoneId)
-        {
-            if (DeploymentZoneId == null) { throw new System.ArgumentNullException("DeploymentZoneId cannot be null"); }
-            NSXTDeploymentZoneType returnValue = default(NSXTDeploymentZoneType);
-            StringBuilder ReadDeploymentZoneInfraServiceURL = new StringBuilder("/global-infra/deployment-zones/{deployment-zone-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadDeploymentZoneInfraServiceURL.Replace("{deployment-zone-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DeploymentZoneId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadDeploymentZoneInfraServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadDeploymentZoneInfraServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDeploymentZoneType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDeploymentZoneType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -1686,29 +989,29 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDomainDeploymentMapListResultType GlobalListDomainDeploymentMapsForInfra(string DomainId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTDomainDeploymentMapListResultType GlobalGlobalInfraListDomainDeploymentMapsForInfra(string DomainId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             NSXTDomainDeploymentMapListResultType returnValue = default(NSXTDomainDeploymentMapListResultType);
-            StringBuilder ListDomainDeploymentMapsForInfraServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/domain-deployment-maps");
+            StringBuilder GlobalInfraListDomainDeploymentMapsForInfraServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/domain-deployment-maps");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            ListDomainDeploymentMapsForInfraServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraListDomainDeploymentMapsForInfraServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListDomainDeploymentMapsForInfraServiceURL.ToString();
+            request.Resource = GlobalInfraListDomainDeploymentMapsForInfraServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ListDomainDeploymentMapsForInfraServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraListDomainDeploymentMapsForInfraServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1729,29 +1032,29 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyEdgeNodeType GlobalReadEdgeNodeUnderEdgeClusterForEnforcementPoint(string SiteId, string EnforcementpointId, string EdgeClusterId, string EdgeNodeId)
+        public NSXTPolicyEdgeNodeType GlobalGlobalInfraReadEdgeNodeUnderEdgeClusterForEnforcementPoint(string SiteId, string EnforcementpointId, string EdgeClusterId, string EdgeNodeId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
             if (EdgeClusterId == null) { throw new System.ArgumentNullException("EdgeClusterId cannot be null"); }
             if (EdgeNodeId == null) { throw new System.ArgumentNullException("EdgeNodeId cannot be null"); }
             NSXTPolicyEdgeNodeType returnValue = default(NSXTPolicyEdgeNodeType);
-            StringBuilder ReadEdgeNodeUnderEdgeClusterForEnforcementPointServiceURL = new StringBuilder("/global-infra/sites/{site-id}/enforcement-points/{enforcementpoint-id}/edge-clusters/{edge-cluster-id}/edge-nodes/{edge-node-id}");
+            StringBuilder GlobalInfraReadEdgeNodeUnderEdgeClusterForEnforcementPointServiceURL = new StringBuilder("/global-infra/sites/{site-id}/enforcement-points/{enforcementpoint-id}/edge-clusters/{edge-cluster-id}/edge-nodes/{edge-node-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            ReadEdgeNodeUnderEdgeClusterForEnforcementPointServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReadEdgeNodeUnderEdgeClusterForEnforcementPointServiceURL.Replace("{enforcementpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementpointId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReadEdgeNodeUnderEdgeClusterForEnforcementPointServiceURL.Replace("{edge-cluster-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EdgeClusterId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReadEdgeNodeUnderEdgeClusterForEnforcementPointServiceURL.Replace("{edge-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EdgeNodeId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadEdgeNodeUnderEdgeClusterForEnforcementPointServiceURL.ToString();
+            GlobalInfraReadEdgeNodeUnderEdgeClusterForEnforcementPointServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraReadEdgeNodeUnderEdgeClusterForEnforcementPointServiceURL.Replace("{enforcementpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementpointId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraReadEdgeNodeUnderEdgeClusterForEnforcementPointServiceURL.Replace("{edge-cluster-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EdgeClusterId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraReadEdgeNodeUnderEdgeClusterForEnforcementPointServiceURL.Replace("{edge-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EdgeNodeId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraReadEdgeNodeUnderEdgeClusterForEnforcementPointServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ReadEdgeNodeUnderEdgeClusterForEnforcementPointServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraReadEdgeNodeUnderEdgeClusterForEnforcementPointServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1772,31 +1075,31 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTier0DeploymentMapListResultType GlobalListTier0DeploymentMaps(string Tier0Id, string LocaleServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTTier0DeploymentMapListResultType GlobalGlobalInfraListTier0DeploymentMaps(string Tier0Id, string LocaleServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
             NSXTTier0DeploymentMapListResultType returnValue = default(NSXTTier0DeploymentMapListResultType);
-            StringBuilder ListTier0DeploymentMapsServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/tier-0-deployment-maps");
+            StringBuilder GlobalInfraListTier0DeploymentMapsServiceURL = new StringBuilder("/global-infra/tier-0s/{tier-0-id}/locale-services/{locale-service-id}/tier-0-deployment-maps");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            ListTier0DeploymentMapsServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
-            ListTier0DeploymentMapsServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraListTier0DeploymentMapsServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraListTier0DeploymentMapsServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListTier0DeploymentMapsServiceURL.ToString();
+            request.Resource = GlobalInfraListTier0DeploymentMapsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ListTier0DeploymentMapsServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraListTier0DeploymentMapsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1817,33 +1120,33 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyEdgeNodeListResultType GlobalListEdgeNodesUnderEdgeClusterForEnforcementPoint(string SiteId, string EnforcementpointId, string EdgeClusterId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyEdgeNodeListResultType GlobalGlobalInfraListEdgeNodesUnderEdgeClusterForEnforcementPoint(string SiteId, string EnforcementpointId, string EdgeClusterId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
             if (EdgeClusterId == null) { throw new System.ArgumentNullException("EdgeClusterId cannot be null"); }
             NSXTPolicyEdgeNodeListResultType returnValue = default(NSXTPolicyEdgeNodeListResultType);
-            StringBuilder ListEdgeNodesUnderEdgeClusterForEnforcementPointServiceURL = new StringBuilder("/global-infra/sites/{site-id}/enforcement-points/{enforcementpoint-id}/edge-clusters/{edge-cluster-id}/edge-nodes");
+            StringBuilder GlobalInfraListEdgeNodesUnderEdgeClusterForEnforcementPointServiceURL = new StringBuilder("/global-infra/sites/{site-id}/enforcement-points/{enforcementpoint-id}/edge-clusters/{edge-cluster-id}/edge-nodes");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            ListEdgeNodesUnderEdgeClusterForEnforcementPointServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
-            ListEdgeNodesUnderEdgeClusterForEnforcementPointServiceURL.Replace("{enforcementpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementpointId, System.Globalization.CultureInfo.InvariantCulture)));
-            ListEdgeNodesUnderEdgeClusterForEnforcementPointServiceURL.Replace("{edge-cluster-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EdgeClusterId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraListEdgeNodesUnderEdgeClusterForEnforcementPointServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraListEdgeNodesUnderEdgeClusterForEnforcementPointServiceURL.Replace("{enforcementpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementpointId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraListEdgeNodesUnderEdgeClusterForEnforcementPointServiceURL.Replace("{edge-cluster-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EdgeClusterId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListEdgeNodesUnderEdgeClusterForEnforcementPointServiceURL.ToString();
+            request.Resource = GlobalInfraListEdgeNodesUnderEdgeClusterForEnforcementPointServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ListEdgeNodesUnderEdgeClusterForEnforcementPointServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraListEdgeNodesUnderEdgeClusterForEnforcementPointServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1864,25 +1167,25 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEnforcementPointType ReloadEnforcementPointForSiteReload(string SiteId, string EnforcementpointId)
+        public NSXTEnforcementPointType ReloadEnforcementPointForSite(string SiteId, string EnforcementpointId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
             NSXTEnforcementPointType returnValue = default(NSXTEnforcementPointType);
-            StringBuilder ReloadEnforcementPointForSiteReloadServiceURL = new StringBuilder("/infra/sites/{site-id}/enforcement-points/{enforcementpoint-id}?action=reload");
+            StringBuilder ReloadEnforcementPointForSiteServiceURL = new StringBuilder("/infra/sites/{site-id}/enforcement-points/{enforcementpoint-id}?action=reload");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            ReloadEnforcementPointForSiteReloadServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReloadEnforcementPointForSiteReloadServiceURL.Replace("{enforcementpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementpointId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReloadEnforcementPointForSiteReloadServiceURL.ToString();
+            ReloadEnforcementPointForSiteServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
+            ReloadEnforcementPointForSiteServiceURL.Replace("{enforcementpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementpointId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = ReloadEnforcementPointForSiteServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + ReloadEnforcementPointForSiteReloadServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + ReloadEnforcementPointForSiteServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1894,51 +1197,6 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTEnforcementPointType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTPolicyEdgeClusterListResultType GlobalListEdgeClustersForEnforcementPoint(string SiteId, string EnforcementpointId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
-            if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
-            NSXTPolicyEdgeClusterListResultType returnValue = default(NSXTPolicyEdgeClusterListResultType);
-            StringBuilder ListEdgeClustersForEnforcementPointServiceURL = new StringBuilder("/global-infra/sites/{site-id}/enforcement-points/{enforcementpoint-id}/edge-clusters");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ListEdgeClustersForEnforcementPointServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
-            ListEdgeClustersForEnforcementPointServiceURL.Replace("{enforcementpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementpointId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListEdgeClustersForEnforcementPointServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListEdgeClustersForEnforcementPointServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyEdgeClusterListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyEdgeClusterListResultType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -2065,6 +1323,33 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
+        public void DeleteDomainDeploymentMap(string DomainId, string DomainDeploymentMapId)
+        {
+            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
+            if (DomainDeploymentMapId == null) { throw new System.ArgumentNullException("DomainDeploymentMapId cannot be null"); }
+            
+            StringBuilder DeleteDomainDeploymentMapServiceURL = new StringBuilder("/infra/domains/{domain-id}/domain-deployment-maps/{domain-deployment-map-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.DELETE
+            };
+            request.AddHeader("Content-type", "application/json");
+            DeleteDomainDeploymentMapServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
+            DeleteDomainDeploymentMapServiceURL.Replace("{domain-deployment-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainDeploymentMapId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = DeleteDomainDeploymentMapServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP DELETE operation to " + DeleteDomainDeploymentMapServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
         public NSXTDomainDeploymentMapType ReadDomainDeploymentMapForInfra(string DomainId, string DomainDeploymentMapId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
@@ -2095,117 +1380,6 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTDomainDeploymentMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void DeleteDomainDeploymentMap(string DomainId, string DomainDeploymentMapId)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (DomainDeploymentMapId == null) { throw new System.ArgumentNullException("DomainDeploymentMapId cannot be null"); }
-            
-            StringBuilder DeleteDomainDeploymentMapServiceURL = new StringBuilder("/infra/domains/{domain-id}/domain-deployment-maps/{domain-deployment-map-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteDomainDeploymentMapServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteDomainDeploymentMapServiceURL.Replace("{domain-deployment-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainDeploymentMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteDomainDeploymentMapServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteDomainDeploymentMapServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTEnforcementPointType GlobalReloadEnforcementPointForSiteReload(string SiteId, string EnforcementpointId)
-        {
-            if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
-            if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
-            NSXTEnforcementPointType returnValue = default(NSXTEnforcementPointType);
-            StringBuilder ReloadEnforcementPointForSiteReloadServiceURL = new StringBuilder("/global-infra/sites/{site-id}/enforcement-points/{enforcementpoint-id}?action=reload");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.POST
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReloadEnforcementPointForSiteReloadServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReloadEnforcementPointForSiteReloadServiceURL.Replace("{enforcementpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementpointId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReloadEnforcementPointForSiteReloadServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP POST operation to " + ReloadEnforcementPointForSiteReloadServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEnforcementPointType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEnforcementPointType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTPolicyTransportZoneListResultType ListTransportZonesForEnforcementPoint(string SiteId, string EnforcementpointId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
-            if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
-            NSXTPolicyTransportZoneListResultType returnValue = default(NSXTPolicyTransportZoneListResultType);
-            StringBuilder ListTransportZonesForEnforcementPointServiceURL = new StringBuilder("/infra/sites/{site-id}/enforcement-points/{enforcementpoint-id}/transport-zones");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ListTransportZonesForEnforcementPointServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
-            ListTransportZonesForEnforcementPointServiceURL.Replace("{enforcementpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementpointId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListTransportZonesForEnforcementPointServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListTransportZonesForEnforcementPointServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyTransportZoneListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyTransportZoneListResultType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -2414,42 +1588,42 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyTransportZoneListResultType GlobalListTransportZonesForEnforcementPoint(string SiteId, string EnforcementpointId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyEdgeClusterListResultType GlobalGlobalInfraListEdgeClustersForEnforcementPoint(string SiteId, string EnforcementpointId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
-            NSXTPolicyTransportZoneListResultType returnValue = default(NSXTPolicyTransportZoneListResultType);
-            StringBuilder ListTransportZonesForEnforcementPointServiceURL = new StringBuilder("/global-infra/sites/{site-id}/enforcement-points/{enforcementpoint-id}/transport-zones");
+            NSXTPolicyEdgeClusterListResultType returnValue = default(NSXTPolicyEdgeClusterListResultType);
+            StringBuilder GlobalInfraListEdgeClustersForEnforcementPointServiceURL = new StringBuilder("/global-infra/sites/{site-id}/enforcement-points/{enforcementpoint-id}/edge-clusters");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            ListTransportZonesForEnforcementPointServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
-            ListTransportZonesForEnforcementPointServiceURL.Replace("{enforcementpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementpointId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraListEdgeClustersForEnforcementPointServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraListEdgeClustersForEnforcementPointServiceURL.Replace("{enforcementpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementpointId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListTransportZonesForEnforcementPointServiceURL.ToString();
+            request.Resource = GlobalInfraListEdgeClustersForEnforcementPointServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ListTransportZonesForEnforcementPointServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraListEdgeClustersForEnforcementPointServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
 			{
 				try
 				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyTransportZoneListResultType>(response.Content, defaultSerializationSettings);
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyEdgeClusterListResultType>(response.Content, defaultSerializationSettings);
 				}
 				catch (Exception ex)
 				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyTransportZoneListResultType).FullName + ".";
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyEdgeClusterListResultType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -2459,37 +1633,10 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalFullSyncEnforcementPointForSiteFullSync(string SiteId, string EnforcementPointId)
-        {
-            if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
-            if (EnforcementPointId == null) { throw new System.ArgumentNullException("EnforcementPointId cannot be null"); }
-            
-            StringBuilder FullSyncEnforcementPointForSiteFullSyncServiceURL = new StringBuilder("/global-infra/sites/{site-id}/enforcement-points/{enforcement-point-id}?action=full-sync");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.POST
-            };
-            request.AddHeader("Content-type", "application/json");
-            FullSyncEnforcementPointForSiteFullSyncServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
-            FullSyncEnforcementPointForSiteFullSyncServiceURL.Replace("{enforcement-point-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementPointId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = FullSyncEnforcementPointForSiteFullSyncServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP POST operation to " + FullSyncEnforcementPointForSiteFullSyncServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTSiteListResultType GlobalListSites(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTSiteListResultType GlobalGlobalInfraListSites(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTSiteListResultType returnValue = default(NSXTSiteListResultType);
-            StringBuilder ListSitesServiceURL = new StringBuilder("/global-infra/sites");
+            StringBuilder GlobalInfraListSitesServiceURL = new StringBuilder("/global-infra/sites");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -2502,11 +1649,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListSitesServiceURL.ToString();
+            request.Resource = GlobalInfraListSitesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ListSitesServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraListSitesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -2518,49 +1665,6 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTSiteListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTEnforcementPointListResultType GlobalListEnforcementPointForInfra(string DeploymentZoneId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (DeploymentZoneId == null) { throw new System.ArgumentNullException("DeploymentZoneId cannot be null"); }
-            NSXTEnforcementPointListResultType returnValue = default(NSXTEnforcementPointListResultType);
-            StringBuilder ListEnforcementPointForInfraServiceURL = new StringBuilder("/global-infra/deployment-zones/{deployment-zone-id}/enforcement-points");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ListEnforcementPointForInfraServiceURL.Replace("{deployment-zone-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DeploymentZoneId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListEnforcementPointForInfraServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListEnforcementPointForInfraServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEnforcementPointListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEnforcementPointListResultType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}

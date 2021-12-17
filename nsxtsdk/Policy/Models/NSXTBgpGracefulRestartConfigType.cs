@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Configuration field to hold BGP restart mode and timer.")]
     public class NSXTBgpGracefulRestartConfigType 
     {
+        public NSXTBgpGracefulRestartConfigType()
+        {
+            Mode = test
+        }
         /// <summary>
         /// If mode is DISABLE, then graceful restart and helper modes are disabled.
         /// If mode is GR_AND_HELPER, then both graceful restart and helper modes are enabled.
@@ -28,13 +32,12 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "mode")]
         [NSXTProperty(IsRequired: false, Description: @"If mode is DISABLE, then graceful restart and helper modes are disabled.If mode is GR_AND_HELPER, then both graceful restart and helper modes are enabled.If mode is HELPER_ONLY, then helper mode is enabled.HELPER_ONLY mode is the ability for a BGP speaker to indicate its abilityto preserve forwarding state during BGP restart.GRACEFUL_RESTART mode is the ability of a BGP speaker to advertise its restartto its peers.")]
-        [NSXTDefaultProperty(Default: "HELPER_ONLY")]
         public NSXTBgpGracefulRestartConfigModeEnumType? Mode { get; set; }
         /// <summary>
-        /// Configuration field to hold BGP restart timers.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "timer")]
-        [NSXTProperty(IsRequired: false, Description: @"Configuration field to hold BGP restart timers.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTBgpGracefulRestartTimerType Timer { get; set; }
     }
 }

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Node AAA provider vIDM status")]
     public class NSXTNodeAuthProviderVidmStatusType 
     {
+        public NSXTNodeAuthProviderVidmStatusType()
+        {
+        }
         /// <summary>
         /// AAA provider vIDM status
         /// </summary>

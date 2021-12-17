@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Injection Value.")]
     public class NSXTInjectionValueType 
     {
+        public NSXTInjectionValueType()
+        {
+        }
         /// <summary>
         /// Injection Value resource type.
         /// </summary>

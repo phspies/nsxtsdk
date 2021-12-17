@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVPNPeerEndpointListResultType : NSXTListResultType
     {
+        public NSXTIPSecVPNPeerEndpointListResultType()
+        {
+        }
         /// <summary>
         /// IPSec Peer endpoint list results
         /// </summary>

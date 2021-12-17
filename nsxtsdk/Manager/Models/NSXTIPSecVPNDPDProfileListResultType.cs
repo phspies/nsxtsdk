@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVPNDPDProfileListResultType : NSXTListResultType
     {
+        public NSXTIPSecVPNDPDProfileListResultType()
+        {
+        }
         /// <summary>
         /// IPSec DPD Profile list results
         /// </summary>

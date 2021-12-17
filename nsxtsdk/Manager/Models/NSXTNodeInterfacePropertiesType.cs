@@ -17,12 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Node network interface properties")]
     public class NSXTNodeInterfacePropertiesType 
     {
+        public NSXTNodeInterfacePropertiesType()
+        {
+        }
         /// <summary>
         /// Indicates whether interface is managed by the host
         /// </summary>
         [JsonProperty(PropertyName = "host_managed")]
         [NSXTProperty(IsRequired: false, Description: @"Indicates whether interface is managed by the host")]
         public bool? HostManaged { get; set; }
+        /// <summary>
+        /// UUID of the interface
+        /// </summary>
+        [JsonProperty(PropertyName = "interface_uuid")]
+        [NSXTProperty(IsRequired: false, Description: @"UUID of the interface")]
+        public string? InterfaceUuid { get; set; }
         /// <summary>
         /// Type of switch associated with the interface.
         /// </summary>

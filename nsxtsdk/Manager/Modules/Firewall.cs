@@ -67,27 +67,27 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFirewallSectionRuleListType ReviseSectionWithRulesReviseWithRules(string SectionId, NSXTFirewallSectionRuleListType FirewallSectionRuleList, string? Id = null, string? Operation = null)
+        public NSXTFirewallSectionRuleListType ReviseSectionWithRules(string SectionId, NSXTFirewallSectionRuleListType FirewallSectionRuleList, string? Id = null, string? Operation = null)
         {
             if (SectionId == null) { throw new System.ArgumentNullException("SectionId cannot be null"); }
             if (FirewallSectionRuleList == null) { throw new System.ArgumentNullException("FirewallSectionRuleList cannot be null"); }
             NSXTFirewallSectionRuleListType returnValue = default(NSXTFirewallSectionRuleListType);
-            StringBuilder ReviseSectionWithRulesReviseWithRulesServiceURL = new StringBuilder("/firewall/sections/{section-id}?action=revise_with_rules");
+            StringBuilder ReviseSectionWithRulesServiceURL = new StringBuilder("/firewall/sections/{section-id}?action=revise_with_rules");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            ReviseSectionWithRulesReviseWithRulesServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
+            ReviseSectionWithRulesServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(FirewallSectionRuleList, defaultSerializationSettings));
             if (Id != null) { request.AddQueryParameter("id", Id.ToString()); }
             if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
-            request.Resource = ReviseSectionWithRulesReviseWithRulesServiceURL.ToString();
+            request.Resource = ReviseSectionWithRulesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + ReviseSectionWithRulesReviseWithRulesServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + ReviseSectionWithRulesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -108,25 +108,25 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFirewallSectionRuleListType UpdateSectionWithRulesUpdateWithRules(string SectionId, NSXTFirewallSectionRuleListType FirewallSectionRuleList)
+        public NSXTFirewallSectionRuleListType UpdateSectionWithRules(string SectionId, NSXTFirewallSectionRuleListType FirewallSectionRuleList)
         {
             if (SectionId == null) { throw new System.ArgumentNullException("SectionId cannot be null"); }
             if (FirewallSectionRuleList == null) { throw new System.ArgumentNullException("FirewallSectionRuleList cannot be null"); }
             NSXTFirewallSectionRuleListType returnValue = default(NSXTFirewallSectionRuleListType);
-            StringBuilder UpdateSectionWithRulesUpdateWithRulesServiceURL = new StringBuilder("/firewall/sections/{section-id}?action=update_with_rules");
+            StringBuilder UpdateSectionWithRulesServiceURL = new StringBuilder("/firewall/sections/{section-id}?action=update_with_rules");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            UpdateSectionWithRulesUpdateWithRulesServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
+            UpdateSectionWithRulesServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(FirewallSectionRuleList, defaultSerializationSettings));
-            request.Resource = UpdateSectionWithRulesUpdateWithRulesServiceURL.ToString();
+            request.Resource = UpdateSectionWithRulesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + UpdateSectionWithRulesUpdateWithRulesServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + UpdateSectionWithRulesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -138,6 +138,47 @@ namespace nsxtapi.ManagerModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTFirewallSectionRuleListType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTFirewallRuleListType AddRulesInSection(string SectionId, NSXTFirewallRuleListType FirewallRuleList, string? Id = null, string? Operation = null)
+        {
+            if (SectionId == null) { throw new System.ArgumentNullException("SectionId cannot be null"); }
+            if (FirewallRuleList == null) { throw new System.ArgumentNullException("FirewallRuleList cannot be null"); }
+            NSXTFirewallRuleListType returnValue = default(NSXTFirewallRuleListType);
+            StringBuilder AddRulesInSectionServiceURL = new StringBuilder("/firewall/sections/{section-id}/rules?action=create_multiple");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.POST
+            };
+            request.AddHeader("Content-type", "application/json");
+            AddRulesInSectionServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.AddJsonBody(JsonConvert.SerializeObject(FirewallRuleList, defaultSerializationSettings));
+            if (Id != null) { request.AddQueryParameter("id", Id.ToString()); }
+            if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
+            request.Resource = AddRulesInSectionServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP POST operation to " + AddRulesInSectionServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTFirewallRuleListType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTFirewallRuleListType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -239,25 +280,25 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFirewallSectionType UnlockSectionUnlock(string SectionId, NSXTFirewallSectionLockType FirewallSectionLock)
+        public NSXTFirewallSectionType UnlockSection(string SectionId, NSXTFirewallSectionLockType FirewallSectionLock)
         {
             if (SectionId == null) { throw new System.ArgumentNullException("SectionId cannot be null"); }
             if (FirewallSectionLock == null) { throw new System.ArgumentNullException("FirewallSectionLock cannot be null"); }
             NSXTFirewallSectionType returnValue = default(NSXTFirewallSectionType);
-            StringBuilder UnlockSectionUnlockServiceURL = new StringBuilder("/firewall/sections/{section-id}?action=unlock");
+            StringBuilder UnlockSectionServiceURL = new StringBuilder("/firewall/sections/{section-id}?action=unlock");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            UnlockSectionUnlockServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
+            UnlockSectionServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(FirewallSectionLock, defaultSerializationSettings));
-            request.Resource = UnlockSectionUnlockServiceURL.ToString();
+            request.Resource = UnlockSectionServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + UnlockSectionUnlockServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + UnlockSectionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -278,11 +319,11 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFirewallSectionRuleListType AddSectionWithRulesCreateWithRules(NSXTFirewallSectionRuleListType FirewallSectionRuleList, string? Id = null, string? Operation = null)
+        public NSXTFirewallSectionRuleListType AddSectionWithRules(NSXTFirewallSectionRuleListType FirewallSectionRuleList, string? Id = null, string? Operation = null)
         {
             if (FirewallSectionRuleList == null) { throw new System.ArgumentNullException("FirewallSectionRuleList cannot be null"); }
             NSXTFirewallSectionRuleListType returnValue = default(NSXTFirewallSectionRuleListType);
-            StringBuilder AddSectionWithRulesCreateWithRulesServiceURL = new StringBuilder("/firewall/sections?action=create_with_rules");
+            StringBuilder AddSectionWithRulesServiceURL = new StringBuilder("/firewall/sections?action=create_with_rules");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -292,11 +333,11 @@ namespace nsxtapi.ManagerModules
             request.AddJsonBody(JsonConvert.SerializeObject(FirewallSectionRuleList, defaultSerializationSettings));
             if (Id != null) { request.AddQueryParameter("id", Id.ToString()); }
             if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
-            request.Resource = AddSectionWithRulesCreateWithRulesServiceURL.ToString();
+            request.Resource = AddSectionWithRulesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + AddSectionWithRulesCreateWithRulesServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + AddSectionWithRulesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -317,27 +358,27 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFirewallSectionType ReviseSectionRevise(string SectionId, NSXTFirewallSectionType FirewallSection, string? Id = null, string? Operation = null)
+        public NSXTFirewallSectionType ReviseSection(string SectionId, NSXTFirewallSectionType FirewallSection, string? Id = null, string? Operation = null)
         {
             if (SectionId == null) { throw new System.ArgumentNullException("SectionId cannot be null"); }
             if (FirewallSection == null) { throw new System.ArgumentNullException("FirewallSection cannot be null"); }
             NSXTFirewallSectionType returnValue = default(NSXTFirewallSectionType);
-            StringBuilder ReviseSectionReviseServiceURL = new StringBuilder("/firewall/sections/{section-id}?action=revise");
+            StringBuilder ReviseSectionServiceURL = new StringBuilder("/firewall/sections/{section-id}?action=revise");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            ReviseSectionReviseServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
+            ReviseSectionServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(FirewallSection, defaultSerializationSettings));
             if (Id != null) { request.AddQueryParameter("id", Id.ToString()); }
             if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
-            request.Resource = ReviseSectionReviseServiceURL.ToString();
+            request.Resource = ReviseSectionServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + ReviseSectionReviseServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + ReviseSectionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -358,29 +399,29 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFirewallRuleType ReviseRuleRevise(string SectionId, string RuleId, NSXTFirewallRuleType FirewallRule, string? Id = null, string? Operation = null)
+        public NSXTFirewallRuleType ReviseRule(string SectionId, string RuleId, NSXTFirewallRuleType FirewallRule, string? Id = null, string? Operation = null)
         {
             if (SectionId == null) { throw new System.ArgumentNullException("SectionId cannot be null"); }
             if (RuleId == null) { throw new System.ArgumentNullException("RuleId cannot be null"); }
             if (FirewallRule == null) { throw new System.ArgumentNullException("FirewallRule cannot be null"); }
             NSXTFirewallRuleType returnValue = default(NSXTFirewallRuleType);
-            StringBuilder ReviseRuleReviseServiceURL = new StringBuilder("/firewall/sections/{section-id}/rules/{rule-id}?action=revise");
+            StringBuilder ReviseRuleServiceURL = new StringBuilder("/firewall/sections/{section-id}/rules/{rule-id}?action=revise");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            ReviseRuleReviseServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReviseRuleReviseServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
+            ReviseRuleServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
+            ReviseRuleServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(FirewallRule, defaultSerializationSettings));
             if (Id != null) { request.AddQueryParameter("id", Id.ToString()); }
             if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
-            request.Resource = ReviseRuleReviseServiceURL.ToString();
+            request.Resource = ReviseRuleServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + ReviseRuleReviseServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + ReviseRuleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -401,25 +442,25 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFirewallSectionType LockSectionLock(string SectionId, NSXTFirewallSectionLockType FirewallSectionLock)
+        public NSXTFirewallSectionType LockSection(string SectionId, NSXTFirewallSectionLockType FirewallSectionLock)
         {
             if (SectionId == null) { throw new System.ArgumentNullException("SectionId cannot be null"); }
             if (FirewallSectionLock == null) { throw new System.ArgumentNullException("FirewallSectionLock cannot be null"); }
             NSXTFirewallSectionType returnValue = default(NSXTFirewallSectionType);
-            StringBuilder LockSectionLockServiceURL = new StringBuilder("/firewall/sections/{section-id}?action=lock");
+            StringBuilder LockSectionServiceURL = new StringBuilder("/firewall/sections/{section-id}?action=lock");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            LockSectionLockServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
+            LockSectionServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(FirewallSectionLock, defaultSerializationSettings));
-            request.Resource = LockSectionLockServiceURL.ToString();
+            request.Resource = LockSectionServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + LockSectionLockServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + LockSectionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -821,64 +862,23 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFirewallRuleListType AddRulesInSectionCreateMultiple(string SectionId, NSXTFirewallRuleListType FirewallRuleList, string? Id = null, string? Operation = null)
-        {
-            if (SectionId == null) { throw new System.ArgumentNullException("SectionId cannot be null"); }
-            if (FirewallRuleList == null) { throw new System.ArgumentNullException("FirewallRuleList cannot be null"); }
-            NSXTFirewallRuleListType returnValue = default(NSXTFirewallRuleListType);
-            StringBuilder AddRulesInSectionCreateMultipleServiceURL = new StringBuilder("/firewall/sections/{section-id}/rules?action=create_multiple");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.POST
-            };
-            request.AddHeader("Content-type", "application/json");
-            AddRulesInSectionCreateMultipleServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(FirewallRuleList, defaultSerializationSettings));
-            if (Id != null) { request.AddQueryParameter("id", Id.ToString()); }
-            if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
-            request.Resource = AddRulesInSectionCreateMultipleServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP POST operation to " + AddRulesInSectionCreateMultipleServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFirewallRuleListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFirewallRuleListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTFirewallSectionRuleListType GetSectionWithRulesListWithRules(string SectionId)
+        public NSXTFirewallSectionRuleListType GetSectionWithRules(string SectionId)
         {
             if (SectionId == null) { throw new System.ArgumentNullException("SectionId cannot be null"); }
             NSXTFirewallSectionRuleListType returnValue = default(NSXTFirewallSectionRuleListType);
-            StringBuilder GetSectionWithRulesListWithRulesServiceURL = new StringBuilder("/firewall/sections/{section-id}?action=list_with_rules");
+            StringBuilder GetSectionWithRulesServiceURL = new StringBuilder("/firewall/sections/{section-id}?action=list_with_rules");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            GetSectionWithRulesListWithRulesServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = GetSectionWithRulesListWithRulesServiceURL.ToString();
+            GetSectionWithRulesServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GetSectionWithRulesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + GetSectionWithRulesListWithRulesServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + GetSectionWithRulesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else

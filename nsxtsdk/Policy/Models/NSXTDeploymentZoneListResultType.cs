@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDeploymentZoneListResultType : NSXTListResultType
     {
+        public NSXTDeploymentZoneListResultType()
+        {
+        }
         /// <summary>
         /// Deployment Zones
         /// </summary>

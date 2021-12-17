@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMigrationDataInfoType 
     {
+        public NSXTMigrationDataInfoType()
+        {
+        }
         /// <summary>
         /// Type of the Migration data file for which info is requested.
         /// </summary>
@@ -29,6 +32,12 @@ namespace nsxtsdk.ManagerModels
         [JsonProperty(PropertyName = "file_location")]
         [NSXTProperty(IsRequired: false, Description: @"Absolute location of the file.")]
         public string? FileLocation { get; set; }
+        /// <summary>
+        /// Id of the site in NSX-T Federation
+        /// </summary>
+        [JsonProperty(PropertyName = "federation_site_id")]
+        [NSXTProperty(IsRequired: false, Description: @"Id of the site in NSX-T Federation")]
+        public string? FederationSiteId { get; set; }
         /// <summary>
         /// Indicates if the file is present.
         /// </summary>

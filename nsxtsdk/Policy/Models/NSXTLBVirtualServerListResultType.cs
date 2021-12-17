@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBVirtualServerListResultType : NSXTListResultType
     {
+        public NSXTLBVirtualServerListResultType()
+        {
+        }
         /// <summary>
         /// LBVirtualServer list results
         /// </summary>

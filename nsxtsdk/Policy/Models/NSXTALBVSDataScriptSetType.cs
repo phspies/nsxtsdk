@@ -17,13 +17,28 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBVSDataScriptSetType : NSXTPolicyConfigResourceType
     {
+        public NSXTALBVSDataScriptSetType()
+        {
+        }
+        /// <summary>
+        /// The Rate Limit definitions needed for this DataScript.
+        /// The name is composed of the Virtual Service name and the
+        /// DataScript name.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
+        /// </summary>
+        [JsonProperty(PropertyName = "rate_limiters")]
+        [NSXTProperty(IsRequired: false, Description: @"The Rate Limit definitions needed for this DataScript.The name is composed of the Virtual Service name and theDataScript name.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
+        public IList<NSXTALBRateLimiterType> RateLimiters { get; set; }
         /// <summary>
         /// List of protocol parsers that could be referred by
         /// VSDataScriptSet objects.
         /// It is a reference to an object of type ProtocolParser.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
         /// </summary>
         [JsonProperty(PropertyName = "protocol_parser_paths")]
-        [NSXTProperty(IsRequired: false, Description: @"List of protocol parsers that could be referred byVSDataScriptSet objects.It is a reference to an object of type ProtocolParser.")]
+        [NSXTProperty(IsRequired: false, Description: @"List of protocol parsers that could be referred byVSDataScriptSet objects.It is a reference to an object of type ProtocolParser.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
         public IList<string> ProtocolParserPaths { get; set; }
         /// <summary>
         /// DataScripts to execute.
@@ -40,13 +55,11 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"path of String Groups that could be referred byVSDataScriptSet objects.It is a reference to an object of type StringGroup.")]
         public IList<string> StringGroupPaths { get; set; }
         /// <summary>
-        /// The Rate Limit definitions needed for this DataScript.
-        /// The name is composed of the Virtual Service name and the
-        /// DataScript name.
+        /// Creator name.
         /// </summary>
-        [JsonProperty(PropertyName = "rate_limiters")]
-        [NSXTProperty(IsRequired: false, Description: @"The Rate Limit definitions needed for this DataScript.The name is composed of the Virtual Service name and theDataScript name.")]
-        public IList<NSXTALBRateLimiterType> RateLimiters { get; set; }
+        [JsonProperty(PropertyName = "created_by")]
+        [NSXTProperty(IsRequired: false, Description: @"Creator name.")]
+        public string? CreatedBy { get; set; }
         /// <summary>
         /// path of IP Groups that could be referred by VSDataScriptSet
         /// objects.
@@ -72,10 +85,12 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"path of pools that could be referred by VSDataScriptSetobjects.It is a reference to an object of type Pool.")]
         public IList<string> PoolPaths { get; set; }
         /// <summary>
-        /// Creator name.
+        /// List of labels to be used for granular RBAC.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
         /// </summary>
-        [JsonProperty(PropertyName = "created_by")]
-        [NSXTProperty(IsRequired: false, Description: @"Creator name.")]
-        public string? CreatedBy { get; set; }
+        [JsonProperty(PropertyName = "markers")]
+        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
+        public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
     }
 }

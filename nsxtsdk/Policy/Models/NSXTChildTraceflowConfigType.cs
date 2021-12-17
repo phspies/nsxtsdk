@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildTraceflowConfigType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildTraceflowConfigType()
+        {
+        }
         /// <summary>
-        /// Contains the actual TraceflowConfig object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "TraceflowConfig", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual TraceflowConfig object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTTraceflowConfigType TraceflowConfig { get; set; }
     }

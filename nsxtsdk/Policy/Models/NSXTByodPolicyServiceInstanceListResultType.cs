@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTByodPolicyServiceInstanceListResultType : NSXTListResultType
     {
+        public NSXTByodPolicyServiceInstanceListResultType()
+        {
+        }
         /// <summary>
         /// Byod Service instance list results
         /// </summary>

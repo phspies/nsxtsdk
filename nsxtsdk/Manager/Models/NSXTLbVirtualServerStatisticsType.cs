@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbVirtualServerStatisticsType 
     {
+        public NSXTLbVirtualServerStatisticsType()
+        {
+        }
         /// <summary>
         /// Timestamp when the data was last updated
         /// </summary>
@@ -24,10 +27,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Timestamp when the data was last updated")]
         public long? LastUpdateTimestamp { get; set; }
         /// <summary>
-        /// Virtual server statistics counter
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "statistics", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Virtual server statistics counter")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTLbStatisticsCounterType Statistics { get; set; }
         /// <summary>

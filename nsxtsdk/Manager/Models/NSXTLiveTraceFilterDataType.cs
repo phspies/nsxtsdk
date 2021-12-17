@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLiveTraceFilterDataType 
     {
+        public NSXTLiveTraceFilterDataType()
+        {
+        }
         /// <summary>
         /// Filter type
         /// </summary>

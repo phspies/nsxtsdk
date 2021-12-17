@@ -208,7 +208,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTContainerClusterStatusListType ReadContainerClusterStatusList(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTContainerClusterStatusListType ReadContainerClusterStatusList(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Status = null)
         {
             NSXTContainerClusterStatusListType returnValue = default(NSXTContainerClusterStatusListType);
             StringBuilder ReadContainerClusterStatusListServiceURL = new StringBuilder("/systemhealth/container-cluster/ncp/status");
@@ -223,6 +223,7 @@ namespace nsxtapi.ManagerModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            if (Status != null) { request.AddQueryParameter("status", Status.ToString()); }
             request.Resource = ReadContainerClusterStatusListServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)

@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildLiveTraceConfigType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildLiveTraceConfigType()
+        {
+        }
         /// <summary>
-        /// The actual LiveTraceConfig object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "LiveTraceConfig", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The actual LiveTraceConfig object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTLiveTraceConfigType LiveTraceConfig { get; set; }
     }

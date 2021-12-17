@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTComputeCollectionType : NSXTDiscoveredResourceType
     {
+        public NSXTComputeCollectionType()
+        {
+        }
         /// <summary>
         /// Id of the compute manager from where this Compute Collection was discovered
         /// </summary>

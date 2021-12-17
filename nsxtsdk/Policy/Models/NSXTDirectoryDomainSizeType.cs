@@ -17,23 +17,26 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Size of Directory Domain")]
     public class NSXTDirectoryDomainSizeType 
     {
+        public NSXTDirectoryDomainSizeType()
+        {
+        }
         /// <summary>
         /// Number of groups
         /// </summary>
         [JsonProperty(PropertyName = "group_count")]
         [NSXTProperty(IsRequired: false, Description: @"Number of groups")]
-        public long? GroupCount { get; set; }
+        public int? GroupCount { get; set; }
         /// <summary>
         /// Number of users
         /// </summary>
         [JsonProperty(PropertyName = "user_count")]
         [NSXTProperty(IsRequired: false, Description: @"Number of users")]
-        public long? UserCount { get; set; }
+        public int? UserCount { get; set; }
         /// <summary>
         /// Number of group members
         /// </summary>
         [JsonProperty(PropertyName = "group_member_count")]
         [NSXTProperty(IsRequired: false, Description: @"Number of group members")]
-        public long? GroupMemberCount { get; set; }
+        public int? GroupMemberCount { get; set; }
     }
 }

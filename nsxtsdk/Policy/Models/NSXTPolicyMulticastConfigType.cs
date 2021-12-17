@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyMulticastConfigType : NSXTPolicyConfigResourceType
     {
+        public NSXTPolicyMulticastConfigType()
+        {
+        }
         /// <summary>
         /// Replication multicast range. Required when enabled.
         /// </summary>

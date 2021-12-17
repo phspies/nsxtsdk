@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"NSX-T Enforced Status.")]
     public class NSXTEnforcedStatusNsxTType 
     {
+        public NSXTEnforcedStatusNsxTType()
+        {
+        }
         /// <summary>
         /// Enforced Realized Status.
         /// </summary>

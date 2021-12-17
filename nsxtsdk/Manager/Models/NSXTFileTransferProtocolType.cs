@@ -17,13 +17,16 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Protocol to transfer backup file to remote server")]
     public class NSXTFileTransferProtocolType 
     {
+        public NSXTFileTransferProtocolType()
+        {
+            ProtocolName = test
+        }
         /// <summary>
         /// Protocol name
         /// </summary>
         [JsonProperty(PropertyName = "protocol_name", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"Protocol name")]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "sftp")]
         public NSXTFileTransferProtocolProtocolNameEnumType ProtocolName { get; set; }
         /// <summary>
         /// The expected SSH fingerprint of the server. If the server's fingerprint
@@ -43,10 +46,10 @@ namespace nsxtsdk.ManagerModels
         [System.ComponentModel.DataAnnotations.Required]
         public string SshFingerprint { get; set; }
         /// <summary>
-        /// Scheme to authenticate if required
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "authentication_scheme", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Scheme to authenticate if required")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTFileTransferAuthenticationSchemeType AuthenticationScheme { get; set; }
     }

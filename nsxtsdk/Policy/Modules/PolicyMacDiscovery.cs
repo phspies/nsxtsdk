@@ -30,10 +30,10 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMacDiscoveryProfileListResultType GlobalGetMacDiscoveryProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTMacDiscoveryProfileListResultType GlobalGlobalInfraGetMacDiscoveryProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTMacDiscoveryProfileListResultType returnValue = default(NSXTMacDiscoveryProfileListResultType);
-            StringBuilder GetMacDiscoveryProfilesServiceURL = new StringBuilder("/global-infra/mac-discovery-profiles");
+            StringBuilder GlobalInfraGetMacDiscoveryProfilesServiceURL = new StringBuilder("/global-infra/mac-discovery-profiles");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -46,11 +46,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetMacDiscoveryProfilesServiceURL.ToString();
+            request.Resource = GlobalInfraGetMacDiscoveryProfilesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetMacDiscoveryProfilesServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetMacDiscoveryProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -71,26 +71,26 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMacDiscoveryProfileType GlobalUpdateMacDiscoveryProfile(string MacDiscoveryProfileId, NSXTMacDiscoveryProfileType MacDiscoveryProfile, bool? Override = null)
+        public NSXTMacDiscoveryProfileType GlobalGlobalInfraUpdateMacDiscoveryProfile(string MacDiscoveryProfileId, NSXTMacDiscoveryProfileType MacDiscoveryProfile, bool? Override = null)
         {
             if (MacDiscoveryProfileId == null) { throw new System.ArgumentNullException("MacDiscoveryProfileId cannot be null"); }
             if (MacDiscoveryProfile == null) { throw new System.ArgumentNullException("MacDiscoveryProfile cannot be null"); }
             NSXTMacDiscoveryProfileType returnValue = default(NSXTMacDiscoveryProfileType);
-            StringBuilder UpdateMacDiscoveryProfileServiceURL = new StringBuilder("/global-infra/mac-discovery-profiles/{mac-discovery-profile-id}");
+            StringBuilder GlobalInfraUpdateMacDiscoveryProfileServiceURL = new StringBuilder("/global-infra/mac-discovery-profiles/{mac-discovery-profile-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.PUT
             };
             request.AddHeader("Content-type", "application/json");
-            UpdateMacDiscoveryProfileServiceURL.Replace("{mac-discovery-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(MacDiscoveryProfileId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraUpdateMacDiscoveryProfileServiceURL.Replace("{mac-discovery-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(MacDiscoveryProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(MacDiscoveryProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
-            request.Resource = UpdateMacDiscoveryProfileServiceURL.ToString();
+            request.Resource = GlobalInfraUpdateMacDiscoveryProfileServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP PUT operation to " + UpdateMacDiscoveryProfileServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP PUT operation to " + GlobalInfraUpdateMacDiscoveryProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -111,23 +111,23 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMacDiscoveryProfileType GlobalGetMacDiscoveryProfile(string MacDiscoveryProfileId)
+        public NSXTMacDiscoveryProfileType GlobalGlobalInfraGetMacDiscoveryProfile(string MacDiscoveryProfileId)
         {
             if (MacDiscoveryProfileId == null) { throw new System.ArgumentNullException("MacDiscoveryProfileId cannot be null"); }
             NSXTMacDiscoveryProfileType returnValue = default(NSXTMacDiscoveryProfileType);
-            StringBuilder GetMacDiscoveryProfileServiceURL = new StringBuilder("/global-infra/mac-discovery-profiles/{mac-discovery-profile-id}");
+            StringBuilder GlobalInfraGetMacDiscoveryProfileServiceURL = new StringBuilder("/global-infra/mac-discovery-profiles/{mac-discovery-profile-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetMacDiscoveryProfileServiceURL.Replace("{mac-discovery-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(MacDiscoveryProfileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = GetMacDiscoveryProfileServiceURL.ToString();
+            GlobalInfraGetMacDiscoveryProfileServiceURL.Replace("{mac-discovery-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(MacDiscoveryProfileId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraGetMacDiscoveryProfileServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetMacDiscoveryProfileServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetMacDiscoveryProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -148,26 +148,26 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalCreateMacDiscoveryProfile(string MacDiscoveryProfileId, NSXTMacDiscoveryProfileType MacDiscoveryProfile, bool? Override = null)
+        public void GlobalGlobalInfraCreateMacDiscoveryProfile(string MacDiscoveryProfileId, NSXTMacDiscoveryProfileType MacDiscoveryProfile, bool? Override = null)
         {
             if (MacDiscoveryProfileId == null) { throw new System.ArgumentNullException("MacDiscoveryProfileId cannot be null"); }
             if (MacDiscoveryProfile == null) { throw new System.ArgumentNullException("MacDiscoveryProfile cannot be null"); }
             
-            StringBuilder CreateMacDiscoveryProfileServiceURL = new StringBuilder("/global-infra/mac-discovery-profiles/{mac-discovery-profile-id}");
+            StringBuilder GlobalInfraCreateMacDiscoveryProfileServiceURL = new StringBuilder("/global-infra/mac-discovery-profiles/{mac-discovery-profile-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.PATCH
             };
             request.AddHeader("Content-type", "application/json");
-            CreateMacDiscoveryProfileServiceURL.Replace("{mac-discovery-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(MacDiscoveryProfileId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraCreateMacDiscoveryProfileServiceURL.Replace("{mac-discovery-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(MacDiscoveryProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(MacDiscoveryProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
-            request.Resource = CreateMacDiscoveryProfileServiceURL.ToString();
+            request.Resource = GlobalInfraCreateMacDiscoveryProfileServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP PATCH operation to " + CreateMacDiscoveryProfileServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP PATCH operation to " + GlobalInfraCreateMacDiscoveryProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -176,24 +176,24 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalDeleteMacDiscoveryProfile(string MacDiscoveryProfileId, bool? Override = null)
+        public void GlobalGlobalInfraDeleteMacDiscoveryProfile(string MacDiscoveryProfileId, bool? Override = null)
         {
             if (MacDiscoveryProfileId == null) { throw new System.ArgumentNullException("MacDiscoveryProfileId cannot be null"); }
             
-            StringBuilder DeleteMacDiscoveryProfileServiceURL = new StringBuilder("/global-infra/mac-discovery-profiles/{mac-discovery-profile-id}");
+            StringBuilder GlobalInfraDeleteMacDiscoveryProfileServiceURL = new StringBuilder("/global-infra/mac-discovery-profiles/{mac-discovery-profile-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.DELETE
             };
             request.AddHeader("Content-type", "application/json");
-            DeleteMacDiscoveryProfileServiceURL.Replace("{mac-discovery-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(MacDiscoveryProfileId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraDeleteMacDiscoveryProfileServiceURL.Replace("{mac-discovery-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(MacDiscoveryProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
-            request.Resource = DeleteMacDiscoveryProfileServiceURL.ToString();
+            request.Resource = GlobalInfraDeleteMacDiscoveryProfileServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP DELETE operation to " + DeleteMacDiscoveryProfileServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP DELETE operation to " + GlobalInfraDeleteMacDiscoveryProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             

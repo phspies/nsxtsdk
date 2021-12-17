@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPortMirroringSessionListResultType : NSXTListResultType
     {
+        public NSXTPortMirroringSessionListResultType()
+        {
+        }
         /// <summary>
         /// Port mirroring session results
         /// </summary>

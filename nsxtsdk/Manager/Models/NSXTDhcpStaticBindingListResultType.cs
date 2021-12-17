@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpStaticBindingListResultType : NSXTListResultType
     {
+        public NSXTDhcpStaticBindingListResultType()
+        {
+        }
         /// <summary>
         /// A paginated list of DHCP static bindings.
         /// </summary>

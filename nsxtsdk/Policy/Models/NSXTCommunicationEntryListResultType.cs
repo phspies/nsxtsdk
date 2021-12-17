@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTCommunicationEntryListResultType : NSXTListResultType
     {
+        public NSXTCommunicationEntryListResultType()
+        {
+        }
         /// <summary>
         /// CommunicationEntry list results
         /// </summary>

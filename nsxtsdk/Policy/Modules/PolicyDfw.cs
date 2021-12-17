@@ -30,29 +30,29 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCommunicationMapType ReviseCommunicationMapsRevise(string DomainId, string CommunicationMapId, NSXTCommunicationMapType CommunicationMap, string? AnchorPath = null, string? Operation = null)
+        public NSXTCommunicationMapType ReviseCommunicationMaps(string DomainId, string CommunicationMapId, NSXTCommunicationMapType CommunicationMap, string? AnchorPath = null, string? Operation = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (CommunicationMapId == null) { throw new System.ArgumentNullException("CommunicationMapId cannot be null"); }
             if (CommunicationMap == null) { throw new System.ArgumentNullException("CommunicationMap cannot be null"); }
             NSXTCommunicationMapType returnValue = default(NSXTCommunicationMapType);
-            StringBuilder ReviseCommunicationMapsReviseServiceURL = new StringBuilder("/infra/domains/{domain-id}/communication-maps/{communication-map-id}?action=revise");
+            StringBuilder ReviseCommunicationMapsServiceURL = new StringBuilder("/infra/domains/{domain-id}/communication-maps/{communication-map-id}?action=revise");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            ReviseCommunicationMapsReviseServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReviseCommunicationMapsReviseServiceURL.Replace("{communication-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunicationMapId, System.Globalization.CultureInfo.InvariantCulture)));
+            ReviseCommunicationMapsServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
+            ReviseCommunicationMapsServiceURL.Replace("{communication-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunicationMapId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(CommunicationMap, defaultSerializationSettings));
             if (AnchorPath != null) { request.AddQueryParameter("anchor_path", AnchorPath.ToString()); }
             if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
-            request.Resource = ReviseCommunicationMapsReviseServiceURL.ToString();
+            request.Resource = ReviseCommunicationMapsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + ReviseCommunicationMapsReviseServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + ReviseCommunicationMapsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -64,94 +64,6 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTCommunicationMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTCommunicationMapType GlobalReviseCommunicationMapsRevise(string DomainId, string CommunicationMapId, NSXTCommunicationMapType CommunicationMap, string? AnchorPath = null, string? Operation = null)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (CommunicationMapId == null) { throw new System.ArgumentNullException("CommunicationMapId cannot be null"); }
-            if (CommunicationMap == null) { throw new System.ArgumentNullException("CommunicationMap cannot be null"); }
-            NSXTCommunicationMapType returnValue = default(NSXTCommunicationMapType);
-            StringBuilder ReviseCommunicationMapsReviseServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/communication-maps/{communication-map-id}?action=revise");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.POST
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReviseCommunicationMapsReviseServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReviseCommunicationMapsReviseServiceURL.Replace("{communication-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunicationMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(CommunicationMap, defaultSerializationSettings));
-            if (AnchorPath != null) { request.AddQueryParameter("anchor_path", AnchorPath.ToString()); }
-            if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
-            request.Resource = ReviseCommunicationMapsReviseServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP POST operation to " + ReviseCommunicationMapsReviseServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCommunicationMapType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCommunicationMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTCommunicationEntryListResultType GlobalListCommunicationEntry(string DomainId, string CommunicationMapId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (CommunicationMapId == null) { throw new System.ArgumentNullException("CommunicationMapId cannot be null"); }
-            NSXTCommunicationEntryListResultType returnValue = default(NSXTCommunicationEntryListResultType);
-            StringBuilder ListCommunicationEntryServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/communication-maps/{communication-map-id}/communication-entries");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ListCommunicationEntryServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            ListCommunicationEntryServiceURL.Replace("{communication-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunicationMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListCommunicationEntryServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListCommunicationEntryServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCommunicationEntryListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCommunicationEntryListResultType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -297,49 +209,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCommunicationMapListResultType GlobalListCommunicationMapsForDomain(string DomainId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            NSXTCommunicationMapListResultType returnValue = default(NSXTCommunicationMapListResultType);
-            StringBuilder ListCommunicationMapsForDomainServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/communication-maps");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ListCommunicationMapsForDomainServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListCommunicationMapsForDomainServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListCommunicationMapsForDomainServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCommunicationMapListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCommunicationMapListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTCommunicationMapListResultType ListCommunicationMapsForDomain(string DomainId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
@@ -378,331 +247,6 @@ namespace nsxtapi.PolicyModules
 				}
 			}
 			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTCommunicationEntryType GlobalReviseCommunicationEntryRevise(string DomainId, string CommunicationMapId, string CommunicationEntryId, NSXTCommunicationEntryType CommunicationEntry, string? AnchorPath = null, string? Operation = null)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (CommunicationMapId == null) { throw new System.ArgumentNullException("CommunicationMapId cannot be null"); }
-            if (CommunicationEntryId == null) { throw new System.ArgumentNullException("CommunicationEntryId cannot be null"); }
-            if (CommunicationEntry == null) { throw new System.ArgumentNullException("CommunicationEntry cannot be null"); }
-            NSXTCommunicationEntryType returnValue = default(NSXTCommunicationEntryType);
-            StringBuilder ReviseCommunicationEntryReviseServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/communication-maps/{communication-map-id}/communication-entries/{communication-entry-id}?action=revise");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.POST
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReviseCommunicationEntryReviseServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReviseCommunicationEntryReviseServiceURL.Replace("{communication-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunicationMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReviseCommunicationEntryReviseServiceURL.Replace("{communication-entry-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunicationEntryId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(CommunicationEntry, defaultSerializationSettings));
-            if (AnchorPath != null) { request.AddQueryParameter("anchor_path", AnchorPath.ToString()); }
-            if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
-            request.Resource = ReviseCommunicationEntryReviseServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP POST operation to " + ReviseCommunicationEntryReviseServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCommunicationEntryType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCommunicationEntryType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTCommunicationEntryType GlobalUpdateCommunicationEntry(string DomainId, string CommunicationMapId, string CommunicationEntryId, NSXTCommunicationEntryType CommunicationEntry)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (CommunicationMapId == null) { throw new System.ArgumentNullException("CommunicationMapId cannot be null"); }
-            if (CommunicationEntryId == null) { throw new System.ArgumentNullException("CommunicationEntryId cannot be null"); }
-            if (CommunicationEntry == null) { throw new System.ArgumentNullException("CommunicationEntry cannot be null"); }
-            NSXTCommunicationEntryType returnValue = default(NSXTCommunicationEntryType);
-            StringBuilder UpdateCommunicationEntryServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/communication-maps/{communication-map-id}/communication-entries/{communication-entry-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateCommunicationEntryServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            UpdateCommunicationEntryServiceURL.Replace("{communication-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunicationMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            UpdateCommunicationEntryServiceURL.Replace("{communication-entry-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunicationEntryId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(CommunicationEntry, defaultSerializationSettings));
-            request.Resource = UpdateCommunicationEntryServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateCommunicationEntryServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCommunicationEntryType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCommunicationEntryType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTCommunicationEntryType GlobalReadCommunicationEntry(string DomainId, string CommunicationMapId, string CommunicationEntryId)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (CommunicationMapId == null) { throw new System.ArgumentNullException("CommunicationMapId cannot be null"); }
-            if (CommunicationEntryId == null) { throw new System.ArgumentNullException("CommunicationEntryId cannot be null"); }
-            NSXTCommunicationEntryType returnValue = default(NSXTCommunicationEntryType);
-            StringBuilder ReadCommunicationEntryServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/communication-maps/{communication-map-id}/communication-entries/{communication-entry-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadCommunicationEntryServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReadCommunicationEntryServiceURL.Replace("{communication-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunicationMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReadCommunicationEntryServiceURL.Replace("{communication-entry-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunicationEntryId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadCommunicationEntryServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadCommunicationEntryServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCommunicationEntryType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCommunicationEntryType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteCommunicationEntry(string DomainId, string CommunicationMapId, string CommunicationEntryId)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (CommunicationMapId == null) { throw new System.ArgumentNullException("CommunicationMapId cannot be null"); }
-            if (CommunicationEntryId == null) { throw new System.ArgumentNullException("CommunicationEntryId cannot be null"); }
-            
-            StringBuilder DeleteCommunicationEntryServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/communication-maps/{communication-map-id}/communication-entries/{communication-entry-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteCommunicationEntryServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteCommunicationEntryServiceURL.Replace("{communication-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunicationMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteCommunicationEntryServiceURL.Replace("{communication-entry-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunicationEntryId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteCommunicationEntryServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteCommunicationEntryServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchCommunicationEntry(string DomainId, string CommunicationMapId, string CommunicationEntryId, NSXTCommunicationEntryType CommunicationEntry)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (CommunicationMapId == null) { throw new System.ArgumentNullException("CommunicationMapId cannot be null"); }
-            if (CommunicationEntryId == null) { throw new System.ArgumentNullException("CommunicationEntryId cannot be null"); }
-            if (CommunicationEntry == null) { throw new System.ArgumentNullException("CommunicationEntry cannot be null"); }
-            
-            StringBuilder PatchCommunicationEntryServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/communication-maps/{communication-map-id}/communication-entries/{communication-entry-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchCommunicationEntryServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchCommunicationEntryServiceURL.Replace("{communication-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunicationMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchCommunicationEntryServiceURL.Replace("{communication-entry-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunicationEntryId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(CommunicationEntry, defaultSerializationSettings));
-            request.Resource = PatchCommunicationEntryServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchCommunicationEntryServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTCommunicationMapType GlobalUpdateCommunicationMapForDomain(string DomainId, string CommunicationMapId, NSXTCommunicationMapType CommunicationMap)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (CommunicationMapId == null) { throw new System.ArgumentNullException("CommunicationMapId cannot be null"); }
-            if (CommunicationMap == null) { throw new System.ArgumentNullException("CommunicationMap cannot be null"); }
-            NSXTCommunicationMapType returnValue = default(NSXTCommunicationMapType);
-            StringBuilder UpdateCommunicationMapForDomainServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/communication-maps/{communication-map-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateCommunicationMapForDomainServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            UpdateCommunicationMapForDomainServiceURL.Replace("{communication-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunicationMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(CommunicationMap, defaultSerializationSettings));
-            request.Resource = UpdateCommunicationMapForDomainServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateCommunicationMapForDomainServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCommunicationMapType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCommunicationMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTCommunicationMapType GlobalReadCommunicationMapForDomain(string DomainId, string CommunicationMapId)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (CommunicationMapId == null) { throw new System.ArgumentNullException("CommunicationMapId cannot be null"); }
-            NSXTCommunicationMapType returnValue = default(NSXTCommunicationMapType);
-            StringBuilder ReadCommunicationMapForDomainServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/communication-maps/{communication-map-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadCommunicationMapForDomainServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReadCommunicationMapForDomainServiceURL.Replace("{communication-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunicationMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadCommunicationMapForDomainServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadCommunicationMapForDomainServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCommunicationMapType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCommunicationMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteCommunicationMapForDomain(string DomainId, string CommunicationMapId)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (CommunicationMapId == null) { throw new System.ArgumentNullException("CommunicationMapId cannot be null"); }
-            
-            StringBuilder DeleteCommunicationMapForDomainServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/communication-maps/{communication-map-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteCommunicationMapForDomainServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteCommunicationMapForDomainServiceURL.Replace("{communication-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunicationMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteCommunicationMapForDomainServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteCommunicationMapForDomainServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchCommunicationMapForDomain(string DomainId, string CommunicationMapId, NSXTCommunicationMapType CommunicationMap)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (CommunicationMapId == null) { throw new System.ArgumentNullException("CommunicationMapId cannot be null"); }
-            if (CommunicationMap == null) { throw new System.ArgumentNullException("CommunicationMap cannot be null"); }
-            
-            StringBuilder PatchCommunicationMapForDomainServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/communication-maps/{communication-map-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchCommunicationMapForDomainServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchCommunicationMapForDomainServiceURL.Replace("{communication-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunicationMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(CommunicationMap, defaultSerializationSettings));
-            request.Resource = PatchCommunicationMapForDomainServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchCommunicationMapForDomainServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
         }
         /// <summary>
         /// 
@@ -753,31 +297,31 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCommunicationEntryType ReviseCommunicationEntryRevise(string DomainId, string CommunicationMapId, string CommunicationEntryId, NSXTCommunicationEntryType CommunicationEntry, string? AnchorPath = null, string? Operation = null)
+        public NSXTCommunicationEntryType ReviseCommunicationEntry(string DomainId, string CommunicationMapId, string CommunicationEntryId, NSXTCommunicationEntryType CommunicationEntry, string? AnchorPath = null, string? Operation = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (CommunicationMapId == null) { throw new System.ArgumentNullException("CommunicationMapId cannot be null"); }
             if (CommunicationEntryId == null) { throw new System.ArgumentNullException("CommunicationEntryId cannot be null"); }
             if (CommunicationEntry == null) { throw new System.ArgumentNullException("CommunicationEntry cannot be null"); }
             NSXTCommunicationEntryType returnValue = default(NSXTCommunicationEntryType);
-            StringBuilder ReviseCommunicationEntryReviseServiceURL = new StringBuilder("/infra/domains/{domain-id}/communication-maps/{communication-map-id}/communication-entries/{communication-entry-id}?action=revise");
+            StringBuilder ReviseCommunicationEntryServiceURL = new StringBuilder("/infra/domains/{domain-id}/communication-maps/{communication-map-id}/communication-entries/{communication-entry-id}?action=revise");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            ReviseCommunicationEntryReviseServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReviseCommunicationEntryReviseServiceURL.Replace("{communication-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunicationMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReviseCommunicationEntryReviseServiceURL.Replace("{communication-entry-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunicationEntryId, System.Globalization.CultureInfo.InvariantCulture)));
+            ReviseCommunicationEntryServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
+            ReviseCommunicationEntryServiceURL.Replace("{communication-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunicationMapId, System.Globalization.CultureInfo.InvariantCulture)));
+            ReviseCommunicationEntryServiceURL.Replace("{communication-entry-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunicationEntryId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(CommunicationEntry, defaultSerializationSettings));
             if (AnchorPath != null) { request.AddQueryParameter("anchor_path", AnchorPath.ToString()); }
             if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
-            request.Resource = ReviseCommunicationEntryReviseServiceURL.ToString();
+            request.Resource = ReviseCommunicationEntryServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + ReviseCommunicationEntryReviseServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + ReviseCommunicationEntryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else

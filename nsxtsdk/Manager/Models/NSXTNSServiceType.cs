@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNSServiceType : NSXTManagedResourceType
     {
+        public NSXTNSServiceType()
+        {
+        }
         /// <summary>
         /// The default NSServices are created in the system by default. These NSServices
         /// can't be modified/deleted
@@ -25,10 +28,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"The default NSServices are created in the system by default. These NSServicescan&apos;t be modified/deleted")]
         public bool? DefaultService { get; set; }
         /// <summary>
-        /// An NSService Element that describes traffic corresponding to this NSService
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "nsservice_element", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"An NSService Element that describes traffic corresponding to this NSService")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTNSServiceElementType NsserviceElement { get; set; }
     }

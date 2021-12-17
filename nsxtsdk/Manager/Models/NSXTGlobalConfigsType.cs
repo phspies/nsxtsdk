@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTGlobalConfigsType : NSXTManagedResourceType
     {
+        public NSXTGlobalConfigsType()
+        {
+        }
         /// <summary>
         /// Valid Global configuration types
         /// </summary>

@@ -20,5 +20,9 @@ namespace nsxtsdk.PolicyModels
         Osname = 3,
         [EnumMember(Value = "COMPUTERNAME")]
         ComputerName = 4,
+        [EnumMember(Value = "NODETYPE")]
+        NodeType = 5,
+        [EnumMember(Value = "GROUPTYPE")]
+        GroupType = 6,
     }
 }

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Information about a management plane node this transport node is configured to communicate with")]
     public class NSXTBrokerPropertiesType 
     {
+        public NSXTBrokerPropertiesType()
+        {
+        }
         /// <summary>
         /// Indicates whether this broker is the master.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"This type contains the attributes and status of a group.")]
     public class NSXTClusterGroupStatusType 
     {
+        public NSXTClusterGroupStatusType()
+        {
+        }
         /// <summary>
         /// Array of group members and their statuses
         /// </summary>

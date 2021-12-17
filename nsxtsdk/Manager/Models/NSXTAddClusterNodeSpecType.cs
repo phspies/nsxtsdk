@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAddClusterNodeSpecType 
     {
+        public NSXTAddClusterNodeSpecType()
+        {
+        }
         /// <summary>
         /// External identifier of the node
         /// </summary>

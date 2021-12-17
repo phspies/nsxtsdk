@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTManagementConfigType : NSXTRevisionedResourceType
     {
+        public NSXTManagementConfigType()
+        {
+        }
         /// <summary>
         /// True if Management nodes publish their fqdns(instead of default IP addresses) across NSX for its reachability.
         /// </summary>

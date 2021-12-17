@@ -30,11 +30,11 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyResourceReferenceType FilterFirewallExcludeListFilter(string IntentPath, bool? DeepCheck = null, string? EnforcementPointPath = null)
+        public NSXTPolicyResourceReferenceType FilterFirewallExcludeList(string IntentPath, bool? DeepCheck = null, string? EnforcementPointPath = null)
         {
             if (IntentPath == null) { throw new System.ArgumentNullException("IntentPath cannot be null"); }
             NSXTPolicyResourceReferenceType returnValue = default(NSXTPolicyResourceReferenceType);
-            StringBuilder FilterFirewallExcludeListFilterServiceURL = new StringBuilder("/infra/settings/firewall/security/exclude-list?action=filter");
+            StringBuilder FilterFirewallExcludeListServiceURL = new StringBuilder("/infra/settings/firewall/security/exclude-list?action=filter");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -44,11 +44,11 @@ namespace nsxtapi.PolicyModules
             if (DeepCheck != null) { request.AddQueryParameter("deep_check", DeepCheck.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (IntentPath != null) { request.AddQueryParameter("intent_path", IntentPath.ToString()); }
-            request.Resource = FilterFirewallExcludeListFilterServiceURL.ToString();
+            request.Resource = FilterFirewallExcludeListServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + FilterFirewallExcludeListFilterServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + FilterFirewallExcludeListServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -166,11 +166,159 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTStandaloneHostIdfwConfigurationType GlobalPutStandaloneHostIdfwConfiguration(NSXTStandaloneHostIdfwConfigurationType StandaloneHostIdfwConfiguration)
+        public NSXTPolicyExcludeListType GetInternalFirewallExcludeList()
+        {
+            NSXTPolicyExcludeListType returnValue = default(NSXTPolicyExcludeListType);
+            StringBuilder GetInternalFirewallExcludeListServiceURL = new StringBuilder("/infra/settings/firewall/security/exclude-list?system_owned=true");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            request.Resource = GetInternalFirewallExcludeListServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetInternalFirewallExcludeListServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyExcludeListType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyExcludeListType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPolicyResourceReferenceForEPListResultType GlobalGlobalInfraGetFilteredRules(string Scope, string? EnforcementPointPath = null, string? ParentPath = null)
+        {
+            if (Scope == null) { throw new System.ArgumentNullException("Scope cannot be null"); }
+            NSXTPolicyResourceReferenceForEPListResultType returnValue = default(NSXTPolicyResourceReferenceForEPListResultType);
+            StringBuilder GlobalInfraGetFilteredRulesServiceURL = new StringBuilder("/global-infra/firewall/rules");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (ParentPath != null) { request.AddQueryParameter("parent_path", ParentPath.ToString()); }
+            if (Scope != null) { request.AddQueryParameter("scope", Scope.ToString()); }
+            request.Resource = GlobalInfraGetFilteredRulesServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetFilteredRulesServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyResourceReferenceForEPListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyResourceReferenceForEPListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTDependentServicesType GetDistributedFirewallDependentServices()
+        {
+            NSXTDependentServicesType returnValue = default(NSXTDependentServicesType);
+            StringBuilder GetDistributedFirewallDependentServicesServiceURL = new StringBuilder("/infra/settings/firewall/security/dependent-services");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            request.Resource = GetDistributedFirewallDependentServicesServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetDistributedFirewallDependentServicesServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTDependentServicesType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTDependentServicesType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPolicyResourceReferenceForEPListResultType GetFilteredRules(string Scope, string? EnforcementPointPath = null, string? ParentPath = null)
+        {
+            if (Scope == null) { throw new System.ArgumentNullException("Scope cannot be null"); }
+            NSXTPolicyResourceReferenceForEPListResultType returnValue = default(NSXTPolicyResourceReferenceForEPListResultType);
+            StringBuilder GetFilteredRulesServiceURL = new StringBuilder("/infra/firewall/rules");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (ParentPath != null) { request.AddQueryParameter("parent_path", ParentPath.ToString()); }
+            if (Scope != null) { request.AddQueryParameter("scope", Scope.ToString()); }
+            request.Resource = GetFilteredRulesServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetFilteredRulesServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyResourceReferenceForEPListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyResourceReferenceForEPListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTStandaloneHostIdfwConfigurationType PutStandaloneHostIdfwConfiguration(NSXTStandaloneHostIdfwConfigurationType StandaloneHostIdfwConfiguration)
         {
             if (StandaloneHostIdfwConfiguration == null) { throw new System.ArgumentNullException("StandaloneHostIdfwConfiguration cannot be null"); }
             NSXTStandaloneHostIdfwConfigurationType returnValue = default(NSXTStandaloneHostIdfwConfigurationType);
-            StringBuilder PutStandaloneHostIdfwConfigurationServiceURL = new StringBuilder("/global-infra/settings/firewall/idfw/standalone-host-switch-setting");
+            StringBuilder PutStandaloneHostIdfwConfigurationServiceURL = new StringBuilder("/infra/settings/firewall/idfw/standalone-host-switch-setting");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -203,11 +351,11 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalPatchStandaloneHostIdfwConfiguration(NSXTStandaloneHostIdfwConfigurationType StandaloneHostIdfwConfiguration)
+        public void PatchStandaloneHostIdfwConfiguration(NSXTStandaloneHostIdfwConfigurationType StandaloneHostIdfwConfiguration)
         {
             if (StandaloneHostIdfwConfiguration == null) { throw new System.ArgumentNullException("StandaloneHostIdfwConfiguration cannot be null"); }
             
-            StringBuilder PatchStandaloneHostIdfwConfigurationServiceURL = new StringBuilder("/global-infra/settings/firewall/idfw/standalone-host-switch-setting");
+            StringBuilder PatchStandaloneHostIdfwConfigurationServiceURL = new StringBuilder("/infra/settings/firewall/idfw/standalone-host-switch-setting");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -228,10 +376,10 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTStandaloneHostIdfwConfigurationType GlobalGetStandaloneHostIdfwConfiguration()
+        public NSXTStandaloneHostIdfwConfigurationType GetStandaloneHostIdfwConfiguration()
         {
             NSXTStandaloneHostIdfwConfigurationType returnValue = default(NSXTStandaloneHostIdfwConfigurationType);
-            StringBuilder GetStandaloneHostIdfwConfigurationServiceURL = new StringBuilder("/global-infra/settings/firewall/idfw/standalone-host-switch-setting");
+            StringBuilder GetStandaloneHostIdfwConfigurationServiceURL = new StringBuilder("/infra/settings/firewall/idfw/standalone-host-switch-setting");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -263,94 +411,32 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDfwFirewallConfigurationType GlobalPutDfwFirewallConfiguration(NSXTDfwFirewallConfigurationType DfwFirewallConfiguration)
+        public NSXTDependentServicesType GetGatewayFirewallDependentServices()
         {
-            if (DfwFirewallConfiguration == null) { throw new System.ArgumentNullException("DfwFirewallConfiguration cannot be null"); }
-            NSXTDfwFirewallConfigurationType returnValue = default(NSXTDfwFirewallConfigurationType);
-            StringBuilder PutDfwFirewallConfigurationServiceURL = new StringBuilder("/global-infra/settings/firewall/security");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.AddJsonBody(JsonConvert.SerializeObject(DfwFirewallConfiguration, defaultSerializationSettings));
-            request.Resource = PutDfwFirewallConfigurationServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + PutDfwFirewallConfigurationServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDfwFirewallConfigurationType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDfwFirewallConfigurationType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchDfwFirewallConfiguration(NSXTDfwFirewallConfigurationType DfwFirewallConfiguration)
-        {
-            if (DfwFirewallConfiguration == null) { throw new System.ArgumentNullException("DfwFirewallConfiguration cannot be null"); }
-            
-            StringBuilder PatchDfwFirewallConfigurationServiceURL = new StringBuilder("/global-infra/settings/firewall/security");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.AddJsonBody(JsonConvert.SerializeObject(DfwFirewallConfiguration, defaultSerializationSettings));
-            request.Resource = PatchDfwFirewallConfigurationServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchDfwFirewallConfigurationServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTDfwFirewallConfigurationType GlobalGetDfwFirewallConfiguration()
-        {
-            NSXTDfwFirewallConfigurationType returnValue = default(NSXTDfwFirewallConfigurationType);
-            StringBuilder GetDfwFirewallConfigurationServiceURL = new StringBuilder("/global-infra/settings/firewall/security");
+            NSXTDependentServicesType returnValue = default(NSXTDependentServicesType);
+            StringBuilder GetGatewayFirewallDependentServicesServiceURL = new StringBuilder("/infra/settings/firewall/gateway/dependent-services");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            request.Resource = GetDfwFirewallConfigurationServiceURL.ToString();
+            request.Resource = GetGatewayFirewallDependentServicesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetDfwFirewallConfigurationServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GetGatewayFirewallDependentServicesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
 			{
 				try
 				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDfwFirewallConfigurationType>(response.Content, defaultSerializationSettings);
+					returnValue = JsonConvert.DeserializeObject<NSXTDependentServicesType>(response.Content, defaultSerializationSettings);
 				}
 				catch (Exception ex)
 				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDfwFirewallConfigurationType).FullName + ".";
+					var message = "Could not deserialize the response body string as " + typeof(NSXTDependentServicesType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -360,36 +446,36 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyResourceReferenceType GlobalFilterFirewallExcludeListFilter(string IntentPath, bool? DeepCheck = null, string? EnforcementPointPath = null)
+        public NSXTPolicyResourceReferenceForEPListResultType GetFilteredPolicies(string Scope, string? EnforcementPointPath = null, string? ParentPath = null)
         {
-            if (IntentPath == null) { throw new System.ArgumentNullException("IntentPath cannot be null"); }
-            NSXTPolicyResourceReferenceType returnValue = default(NSXTPolicyResourceReferenceType);
-            StringBuilder FilterFirewallExcludeListFilterServiceURL = new StringBuilder("/global-infra/settings/firewall/security/exclude-list?action=filter");
+            if (Scope == null) { throw new System.ArgumentNullException("Scope cannot be null"); }
+            NSXTPolicyResourceReferenceForEPListResultType returnValue = default(NSXTPolicyResourceReferenceForEPListResultType);
+            StringBuilder GetFilteredPoliciesServiceURL = new StringBuilder("/infra/firewall/policies");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
-                Method = Method.POST
+                Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            if (DeepCheck != null) { request.AddQueryParameter("deep_check", DeepCheck.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            if (IntentPath != null) { request.AddQueryParameter("intent_path", IntentPath.ToString()); }
-            request.Resource = FilterFirewallExcludeListFilterServiceURL.ToString();
+            if (ParentPath != null) { request.AddQueryParameter("parent_path", ParentPath.ToString()); }
+            if (Scope != null) { request.AddQueryParameter("scope", Scope.ToString()); }
+            request.Resource = GetFilteredPoliciesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + FilterFirewallExcludeListFilterServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GetFilteredPoliciesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
 			{
 				try
 				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyResourceReferenceType>(response.Content, defaultSerializationSettings);
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyResourceReferenceForEPListResultType>(response.Content, defaultSerializationSettings);
 				}
 				catch (Exception ex)
 				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyResourceReferenceType).FullName + ".";
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyResourceReferenceForEPListResultType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -399,10 +485,10 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTComputeClusterIdfwConfigurationListResultType GlobalListComputeClusterIdfwConfiguration(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTComputeClusterIdfwConfigurationListResultType ListComputeClusterIdfwConfiguration(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTComputeClusterIdfwConfigurationListResultType returnValue = default(NSXTComputeClusterIdfwConfigurationListResultType);
-            StringBuilder ListComputeClusterIdfwConfigurationServiceURL = new StringBuilder("/global-infra/settings/firewall/idfw/cluster");
+            StringBuilder ListComputeClusterIdfwConfigurationServiceURL = new StringBuilder("/infra/settings/firewall/idfw/cluster");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -567,368 +653,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTStandaloneHostIdfwConfigurationType PutStandaloneHostIdfwConfiguration(NSXTStandaloneHostIdfwConfigurationType StandaloneHostIdfwConfiguration)
-        {
-            if (StandaloneHostIdfwConfiguration == null) { throw new System.ArgumentNullException("StandaloneHostIdfwConfiguration cannot be null"); }
-            NSXTStandaloneHostIdfwConfigurationType returnValue = default(NSXTStandaloneHostIdfwConfigurationType);
-            StringBuilder PutStandaloneHostIdfwConfigurationServiceURL = new StringBuilder("/infra/settings/firewall/idfw/standalone-host-switch-setting");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.AddJsonBody(JsonConvert.SerializeObject(StandaloneHostIdfwConfiguration, defaultSerializationSettings));
-            request.Resource = PutStandaloneHostIdfwConfigurationServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + PutStandaloneHostIdfwConfigurationServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTStandaloneHostIdfwConfigurationType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTStandaloneHostIdfwConfigurationType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void PatchStandaloneHostIdfwConfiguration(NSXTStandaloneHostIdfwConfigurationType StandaloneHostIdfwConfiguration)
-        {
-            if (StandaloneHostIdfwConfiguration == null) { throw new System.ArgumentNullException("StandaloneHostIdfwConfiguration cannot be null"); }
-            
-            StringBuilder PatchStandaloneHostIdfwConfigurationServiceURL = new StringBuilder("/infra/settings/firewall/idfw/standalone-host-switch-setting");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.AddJsonBody(JsonConvert.SerializeObject(StandaloneHostIdfwConfiguration, defaultSerializationSettings));
-            request.Resource = PatchStandaloneHostIdfwConfigurationServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchStandaloneHostIdfwConfigurationServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTStandaloneHostIdfwConfigurationType GetStandaloneHostIdfwConfiguration()
-        {
-            NSXTStandaloneHostIdfwConfigurationType returnValue = default(NSXTStandaloneHostIdfwConfigurationType);
-            StringBuilder GetStandaloneHostIdfwConfigurationServiceURL = new StringBuilder("/infra/settings/firewall/idfw/standalone-host-switch-setting");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.Resource = GetStandaloneHostIdfwConfigurationServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetStandaloneHostIdfwConfigurationServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTStandaloneHostIdfwConfigurationType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTStandaloneHostIdfwConfigurationType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTComputeClusterIdfwConfigurationListResultType ListComputeClusterIdfwConfiguration(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTComputeClusterIdfwConfigurationListResultType returnValue = default(NSXTComputeClusterIdfwConfigurationListResultType);
-            StringBuilder ListComputeClusterIdfwConfigurationServiceURL = new StringBuilder("/infra/settings/firewall/idfw/cluster");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListComputeClusterIdfwConfigurationServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListComputeClusterIdfwConfigurationServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTComputeClusterIdfwConfigurationListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTComputeClusterIdfwConfigurationListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTPolicyExcludeListType GlobalPutExcludeList(NSXTPolicyExcludeListType PolicyExcludeList)
-        {
-            if (PolicyExcludeList == null) { throw new System.ArgumentNullException("PolicyExcludeList cannot be null"); }
-            NSXTPolicyExcludeListType returnValue = default(NSXTPolicyExcludeListType);
-            StringBuilder PutExcludeListServiceURL = new StringBuilder("/global-infra/settings/firewall/security/exclude-list");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.AddJsonBody(JsonConvert.SerializeObject(PolicyExcludeList, defaultSerializationSettings));
-            request.Resource = PutExcludeListServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + PutExcludeListServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyExcludeListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyExcludeListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchExcludeList(NSXTPolicyExcludeListType PolicyExcludeList)
-        {
-            if (PolicyExcludeList == null) { throw new System.ArgumentNullException("PolicyExcludeList cannot be null"); }
-            
-            StringBuilder PatchExcludeListServiceURL = new StringBuilder("/global-infra/settings/firewall/security/exclude-list");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.AddJsonBody(JsonConvert.SerializeObject(PolicyExcludeList, defaultSerializationSettings));
-            request.Resource = PatchExcludeListServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchExcludeListServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTPolicyExcludeListType GlobalGetFirewallExcludeList()
-        {
-            NSXTPolicyExcludeListType returnValue = default(NSXTPolicyExcludeListType);
-            StringBuilder GetFirewallExcludeListServiceURL = new StringBuilder("/global-infra/settings/firewall/security/exclude-list");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.Resource = GetFirewallExcludeListServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetFirewallExcludeListServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyExcludeListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyExcludeListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTComputeClusterIdfwConfigurationType GlobalPutComputeClusterIdfwConfiguration(string ClusterId, NSXTComputeClusterIdfwConfigurationType ComputeClusterIdfwConfiguration)
-        {
-            if (ClusterId == null) { throw new System.ArgumentNullException("ClusterId cannot be null"); }
-            if (ComputeClusterIdfwConfiguration == null) { throw new System.ArgumentNullException("ComputeClusterIdfwConfiguration cannot be null"); }
-            NSXTComputeClusterIdfwConfigurationType returnValue = default(NSXTComputeClusterIdfwConfigurationType);
-            StringBuilder PutComputeClusterIdfwConfigurationServiceURL = new StringBuilder("/global-infra/settings/firewall/idfw/cluster/{cluster-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            PutComputeClusterIdfwConfigurationServiceURL.Replace("{cluster-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ClusterId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(ComputeClusterIdfwConfiguration, defaultSerializationSettings));
-            request.Resource = PutComputeClusterIdfwConfigurationServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + PutComputeClusterIdfwConfigurationServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTComputeClusterIdfwConfigurationType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTComputeClusterIdfwConfigurationType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTComputeClusterIdfwConfigurationType GlobalGetComputeClusterIdfwConfiguration(string ClusterId)
-        {
-            if (ClusterId == null) { throw new System.ArgumentNullException("ClusterId cannot be null"); }
-            NSXTComputeClusterIdfwConfigurationType returnValue = default(NSXTComputeClusterIdfwConfigurationType);
-            StringBuilder GetComputeClusterIdfwConfigurationServiceURL = new StringBuilder("/global-infra/settings/firewall/idfw/cluster/{cluster-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetComputeClusterIdfwConfigurationServiceURL.Replace("{cluster-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ClusterId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = GetComputeClusterIdfwConfigurationServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetComputeClusterIdfwConfigurationServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTComputeClusterIdfwConfigurationType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTComputeClusterIdfwConfigurationType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchComputeClusterIdfwConfiguration(string ClusterId, NSXTComputeClusterIdfwConfigurationType ComputeClusterIdfwConfiguration)
-        {
-            if (ClusterId == null) { throw new System.ArgumentNullException("ClusterId cannot be null"); }
-            if (ComputeClusterIdfwConfiguration == null) { throw new System.ArgumentNullException("ComputeClusterIdfwConfiguration cannot be null"); }
-            
-            StringBuilder PatchComputeClusterIdfwConfigurationServiceURL = new StringBuilder("/global-infra/settings/firewall/idfw/cluster/{cluster-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchComputeClusterIdfwConfigurationServiceURL.Replace("{cluster-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ClusterId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(ComputeClusterIdfwConfiguration, defaultSerializationSettings));
-            request.Resource = PatchComputeClusterIdfwConfigurationServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchComputeClusterIdfwConfigurationServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteComputeClusterIdfwConfiguration(string ClusterId)
-        {
-            if (ClusterId == null) { throw new System.ArgumentNullException("ClusterId cannot be null"); }
-            
-            StringBuilder DeleteComputeClusterIdfwConfigurationServiceURL = new StringBuilder("/global-infra/settings/firewall/idfw/cluster/{cluster-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteComputeClusterIdfwConfigurationServiceURL.Replace("{cluster-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ClusterId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteComputeClusterIdfwConfigurationServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteComputeClusterIdfwConfigurationServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTPolicyExcludeListType PutExcludeList(NSXTPolicyExcludeListType PolicyExcludeList)
         {
             if (PolicyExcludeList == null) { throw new System.ArgumentNullException("PolicyExcludeList cannot be null"); }
@@ -1017,6 +741,45 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyExcludeListType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPolicyResourceReferenceForEPListResultType GlobalGlobalInfraGetFilteredPolicies(string Scope, string? EnforcementPointPath = null, string? ParentPath = null)
+        {
+            if (Scope == null) { throw new System.ArgumentNullException("Scope cannot be null"); }
+            NSXTPolicyResourceReferenceForEPListResultType returnValue = default(NSXTPolicyResourceReferenceForEPListResultType);
+            StringBuilder GlobalInfraGetFilteredPoliciesServiceURL = new StringBuilder("/global-infra/firewall/policies");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
+            if (ParentPath != null) { request.AddQueryParameter("parent_path", ParentPath.ToString()); }
+            if (Scope != null) { request.AddQueryParameter("scope", Scope.ToString()); }
+            request.Resource = GlobalInfraGetFilteredPoliciesServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetFilteredPoliciesServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyResourceReferenceForEPListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyResourceReferenceForEPListResultType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}

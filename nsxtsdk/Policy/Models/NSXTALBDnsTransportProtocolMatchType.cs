@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsTransportProtocolMatch object")]
     public class NSXTALBDnsTransportProtocolMatchType 
     {
+        public NSXTALBDnsTransportProtocolMatchType()
+        {
+        }
         /// <summary>
         /// Protocol to match against transport protocol used by DNS
         /// query.

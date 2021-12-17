@@ -18,6 +18,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"The current statistics counters of the DNS forwarder including cache usagesand query numbers per forwarders.")]
     public class NSXTDnsForwarderStatisticsType 
     {
+        public NSXTDnsForwarderStatisticsType()
+        {
+        }
         /// <summary>
         /// The total number of forwarded dns queries
         /// </summary>
@@ -31,10 +34,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"The statistics of conditional forwarders")]
         public IList<NSXTPerForwarderStatisticsType> ConditionalForwarderStatistics { get; set; }
         /// <summary>
-        /// The statistics of default forwarder
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "default_forwarder_statistics")]
-        [NSXTProperty(IsRequired: false, Description: @"The statistics of default forwarder")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTPerForwarderStatisticsType DefaultForwarderStatistics { get; set; }
         /// <summary>
         /// The totocal number of queries answered from local cache

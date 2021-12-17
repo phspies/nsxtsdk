@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildSegmentMonitoringProfileBindingMapType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildSegmentMonitoringProfileBindingMapType()
+        {
+        }
         /// <summary>
-        /// Contains the actual SegmentMonitoringProfileBindingMap object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "SegmentMonitoringProfileBindingMap", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual SegmentMonitoringProfileBindingMap object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTSegmentMonitoringProfileBindingMapType SegmentMonitoringProfileBindingMap { get; set; }
     }

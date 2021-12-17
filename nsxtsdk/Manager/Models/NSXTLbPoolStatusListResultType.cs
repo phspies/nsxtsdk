@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbPoolStatusListResultType : NSXTListResultType
     {
+        public NSXTLbPoolStatusListResultType()
+        {
+        }
         /// <summary>
         /// paginated status list of pools
         /// </summary>

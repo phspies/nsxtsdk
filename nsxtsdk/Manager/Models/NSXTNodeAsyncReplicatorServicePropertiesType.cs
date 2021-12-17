@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeAsyncReplicatorServicePropertiesType : NSXTNodeServicePropertiesType
     {
+        public NSXTNodeAsyncReplicatorServicePropertiesType()
+        {
+        }
         /// <summary>
-        /// Service properties
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "service_properties")]
-        [NSXTProperty(IsRequired: false, Description: @"Service properties")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLoggingServicePropertiesType ServiceProperties { get; set; }
     }
 }

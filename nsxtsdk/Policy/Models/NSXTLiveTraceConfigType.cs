@@ -17,11 +17,16 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLiveTraceConfigType : NSXTPolicyConfigResourceType
     {
+        public NSXTLiveTraceConfigType()
+        {
+            Timeout = test
+            IsTransient = test
+        }
         /// <summary>
-        /// Filter for flows of interest.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "filter")]
-        [NSXTProperty(IsRequired: false, Description: @"Filter for flows of interest.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLiveTraceFilterDataType Filter { get; set; }
         /// <summary>
         /// The duration for observing live traffic on the specified source logical port.
@@ -30,7 +35,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"The duration for observing live traffic on the specified source logical port.")]
         //[System.ComponentModel.DataAnnotations.MinLength(5)]
         //[System.ComponentModel.DataAnnotations.MaxLength(300)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Timeout { get; set; }
         /// <summary>
         /// Policy path of logical port to start a livetrace session.
@@ -45,13 +49,12 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "is_transient")]
         [NSXTProperty(IsRequired: false, Description: @"This field indicates whether the intent is transient. If it is set to true, intent will becleaned up after 1 hour of inactivity.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? IsTransient { get; set; }
         /// <summary>
-        /// Configuration of actions on the filtered packets.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "actions", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Configuration of actions on the filtered packets.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTPolicyLiveTraceActionConfigType Actions { get; set; }
     }

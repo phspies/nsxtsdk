@@ -21,24 +21,44 @@ namespace nsxtsdk.PolicyModels
     [JsonInheritanceAttribute("LabelValueConfiguration", typeof(NSXTLabelValueConfigurationType))]
     [JsonInheritanceAttribute("DonutConfiguration", typeof(NSXTDonutConfigurationType))]
     [JsonInheritanceAttribute("GraphConfiguration", typeof(NSXTGraphConfigurationType))]
+    [JsonInheritanceAttribute("LegendWidgetConfiguration", typeof(NSXTLegendWidgetConfigurationType))]
     [JsonInheritanceAttribute("FilterWidgetConfiguration", typeof(NSXTFilterWidgetConfigurationType))]
     [JsonInheritanceAttribute("StatsConfiguration", typeof(NSXTStatsConfigurationType))]
+    [JsonInheritanceAttribute("SpacerWidgetConfiguration", typeof(NSXTSpacerWidgetConfigurationType))]
     [JsonInheritanceAttribute("CustomWidgetConfiguration", typeof(NSXTCustomWidgetConfigurationType))]
     [NSXTProperty(Description: @"")]
     public class NSXTWidgetConfigurationType : NSXTManagedResourceType
     {
+        public NSXTWidgetConfigurationType()
+        {
+            FilterValueRequired = test
+        }
         /// <summary>
-        /// Features required to view the widget.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "feature_set")]
-        [NSXTProperty(IsRequired: false, Description: @"Features required to view the widget.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTFeatureSetType FeatureSet { get; set; }
+        /// <summary>
+        /// List of plotting configuration for a given widget. Widget plotting configurations which are common across all the
+        /// widgets types should be define here.
+        /// </summary>
+        [JsonProperty(PropertyName = "plot_configs")]
+        [NSXTProperty(IsRequired: false, Description: @"List of plotting configuration for a given widget. Widget plotting configurations which are common across all the widgets types should be define here.")]
+        public IList<NSXTWidgetPlotConfigurationType> PlotConfigs { get; set; }
         /// <summary>
         /// Default filter values to be passed to datasources. This will be used when the report is requested without filter values.
         /// </summary>
         [JsonProperty(PropertyName = "default_filter_value")]
         [NSXTProperty(IsRequired: false, Description: @"Default filter values to be passed to datasources. This will be used when the report is requested without filter values.")]
         public IList<NSXTDefaultFilterValueType> DefaultFilterValue { get; set; }
+        /// <summary>
+        /// Represents the vertical span of the widget / container. 1 Row span is equal to 20px.
+        /// </summary>
+        [JsonProperty(PropertyName = "rowspan")]
+        [NSXTProperty(IsRequired: false, Description: @"Represents the vertical span of the widget / container. 1 Row span is equal to 20px.")]
+        //[System.ComponentModel.DataAnnotations.MinLength(1)]
+        public int? Rowspan { get; set; }
         /// <summary>
         /// Title of the widget. If display_name is omitted, the widget will be shown without a title.
         /// </summary>
@@ -58,7 +78,7 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "weight")]
         [NSXTProperty(IsRequired: false, Description: @"Specify relavite weight in WidgetItem for placement in a view. Please see WidgetItem for details.")]
-        public long? Weight { get; set; }
+        public int? Weight { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -66,13 +86,11 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTFooterType Footer { get; set; }
         /// <summary>
-        /// Flag to indicate that widget will continue to work without filter value. If this flag is set to false then
-        /// default_filter_value is manadatory.
+        /// Please use the property 'shared' of View instead of this. The widgets of a shared view are visible to other users.
         /// </summary>
-        [JsonProperty(PropertyName = "filter_value_required")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to indicate that widget will continue to work without filter value. If this flag is set to false then default_filter_value is manadatory.")]
-        [NSXTDefaultProperty(Default: "")]
-        public bool? FilterValueRequired { get; set; }
+        [JsonProperty(PropertyName = "shared")]
+        [NSXTProperty(IsRequired: false, Description: @"Please use the property &apos;shared&apos; of View instead of this. The widgets of a shared view are visible to other users.")]
+        public bool? Shared { get; set; }
         /// <summary>
         /// Represents the horizontal span of the widget / container.
         /// </summary>
@@ -80,7 +98,7 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Represents the horizontal span of the widget / container.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(12)]
-        public long? Span { get; set; }
+        public int? Span { get; set; }
         /// <summary>
         /// Icons to be applied at dashboard for widgets and UI elements.
         /// </summary>
@@ -96,11 +114,34 @@ namespace nsxtsdk.PolicyModels
         /// <summary>
         /// Id of filter widget for subscription, if any. Id should be a valid id of an existing filter widget. Filter widget should
         /// be from the same view. Datasource URLs should have placeholder values equal to filter alias to accept the filter value
-        /// on filter change.
+        /// on filter change. This field is deprecated instead use 'filters' property.
         /// </summary>
         [JsonProperty(PropertyName = "filter")]
-        [NSXTProperty(IsRequired: false, Description: @"Id of filter widget for subscription, if any. Id should be a valid id of an existing filter widget. Filter widget should be from the same view. Datasource URLs should have placeholder values equal to filter alias to accept the filter value on filter change.")]
+        [NSXTProperty(IsRequired: false, Description: @"Id of filter widget for subscription, if any. Id should be a valid id of an existing filter widget. Filter widget should be from the same view. Datasource URLs should have placeholder values equal to filter alias to accept the filter value on filter change. This field is deprecated instead use &apos;filters&apos; property.")]
         public string? Filter { get; set; }
+        /// <summary>
+        /// If the value of this field is set to true then card header will be displayed otherwise only card will be displayed
+        /// without header.
+        /// </summary>
+        [JsonProperty(PropertyName = "show_header")]
+        [NSXTProperty(IsRequired: false, Description: @"If the value of this field is set to true then card header will be displayed otherwise only card will be displayed without header.")]
+        public bool? ShowHeader { get; set; }
+        /// <summary>
+        /// Supported visualization types are LabelValueConfiguration, DonutConfiguration, GridConfiguration, StatsConfiguration,
+        /// MultiWidgetConfiguration, GraphConfiguration, ContainerConfiguration, CustomWidgetConfiguration,
+        /// CustomFilterWidgetConfiguration, TimeRangeDropdownFilterWidgetConfiguration, SpacerWidgetConfiguration,
+        /// LegendWidgetConfiguration and DropdownFilterWidgetConfiguration.
+        /// </summary>
+        [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
+        [NSXTProperty(IsRequired: true, Description: @"Supported visualization types are LabelValueConfiguration, DonutConfiguration, GridConfiguration, StatsConfiguration, MultiWidgetConfiguration, GraphConfiguration, ContainerConfiguration, CustomWidgetConfiguration, CustomFilterWidgetConfiguration, TimeRangeDropdownFilterWidgetConfiguration, SpacerWidgetConfiguration, LegendWidgetConfiguration and DropdownFilterWidgetConfiguration.")]
+        [System.ComponentModel.DataAnnotations.Required]
+        public NSXTWidgetConfigurationResourceTypeEnumType ResourceType { get; set; }
+        /// <summary>
+        /// A List of filter applied to this widget configuration. This will be used to identify the filters applied to this widget.
+        /// </summary>
+        [JsonProperty(PropertyName = "filters")]
+        [NSXTProperty(IsRequired: false, Description: @"A List of filter applied to this widget configuration. This will be used to identify the filters applied to this widget.")]
+        public IList<string> Filters { get; set; }
         /// <summary>
         /// Id of drilldown widget, if any. Id should be a valid id of an existing widget. A widget is considered as drilldown
         /// widget when it is associated with any other widget and provides more detailed information about any data item from the
@@ -110,25 +151,24 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Id of drilldown widget, if any. Id should be a valid id of an existing widget. A widget is considered as drilldown widget when it is associated with any other widget and provides more detailed information about any data item from the parent widget.")]
         public string? DrilldownId { get; set; }
         /// <summary>
-        /// Please use the property 'shared' of View instead of this. The widgets of a shared view are visible to other users.
+        /// Flag to indicate that widget will continue to work without filter value. If this flag is set to false then
+        /// default_filter_value is manadatory.
         /// </summary>
-        [JsonProperty(PropertyName = "shared")]
-        [NSXTProperty(IsRequired: false, Description: @"Please use the property &apos;shared&apos; of View instead of this. The widgets of a shared view are visible to other users.")]
-        public bool? Shared { get; set; }
+        [JsonProperty(PropertyName = "filter_value_required")]
+        [NSXTProperty(IsRequired: false, Description: @"Flag to indicate that widget will continue to work without filter value. If this flag is set to false then default_filter_value is manadatory.")]
+        public bool? FilterValueRequired { get; set; }
         /// <summary>
-        /// Legend to be displayed. If legend is not needed, do not include it.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "legend")]
-        [NSXTProperty(IsRequired: false, Description: @"Legend to be displayed. If legend is not needed, do not include it.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLegendType Legend { get; set; }
         /// <summary>
-        /// Supported visualization types are LabelValueConfiguration, DonutConfiguration, GridConfiguration, StatsConfiguration,
-        /// MultiWidgetConfiguration, GraphConfiguration, ContainerConfiguration, CustomWidgetConfiguration and
-        /// DropdownFilterWidgetConfiguration.
+        /// If the condition is met then the widget will be displayed to UI. If no condition is provided, then the widget will be
+        /// displayed unconditionally.
         /// </summary>
-        [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Supported visualization types are LabelValueConfiguration, DonutConfiguration, GridConfiguration, StatsConfiguration, MultiWidgetConfiguration, GraphConfiguration, ContainerConfiguration, CustomWidgetConfiguration and DropdownFilterWidgetConfiguration.")]
-        [System.ComponentModel.DataAnnotations.Required]
-        public NSXTWidgetConfigurationResourceTypeEnumType ResourceType { get; set; }
+        [JsonProperty(PropertyName = "condition")]
+        [NSXTProperty(IsRequired: false, Description: @"If the condition is met then the widget will be displayed to UI. If no condition is provided, then the widget will be displayed unconditionally.")]
+        public string? Condition { get; set; }
     }
 }

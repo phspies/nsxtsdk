@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTExportTaskType : NSXTPolicyTaskType
     {
+        public NSXTExportTaskType()
+        {
+        }
         /// <summary>
         /// Policy path of a draft if this is an export task to export draft
         /// configuration.

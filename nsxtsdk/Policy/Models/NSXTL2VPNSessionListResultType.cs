@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTL2VPNSessionListResultType : NSXTListResultType
     {
+        public NSXTL2VPNSessionListResultType()
+        {
+        }
         /// <summary>
         /// L2VPNSession list results
         /// </summary>

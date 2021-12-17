@@ -19,12 +19,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"L2VPN Session Data represents meta data necessary to createthe L2VPN Session. It is represented by an array of peer codefor each tunnel.")]
     public class NSXTL2VPNSessionDataType 
     {
+        public NSXTL2VPNSessionDataType()
+        {
+            Enabled = test
+        }
         /// <summary>
         /// Enable to extend all the associated segments.
         /// </summary>
         [JsonProperty(PropertyName = "enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Enable to extend all the associated segments.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// List of L2VPN transport tunnel data.

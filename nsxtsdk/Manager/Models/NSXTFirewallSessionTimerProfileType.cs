@@ -17,6 +17,20 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFirewallSessionTimerProfileType : NSXTBaseFirewallProfileType
     {
+        public NSXTFirewallSessionTimerProfileType()
+        {
+            TcpClosed = test
+            TcpOpening = test
+            UdpSingle = test
+            TcpFinwait = test
+            TcpFirstPacket = test
+            TcpClosing = test
+            TcpEstablished = test
+            UdpMultiple = test
+            IcmpErrorReply = test
+            UdpFirstPacket = test
+            IcmpFirstPacket = test
+        }
         /// <summary>
         /// The timeout value of connection in seconds after one endpoint sends an RST. The default value for Edges (i.e, Gateway,
         /// or Logical Router) may be different than Distributed Firewall hosts.
@@ -26,7 +40,6 @@ namespace nsxtsdk.ManagerModels
         //[System.ComponentModel.DataAnnotations.MinLength(10)]
         //[System.ComponentModel.DataAnnotations.MaxLength(4320000)]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "")]
         public long TcpClosed { get; set; }
         /// <summary>
         /// The timeout value of connection in seconds after a second packet has been transferred. The default value for Edges (i.e,
@@ -37,7 +50,6 @@ namespace nsxtsdk.ManagerModels
         //[System.ComponentModel.DataAnnotations.MinLength(10)]
         //[System.ComponentModel.DataAnnotations.MaxLength(4320000)]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "")]
         public long TcpOpening { get; set; }
         /// <summary>
         /// The timeout value of connection in seconds if the source host sends more than one packet but the destination host has
@@ -49,7 +61,6 @@ namespace nsxtsdk.ManagerModels
         //[System.ComponentModel.DataAnnotations.MinLength(10)]
         //[System.ComponentModel.DataAnnotations.MaxLength(4320000)]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "")]
         public long UdpSingle { get; set; }
         /// <summary>
         /// The timeout value of connection in seconds after both FINs have been exchanged and connection is closed. The default
@@ -60,7 +71,6 @@ namespace nsxtsdk.ManagerModels
         //[System.ComponentModel.DataAnnotations.MinLength(10)]
         //[System.ComponentModel.DataAnnotations.MaxLength(4320000)]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "")]
         public long TcpFinwait { get; set; }
         /// <summary>
         /// The timeout value of connection in seconds after the first packet has been sent. The default value for Edges (i.e,
@@ -71,7 +81,6 @@ namespace nsxtsdk.ManagerModels
         //[System.ComponentModel.DataAnnotations.MinLength(10)]
         //[System.ComponentModel.DataAnnotations.MaxLength(4320000)]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "")]
         public long TcpFirstPacket { get; set; }
         /// <summary>
         /// The timeout value of connection in seconds after the first FIN has been sent. The default value for Edges (i.e, Gateway,
@@ -82,7 +91,6 @@ namespace nsxtsdk.ManagerModels
         //[System.ComponentModel.DataAnnotations.MinLength(10)]
         //[System.ComponentModel.DataAnnotations.MaxLength(4320000)]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "")]
         public long TcpClosing { get; set; }
         /// <summary>
         /// The timeout value of connection in seconds once the connection has become fully established. The default value for Edges
@@ -93,7 +101,6 @@ namespace nsxtsdk.ManagerModels
         //[System.ComponentModel.DataAnnotations.MinLength(120)]
         //[System.ComponentModel.DataAnnotations.MaxLength(4320000)]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "")]
         public long TcpEstablished { get; set; }
         /// <summary>
         /// The timeout value of connection in seconds if both hosts have sent packets. The default value for Edges (i.e, Gateway,
@@ -104,7 +111,6 @@ namespace nsxtsdk.ManagerModels
         //[System.ComponentModel.DataAnnotations.MinLength(10)]
         //[System.ComponentModel.DataAnnotations.MaxLength(4320000)]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "")]
         public long UdpMultiple { get; set; }
         /// <summary>
         /// The timeout value for the connection after an ICMP error came back in response to an ICMP packet. The default value for
@@ -115,7 +121,6 @@ namespace nsxtsdk.ManagerModels
         //[System.ComponentModel.DataAnnotations.MinLength(10)]
         //[System.ComponentModel.DataAnnotations.MaxLength(4320000)]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "")]
         public long IcmpErrorReply { get; set; }
         /// <summary>
         /// The timeout value of connection in seconds after the first packet. This will be the initial timeout for the new UDP
@@ -126,7 +131,6 @@ namespace nsxtsdk.ManagerModels
         //[System.ComponentModel.DataAnnotations.MinLength(10)]
         //[System.ComponentModel.DataAnnotations.MaxLength(4320000)]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "")]
         public long UdpFirstPacket { get; set; }
         /// <summary>
         /// The timeout value of connection in seconds after the first packet. This will be the initial timeout for the new ICMP
@@ -137,7 +141,6 @@ namespace nsxtsdk.ManagerModels
         //[System.ComponentModel.DataAnnotations.MinLength(10)]
         //[System.ComponentModel.DataAnnotations.MaxLength(4320000)]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "")]
         public long IcmpFirstPacket { get; set; }
     }
 }

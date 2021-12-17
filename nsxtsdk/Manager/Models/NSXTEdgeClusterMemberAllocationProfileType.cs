@@ -17,14 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTEdgeClusterMemberAllocationProfileType 
     {
+        public NSXTEdgeClusterMemberAllocationProfileType()
+        {
+        }
         /// <summary>
-        /// Logical router allocation can be tracked for specific services and
-        /// services may have their own hard limits and allocation sizes. For
-        /// example load balancer pool should be specified if load balancer
-        /// service will be attached to logical router.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "allocation_pool")]
-        [NSXTProperty(IsRequired: false, Description: @"Logical router allocation can be tracked for specific services andservices may have their own hard limits and allocation sizes. Forexample load balancer pool should be specified if load balancerservice will be attached to logical router.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTEdgeClusterMemberAllocationPoolType AllocationPool { get; set; }
         /// <summary>
         /// Flag to enable the auto-relocation of standby service router running

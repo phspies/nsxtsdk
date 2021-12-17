@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbPersistenceProfileType : NSXTManagedResourceType
     {
+        public NSXTLbPersistenceProfileType()
+        {
+        }
         /// <summary>
         /// The persistence shared flag identifies whether the persistence table
         /// is shared among virtual-servers referring this profile.

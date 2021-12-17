@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer Tag object")]
     public class NSXTALBTagType 
     {
+        public NSXTALBTagType()
+        {
+            Type = test
+        }
         /// <summary>
         /// Enum options - AVI_DEFINED, USER_DEFINED, VCENTER_DEFINED.
         /// Default value when not specified in API or module is
@@ -24,7 +28,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "type")]
         [NSXTProperty(IsRequired: false, Description: @"Enum options - AVI_DEFINED, USER_DEFINED, VCENTER_DEFINED.Default value when not specified in API or module isinterpreted by ALB Controller as USER_DEFINED.")]
-        [NSXTDefaultProperty(Default: "USER_DEFINED")]
         public NSXTAlbtagTypeEnumType? Type { get; set; }
         /// <summary>
         /// value of Tag.

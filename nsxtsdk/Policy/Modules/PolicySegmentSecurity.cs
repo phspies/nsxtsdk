@@ -161,26 +161,26 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentSecurityProfileType GlobalCreateOrUpdateSegmentSecurityProfile(string SegmentSecurityProfileId, NSXTSegmentSecurityProfileType SegmentSecurityProfile, bool? Override = null)
+        public NSXTSegmentSecurityProfileType GlobalGlobalInfraCreateOrUpdateSegmentSecurityProfile(string SegmentSecurityProfileId, NSXTSegmentSecurityProfileType SegmentSecurityProfile, bool? Override = null)
         {
             if (SegmentSecurityProfileId == null) { throw new System.ArgumentNullException("SegmentSecurityProfileId cannot be null"); }
             if (SegmentSecurityProfile == null) { throw new System.ArgumentNullException("SegmentSecurityProfile cannot be null"); }
             NSXTSegmentSecurityProfileType returnValue = default(NSXTSegmentSecurityProfileType);
-            StringBuilder CreateOrUpdateSegmentSecurityProfileServiceURL = new StringBuilder("/global-infra/segment-security-profiles/{segment-security-profile-id}");
+            StringBuilder GlobalInfraCreateOrUpdateSegmentSecurityProfileServiceURL = new StringBuilder("/global-infra/segment-security-profiles/{segment-security-profile-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.PUT
             };
             request.AddHeader("Content-type", "application/json");
-            CreateOrUpdateSegmentSecurityProfileServiceURL.Replace("{segment-security-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentSecurityProfileId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraCreateOrUpdateSegmentSecurityProfileServiceURL.Replace("{segment-security-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentSecurityProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(SegmentSecurityProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
-            request.Resource = CreateOrUpdateSegmentSecurityProfileServiceURL.ToString();
+            request.Resource = GlobalInfraCreateOrUpdateSegmentSecurityProfileServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP PUT operation to " + CreateOrUpdateSegmentSecurityProfileServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP PUT operation to " + GlobalInfraCreateOrUpdateSegmentSecurityProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -201,24 +201,24 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalDeleteSegmentSecurityProfile(string SegmentSecurityProfileId, bool? Override = null)
+        public void GlobalGlobalInfraDeleteSegmentSecurityProfile(string SegmentSecurityProfileId, bool? Override = null)
         {
             if (SegmentSecurityProfileId == null) { throw new System.ArgumentNullException("SegmentSecurityProfileId cannot be null"); }
             
-            StringBuilder DeleteSegmentSecurityProfileServiceURL = new StringBuilder("/global-infra/segment-security-profiles/{segment-security-profile-id}");
+            StringBuilder GlobalInfraDeleteSegmentSecurityProfileServiceURL = new StringBuilder("/global-infra/segment-security-profiles/{segment-security-profile-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.DELETE
             };
             request.AddHeader("Content-type", "application/json");
-            DeleteSegmentSecurityProfileServiceURL.Replace("{segment-security-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentSecurityProfileId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraDeleteSegmentSecurityProfileServiceURL.Replace("{segment-security-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentSecurityProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
-            request.Resource = DeleteSegmentSecurityProfileServiceURL.ToString();
+            request.Resource = GlobalInfraDeleteSegmentSecurityProfileServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP DELETE operation to " + DeleteSegmentSecurityProfileServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP DELETE operation to " + GlobalInfraDeleteSegmentSecurityProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -227,23 +227,23 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentSecurityProfileType GlobalGetSegmentSecurityProfile(string SegmentSecurityProfileId)
+        public NSXTSegmentSecurityProfileType GlobalGlobalInfraGetSegmentSecurityProfile(string SegmentSecurityProfileId)
         {
             if (SegmentSecurityProfileId == null) { throw new System.ArgumentNullException("SegmentSecurityProfileId cannot be null"); }
             NSXTSegmentSecurityProfileType returnValue = default(NSXTSegmentSecurityProfileType);
-            StringBuilder GetSegmentSecurityProfileServiceURL = new StringBuilder("/global-infra/segment-security-profiles/{segment-security-profile-id}");
+            StringBuilder GlobalInfraGetSegmentSecurityProfileServiceURL = new StringBuilder("/global-infra/segment-security-profiles/{segment-security-profile-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetSegmentSecurityProfileServiceURL.Replace("{segment-security-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentSecurityProfileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = GetSegmentSecurityProfileServiceURL.ToString();
+            GlobalInfraGetSegmentSecurityProfileServiceURL.Replace("{segment-security-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentSecurityProfileId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraGetSegmentSecurityProfileServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetSegmentSecurityProfileServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetSegmentSecurityProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -264,26 +264,26 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalPatchSegmentSecurityProfile(string SegmentSecurityProfileId, NSXTSegmentSecurityProfileType SegmentSecurityProfile, bool? Override = null)
+        public void GlobalGlobalInfraPatchSegmentSecurityProfile(string SegmentSecurityProfileId, NSXTSegmentSecurityProfileType SegmentSecurityProfile, bool? Override = null)
         {
             if (SegmentSecurityProfileId == null) { throw new System.ArgumentNullException("SegmentSecurityProfileId cannot be null"); }
             if (SegmentSecurityProfile == null) { throw new System.ArgumentNullException("SegmentSecurityProfile cannot be null"); }
             
-            StringBuilder PatchSegmentSecurityProfileServiceURL = new StringBuilder("/global-infra/segment-security-profiles/{segment-security-profile-id}");
+            StringBuilder GlobalInfraPatchSegmentSecurityProfileServiceURL = new StringBuilder("/global-infra/segment-security-profiles/{segment-security-profile-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.PATCH
             };
             request.AddHeader("Content-type", "application/json");
-            PatchSegmentSecurityProfileServiceURL.Replace("{segment-security-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentSecurityProfileId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraPatchSegmentSecurityProfileServiceURL.Replace("{segment-security-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentSecurityProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(SegmentSecurityProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
-            request.Resource = PatchSegmentSecurityProfileServiceURL.ToString();
+            request.Resource = GlobalInfraPatchSegmentSecurityProfileServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP PATCH operation to " + PatchSegmentSecurityProfileServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP PATCH operation to " + GlobalInfraPatchSegmentSecurityProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -333,10 +333,10 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentSecurityProfileListResultType GlobalListSegmentSecurityProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTSegmentSecurityProfileListResultType GlobalGlobalInfraListSegmentSecurityProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTSegmentSecurityProfileListResultType returnValue = default(NSXTSegmentSecurityProfileListResultType);
-            StringBuilder ListSegmentSecurityProfilesServiceURL = new StringBuilder("/global-infra/segment-security-profiles");
+            StringBuilder GlobalInfraListSegmentSecurityProfilesServiceURL = new StringBuilder("/global-infra/segment-security-profiles");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -349,11 +349,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListSegmentSecurityProfilesServiceURL.ToString();
+            request.Resource = GlobalInfraListSegmentSecurityProfilesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ListSegmentSecurityProfilesServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraListSegmentSecurityProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else

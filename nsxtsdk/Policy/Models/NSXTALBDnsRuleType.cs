@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsRule object")]
     public class NSXTALBDnsRuleType 
     {
+        public NSXTALBDnsRuleType()
+        {
+            Enable = test
+        }
         /// <summary>
         /// Index of the rule.
         /// </summary>
@@ -31,7 +35,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "enable")]
         [NSXTProperty(IsRequired: false, Description: @"Enable or disable the rule.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enable { get; set; }
         /// <summary>
         /// Log DNS query upon rule match.
@@ -40,16 +43,16 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Log DNS query upon rule match.")]
         public bool? Log { get; set; }
         /// <summary>
-        /// Action to be performed upon successful matching.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "action")]
-        [NSXTProperty(IsRequired: false, Description: @"Action to be performed upon successful matching.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBDnsRuleActionType Action { get; set; }
         /// <summary>
-        /// Add match criteria to the rule.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "match")]
-        [NSXTProperty(IsRequired: false, Description: @"Add match criteria to the rule.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBDnsRuleMatchTargetType Match { get; set; }
         /// <summary>
         /// Name of the rule.

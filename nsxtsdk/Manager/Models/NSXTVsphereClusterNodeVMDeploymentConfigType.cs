@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTVsphereClusterNodeVMDeploymentConfigType : NSXTClusterNodeVMDeploymentConfigType
     {
+        public NSXTVsphereClusterNodeVMDeploymentConfigType()
+        {
+            DiskProvisioning = test
+        }
         /// <summary>
         /// List of DNS servers.
         /// If DHCP is used, the default DNS servers associated with
@@ -33,12 +37,13 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"List of domain names that are used to complete unqualified host names.")]
         public IList<string> SearchDomains { get; set; }
         /// <summary>
-        /// Desired host name/FQDN for the VM to be deployed
+        /// Distributed portgroup identifier to which the management vnic of
+        /// cluster node VM will be connected.
         /// </summary>
-        [JsonProperty(PropertyName = "hostname", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Desired host name/FQDN for the VM to be deployed")]
+        [JsonProperty(PropertyName = "management_network_id", Required = Required.AllowNull)]
+        [NSXTProperty(IsRequired: true, Description: @"Distributed portgroup identifier to which the management vnic ofcluster node VM will be connected.")]
         [System.ComponentModel.DataAnnotations.Required]
-        public string Hostname { get; set; }
+        public string ManagementNetworkId { get; set; }
         /// <summary>
         /// If true, the SSH service will automatically be started on the VM.
         /// Enabling SSH service is not recommended for security reasons.
@@ -74,8 +79,13 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "disk_provisioning")]
         [NSXTProperty(IsRequired: false, Description: @"Specifies the disk provisioning type of the VM.")]
-        [NSXTDefaultProperty(Default: "THIN")]
         public NSXTVsphereClusterNodeVmdeploymentConfigDiskProvisioningEnumType? DiskProvisioning { get; set; }
+        /// <summary>
+        /// Specifies the folder in which the VM should be placed.
+        /// </summary>
+        [JsonProperty(PropertyName = "folder_id")]
+        [NSXTProperty(IsRequired: false, Description: @"Specifies the folder in which the VM should be placed.")]
+        public string? FolderId { get; set; }
         /// <summary>
         /// The VC-specific identifiers will be resolved on this VC, so all other
         /// identifiers specified in the config must belong to this vCenter server.
@@ -125,12 +135,11 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"The cluster node VM will be deployed on the specified host in thespecified VC server within the cluster if host_id is specified.Note: User must ensure that storage and specified networks areaccessible by this host.")]
         public string? HostId { get; set; }
         /// <summary>
-        /// Distributed portgroup identifier to which the management vnic of
-        /// cluster node VM will be connected.
+        /// Desired host name/FQDN for the VM to be deployed
         /// </summary>
-        [JsonProperty(PropertyName = "management_network_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Distributed portgroup identifier to which the management vnic ofcluster node VM will be connected.")]
+        [JsonProperty(PropertyName = "hostname", Required = Required.AllowNull)]
+        [NSXTProperty(IsRequired: true, Description: @"Desired host name/FQDN for the VM to be deployed")]
         [System.ComponentModel.DataAnnotations.Required]
-        public string ManagementNetworkId { get; set; }
+        public string Hostname { get; set; }
     }
 }

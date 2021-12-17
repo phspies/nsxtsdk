@@ -21,6 +21,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Allocation details of cluster and its members. Contains information of theedge nodes present in cluster, active and standby services of each node,utilization details of configured sub-pools. These allocation details canbe monitored by customers to trigger migration of certain service contextsto different edge nodes, to balance the utilization of edge node resources.")]
     public class NSXTEdgeClusterAllocationStatusType 
     {
+        public NSXTEdgeClusterAllocationStatusType()
+        {
+        }
         /// <summary>
         /// Allocation details of edge nodes present in the cluster.
         /// </summary>

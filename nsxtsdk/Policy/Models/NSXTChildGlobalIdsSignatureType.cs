@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildGlobalIdsSignatureType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildGlobalIdsSignatureType()
+        {
+        }
         /// <summary>
-        /// Contains the GlobalIdsSignature object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "GlobalIdsSignature", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the GlobalIdsSignature object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTGlobalIdsSignatureType GlobalIdsSignature { get; set; }
     }

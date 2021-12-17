@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceType : NSXTPolicyConfigResourceType
     {
+        public NSXTServiceType()
+        {
+        }
         /// <summary>
         /// The flag, if true, indicates that service is created in the system by default.
         /// Such default services can't be modified/deleted.

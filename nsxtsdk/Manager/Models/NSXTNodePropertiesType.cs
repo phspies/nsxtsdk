@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodePropertiesType : NSXTResourceType
     {
+        public NSXTNodePropertiesType()
+        {
+        }
         /// <summary>
         /// Current time expressed in milliseconds since epoch
         /// </summary>
@@ -55,12 +58,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Export restrictions in effect, if any")]
         public NSXTNodePropertiesExportTypeEnumType? ExportType { get; set; }
         /// <summary>
-        /// Host name or fully qualified domain name of node
-        /// </summary>
-        [JsonProperty(PropertyName = "hostname")]
-        [NSXTProperty(IsRequired: false, Description: @"Host name or fully qualified domain name of node")]
-        public string? Hostname { get; set; }
-        /// <summary>
         /// Product version
         /// </summary>
         [JsonProperty(PropertyName = "product_version")]
@@ -72,6 +69,12 @@ namespace nsxtsdk.ManagerModels
         [JsonProperty(PropertyName = "node_version")]
         [NSXTProperty(IsRequired: false, Description: @"Node version")]
         public string? NodeVersion { get; set; }
+        /// <summary>
+        /// Node type
+        /// </summary>
+        [JsonProperty(PropertyName = "node_type")]
+        [NSXTProperty(IsRequired: false, Description: @"Node type")]
+        public NSXTNodePropertiesNodeTypeEnumType? NodeType { get; set; }
         /// <summary>
         /// System date time in UTC
         /// </summary>
@@ -90,6 +93,19 @@ namespace nsxtsdk.ManagerModels
         [JsonProperty(PropertyName = "timezone")]
         [NSXTProperty(IsRequired: false, Description: @"Timezone")]
         public string? Timezone { get; set; }
+        /// <summary>
+        /// NSX CLI command history limit, set to 0 to configure no history size limit
+        /// </summary>
+        [JsonProperty(PropertyName = "cli_history_size")]
+        [NSXTProperty(IsRequired: false, Description: @"NSX CLI command history limit, set to 0 to configure no history size limit")]
+        //[System.ComponentModel.DataAnnotations.MinLength(0)]
+        public long? CliHistorySize { get; set; }
+        /// <summary>
+        /// Host name or fully qualified domain name of node
+        /// </summary>
+        [JsonProperty(PropertyName = "hostname")]
+        [NSXTProperty(IsRequired: false, Description: @"Host name or fully qualified domain name of node")]
+        public string? Hostname { get; set; }
         /// <summary>
         /// NSX CLI display datetime stamp in command output
         /// </summary>

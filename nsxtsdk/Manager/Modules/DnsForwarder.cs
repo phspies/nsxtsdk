@@ -285,6 +285,31 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
+        public void DisableDnsForwarder(string ForwarderId)
+        {
+            if (ForwarderId == null) { throw new System.ArgumentNullException("ForwarderId cannot be null"); }
+            
+            StringBuilder DisableDnsForwarderServiceURL = new StringBuilder("/dns/forwarders/{forwarder-id}?action=disable");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.POST
+            };
+            request.AddHeader("Content-type", "application/json");
+            DisableDnsForwarderServiceURL.Replace("{forwarder-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ForwarderId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = DisableDnsForwarderServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP POST operation to " + DisableDnsForwarderServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
         public NSXTDnsAnswerType LookupAddress(string ForwarderId, string? Address = null, string? ServerIp = null, string? SourceIp = null)
         {
             if (ForwarderId == null) { throw new System.ArgumentNullException("ForwarderId cannot be null"); }
@@ -325,23 +350,23 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DisableDnsForwarderDisable(string ForwarderId)
+        public void ClearDnsForwarderCache(string ForwarderId)
         {
             if (ForwarderId == null) { throw new System.ArgumentNullException("ForwarderId cannot be null"); }
             
-            StringBuilder DisableDnsForwarderDisableServiceURL = new StringBuilder("/dns/forwarders/{forwarder-id}?action=disable");
+            StringBuilder ClearDnsForwarderCacheServiceURL = new StringBuilder("/dns/forwarders/{forwarder-id}?action=clear_cache");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            DisableDnsForwarderDisableServiceURL.Replace("{forwarder-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ForwarderId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DisableDnsForwarderDisableServiceURL.ToString();
+            ClearDnsForwarderCacheServiceURL.Replace("{forwarder-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ForwarderId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = ClearDnsForwarderCacheServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + DisableDnsForwarderDisableServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + ClearDnsForwarderCacheServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -350,48 +375,23 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void ClearDnsForwarderCacheClearCache(string ForwarderId)
+        public void EnableDnsForwarder(string ForwarderId)
         {
             if (ForwarderId == null) { throw new System.ArgumentNullException("ForwarderId cannot be null"); }
             
-            StringBuilder ClearDnsForwarderCacheClearCacheServiceURL = new StringBuilder("/dns/forwarders/{forwarder-id}?action=clear_cache");
+            StringBuilder EnableDnsForwarderServiceURL = new StringBuilder("/dns/forwarders/{forwarder-id}?action=enable");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            ClearDnsForwarderCacheClearCacheServiceURL.Replace("{forwarder-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ForwarderId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ClearDnsForwarderCacheClearCacheServiceURL.ToString();
+            EnableDnsForwarderServiceURL.Replace("{forwarder-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ForwarderId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = EnableDnsForwarderServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + ClearDnsForwarderCacheClearCacheServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void EnableDnsForwarderEnable(string ForwarderId)
-        {
-            if (ForwarderId == null) { throw new System.ArgumentNullException("ForwarderId cannot be null"); }
-            
-            StringBuilder EnableDnsForwarderEnableServiceURL = new StringBuilder("/dns/forwarders/{forwarder-id}?action=enable");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.POST
-            };
-            request.AddHeader("Content-type", "application/json");
-            EnableDnsForwarderEnableServiceURL.Replace("{forwarder-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ForwarderId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = EnableDnsForwarderEnableServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP POST operation to " + EnableDnsForwarderEnableServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + EnableDnsForwarderServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             

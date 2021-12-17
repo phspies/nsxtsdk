@@ -30,47 +30,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBAuthProfileApiResponseType GlobalListAlbauthProfile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBAuthProfileApiResponseType returnValue = default(NSXTALBAuthProfileApiResponseType);
-            StringBuilder ListAlbauthProfileServiceURL = new StringBuilder("/global-infra/alb-auth-profiles");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbauthProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlbauthProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBAuthProfileApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBAuthProfileApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTALBServerAutoScalePolicyApiResponseType ListAlbserverAutoScalePolicy(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBServerAutoScalePolicyApiResponseType returnValue = default(NSXTALBServerAutoScalePolicyApiResponseType);
@@ -241,393 +200,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBHTTPPolicySetType GlobalUpdateAlbhttppolicySet(string AlbHttppolicysetId, NSXTALBHTTPPolicySetType AlbhttppolicySet)
-        {
-            if (AlbHttppolicysetId == null) { throw new System.ArgumentNullException("AlbHttppolicysetId cannot be null"); }
-            if (AlbhttppolicySet == null) { throw new System.ArgumentNullException("AlbhttppolicySet cannot be null"); }
-            NSXTALBHTTPPolicySetType returnValue = default(NSXTALBHTTPPolicySetType);
-            StringBuilder UpdateAlbhttppolicySetServiceURL = new StringBuilder("/global-infra/alb-http-policy-sets/{alb-httppolicyset-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbhttppolicySetServiceURL.Replace("{alb-httppolicyset-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbHttppolicysetId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbhttppolicySet, defaultSerializationSettings));
-            request.Resource = UpdateAlbhttppolicySetServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbhttppolicySetServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBHTTPPolicySetType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBHTTPPolicySetType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlbhttppolicySet(string AlbHttppolicysetId, bool? Force = null)
-        {
-            if (AlbHttppolicysetId == null) { throw new System.ArgumentNullException("AlbHttppolicysetId cannot be null"); }
-            
-            StringBuilder DeleteAlbhttppolicySetServiceURL = new StringBuilder("/global-infra/alb-http-policy-sets/{alb-httppolicyset-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbhttppolicySetServiceURL.Replace("{alb-httppolicyset-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbHttppolicysetId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbhttppolicySetServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbhttppolicySetServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBHTTPPolicySetType GlobalReadAlbhttppolicySet(string AlbHttppolicysetId)
-        {
-            if (AlbHttppolicysetId == null) { throw new System.ArgumentNullException("AlbHttppolicysetId cannot be null"); }
-            NSXTALBHTTPPolicySetType returnValue = default(NSXTALBHTTPPolicySetType);
-            StringBuilder ReadAlbhttppolicySetServiceURL = new StringBuilder("/global-infra/alb-http-policy-sets/{alb-httppolicyset-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlbhttppolicySetServiceURL.Replace("{alb-httppolicyset-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbHttppolicysetId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbhttppolicySetServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlbhttppolicySetServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBHTTPPolicySetType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBHTTPPolicySetType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlbhttppolicySet(string AlbHttppolicysetId, NSXTALBHTTPPolicySetType AlbhttppolicySet)
-        {
-            if (AlbHttppolicysetId == null) { throw new System.ArgumentNullException("AlbHttppolicysetId cannot be null"); }
-            if (AlbhttppolicySet == null) { throw new System.ArgumentNullException("AlbhttppolicySet cannot be null"); }
-            
-            StringBuilder PatchAlbhttppolicySetServiceURL = new StringBuilder("/global-infra/alb-http-policy-sets/{alb-httppolicyset-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbhttppolicySetServiceURL.Replace("{alb-httppolicyset-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbHttppolicysetId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbhttppolicySet, defaultSerializationSettings));
-            request.Resource = PatchAlbhttppolicySetServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbhttppolicySetServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBAnalyticsProfileType GlobalUpdateAlbanalyticsProfile(string AlbAnalyticsprofileId, NSXTALBAnalyticsProfileType AlbanalyticsProfile)
-        {
-            if (AlbAnalyticsprofileId == null) { throw new System.ArgumentNullException("AlbAnalyticsprofileId cannot be null"); }
-            if (AlbanalyticsProfile == null) { throw new System.ArgumentNullException("AlbanalyticsProfile cannot be null"); }
-            NSXTALBAnalyticsProfileType returnValue = default(NSXTALBAnalyticsProfileType);
-            StringBuilder UpdateAlbanalyticsProfileServiceURL = new StringBuilder("/global-infra/alb-analytics-profiles/{alb-analyticsprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbanalyticsProfileServiceURL.Replace("{alb-analyticsprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbAnalyticsprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbanalyticsProfile, defaultSerializationSettings));
-            request.Resource = UpdateAlbanalyticsProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbanalyticsProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBAnalyticsProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBAnalyticsProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBAnalyticsProfileType GlobalReadAlbanalyticsProfile(string AlbAnalyticsprofileId)
-        {
-            if (AlbAnalyticsprofileId == null) { throw new System.ArgumentNullException("AlbAnalyticsprofileId cannot be null"); }
-            NSXTALBAnalyticsProfileType returnValue = default(NSXTALBAnalyticsProfileType);
-            StringBuilder ReadAlbanalyticsProfileServiceURL = new StringBuilder("/global-infra/alb-analytics-profiles/{alb-analyticsprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlbanalyticsProfileServiceURL.Replace("{alb-analyticsprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbAnalyticsprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbanalyticsProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlbanalyticsProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBAnalyticsProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBAnalyticsProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlbanalyticsProfile(string AlbAnalyticsprofileId, NSXTALBAnalyticsProfileType AlbanalyticsProfile)
-        {
-            if (AlbAnalyticsprofileId == null) { throw new System.ArgumentNullException("AlbAnalyticsprofileId cannot be null"); }
-            if (AlbanalyticsProfile == null) { throw new System.ArgumentNullException("AlbanalyticsProfile cannot be null"); }
-            
-            StringBuilder PatchAlbanalyticsProfileServiceURL = new StringBuilder("/global-infra/alb-analytics-profiles/{alb-analyticsprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbanalyticsProfileServiceURL.Replace("{alb-analyticsprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbAnalyticsprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbanalyticsProfile, defaultSerializationSettings));
-            request.Resource = PatchAlbanalyticsProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbanalyticsProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlbanalyticsProfile(string AlbAnalyticsprofileId, bool? Force = null)
-        {
-            if (AlbAnalyticsprofileId == null) { throw new System.ArgumentNullException("AlbAnalyticsprofileId cannot be null"); }
-            
-            StringBuilder DeleteAlbanalyticsProfileServiceURL = new StringBuilder("/global-infra/alb-analytics-profiles/{alb-analyticsprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbanalyticsProfileServiceURL.Replace("{alb-analyticsprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbAnalyticsprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbanalyticsProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbanalyticsProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBPoolType GlobalUpdateAlbpool(string AlbPoolId, NSXTALBPoolType Albpool)
-        {
-            if (AlbPoolId == null) { throw new System.ArgumentNullException("AlbPoolId cannot be null"); }
-            if (Albpool == null) { throw new System.ArgumentNullException("Albpool cannot be null"); }
-            NSXTALBPoolType returnValue = default(NSXTALBPoolType);
-            StringBuilder UpdateAlbpoolServiceURL = new StringBuilder("/global-infra/alb-pools/{alb-pool-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbpoolServiceURL.Replace("{alb-pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPoolId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(Albpool, defaultSerializationSettings));
-            request.Resource = UpdateAlbpoolServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbpoolServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBPoolType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBPoolType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlbpool(string AlbPoolId, NSXTALBPoolType Albpool)
-        {
-            if (AlbPoolId == null) { throw new System.ArgumentNullException("AlbPoolId cannot be null"); }
-            if (Albpool == null) { throw new System.ArgumentNullException("Albpool cannot be null"); }
-            
-            StringBuilder PatchAlbpoolServiceURL = new StringBuilder("/global-infra/alb-pools/{alb-pool-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbpoolServiceURL.Replace("{alb-pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPoolId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(Albpool, defaultSerializationSettings));
-            request.Resource = PatchAlbpoolServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbpoolServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBPoolType GlobalReadAlbpool(string AlbPoolId)
-        {
-            if (AlbPoolId == null) { throw new System.ArgumentNullException("AlbPoolId cannot be null"); }
-            NSXTALBPoolType returnValue = default(NSXTALBPoolType);
-            StringBuilder ReadAlbpoolServiceURL = new StringBuilder("/global-infra/alb-pools/{alb-pool-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlbpoolServiceURL.Replace("{alb-pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPoolId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbpoolServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlbpoolServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBPoolType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBPoolType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlbpool(string AlbPoolId, bool? Force = null)
-        {
-            if (AlbPoolId == null) { throw new System.ArgumentNullException("AlbPoolId cannot be null"); }
-            
-            StringBuilder DeleteAlbpoolServiceURL = new StringBuilder("/global-infra/alb-pools/{alb-pool-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbpoolServiceURL.Replace("{alb-pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPoolId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbpoolServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbpoolServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTALBSecurityPolicyApiResponseType ListAlbsecurityPolicy(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBSecurityPolicyApiResponseType returnValue = default(NSXTALBSecurityPolicyApiResponseType);
@@ -664,645 +236,6 @@ namespace nsxtapi.PolicyModules
 				}
 			}
 			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBNetworkProfileType GlobalUpdateAlbnetworkProfile(string AlbNetworkprofileId, NSXTALBNetworkProfileType AlbnetworkProfile)
-        {
-            if (AlbNetworkprofileId == null) { throw new System.ArgumentNullException("AlbNetworkprofileId cannot be null"); }
-            if (AlbnetworkProfile == null) { throw new System.ArgumentNullException("AlbnetworkProfile cannot be null"); }
-            NSXTALBNetworkProfileType returnValue = default(NSXTALBNetworkProfileType);
-            StringBuilder UpdateAlbnetworkProfileServiceURL = new StringBuilder("/global-infra/alb-network-profiles/{alb-networkprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbnetworkProfileServiceURL.Replace("{alb-networkprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbNetworkprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbnetworkProfile, defaultSerializationSettings));
-            request.Resource = UpdateAlbnetworkProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbnetworkProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBNetworkProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBNetworkProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBNetworkProfileType GlobalReadAlbnetworkProfile(string AlbNetworkprofileId)
-        {
-            if (AlbNetworkprofileId == null) { throw new System.ArgumentNullException("AlbNetworkprofileId cannot be null"); }
-            NSXTALBNetworkProfileType returnValue = default(NSXTALBNetworkProfileType);
-            StringBuilder ReadAlbnetworkProfileServiceURL = new StringBuilder("/global-infra/alb-network-profiles/{alb-networkprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlbnetworkProfileServiceURL.Replace("{alb-networkprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbNetworkprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbnetworkProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlbnetworkProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBNetworkProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBNetworkProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlbnetworkProfile(string AlbNetworkprofileId, bool? Force = null)
-        {
-            if (AlbNetworkprofileId == null) { throw new System.ArgumentNullException("AlbNetworkprofileId cannot be null"); }
-            
-            StringBuilder DeleteAlbnetworkProfileServiceURL = new StringBuilder("/global-infra/alb-network-profiles/{alb-networkprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbnetworkProfileServiceURL.Replace("{alb-networkprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbNetworkprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbnetworkProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbnetworkProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlbnetworkProfile(string AlbNetworkprofileId, NSXTALBNetworkProfileType AlbnetworkProfile)
-        {
-            if (AlbNetworkprofileId == null) { throw new System.ArgumentNullException("AlbNetworkprofileId cannot be null"); }
-            if (AlbnetworkProfile == null) { throw new System.ArgumentNullException("AlbnetworkProfile cannot be null"); }
-            
-            StringBuilder PatchAlbnetworkProfileServiceURL = new StringBuilder("/global-infra/alb-network-profiles/{alb-networkprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbnetworkProfileServiceURL.Replace("{alb-networkprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbNetworkprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbnetworkProfile, defaultSerializationSettings));
-            request.Resource = PatchAlbnetworkProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbnetworkProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBPoolGroupType GlobalUpdateAlbpoolGroup(string AlbPoolgroupId, NSXTALBPoolGroupType AlbpoolGroup)
-        {
-            if (AlbPoolgroupId == null) { throw new System.ArgumentNullException("AlbPoolgroupId cannot be null"); }
-            if (AlbpoolGroup == null) { throw new System.ArgumentNullException("AlbpoolGroup cannot be null"); }
-            NSXTALBPoolGroupType returnValue = default(NSXTALBPoolGroupType);
-            StringBuilder UpdateAlbpoolGroupServiceURL = new StringBuilder("/global-infra/alb-pool-groups/{alb-poolgroup-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbpoolGroupServiceURL.Replace("{alb-poolgroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPoolgroupId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbpoolGroup, defaultSerializationSettings));
-            request.Resource = UpdateAlbpoolGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbpoolGroupServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBPoolGroupType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBPoolGroupType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlbpoolGroup(string AlbPoolgroupId, bool? Force = null)
-        {
-            if (AlbPoolgroupId == null) { throw new System.ArgumentNullException("AlbPoolgroupId cannot be null"); }
-            
-            StringBuilder DeleteAlbpoolGroupServiceURL = new StringBuilder("/global-infra/alb-pool-groups/{alb-poolgroup-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbpoolGroupServiceURL.Replace("{alb-poolgroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPoolgroupId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbpoolGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbpoolGroupServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBPoolGroupType GlobalReadAlbpoolGroup(string AlbPoolgroupId)
-        {
-            if (AlbPoolgroupId == null) { throw new System.ArgumentNullException("AlbPoolgroupId cannot be null"); }
-            NSXTALBPoolGroupType returnValue = default(NSXTALBPoolGroupType);
-            StringBuilder ReadAlbpoolGroupServiceURL = new StringBuilder("/global-infra/alb-pool-groups/{alb-poolgroup-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlbpoolGroupServiceURL.Replace("{alb-poolgroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPoolgroupId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbpoolGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlbpoolGroupServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBPoolGroupType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBPoolGroupType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlbpoolGroup(string AlbPoolgroupId, NSXTALBPoolGroupType AlbpoolGroup)
-        {
-            if (AlbPoolgroupId == null) { throw new System.ArgumentNullException("AlbPoolgroupId cannot be null"); }
-            if (AlbpoolGroup == null) { throw new System.ArgumentNullException("AlbpoolGroup cannot be null"); }
-            
-            StringBuilder PatchAlbpoolGroupServiceURL = new StringBuilder("/global-infra/alb-pool-groups/{alb-poolgroup-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbpoolGroupServiceURL.Replace("{alb-poolgroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPoolgroupId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbpoolGroup, defaultSerializationSettings));
-            request.Resource = PatchAlbpoolGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbpoolGroupServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBPoolGroupApiResponseType GlobalListAlbpoolGroup(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBPoolGroupApiResponseType returnValue = default(NSXTALBPoolGroupApiResponseType);
-            StringBuilder ListAlbpoolGroupServiceURL = new StringBuilder("/global-infra/alb-pool-groups");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbpoolGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlbpoolGroupServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBPoolGroupApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBPoolGroupApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBServerAutoScalePolicyApiResponseType GlobalListAlbserverAutoScalePolicy(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBServerAutoScalePolicyApiResponseType returnValue = default(NSXTALBServerAutoScalePolicyApiResponseType);
-            StringBuilder ListAlbserverAutoScalePolicyServiceURL = new StringBuilder("/global-infra/alb-server-auto-scale-policies");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbserverAutoScalePolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlbserverAutoScalePolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBServerAutoScalePolicyApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBServerAutoScalePolicyApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBVSDataScriptSetType GlobalUpdateAlbvsdataScriptSet(string AlbVsdatascriptsetId, NSXTALBVSDataScriptSetType AlbvsdataScriptSet)
-        {
-            if (AlbVsdatascriptsetId == null) { throw new System.ArgumentNullException("AlbVsdatascriptsetId cannot be null"); }
-            if (AlbvsdataScriptSet == null) { throw new System.ArgumentNullException("AlbvsdataScriptSet cannot be null"); }
-            NSXTALBVSDataScriptSetType returnValue = default(NSXTALBVSDataScriptSetType);
-            StringBuilder UpdateAlbvsdataScriptSetServiceURL = new StringBuilder("/global-infra/alb-vs-data-script-sets/{alb-vsdatascriptset-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbvsdataScriptSetServiceURL.Replace("{alb-vsdatascriptset-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbVsdatascriptsetId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbvsdataScriptSet, defaultSerializationSettings));
-            request.Resource = UpdateAlbvsdataScriptSetServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbvsdataScriptSetServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBVSDataScriptSetType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBVSDataScriptSetType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlbvsdataScriptSet(string AlbVsdatascriptsetId, NSXTALBVSDataScriptSetType AlbvsdataScriptSet)
-        {
-            if (AlbVsdatascriptsetId == null) { throw new System.ArgumentNullException("AlbVsdatascriptsetId cannot be null"); }
-            if (AlbvsdataScriptSet == null) { throw new System.ArgumentNullException("AlbvsdataScriptSet cannot be null"); }
-            
-            StringBuilder PatchAlbvsdataScriptSetServiceURL = new StringBuilder("/global-infra/alb-vs-data-script-sets/{alb-vsdatascriptset-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbvsdataScriptSetServiceURL.Replace("{alb-vsdatascriptset-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbVsdatascriptsetId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbvsdataScriptSet, defaultSerializationSettings));
-            request.Resource = PatchAlbvsdataScriptSetServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbvsdataScriptSetServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlbvsdataScriptSet(string AlbVsdatascriptsetId, bool? Force = null)
-        {
-            if (AlbVsdatascriptsetId == null) { throw new System.ArgumentNullException("AlbVsdatascriptsetId cannot be null"); }
-            
-            StringBuilder DeleteAlbvsdataScriptSetServiceURL = new StringBuilder("/global-infra/alb-vs-data-script-sets/{alb-vsdatascriptset-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbvsdataScriptSetServiceURL.Replace("{alb-vsdatascriptset-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbVsdatascriptsetId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbvsdataScriptSetServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbvsdataScriptSetServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBVSDataScriptSetType GlobalReadAlbvsdataScriptSet(string AlbVsdatascriptsetId)
-        {
-            if (AlbVsdatascriptsetId == null) { throw new System.ArgumentNullException("AlbVsdatascriptsetId cannot be null"); }
-            NSXTALBVSDataScriptSetType returnValue = default(NSXTALBVSDataScriptSetType);
-            StringBuilder ReadAlbvsdataScriptSetServiceURL = new StringBuilder("/global-infra/alb-vs-data-script-sets/{alb-vsdatascriptset-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlbvsdataScriptSetServiceURL.Replace("{alb-vsdatascriptset-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbVsdatascriptsetId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbvsdataScriptSetServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlbvsdataScriptSetServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBVSDataScriptSetType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBVSDataScriptSetType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBAnalyticsProfileApiResponseType GlobalListAlbanalyticsProfile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBAnalyticsProfileApiResponseType returnValue = default(NSXTALBAnalyticsProfileApiResponseType);
-            StringBuilder ListAlbanalyticsProfileServiceURL = new StringBuilder("/global-infra/alb-analytics-profiles");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbanalyticsProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlbanalyticsProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBAnalyticsProfileApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBAnalyticsProfileApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBNetworkSecurityPolicyType GlobalUpdateAlbnetworkSecurityPolicy(string AlbNetworksecuritypolicyId, NSXTALBNetworkSecurityPolicyType AlbnetworkSecurityPolicy)
-        {
-            if (AlbNetworksecuritypolicyId == null) { throw new System.ArgumentNullException("AlbNetworksecuritypolicyId cannot be null"); }
-            if (AlbnetworkSecurityPolicy == null) { throw new System.ArgumentNullException("AlbnetworkSecurityPolicy cannot be null"); }
-            NSXTALBNetworkSecurityPolicyType returnValue = default(NSXTALBNetworkSecurityPolicyType);
-            StringBuilder UpdateAlbnetworkSecurityPolicyServiceURL = new StringBuilder("/global-infra/alb-network-security-policies/{alb-networksecuritypolicy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbnetworkSecurityPolicyServiceURL.Replace("{alb-networksecuritypolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbNetworksecuritypolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbnetworkSecurityPolicy, defaultSerializationSettings));
-            request.Resource = UpdateAlbnetworkSecurityPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbnetworkSecurityPolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBNetworkSecurityPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBNetworkSecurityPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlbnetworkSecurityPolicy(string AlbNetworksecuritypolicyId, bool? Force = null)
-        {
-            if (AlbNetworksecuritypolicyId == null) { throw new System.ArgumentNullException("AlbNetworksecuritypolicyId cannot be null"); }
-            
-            StringBuilder DeleteAlbnetworkSecurityPolicyServiceURL = new StringBuilder("/global-infra/alb-network-security-policies/{alb-networksecuritypolicy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbnetworkSecurityPolicyServiceURL.Replace("{alb-networksecuritypolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbNetworksecuritypolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbnetworkSecurityPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbnetworkSecurityPolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBNetworkSecurityPolicyType GlobalReadAlbnetworkSecurityPolicy(string AlbNetworksecuritypolicyId)
-        {
-            if (AlbNetworksecuritypolicyId == null) { throw new System.ArgumentNullException("AlbNetworksecuritypolicyId cannot be null"); }
-            NSXTALBNetworkSecurityPolicyType returnValue = default(NSXTALBNetworkSecurityPolicyType);
-            StringBuilder ReadAlbnetworkSecurityPolicyServiceURL = new StringBuilder("/global-infra/alb-network-security-policies/{alb-networksecuritypolicy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlbnetworkSecurityPolicyServiceURL.Replace("{alb-networksecuritypolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbNetworksecuritypolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbnetworkSecurityPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlbnetworkSecurityPolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBNetworkSecurityPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBNetworkSecurityPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlbnetworkSecurityPolicy(string AlbNetworksecuritypolicyId, NSXTALBNetworkSecurityPolicyType AlbnetworkSecurityPolicy)
-        {
-            if (AlbNetworksecuritypolicyId == null) { throw new System.ArgumentNullException("AlbNetworksecuritypolicyId cannot be null"); }
-            if (AlbnetworkSecurityPolicy == null) { throw new System.ArgumentNullException("AlbnetworkSecurityPolicy cannot be null"); }
-            
-            StringBuilder PatchAlbnetworkSecurityPolicyServiceURL = new StringBuilder("/global-infra/alb-network-security-policies/{alb-networksecuritypolicy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbnetworkSecurityPolicyServiceURL.Replace("{alb-networksecuritypolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbNetworksecuritypolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbnetworkSecurityPolicy, defaultSerializationSettings));
-            request.Resource = PatchAlbnetworkSecurityPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbnetworkSecurityPolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
         }
         /// <summary>
         /// 
@@ -1349,388 +282,42 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBWafPolicyPSMGroupType GlobalUpdateAlbwafPolicyPsmgroup(string AlbWafpolicypsmgroupId, NSXTALBWafPolicyPSMGroupType AlbwafPolicyPsmgroup)
+        public NSXTALBTrafficCloneProfileApiResponseType ListAlbtrafficCloneProfile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
-            if (AlbWafpolicypsmgroupId == null) { throw new System.ArgumentNullException("AlbWafpolicypsmgroupId cannot be null"); }
-            if (AlbwafPolicyPsmgroup == null) { throw new System.ArgumentNullException("AlbwafPolicyPsmgroup cannot be null"); }
-            NSXTALBWafPolicyPSMGroupType returnValue = default(NSXTALBWafPolicyPSMGroupType);
-            StringBuilder UpdateAlbwafPolicyPsmgroupServiceURL = new StringBuilder("/global-infra/alb-waf-policy-psm-groups/{alb-wafpolicypsmgroup-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbwafPolicyPsmgroupServiceURL.Replace("{alb-wafpolicypsmgroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWafpolicypsmgroupId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbwafPolicyPsmgroup, defaultSerializationSettings));
-            request.Resource = UpdateAlbwafPolicyPsmgroupServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbwafPolicyPsmgroupServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBWafPolicyPSMGroupType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBWafPolicyPSMGroupType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBWafPolicyPSMGroupType GlobalReadAlbwafPolicyPsmgroup(string AlbWafpolicypsmgroupId)
-        {
-            if (AlbWafpolicypsmgroupId == null) { throw new System.ArgumentNullException("AlbWafpolicypsmgroupId cannot be null"); }
-            NSXTALBWafPolicyPSMGroupType returnValue = default(NSXTALBWafPolicyPSMGroupType);
-            StringBuilder ReadAlbwafPolicyPsmgroupServiceURL = new StringBuilder("/global-infra/alb-waf-policy-psm-groups/{alb-wafpolicypsmgroup-id}");
+            NSXTALBTrafficCloneProfileApiResponseType returnValue = default(NSXTALBTrafficCloneProfileApiResponseType);
+            StringBuilder ListAlbtrafficCloneProfileServiceURL = new StringBuilder("/infra/alb-traffic-clone-profiles");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            ReadAlbwafPolicyPsmgroupServiceURL.Replace("{alb-wafpolicypsmgroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWafpolicypsmgroupId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbwafPolicyPsmgroupServiceURL.ToString();
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = ListAlbtrafficCloneProfileServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ReadAlbwafPolicyPsmgroupServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + ListAlbtrafficCloneProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
 			{
 				try
 				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBWafPolicyPSMGroupType>(response.Content, defaultSerializationSettings);
+					returnValue = JsonConvert.DeserializeObject<NSXTALBTrafficCloneProfileApiResponseType>(response.Content, defaultSerializationSettings);
 				}
 				catch (Exception ex)
 				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBWafPolicyPSMGroupType).FullName + ".";
+					var message = "Could not deserialize the response body string as " + typeof(NSXTALBTrafficCloneProfileApiResponseType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
 			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlbwafPolicyPsmgroup(string AlbWafpolicypsmgroupId, NSXTALBWafPolicyPSMGroupType AlbwafPolicyPsmgroup)
-        {
-            if (AlbWafpolicypsmgroupId == null) { throw new System.ArgumentNullException("AlbWafpolicypsmgroupId cannot be null"); }
-            if (AlbwafPolicyPsmgroup == null) { throw new System.ArgumentNullException("AlbwafPolicyPsmgroup cannot be null"); }
-            
-            StringBuilder PatchAlbwafPolicyPsmgroupServiceURL = new StringBuilder("/global-infra/alb-waf-policy-psm-groups/{alb-wafpolicypsmgroup-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbwafPolicyPsmgroupServiceURL.Replace("{alb-wafpolicypsmgroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWafpolicypsmgroupId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbwafPolicyPsmgroup, defaultSerializationSettings));
-            request.Resource = PatchAlbwafPolicyPsmgroupServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbwafPolicyPsmgroupServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlbwafPolicyPsmgroup(string AlbWafpolicypsmgroupId, bool? Force = null)
-        {
-            if (AlbWafpolicypsmgroupId == null) { throw new System.ArgumentNullException("AlbWafpolicypsmgroupId cannot be null"); }
-            
-            StringBuilder DeleteAlbwafPolicyPsmgroupServiceURL = new StringBuilder("/global-infra/alb-waf-policy-psm-groups/{alb-wafpolicypsmgroup-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbwafPolicyPsmgroupServiceURL.Replace("{alb-wafpolicypsmgroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWafpolicypsmgroupId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbwafPolicyPsmgroupServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbwafPolicyPsmgroupServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBSSLProfileType GlobalUpdateAlbsslprofile(string AlbSslprofileId, NSXTALBSSLProfileType Albsslprofile)
-        {
-            if (AlbSslprofileId == null) { throw new System.ArgumentNullException("AlbSslprofileId cannot be null"); }
-            if (Albsslprofile == null) { throw new System.ArgumentNullException("Albsslprofile cannot be null"); }
-            NSXTALBSSLProfileType returnValue = default(NSXTALBSSLProfileType);
-            StringBuilder UpdateAlbsslprofileServiceURL = new StringBuilder("/global-infra/alb-ssl-profiles/{alb-sslprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbsslprofileServiceURL.Replace("{alb-sslprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSslprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(Albsslprofile, defaultSerializationSettings));
-            request.Resource = UpdateAlbsslprofileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbsslprofileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBSSLProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBSSLProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBSSLProfileType GlobalReadAlbsslprofile(string AlbSslprofileId)
-        {
-            if (AlbSslprofileId == null) { throw new System.ArgumentNullException("AlbSslprofileId cannot be null"); }
-            NSXTALBSSLProfileType returnValue = default(NSXTALBSSLProfileType);
-            StringBuilder ReadAlbsslprofileServiceURL = new StringBuilder("/global-infra/alb-ssl-profiles/{alb-sslprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlbsslprofileServiceURL.Replace("{alb-sslprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSslprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbsslprofileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlbsslprofileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBSSLProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBSSLProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlbsslprofile(string AlbSslprofileId, NSXTALBSSLProfileType Albsslprofile)
-        {
-            if (AlbSslprofileId == null) { throw new System.ArgumentNullException("AlbSslprofileId cannot be null"); }
-            if (Albsslprofile == null) { throw new System.ArgumentNullException("Albsslprofile cannot be null"); }
-            
-            StringBuilder PatchAlbsslprofileServiceURL = new StringBuilder("/global-infra/alb-ssl-profiles/{alb-sslprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbsslprofileServiceURL.Replace("{alb-sslprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSslprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(Albsslprofile, defaultSerializationSettings));
-            request.Resource = PatchAlbsslprofileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbsslprofileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlbsslprofile(string AlbSslprofileId, bool? Force = null)
-        {
-            if (AlbSslprofileId == null) { throw new System.ArgumentNullException("AlbSslprofileId cannot be null"); }
-            
-            StringBuilder DeleteAlbsslprofileServiceURL = new StringBuilder("/global-infra/alb-ssl-profiles/{alb-sslprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbsslprofileServiceURL.Replace("{alb-sslprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSslprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbsslprofileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbsslprofileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBStringGroupType GlobalUpdateAlbstringGroup(string AlbStringgroupId, NSXTALBStringGroupType AlbstringGroup)
-        {
-            if (AlbStringgroupId == null) { throw new System.ArgumentNullException("AlbStringgroupId cannot be null"); }
-            if (AlbstringGroup == null) { throw new System.ArgumentNullException("AlbstringGroup cannot be null"); }
-            NSXTALBStringGroupType returnValue = default(NSXTALBStringGroupType);
-            StringBuilder UpdateAlbstringGroupServiceURL = new StringBuilder("/global-infra/alb-string-groups/{alb-stringgroup-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbstringGroupServiceURL.Replace("{alb-stringgroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbStringgroupId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbstringGroup, defaultSerializationSettings));
-            request.Resource = UpdateAlbstringGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbstringGroupServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBStringGroupType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBStringGroupType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBStringGroupType GlobalReadAlbstringGroup(string AlbStringgroupId)
-        {
-            if (AlbStringgroupId == null) { throw new System.ArgumentNullException("AlbStringgroupId cannot be null"); }
-            NSXTALBStringGroupType returnValue = default(NSXTALBStringGroupType);
-            StringBuilder ReadAlbstringGroupServiceURL = new StringBuilder("/global-infra/alb-string-groups/{alb-stringgroup-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlbstringGroupServiceURL.Replace("{alb-stringgroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbStringgroupId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbstringGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlbstringGroupServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBStringGroupType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBStringGroupType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlbstringGroup(string AlbStringgroupId, bool? Force = null)
-        {
-            if (AlbStringgroupId == null) { throw new System.ArgumentNullException("AlbStringgroupId cannot be null"); }
-            
-            StringBuilder DeleteAlbstringGroupServiceURL = new StringBuilder("/global-infra/alb-string-groups/{alb-stringgroup-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbstringGroupServiceURL.Replace("{alb-stringgroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbStringgroupId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbstringGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbstringGroupServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlbstringGroup(string AlbStringgroupId, NSXTALBStringGroupType AlbstringGroup)
-        {
-            if (AlbStringgroupId == null) { throw new System.ArgumentNullException("AlbStringgroupId cannot be null"); }
-            if (AlbstringGroup == null) { throw new System.ArgumentNullException("AlbstringGroup cannot be null"); }
-            
-            StringBuilder PatchAlbstringGroupServiceURL = new StringBuilder("/global-infra/alb-string-groups/{alb-stringgroup-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbstringGroupServiceURL.Replace("{alb-stringgroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbStringgroupId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbstringGroup, defaultSerializationSettings));
-            request.Resource = PatchAlbstringGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbstringGroupServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
         }
         /// <summary>
         /// 
@@ -1994,217 +581,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBHTTPPolicySetApiResponseType GlobalListAlbhttppolicySet(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBHTTPPolicySetApiResponseType returnValue = default(NSXTALBHTTPPolicySetApiResponseType);
-            StringBuilder ListAlbhttppolicySetServiceURL = new StringBuilder("/global-infra/alb-http-policy-sets");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbhttppolicySetServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlbhttppolicySetServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBHTTPPolicySetApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBHTTPPolicySetApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBIpAddrGroupApiResponseType GlobalListAlbipAddrGroup(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBIpAddrGroupApiResponseType returnValue = default(NSXTALBIpAddrGroupApiResponseType);
-            StringBuilder ListAlbipAddrGroupServiceURL = new StringBuilder("/global-infra/alb-ip-addr-groups");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbipAddrGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlbipAddrGroupServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBIpAddrGroupApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBIpAddrGroupApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBVsVipType GlobalUpdateAlbvsVip(string AlbVsvipId, NSXTALBVsVipType AlbvsVip)
-        {
-            if (AlbVsvipId == null) { throw new System.ArgumentNullException("AlbVsvipId cannot be null"); }
-            if (AlbvsVip == null) { throw new System.ArgumentNullException("AlbvsVip cannot be null"); }
-            NSXTALBVsVipType returnValue = default(NSXTALBVsVipType);
-            StringBuilder UpdateAlbvsVipServiceURL = new StringBuilder("/global-infra/alb-vs-vips/{alb-vsvip-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbvsVipServiceURL.Replace("{alb-vsvip-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbVsvipId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbvsVip, defaultSerializationSettings));
-            request.Resource = UpdateAlbvsVipServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbvsVipServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBVsVipType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBVsVipType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlbvsVip(string AlbVsvipId, bool? Force = null)
-        {
-            if (AlbVsvipId == null) { throw new System.ArgumentNullException("AlbVsvipId cannot be null"); }
-            
-            StringBuilder DeleteAlbvsVipServiceURL = new StringBuilder("/global-infra/alb-vs-vips/{alb-vsvip-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbvsVipServiceURL.Replace("{alb-vsvip-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbVsvipId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbvsVipServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbvsVipServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBVsVipType GlobalReadAlbvsVip(string AlbVsvipId)
-        {
-            if (AlbVsvipId == null) { throw new System.ArgumentNullException("AlbVsvipId cannot be null"); }
-            NSXTALBVsVipType returnValue = default(NSXTALBVsVipType);
-            StringBuilder ReadAlbvsVipServiceURL = new StringBuilder("/global-infra/alb-vs-vips/{alb-vsvip-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlbvsVipServiceURL.Replace("{alb-vsvip-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbVsvipId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbvsVipServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlbvsVipServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBVsVipType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBVsVipType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlbvsVip(string AlbVsvipId, NSXTALBVsVipType AlbvsVip)
-        {
-            if (AlbVsvipId == null) { throw new System.ArgumentNullException("AlbVsvipId cannot be null"); }
-            if (AlbvsVip == null) { throw new System.ArgumentNullException("AlbvsVip cannot be null"); }
-            
-            StringBuilder PatchAlbvsVipServiceURL = new StringBuilder("/global-infra/alb-vs-vips/{alb-vsvip-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbvsVipServiceURL.Replace("{alb-vsvip-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbVsvipId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbvsVip, defaultSerializationSettings));
-            request.Resource = PatchAlbvsVipServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbvsVipServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTALBSSOPolicyType UpdateAlbssopolicy(string AlbSsopolicyId, NSXTALBSSOPolicyType Albssopolicy)
         {
             if (AlbSsopolicyId == null) { throw new System.ArgumentNullException("AlbSsopolicyId cannot be null"); }
@@ -2334,135 +710,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBIpAddrGroupType GlobalUpdateAlbipAddrGroup(string AlbIpaddrgroupId, NSXTALBIpAddrGroupType AlbipAddrGroup)
-        {
-            if (AlbIpaddrgroupId == null) { throw new System.ArgumentNullException("AlbIpaddrgroupId cannot be null"); }
-            if (AlbipAddrGroup == null) { throw new System.ArgumentNullException("AlbipAddrGroup cannot be null"); }
-            NSXTALBIpAddrGroupType returnValue = default(NSXTALBIpAddrGroupType);
-            StringBuilder UpdateAlbipAddrGroupServiceURL = new StringBuilder("/global-infra/alb-ip-addr-groups/{alb-ipaddrgroup-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbipAddrGroupServiceURL.Replace("{alb-ipaddrgroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbIpaddrgroupId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbipAddrGroup, defaultSerializationSettings));
-            request.Resource = UpdateAlbipAddrGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbipAddrGroupServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBIpAddrGroupType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBIpAddrGroupType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBIpAddrGroupType GlobalReadAlbipAddrGroup(string AlbIpaddrgroupId)
-        {
-            if (AlbIpaddrgroupId == null) { throw new System.ArgumentNullException("AlbIpaddrgroupId cannot be null"); }
-            NSXTALBIpAddrGroupType returnValue = default(NSXTALBIpAddrGroupType);
-            StringBuilder ReadAlbipAddrGroupServiceURL = new StringBuilder("/global-infra/alb-ip-addr-groups/{alb-ipaddrgroup-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlbipAddrGroupServiceURL.Replace("{alb-ipaddrgroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbIpaddrgroupId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbipAddrGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlbipAddrGroupServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBIpAddrGroupType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBIpAddrGroupType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlbipAddrGroup(string AlbIpaddrgroupId, bool? Force = null)
-        {
-            if (AlbIpaddrgroupId == null) { throw new System.ArgumentNullException("AlbIpaddrgroupId cannot be null"); }
-            
-            StringBuilder DeleteAlbipAddrGroupServiceURL = new StringBuilder("/global-infra/alb-ip-addr-groups/{alb-ipaddrgroup-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbipAddrGroupServiceURL.Replace("{alb-ipaddrgroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbIpaddrgroupId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbipAddrGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbipAddrGroupServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlbipAddrGroup(string AlbIpaddrgroupId, NSXTALBIpAddrGroupType AlbipAddrGroup)
-        {
-            if (AlbIpaddrgroupId == null) { throw new System.ArgumentNullException("AlbIpaddrgroupId cannot be null"); }
-            if (AlbipAddrGroup == null) { throw new System.ArgumentNullException("AlbipAddrGroup cannot be null"); }
-            
-            StringBuilder PatchAlbipAddrGroupServiceURL = new StringBuilder("/global-infra/alb-ip-addr-groups/{alb-ipaddrgroup-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbipAddrGroupServiceURL.Replace("{alb-ipaddrgroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbIpaddrgroupId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbipAddrGroup, defaultSerializationSettings));
-            request.Resource = PatchAlbipAddrGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbipAddrGroupServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTALBPoolApiResponseType ListAlbpool(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBPoolApiResponseType returnValue = default(NSXTALBPoolApiResponseType);
@@ -2495,47 +742,6 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTALBPoolApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBHardwareSecurityModuleGroupApiResponseType GlobalListAlbhardwareSecurityModuleGroup(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBHardwareSecurityModuleGroupApiResponseType returnValue = default(NSXTALBHardwareSecurityModuleGroupApiResponseType);
-            StringBuilder ListAlbhardwareSecurityModuleGroupServiceURL = new StringBuilder("/global-infra/alb-hardware-security-module-groups");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbhardwareSecurityModuleGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlbhardwareSecurityModuleGroupServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBHardwareSecurityModuleGroupApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBHardwareSecurityModuleGroupApiResponseType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -2662,6 +868,32 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
+        public void DeleteAlbautoScaleLaunchConfig(string AlbAutoscalelaunchconfigId, bool? Force = null)
+        {
+            if (AlbAutoscalelaunchconfigId == null) { throw new System.ArgumentNullException("AlbAutoscalelaunchconfigId cannot be null"); }
+            
+            StringBuilder DeleteAlbautoScaleLaunchConfigServiceURL = new StringBuilder("/infra/alb-auto-scale-launch-configs/{alb-autoscalelaunchconfig-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.DELETE
+            };
+            request.AddHeader("Content-type", "application/json");
+            DeleteAlbautoScaleLaunchConfigServiceURL.Replace("{alb-autoscalelaunchconfig-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbAutoscalelaunchconfigId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
+            request.Resource = DeleteAlbautoScaleLaunchConfigServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP DELETE operation to " + DeleteAlbautoScaleLaunchConfigServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
         public void PatchAlbautoScaleLaunchConfig(string AlbAutoscalelaunchconfigId, NSXTALBAutoScaleLaunchConfigType AlbautoScaleLaunchConfig)
         {
             if (AlbAutoscalelaunchconfigId == null) { throw new System.ArgumentNullException("AlbAutoscalelaunchconfigId cannot be null"); }
@@ -2681,32 +913,6 @@ namespace nsxtapi.PolicyModules
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbautoScaleLaunchConfigServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void DeleteAlbautoScaleLaunchConfig(string AlbAutoscalelaunchconfigId, bool? Force = null)
-        {
-            if (AlbAutoscalelaunchconfigId == null) { throw new System.ArgumentNullException("AlbAutoscalelaunchconfigId cannot be null"); }
-            
-            StringBuilder DeleteAlbautoScaleLaunchConfigServiceURL = new StringBuilder("/infra/alb-auto-scale-launch-configs/{alb-autoscalelaunchconfig-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbautoScaleLaunchConfigServiceURL.Replace("{alb-autoscalelaunchconfig-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbAutoscalelaunchconfigId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbautoScaleLaunchConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbautoScaleLaunchConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -3055,135 +1261,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBPKIProfileType GlobalUpdateAlbpkiprofile(string AlbPkiprofileId, NSXTALBPKIProfileType Albpkiprofile)
-        {
-            if (AlbPkiprofileId == null) { throw new System.ArgumentNullException("AlbPkiprofileId cannot be null"); }
-            if (Albpkiprofile == null) { throw new System.ArgumentNullException("Albpkiprofile cannot be null"); }
-            NSXTALBPKIProfileType returnValue = default(NSXTALBPKIProfileType);
-            StringBuilder UpdateAlbpkiprofileServiceURL = new StringBuilder("/global-infra/alb-pki-profiles/{alb-pkiprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbpkiprofileServiceURL.Replace("{alb-pkiprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPkiprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(Albpkiprofile, defaultSerializationSettings));
-            request.Resource = UpdateAlbpkiprofileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbpkiprofileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBPKIProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBPKIProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlbpkiprofile(string AlbPkiprofileId, NSXTALBPKIProfileType Albpkiprofile)
-        {
-            if (AlbPkiprofileId == null) { throw new System.ArgumentNullException("AlbPkiprofileId cannot be null"); }
-            if (Albpkiprofile == null) { throw new System.ArgumentNullException("Albpkiprofile cannot be null"); }
-            
-            StringBuilder PatchAlbpkiprofileServiceURL = new StringBuilder("/global-infra/alb-pki-profiles/{alb-pkiprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbpkiprofileServiceURL.Replace("{alb-pkiprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPkiprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(Albpkiprofile, defaultSerializationSettings));
-            request.Resource = PatchAlbpkiprofileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbpkiprofileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlbpkiprofile(string AlbPkiprofileId, bool? Force = null)
-        {
-            if (AlbPkiprofileId == null) { throw new System.ArgumentNullException("AlbPkiprofileId cannot be null"); }
-            
-            StringBuilder DeleteAlbpkiprofileServiceURL = new StringBuilder("/global-infra/alb-pki-profiles/{alb-pkiprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbpkiprofileServiceURL.Replace("{alb-pkiprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPkiprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbpkiprofileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbpkiprofileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBPKIProfileType GlobalReadAlbpkiprofile(string AlbPkiprofileId)
-        {
-            if (AlbPkiprofileId == null) { throw new System.ArgumentNullException("AlbPkiprofileId cannot be null"); }
-            NSXTALBPKIProfileType returnValue = default(NSXTALBPKIProfileType);
-            StringBuilder ReadAlbpkiprofileServiceURL = new StringBuilder("/global-infra/alb-pki-profiles/{alb-pkiprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlbpkiprofileServiceURL.Replace("{alb-pkiprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPkiprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbpkiprofileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlbpkiprofileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBPKIProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBPKIProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTALBPoolGroupDeploymentPolicyType UpdateAlbpoolGroupDeploymentPolicy(string AlbPoolgroupdeploymentpolicyId, NSXTALBPoolGroupDeploymentPolicyType AlbpoolGroupDeploymentPolicy)
         {
             if (AlbPoolgroupdeploymentpolicyId == null) { throw new System.ArgumentNullException("AlbPoolgroupdeploymentpolicyId cannot be null"); }
@@ -3345,176 +1422,6 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTALBL4PolicySetApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBVSDataScriptSetApiResponseType GlobalListAlbvsdataScriptSet(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBVSDataScriptSetApiResponseType returnValue = default(NSXTALBVSDataScriptSetApiResponseType);
-            StringBuilder ListAlbvsdataScriptSetServiceURL = new StringBuilder("/global-infra/alb-vs-data-script-sets");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbvsdataScriptSetServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlbvsdataScriptSetServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBVSDataScriptSetApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBVSDataScriptSetApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBApplicationPersistenceProfileType GlobalUpdateAlbapplicationPersistenceProfile(string AlbApplicationpersistenceprofileId, NSXTALBApplicationPersistenceProfileType AlbapplicationPersistenceProfile)
-        {
-            if (AlbApplicationpersistenceprofileId == null) { throw new System.ArgumentNullException("AlbApplicationpersistenceprofileId cannot be null"); }
-            if (AlbapplicationPersistenceProfile == null) { throw new System.ArgumentNullException("AlbapplicationPersistenceProfile cannot be null"); }
-            NSXTALBApplicationPersistenceProfileType returnValue = default(NSXTALBApplicationPersistenceProfileType);
-            StringBuilder UpdateAlbapplicationPersistenceProfileServiceURL = new StringBuilder("/global-infra/alb-application-persistence-profiles/{alb-applicationpersistenceprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbapplicationPersistenceProfileServiceURL.Replace("{alb-applicationpersistenceprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbApplicationpersistenceprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbapplicationPersistenceProfile, defaultSerializationSettings));
-            request.Resource = UpdateAlbapplicationPersistenceProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbapplicationPersistenceProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBApplicationPersistenceProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBApplicationPersistenceProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlbapplicationPersistenceProfile(string AlbApplicationpersistenceprofileId, bool? Force = null)
-        {
-            if (AlbApplicationpersistenceprofileId == null) { throw new System.ArgumentNullException("AlbApplicationpersistenceprofileId cannot be null"); }
-            
-            StringBuilder DeleteAlbapplicationPersistenceProfileServiceURL = new StringBuilder("/global-infra/alb-application-persistence-profiles/{alb-applicationpersistenceprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbapplicationPersistenceProfileServiceURL.Replace("{alb-applicationpersistenceprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbApplicationpersistenceprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbapplicationPersistenceProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbapplicationPersistenceProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlbapplicationPersistenceProfile(string AlbApplicationpersistenceprofileId, NSXTALBApplicationPersistenceProfileType AlbapplicationPersistenceProfile)
-        {
-            if (AlbApplicationpersistenceprofileId == null) { throw new System.ArgumentNullException("AlbApplicationpersistenceprofileId cannot be null"); }
-            if (AlbapplicationPersistenceProfile == null) { throw new System.ArgumentNullException("AlbapplicationPersistenceProfile cannot be null"); }
-            
-            StringBuilder PatchAlbapplicationPersistenceProfileServiceURL = new StringBuilder("/global-infra/alb-application-persistence-profiles/{alb-applicationpersistenceprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbapplicationPersistenceProfileServiceURL.Replace("{alb-applicationpersistenceprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbApplicationpersistenceprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbapplicationPersistenceProfile, defaultSerializationSettings));
-            request.Resource = PatchAlbapplicationPersistenceProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbapplicationPersistenceProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBApplicationPersistenceProfileType GlobalReadAlbapplicationPersistenceProfile(string AlbApplicationpersistenceprofileId)
-        {
-            if (AlbApplicationpersistenceprofileId == null) { throw new System.ArgumentNullException("AlbApplicationpersistenceprofileId cannot be null"); }
-            NSXTALBApplicationPersistenceProfileType returnValue = default(NSXTALBApplicationPersistenceProfileType);
-            StringBuilder ReadAlbapplicationPersistenceProfileServiceURL = new StringBuilder("/global-infra/alb-application-persistence-profiles/{alb-applicationpersistenceprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlbapplicationPersistenceProfileServiceURL.Replace("{alb-applicationpersistenceprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbApplicationpersistenceprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbapplicationPersistenceProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlbapplicationPersistenceProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBApplicationPersistenceProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBApplicationPersistenceProfileType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -3905,88 +1812,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBSSOPolicyApiResponseType GlobalListAlbssopolicy(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBSSOPolicyApiResponseType returnValue = default(NSXTALBSSOPolicyApiResponseType);
-            StringBuilder ListAlbssopolicyServiceURL = new StringBuilder("/global-infra/alb-sso-policies");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbssopolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlbssopolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBSSOPolicyApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBSSOPolicyApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBStringGroupApiResponseType GlobalListAlbstringGroup(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBStringGroupApiResponseType returnValue = default(NSXTALBStringGroupApiResponseType);
-            StringBuilder ListAlbstringGroupServiceURL = new StringBuilder("/global-infra/alb-string-groups");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbstringGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlbstringGroupServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBStringGroupApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBStringGroupApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTALBNetworkSecurityPolicyApiResponseType ListAlbnetworkSecurityPolicy(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBNetworkSecurityPolicyApiResponseType returnValue = default(NSXTALBNetworkSecurityPolicyApiResponseType);
@@ -4019,88 +1844,6 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTALBNetworkSecurityPolicyApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBWafProfileApiResponseType GlobalListAlbwafProfile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBWafProfileApiResponseType returnValue = default(NSXTALBWafProfileApiResponseType);
-            StringBuilder ListAlbwafProfileServiceURL = new StringBuilder("/global-infra/alb-waf-profiles");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbwafProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlbwafProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBWafProfileApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBWafProfileApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBTrafficCloneProfileApiResponseType ListAlbtrafficCloneProfile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBTrafficCloneProfileApiResponseType returnValue = default(NSXTALBTrafficCloneProfileApiResponseType);
-            StringBuilder ListAlbtrafficCloneProfileServiceURL = new StringBuilder("/infra/alb-traffic-clone-profiles");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbtrafficCloneProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlbtrafficCloneProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBTrafficCloneProfileApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBTrafficCloneProfileApiResponseType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -4151,42 +1894,26 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBErrorPageProfileApiResponseType GlobalListAlberrorPageProfile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public void DeleteAlbOnBoardingWorkflow(string ManagedBy)
         {
-            NSXTALBErrorPageProfileApiResponseType returnValue = default(NSXTALBErrorPageProfileApiResponseType);
-            StringBuilder ListAlberrorPageProfileServiceURL = new StringBuilder("/global-infra/alb-error-page-profiles");
+            if (ManagedBy == null) { throw new System.ArgumentNullException("ManagedBy cannot be null"); }
+            
+            StringBuilder DeleteAlbOnBoardingWorkflowServiceURL = new StringBuilder("/infra/alb-onboarding-workflow/{managed-by}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
-                Method = Method.GET
+                Method = Method.DELETE
             };
             request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlberrorPageProfileServiceURL.ToString();
+            DeleteAlbOnBoardingWorkflowServiceURL.Replace("{managed-by}", System.Uri.EscapeDataString(Helpers.ConvertToString(ManagedBy, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = DeleteAlbOnBoardingWorkflowServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ListAlberrorPageProfileServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP DELETE operation to " + DeleteAlbOnBoardingWorkflowServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBErrorPageProfileApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBErrorPageProfileApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            
         }
         /// <summary>
         /// 
@@ -4224,6 +1951,43 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTALBErrorPageProfileApiResponseType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTALBAuthTokenType GetAlbauthToken(NSXTALBAuthTokenType AlbauthToken)
+        {
+            if (AlbauthToken == null) { throw new System.ArgumentNullException("AlbauthToken cannot be null"); }
+            NSXTALBAuthTokenType returnValue = default(NSXTALBAuthTokenType);
+            StringBuilder GetAlbauthTokenServiceURL = new StringBuilder("/infra/alb-auth-token");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.PUT
+            };
+            request.AddHeader("Content-type", "application/json");
+            request.AddJsonBody(JsonConvert.SerializeObject(AlbauthToken, defaultSerializationSettings));
+            request.Resource = GetAlbauthTokenServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP PUT operation to " + GetAlbauthTokenServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTALBAuthTokenType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTALBAuthTokenType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -4272,32 +2036,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbvsVip(string AlbVsvipId, bool? Force = null)
-        {
-            if (AlbVsvipId == null) { throw new System.ArgumentNullException("AlbVsvipId cannot be null"); }
-            
-            StringBuilder DeleteAlbvsVipServiceURL = new StringBuilder("/infra/alb-vs-vips/{alb-vsvip-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbvsVipServiceURL.Replace("{alb-vsvip-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbVsvipId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbvsVipServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbvsVipServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTALBVsVipType ReadAlbvsVip(string AlbVsvipId)
         {
             if (AlbVsvipId == null) { throw new System.ArgumentNullException("AlbVsvipId cannot be null"); }
@@ -4330,6 +2068,32 @@ namespace nsxtapi.PolicyModules
 				}
 			}
 			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public void DeleteAlbvsVip(string AlbVsvipId, bool? Force = null)
+        {
+            if (AlbVsvipId == null) { throw new System.ArgumentNullException("AlbVsvipId cannot be null"); }
+            
+            StringBuilder DeleteAlbvsVipServiceURL = new StringBuilder("/infra/alb-vs-vips/{alb-vsvip-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.DELETE
+            };
+            request.AddHeader("Content-type", "application/json");
+            DeleteAlbvsVipServiceURL.Replace("{alb-vsvip-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbVsvipId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
+            request.Resource = DeleteAlbvsVipServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP DELETE operation to " + DeleteAlbvsVipServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
         }
         /// <summary>
         /// 
@@ -4523,176 +2287,6 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTALBStringGroupApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBPriorityLabelsType UpdateAlbpriorityLabels(string AlbPrioritylabelsId, NSXTALBPriorityLabelsType AlbpriorityLabels)
-        {
-            if (AlbPrioritylabelsId == null) { throw new System.ArgumentNullException("AlbPrioritylabelsId cannot be null"); }
-            if (AlbpriorityLabels == null) { throw new System.ArgumentNullException("AlbpriorityLabels cannot be null"); }
-            NSXTALBPriorityLabelsType returnValue = default(NSXTALBPriorityLabelsType);
-            StringBuilder UpdateAlbpriorityLabelsServiceURL = new StringBuilder("/infra/alb-priority-labels/{alb-prioritylabels-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbpriorityLabelsServiceURL.Replace("{alb-prioritylabels-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPrioritylabelsId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbpriorityLabels, defaultSerializationSettings));
-            request.Resource = UpdateAlbpriorityLabelsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbpriorityLabelsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBPriorityLabelsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBPriorityLabelsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBPriorityLabelsType ReadAlbpriorityLabels(string AlbPrioritylabelsId)
-        {
-            if (AlbPrioritylabelsId == null) { throw new System.ArgumentNullException("AlbPrioritylabelsId cannot be null"); }
-            NSXTALBPriorityLabelsType returnValue = default(NSXTALBPriorityLabelsType);
-            StringBuilder ReadAlbpriorityLabelsServiceURL = new StringBuilder("/infra/alb-priority-labels/{alb-prioritylabels-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlbpriorityLabelsServiceURL.Replace("{alb-prioritylabels-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPrioritylabelsId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbpriorityLabelsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlbpriorityLabelsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBPriorityLabelsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBPriorityLabelsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void PatchAlbpriorityLabels(string AlbPrioritylabelsId, NSXTALBPriorityLabelsType AlbpriorityLabels)
-        {
-            if (AlbPrioritylabelsId == null) { throw new System.ArgumentNullException("AlbPrioritylabelsId cannot be null"); }
-            if (AlbpriorityLabels == null) { throw new System.ArgumentNullException("AlbpriorityLabels cannot be null"); }
-            
-            StringBuilder PatchAlbpriorityLabelsServiceURL = new StringBuilder("/infra/alb-priority-labels/{alb-prioritylabels-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbpriorityLabelsServiceURL.Replace("{alb-prioritylabels-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPrioritylabelsId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbpriorityLabels, defaultSerializationSettings));
-            request.Resource = PatchAlbpriorityLabelsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbpriorityLabelsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void DeleteAlbpriorityLabels(string AlbPrioritylabelsId, bool? Force = null)
-        {
-            if (AlbPrioritylabelsId == null) { throw new System.ArgumentNullException("AlbPrioritylabelsId cannot be null"); }
-            
-            StringBuilder DeleteAlbpriorityLabelsServiceURL = new StringBuilder("/infra/alb-priority-labels/{alb-prioritylabels-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbpriorityLabelsServiceURL.Replace("{alb-prioritylabels-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPrioritylabelsId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbpriorityLabelsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbpriorityLabelsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBNetworkProfileApiResponseType GlobalListAlbnetworkProfile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBNetworkProfileApiResponseType returnValue = default(NSXTALBNetworkProfileApiResponseType);
-            StringBuilder ListAlbnetworkProfileServiceURL = new StringBuilder("/global-infra/alb-network-profiles");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbnetworkProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlbnetworkProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBNetworkProfileApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBNetworkProfileApiResponseType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -4897,32 +2491,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbsecurityPolicy(string AlbSecuritypolicyId, bool? Force = null)
-        {
-            if (AlbSecuritypolicyId == null) { throw new System.ArgumentNullException("AlbSecuritypolicyId cannot be null"); }
-            
-            StringBuilder DeleteAlbsecurityPolicyServiceURL = new StringBuilder("/infra/alb-security-policies/{alb-securitypolicy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbsecurityPolicyServiceURL.Replace("{alb-securitypolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSecuritypolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbsecurityPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbsecurityPolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTALBSecurityPolicyType ReadAlbsecurityPolicy(string AlbSecuritypolicyId)
         {
             if (AlbSecuritypolicyId == null) { throw new System.ArgumentNullException("AlbSecuritypolicyId cannot be null"); }
@@ -4960,127 +2528,24 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBHealthMonitorType GlobalUpdateAlbhealthMonitor(string AlbHealthmonitorId, NSXTALBHealthMonitorType AlbhealthMonitor)
+        public void DeleteAlbsecurityPolicy(string AlbSecuritypolicyId, bool? Force = null)
         {
-            if (AlbHealthmonitorId == null) { throw new System.ArgumentNullException("AlbHealthmonitorId cannot be null"); }
-            if (AlbhealthMonitor == null) { throw new System.ArgumentNullException("AlbhealthMonitor cannot be null"); }
-            NSXTALBHealthMonitorType returnValue = default(NSXTALBHealthMonitorType);
-            StringBuilder UpdateAlbhealthMonitorServiceURL = new StringBuilder("/global-infra/alb-health-monitors/{alb-healthmonitor-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbhealthMonitorServiceURL.Replace("{alb-healthmonitor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbHealthmonitorId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbhealthMonitor, defaultSerializationSettings));
-            request.Resource = UpdateAlbhealthMonitorServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbhealthMonitorServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBHealthMonitorType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBHealthMonitorType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlbhealthMonitor(string AlbHealthmonitorId, NSXTALBHealthMonitorType AlbhealthMonitor)
-        {
-            if (AlbHealthmonitorId == null) { throw new System.ArgumentNullException("AlbHealthmonitorId cannot be null"); }
-            if (AlbhealthMonitor == null) { throw new System.ArgumentNullException("AlbhealthMonitor cannot be null"); }
+            if (AlbSecuritypolicyId == null) { throw new System.ArgumentNullException("AlbSecuritypolicyId cannot be null"); }
             
-            StringBuilder PatchAlbhealthMonitorServiceURL = new StringBuilder("/global-infra/alb-health-monitors/{alb-healthmonitor-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbhealthMonitorServiceURL.Replace("{alb-healthmonitor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbHealthmonitorId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbhealthMonitor, defaultSerializationSettings));
-            request.Resource = PatchAlbhealthMonitorServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbhealthMonitorServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBHealthMonitorType GlobalReadAlbhealthMonitor(string AlbHealthmonitorId)
-        {
-            if (AlbHealthmonitorId == null) { throw new System.ArgumentNullException("AlbHealthmonitorId cannot be null"); }
-            NSXTALBHealthMonitorType returnValue = default(NSXTALBHealthMonitorType);
-            StringBuilder ReadAlbhealthMonitorServiceURL = new StringBuilder("/global-infra/alb-health-monitors/{alb-healthmonitor-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlbhealthMonitorServiceURL.Replace("{alb-healthmonitor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbHealthmonitorId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbhealthMonitorServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlbhealthMonitorServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBHealthMonitorType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBHealthMonitorType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlbhealthMonitor(string AlbHealthmonitorId, bool? Force = null)
-        {
-            if (AlbHealthmonitorId == null) { throw new System.ArgumentNullException("AlbHealthmonitorId cannot be null"); }
-            
-            StringBuilder DeleteAlbhealthMonitorServiceURL = new StringBuilder("/global-infra/alb-health-monitors/{alb-healthmonitor-id}");
+            StringBuilder DeleteAlbsecurityPolicyServiceURL = new StringBuilder("/infra/alb-security-policies/{alb-securitypolicy-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.DELETE
             };
             request.AddHeader("Content-type", "application/json");
-            DeleteAlbhealthMonitorServiceURL.Replace("{alb-healthmonitor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbHealthmonitorId, System.Globalization.CultureInfo.InvariantCulture)));
+            DeleteAlbsecurityPolicyServiceURL.Replace("{alb-securitypolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSecuritypolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbhealthMonitorServiceURL.ToString();
+            request.Resource = DeleteAlbsecurityPolicyServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP DELETE operation to " + DeleteAlbhealthMonitorServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP DELETE operation to " + DeleteAlbsecurityPolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -5250,176 +2715,6 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTALBPriorityLabelsApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBWebhookType GlobalUpdateAlbwebhook(string AlbWebhookId, NSXTALBWebhookType Albwebhook)
-        {
-            if (AlbWebhookId == null) { throw new System.ArgumentNullException("AlbWebhookId cannot be null"); }
-            if (Albwebhook == null) { throw new System.ArgumentNullException("Albwebhook cannot be null"); }
-            NSXTALBWebhookType returnValue = default(NSXTALBWebhookType);
-            StringBuilder UpdateAlbwebhookServiceURL = new StringBuilder("/global-infra/alb-webhooks/{alb-webhook-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbwebhookServiceURL.Replace("{alb-webhook-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWebhookId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(Albwebhook, defaultSerializationSettings));
-            request.Resource = UpdateAlbwebhookServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbwebhookServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBWebhookType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBWebhookType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBWebhookType GlobalReadAlbwebhook(string AlbWebhookId)
-        {
-            if (AlbWebhookId == null) { throw new System.ArgumentNullException("AlbWebhookId cannot be null"); }
-            NSXTALBWebhookType returnValue = default(NSXTALBWebhookType);
-            StringBuilder ReadAlbwebhookServiceURL = new StringBuilder("/global-infra/alb-webhooks/{alb-webhook-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlbwebhookServiceURL.Replace("{alb-webhook-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWebhookId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbwebhookServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlbwebhookServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBWebhookType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBWebhookType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlbwebhook(string AlbWebhookId, bool? Force = null)
-        {
-            if (AlbWebhookId == null) { throw new System.ArgumentNullException("AlbWebhookId cannot be null"); }
-            
-            StringBuilder DeleteAlbwebhookServiceURL = new StringBuilder("/global-infra/alb-webhooks/{alb-webhook-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbwebhookServiceURL.Replace("{alb-webhook-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWebhookId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbwebhookServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbwebhookServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlbwebhook(string AlbWebhookId, NSXTALBWebhookType Albwebhook)
-        {
-            if (AlbWebhookId == null) { throw new System.ArgumentNullException("AlbWebhookId cannot be null"); }
-            if (Albwebhook == null) { throw new System.ArgumentNullException("Albwebhook cannot be null"); }
-            
-            StringBuilder PatchAlbwebhookServiceURL = new StringBuilder("/global-infra/alb-webhooks/{alb-webhook-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbwebhookServiceURL.Replace("{alb-webhook-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWebhookId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(Albwebhook, defaultSerializationSettings));
-            request.Resource = PatchAlbwebhookServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbwebhookServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBVirtualServiceApiResponseType GlobalListAlbvirtualService(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBVirtualServiceApiResponseType returnValue = default(NSXTALBVirtualServiceApiResponseType);
-            StringBuilder ListAlbvirtualServiceServiceURL = new StringBuilder("/global-infra/alb-virtual-services");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbvirtualServiceServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlbvirtualServiceServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBVirtualServiceApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBVirtualServiceApiResponseType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -5599,264 +2894,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBApplicationPersistenceProfileType UpdateAlbapplicationPersistenceProfile(string AlbApplicationpersistenceprofileId, NSXTALBApplicationPersistenceProfileType AlbapplicationPersistenceProfile)
-        {
-            if (AlbApplicationpersistenceprofileId == null) { throw new System.ArgumentNullException("AlbApplicationpersistenceprofileId cannot be null"); }
-            if (AlbapplicationPersistenceProfile == null) { throw new System.ArgumentNullException("AlbapplicationPersistenceProfile cannot be null"); }
-            NSXTALBApplicationPersistenceProfileType returnValue = default(NSXTALBApplicationPersistenceProfileType);
-            StringBuilder UpdateAlbapplicationPersistenceProfileServiceURL = new StringBuilder("/infra/alb-application-persistence-profiles/{alb-applicationpersistenceprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbapplicationPersistenceProfileServiceURL.Replace("{alb-applicationpersistenceprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbApplicationpersistenceprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbapplicationPersistenceProfile, defaultSerializationSettings));
-            request.Resource = UpdateAlbapplicationPersistenceProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbapplicationPersistenceProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBApplicationPersistenceProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBApplicationPersistenceProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void DeleteAlbapplicationPersistenceProfile(string AlbApplicationpersistenceprofileId, bool? Force = null)
-        {
-            if (AlbApplicationpersistenceprofileId == null) { throw new System.ArgumentNullException("AlbApplicationpersistenceprofileId cannot be null"); }
-            
-            StringBuilder DeleteAlbapplicationPersistenceProfileServiceURL = new StringBuilder("/infra/alb-application-persistence-profiles/{alb-applicationpersistenceprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbapplicationPersistenceProfileServiceURL.Replace("{alb-applicationpersistenceprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbApplicationpersistenceprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbapplicationPersistenceProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbapplicationPersistenceProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void PatchAlbapplicationPersistenceProfile(string AlbApplicationpersistenceprofileId, NSXTALBApplicationPersistenceProfileType AlbapplicationPersistenceProfile)
-        {
-            if (AlbApplicationpersistenceprofileId == null) { throw new System.ArgumentNullException("AlbApplicationpersistenceprofileId cannot be null"); }
-            if (AlbapplicationPersistenceProfile == null) { throw new System.ArgumentNullException("AlbapplicationPersistenceProfile cannot be null"); }
-            
-            StringBuilder PatchAlbapplicationPersistenceProfileServiceURL = new StringBuilder("/infra/alb-application-persistence-profiles/{alb-applicationpersistenceprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbapplicationPersistenceProfileServiceURL.Replace("{alb-applicationpersistenceprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbApplicationpersistenceprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbapplicationPersistenceProfile, defaultSerializationSettings));
-            request.Resource = PatchAlbapplicationPersistenceProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbapplicationPersistenceProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBApplicationPersistenceProfileType ReadAlbapplicationPersistenceProfile(string AlbApplicationpersistenceprofileId)
-        {
-            if (AlbApplicationpersistenceprofileId == null) { throw new System.ArgumentNullException("AlbApplicationpersistenceprofileId cannot be null"); }
-            NSXTALBApplicationPersistenceProfileType returnValue = default(NSXTALBApplicationPersistenceProfileType);
-            StringBuilder ReadAlbapplicationPersistenceProfileServiceURL = new StringBuilder("/infra/alb-application-persistence-profiles/{alb-applicationpersistenceprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlbapplicationPersistenceProfileServiceURL.Replace("{alb-applicationpersistenceprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbApplicationpersistenceprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbapplicationPersistenceProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlbapplicationPersistenceProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBApplicationPersistenceProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBApplicationPersistenceProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBDnsPolicyType GlobalUpdateAlbdnsPolicy(string AlbDnspolicyId, NSXTALBDnsPolicyType AlbdnsPolicy)
-        {
-            if (AlbDnspolicyId == null) { throw new System.ArgumentNullException("AlbDnspolicyId cannot be null"); }
-            if (AlbdnsPolicy == null) { throw new System.ArgumentNullException("AlbdnsPolicy cannot be null"); }
-            NSXTALBDnsPolicyType returnValue = default(NSXTALBDnsPolicyType);
-            StringBuilder UpdateAlbdnsPolicyServiceURL = new StringBuilder("/global-infra/alb-dns-policies/{alb-dnspolicy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbdnsPolicyServiceURL.Replace("{alb-dnspolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbDnspolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbdnsPolicy, defaultSerializationSettings));
-            request.Resource = UpdateAlbdnsPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbdnsPolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBDnsPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBDnsPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlbdnsPolicy(string AlbDnspolicyId, NSXTALBDnsPolicyType AlbdnsPolicy)
-        {
-            if (AlbDnspolicyId == null) { throw new System.ArgumentNullException("AlbDnspolicyId cannot be null"); }
-            if (AlbdnsPolicy == null) { throw new System.ArgumentNullException("AlbdnsPolicy cannot be null"); }
-            
-            StringBuilder PatchAlbdnsPolicyServiceURL = new StringBuilder("/global-infra/alb-dns-policies/{alb-dnspolicy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbdnsPolicyServiceURL.Replace("{alb-dnspolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbDnspolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbdnsPolicy, defaultSerializationSettings));
-            request.Resource = PatchAlbdnsPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbdnsPolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBDnsPolicyType GlobalReadAlbdnsPolicy(string AlbDnspolicyId)
-        {
-            if (AlbDnspolicyId == null) { throw new System.ArgumentNullException("AlbDnspolicyId cannot be null"); }
-            NSXTALBDnsPolicyType returnValue = default(NSXTALBDnsPolicyType);
-            StringBuilder ReadAlbdnsPolicyServiceURL = new StringBuilder("/global-infra/alb-dns-policies/{alb-dnspolicy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlbdnsPolicyServiceURL.Replace("{alb-dnspolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbDnspolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbdnsPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlbdnsPolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBDnsPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBDnsPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlbdnsPolicy(string AlbDnspolicyId, bool? Force = null)
-        {
-            if (AlbDnspolicyId == null) { throw new System.ArgumentNullException("AlbDnspolicyId cannot be null"); }
-            
-            StringBuilder DeleteAlbdnsPolicyServiceURL = new StringBuilder("/global-infra/alb-dns-policies/{alb-dnspolicy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbdnsPolicyServiceURL.Replace("{alb-dnspolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbDnspolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbdnsPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbdnsPolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTALBL4PolicySetType UpdateALBL4PolicySet(string AlbL4policysetId, NSXTALBL4PolicySetType ALBL4PolicySet)
         {
             if (AlbL4policysetId == null) { throw new System.ArgumentNullException("AlbL4policysetId cannot be null"); }
@@ -5986,88 +3023,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBWafPolicyApiResponseType GlobalListAlbwafPolicy(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBWafPolicyApiResponseType returnValue = default(NSXTALBWafPolicyApiResponseType);
-            StringBuilder ListAlbwafPolicyServiceURL = new StringBuilder("/global-infra/alb-waf-policies");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbwafPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlbwafPolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBWafPolicyApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBWafPolicyApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBSecurityPolicyApiResponseType GlobalListAlbsecurityPolicy(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBSecurityPolicyApiResponseType returnValue = default(NSXTALBSecurityPolicyApiResponseType);
-            StringBuilder ListAlbsecurityPolicyServiceURL = new StringBuilder("/global-infra/alb-security-policies");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbsecurityPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlbsecurityPolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBSecurityPolicyApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBSecurityPolicyApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTALBApplicationProfileApiResponseType ListAlbapplicationProfile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBApplicationProfileApiResponseType returnValue = default(NSXTALBApplicationProfileApiResponseType);
@@ -6100,47 +3055,6 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTALBApplicationProfileApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBWafCRSApiResponseType GlobalListAlbwafCRS(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBWafCRSApiResponseType returnValue = default(NSXTALBWafCRSApiResponseType);
-            StringBuilder ListAlbwafCRSServiceURL = new StringBuilder("/global-infra/alb-waf-crs");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbwafCRSServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlbwafCRSServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBWafCRSApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBWafCRSApiResponseType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -6318,33 +3232,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbhealthMonitor(string AlbHealthmonitorId, NSXTALBHealthMonitorType AlbhealthMonitor)
-        {
-            if (AlbHealthmonitorId == null) { throw new System.ArgumentNullException("AlbHealthmonitorId cannot be null"); }
-            if (AlbhealthMonitor == null) { throw new System.ArgumentNullException("AlbhealthMonitor cannot be null"); }
-            
-            StringBuilder PatchAlbhealthMonitorServiceURL = new StringBuilder("/infra/alb-health-monitors/{alb-healthmonitor-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbhealthMonitorServiceURL.Replace("{alb-healthmonitor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbHealthmonitorId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbhealthMonitor, defaultSerializationSettings));
-            request.Resource = PatchAlbhealthMonitorServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbhealthMonitorServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTALBHealthMonitorType ReadAlbhealthMonitor(string AlbHealthmonitorId)
         {
             if (AlbHealthmonitorId == null) { throw new System.ArgumentNullException("AlbHealthmonitorId cannot be null"); }
@@ -6408,212 +3295,28 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBPoolGroupDeploymentPolicyType GlobalUpdateAlbpoolGroupDeploymentPolicy(string AlbPoolgroupdeploymentpolicyId, NSXTALBPoolGroupDeploymentPolicyType AlbpoolGroupDeploymentPolicy)
+        public void PatchAlbhealthMonitor(string AlbHealthmonitorId, NSXTALBHealthMonitorType AlbhealthMonitor)
         {
-            if (AlbPoolgroupdeploymentpolicyId == null) { throw new System.ArgumentNullException("AlbPoolgroupdeploymentpolicyId cannot be null"); }
-            if (AlbpoolGroupDeploymentPolicy == null) { throw new System.ArgumentNullException("AlbpoolGroupDeploymentPolicy cannot be null"); }
-            NSXTALBPoolGroupDeploymentPolicyType returnValue = default(NSXTALBPoolGroupDeploymentPolicyType);
-            StringBuilder UpdateAlbpoolGroupDeploymentPolicyServiceURL = new StringBuilder("/global-infra/alb-pool-group-deployment-policies/{alb-poolgroupdeploymentpolicy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbpoolGroupDeploymentPolicyServiceURL.Replace("{alb-poolgroupdeploymentpolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPoolgroupdeploymentpolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbpoolGroupDeploymentPolicy, defaultSerializationSettings));
-            request.Resource = UpdateAlbpoolGroupDeploymentPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbpoolGroupDeploymentPolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBPoolGroupDeploymentPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBPoolGroupDeploymentPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlbpoolGroupDeploymentPolicy(string AlbPoolgroupdeploymentpolicyId, bool? Force = null)
-        {
-            if (AlbPoolgroupdeploymentpolicyId == null) { throw new System.ArgumentNullException("AlbPoolgroupdeploymentpolicyId cannot be null"); }
+            if (AlbHealthmonitorId == null) { throw new System.ArgumentNullException("AlbHealthmonitorId cannot be null"); }
+            if (AlbhealthMonitor == null) { throw new System.ArgumentNullException("AlbhealthMonitor cannot be null"); }
             
-            StringBuilder DeleteAlbpoolGroupDeploymentPolicyServiceURL = new StringBuilder("/global-infra/alb-pool-group-deployment-policies/{alb-poolgroupdeploymentpolicy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbpoolGroupDeploymentPolicyServiceURL.Replace("{alb-poolgroupdeploymentpolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPoolgroupdeploymentpolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbpoolGroupDeploymentPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbpoolGroupDeploymentPolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlbpoolGroupDeploymentPolicy(string AlbPoolgroupdeploymentpolicyId, NSXTALBPoolGroupDeploymentPolicyType AlbpoolGroupDeploymentPolicy)
-        {
-            if (AlbPoolgroupdeploymentpolicyId == null) { throw new System.ArgumentNullException("AlbPoolgroupdeploymentpolicyId cannot be null"); }
-            if (AlbpoolGroupDeploymentPolicy == null) { throw new System.ArgumentNullException("AlbpoolGroupDeploymentPolicy cannot be null"); }
-            
-            StringBuilder PatchAlbpoolGroupDeploymentPolicyServiceURL = new StringBuilder("/global-infra/alb-pool-group-deployment-policies/{alb-poolgroupdeploymentpolicy-id}");
+            StringBuilder PatchAlbhealthMonitorServiceURL = new StringBuilder("/infra/alb-health-monitors/{alb-healthmonitor-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.PATCH
             };
             request.AddHeader("Content-type", "application/json");
-            PatchAlbpoolGroupDeploymentPolicyServiceURL.Replace("{alb-poolgroupdeploymentpolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPoolgroupdeploymentpolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbpoolGroupDeploymentPolicy, defaultSerializationSettings));
-            request.Resource = PatchAlbpoolGroupDeploymentPolicyServiceURL.ToString();
+            PatchAlbhealthMonitorServiceURL.Replace("{alb-healthmonitor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbHealthmonitorId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.AddJsonBody(JsonConvert.SerializeObject(AlbhealthMonitor, defaultSerializationSettings));
+            request.Resource = PatchAlbhealthMonitorServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP PATCH operation to " + PatchAlbpoolGroupDeploymentPolicyServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP PATCH operation to " + PatchAlbhealthMonitorServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBPoolGroupDeploymentPolicyType GlobalReadAlbpoolGroupDeploymentPolicy(string AlbPoolgroupdeploymentpolicyId)
-        {
-            if (AlbPoolgroupdeploymentpolicyId == null) { throw new System.ArgumentNullException("AlbPoolgroupdeploymentpolicyId cannot be null"); }
-            NSXTALBPoolGroupDeploymentPolicyType returnValue = default(NSXTALBPoolGroupDeploymentPolicyType);
-            StringBuilder ReadAlbpoolGroupDeploymentPolicyServiceURL = new StringBuilder("/global-infra/alb-pool-group-deployment-policies/{alb-poolgroupdeploymentpolicy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlbpoolGroupDeploymentPolicyServiceURL.Replace("{alb-poolgroupdeploymentpolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPoolgroupdeploymentpolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbpoolGroupDeploymentPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlbpoolGroupDeploymentPolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBPoolGroupDeploymentPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBPoolGroupDeploymentPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBErrorPageBodyApiResponseType GlobalListAlberrorPageBody(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBErrorPageBodyApiResponseType returnValue = default(NSXTALBErrorPageBodyApiResponseType);
-            StringBuilder ListAlberrorPageBodyServiceURL = new StringBuilder("/global-infra/alb-error-page-bodies");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlberrorPageBodyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlberrorPageBodyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBErrorPageBodyApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBErrorPageBodyApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBProtocolParserApiResponseType GlobalListAlbprotocolParser(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBProtocolParserApiResponseType returnValue = default(NSXTALBProtocolParserApiResponseType);
-            StringBuilder ListAlbprotocolParserServiceURL = new StringBuilder("/global-infra/alb-protocol-parsers");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbprotocolParserServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlbprotocolParserServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBProtocolParserApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBProtocolParserApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
         }
         /// <summary>
         /// 
@@ -6660,182 +3363,12 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBPoolGroupDeploymentPolicyApiResponseType GlobalListAlbpoolGroupDeploymentPolicy(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBPoolGroupDeploymentPolicyApiResponseType returnValue = default(NSXTALBPoolGroupDeploymentPolicyApiResponseType);
-            StringBuilder ListAlbpoolGroupDeploymentPolicyServiceURL = new StringBuilder("/global-infra/alb-pool-group-deployment-policies");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbpoolGroupDeploymentPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlbpoolGroupDeploymentPolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBPoolGroupDeploymentPolicyApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBPoolGroupDeploymentPolicyApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBWafPolicyType GlobalUpdateAlbwafPolicy(string AlbWafpolicyId, NSXTALBWafPolicyType AlbwafPolicy)
-        {
-            if (AlbWafpolicyId == null) { throw new System.ArgumentNullException("AlbWafpolicyId cannot be null"); }
-            if (AlbwafPolicy == null) { throw new System.ArgumentNullException("AlbwafPolicy cannot be null"); }
-            NSXTALBWafPolicyType returnValue = default(NSXTALBWafPolicyType);
-            StringBuilder UpdateAlbwafPolicyServiceURL = new StringBuilder("/global-infra/alb-waf-policies/{alb-wafpolicy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbwafPolicyServiceURL.Replace("{alb-wafpolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWafpolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbwafPolicy, defaultSerializationSettings));
-            request.Resource = UpdateAlbwafPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbwafPolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBWafPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBWafPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlbwafPolicy(string AlbWafpolicyId, bool? Force = null)
-        {
-            if (AlbWafpolicyId == null) { throw new System.ArgumentNullException("AlbWafpolicyId cannot be null"); }
-            
-            StringBuilder DeleteAlbwafPolicyServiceURL = new StringBuilder("/global-infra/alb-waf-policies/{alb-wafpolicy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbwafPolicyServiceURL.Replace("{alb-wafpolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWafpolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbwafPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbwafPolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlbwafPolicy(string AlbWafpolicyId, NSXTALBWafPolicyType AlbwafPolicy)
-        {
-            if (AlbWafpolicyId == null) { throw new System.ArgumentNullException("AlbWafpolicyId cannot be null"); }
-            if (AlbwafPolicy == null) { throw new System.ArgumentNullException("AlbwafPolicy cannot be null"); }
-            
-            StringBuilder PatchAlbwafPolicyServiceURL = new StringBuilder("/global-infra/alb-waf-policies/{alb-wafpolicy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbwafPolicyServiceURL.Replace("{alb-wafpolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWafpolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbwafPolicy, defaultSerializationSettings));
-            request.Resource = PatchAlbwafPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbwafPolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBWafPolicyType GlobalReadAlbwafPolicy(string AlbWafpolicyId)
-        {
-            if (AlbWafpolicyId == null) { throw new System.ArgumentNullException("AlbWafpolicyId cannot be null"); }
-            NSXTALBWafPolicyType returnValue = default(NSXTALBWafPolicyType);
-            StringBuilder ReadAlbwafPolicyServiceURL = new StringBuilder("/global-infra/alb-waf-policies/{alb-wafpolicy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlbwafPolicyServiceURL.Replace("{alb-wafpolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWafpolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbwafPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlbwafPolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBWafPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBWafPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBPriorityLabelsType GlobalUpdateAlbpriorityLabels(string AlbPrioritylabelsId, NSXTALBPriorityLabelsType AlbpriorityLabels)
+        public NSXTALBPriorityLabelsType UpdateAlbpriorityLabels(string AlbPrioritylabelsId, NSXTALBPriorityLabelsType AlbpriorityLabels)
         {
             if (AlbPrioritylabelsId == null) { throw new System.ArgumentNullException("AlbPrioritylabelsId cannot be null"); }
             if (AlbpriorityLabels == null) { throw new System.ArgumentNullException("AlbpriorityLabels cannot be null"); }
             NSXTALBPriorityLabelsType returnValue = default(NSXTALBPriorityLabelsType);
-            StringBuilder UpdateAlbpriorityLabelsServiceURL = new StringBuilder("/global-infra/alb-priority-labels/{alb-prioritylabels-id}");
+            StringBuilder UpdateAlbpriorityLabelsServiceURL = new StringBuilder("/infra/alb-priority-labels/{alb-prioritylabels-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -6869,11 +3402,11 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBPriorityLabelsType GlobalReadAlbpriorityLabels(string AlbPrioritylabelsId)
+        public NSXTALBPriorityLabelsType ReadAlbpriorityLabels(string AlbPrioritylabelsId)
         {
             if (AlbPrioritylabelsId == null) { throw new System.ArgumentNullException("AlbPrioritylabelsId cannot be null"); }
             NSXTALBPriorityLabelsType returnValue = default(NSXTALBPriorityLabelsType);
-            StringBuilder ReadAlbpriorityLabelsServiceURL = new StringBuilder("/global-infra/alb-priority-labels/{alb-prioritylabels-id}");
+            StringBuilder ReadAlbpriorityLabelsServiceURL = new StringBuilder("/infra/alb-priority-labels/{alb-prioritylabels-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -6906,12 +3439,12 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlbpriorityLabels(string AlbPrioritylabelsId, NSXTALBPriorityLabelsType AlbpriorityLabels)
+        public void PatchAlbpriorityLabels(string AlbPrioritylabelsId, NSXTALBPriorityLabelsType AlbpriorityLabels)
         {
             if (AlbPrioritylabelsId == null) { throw new System.ArgumentNullException("AlbPrioritylabelsId cannot be null"); }
             if (AlbpriorityLabels == null) { throw new System.ArgumentNullException("AlbpriorityLabels cannot be null"); }
             
-            StringBuilder PatchAlbpriorityLabelsServiceURL = new StringBuilder("/global-infra/alb-priority-labels/{alb-prioritylabels-id}");
+            StringBuilder PatchAlbpriorityLabelsServiceURL = new StringBuilder("/infra/alb-priority-labels/{alb-prioritylabels-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -6933,11 +3466,11 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlbpriorityLabels(string AlbPrioritylabelsId, bool? Force = null)
+        public void DeleteAlbpriorityLabels(string AlbPrioritylabelsId, bool? Force = null)
         {
             if (AlbPrioritylabelsId == null) { throw new System.ArgumentNullException("AlbPrioritylabelsId cannot be null"); }
             
-            StringBuilder DeleteAlbpriorityLabelsServiceURL = new StringBuilder("/global-infra/alb-priority-labels/{alb-prioritylabels-id}");
+            StringBuilder DeleteAlbpriorityLabelsServiceURL = new StringBuilder("/infra/alb-priority-labels/{alb-prioritylabels-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -6991,346 +3524,6 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTALBPKIProfileApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBHealthMonitorApiResponseType GlobalListAlbhealthMonitor(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBHealthMonitorApiResponseType returnValue = default(NSXTALBHealthMonitorApiResponseType);
-            StringBuilder ListAlbhealthMonitorServiceURL = new StringBuilder("/global-infra/alb-health-monitors");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbhealthMonitorServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlbhealthMonitorServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBHealthMonitorApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBHealthMonitorApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBWebhookApiResponseType GlobalListAlbwebhook(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBWebhookApiResponseType returnValue = default(NSXTALBWebhookApiResponseType);
-            StringBuilder ListAlbwebhookServiceURL = new StringBuilder("/global-infra/alb-webhooks");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbwebhookServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlbwebhookServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBWebhookApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBWebhookApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBServerAutoScalePolicyType GlobalUpdateAlbserverAutoScalePolicy(string AlbServerautoscalepolicyId, NSXTALBServerAutoScalePolicyType AlbserverAutoScalePolicy)
-        {
-            if (AlbServerautoscalepolicyId == null) { throw new System.ArgumentNullException("AlbServerautoscalepolicyId cannot be null"); }
-            if (AlbserverAutoScalePolicy == null) { throw new System.ArgumentNullException("AlbserverAutoScalePolicy cannot be null"); }
-            NSXTALBServerAutoScalePolicyType returnValue = default(NSXTALBServerAutoScalePolicyType);
-            StringBuilder UpdateAlbserverAutoScalePolicyServiceURL = new StringBuilder("/global-infra/alb-server-auto-scale-policies/{alb-serverautoscalepolicy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbserverAutoScalePolicyServiceURL.Replace("{alb-serverautoscalepolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbServerautoscalepolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbserverAutoScalePolicy, defaultSerializationSettings));
-            request.Resource = UpdateAlbserverAutoScalePolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbserverAutoScalePolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBServerAutoScalePolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBServerAutoScalePolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBServerAutoScalePolicyType GlobalReadAlbserverAutoScalePolicy(string AlbServerautoscalepolicyId)
-        {
-            if (AlbServerautoscalepolicyId == null) { throw new System.ArgumentNullException("AlbServerautoscalepolicyId cannot be null"); }
-            NSXTALBServerAutoScalePolicyType returnValue = default(NSXTALBServerAutoScalePolicyType);
-            StringBuilder ReadAlbserverAutoScalePolicyServiceURL = new StringBuilder("/global-infra/alb-server-auto-scale-policies/{alb-serverautoscalepolicy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlbserverAutoScalePolicyServiceURL.Replace("{alb-serverautoscalepolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbServerautoscalepolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbserverAutoScalePolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlbserverAutoScalePolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBServerAutoScalePolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBServerAutoScalePolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlbserverAutoScalePolicy(string AlbServerautoscalepolicyId, NSXTALBServerAutoScalePolicyType AlbserverAutoScalePolicy)
-        {
-            if (AlbServerautoscalepolicyId == null) { throw new System.ArgumentNullException("AlbServerautoscalepolicyId cannot be null"); }
-            if (AlbserverAutoScalePolicy == null) { throw new System.ArgumentNullException("AlbserverAutoScalePolicy cannot be null"); }
-            
-            StringBuilder PatchAlbserverAutoScalePolicyServiceURL = new StringBuilder("/global-infra/alb-server-auto-scale-policies/{alb-serverautoscalepolicy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbserverAutoScalePolicyServiceURL.Replace("{alb-serverautoscalepolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbServerautoscalepolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbserverAutoScalePolicy, defaultSerializationSettings));
-            request.Resource = PatchAlbserverAutoScalePolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbserverAutoScalePolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlbserverAutoScalePolicy(string AlbServerautoscalepolicyId, bool? Force = null)
-        {
-            if (AlbServerautoscalepolicyId == null) { throw new System.ArgumentNullException("AlbServerautoscalepolicyId cannot be null"); }
-            
-            StringBuilder DeleteAlbserverAutoScalePolicyServiceURL = new StringBuilder("/global-infra/alb-server-auto-scale-policies/{alb-serverautoscalepolicy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbserverAutoScalePolicyServiceURL.Replace("{alb-serverautoscalepolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbServerautoscalepolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbserverAutoScalePolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbserverAutoScalePolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBSSLKeyAndCertificateType GlobalUpdateAlbsslkeyAndCertificate(string AlbSslkeyandcertificateId, NSXTALBSSLKeyAndCertificateType AlbsslkeyAndCertificate)
-        {
-            if (AlbSslkeyandcertificateId == null) { throw new System.ArgumentNullException("AlbSslkeyandcertificateId cannot be null"); }
-            if (AlbsslkeyAndCertificate == null) { throw new System.ArgumentNullException("AlbsslkeyAndCertificate cannot be null"); }
-            NSXTALBSSLKeyAndCertificateType returnValue = default(NSXTALBSSLKeyAndCertificateType);
-            StringBuilder UpdateAlbsslkeyAndCertificateServiceURL = new StringBuilder("/global-infra/alb-ssl-key-and-certificates/{alb-sslkeyandcertificate-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbsslkeyAndCertificateServiceURL.Replace("{alb-sslkeyandcertificate-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSslkeyandcertificateId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbsslkeyAndCertificate, defaultSerializationSettings));
-            request.Resource = UpdateAlbsslkeyAndCertificateServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbsslkeyAndCertificateServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBSSLKeyAndCertificateType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBSSLKeyAndCertificateType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlbsslkeyAndCertificate(string AlbSslkeyandcertificateId, bool? Force = null)
-        {
-            if (AlbSslkeyandcertificateId == null) { throw new System.ArgumentNullException("AlbSslkeyandcertificateId cannot be null"); }
-            
-            StringBuilder DeleteAlbsslkeyAndCertificateServiceURL = new StringBuilder("/global-infra/alb-ssl-key-and-certificates/{alb-sslkeyandcertificate-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbsslkeyAndCertificateServiceURL.Replace("{alb-sslkeyandcertificate-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSslkeyandcertificateId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbsslkeyAndCertificateServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbsslkeyAndCertificateServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlbsslkeyAndCertificate(string AlbSslkeyandcertificateId, NSXTALBSSLKeyAndCertificateType AlbsslkeyAndCertificate)
-        {
-            if (AlbSslkeyandcertificateId == null) { throw new System.ArgumentNullException("AlbSslkeyandcertificateId cannot be null"); }
-            if (AlbsslkeyAndCertificate == null) { throw new System.ArgumentNullException("AlbsslkeyAndCertificate cannot be null"); }
-            
-            StringBuilder PatchAlbsslkeyAndCertificateServiceURL = new StringBuilder("/global-infra/alb-ssl-key-and-certificates/{alb-sslkeyandcertificate-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbsslkeyAndCertificateServiceURL.Replace("{alb-sslkeyandcertificate-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSslkeyandcertificateId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbsslkeyAndCertificate, defaultSerializationSettings));
-            request.Resource = PatchAlbsslkeyAndCertificateServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbsslkeyAndCertificateServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBSSLKeyAndCertificateType GlobalReadAlbsslkeyAndCertificate(string AlbSslkeyandcertificateId)
-        {
-            if (AlbSslkeyandcertificateId == null) { throw new System.ArgumentNullException("AlbSslkeyandcertificateId cannot be null"); }
-            NSXTALBSSLKeyAndCertificateType returnValue = default(NSXTALBSSLKeyAndCertificateType);
-            StringBuilder ReadAlbsslkeyAndCertificateServiceURL = new StringBuilder("/global-infra/alb-ssl-key-and-certificates/{alb-sslkeyandcertificate-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlbsslkeyAndCertificateServiceURL.Replace("{alb-sslkeyandcertificate-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSslkeyandcertificateId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbsslkeyAndCertificateServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlbsslkeyAndCertificateServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBSSLKeyAndCertificateType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBSSLKeyAndCertificateType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -7592,135 +3785,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBApplicationProfileType GlobalUpdateAlbapplicationProfile(string AlbApplicationprofileId, NSXTALBApplicationProfileType AlbapplicationProfile)
-        {
-            if (AlbApplicationprofileId == null) { throw new System.ArgumentNullException("AlbApplicationprofileId cannot be null"); }
-            if (AlbapplicationProfile == null) { throw new System.ArgumentNullException("AlbapplicationProfile cannot be null"); }
-            NSXTALBApplicationProfileType returnValue = default(NSXTALBApplicationProfileType);
-            StringBuilder UpdateAlbapplicationProfileServiceURL = new StringBuilder("/global-infra/alb-application-profiles/{alb-applicationprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbapplicationProfileServiceURL.Replace("{alb-applicationprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbApplicationprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbapplicationProfile, defaultSerializationSettings));
-            request.Resource = UpdateAlbapplicationProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbapplicationProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBApplicationProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBApplicationProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBApplicationProfileType GlobalReadAlbapplicationProfile(string AlbApplicationprofileId)
-        {
-            if (AlbApplicationprofileId == null) { throw new System.ArgumentNullException("AlbApplicationprofileId cannot be null"); }
-            NSXTALBApplicationProfileType returnValue = default(NSXTALBApplicationProfileType);
-            StringBuilder ReadAlbapplicationProfileServiceURL = new StringBuilder("/global-infra/alb-application-profiles/{alb-applicationprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlbapplicationProfileServiceURL.Replace("{alb-applicationprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbApplicationprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbapplicationProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlbapplicationProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBApplicationProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBApplicationProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlbapplicationProfile(string AlbApplicationprofileId, bool? Force = null)
-        {
-            if (AlbApplicationprofileId == null) { throw new System.ArgumentNullException("AlbApplicationprofileId cannot be null"); }
-            
-            StringBuilder DeleteAlbapplicationProfileServiceURL = new StringBuilder("/global-infra/alb-application-profiles/{alb-applicationprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbapplicationProfileServiceURL.Replace("{alb-applicationprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbApplicationprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbapplicationProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbapplicationProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlbapplicationProfile(string AlbApplicationprofileId, NSXTALBApplicationProfileType AlbapplicationProfile)
-        {
-            if (AlbApplicationprofileId == null) { throw new System.ArgumentNullException("AlbApplicationprofileId cannot be null"); }
-            if (AlbapplicationProfile == null) { throw new System.ArgumentNullException("AlbapplicationProfile cannot be null"); }
-            
-            StringBuilder PatchAlbapplicationProfileServiceURL = new StringBuilder("/global-infra/alb-application-profiles/{alb-applicationprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbapplicationProfileServiceURL.Replace("{alb-applicationprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbApplicationprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbapplicationProfile, defaultSerializationSettings));
-            request.Resource = PatchAlbapplicationProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbapplicationProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTALBErrorPageBodyType UpdateAlberrorPageBody(string AlbErrorpagebodyId, NSXTALBErrorPageBodyType AlberrorPageBody)
         {
             if (AlbErrorpagebodyId == null) { throw new System.ArgumentNullException("AlbErrorpagebodyId cannot be null"); }
@@ -7891,88 +3955,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBApplicationPersistenceProfileApiResponseType GlobalListAlbapplicationPersistenceProfile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBApplicationPersistenceProfileApiResponseType returnValue = default(NSXTALBApplicationPersistenceProfileApiResponseType);
-            StringBuilder ListAlbapplicationPersistenceProfileServiceURL = new StringBuilder("/global-infra/alb-application-persistence-profiles");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbapplicationPersistenceProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlbapplicationPersistenceProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBApplicationPersistenceProfileApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBApplicationPersistenceProfileApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBTrafficCloneProfileApiResponseType GlobalListAlbtrafficCloneProfile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBTrafficCloneProfileApiResponseType returnValue = default(NSXTALBTrafficCloneProfileApiResponseType);
-            StringBuilder ListAlbtrafficCloneProfileServiceURL = new StringBuilder("/global-infra/alb-traffic-clone-profiles");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbtrafficCloneProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlbtrafficCloneProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBTrafficCloneProfileApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBTrafficCloneProfileApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTALBPKIProfileType UpdateAlbpkiprofile(string AlbPkiprofileId, NSXTALBPKIProfileType Albpkiprofile)
         {
             if (AlbPkiprofileId == null) { throw new System.ArgumentNullException("AlbPkiprofileId cannot be null"); }
@@ -8102,264 +4084,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBProtocolParserType GlobalUpdateAlbprotocolParser(string AlbProtocolparserId, NSXTALBProtocolParserType AlbprotocolParser)
-        {
-            if (AlbProtocolparserId == null) { throw new System.ArgumentNullException("AlbProtocolparserId cannot be null"); }
-            if (AlbprotocolParser == null) { throw new System.ArgumentNullException("AlbprotocolParser cannot be null"); }
-            NSXTALBProtocolParserType returnValue = default(NSXTALBProtocolParserType);
-            StringBuilder UpdateAlbprotocolParserServiceURL = new StringBuilder("/global-infra/alb-protocol-parsers/{alb-protocolparser-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbprotocolParserServiceURL.Replace("{alb-protocolparser-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbProtocolparserId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbprotocolParser, defaultSerializationSettings));
-            request.Resource = UpdateAlbprotocolParserServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbprotocolParserServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBProtocolParserType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBProtocolParserType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlbprotocolParser(string AlbProtocolparserId, NSXTALBProtocolParserType AlbprotocolParser)
-        {
-            if (AlbProtocolparserId == null) { throw new System.ArgumentNullException("AlbProtocolparserId cannot be null"); }
-            if (AlbprotocolParser == null) { throw new System.ArgumentNullException("AlbprotocolParser cannot be null"); }
-            
-            StringBuilder PatchAlbprotocolParserServiceURL = new StringBuilder("/global-infra/alb-protocol-parsers/{alb-protocolparser-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbprotocolParserServiceURL.Replace("{alb-protocolparser-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbProtocolparserId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbprotocolParser, defaultSerializationSettings));
-            request.Resource = PatchAlbprotocolParserServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbprotocolParserServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBProtocolParserType GlobalReadAlbprotocolParser(string AlbProtocolparserId)
-        {
-            if (AlbProtocolparserId == null) { throw new System.ArgumentNullException("AlbProtocolparserId cannot be null"); }
-            NSXTALBProtocolParserType returnValue = default(NSXTALBProtocolParserType);
-            StringBuilder ReadAlbprotocolParserServiceURL = new StringBuilder("/global-infra/alb-protocol-parsers/{alb-protocolparser-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlbprotocolParserServiceURL.Replace("{alb-protocolparser-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbProtocolparserId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbprotocolParserServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlbprotocolParserServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBProtocolParserType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBProtocolParserType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlbprotocolParser(string AlbProtocolparserId, bool? Force = null)
-        {
-            if (AlbProtocolparserId == null) { throw new System.ArgumentNullException("AlbProtocolparserId cannot be null"); }
-            
-            StringBuilder DeleteAlbprotocolParserServiceURL = new StringBuilder("/global-infra/alb-protocol-parsers/{alb-protocolparser-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbprotocolParserServiceURL.Replace("{alb-protocolparser-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbProtocolparserId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbprotocolParserServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbprotocolParserServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBErrorPageBodyType GlobalUpdateAlberrorPageBody(string AlbErrorpagebodyId, NSXTALBErrorPageBodyType AlberrorPageBody)
-        {
-            if (AlbErrorpagebodyId == null) { throw new System.ArgumentNullException("AlbErrorpagebodyId cannot be null"); }
-            if (AlberrorPageBody == null) { throw new System.ArgumentNullException("AlberrorPageBody cannot be null"); }
-            NSXTALBErrorPageBodyType returnValue = default(NSXTALBErrorPageBodyType);
-            StringBuilder UpdateAlberrorPageBodyServiceURL = new StringBuilder("/global-infra/alb-error-page-bodies/{alb-errorpagebody-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlberrorPageBodyServiceURL.Replace("{alb-errorpagebody-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbErrorpagebodyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlberrorPageBody, defaultSerializationSettings));
-            request.Resource = UpdateAlberrorPageBodyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlberrorPageBodyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBErrorPageBodyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBErrorPageBodyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlberrorPageBody(string AlbErrorpagebodyId, bool? Force = null)
-        {
-            if (AlbErrorpagebodyId == null) { throw new System.ArgumentNullException("AlbErrorpagebodyId cannot be null"); }
-            
-            StringBuilder DeleteAlberrorPageBodyServiceURL = new StringBuilder("/global-infra/alb-error-page-bodies/{alb-errorpagebody-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlberrorPageBodyServiceURL.Replace("{alb-errorpagebody-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbErrorpagebodyId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlberrorPageBodyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlberrorPageBodyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBErrorPageBodyType GlobalReadAlberrorPageBody(string AlbErrorpagebodyId)
-        {
-            if (AlbErrorpagebodyId == null) { throw new System.ArgumentNullException("AlbErrorpagebodyId cannot be null"); }
-            NSXTALBErrorPageBodyType returnValue = default(NSXTALBErrorPageBodyType);
-            StringBuilder ReadAlberrorPageBodyServiceURL = new StringBuilder("/global-infra/alb-error-page-bodies/{alb-errorpagebody-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlberrorPageBodyServiceURL.Replace("{alb-errorpagebody-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbErrorpagebodyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlberrorPageBodyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlberrorPageBodyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBErrorPageBodyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBErrorPageBodyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlberrorPageBody(string AlbErrorpagebodyId, NSXTALBErrorPageBodyType AlberrorPageBody)
-        {
-            if (AlbErrorpagebodyId == null) { throw new System.ArgumentNullException("AlbErrorpagebodyId cannot be null"); }
-            if (AlberrorPageBody == null) { throw new System.ArgumentNullException("AlberrorPageBody cannot be null"); }
-            
-            StringBuilder PatchAlberrorPageBodyServiceURL = new StringBuilder("/global-infra/alb-error-page-bodies/{alb-errorpagebody-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlberrorPageBodyServiceURL.Replace("{alb-errorpagebody-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbErrorpagebodyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlberrorPageBody, defaultSerializationSettings));
-            request.Resource = PatchAlberrorPageBodyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlberrorPageBodyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTALBWafCRSApiResponseType ListAlbwafCRS(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBWafCRSApiResponseType returnValue = default(NSXTALBWafCRSApiResponseType);
@@ -8392,47 +4116,6 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTALBWafCRSApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBSSLProfileApiResponseType GlobalListAlbsslprofile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBSSLProfileApiResponseType returnValue = default(NSXTALBSSLProfileApiResponseType);
-            StringBuilder ListAlbsslprofileServiceURL = new StringBuilder("/global-infra/alb-ssl-profiles");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbsslprofileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlbsslprofileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBSSLProfileApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBSSLProfileApiResponseType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -8481,6 +4164,33 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
+        public void PatchAlbauthProfile(string AlbAuthprofileId, NSXTALBAuthProfileType AlbauthProfile)
+        {
+            if (AlbAuthprofileId == null) { throw new System.ArgumentNullException("AlbAuthprofileId cannot be null"); }
+            if (AlbauthProfile == null) { throw new System.ArgumentNullException("AlbauthProfile cannot be null"); }
+            
+            StringBuilder PatchAlbauthProfileServiceURL = new StringBuilder("/infra/alb-auth-profiles/{alb-authprofile-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.PATCH
+            };
+            request.AddHeader("Content-type", "application/json");
+            PatchAlbauthProfileServiceURL.Replace("{alb-authprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbAuthprofileId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.AddJsonBody(JsonConvert.SerializeObject(AlbauthProfile, defaultSerializationSettings));
+            request.Resource = PatchAlbauthProfileServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP PATCH operation to " + PatchAlbauthProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
         public NSXTALBAuthProfileType ReadAlbauthProfile(string AlbAuthprofileId)
         {
             if (AlbAuthprofileId == null) { throw new System.ArgumentNullException("AlbAuthprofileId cannot be null"); }
@@ -8518,33 +4228,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbauthProfile(string AlbAuthprofileId, NSXTALBAuthProfileType AlbauthProfile)
-        {
-            if (AlbAuthprofileId == null) { throw new System.ArgumentNullException("AlbAuthprofileId cannot be null"); }
-            if (AlbauthProfile == null) { throw new System.ArgumentNullException("AlbauthProfile cannot be null"); }
-            
-            StringBuilder PatchAlbauthProfileServiceURL = new StringBuilder("/infra/alb-auth-profiles/{alb-authprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbauthProfileServiceURL.Replace("{alb-authprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbAuthprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbauthProfile, defaultSerializationSettings));
-            request.Resource = PatchAlbauthProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbauthProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public void DeleteAlbauthProfile(string AlbAuthprofileId, bool? Force = null)
         {
             if (AlbAuthprofileId == null) { throw new System.ArgumentNullException("AlbAuthprofileId cannot be null"); }
@@ -8566,47 +4249,6 @@ namespace nsxtapi.PolicyModules
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBPKIProfileApiResponseType GlobalListAlbpkiprofile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBPKIProfileApiResponseType returnValue = default(NSXTALBPKIProfileApiResponseType);
-            StringBuilder ListAlbpkiprofileServiceURL = new StringBuilder("/global-infra/alb-pki-profiles");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbpkiprofileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlbpkiprofileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBPKIProfileApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBPKIProfileApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
         }
         /// <summary>
         /// 
@@ -8733,346 +4375,6 @@ namespace nsxtapi.PolicyModules
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbanalyticsProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBAuthProfileType GlobalUpdateAlbauthProfile(string AlbAuthprofileId, NSXTALBAuthProfileType AlbauthProfile)
-        {
-            if (AlbAuthprofileId == null) { throw new System.ArgumentNullException("AlbAuthprofileId cannot be null"); }
-            if (AlbauthProfile == null) { throw new System.ArgumentNullException("AlbauthProfile cannot be null"); }
-            NSXTALBAuthProfileType returnValue = default(NSXTALBAuthProfileType);
-            StringBuilder UpdateAlbauthProfileServiceURL = new StringBuilder("/global-infra/alb-auth-profiles/{alb-authprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbauthProfileServiceURL.Replace("{alb-authprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbAuthprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbauthProfile, defaultSerializationSettings));
-            request.Resource = UpdateAlbauthProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbauthProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBAuthProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBAuthProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBAuthProfileType GlobalReadAlbauthProfile(string AlbAuthprofileId)
-        {
-            if (AlbAuthprofileId == null) { throw new System.ArgumentNullException("AlbAuthprofileId cannot be null"); }
-            NSXTALBAuthProfileType returnValue = default(NSXTALBAuthProfileType);
-            StringBuilder ReadAlbauthProfileServiceURL = new StringBuilder("/global-infra/alb-auth-profiles/{alb-authprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlbauthProfileServiceURL.Replace("{alb-authprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbAuthprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbauthProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlbauthProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBAuthProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBAuthProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlbauthProfile(string AlbAuthprofileId, NSXTALBAuthProfileType AlbauthProfile)
-        {
-            if (AlbAuthprofileId == null) { throw new System.ArgumentNullException("AlbAuthprofileId cannot be null"); }
-            if (AlbauthProfile == null) { throw new System.ArgumentNullException("AlbauthProfile cannot be null"); }
-            
-            StringBuilder PatchAlbauthProfileServiceURL = new StringBuilder("/global-infra/alb-auth-profiles/{alb-authprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbauthProfileServiceURL.Replace("{alb-authprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbAuthprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbauthProfile, defaultSerializationSettings));
-            request.Resource = PatchAlbauthProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbauthProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlbauthProfile(string AlbAuthprofileId, bool? Force = null)
-        {
-            if (AlbAuthprofileId == null) { throw new System.ArgumentNullException("AlbAuthprofileId cannot be null"); }
-            
-            StringBuilder DeleteAlbauthProfileServiceURL = new StringBuilder("/global-infra/alb-auth-profiles/{alb-authprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbauthProfileServiceURL.Replace("{alb-authprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbAuthprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbauthProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbauthProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBWafPolicyPSMGroupApiResponseType GlobalListAlbwafPolicyPsmgroup(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBWafPolicyPSMGroupApiResponseType returnValue = default(NSXTALBWafPolicyPSMGroupApiResponseType);
-            StringBuilder ListAlbwafPolicyPsmgroupServiceURL = new StringBuilder("/global-infra/alb-waf-policy-psm-groups");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbwafPolicyPsmgroupServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlbwafPolicyPsmgroupServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBWafPolicyPSMGroupApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBWafPolicyPSMGroupApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBPriorityLabelsApiResponseType GlobalListAlbpriorityLabels(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBPriorityLabelsApiResponseType returnValue = default(NSXTALBPriorityLabelsApiResponseType);
-            StringBuilder ListAlbpriorityLabelsServiceURL = new StringBuilder("/global-infra/alb-priority-labels");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbpriorityLabelsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlbpriorityLabelsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBPriorityLabelsApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBPriorityLabelsApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBWafCRSType GlobalUpdateAlbwafCRS(string AlbWafcrsId, NSXTALBWafCRSType AlbwafCRS)
-        {
-            if (AlbWafcrsId == null) { throw new System.ArgumentNullException("AlbWafcrsId cannot be null"); }
-            if (AlbwafCRS == null) { throw new System.ArgumentNullException("AlbwafCRS cannot be null"); }
-            NSXTALBWafCRSType returnValue = default(NSXTALBWafCRSType);
-            StringBuilder UpdateAlbwafCRSServiceURL = new StringBuilder("/global-infra/alb-waf-crs/{alb-wafcrs-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbwafCRSServiceURL.Replace("{alb-wafcrs-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWafcrsId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbwafCRS, defaultSerializationSettings));
-            request.Resource = UpdateAlbwafCRSServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbwafCRSServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBWafCRSType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBWafCRSType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBWafCRSType GlobalReadAlbwafCRS(string AlbWafcrsId)
-        {
-            if (AlbWafcrsId == null) { throw new System.ArgumentNullException("AlbWafcrsId cannot be null"); }
-            NSXTALBWafCRSType returnValue = default(NSXTALBWafCRSType);
-            StringBuilder ReadAlbwafCRSServiceURL = new StringBuilder("/global-infra/alb-waf-crs/{alb-wafcrs-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlbwafCRSServiceURL.Replace("{alb-wafcrs-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWafcrsId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbwafCRSServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlbwafCRSServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBWafCRSType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBWafCRSType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlbwafCRS(string AlbWafcrsId, NSXTALBWafCRSType AlbwafCRS)
-        {
-            if (AlbWafcrsId == null) { throw new System.ArgumentNullException("AlbWafcrsId cannot be null"); }
-            if (AlbwafCRS == null) { throw new System.ArgumentNullException("AlbwafCRS cannot be null"); }
-            
-            StringBuilder PatchAlbwafCRSServiceURL = new StringBuilder("/global-infra/alb-waf-crs/{alb-wafcrs-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbwafCRSServiceURL.Replace("{alb-wafcrs-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWafcrsId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbwafCRS, defaultSerializationSettings));
-            request.Resource = PatchAlbwafCRSServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbwafCRSServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlbwafCRS(string AlbWafcrsId, bool? Force = null)
-        {
-            if (AlbWafcrsId == null) { throw new System.ArgumentNullException("AlbWafcrsId cannot be null"); }
-            
-            StringBuilder DeleteAlbwafCRSServiceURL = new StringBuilder("/global-infra/alb-waf-crs/{alb-wafcrs-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbwafCRSServiceURL.Replace("{alb-wafcrs-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWafcrsId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbwafCRSServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbwafCRSServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -9251,264 +4553,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBAutoScaleLaunchConfigType GlobalUpdateAlbautoScaleLaunchConfig(string AlbAutoscalelaunchconfigId, NSXTALBAutoScaleLaunchConfigType AlbautoScaleLaunchConfig)
-        {
-            if (AlbAutoscalelaunchconfigId == null) { throw new System.ArgumentNullException("AlbAutoscalelaunchconfigId cannot be null"); }
-            if (AlbautoScaleLaunchConfig == null) { throw new System.ArgumentNullException("AlbautoScaleLaunchConfig cannot be null"); }
-            NSXTALBAutoScaleLaunchConfigType returnValue = default(NSXTALBAutoScaleLaunchConfigType);
-            StringBuilder UpdateAlbautoScaleLaunchConfigServiceURL = new StringBuilder("/global-infra/alb-auto-scale-launch-configs/{alb-autoscalelaunchconfig-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbautoScaleLaunchConfigServiceURL.Replace("{alb-autoscalelaunchconfig-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbAutoscalelaunchconfigId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbautoScaleLaunchConfig, defaultSerializationSettings));
-            request.Resource = UpdateAlbautoScaleLaunchConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbautoScaleLaunchConfigServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBAutoScaleLaunchConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBAutoScaleLaunchConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBAutoScaleLaunchConfigType GlobalReadAlbautoScaleLaunchConfig(string AlbAutoscalelaunchconfigId)
-        {
-            if (AlbAutoscalelaunchconfigId == null) { throw new System.ArgumentNullException("AlbAutoscalelaunchconfigId cannot be null"); }
-            NSXTALBAutoScaleLaunchConfigType returnValue = default(NSXTALBAutoScaleLaunchConfigType);
-            StringBuilder ReadAlbautoScaleLaunchConfigServiceURL = new StringBuilder("/global-infra/alb-auto-scale-launch-configs/{alb-autoscalelaunchconfig-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlbautoScaleLaunchConfigServiceURL.Replace("{alb-autoscalelaunchconfig-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbAutoscalelaunchconfigId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbautoScaleLaunchConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlbautoScaleLaunchConfigServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBAutoScaleLaunchConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBAutoScaleLaunchConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlbautoScaleLaunchConfig(string AlbAutoscalelaunchconfigId, NSXTALBAutoScaleLaunchConfigType AlbautoScaleLaunchConfig)
-        {
-            if (AlbAutoscalelaunchconfigId == null) { throw new System.ArgumentNullException("AlbAutoscalelaunchconfigId cannot be null"); }
-            if (AlbautoScaleLaunchConfig == null) { throw new System.ArgumentNullException("AlbautoScaleLaunchConfig cannot be null"); }
-            
-            StringBuilder PatchAlbautoScaleLaunchConfigServiceURL = new StringBuilder("/global-infra/alb-auto-scale-launch-configs/{alb-autoscalelaunchconfig-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbautoScaleLaunchConfigServiceURL.Replace("{alb-autoscalelaunchconfig-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbAutoscalelaunchconfigId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbautoScaleLaunchConfig, defaultSerializationSettings));
-            request.Resource = PatchAlbautoScaleLaunchConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbautoScaleLaunchConfigServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlbautoScaleLaunchConfig(string AlbAutoscalelaunchconfigId, bool? Force = null)
-        {
-            if (AlbAutoscalelaunchconfigId == null) { throw new System.ArgumentNullException("AlbAutoscalelaunchconfigId cannot be null"); }
-            
-            StringBuilder DeleteAlbautoScaleLaunchConfigServiceURL = new StringBuilder("/global-infra/alb-auto-scale-launch-configs/{alb-autoscalelaunchconfig-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbautoScaleLaunchConfigServiceURL.Replace("{alb-autoscalelaunchconfig-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbAutoscalelaunchconfigId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbautoScaleLaunchConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbautoScaleLaunchConfigServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBSecurityPolicyType GlobalUpdateAlbsecurityPolicy(string AlbSecuritypolicyId, NSXTALBSecurityPolicyType AlbsecurityPolicy)
-        {
-            if (AlbSecuritypolicyId == null) { throw new System.ArgumentNullException("AlbSecuritypolicyId cannot be null"); }
-            if (AlbsecurityPolicy == null) { throw new System.ArgumentNullException("AlbsecurityPolicy cannot be null"); }
-            NSXTALBSecurityPolicyType returnValue = default(NSXTALBSecurityPolicyType);
-            StringBuilder UpdateAlbsecurityPolicyServiceURL = new StringBuilder("/global-infra/alb-security-policies/{alb-securitypolicy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbsecurityPolicyServiceURL.Replace("{alb-securitypolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSecuritypolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbsecurityPolicy, defaultSerializationSettings));
-            request.Resource = UpdateAlbsecurityPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbsecurityPolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBSecurityPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBSecurityPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlbsecurityPolicy(string AlbSecuritypolicyId, NSXTALBSecurityPolicyType AlbsecurityPolicy)
-        {
-            if (AlbSecuritypolicyId == null) { throw new System.ArgumentNullException("AlbSecuritypolicyId cannot be null"); }
-            if (AlbsecurityPolicy == null) { throw new System.ArgumentNullException("AlbsecurityPolicy cannot be null"); }
-            
-            StringBuilder PatchAlbsecurityPolicyServiceURL = new StringBuilder("/global-infra/alb-security-policies/{alb-securitypolicy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbsecurityPolicyServiceURL.Replace("{alb-securitypolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSecuritypolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbsecurityPolicy, defaultSerializationSettings));
-            request.Resource = PatchAlbsecurityPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbsecurityPolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlbsecurityPolicy(string AlbSecuritypolicyId, bool? Force = null)
-        {
-            if (AlbSecuritypolicyId == null) { throw new System.ArgumentNullException("AlbSecuritypolicyId cannot be null"); }
-            
-            StringBuilder DeleteAlbsecurityPolicyServiceURL = new StringBuilder("/global-infra/alb-security-policies/{alb-securitypolicy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbsecurityPolicyServiceURL.Replace("{alb-securitypolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSecuritypolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbsecurityPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbsecurityPolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBSecurityPolicyType GlobalReadAlbsecurityPolicy(string AlbSecuritypolicyId)
-        {
-            if (AlbSecuritypolicyId == null) { throw new System.ArgumentNullException("AlbSecuritypolicyId cannot be null"); }
-            NSXTALBSecurityPolicyType returnValue = default(NSXTALBSecurityPolicyType);
-            StringBuilder ReadAlbsecurityPolicyServiceURL = new StringBuilder("/global-infra/alb-security-policies/{alb-securitypolicy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlbsecurityPolicyServiceURL.Replace("{alb-securitypolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSecuritypolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbsecurityPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlbsecurityPolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBSecurityPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBSecurityPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTALBDnsPolicyApiResponseType ListAlbdnsPolicy(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBDnsPolicyApiResponseType returnValue = default(NSXTALBDnsPolicyApiResponseType);
@@ -9591,38 +4635,34 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBL4PolicySetApiResponseType GlobalListALBL4PolicySet(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTEnforcementPointType IntiateAlbOnBoardingWorkflow(NSXTALBControllerConfigurationType AlbcontrollerConfiguration)
         {
-            NSXTALBL4PolicySetApiResponseType returnValue = default(NSXTALBL4PolicySetApiResponseType);
-            StringBuilder ListALBL4PolicySetServiceURL = new StringBuilder("/global-infra/alb-l4-policy-sets");
+            if (AlbcontrollerConfiguration == null) { throw new System.ArgumentNullException("AlbcontrollerConfiguration cannot be null"); }
+            NSXTEnforcementPointType returnValue = default(NSXTEnforcementPointType);
+            StringBuilder IntiateAlbOnBoardingWorkflowServiceURL = new StringBuilder("/infra/alb-onboarding-workflow");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
-                Method = Method.GET
+                Method = Method.PUT
             };
             request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListALBL4PolicySetServiceURL.ToString();
+            request.AddJsonBody(JsonConvert.SerializeObject(AlbcontrollerConfiguration, defaultSerializationSettings));
+            request.Resource = IntiateAlbOnBoardingWorkflowServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ListALBL4PolicySetServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP PUT operation to " + IntiateAlbOnBoardingWorkflowServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
 			{
 				try
 				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBL4PolicySetApiResponseType>(response.Content, defaultSerializationSettings);
+					returnValue = JsonConvert.DeserializeObject<NSXTEnforcementPointType>(response.Content, defaultSerializationSettings);
 				}
 				catch (Exception ex)
 				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBL4PolicySetApiResponseType).FullName + ".";
+					var message = "Could not deserialize the response body string as " + typeof(NSXTEnforcementPointType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -9761,47 +4801,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBNetworkSecurityPolicyApiResponseType GlobalListAlbnetworkSecurityPolicy(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBNetworkSecurityPolicyApiResponseType returnValue = default(NSXTALBNetworkSecurityPolicyApiResponseType);
-            StringBuilder ListAlbnetworkSecurityPolicyServiceURL = new StringBuilder("/global-infra/alb-network-security-policies");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbnetworkSecurityPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlbnetworkSecurityPolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBNetworkSecurityPolicyApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBNetworkSecurityPolicyApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTALBVSDataScriptSetType UpdateAlbvsdataScriptSet(string AlbVsdatascriptsetId, NSXTALBVSDataScriptSetType AlbvsdataScriptSet)
         {
             if (AlbVsdatascriptsetId == null) { throw new System.ArgumentNullException("AlbVsdatascriptsetId cannot be null"); }
@@ -9931,305 +4930,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBSSLKeyAndCertificateApiResponseType GlobalListAlbsslkeyAndCertificate(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBSSLKeyAndCertificateApiResponseType returnValue = default(NSXTALBSSLKeyAndCertificateApiResponseType);
-            StringBuilder ListAlbsslkeyAndCertificateServiceURL = new StringBuilder("/global-infra/alb-ssl-key-and-certificates");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbsslkeyAndCertificateServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlbsslkeyAndCertificateServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBSSLKeyAndCertificateApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBSSLKeyAndCertificateApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBWafProfileType GlobalUpdateAlbwafProfile(string AlbWafprofileId, NSXTALBWafProfileType AlbwafProfile)
-        {
-            if (AlbWafprofileId == null) { throw new System.ArgumentNullException("AlbWafprofileId cannot be null"); }
-            if (AlbwafProfile == null) { throw new System.ArgumentNullException("AlbwafProfile cannot be null"); }
-            NSXTALBWafProfileType returnValue = default(NSXTALBWafProfileType);
-            StringBuilder UpdateAlbwafProfileServiceURL = new StringBuilder("/global-infra/alb-waf-profiles/{alb-wafprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbwafProfileServiceURL.Replace("{alb-wafprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWafprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbwafProfile, defaultSerializationSettings));
-            request.Resource = UpdateAlbwafProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbwafProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBWafProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBWafProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBWafProfileType GlobalReadAlbwafProfile(string AlbWafprofileId)
-        {
-            if (AlbWafprofileId == null) { throw new System.ArgumentNullException("AlbWafprofileId cannot be null"); }
-            NSXTALBWafProfileType returnValue = default(NSXTALBWafProfileType);
-            StringBuilder ReadAlbwafProfileServiceURL = new StringBuilder("/global-infra/alb-waf-profiles/{alb-wafprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlbwafProfileServiceURL.Replace("{alb-wafprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWafprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbwafProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlbwafProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBWafProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBWafProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlbwafProfile(string AlbWafprofileId, NSXTALBWafProfileType AlbwafProfile)
-        {
-            if (AlbWafprofileId == null) { throw new System.ArgumentNullException("AlbWafprofileId cannot be null"); }
-            if (AlbwafProfile == null) { throw new System.ArgumentNullException("AlbwafProfile cannot be null"); }
-            
-            StringBuilder PatchAlbwafProfileServiceURL = new StringBuilder("/global-infra/alb-waf-profiles/{alb-wafprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbwafProfileServiceURL.Replace("{alb-wafprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWafprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbwafProfile, defaultSerializationSettings));
-            request.Resource = PatchAlbwafProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbwafProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlbwafProfile(string AlbWafprofileId, bool? Force = null)
-        {
-            if (AlbWafprofileId == null) { throw new System.ArgumentNullException("AlbWafprofileId cannot be null"); }
-            
-            StringBuilder DeleteAlbwafProfileServiceURL = new StringBuilder("/global-infra/alb-waf-profiles/{alb-wafprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbwafProfileServiceURL.Replace("{alb-wafprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWafprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbwafProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbwafProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBTrafficCloneProfileType GlobalUpdateAlbtrafficCloneProfile(string AlbTrafficcloneprofileId, NSXTALBTrafficCloneProfileType AlbtrafficCloneProfile)
-        {
-            if (AlbTrafficcloneprofileId == null) { throw new System.ArgumentNullException("AlbTrafficcloneprofileId cannot be null"); }
-            if (AlbtrafficCloneProfile == null) { throw new System.ArgumentNullException("AlbtrafficCloneProfile cannot be null"); }
-            NSXTALBTrafficCloneProfileType returnValue = default(NSXTALBTrafficCloneProfileType);
-            StringBuilder UpdateAlbtrafficCloneProfileServiceURL = new StringBuilder("/global-infra/alb-traffic-clone-profiles/{alb-trafficcloneprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbtrafficCloneProfileServiceURL.Replace("{alb-trafficcloneprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbTrafficcloneprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbtrafficCloneProfile, defaultSerializationSettings));
-            request.Resource = UpdateAlbtrafficCloneProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbtrafficCloneProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBTrafficCloneProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBTrafficCloneProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlbtrafficCloneProfile(string AlbTrafficcloneprofileId, NSXTALBTrafficCloneProfileType AlbtrafficCloneProfile)
-        {
-            if (AlbTrafficcloneprofileId == null) { throw new System.ArgumentNullException("AlbTrafficcloneprofileId cannot be null"); }
-            if (AlbtrafficCloneProfile == null) { throw new System.ArgumentNullException("AlbtrafficCloneProfile cannot be null"); }
-            
-            StringBuilder PatchAlbtrafficCloneProfileServiceURL = new StringBuilder("/global-infra/alb-traffic-clone-profiles/{alb-trafficcloneprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbtrafficCloneProfileServiceURL.Replace("{alb-trafficcloneprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbTrafficcloneprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbtrafficCloneProfile, defaultSerializationSettings));
-            request.Resource = PatchAlbtrafficCloneProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbtrafficCloneProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBTrafficCloneProfileType GlobalReadAlbtrafficCloneProfile(string AlbTrafficcloneprofileId)
-        {
-            if (AlbTrafficcloneprofileId == null) { throw new System.ArgumentNullException("AlbTrafficcloneprofileId cannot be null"); }
-            NSXTALBTrafficCloneProfileType returnValue = default(NSXTALBTrafficCloneProfileType);
-            StringBuilder ReadAlbtrafficCloneProfileServiceURL = new StringBuilder("/global-infra/alb-traffic-clone-profiles/{alb-trafficcloneprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlbtrafficCloneProfileServiceURL.Replace("{alb-trafficcloneprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbTrafficcloneprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbtrafficCloneProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlbtrafficCloneProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBTrafficCloneProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBTrafficCloneProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlbtrafficCloneProfile(string AlbTrafficcloneprofileId, bool? Force = null)
-        {
-            if (AlbTrafficcloneprofileId == null) { throw new System.ArgumentNullException("AlbTrafficcloneprofileId cannot be null"); }
-            
-            StringBuilder DeleteAlbtrafficCloneProfileServiceURL = new StringBuilder("/global-infra/alb-traffic-clone-profiles/{alb-trafficcloneprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbtrafficCloneProfileServiceURL.Replace("{alb-trafficcloneprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbTrafficcloneprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbtrafficCloneProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbtrafficCloneProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTALBVirtualServiceApiResponseType ListAlbvirtualService(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBVirtualServiceApiResponseType returnValue = default(NSXTALBVirtualServiceApiResponseType);
@@ -10303,176 +5003,6 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTALBSSOPolicyApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBErrorPageProfileType GlobalUpdateAlberrorPageProfile(string AlbErrorpageprofileId, NSXTALBErrorPageProfileType AlberrorPageProfile)
-        {
-            if (AlbErrorpageprofileId == null) { throw new System.ArgumentNullException("AlbErrorpageprofileId cannot be null"); }
-            if (AlberrorPageProfile == null) { throw new System.ArgumentNullException("AlberrorPageProfile cannot be null"); }
-            NSXTALBErrorPageProfileType returnValue = default(NSXTALBErrorPageProfileType);
-            StringBuilder UpdateAlberrorPageProfileServiceURL = new StringBuilder("/global-infra/alb-error-page-profiles/{alb-errorpageprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlberrorPageProfileServiceURL.Replace("{alb-errorpageprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbErrorpageprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlberrorPageProfile, defaultSerializationSettings));
-            request.Resource = UpdateAlberrorPageProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlberrorPageProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBErrorPageProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBErrorPageProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlberrorPageProfile(string AlbErrorpageprofileId, bool? Force = null)
-        {
-            if (AlbErrorpageprofileId == null) { throw new System.ArgumentNullException("AlbErrorpageprofileId cannot be null"); }
-            
-            StringBuilder DeleteAlberrorPageProfileServiceURL = new StringBuilder("/global-infra/alb-error-page-profiles/{alb-errorpageprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlberrorPageProfileServiceURL.Replace("{alb-errorpageprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbErrorpageprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlberrorPageProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlberrorPageProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBErrorPageProfileType GlobalReadAlberrorPageProfile(string AlbErrorpageprofileId)
-        {
-            if (AlbErrorpageprofileId == null) { throw new System.ArgumentNullException("AlbErrorpageprofileId cannot be null"); }
-            NSXTALBErrorPageProfileType returnValue = default(NSXTALBErrorPageProfileType);
-            StringBuilder ReadAlberrorPageProfileServiceURL = new StringBuilder("/global-infra/alb-error-page-profiles/{alb-errorpageprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlberrorPageProfileServiceURL.Replace("{alb-errorpageprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbErrorpageprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlberrorPageProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlberrorPageProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBErrorPageProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBErrorPageProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlberrorPageProfile(string AlbErrorpageprofileId, NSXTALBErrorPageProfileType AlberrorPageProfile)
-        {
-            if (AlbErrorpageprofileId == null) { throw new System.ArgumentNullException("AlbErrorpageprofileId cannot be null"); }
-            if (AlberrorPageProfile == null) { throw new System.ArgumentNullException("AlberrorPageProfile cannot be null"); }
-            
-            StringBuilder PatchAlberrorPageProfileServiceURL = new StringBuilder("/global-infra/alb-error-page-profiles/{alb-errorpageprofile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlberrorPageProfileServiceURL.Replace("{alb-errorpageprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbErrorpageprofileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlberrorPageProfile, defaultSerializationSettings));
-            request.Resource = PatchAlberrorPageProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlberrorPageProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBDnsPolicyApiResponseType GlobalListAlbdnsPolicy(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBDnsPolicyApiResponseType returnValue = default(NSXTALBDnsPolicyApiResponseType);
-            StringBuilder ListAlbdnsPolicyServiceURL = new StringBuilder("/global-infra/alb-dns-policies");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbdnsPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlbdnsPolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBDnsPolicyApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBDnsPolicyApiResponseType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -10740,135 +5270,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBL4PolicySetType GlobalUpdateALBL4PolicySet(string AlbL4policysetId, NSXTALBL4PolicySetType ALBL4PolicySet)
-        {
-            if (AlbL4policysetId == null) { throw new System.ArgumentNullException("AlbL4policysetId cannot be null"); }
-            if (ALBL4PolicySet == null) { throw new System.ArgumentNullException("ALBL4PolicySet cannot be null"); }
-            NSXTALBL4PolicySetType returnValue = default(NSXTALBL4PolicySetType);
-            StringBuilder UpdateALBL4PolicySetServiceURL = new StringBuilder("/global-infra/alb-l4-policy-sets/{alb-l4policyset-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateALBL4PolicySetServiceURL.Replace("{alb-l4policyset-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbL4policysetId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(ALBL4PolicySet, defaultSerializationSettings));
-            request.Resource = UpdateALBL4PolicySetServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateALBL4PolicySetServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBL4PolicySetType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBL4PolicySetType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBL4PolicySetType GlobalReadALBL4PolicySet(string AlbL4policysetId)
-        {
-            if (AlbL4policysetId == null) { throw new System.ArgumentNullException("AlbL4policysetId cannot be null"); }
-            NSXTALBL4PolicySetType returnValue = default(NSXTALBL4PolicySetType);
-            StringBuilder ReadALBL4PolicySetServiceURL = new StringBuilder("/global-infra/alb-l4-policy-sets/{alb-l4policyset-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadALBL4PolicySetServiceURL.Replace("{alb-l4policyset-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbL4policysetId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadALBL4PolicySetServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadALBL4PolicySetServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBL4PolicySetType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBL4PolicySetType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteALBL4PolicySet(string AlbL4policysetId, bool? Force = null)
-        {
-            if (AlbL4policysetId == null) { throw new System.ArgumentNullException("AlbL4policysetId cannot be null"); }
-            
-            StringBuilder DeleteALBL4PolicySetServiceURL = new StringBuilder("/global-infra/alb-l4-policy-sets/{alb-l4policyset-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteALBL4PolicySetServiceURL.Replace("{alb-l4policyset-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbL4policysetId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteALBL4PolicySetServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteALBL4PolicySetServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchALBL4PolicySet(string AlbL4policysetId, NSXTALBL4PolicySetType ALBL4PolicySet)
-        {
-            if (AlbL4policysetId == null) { throw new System.ArgumentNullException("AlbL4policysetId cannot be null"); }
-            if (ALBL4PolicySet == null) { throw new System.ArgumentNullException("ALBL4PolicySet cannot be null"); }
-            
-            StringBuilder PatchALBL4PolicySetServiceURL = new StringBuilder("/global-infra/alb-l4-policy-sets/{alb-l4policyset-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchALBL4PolicySetServiceURL.Replace("{alb-l4policyset-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbL4policysetId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(ALBL4PolicySet, defaultSerializationSettings));
-            request.Resource = PatchALBL4PolicySetServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchALBL4PolicySetServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTALBApplicationProfileType UpdateAlbapplicationProfile(string AlbApplicationprofileId, NSXTALBApplicationProfileType AlbapplicationProfile)
         {
             if (AlbApplicationprofileId == null) { throw new System.ArgumentNullException("AlbApplicationprofileId cannot be null"); }
@@ -10998,38 +5399,32 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBVsVipApiResponseType GlobalListAlbvsVip(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTALBControllerVersionType ReadAlbcontrollerSupportedVersion()
         {
-            NSXTALBVsVipApiResponseType returnValue = default(NSXTALBVsVipApiResponseType);
-            StringBuilder ListAlbvsVipServiceURL = new StringBuilder("/global-infra/alb-vs-vips");
+            NSXTALBControllerVersionType returnValue = default(NSXTALBControllerVersionType);
+            StringBuilder ReadAlbcontrollerSupportedVersionServiceURL = new StringBuilder("/infra/alb-controller-version");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbvsVipServiceURL.ToString();
+            request.Resource = ReadAlbcontrollerSupportedVersionServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ListAlbvsVipServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + ReadAlbcontrollerSupportedVersionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
 			{
 				try
 				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBVsVipApiResponseType>(response.Content, defaultSerializationSettings);
+					returnValue = JsonConvert.DeserializeObject<NSXTALBControllerVersionType>(response.Content, defaultSerializationSettings);
 				}
 				catch (Exception ex)
 				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBVsVipApiResponseType).FullName + ".";
+					var message = "Could not deserialize the response body string as " + typeof(NSXTALBControllerVersionType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -11071,47 +5466,6 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTALBVSDataScriptSetApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBApplicationProfileApiResponseType GlobalListAlbapplicationProfile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBApplicationProfileApiResponseType returnValue = default(NSXTALBApplicationProfileApiResponseType);
-            StringBuilder ListAlbapplicationProfileServiceURL = new StringBuilder("/global-infra/alb-application-profiles");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbapplicationProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlbapplicationProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBApplicationProfileApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBApplicationProfileApiResponseType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -11549,6 +5903,135 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
+        public NSXTALBApplicationPersistenceProfileType UpdateAlbapplicationPersistenceProfile(string AlbApplicationpersistenceprofileId, NSXTALBApplicationPersistenceProfileType AlbapplicationPersistenceProfile)
+        {
+            if (AlbApplicationpersistenceprofileId == null) { throw new System.ArgumentNullException("AlbApplicationpersistenceprofileId cannot be null"); }
+            if (AlbapplicationPersistenceProfile == null) { throw new System.ArgumentNullException("AlbapplicationPersistenceProfile cannot be null"); }
+            NSXTALBApplicationPersistenceProfileType returnValue = default(NSXTALBApplicationPersistenceProfileType);
+            StringBuilder UpdateAlbapplicationPersistenceProfileServiceURL = new StringBuilder("/infra/alb-application-persistence-profiles/{alb-applicationpersistenceprofile-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.PUT
+            };
+            request.AddHeader("Content-type", "application/json");
+            UpdateAlbapplicationPersistenceProfileServiceURL.Replace("{alb-applicationpersistenceprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbApplicationpersistenceprofileId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.AddJsonBody(JsonConvert.SerializeObject(AlbapplicationPersistenceProfile, defaultSerializationSettings));
+            request.Resource = UpdateAlbapplicationPersistenceProfileServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP PUT operation to " + UpdateAlbapplicationPersistenceProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTALBApplicationPersistenceProfileType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTALBApplicationPersistenceProfileType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public void DeleteAlbapplicationPersistenceProfile(string AlbApplicationpersistenceprofileId, bool? Force = null)
+        {
+            if (AlbApplicationpersistenceprofileId == null) { throw new System.ArgumentNullException("AlbApplicationpersistenceprofileId cannot be null"); }
+            
+            StringBuilder DeleteAlbapplicationPersistenceProfileServiceURL = new StringBuilder("/infra/alb-application-persistence-profiles/{alb-applicationpersistenceprofile-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.DELETE
+            };
+            request.AddHeader("Content-type", "application/json");
+            DeleteAlbapplicationPersistenceProfileServiceURL.Replace("{alb-applicationpersistenceprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbApplicationpersistenceprofileId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
+            request.Resource = DeleteAlbapplicationPersistenceProfileServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP DELETE operation to " + DeleteAlbapplicationPersistenceProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public void PatchAlbapplicationPersistenceProfile(string AlbApplicationpersistenceprofileId, NSXTALBApplicationPersistenceProfileType AlbapplicationPersistenceProfile)
+        {
+            if (AlbApplicationpersistenceprofileId == null) { throw new System.ArgumentNullException("AlbApplicationpersistenceprofileId cannot be null"); }
+            if (AlbapplicationPersistenceProfile == null) { throw new System.ArgumentNullException("AlbapplicationPersistenceProfile cannot be null"); }
+            
+            StringBuilder PatchAlbapplicationPersistenceProfileServiceURL = new StringBuilder("/infra/alb-application-persistence-profiles/{alb-applicationpersistenceprofile-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.PATCH
+            };
+            request.AddHeader("Content-type", "application/json");
+            PatchAlbapplicationPersistenceProfileServiceURL.Replace("{alb-applicationpersistenceprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbApplicationpersistenceprofileId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.AddJsonBody(JsonConvert.SerializeObject(AlbapplicationPersistenceProfile, defaultSerializationSettings));
+            request.Resource = PatchAlbapplicationPersistenceProfileServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP PATCH operation to " + PatchAlbapplicationPersistenceProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTALBApplicationPersistenceProfileType ReadAlbapplicationPersistenceProfile(string AlbApplicationpersistenceprofileId)
+        {
+            if (AlbApplicationpersistenceprofileId == null) { throw new System.ArgumentNullException("AlbApplicationpersistenceprofileId cannot be null"); }
+            NSXTALBApplicationPersistenceProfileType returnValue = default(NSXTALBApplicationPersistenceProfileType);
+            StringBuilder ReadAlbapplicationPersistenceProfileServiceURL = new StringBuilder("/infra/alb-application-persistence-profiles/{alb-applicationpersistenceprofile-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            ReadAlbapplicationPersistenceProfileServiceURL.Replace("{alb-applicationpersistenceprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbApplicationpersistenceprofileId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = ReadAlbapplicationPersistenceProfileServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + ReadAlbapplicationPersistenceProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTALBApplicationPersistenceProfileType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTALBApplicationPersistenceProfileType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
         public NSXTALBHTTPPolicySetApiResponseType ListAlbhttppolicySet(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBHTTPPolicySetApiResponseType returnValue = default(NSXTALBHTTPPolicySetApiResponseType);
@@ -11581,47 +6064,6 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTALBHTTPPolicySetApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBAutoScaleLaunchConfigApiResponseType GlobalListAlbautoScaleLaunchConfig(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBAutoScaleLaunchConfigApiResponseType returnValue = default(NSXTALBAutoScaleLaunchConfigApiResponseType);
-            StringBuilder ListAlbautoScaleLaunchConfigServiceURL = new StringBuilder("/global-infra/alb-auto-scale-launch-configs");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbautoScaleLaunchConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlbautoScaleLaunchConfigServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBAutoScaleLaunchConfigApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBAutoScaleLaunchConfigApiResponseType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -11760,305 +6202,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBPoolApiResponseType GlobalListAlbpool(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTALBPoolApiResponseType returnValue = default(NSXTALBPoolApiResponseType);
-            StringBuilder ListAlbpoolServiceURL = new StringBuilder("/global-infra/alb-pools");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListAlbpoolServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListAlbpoolServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBPoolApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBPoolApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBSSOPolicyType GlobalUpdateAlbssopolicy(string AlbSsopolicyId, NSXTALBSSOPolicyType Albssopolicy)
-        {
-            if (AlbSsopolicyId == null) { throw new System.ArgumentNullException("AlbSsopolicyId cannot be null"); }
-            if (Albssopolicy == null) { throw new System.ArgumentNullException("Albssopolicy cannot be null"); }
-            NSXTALBSSOPolicyType returnValue = default(NSXTALBSSOPolicyType);
-            StringBuilder UpdateAlbssopolicyServiceURL = new StringBuilder("/global-infra/alb-sso-policies/{alb-ssopolicy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbssopolicyServiceURL.Replace("{alb-ssopolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSsopolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(Albssopolicy, defaultSerializationSettings));
-            request.Resource = UpdateAlbssopolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbssopolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBSSOPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBSSOPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlbssopolicy(string AlbSsopolicyId, NSXTALBSSOPolicyType Albssopolicy)
-        {
-            if (AlbSsopolicyId == null) { throw new System.ArgumentNullException("AlbSsopolicyId cannot be null"); }
-            if (Albssopolicy == null) { throw new System.ArgumentNullException("Albssopolicy cannot be null"); }
-            
-            StringBuilder PatchAlbssopolicyServiceURL = new StringBuilder("/global-infra/alb-sso-policies/{alb-ssopolicy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbssopolicyServiceURL.Replace("{alb-ssopolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSsopolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(Albssopolicy, defaultSerializationSettings));
-            request.Resource = PatchAlbssopolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbssopolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlbssopolicy(string AlbSsopolicyId, bool? Force = null)
-        {
-            if (AlbSsopolicyId == null) { throw new System.ArgumentNullException("AlbSsopolicyId cannot be null"); }
-            
-            StringBuilder DeleteAlbssopolicyServiceURL = new StringBuilder("/global-infra/alb-sso-policies/{alb-ssopolicy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbssopolicyServiceURL.Replace("{alb-ssopolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSsopolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbssopolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbssopolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBSSOPolicyType GlobalReadAlbssopolicy(string AlbSsopolicyId)
-        {
-            if (AlbSsopolicyId == null) { throw new System.ArgumentNullException("AlbSsopolicyId cannot be null"); }
-            NSXTALBSSOPolicyType returnValue = default(NSXTALBSSOPolicyType);
-            StringBuilder ReadAlbssopolicyServiceURL = new StringBuilder("/global-infra/alb-sso-policies/{alb-ssopolicy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlbssopolicyServiceURL.Replace("{alb-ssopolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSsopolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbssopolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlbssopolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBSSOPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBSSOPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBHardwareSecurityModuleGroupType GlobalUpdateAlbhardwareSecurityModuleGroup(string AlbHardwaresecuritymodulegroupId, NSXTALBHardwareSecurityModuleGroupType AlbhardwareSecurityModuleGroup)
-        {
-            if (AlbHardwaresecuritymodulegroupId == null) { throw new System.ArgumentNullException("AlbHardwaresecuritymodulegroupId cannot be null"); }
-            if (AlbhardwareSecurityModuleGroup == null) { throw new System.ArgumentNullException("AlbhardwareSecurityModuleGroup cannot be null"); }
-            NSXTALBHardwareSecurityModuleGroupType returnValue = default(NSXTALBHardwareSecurityModuleGroupType);
-            StringBuilder UpdateAlbhardwareSecurityModuleGroupServiceURL = new StringBuilder("/global-infra/alb-hardware-security-module-groups/{alb-hardwaresecuritymodulegroup-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbhardwareSecurityModuleGroupServiceURL.Replace("{alb-hardwaresecuritymodulegroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbHardwaresecuritymodulegroupId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbhardwareSecurityModuleGroup, defaultSerializationSettings));
-            request.Resource = UpdateAlbhardwareSecurityModuleGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbhardwareSecurityModuleGroupServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBHardwareSecurityModuleGroupType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBHardwareSecurityModuleGroupType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlbhardwareSecurityModuleGroup(string AlbHardwaresecuritymodulegroupId, bool? Force = null)
-        {
-            if (AlbHardwaresecuritymodulegroupId == null) { throw new System.ArgumentNullException("AlbHardwaresecuritymodulegroupId cannot be null"); }
-            
-            StringBuilder DeleteAlbhardwareSecurityModuleGroupServiceURL = new StringBuilder("/global-infra/alb-hardware-security-module-groups/{alb-hardwaresecuritymodulegroup-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbhardwareSecurityModuleGroupServiceURL.Replace("{alb-hardwaresecuritymodulegroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbHardwaresecuritymodulegroupId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbhardwareSecurityModuleGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbhardwareSecurityModuleGroupServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlbhardwareSecurityModuleGroup(string AlbHardwaresecuritymodulegroupId, NSXTALBHardwareSecurityModuleGroupType AlbhardwareSecurityModuleGroup)
-        {
-            if (AlbHardwaresecuritymodulegroupId == null) { throw new System.ArgumentNullException("AlbHardwaresecuritymodulegroupId cannot be null"); }
-            if (AlbhardwareSecurityModuleGroup == null) { throw new System.ArgumentNullException("AlbhardwareSecurityModuleGroup cannot be null"); }
-            
-            StringBuilder PatchAlbhardwareSecurityModuleGroupServiceURL = new StringBuilder("/global-infra/alb-hardware-security-module-groups/{alb-hardwaresecuritymodulegroup-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbhardwareSecurityModuleGroupServiceURL.Replace("{alb-hardwaresecuritymodulegroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbHardwaresecuritymodulegroupId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbhardwareSecurityModuleGroup, defaultSerializationSettings));
-            request.Resource = PatchAlbhardwareSecurityModuleGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbhardwareSecurityModuleGroupServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBHardwareSecurityModuleGroupType GlobalReadAlbhardwareSecurityModuleGroup(string AlbHardwaresecuritymodulegroupId)
-        {
-            if (AlbHardwaresecuritymodulegroupId == null) { throw new System.ArgumentNullException("AlbHardwaresecuritymodulegroupId cannot be null"); }
-            NSXTALBHardwareSecurityModuleGroupType returnValue = default(NSXTALBHardwareSecurityModuleGroupType);
-            StringBuilder ReadAlbhardwareSecurityModuleGroupServiceURL = new StringBuilder("/global-infra/alb-hardware-security-module-groups/{alb-hardwaresecuritymodulegroup-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlbhardwareSecurityModuleGroupServiceURL.Replace("{alb-hardwaresecuritymodulegroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbHardwaresecuritymodulegroupId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbhardwareSecurityModuleGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlbhardwareSecurityModuleGroupServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBHardwareSecurityModuleGroupType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBHardwareSecurityModuleGroupType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTALBAutoScaleLaunchConfigApiResponseType ListAlbautoScaleLaunchConfig(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBAutoScaleLaunchConfigApiResponseType returnValue = default(NSXTALBAutoScaleLaunchConfigApiResponseType);
@@ -12095,135 +6238,6 @@ namespace nsxtapi.PolicyModules
 				}
 			}
 			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBVirtualServiceType GlobalUpdateAlbvirtualService(string AlbVirtualserviceId, NSXTALBVirtualServiceType AlbvirtualService)
-        {
-            if (AlbVirtualserviceId == null) { throw new System.ArgumentNullException("AlbVirtualserviceId cannot be null"); }
-            if (AlbvirtualService == null) { throw new System.ArgumentNullException("AlbvirtualService cannot be null"); }
-            NSXTALBVirtualServiceType returnValue = default(NSXTALBVirtualServiceType);
-            StringBuilder UpdateAlbvirtualServiceServiceURL = new StringBuilder("/global-infra/alb-virtual-services/{alb-virtualservice-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateAlbvirtualServiceServiceURL.Replace("{alb-virtualservice-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbVirtualserviceId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbvirtualService, defaultSerializationSettings));
-            request.Resource = UpdateAlbvirtualServiceServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateAlbvirtualServiceServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBVirtualServiceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBVirtualServiceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchAlbvirtualService(string AlbVirtualserviceId, NSXTALBVirtualServiceType AlbvirtualService)
-        {
-            if (AlbVirtualserviceId == null) { throw new System.ArgumentNullException("AlbVirtualserviceId cannot be null"); }
-            if (AlbvirtualService == null) { throw new System.ArgumentNullException("AlbvirtualService cannot be null"); }
-            
-            StringBuilder PatchAlbvirtualServiceServiceURL = new StringBuilder("/global-infra/alb-virtual-services/{alb-virtualservice-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchAlbvirtualServiceServiceURL.Replace("{alb-virtualservice-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbVirtualserviceId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(AlbvirtualService, defaultSerializationSettings));
-            request.Resource = PatchAlbvirtualServiceServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchAlbvirtualServiceServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTALBVirtualServiceType GlobalReadAlbvirtualService(string AlbVirtualserviceId)
-        {
-            if (AlbVirtualserviceId == null) { throw new System.ArgumentNullException("AlbVirtualserviceId cannot be null"); }
-            NSXTALBVirtualServiceType returnValue = default(NSXTALBVirtualServiceType);
-            StringBuilder ReadAlbvirtualServiceServiceURL = new StringBuilder("/global-infra/alb-virtual-services/{alb-virtualservice-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadAlbvirtualServiceServiceURL.Replace("{alb-virtualservice-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbVirtualserviceId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadAlbvirtualServiceServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadAlbvirtualServiceServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBVirtualServiceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBVirtualServiceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteAlbvirtualService(string AlbVirtualserviceId, bool? Force = null)
-        {
-            if (AlbVirtualserviceId == null) { throw new System.ArgumentNullException("AlbVirtualserviceId cannot be null"); }
-            
-            StringBuilder DeleteAlbvirtualServiceServiceURL = new StringBuilder("/global-infra/alb-virtual-services/{alb-virtualservice-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteAlbvirtualServiceServiceURL.Replace("{alb-virtualservice-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbVirtualserviceId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteAlbvirtualServiceServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteAlbvirtualServiceServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
         }
         /// <summary>
         /// 

@@ -36,7 +36,9 @@ namespace nsxtsdk.ManagerModels
         EDGEUPLINK = 11,
         [EnumMember(Value = "DELL_GATEWAY")]
         DELLGATEWAY = 12,
+        [EnumMember(Value = "LGW_ROUTE")]
+        LGWROUTE = 13,
         [EnumMember(Value = "UNKNOWN")]
-        UNKNOWN = 13,
+        UNKNOWN = 14,
     }
 }

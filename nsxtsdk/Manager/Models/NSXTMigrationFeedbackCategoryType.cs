@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Categorization of feedback requests from the migration tool where user input is required.")]
     public class NSXTMigrationFeedbackCategoryType 
     {
+        public NSXTMigrationFeedbackCategoryType()
+        {
+        }
         /// <summary>
         /// Functional area that this query falls into.
         /// </summary>

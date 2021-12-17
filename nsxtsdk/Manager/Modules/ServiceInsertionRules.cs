@@ -118,23 +118,23 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTServiceInsertionSectionRuleListType GetServiceInsertionSectionWithRulesListWithRules(string SectionId)
+        public NSXTServiceInsertionSectionRuleListType GetServiceInsertionSectionWithRules(string SectionId)
         {
             if (SectionId == null) { throw new System.ArgumentNullException("SectionId cannot be null"); }
             NSXTServiceInsertionSectionRuleListType returnValue = default(NSXTServiceInsertionSectionRuleListType);
-            StringBuilder GetServiceInsertionSectionWithRulesListWithRulesServiceURL = new StringBuilder("/serviceinsertion/sections/{section-id}?action=list_with_rules");
+            StringBuilder GetServiceInsertionSectionWithRulesServiceURL = new StringBuilder("/serviceinsertion/sections/{section-id}?action=list_with_rules");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            GetServiceInsertionSectionWithRulesListWithRulesServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = GetServiceInsertionSectionWithRulesListWithRulesServiceURL.ToString();
+            GetServiceInsertionSectionWithRulesServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GetServiceInsertionSectionWithRulesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + GetServiceInsertionSectionWithRulesListWithRulesServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + GetServiceInsertionSectionWithRulesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -155,27 +155,27 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTServiceInsertionSectionRuleListType ReviseServiceInsertionSectionWithRulesReviseWithRules(string SectionId, NSXTServiceInsertionSectionRuleListType ServiceInsertionSectionRuleList, string? Id = null, string? Operation = null)
+        public NSXTServiceInsertionSectionRuleListType ReviseServiceInsertionSectionWithRules(string SectionId, NSXTServiceInsertionSectionRuleListType ServiceInsertionSectionRuleList, string? Id = null, string? Operation = null)
         {
             if (SectionId == null) { throw new System.ArgumentNullException("SectionId cannot be null"); }
             if (ServiceInsertionSectionRuleList == null) { throw new System.ArgumentNullException("ServiceInsertionSectionRuleList cannot be null"); }
             NSXTServiceInsertionSectionRuleListType returnValue = default(NSXTServiceInsertionSectionRuleListType);
-            StringBuilder ReviseServiceInsertionSectionWithRulesReviseWithRulesServiceURL = new StringBuilder("/serviceinsertion/sections/{section-id}?action=revise_with_rules");
+            StringBuilder ReviseServiceInsertionSectionWithRulesServiceURL = new StringBuilder("/serviceinsertion/sections/{section-id}?action=revise_with_rules");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            ReviseServiceInsertionSectionWithRulesReviseWithRulesServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
+            ReviseServiceInsertionSectionWithRulesServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(ServiceInsertionSectionRuleList, defaultSerializationSettings));
             if (Id != null) { request.AddQueryParameter("id", Id.ToString()); }
             if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
-            request.Resource = ReviseServiceInsertionSectionWithRulesReviseWithRulesServiceURL.ToString();
+            request.Resource = ReviseServiceInsertionSectionWithRulesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + ReviseServiceInsertionSectionWithRulesReviseWithRulesServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + ReviseServiceInsertionSectionWithRulesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -298,11 +298,11 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTServiceInsertionSectionRuleListType AddServiceInsertionSectionWithRulesCreateWithRules(NSXTServiceInsertionSectionRuleListType ServiceInsertionSectionRuleList, string? Id = null, string? Operation = null)
+        public NSXTServiceInsertionSectionRuleListType AddServiceInsertionSectionWithRules(NSXTServiceInsertionSectionRuleListType ServiceInsertionSectionRuleList, string? Id = null, string? Operation = null)
         {
             if (ServiceInsertionSectionRuleList == null) { throw new System.ArgumentNullException("ServiceInsertionSectionRuleList cannot be null"); }
             NSXTServiceInsertionSectionRuleListType returnValue = default(NSXTServiceInsertionSectionRuleListType);
-            StringBuilder AddServiceInsertionSectionWithRulesCreateWithRulesServiceURL = new StringBuilder("/serviceinsertion/sections?action=create_with_rules");
+            StringBuilder AddServiceInsertionSectionWithRulesServiceURL = new StringBuilder("/serviceinsertion/sections?action=create_with_rules");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -312,11 +312,11 @@ namespace nsxtapi.ManagerModules
             request.AddJsonBody(JsonConvert.SerializeObject(ServiceInsertionSectionRuleList, defaultSerializationSettings));
             if (Id != null) { request.AddQueryParameter("id", Id.ToString()); }
             if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
-            request.Resource = AddServiceInsertionSectionWithRulesCreateWithRulesServiceURL.ToString();
+            request.Resource = AddServiceInsertionSectionWithRulesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + AddServiceInsertionSectionWithRulesCreateWithRulesServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + AddServiceInsertionSectionWithRulesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -337,29 +337,29 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTServiceInsertionRuleType ReviseServiceInsertionRuleRevise(string SectionId, string RuleId, NSXTServiceInsertionRuleType ServiceInsertionRule, string? Id = null, string? Operation = null)
+        public NSXTServiceInsertionRuleType ReviseServiceInsertionRule(string SectionId, string RuleId, NSXTServiceInsertionRuleType ServiceInsertionRule, string? Id = null, string? Operation = null)
         {
             if (SectionId == null) { throw new System.ArgumentNullException("SectionId cannot be null"); }
             if (RuleId == null) { throw new System.ArgumentNullException("RuleId cannot be null"); }
             if (ServiceInsertionRule == null) { throw new System.ArgumentNullException("ServiceInsertionRule cannot be null"); }
             NSXTServiceInsertionRuleType returnValue = default(NSXTServiceInsertionRuleType);
-            StringBuilder ReviseServiceInsertionRuleReviseServiceURL = new StringBuilder("/serviceinsertion/sections/{section-id}/rules/{rule-id}?action=revise");
+            StringBuilder ReviseServiceInsertionRuleServiceURL = new StringBuilder("/serviceinsertion/sections/{section-id}/rules/{rule-id}?action=revise");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            ReviseServiceInsertionRuleReviseServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReviseServiceInsertionRuleReviseServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
+            ReviseServiceInsertionRuleServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
+            ReviseServiceInsertionRuleServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(ServiceInsertionRule, defaultSerializationSettings));
             if (Id != null) { request.AddQueryParameter("id", Id.ToString()); }
             if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
-            request.Resource = ReviseServiceInsertionRuleReviseServiceURL.ToString();
+            request.Resource = ReviseServiceInsertionRuleServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + ReviseServiceInsertionRuleReviseServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + ReviseServiceInsertionRuleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -487,27 +487,27 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTServiceInsertionSectionType ReviseServiceInsertionSectionRevise(string SectionId, NSXTServiceInsertionSectionType ServiceInsertionSection, string? Id = null, string? Operation = null)
+        public NSXTServiceInsertionSectionType ReviseServiceInsertionSection(string SectionId, NSXTServiceInsertionSectionType ServiceInsertionSection, string? Id = null, string? Operation = null)
         {
             if (SectionId == null) { throw new System.ArgumentNullException("SectionId cannot be null"); }
             if (ServiceInsertionSection == null) { throw new System.ArgumentNullException("ServiceInsertionSection cannot be null"); }
             NSXTServiceInsertionSectionType returnValue = default(NSXTServiceInsertionSectionType);
-            StringBuilder ReviseServiceInsertionSectionReviseServiceURL = new StringBuilder("/serviceinsertion/sections/{section-id}?action=revise");
+            StringBuilder ReviseServiceInsertionSectionServiceURL = new StringBuilder("/serviceinsertion/sections/{section-id}?action=revise");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            ReviseServiceInsertionSectionReviseServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
+            ReviseServiceInsertionSectionServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(ServiceInsertionSection, defaultSerializationSettings));
             if (Id != null) { request.AddQueryParameter("id", Id.ToString()); }
             if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
-            request.Resource = ReviseServiceInsertionSectionReviseServiceURL.ToString();
+            request.Resource = ReviseServiceInsertionSectionServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + ReviseServiceInsertionSectionReviseServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + ReviseServiceInsertionSectionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -528,25 +528,25 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTServiceInsertionSectionRuleListType UpdateServiceInsertionSectionWithRulesUpdateWithRules(string SectionId, NSXTServiceInsertionSectionRuleListType ServiceInsertionSectionRuleList)
+        public NSXTServiceInsertionSectionRuleListType UpdateServiceInsertionSectionWithRules(string SectionId, NSXTServiceInsertionSectionRuleListType ServiceInsertionSectionRuleList)
         {
             if (SectionId == null) { throw new System.ArgumentNullException("SectionId cannot be null"); }
             if (ServiceInsertionSectionRuleList == null) { throw new System.ArgumentNullException("ServiceInsertionSectionRuleList cannot be null"); }
             NSXTServiceInsertionSectionRuleListType returnValue = default(NSXTServiceInsertionSectionRuleListType);
-            StringBuilder UpdateServiceInsertionSectionWithRulesUpdateWithRulesServiceURL = new StringBuilder("/serviceinsertion/sections/{section-id}?action=update_with_rules");
+            StringBuilder UpdateServiceInsertionSectionWithRulesServiceURL = new StringBuilder("/serviceinsertion/sections/{section-id}?action=update_with_rules");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            UpdateServiceInsertionSectionWithRulesUpdateWithRulesServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
+            UpdateServiceInsertionSectionWithRulesServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(ServiceInsertionSectionRuleList, defaultSerializationSettings));
-            request.Resource = UpdateServiceInsertionSectionWithRulesUpdateWithRulesServiceURL.ToString();
+            request.Resource = UpdateServiceInsertionSectionWithRulesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + UpdateServiceInsertionSectionWithRulesUpdateWithRulesServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + UpdateServiceInsertionSectionWithRulesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -654,27 +654,27 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTServiceInsertionRuleListType AddServiceInsertionRulesInSectionCreateMultiple(string SectionId, NSXTServiceInsertionRuleListType ServiceInsertionRuleList, string? Id = null, string? Operation = null)
+        public NSXTServiceInsertionRuleListType AddServiceInsertionRulesInSection(string SectionId, NSXTServiceInsertionRuleListType ServiceInsertionRuleList, string? Id = null, string? Operation = null)
         {
             if (SectionId == null) { throw new System.ArgumentNullException("SectionId cannot be null"); }
             if (ServiceInsertionRuleList == null) { throw new System.ArgumentNullException("ServiceInsertionRuleList cannot be null"); }
             NSXTServiceInsertionRuleListType returnValue = default(NSXTServiceInsertionRuleListType);
-            StringBuilder AddServiceInsertionRulesInSectionCreateMultipleServiceURL = new StringBuilder("/serviceinsertion/sections/{section-id}/rules?action=create_multiple");
+            StringBuilder AddServiceInsertionRulesInSectionServiceURL = new StringBuilder("/serviceinsertion/sections/{section-id}/rules?action=create_multiple");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            AddServiceInsertionRulesInSectionCreateMultipleServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
+            AddServiceInsertionRulesInSectionServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(ServiceInsertionRuleList, defaultSerializationSettings));
             if (Id != null) { request.AddQueryParameter("id", Id.ToString()); }
             if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
-            request.Resource = AddServiceInsertionRulesInSectionCreateMultipleServiceURL.ToString();
+            request.Resource = AddServiceInsertionRulesInSectionServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + AddServiceInsertionRulesInSectionCreateMultipleServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + AddServiceInsertionRulesInSectionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else

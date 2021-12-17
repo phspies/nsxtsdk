@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Deployment progress state of transport node. Object has current deployment step title and progress in percentage.")]
     public class NSXTTransportNodeDeploymentProgressStateType 
     {
+        public NSXTTransportNodeDeploymentProgressStateType()
+        {
+        }
         /// <summary>
         /// Percentage of deployment completed
         /// </summary>

@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildL2BridgeEndpointProfileType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildL2BridgeEndpointProfileType()
+        {
+        }
         /// <summary>
-        /// Contains the actual L2BridgeEndpointProfile object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "L2BridgeEndpointProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual L2BridgeEndpointProfile object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTL2BridgeEndpointProfileType L2BridgeEndpointProfile { get; set; }
     }

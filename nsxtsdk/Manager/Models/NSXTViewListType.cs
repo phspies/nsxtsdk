@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Represents a list of views.")]
     public class NSXTViewListType 
     {
+        public NSXTViewListType()
+        {
+        }
         /// <summary>
         /// Array of views
         /// </summary>

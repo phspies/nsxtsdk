@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTAggregateL2VpnSessionRemoteMacType : NSXTAggregatePolicyRuntimeInfoType
     {
+        public NSXTAggregateL2VpnSessionRemoteMacType()
+        {
+        }
         /// <summary>
         /// List of L2Vpn Session remote mac
         /// </summary>

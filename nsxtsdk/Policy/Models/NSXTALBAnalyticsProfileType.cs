@@ -17,15 +17,77 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBAnalyticsProfileType : NSXTPolicyConfigResourceType
     {
+        public NSXTALBAnalyticsProfileType()
+        {
+            HsEventThrottleWindow = test
+            OndemandMetricsIdleTimeout = test
+            ApdexServerRttToleratedFactor = test
+            HsSecurityNonpfsPenalty = test
+            HsSecurityCertscoreGt30d = test
+            HsMinDosRate = test
+            ConnServerLossyZeroWinSizeEventThreshold = test
+            HsMaxResourcesPenalty = test
+            ConnLossyTotalRexmtThreshold = test
+            HealthscoreMaxServerLimit = test
+            HsPscoreTrafficThresholdL4Client = test
+            HsSecuritySsl30Score = test
+            ApdexServerResponseThreshold = test
+            ExcludeIssuerRevokedOcspResponsesAsError = test
+            HsPerformanceBoost = test
+            ApdexRumToleratedFactor = test
+            EnableVsAnalytics = test
+            HsMaxAnomalyPenalty = test
+            EnableServerAnalytics = test
+            ApdexServerResponseToleratedFactor = test
+            HsPscoreTrafficThresholdL4Server = test
+            HsSecurityHstsPenalty = test
+            SipLogDepth = test
+            ConnServerLossyTimeoRexmtThreshold = test
+            HsSecuritySelfsignedcertPenalty = test
+            ConnServerLossyTotalRexmtThreshold = test
+            ConnLossyTimeoRexmtThreshold = test
+            ApdexRttToleratedFactor = test
+            HsSecurityTls12Score = test
+            EnableAdaptiveConfig = test
+            ExcludeUnavailableOcspResponsesAsError = test
+            HsSecurityCipherscoreEq000b = test
+            HsSecurityOcspRevokedScore = test
+            HsSecurityWeakSignatureAlgoPenalty = test
+            HsSecurityCipherscoreGe128b = test
+            ConnServerLossyOooThreshold = test
+            ApdexServerRttThreshold = test
+            EnableOndemandMetrics = test
+            HsSecurityCertscoreLe07d = test
+            EnableSeAnalytics = test
+            HsSecurityEncalgoScoreNone = test
+            ConnLossyZeroWinSizeEventThreshold = test
+            HsSecurityTls11Score = test
+            HsSecurityEncalgoScoreRc4 = test
+            ExcludeRevokedOcspResponsesAsError = test
+            HsSecurityChainInvalidityPenalty = test
+            ApdexRttThreshold = test
+            ApdexResponseToleratedFactor = test
+            HsMaxSecurityPenalty = test
+            HsSecurityCertscoreLe30d = test
+            ConnLossyOooThreshold = test
+            HsSecurityCipherscoreLt128b = test
+            HsSecurityTls10Score = test
+            HsSecurityCertscoreExpired = test
+            ApdexResponseThreshold = test
+            ExcludeStaleOcspResponsesAsError = test
+            ApdexRumThreshold = test
+        }
         /// <summary>
         /// Time window (in secs) within which only unique health
         /// change events should occur.
+        /// Allowed in Basic(Allowed values- 1209600) edition,
+        /// Essentials(Allowed values- 1209600) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 1209600.
         /// </summary>
         [JsonProperty(PropertyName = "hs_event_throttle_window")]
-        [NSXTProperty(IsRequired: false, Description: @"Time window (in secs) within which only unique healthchange events should occur.Default value when not specified in API or module isinterpreted by ALB Controller as 1209600.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Time window (in secs) within which only unique healthchange events should occur.Allowed in Basic(Allowed values- 1209600) edition,Essentials(Allowed values- 1209600) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as 1209600.")]
         public long? HsEventThrottleWindow { get; set; }
         /// <summary>
         /// This flag sets the time duration of no live data traffic
@@ -38,67 +100,77 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "ondemand_metrics_idle_timeout")]
         [NSXTProperty(IsRequired: false, Description: @"This flag sets the time duration of no live data trafficafter which Virtual Service metrics processing is suspended.It is applicable only when enable_ondemand_metrics is setto false.Unit is SECONDS.Default value when not specified in API or module isinterpreted by ALB Controller as 1800.")]
-        [NSXTDefaultProperty(Default: "")]
         public long? OndemandMetricsIdleTimeout { get; set; }
         /// <summary>
         /// Tolerated client to Avi Round Trip Time(RTT) factor.
         /// It is a multiple of apdex_rtt_tolerated_factor.
         /// Allowed values are 1-1000.
+        /// Allowed in Basic(Allowed values- 4) edition,
+        /// Essentials(Allowed values- 4) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 4.0.
         /// </summary>
         [JsonProperty(PropertyName = "apdex_server_rtt_tolerated_factor")]
-        [NSXTProperty(IsRequired: false, Description: @"Tolerated client to Avi Round Trip Time(RTT) factor.It is a multiple of apdex_rtt_tolerated_factor.Allowed values are 1-1000.Default value when not specified in API or module isinterpreted by ALB Controller as 4.0.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Tolerated client to Avi Round Trip Time(RTT) factor.It is a multiple of apdex_rtt_tolerated_factor.Allowed values are 1-1000.Allowed in Basic(Allowed values- 4) edition,Essentials(Allowed values- 4) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 4.0.")]
         public double? ApdexServerRttToleratedFactor { get; set; }
         /// <summary>
         /// Penalty for allowing non-PFS handshakes.
         /// Allowed values are 0-5.
+        /// Allowed in Basic(Allowed values- 1.0) edition,
+        /// Essentials(Allowed values- 1.0) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 1.0.
         /// </summary>
         [JsonProperty(PropertyName = "hs_security_nonpfs_penalty")]
-        [NSXTProperty(IsRequired: false, Description: @"Penalty for allowing non-PFS handshakes.Allowed values are 0-5.Default value when not specified in API or module isinterpreted by ALB Controller as 1.0.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Penalty for allowing non-PFS handshakes.Allowed values are 0-5.Allowed in Basic(Allowed values- 1.0) edition,Essentials(Allowed values- 1.0) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 1.0.")]
         public double? HsSecurityNonpfsPenalty { get; set; }
         /// <summary>
         /// Score assigned when the certificate expires in more than 30
         /// days.
         /// Allowed values are 0-5.
+        /// Allowed in Basic(Allowed values- 5.0) edition,
+        /// Essentials(Allowed values- 5.0) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 5.0.
         /// </summary>
         [JsonProperty(PropertyName = "hs_security_certscore_gt30d")]
-        [NSXTProperty(IsRequired: false, Description: @"Score assigned when the certificate expires in more than 30days.Allowed values are 0-5.Default value when not specified in API or module isinterpreted by ALB Controller as 5.0.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Score assigned when the certificate expires in more than 30days.Allowed values are 0-5.Allowed in Basic(Allowed values- 5.0) edition,Essentials(Allowed values- 5.0) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 5.0.")]
         public double? HsSecurityCertscoreGt30d { get; set; }
         /// <summary>
         /// Exclude server TCP reset from errors.
         /// It is common for applications like MS Exchange.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "exclude_server_tcp_reset_as_error")]
-        [NSXTProperty(IsRequired: false, Description: @"Exclude server TCP reset from errors.It is common for applications like MS Exchange.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"Exclude server TCP reset from errors.It is common for applications like MS Exchange.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? ExcludeServerTcpResetAsError { get; set; }
         /// <summary>
         /// DoS connection rate below which the DoS security assessment
         /// will not kick in.
+        /// Allowed in Basic(Allowed values- 1000) edition,
+        /// Essentials(Allowed values- 1000) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 1000.
         /// </summary>
         [JsonProperty(PropertyName = "hs_min_dos_rate")]
-        [NSXTProperty(IsRequired: false, Description: @"DoS connection rate below which the DoS security assessmentwill not kick in.Default value when not specified in API or module isinterpreted by ALB Controller as 1000.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"DoS connection rate below which the DoS security assessmentwill not kick in.Allowed in Basic(Allowed values- 1000) edition,Essentials(Allowed values- 1000) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as 1000.")]
         public long? HsMinDosRate { get; set; }
         /// <summary>
         /// Exclude queries to domains that did not have configured
         /// services/records from the list of errors.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "exclude_no_dns_record_as_error")]
-        [NSXTProperty(IsRequired: false, Description: @"Exclude queries to domains that did not have configuredservices/records from the list of errors.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"Exclude queries to domains that did not have configuredservices/records from the list of errors.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? ExcludeNoDnsRecordAsError { get; set; }
         /// <summary>
         /// A server connection is considered lossy when percentage of
@@ -106,85 +178,96 @@ namespace nsxtsdk.PolicyModels
         /// window is above this threshold.
         /// Allowed values are 0-100.
         /// Unit is PERCENT.
+        /// Allowed in Basic(Allowed values- 2) edition,
+        /// Essentials(Allowed values- 2) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 2.
         /// </summary>
         [JsonProperty(PropertyName = "conn_server_lossy_zero_win_size_event_threshold")]
-        [NSXTProperty(IsRequired: false, Description: @"A server connection is considered lossy when percentage oftimes a packet could not be trasmitted due to TCP zerowindow is above this threshold.Allowed values are 0-100.Unit is PERCENT.Default value when not specified in API or module isinterpreted by ALB Controller as 2.")]
+        [NSXTProperty(IsRequired: false, Description: @"A server connection is considered lossy when percentage oftimes a packet could not be trasmitted due to TCP zerowindow is above this threshold.Allowed values are 0-100.Unit is PERCENT.Allowed in Basic(Allowed values- 2) edition,Essentials(Allowed values- 2) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 2.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(100)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ConnServerLossyZeroWinSizeEventThreshold { get; set; }
         /// <summary>
         /// Maximum penalty that may be deducted from health score for
         /// high resource utilization.
         /// Allowed values are 0-100.
+        /// Allowed in Basic(Allowed values- 25) edition,
+        /// Essentials(Allowed values- 25) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 25.
         /// </summary>
         [JsonProperty(PropertyName = "hs_max_resources_penalty")]
-        [NSXTProperty(IsRequired: false, Description: @"Maximum penalty that may be deducted from health score forhigh resource utilization.Allowed values are 0-100.Default value when not specified in API or module isinterpreted by ALB Controller as 25.")]
+        [NSXTProperty(IsRequired: false, Description: @"Maximum penalty that may be deducted from health score forhigh resource utilization.Allowed values are 0-100.Allowed in Basic(Allowed values- 25) edition,Essentials(Allowed values- 25) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 25.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(100)]
-        [NSXTDefaultProperty(Default: "")]
         public long? HsMaxResourcesPenalty { get; set; }
         /// <summary>
         /// A connection between client and Avi is considered lossy
         /// when more than this percentage of packets are retransmitted.
         /// Allowed values are 1-100.
         /// Unit is PERCENT.
+        /// Allowed in Basic(Allowed values- 50) edition,
+        /// Essentials(Allowed values- 50) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 50.
         /// </summary>
         [JsonProperty(PropertyName = "conn_lossy_total_rexmt_threshold")]
-        [NSXTProperty(IsRequired: false, Description: @"A connection between client and Avi is considered lossywhen more than this percentage of packets are retransmitted.Allowed values are 1-100.Unit is PERCENT.Default value when not specified in API or module isinterpreted by ALB Controller as 50.")]
+        [NSXTProperty(IsRequired: false, Description: @"A connection between client and Avi is considered lossywhen more than this percentage of packets are retransmitted.Allowed values are 1-100.Unit is PERCENT.Allowed in Basic(Allowed values- 50) edition,Essentials(Allowed values- 50) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 50.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(100)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ConnLossyTotalRexmtThreshold { get; set; }
         /// <summary>
         /// Skips health score computation of pool servers when number
         /// of servers in a pool is more than this setting.
         /// Allowed values are 0-5000.
         /// Special values are 0- 'server health score is deactivated'.
+        /// Allowed in Basic(Allowed values- 0) edition,
+        /// Essentials(Allowed values- 0) edition, Enterprise edition.
+        /// Special default for Basic edition is 0, Essentials edition
+        /// is 0, Enterprise is 20.
         /// Default value when not specified in API or module is
-        /// interpreted by ALB Controller as 20.
+        /// interpreted by ALB Controller as 0.
         /// </summary>
         [JsonProperty(PropertyName = "healthscore_max_server_limit")]
-        [NSXTProperty(IsRequired: false, Description: @"Skips health score computation of pool servers when numberof servers in a pool is more than this setting.Allowed values are 0-5000.Special values are 0- &apos;server health score is deactivated&apos;.Default value when not specified in API or module isinterpreted by ALB Controller as 20.")]
+        [NSXTProperty(IsRequired: false, Description: @"Skips health score computation of pool servers when numberof servers in a pool is more than this setting.Allowed values are 0-5000.Special values are 0- &apos;server health score is deactivated&apos;.Allowed in Basic(Allowed values- 0) edition,Essentials(Allowed values- 0) edition, Enterprise edition.Special default for Basic edition is 0, Essentials editionis 0, Enterprise is 20.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(5000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? HealthscoreMaxServerLimit { get; set; }
         /// <summary>
         /// Threshold number of connections in 5min, below which
         /// apdexr, apdexc, rum_apdex, and other network quality metrics
         /// are not computed.
+        /// Allowed in Basic(Allowed values- 10) edition,
+        /// Essentials(Allowed values- 10) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 10.0.
         /// </summary>
         [JsonProperty(PropertyName = "hs_pscore_traffic_threshold_l4_client")]
-        [NSXTProperty(IsRequired: false, Description: @"Threshold number of connections in 5min, below whichapdexr, apdexc, rum_apdex, and other network quality metricsare not computed.Default value when not specified in API or module isinterpreted by ALB Controller as 10.0.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Threshold number of connections in 5min, below whichapdexr, apdexc, rum_apdex, and other network quality metricsare not computed.Allowed in Basic(Allowed values- 10) edition,Essentials(Allowed values- 10) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 10.0.")]
         public double? HsPscoreTrafficThresholdL4Client { get; set; }
         /// <summary>
         /// Score assigned when supporting SSL3.0 encryption protocol.
         /// Allowed values are 0-5.
+        /// Allowed in Basic(Allowed values- 3.5) edition,
+        /// Essentials(Allowed values- 3.5) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 3.5.
         /// </summary>
         [JsonProperty(PropertyName = "hs_security_ssl30_score")]
-        [NSXTProperty(IsRequired: false, Description: @"Score assigned when supporting SSL3.0 encryption protocol.Allowed values are 0-5.Default value when not specified in API or module isinterpreted by ALB Controller as 3.5.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Score assigned when supporting SSL3.0 encryption protocol.Allowed values are 0-5.Allowed in Basic(Allowed values- 3.5) edition,Essentials(Allowed values- 3.5) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 3.5.")]
         public double? HsSecuritySsl30Score { get; set; }
         /// <summary>
         /// Exclude queries to GSLB services that have no available
         /// members from the list of errors.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "exclude_no_valid_gs_member_as_error")]
-        [NSXTProperty(IsRequired: false, Description: @"Exclude queries to GSLB services that have no availablemembers from the list of errors.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"Exclude queries to GSLB services that have no availablemembers from the list of errors.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? ExcludeNoValidGsMemberAsError { get; set; }
         /// <summary>
         /// Enables Advanced Analytics features like Anomaly detection.
@@ -193,19 +276,25 @@ namespace nsxtsdk.PolicyModels
         /// deactivated.
         /// However, setting it to false reduces cpu and memory
         /// requirements for Analytics subsystem.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
+        /// Special default for Basic edition is false, Essentials
+        /// edition is false, Enterprise is True.
         /// Default value when not specified in API or module is
-        /// interpreted by ALB Controller as true.
+        /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "enable_advanced_analytics")]
-        [NSXTProperty(IsRequired: false, Description: @"Enables Advanced Analytics features like Anomaly detection.If set to false, anomaly computation (and associatedrules/events) for VS, Pool and Server metrics will bedeactivated.However, setting it to false reduces cpu and memoryrequirements for Analytics subsystem.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Enables Advanced Analytics features like Anomaly detection.If set to false, anomaly computation (and associatedrules/events) for VS, Pool and Server metrics will bedeactivated.However, setting it to false reduces cpu and memoryrequirements for Analytics subsystem.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Special default for Basic edition is false, Essentialsedition is false, Enterprise is True.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? EnableAdvancedAnalytics { get; set; }
         /// <summary>
         /// List of SIP status codes to be excluded from being
         /// classified as an error.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
         /// </summary>
         [JsonProperty(PropertyName = "exclude_sip_error_codes")]
-        [NSXTProperty(IsRequired: false, Description: @"List of SIP status codes to be excluded from beingclassified as an error.")]
+        [NSXTProperty(IsRequired: false, Description: @"List of SIP status codes to be excluded from beingclassified as an error.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
         public long? ExcludeSipErrorCodes { get; set; }
         /// <summary>
         /// A server HTTP response is considered Satisfied if latency
@@ -217,49 +306,54 @@ namespace nsxtsdk.PolicyModels
         /// considered Frustrated.
         /// Allowed values are 1-30000.
         /// Unit is MILLISECONDS.
+        /// Allowed in Basic(Allowed values- 400) edition,
+        /// Essentials(Allowed values- 400) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 400.
         /// </summary>
         [JsonProperty(PropertyName = "apdex_server_response_threshold")]
-        [NSXTProperty(IsRequired: false, Description: @"A server HTTP response is considered Satisfied if latencyis less than the Satisfactory Latency Threshold.The response is considered tolerated when it is greaterthan Satisfied but less than the Tolerated Latency Factor (STAR)S_Latency.Greater than this number and the server response isconsidered Frustrated.Allowed values are 1-30000.Unit is MILLISECONDS.Default value when not specified in API or module isinterpreted by ALB Controller as 400.")]
+        [NSXTProperty(IsRequired: false, Description: @"A server HTTP response is considered Satisfied if latencyis less than the Satisfactory Latency Threshold.The response is considered tolerated when it is greaterthan Satisfied but less than the Tolerated Latency Factor (STAR)S_Latency.Greater than this number and the server response isconsidered Frustrated.Allowed values are 1-30000.Unit is MILLISECONDS.Allowed in Basic(Allowed values- 400) edition,Essentials(Allowed values- 400) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 400.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(30000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ApdexServerResponseThreshold { get; set; }
         /// <summary>
         /// Exclude the Issuer-Revoked OCSP Responses from the list of
         /// errors.
+        /// Allowed in Basic(Allowed values- true) edition,
+        /// Essentials(Allowed values- true) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as true.
         /// </summary>
         [JsonProperty(PropertyName = "exclude_issuer_revoked_ocsp_responses_as_error")]
-        [NSXTProperty(IsRequired: false, Description: @"Exclude the Issuer-Revoked OCSP Responses from the list oferrors.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Exclude the Issuer-Revoked OCSP Responses from the list oferrors.Allowed in Basic(Allowed values- true) edition,Essentials(Allowed values- true) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
         public bool? ExcludeIssuerRevokedOcspResponsesAsError { get; set; }
         /// <summary>
         /// Adds free performance score credits to health score.
         /// It can be used for compensating health score for known slow
         /// applications.
         /// Allowed values are 0-100.
+        /// Allowed in Basic(Allowed values- 0) edition,
+        /// Essentials(Allowed values- 0) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 0.
         /// </summary>
         [JsonProperty(PropertyName = "hs_performance_boost")]
-        [NSXTProperty(IsRequired: false, Description: @"Adds free performance score credits to health score.It can be used for compensating health score for known slowapplications.Allowed values are 0-100.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
+        [NSXTProperty(IsRequired: false, Description: @"Adds free performance score credits to health score.It can be used for compensating health score for known slowapplications.Allowed values are 0-100.Allowed in Basic(Allowed values- 0) edition,Essentials(Allowed values- 0) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(100)]
-        [NSXTDefaultProperty(Default: "")]
         public long? HsPerformanceBoost { get; set; }
         /// <summary>
         /// Virtual service threshold factor for tolerated Page Load
         /// Time (PLT) as multiple of apdex_rum_threshold.
         /// Allowed values are 1-1000.
+        /// Allowed in Basic(Allowed values- 4) edition,
+        /// Essentials(Allowed values- 4) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 4.0.
         /// </summary>
         [JsonProperty(PropertyName = "apdex_rum_tolerated_factor")]
-        [NSXTProperty(IsRequired: false, Description: @"Virtual service threshold factor for tolerated Page LoadTime (PLT) as multiple of apdex_rum_threshold.Allowed values are 1-1000.Default value when not specified in API or module isinterpreted by ALB Controller as 4.0.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Virtual service threshold factor for tolerated Page LoadTime (PLT) as multiple of apdex_rum_threshold.Allowed values are 1-1000.Allowed in Basic(Allowed values- 4) edition,Essentials(Allowed values- 4) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 4.0.")]
         public double? ApdexRumToleratedFactor { get; set; }
         /// <summary>
         /// Enable VirtualService (frontend) Analytics.
@@ -270,17 +364,19 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "enable_vs_analytics")]
         [NSXTProperty(IsRequired: false, Description: @"Enable VirtualService (frontend) Analytics.This flag enables metrics and healthscore forVirtualservice.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? EnableVsAnalytics { get; set; }
         /// <summary>
         /// Exclude dns queries to domains outside the domains
         /// configured in the DNS application profile from the list of
         /// errors.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "exclude_invalid_dns_domain_as_error")]
-        [NSXTProperty(IsRequired: false, Description: @"Exclude dns queries to domains outside the domainsconfigured in the DNS application profile from the list oferrors.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"Exclude dns queries to domains outside the domainsconfigured in the DNS application profile from the list oferrors.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? ExcludeInvalidDnsDomainAsError { get; set; }
         /// <summary>
         /// List of HTTP status codes to be excluded from being
@@ -296,14 +392,15 @@ namespace nsxtsdk.PolicyModels
         /// Maximum penalty that may be deducted from health score for
         /// anomalies.
         /// Allowed values are 0-100.
+        /// Allowed in Basic(Allowed values- 10) edition,
+        /// Essentials(Allowed values- 10) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 10.
         /// </summary>
         [JsonProperty(PropertyName = "hs_max_anomaly_penalty")]
-        [NSXTProperty(IsRequired: false, Description: @"Maximum penalty that may be deducted from health score foranomalies.Allowed values are 0-100.Default value when not specified in API or module isinterpreted by ALB Controller as 10.")]
+        [NSXTProperty(IsRequired: false, Description: @"Maximum penalty that may be deducted from health score foranomalies.Allowed values are 0-100.Allowed in Basic(Allowed values- 10) edition,Essentials(Allowed values- 10) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 10.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(100)]
-        [NSXTDefaultProperty(Default: "")]
         public long? HsMaxAnomalyPenalty { get; set; }
         /// <summary>
         /// Enables analytics on backend servers.
@@ -316,24 +413,25 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "enable_server_analytics")]
         [NSXTProperty(IsRequired: false, Description: @"Enables analytics on backend servers.This may be desired in container environment when there arelarge number of ephemeral servers.Additionally, no healthscore of servers is computed whenserver analytics is enabled.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? EnableServerAnalytics { get; set; }
         /// <summary>
-        /// Exclude queries to GSLB services that are operationally
-        /// down from the list of errors.
-        /// Default value when not specified in API or module is
-        /// interpreted by ALB Controller as false.
+        /// List of labels to be used for granular RBAC.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
         /// </summary>
-        [JsonProperty(PropertyName = "exclude_gs_down_as_error")]
-        [NSXTProperty(IsRequired: false, Description: @"Exclude queries to GSLB services that are operationallydown from the list of errors.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
-        public bool? ExcludeGsDownAsError { get; set; }
+        [JsonProperty(PropertyName = "markers")]
+        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
+        public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
         /// <summary>
         /// Exclude dns policy drops from the list of errors.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "exclude_dns_policy_drop_as_significant")]
-        [NSXTProperty(IsRequired: false, Description: @"Exclude dns policy drops from the list of errors.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"Exclude dns policy drops from the list of errors.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? ExcludeDnsPolicyDropAsSignificant { get; set; }
         /// <summary>
         /// Server tolerated response latency factor.
@@ -341,64 +439,74 @@ namespace nsxtsdk.PolicyModels
         /// satisfactory threshold (apdex_server_response_threshold) to
         /// be considered tolerated.
         /// Allowed values are 1-1000.
+        /// Allowed in Basic(Allowed values- 4) edition,
+        /// Essentials(Allowed values- 4) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 4.0.
         /// </summary>
         [JsonProperty(PropertyName = "apdex_server_response_tolerated_factor")]
-        [NSXTProperty(IsRequired: false, Description: @"Server tolerated response latency factor.Servermust response within this factor times thesatisfactory threshold (apdex_server_response_threshold) tobe considered tolerated.Allowed values are 1-1000.Default value when not specified in API or module isinterpreted by ALB Controller as 4.0.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Server tolerated response latency factor.Servermust response within this factor times thesatisfactory threshold (apdex_server_response_threshold) tobe considered tolerated.Allowed values are 1-1000.Allowed in Basic(Allowed values- 4) edition,Essentials(Allowed values- 4) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 4.0.")]
         public double? ApdexServerResponseToleratedFactor { get; set; }
         /// <summary>
         /// Threshold number of connections in 5min, below which
         /// apdexr, apdexc, rum_apdex, and other network quality metrics
         /// are not computed.
+        /// Allowed in Basic(Allowed values- 10) edition,
+        /// Essentials(Allowed values- 10) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 10.0.
         /// </summary>
         [JsonProperty(PropertyName = "hs_pscore_traffic_threshold_l4_server")]
-        [NSXTProperty(IsRequired: false, Description: @"Threshold number of connections in 5min, below whichapdexr, apdexc, rum_apdex, and other network quality metricsare not computed.Default value when not specified in API or module isinterpreted by ALB Controller as 10.0.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Threshold number of connections in 5min, below whichapdexr, apdexc, rum_apdex, and other network quality metricsare not computed.Allowed in Basic(Allowed values- 10) edition,Essentials(Allowed values- 10) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 10.0.")]
         public double? HsPscoreTrafficThresholdL4Server { get; set; }
         /// <summary>
         /// Penalty for not enabling HSTS.
         /// Allowed values are 0-5.
+        /// Allowed in Basic(Allowed values- 1.0) edition,
+        /// Essentials(Allowed values- 1.0) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 1.0.
         /// </summary>
         [JsonProperty(PropertyName = "hs_security_hsts_penalty")]
-        [NSXTProperty(IsRequired: false, Description: @"Penalty for not enabling HSTS.Allowed values are 0-5.Default value when not specified in API or module isinterpreted by ALB Controller as 1.0.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Penalty for not enabling HSTS.Allowed values are 0-5.Allowed in Basic(Allowed values- 1.0) edition,Essentials(Allowed values- 1.0) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 1.0.")]
         public double? HsSecurityHstsPenalty { get; set; }
         /// <summary>
         /// Maximum number of SIP messages added in logs for a SIP
         /// transaction.
         /// By default, this value is 20.
         /// Allowed values are 1-1000.
+        /// Allowed in Basic(Allowed values- 20) edition,
+        /// Essentials(Allowed values- 20) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 20.
         /// </summary>
         [JsonProperty(PropertyName = "sip_log_depth")]
-        [NSXTProperty(IsRequired: false, Description: @"Maximum number of SIP messages added in logs for a SIPtransaction.By default, this value is 20.Allowed values are 1-1000.Default value when not specified in API or module isinterpreted by ALB Controller as 20.")]
+        [NSXTProperty(IsRequired: false, Description: @"Maximum number of SIP messages added in logs for a SIPtransaction.By default, this value is 20.Allowed values are 1-1000.Allowed in Basic(Allowed values- 20) edition,Essentials(Allowed values- 20) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 20.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(1000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? SipLogDepth { get; set; }
         /// <summary>
         /// Exclude client closed connection before an HTTP request
         /// could be completed from being classified as an error.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "exclude_client_close_before_request_as_error")]
-        [NSXTProperty(IsRequired: false, Description: @"Exclude client closed connection before an HTTP requestcould be completed from being classified as an error.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"Exclude client closed connection before an HTTP requestcould be completed from being classified as an error.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? ExcludeClientCloseBeforeRequestAsError { get; set; }
         /// <summary>
         /// Exclude unsupported dns queries from the list of errors.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "exclude_unsupported_dns_query_as_error")]
-        [NSXTProperty(IsRequired: false, Description: @"Exclude unsupported dns queries from the list of errors.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"Exclude unsupported dns queries from the list of errors.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? ExcludeUnsupportedDnsQueryAsError { get; set; }
         /// <summary>
         /// A connection between Avi and server is considered lossy
@@ -406,38 +514,41 @@ namespace nsxtsdk.PolicyModels
         /// due to timeout.
         /// Allowed values are 1-100.
         /// Unit is PERCENT.
+        /// Allowed in Basic(Allowed values- 20) edition,
+        /// Essentials(Allowed values- 20) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 20.
         /// </summary>
         [JsonProperty(PropertyName = "conn_server_lossy_timeo_rexmt_threshold")]
-        [NSXTProperty(IsRequired: false, Description: @"A connection between Avi and server is considered lossywhen more than this percentage of packets are retransmitteddue to timeout.Allowed values are 1-100.Unit is PERCENT.Default value when not specified in API or module isinterpreted by ALB Controller as 20.")]
+        [NSXTProperty(IsRequired: false, Description: @"A connection between Avi and server is considered lossywhen more than this percentage of packets are retransmitteddue to timeout.Allowed values are 1-100.Unit is PERCENT.Allowed in Basic(Allowed values- 20) edition,Essentials(Allowed values- 20) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 20.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(100)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ConnServerLossyTimeoRexmtThreshold { get; set; }
         /// <summary>
         /// Deprecated.
         /// Allowed values are 0-5.
+        /// Allowed in Basic(Allowed values- 1.0) edition,
+        /// Essentials(Allowed values- 1.0) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 1.0.
         /// </summary>
         [JsonProperty(PropertyName = "hs_security_selfsignedcert_penalty")]
-        [NSXTProperty(IsRequired: false, Description: @"Deprecated.Allowed values are 0-5.Default value when not specified in API or module isinterpreted by ALB Controller as 1.0.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Deprecated.Allowed values are 0-5.Allowed in Basic(Allowed values- 1.0) edition,Essentials(Allowed values- 1.0) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 1.0.")]
         public double? HsSecuritySelfsignedcertPenalty { get; set; }
         /// <summary>
         /// A connection between Avi and server is considered lossy
         /// when more than this percentage of packets are retransmitted.
         /// Allowed values are 1-100.
         /// Unit is PERCENT.
+        /// Allowed in Basic(Allowed values- 50) edition,
+        /// Essentials(Allowed values- 50) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 50.
         /// </summary>
         [JsonProperty(PropertyName = "conn_server_lossy_total_rexmt_threshold")]
-        [NSXTProperty(IsRequired: false, Description: @"A connection between Avi and server is considered lossywhen more than this percentage of packets are retransmitted.Allowed values are 1-100.Unit is PERCENT.Default value when not specified in API or module isinterpreted by ALB Controller as 50.")]
+        [NSXTProperty(IsRequired: false, Description: @"A connection between Avi and server is considered lossywhen more than this percentage of packets are retransmitted.Allowed values are 1-100.Unit is PERCENT.Allowed in Basic(Allowed values- 50) edition,Essentials(Allowed values- 50) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 50.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(100)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ConnServerLossyTotalRexmtThreshold { get; set; }
         /// <summary>
         /// A connection between client and Avi is considered lossy
@@ -445,35 +556,38 @@ namespace nsxtsdk.PolicyModels
         /// due to timeout.
         /// Allowed values are 1-100.
         /// Unit is PERCENT.
+        /// Allowed in Basic(Allowed values- 20) edition,
+        /// Essentials(Allowed values- 20) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 20.
         /// </summary>
         [JsonProperty(PropertyName = "conn_lossy_timeo_rexmt_threshold")]
-        [NSXTProperty(IsRequired: false, Description: @"A connection between client and Avi is considered lossywhen more than this percentage of packets are retransmitteddue to timeout.Allowed values are 1-100.Unit is PERCENT.Default value when not specified in API or module isinterpreted by ALB Controller as 20.")]
+        [NSXTProperty(IsRequired: false, Description: @"A connection between client and Avi is considered lossywhen more than this percentage of packets are retransmitteddue to timeout.Allowed values are 1-100.Unit is PERCENT.Allowed in Basic(Allowed values- 20) edition,Essentials(Allowed values- 20) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 20.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(100)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ConnLossyTimeoRexmtThreshold { get; set; }
         /// <summary>
         /// Tolerated client to Avi Round Trip Time(RTT) factor.
         /// It is a multiple of apdex_rtt_tolerated_factor.
         /// Allowed values are 1-1000.
+        /// Allowed in Basic(Allowed values- 4) edition,
+        /// Essentials(Allowed values- 4) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 4.0.
         /// </summary>
         [JsonProperty(PropertyName = "apdex_rtt_tolerated_factor")]
-        [NSXTProperty(IsRequired: false, Description: @"Tolerated client to Avi Round Trip Time(RTT) factor.It is a multiple of apdex_rtt_tolerated_factor.Allowed values are 1-1000.Default value when not specified in API or module isinterpreted by ALB Controller as 4.0.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Tolerated client to Avi Round Trip Time(RTT) factor.It is a multiple of apdex_rtt_tolerated_factor.Allowed values are 1-1000.Allowed in Basic(Allowed values- 4) edition,Essentials(Allowed values- 4) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 4.0.")]
         public double? ApdexRttToleratedFactor { get; set; }
         /// <summary>
         /// Score assigned when supporting TLS1.2 encryption protocol.
         /// Allowed values are 0-5.
+        /// Allowed in Basic(Allowed values- 5.0) edition,
+        /// Essentials(Allowed values- 5.0) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 5.0.
         /// </summary>
         [JsonProperty(PropertyName = "hs_security_tls12_score")]
-        [NSXTProperty(IsRequired: false, Description: @"Score assigned when supporting TLS1.2 encryption protocol.Allowed values are 0-5.Default value when not specified in API or module isinterpreted by ALB Controller as 5.0.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Score assigned when supporting TLS1.2 encryption protocol.Allowed values are 0-5.Allowed in Basic(Allowed values- 5.0) edition,Essentials(Allowed values- 5.0) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 5.0.")]
         public double? HsSecurityTls12Score { get; set; }
         /// <summary>
         /// Enable adaptive configuration for optimizing resource
@@ -483,90 +597,102 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "enable_adaptive_config")]
         [NSXTProperty(IsRequired: false, Description: @"Enable adaptive configuration for optimizing resourceusage.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? EnableAdaptiveConfig { get; set; }
         /// <summary>
-        /// Configure which logs are sent to the Avi Controller from
-        /// SEs and how they are processed.
+        /// Score assigned when supporting TLS1.3 encryption protocol.
+        /// Allowed values are 0-5.
+        /// Allowed in Basic(Allowed values- 5.0) edition,
+        /// Essentials(Allowed values- 5.0) edition, Enterprise edition.
         /// </summary>
-        [JsonProperty(PropertyName = "client_log_config")]
-        [NSXTProperty(IsRequired: false, Description: @"Configure which logs are sent to the Avi Controller fromSEs and how they are processed.")]
-        public NSXTALBClientLogConfigurationType ClientLogConfig { get; set; }
+        [JsonProperty(PropertyName = "hs_security_tls13_score")]
+        [NSXTProperty(IsRequired: false, Description: @"Score assigned when supporting TLS1.3 encryption protocol.Allowed values are 0-5.Allowed in Basic(Allowed values- 5.0) edition,Essentials(Allowed values- 5.0) edition, Enterprise edition.")]
+        public double? HsSecurityTls13Score { get; set; }
         /// <summary>
         /// Exclude the unavailable OCSP Responses from the list of
         /// errors.
+        /// Allowed in Basic(Allowed values- true) edition,
+        /// Essentials(Allowed values- true) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as true.
         /// </summary>
         [JsonProperty(PropertyName = "exclude_unavailable_ocsp_responses_as_error")]
-        [NSXTProperty(IsRequired: false, Description: @"Exclude the unavailable OCSP Responses from the list oferrors.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Exclude the unavailable OCSP Responses from the list oferrors.Allowed in Basic(Allowed values- true) edition,Essentials(Allowed values- true) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
         public bool? ExcludeUnavailableOcspResponsesAsError { get; set; }
         /// <summary>
-        /// Rules applied to the HTTP application log for filtering
-        /// sensitive information.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "sensitive_log_profile")]
-        [NSXTProperty(IsRequired: false, Description: @"Rules applied to the HTTP application log for filteringsensitive information.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBSensitiveLogProfileType SensitiveLogProfile { get; set; }
         /// <summary>
         /// Score assigned when the minimum cipher strength is 0 bits.
         /// Allowed values are 0-5.
+        /// Allowed in Basic(Allowed values- 0.0) edition,
+        /// Essentials(Allowed values- 0.0) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 0.0.
         /// </summary>
         [JsonProperty(PropertyName = "hs_security_cipherscore_eq000b")]
-        [NSXTProperty(IsRequired: false, Description: @"Score assigned when the minimum cipher strength is 0 bits.Allowed values are 0-5.Default value when not specified in API or module isinterpreted by ALB Controller as 0.0.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Score assigned when the minimum cipher strength is 0 bits.Allowed values are 0-5.Allowed in Basic(Allowed values- 0.0) edition,Essentials(Allowed values- 0.0) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 0.0.")]
         public double? HsSecurityCipherscoreEq000b { get; set; }
         /// <summary>
         /// Score assigned when OCSP Certificate Status is set to
         /// Revoked or Issuer Revoked.
         /// Allowed values are 0.0-5.0.
+        /// Allowed in Basic(Allowed values- 0.0) edition,
+        /// Essentials(Allowed values- 0.0) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 0.0.
         /// </summary>
         [JsonProperty(PropertyName = "hs_security_ocsp_revoked_score")]
-        [NSXTProperty(IsRequired: false, Description: @"Score assigned when OCSP Certificate Status is set toRevoked or Issuer Revoked.Allowed values are 0.0-5.0.Default value when not specified in API or module isinterpreted by ALB Controller as 0.0.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Score assigned when OCSP Certificate Status is set toRevoked or Issuer Revoked.Allowed values are 0.0-5.0.Allowed in Basic(Allowed values- 0.0) edition,Essentials(Allowed values- 0.0) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 0.0.")]
         public double? HsSecurityOcspRevokedScore { get; set; }
         /// <summary>
         /// Penalty for allowing weak signature algorithm(s).
         /// Allowed values are 0-5.
+        /// Allowed in Basic(Allowed values- 1.0) edition,
+        /// Essentials(Allowed values- 1.0) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 1.0.
         /// </summary>
         [JsonProperty(PropertyName = "hs_security_weak_signature_algo_penalty")]
-        [NSXTProperty(IsRequired: false, Description: @"Penalty for allowing weak signature algorithm(s).Allowed values are 0-5.Default value when not specified in API or module isinterpreted by ALB Controller as 1.0.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Penalty for allowing weak signature algorithm(s).Allowed values are 0-5.Allowed in Basic(Allowed values- 1.0) edition,Essentials(Allowed values- 1.0) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 1.0.")]
         public double? HsSecurityWeakSignatureAlgoPenalty { get; set; }
         /// <summary>
         /// Exclude persistence server changed while load balancing'
         /// from the list of errors.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "exclude_persistence_change_as_error")]
-        [NSXTProperty(IsRequired: false, Description: @"Exclude persistence server changed while load balancing&apos;from the list of errors.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"Exclude persistence server changed while load balancing&apos;from the list of errors.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? ExcludePersistenceChangeAsError { get; set; }
         /// <summary>
         /// Score assigned when the minimum cipher strength is greater
         /// than equal to 128 bits.
         /// Allowed values are 0-5.
+        /// Allowed in Basic(Allowed values- 5.0) edition,
+        /// Essentials(Allowed values- 5.0) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 5.0.
         /// </summary>
         [JsonProperty(PropertyName = "hs_security_cipherscore_ge128b")]
-        [NSXTProperty(IsRequired: false, Description: @"Score assigned when the minimum cipher strength is greaterthan equal to 128 bits.Allowed values are 0-5.Default value when not specified in API or module isinterpreted by ALB Controller as 5.0.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Score assigned when the minimum cipher strength is greaterthan equal to 128 bits.Allowed values are 0-5.Allowed in Basic(Allowed values- 5.0) edition,Essentials(Allowed values- 5.0) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 5.0.")]
         public double? HsSecurityCipherscoreGe128b { get; set; }
         /// <summary>
         /// Exclude 'server unanswered syns' from the list of errors.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "exclude_syn_retransmit_as_error")]
-        [NSXTProperty(IsRequired: false, Description: @"Exclude &apos;server unanswered syns&apos; from the list of errors.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"Exclude &apos;server unanswered syns&apos; from the list of errors.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? ExcludeSynRetransmitAsError { get; set; }
         /// <summary>
         /// List of HTTP status code ranges to be excluded from being
@@ -581,22 +707,30 @@ namespace nsxtsdk.PolicyModels
         /// received.
         /// Allowed values are 1-100.
         /// Unit is PERCENT.
+        /// Allowed in Basic(Allowed values- 50) edition,
+        /// Essentials(Allowed values- 50) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 50.
         /// </summary>
         [JsonProperty(PropertyName = "conn_server_lossy_ooo_threshold")]
-        [NSXTProperty(IsRequired: false, Description: @"A connection between Avi and server is considered lossywhen more than this percentage of out of order packets arereceived.Allowed values are 1-100.Unit is PERCENT.Default value when not specified in API or module isinterpreted by ALB Controller as 50.")]
+        [NSXTProperty(IsRequired: false, Description: @"A connection between Avi and server is considered lossywhen more than this percentage of out of order packets arereceived.Allowed values are 1-100.Unit is PERCENT.Allowed in Basic(Allowed values- 50) edition,Essentials(Allowed values- 50) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 50.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(100)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ConnServerLossyOooThreshold { get; set; }
         /// <summary>
-        /// Score assigned when supporting TLS1.3 encryption protocol.
-        /// Allowed values are 0-5.
+        /// Satisfactory client to Avi Round Trip Time(RTT).
+        /// Allowed values are 1-2000.
+        /// Unit is MILLISECONDS.
+        /// Allowed in Basic(Allowed values- 125) edition,
+        /// Essentials(Allowed values- 125) edition, Enterprise edition.
+        /// Default value when not specified in API or module is
+        /// interpreted by ALB Controller as 125.
         /// </summary>
-        [JsonProperty(PropertyName = "hs_security_tls13_score")]
-        [NSXTProperty(IsRequired: false, Description: @"Score assigned when supporting TLS1.3 encryption protocol.Allowed values are 0-5.")]
-        public double? HsSecurityTls13Score { get; set; }
+        [JsonProperty(PropertyName = "apdex_server_rtt_threshold")]
+        [NSXTProperty(IsRequired: false, Description: @"Satisfactory client to Avi Round Trip Time(RTT).Allowed values are 1-2000.Unit is MILLISECONDS.Allowed in Basic(Allowed values- 125) edition,Essentials(Allowed values- 125) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 125.")]
+        //[System.ComponentModel.DataAnnotations.MinLength(1)]
+        //[System.ComponentModel.DataAnnotations.MaxLength(2000)]
+        public long? ApdexServerRttThreshold { get; set; }
         /// <summary>
         /// Virtual Service (VS) metrics are processed only when there
         /// is live data traffic on the VS.
@@ -608,26 +742,29 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "enable_ondemand_metrics")]
         [NSXTProperty(IsRequired: false, Description: @"Virtual Service (VS) metrics are processed only when thereis live data traffic on the VS.In case, VS is idle for a period of time as specified byondemand_metrics_idle_timeout then metrics processing issuspended for that VS.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? EnableOndemandMetrics { get; set; }
         /// <summary>
         /// Exclude server dns error response from the list of errors.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "exclude_server_dns_error_as_error")]
-        [NSXTProperty(IsRequired: false, Description: @"Exclude server dns error response from the list of errors.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"Exclude server dns error response from the list of errors.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? ExcludeServerDnsErrorAsError { get; set; }
         /// <summary>
         /// Score assigned when the certificate expires in less than or
         /// equal to 7 days.
         /// Allowed values are 0-5.
+        /// Allowed in Basic(Allowed values- 2.0) edition,
+        /// Essentials(Allowed values- 2.0) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 2.0.
         /// </summary>
         [JsonProperty(PropertyName = "hs_security_certscore_le07d")]
-        [NSXTProperty(IsRequired: false, Description: @"Score assigned when the certificate expires in less than orequal to 7 days.Allowed values are 0-5.Default value when not specified in API or module isinterpreted by ALB Controller as 2.0.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Score assigned when the certificate expires in less than orequal to 7 days.Allowed values are 0-5.Allowed in Basic(Allowed values- 2.0) edition,Essentials(Allowed values- 2.0) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 2.0.")]
         public double? HsSecurityCertscoreLe07d { get; set; }
         /// <summary>
         /// Block of HTTP response codes to be excluded from being
@@ -644,17 +781,17 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "enable_se_analytics")]
         [NSXTProperty(IsRequired: false, Description: @"Enable node (service engine) level analytics forvs metrics.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? EnableSeAnalytics { get; set; }
         /// <summary>
         /// Score assigned when no algorithm is used for encryption.
         /// Allowed values are 0-5.
+        /// Allowed in Basic(Allowed values- 0.0) edition,
+        /// Essentials(Allowed values- 0.0) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 0.0.
         /// </summary>
         [JsonProperty(PropertyName = "hs_security_encalgo_score_none")]
-        [NSXTProperty(IsRequired: false, Description: @"Score assigned when no algorithm is used for encryption.Allowed values are 0-5.Default value when not specified in API or module isinterpreted by ALB Controller as 0.0.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Score assigned when no algorithm is used for encryption.Allowed values are 0-5.Allowed in Basic(Allowed values- 0.0) edition,Essentials(Allowed values- 0.0) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 0.0.")]
         public double? HsSecurityEncalgoScoreNone { get; set; }
         /// <summary>
         /// A client connection is considered lossy when percentage of
@@ -662,73 +799,92 @@ namespace nsxtsdk.PolicyModels
         /// window is above this threshold.
         /// Allowed values are 0-100.
         /// Unit is PERCENT.
+        /// Allowed in Basic(Allowed values- 2) edition,
+        /// Essentials(Allowed values- 2) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 2.
         /// </summary>
         [JsonProperty(PropertyName = "conn_lossy_zero_win_size_event_threshold")]
-        [NSXTProperty(IsRequired: false, Description: @"A client connection is considered lossy when percentage oftimes a packet could not be trasmitted due to TCP zerowindow is above this threshold.Allowed values are 0-100.Unit is PERCENT.Default value when not specified in API or module isinterpreted by ALB Controller as 2.")]
+        [NSXTProperty(IsRequired: false, Description: @"A client connection is considered lossy when percentage oftimes a packet could not be trasmitted due to TCP zerowindow is above this threshold.Allowed values are 0-100.Unit is PERCENT.Allowed in Basic(Allowed values- 2) edition,Essentials(Allowed values- 2) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 2.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(100)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ConnLossyZeroWinSizeEventThreshold { get; set; }
         /// <summary>
         /// Score assigned when supporting TLS1.1 encryption protocol.
         /// Allowed values are 0-5.
+        /// Allowed in Basic(Allowed values- 5.0) edition,
+        /// Essentials(Allowed values- 5.0) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 5.0.
         /// </summary>
         [JsonProperty(PropertyName = "hs_security_tls11_score")]
-        [NSXTProperty(IsRequired: false, Description: @"Score assigned when supporting TLS1.1 encryption protocol.Allowed values are 0-5.Default value when not specified in API or module isinterpreted by ALB Controller as 5.0.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Score assigned when supporting TLS1.1 encryption protocol.Allowed values are 0-5.Allowed in Basic(Allowed values- 5.0) edition,Essentials(Allowed values- 5.0) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 5.0.")]
         public double? HsSecurityTls11Score { get; set; }
         /// <summary>
         /// Score assigned when RC4 algorithm is used for encryption.
         /// Allowed values are 0-5.
+        /// Allowed in Basic(Allowed values- 2.5) edition,
+        /// Essentials(Allowed values- 2.5) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 2.5.
         /// </summary>
         [JsonProperty(PropertyName = "hs_security_encalgo_score_rc4")]
-        [NSXTProperty(IsRequired: false, Description: @"Score assigned when RC4 algorithm is used for encryption.Allowed values are 0-5.Default value when not specified in API or module isinterpreted by ALB Controller as 2.5.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Score assigned when RC4 algorithm is used for encryption.Allowed values are 0-5.Allowed in Basic(Allowed values- 2.5) edition,Essentials(Allowed values- 2.5) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 2.5.")]
         public double? HsSecurityEncalgoScoreRc4 { get; set; }
         /// <summary>
         /// Exclude the Revoked OCSP certificate status responses from
         /// the list of errors.
+        /// Allowed in Basic(Allowed values- true) edition,
+        /// Essentials(Allowed values- true) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as true.
         /// </summary>
         [JsonProperty(PropertyName = "exclude_revoked_ocsp_responses_as_error")]
-        [NSXTProperty(IsRequired: false, Description: @"Exclude the Revoked OCSP certificate status responses fromthe list of errors.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Exclude the Revoked OCSP certificate status responses fromthe list of errors.Allowed in Basic(Allowed values- true) edition,Essentials(Allowed values- true) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
         public bool? ExcludeRevokedOcspResponsesAsError { get; set; }
         /// <summary>
         /// Penalty for allowing certificates with invalid chain.
         /// Allowed values are 0-5.
+        /// Allowed in Basic(Allowed values- 1.0) edition,
+        /// Essentials(Allowed values- 1.0) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 1.0.
         /// </summary>
         [JsonProperty(PropertyName = "hs_security_chain_invalidity_penalty")]
-        [NSXTProperty(IsRequired: false, Description: @"Penalty for allowing certificates with invalid chain.Allowed values are 0-5.Default value when not specified in API or module isinterpreted by ALB Controller as 1.0.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Penalty for allowing certificates with invalid chain.Allowed values are 0-5.Allowed in Basic(Allowed values- 1.0) edition,Essentials(Allowed values- 1.0) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 1.0.")]
         public double? HsSecurityChainInvalidityPenalty { get; set; }
+        /// <summary>
+        /// Exclude TCP resets by client from the list of potential
+        /// errors.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
+        /// Default value when not specified in API or module is
+        /// interpreted by ALB Controller as false.
+        /// </summary>
+        [JsonProperty(PropertyName = "exclude_tcp_reset_as_error")]
+        [NSXTProperty(IsRequired: false, Description: @"Exclude TCP resets by client from the list of potentialerrors.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        public bool? ExcludeTcpResetAsError { get; set; }
         /// <summary>
         /// Satisfactory client to Avi Round Trip Time(RTT).
         /// Allowed values are 1-2000.
         /// Unit is MILLISECONDS.
+        /// Allowed in Basic(Allowed values- 250) edition,
+        /// Essentials(Allowed values- 250) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 250.
         /// </summary>
         [JsonProperty(PropertyName = "apdex_rtt_threshold")]
-        [NSXTProperty(IsRequired: false, Description: @"Satisfactory client to Avi Round Trip Time(RTT).Allowed values are 1-2000.Unit is MILLISECONDS.Default value when not specified in API or module isinterpreted by ALB Controller as 250.")]
+        [NSXTProperty(IsRequired: false, Description: @"Satisfactory client to Avi Round Trip Time(RTT).Allowed values are 1-2000.Unit is MILLISECONDS.Allowed in Basic(Allowed values- 250) edition,Essentials(Allowed values- 250) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 250.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(2000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ApdexRttThreshold { get; set; }
         /// <summary>
-        /// Configure to stream logs to an external server.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "client_log_streaming_config")]
-        [NSXTProperty(IsRequired: false, Description: @"Configure to stream logs to an external server.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBClientLogStreamingConfigType ClientLogStreamingConfig { get; set; }
         /// <summary>
         /// Client tolerated response latency factor.
@@ -736,53 +892,56 @@ namespace nsxtsdk.PolicyModels
         /// satisfactory threshold (apdex_response_threshold) to be
         /// considered tolerated.
         /// Allowed values are 1-1000.
+        /// Allowed in Basic(Allowed values- 4) edition,
+        /// Essentials(Allowed values- 4) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 4.0.
         /// </summary>
         [JsonProperty(PropertyName = "apdex_response_tolerated_factor")]
-        [NSXTProperty(IsRequired: false, Description: @"Client tolerated response latency factor.Client must receive a response within this factor times thesatisfactory threshold (apdex_response_threshold) to beconsidered tolerated.Allowed values are 1-1000.Default value when not specified in API or module isinterpreted by ALB Controller as 4.0.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Client tolerated response latency factor.Client must receive a response within this factor times thesatisfactory threshold (apdex_response_threshold) to beconsidered tolerated.Allowed values are 1-1000.Allowed in Basic(Allowed values- 4) edition,Essentials(Allowed values- 4) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 4.0.")]
         public double? ApdexResponseToleratedFactor { get; set; }
         /// <summary>
-        /// Exclude TCP resets by client from the list of potential
-        /// errors.
-        /// Default value when not specified in API or module is
-        /// interpreted by ALB Controller as false.
+        /// 
         /// </summary>
-        [JsonProperty(PropertyName = "exclude_tcp_reset_as_error")]
-        [NSXTProperty(IsRequired: false, Description: @"Exclude TCP resets by client from the list of potentialerrors.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
-        public bool? ExcludeTcpResetAsError { get; set; }
+        [JsonProperty(PropertyName = "client_log_config")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTALBClientLogConfigurationType ClientLogConfig { get; set; }
         /// <summary>
         /// Maximum penalty that may be deducted from health score
         /// based on security assessment.
         /// Allowed values are 0-100.
+        /// Allowed in Basic(Allowed values- 100) edition,
+        /// Essentials(Allowed values- 100) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 100.
         /// </summary>
         [JsonProperty(PropertyName = "hs_max_security_penalty")]
-        [NSXTProperty(IsRequired: false, Description: @"Maximum penalty that may be deducted from health scorebased on security assessment.Allowed values are 0-100.Default value when not specified in API or module isinterpreted by ALB Controller as 100.")]
+        [NSXTProperty(IsRequired: false, Description: @"Maximum penalty that may be deducted from health scorebased on security assessment.Allowed values are 0-100.Allowed in Basic(Allowed values- 100) edition,Essentials(Allowed values- 100) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 100.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(100)]
-        [NSXTDefaultProperty(Default: "")]
         public long? HsMaxSecurityPenalty { get; set; }
         /// <summary>
         /// Score assigned when the certificate expires in less than or
         /// equal to 30 days.
         /// Allowed values are 0-5.
+        /// Allowed in Basic(Allowed values- 4.0) edition,
+        /// Essentials(Allowed values- 4.0) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 4.0.
         /// </summary>
         [JsonProperty(PropertyName = "hs_security_certscore_le30d")]
-        [NSXTProperty(IsRequired: false, Description: @"Score assigned when the certificate expires in less than orequal to 30 days.Allowed values are 0-5.Default value when not specified in API or module isinterpreted by ALB Controller as 4.0.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Score assigned when the certificate expires in less than orequal to 30 days.Allowed values are 0-5.Allowed in Basic(Allowed values- 4.0) edition,Essentials(Allowed values- 4.0) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 4.0.")]
         public double? HsSecurityCertscoreLe30d { get; set; }
         /// <summary>
         /// Exclude invalid dns queries from the list of errors.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "exclude_invalid_dns_query_as_error")]
-        [NSXTProperty(IsRequired: false, Description: @"Exclude invalid dns queries from the list of errors.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"Exclude invalid dns queries from the list of errors.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? ExcludeInvalidDnsQueryAsError { get; set; }
         /// <summary>
         /// A connection between client and Avi is considered lossy
@@ -790,45 +949,49 @@ namespace nsxtsdk.PolicyModels
         /// received.
         /// Allowed values are 1-100.
         /// Unit is PERCENT.
+        /// Allowed in Basic(Allowed values- 50) edition,
+        /// Essentials(Allowed values- 50) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 50.
         /// </summary>
         [JsonProperty(PropertyName = "conn_lossy_ooo_threshold")]
-        [NSXTProperty(IsRequired: false, Description: @"A connection between client and Avi is considered lossywhen more than this percentage of out of order packets arereceived.Allowed values are 1-100.Unit is PERCENT.Default value when not specified in API or module isinterpreted by ALB Controller as 50.")]
+        [NSXTProperty(IsRequired: false, Description: @"A connection between client and Avi is considered lossywhen more than this percentage of out of order packets arereceived.Allowed values are 1-100.Unit is PERCENT.Allowed in Basic(Allowed values- 50) edition,Essentials(Allowed values- 50) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 50.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(100)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ConnLossyOooThreshold { get; set; }
         /// <summary>
         /// Score assigned when the minimum cipher strength is less
         /// than 128 bits.
         /// Allowed values are 0-5.
+        /// Allowed in Basic(Allowed values- 3.5) edition,
+        /// Essentials(Allowed values- 3.5) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 3.5.
         /// </summary>
         [JsonProperty(PropertyName = "hs_security_cipherscore_lt128b")]
-        [NSXTProperty(IsRequired: false, Description: @"Score assigned when the minimum cipher strength is lessthan 128 bits.Allowed values are 0-5.Default value when not specified in API or module isinterpreted by ALB Controller as 3.5.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Score assigned when the minimum cipher strength is lessthan 128 bits.Allowed values are 0-5.Allowed in Basic(Allowed values- 3.5) edition,Essentials(Allowed values- 3.5) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 3.5.")]
         public double? HsSecurityCipherscoreLt128b { get; set; }
         /// <summary>
         /// Score assigned when supporting TLS1.0 encryption protocol.
         /// Allowed values are 0-5.
+        /// Allowed in Basic(Allowed values- 5.0) edition,
+        /// Essentials(Allowed values- 5.0) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 5.0.
         /// </summary>
         [JsonProperty(PropertyName = "hs_security_tls10_score")]
-        [NSXTProperty(IsRequired: false, Description: @"Score assigned when supporting TLS1.0 encryption protocol.Allowed values are 0-5.Default value when not specified in API or module isinterpreted by ALB Controller as 5.0.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Score assigned when supporting TLS1.0 encryption protocol.Allowed values are 0-5.Allowed in Basic(Allowed values- 5.0) edition,Essentials(Allowed values- 5.0) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 5.0.")]
         public double? HsSecurityTls10Score { get; set; }
         /// <summary>
         /// Score assigned when the certificate has expired.
         /// Allowed values are 0-5.
+        /// Allowed in Basic(Allowed values- 0.0) edition,
+        /// Essentials(Allowed values- 0.0) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 0.0.
         /// </summary>
         [JsonProperty(PropertyName = "hs_security_certscore_expired")]
-        [NSXTProperty(IsRequired: false, Description: @"Score assigned when the certificate has expired.Allowed values are 0-5.Default value when not specified in API or module isinterpreted by ALB Controller as 0.0.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Score assigned when the certificate has expired.Allowed values are 0-5.Allowed in Basic(Allowed values- 0.0) edition,Essentials(Allowed values- 0.0) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 0.0.")]
         public double? HsSecurityCertscoreExpired { get; set; }
         /// <summary>
         /// If a client receives an HTTP response in less than the
@@ -841,24 +1004,27 @@ namespace nsxtsdk.PolicyModels
         /// considered Frustrated.
         /// Allowed values are 1-30000.
         /// Unit is MILLISECONDS.
+        /// Allowed in Basic(Allowed values- 500) edition,
+        /// Essentials(Allowed values- 500) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 500.
         /// </summary>
         [JsonProperty(PropertyName = "apdex_response_threshold")]
-        [NSXTProperty(IsRequired: false, Description: @"If a client receives an HTTP response in less than theSatisfactory Latency Threshold, the request is consideredSatisfied.It is considered Tolerated if it is not Satisfied and lessthan Tolerated Latency Factor multiplied by the SatisfactoryLatency Threshold.Greater than this number and the client&apos;s request isconsidered Frustrated.Allowed values are 1-30000.Unit is MILLISECONDS.Default value when not specified in API or module isinterpreted by ALB Controller as 500.")]
+        [NSXTProperty(IsRequired: false, Description: @"If a client receives an HTTP response in less than theSatisfactory Latency Threshold, the request is consideredSatisfied.It is considered Tolerated if it is not Satisfied and lessthan Tolerated Latency Factor multiplied by the SatisfactoryLatency Threshold.Greater than this number and the client&apos;s request isconsidered Frustrated.Allowed values are 1-30000.Unit is MILLISECONDS.Allowed in Basic(Allowed values- 500) edition,Essentials(Allowed values- 500) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 500.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(30000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ApdexResponseThreshold { get; set; }
         /// <summary>
         /// Exclude the Stale OCSP certificate status responses from
         /// the list of errors.
+        /// Allowed in Basic(Allowed values- true) edition,
+        /// Essentials(Allowed values- true) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as true.
         /// </summary>
         [JsonProperty(PropertyName = "exclude_stale_ocsp_responses_as_error")]
-        [NSXTProperty(IsRequired: false, Description: @"Exclude the Stale OCSP certificate status responses fromthe list of errors.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"Exclude the Stale OCSP certificate status responses fromthe list of errors.Allowed in Basic(Allowed values- true) edition,Essentials(Allowed values- true) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
         public bool? ExcludeStaleOcspResponsesAsError { get; set; }
         /// <summary>
         /// If a client is able to load a page in less than the
@@ -873,27 +1039,28 @@ namespace nsxtsdk.PolicyModels
         /// all HTTP objects, and page render time.
         /// Allowed values are 1-30000.
         /// Unit is MILLISECONDS.
+        /// Allowed in Basic(Allowed values- 5000) edition,
+        /// Essentials(Allowed values- 5000) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 5000.
         /// </summary>
         [JsonProperty(PropertyName = "apdex_rum_threshold")]
-        [NSXTProperty(IsRequired: false, Description: @"If a client is able to load a page in less than theSatisfactory Latency Threshold, the PageLoad is consideredSatisfied.It is considered tolerated if it is greater than Satisfiedbut less than the Tolerated Latency multiplied by SatisifedLatency.Greater than this number and the client&apos;s request isconsidered Frustrated.A PageLoad includes the time for DNS lookup, download ofall HTTP objects, and page render time.Allowed values are 1-30000.Unit is MILLISECONDS.Default value when not specified in API or module isinterpreted by ALB Controller as 5000.")]
+        [NSXTProperty(IsRequired: false, Description: @"If a client is able to load a page in less than theSatisfactory Latency Threshold, the PageLoad is consideredSatisfied.It is considered tolerated if it is greater than Satisfiedbut less than the Tolerated Latency multiplied by SatisifedLatency.Greater than this number and the client&apos;s request isconsidered Frustrated.A PageLoad includes the time for DNS lookup, download ofall HTTP objects, and page render time.Allowed values are 1-30000.Unit is MILLISECONDS.Allowed in Basic(Allowed values- 5000) edition,Essentials(Allowed values- 5000) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as 5000.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(30000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ApdexRumThreshold { get; set; }
         /// <summary>
-        /// Satisfactory client to Avi Round Trip Time(RTT).
-        /// Allowed values are 1-2000.
-        /// Unit is MILLISECONDS.
+        /// Exclude queries to GSLB services that are operationally
+        /// down from the list of errors.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
-        /// interpreted by ALB Controller as 125.
+        /// interpreted by ALB Controller as false.
         /// </summary>
-        [JsonProperty(PropertyName = "apdex_server_rtt_threshold")]
-        [NSXTProperty(IsRequired: false, Description: @"Satisfactory client to Avi Round Trip Time(RTT).Allowed values are 1-2000.Unit is MILLISECONDS.Default value when not specified in API or module isinterpreted by ALB Controller as 125.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(2000)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? ApdexServerRttThreshold { get; set; }
+        [JsonProperty(PropertyName = "exclude_gs_down_as_error")]
+        [NSXTProperty(IsRequired: false, Description: @"Exclude queries to GSLB services that are operationallydown from the list of errors.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        public bool? ExcludeGsDownAsError { get; set; }
     }
 }

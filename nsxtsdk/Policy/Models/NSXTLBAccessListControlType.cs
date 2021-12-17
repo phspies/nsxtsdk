@@ -18,6 +18,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"LBAccessListControl is used to define how IP access list control can filterthe connections from clients.")]
     public class NSXTLBAccessListControlType 
     {
+        public NSXTLBAccessListControlType()
+        {
+        }
         /// <summary>
         /// ALLOW means connections matching grouping object IP list are allowed
         /// and requests not matching grouping object IP list are dropped.

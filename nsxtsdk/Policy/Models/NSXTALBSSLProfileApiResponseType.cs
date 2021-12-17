@@ -17,12 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBSSLProfileApiResponseType : NSXTListResultType
     {
+        public NSXTALBSSLProfileApiResponseType()
+        {
+        }
         /// <summary>
         /// count
         /// </summary>
         [JsonProperty(PropertyName = "count")]
         [NSXTProperty(IsRequired: false, Description: @"count")]
-        public long? Count { get; set; }
+        public int? Count { get; set; }
         /// <summary>
         /// Array of SSLProfile
         /// </summary>

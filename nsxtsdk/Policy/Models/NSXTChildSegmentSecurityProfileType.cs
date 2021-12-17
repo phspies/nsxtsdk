@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildSegmentSecurityProfileType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildSegmentSecurityProfileType()
+        {
+        }
         /// <summary>
-        /// Contains the actual SegmentSecurityProfile object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "SegmentSecurityProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual SegmentSecurityProfile object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTSegmentSecurityProfileType SegmentSecurityProfile { get; set; }
     }

@@ -17,12 +17,16 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTClientSslProfileBindingType 
     {
+        public NSXTClientSslProfileBindingType()
+        {
+            ClientAuth = test
+            CertificateChainDepth = test
+        }
         /// <summary>
         /// client authentication mode
         /// </summary>
         [JsonProperty(PropertyName = "client_auth")]
         [NSXTProperty(IsRequired: false, Description: @"client authentication mode")]
-        [NSXTDefaultProperty(Default: "IGNORE")]
         public NSXTClientSslProfileBindingClientAuthEnumType? ClientAuth { get; set; }
         /// <summary>
         /// Client SSL profile defines reusable, application-independent client side
@@ -39,7 +43,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"authentication depth is used to set the verification depth in the clientcertificates chain.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
-        [NSXTDefaultProperty(Default: "")]
         public long? CertificateChainDepth { get; set; }
         /// <summary>
         /// If client auth type is REQUIRED, client certificate must be signed by

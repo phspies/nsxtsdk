@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"An Endpoint object is part of HostSwitch configuration in TransportNode")]
     public class NSXTEndpointType 
     {
+        public NSXTEndpointType()
+        {
+        }
         /// <summary>
         /// Subnet mask
         /// </summary>

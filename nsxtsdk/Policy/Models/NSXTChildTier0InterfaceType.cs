@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildTier0InterfaceType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildTier0InterfaceType()
+        {
+        }
         /// <summary>
-        /// Contains the actual Tier0Interface object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "Tier0Interface", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual Tier0Interface object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTTier0InterfaceType Tier0Interface { get; set; }
     }

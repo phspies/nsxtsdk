@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildTier0Type : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildTier0Type()
+        {
+        }
         /// <summary>
-        /// Contains the actual Tier-0 object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "Tier0", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual Tier-0 object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTTier0Type Tier0 { get; set; }
     }

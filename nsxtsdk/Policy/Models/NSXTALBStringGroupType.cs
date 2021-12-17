@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBStringGroupType : NSXTPolicyConfigResourceType
     {
+        public NSXTALBStringGroupType()
+        {
+            Type = test
+        }
         /// <summary>
         /// Enable the longest match, default is the shortest match.
         /// Default value when not specified in API or module is
@@ -34,7 +38,6 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "type", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"Type of StringGroup.Enum options - SG_TYPE_STRING, SG_TYPE_KEYVAL.Default value when not specified in API or module isinterpreted by ALB Controller as SG_TYPE_STRING.")]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "SG_TYPE_STRING")]
         public NSXTAlbstringGroupTypeEnumType Type { get; set; }
         /// <summary>
         /// Configure Key Value in the string group.
@@ -42,5 +45,13 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "kv")]
         [NSXTProperty(IsRequired: false, Description: @"Configure Key Value in the string group.")]
         public IList<NSXTALBKeyValueType> Kv { get; set; }
+        /// <summary>
+        /// List of labels to be used for granular RBAC.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
+        /// </summary>
+        [JsonProperty(PropertyName = "markers")]
+        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
+        public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
     }
 }

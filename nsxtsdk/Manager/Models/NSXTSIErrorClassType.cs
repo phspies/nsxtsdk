@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Error class for all the Service Insertion related errors.")]
     public class NSXTSIErrorClassType 
     {
+        public NSXTSIErrorClassType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

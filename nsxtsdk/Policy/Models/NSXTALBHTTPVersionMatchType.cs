@@ -17,14 +17,20 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HTTPVersionMatch object")]
     public class NSXTALBHTTPVersionMatchType 
     {
+        public NSXTALBHTTPVersionMatchType()
+        {
+        }
         /// <summary>
         /// HTTP protocol version.
         /// Enum options - ZERO_NINE, ONE_ZERO, ONE_ONE, TWO_ZERO.
         /// Minimum of 1 items required.
         /// Maximum of 8 items allowed.
+        /// Allowed in Basic(Allowed values- ONE_ZERO,ONE_ONE) edition,
+        /// Essentials(Allowed values- ONE_ZERO,ONE_ONE) edition,
+        /// Enterprise edition.
         /// </summary>
         [JsonProperty(PropertyName = "versions", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"HTTP protocol version.Enum options - ZERO_NINE, ONE_ZERO, ONE_ONE, TWO_ZERO.Minimum of 1 items required.Maximum of 8 items allowed.")]
+        [NSXTProperty(IsRequired: true, Description: @"HTTP protocol version.Enum options - ZERO_NINE, ONE_ZERO, ONE_ONE, TWO_ZERO.Minimum of 1 items required.Maximum of 8 items allowed.Allowed in Basic(Allowed values- ONE_ZERO,ONE_ONE) edition,Essentials(Allowed values- ONE_ZERO,ONE_ONE) edition,Enterprise edition.")]
         [System.ComponentModel.DataAnnotations.Required]
         public IList<string> Versions { get; set; }
         /// <summary>

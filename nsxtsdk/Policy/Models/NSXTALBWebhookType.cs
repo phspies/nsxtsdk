@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBWebhookType : NSXTPolicyConfigResourceType
     {
+        public NSXTALBWebhookType()
+        {
+        }
         /// <summary>
         /// Verification token sent back with the callback asquery
         /// parameters.
@@ -30,5 +33,13 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "callback_url")]
         [NSXTProperty(IsRequired: false, Description: @"Callback URL for the Webhook.")]
         public string? CallbackUrl { get; set; }
+        /// <summary>
+        /// List of labels to be used for granular RBAC.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
+        /// </summary>
+        [JsonProperty(PropertyName = "markers")]
+        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
+        public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
     }
 }

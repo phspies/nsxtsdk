@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"A Limiter configuration entry that specifies type and metrics")]
     public class NSXTQoSBaseRateLimiterType 
     {
+        public NSXTQoSBaseRateLimiterType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

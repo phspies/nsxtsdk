@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTHttpProtocolType : NSXTProtocolType
     {
+        public NSXTHttpProtocolType()
+        {
+        }
         /// <summary>
-        /// Scheme to authenticate if required
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "authentication_scheme")]
-        [NSXTProperty(IsRequired: false, Description: @"Scheme to authenticate if required")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTBasicAuthenticationSchemeType AuthenticationScheme { get; set; }
     }
 }

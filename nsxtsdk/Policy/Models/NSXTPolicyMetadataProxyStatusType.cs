@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyMetadataProxyStatusType 
     {
+        public NSXTPolicyMetadataProxyStatusType()
+        {
+        }
         /// <summary>
         /// UP means the metadata proxy is working fine on both transport-nodes(if configured);
         /// DOWN means the metadata proxy is is down on both transport-nodes(if configured),

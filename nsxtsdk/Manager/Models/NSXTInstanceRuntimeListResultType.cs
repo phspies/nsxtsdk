@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTInstanceRuntimeListResultType : NSXTListResultType
     {
+        public NSXTInstanceRuntimeListResultType()
+        {
+        }
         /// <summary>
         /// Array of existing InstanceRuntimes in database
         /// </summary>

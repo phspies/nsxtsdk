@@ -17,12 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer AuthAttributeMatch object")]
     public class NSXTALBAuthAttributeMatchType 
     {
+        public NSXTALBAuthAttributeMatchType()
+        {
+        }
         /// <summary>
-        /// Attribute Values used to determine access when
-        /// authentication applies.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "attribute_value_list", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Attribute Values used to determine access whenauthentication applies.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBStringMatchType AttributeValueList { get; set; }
         /// <summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"SSL cipher")]
     public class NSXTLbSslCipherInfoType 
     {
+        public NSXTLbSslCipherInfoType()
+        {
+        }
         /// <summary>
         /// Default SSL cipher flag
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeUserPropertiesListResultType : NSXTListResultType
     {
+        public NSXTNodeUserPropertiesListResultType()
+        {
+        }
         /// <summary>
         /// List of node users
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyUrlCategoryListResultType : NSXTListResultType
     {
+        public NSXTPolicyUrlCategoryListResultType()
+        {
+        }
         /// <summary>
         /// Category list result
         /// </summary>

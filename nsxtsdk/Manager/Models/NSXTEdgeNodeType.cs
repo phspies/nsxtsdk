@@ -17,20 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTEdgeNodeType : NSXTNodeType
     {
+        public NSXTEdgeNodeType()
+        {
+        }
         /// <summary>
-        /// Reports the current configuration of the SSH, DHS, NTP and host name
-        /// on this edge node. The deployment_config property is used during
-        /// deployment and this counterpart property shows current values.
+        /// 
         /// </summary>
-        [JsonProperty(PropertyName = "node_settings")]
-        [NSXTProperty(IsRequired: false, Description: @"Reports the current configuration of the SSH, DHS, NTP and host nameon this edge node. The deployment_config property is used duringdeployment and this counterpart property shows current values.")]
+        [JsonProperty(PropertyName = "node_settings", Required = Required.AllowNull)]
+        [NSXTProperty(IsRequired: true, Description: @"")]
+        [System.ComponentModel.DataAnnotations.Required]
         public NSXTEdgeNodeSettingsType NodeSettings { get; set; }
         /// <summary>
-        /// When this configuration is specified, edge fabric node of deployment_type VIRTUAL_MACHINE
-        /// will be deployed and registered with MP.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "deployment_config")]
-        [NSXTProperty(IsRequired: false, Description: @"When this configuration is specified, edge fabric node of deployment_type VIRTUAL_MACHINEwill be deployed and registered with MP.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTEdgeNodeDeploymentConfigType DeploymentConfig { get; set; }
         /// <summary>
         /// List of logical router ids to which this edge node is allocated.

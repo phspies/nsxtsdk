@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMandatoryAccessControlPropertiesType : NSXTResourceType
     {
+        public NSXTMandatoryAccessControlPropertiesType()
+        {
+        }
         /// <summary>
         /// current status of Mandatory Access Control
         /// </summary>

@@ -17,6 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer LdapDirectorySettings object")]
     public class NSXTALBLdapDirectorySettingsType 
     {
+        public NSXTALBLdapDirectorySettingsType()
+        {
+            GroupMemberIsFullDn = test
+            UserSearchScope = test
+            GroupMemberAttribute = test
+            GroupFilter = test
+            GroupSearchScope = test
+        }
         /// <summary>
         /// LDAP Admin User Password.
         /// </summary>
@@ -40,7 +48,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "group_member_is_full_dn")]
         [NSXTProperty(IsRequired: false, Description: @"Group member entries contain full DNs instead of just userid attribute values.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? GroupMemberIsFullDn { get; set; }
         /// <summary>
         /// LDAP user search scope defines how deep to search for the
@@ -52,7 +59,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "user_search_scope")]
         [NSXTProperty(IsRequired: false, Description: @"LDAP user search scope defines how deep to search for theuser starting from user search DN.Enum options - AUTH_LDAP_SCOPE_BASE, AUTH_LDAP_SCOPE_ONE,AUTH_LDAP_SCOPE_SUBTREE.Default value when not specified in API or module isinterpreted by ALB Controller as AUTH_LDAP_SCOPE_ONE.")]
-        [NSXTDefaultProperty(Default: "AUTH_LDAP_SCOPE_ONE")]
         public NSXTAlbldapDirectorySettingsUserSearchScopeEnumType? UserSearchScope { get; set; }
         /// <summary>
         /// LDAP user id attribute is the login attribute that uniquely
@@ -69,7 +75,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "group_member_attribute")]
         [NSXTProperty(IsRequired: false, Description: @"LDAP group attribute that identifies each of the groupmembers.Default value when not specified in API or module isinterpreted by ALB Controller as member.")]
-        [NSXTDefaultProperty(Default: "member")]
         public string? GroupMemberAttribute { get; set; }
         /// <summary>
         /// Group filter is used to identify groups during search.
@@ -78,7 +83,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "group_filter")]
         [NSXTProperty(IsRequired: false, Description: @"Group filter is used to identify groups during search.Default value when not specified in API or module isinterpreted by ALB Controller as (objectClass=(STAR)).")]
-        [NSXTDefaultProperty(Default: "(objectClass=*)")]
         public string? GroupFilter { get; set; }
         /// <summary>
         /// LDAP group search DN is the root of search for a given
@@ -113,7 +117,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "group_search_scope")]
         [NSXTProperty(IsRequired: false, Description: @"LDAP group search scope defines how deep to search for thegroup starting from the group search DN.Enum options - AUTH_LDAP_SCOPE_BASE, AUTH_LDAP_SCOPE_ONE,AUTH_LDAP_SCOPE_SUBTREE.Default value when not specified in API or module isinterpreted by ALB Controller as AUTH_LDAP_SCOPE_SUBTREE.")]
-        [NSXTDefaultProperty(Default: "AUTH_LDAP_SCOPE_SUBTREE")]
         public NSXTAlbldapDirectorySettingsGroupSearchScopeEnumType? GroupSearchScope { get; set; }
         /// <summary>
         /// LDAP Admin User DN.

@@ -17,23 +17,20 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Livetrace action configuration")]
     public class NSXTPolicyLiveTraceActionConfigType 
     {
+        public NSXTPolicyLiveTraceActionConfigType()
+        {
+        }
         /// <summary>
-        /// Configuration of trace action
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "trace_config")]
-        [NSXTProperty(IsRequired: false, Description: @"Configuration of trace action")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLiveTracePacketGranularActionConfigType TraceConfig { get; set; }
         /// <summary>
-        /// Configuration of packet capture action
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "pktcap_config")]
-        [NSXTProperty(IsRequired: false, Description: @"Configuration of packet capture action")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLiveTracePacketGranularActionConfigType PktcapConfig { get; set; }
-        /// <summary>
-        /// Configuration of count action
-        /// </summary>
-        [JsonProperty(PropertyName = "count_config")]
-        [NSXTProperty(IsRequired: false, Description: @"Configuration of count action")]
-        public NSXTCountActionConfigType CountConfig { get; set; }
     }
 }

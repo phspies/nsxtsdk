@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTGenericPolicyRealizedResourceListResultType : NSXTListResultType
     {
+        public NSXTGenericPolicyRealizedResourceListResultType()
+        {
+        }
         /// <summary>
         /// List of realized resources
         /// </summary>

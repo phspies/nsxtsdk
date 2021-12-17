@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTValueConstraintExpressionType : NSXTConstraintExpressionType
     {
+        public NSXTValueConstraintExpressionType()
+        {
+        }
         /// <summary>
         /// Operation to check for value list for resource attribute of constraint.
         /// </summary>
@@ -25,10 +28,10 @@ namespace nsxtsdk.PolicyModels
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTValueConstraintExpressionOperatorEnumType OperatorProperty { get; set; }
         /// <summary>
-        /// List of values.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "values_with_type")]
-        [NSXTProperty(IsRequired: false, Description: @"List of values.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTConstraintValueType ValuesWithType { get; set; }
         /// <summary>
         /// List of values.

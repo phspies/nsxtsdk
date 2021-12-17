@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HTTPReselectRespCode object")]
     public class NSXTALBHTTPReselectRespCodeType 
     {
+        public NSXTALBHTTPReselectRespCodeType()
+        {
+        }
         /// <summary>
         /// HTTP response code ranges to match.
         /// </summary>

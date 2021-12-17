@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDonutConfigurationType : NSXTWidgetConfigurationType
     {
+        public NSXTDonutConfigurationType()
+        {
+            DisplayCount = test
+        }
         /// <summary>
         /// Expression to retrieve count to be shown on Donut.
         /// </summary>
@@ -34,7 +38,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "display_count")]
         [NSXTProperty(IsRequired: false, Description: @"If true, displays the count of entities in the donut")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? DisplayCount { get; set; }
         /// <summary>
         /// Sections
@@ -44,10 +47,10 @@ namespace nsxtsdk.PolicyModels
         [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTDonutSectionType> Sections { get; set; }
         /// <summary>
-        /// Displayed at the middle of the donut, by default. It labels the entities of donut.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "label")]
-        [NSXTProperty(IsRequired: false, Description: @"Displayed at the middle of the donut, by default. It labels the entities of donut.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLabelType Label { get; set; }
     }
 }

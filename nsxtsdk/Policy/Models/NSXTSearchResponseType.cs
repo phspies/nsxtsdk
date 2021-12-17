@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSearchResponseType : NSXTListResultType
     {
+        public NSXTSearchResponseType()
+        {
+        }
         /// <summary>
         /// List of records matching the search query.
         /// </summary>

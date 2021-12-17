@@ -24,7 +24,23 @@ namespace nsxtsdk.ManagerModels
         WCP = 5,
         [EnumMember(Value = "WCP_GUEST")]
         WCPGuest = 6,
+        [EnumMember(Value = "AKS")]
+        AKS = 7,
+        [EnumMember(Value = "EKS")]
+        EKS = 8,
+        [EnumMember(Value = "TKGM")]
+        Tkgm = 9,
+        [EnumMember(Value = "TKGI")]
+        Tkgi = 10,
+        [EnumMember(Value = "GKE")]
+        GKE = 11,
+        [EnumMember(Value = "GARDENER")]
+        Gardener = 12,
+        [EnumMember(Value = "RANCHER")]
+        Rancher = 13,
+        [EnumMember(Value = "TAS")]
+        TAS = 14,
         [EnumMember(Value = "OTHER")]
-        Other = 7,
+        Other = 15,
     }
 }

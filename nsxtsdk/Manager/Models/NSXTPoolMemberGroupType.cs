@@ -17,13 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPoolMemberGroupType 
     {
+        public NSXTPoolMemberGroupType()
+        {
+            IpRevisionFilter = test
+        }
         /// <summary>
-        /// Load balancer pool support grouping object as dynamic pool members.
-        /// The IP list of the grouping object such as NSGroup would be used as
-        /// pool member IP setting.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "grouping_object", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Load balancer pool support grouping object as dynamic pool members.The IP list of the grouping object such as NSGroup would be used aspool member IP setting.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTResourceReferenceType GroupingObject { get; set; }
         /// <summary>
@@ -35,7 +37,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "ip_revision_filter")]
         [NSXTProperty(IsRequired: false, Description: @"Ip revision filter is used to filter IPv4 or IPv6 addresses from thegrouping object.If the filter is not specified, both IPv4 and IPv6 addresses would beused as server IPs.The link local and loopback addresses would be always filtered out.")]
-        [NSXTDefaultProperty(Default: "IPV4")]
         public NSXTPoolMemberGroupIpRevisionFilterEnumType? IpRevisionFilter { get; set; }
         /// <summary>
         /// The size is used to define the maximum number of grouping object IP

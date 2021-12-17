@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTGroupType : NSXTPolicyConfigResourceType
     {
+        public NSXTGroupType()
+        {
+        }
         /// <summary>
         /// Realization state of this group
         /// </summary>
@@ -64,6 +67,14 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "expression")]
         [NSXTProperty(IsRequired: false, Description: @"The expression list must follow below criteria:  1. A non-empty expression list, must be of odd size. In a list, with  indices starting from 0, all non-conjunction expressions must be at  even indices, separated by a conjunction expression at odd  indices.  2. The total of ConditionExpression and NestedExpression in a list  should not exceed 5.  3. The total of IPAddressExpression, MACAddressExpression, external  IDs in an ExternalIDExpression and paths in a PathExpression must not exceed  500.  4. Each expression must be a valid Expression. See the definition of  the Expression type for more information.")]
         public IList<NSXTExpressionType> Expression { get; set; }
+        /// <summary>
+        /// Group type can be specified during create and update of a group.
+        /// Empty group type indicates a 'generic' group, ie group can
+        /// include any entity from the valid GroupMemberType.
+        /// </summary>
+        [JsonProperty(PropertyName = "group_type")]
+        [NSXTProperty(IsRequired: false, Description: @"Group type can be specified during create and update of a group.Empty group type indicates a &apos;generic&apos; group, ie group caninclude any entity from the valid GroupMemberType.")]
+        public IList<string> GroupType { get; set; }
         /// <summary>
         /// If true, indicates that this is a remote reference group. Such group will have
         /// span different from the its parent domain. Default value is false.

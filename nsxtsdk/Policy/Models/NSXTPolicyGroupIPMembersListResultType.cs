@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyGroupIPMembersListResultType : NSXTListResultType
     {
+        public NSXTPolicyGroupIPMembersListResultType()
+        {
+        }
         /// <summary>
         /// Paged Collection of IP addresses that belong to the given Group
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbSnatIpPoolType : NSXTLbSnatTranslationType
     {
+        public NSXTLbSnatIpPoolType()
+        {
+        }
         /// <summary>
         /// If an IP range is specified, the range may contain no more than 64
         /// IP addresses.

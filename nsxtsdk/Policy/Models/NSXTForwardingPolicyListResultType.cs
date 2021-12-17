@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTForwardingPolicyListResultType : NSXTPolicyListResultType
     {
+        public NSXTForwardingPolicyListResultType()
+        {
+        }
         /// <summary>
         /// ForwardingPolicy list results
         /// </summary>

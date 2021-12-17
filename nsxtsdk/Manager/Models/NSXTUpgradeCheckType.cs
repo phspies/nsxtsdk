@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Check to identify potential pre/post-upgrade issues")]
     public class NSXTUpgradeCheckType 
     {
+        public NSXTUpgradeCheckType()
+        {
+        }
         /// <summary>
         /// Status of pre/post-upgrade check
         /// </summary>

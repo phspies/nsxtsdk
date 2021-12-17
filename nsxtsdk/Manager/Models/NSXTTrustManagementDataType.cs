@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTrustManagementDataType 
     {
+        public NSXTTrustManagementDataType()
+        {
+        }
         /// <summary>
         /// List of supported algorithms.
         /// </summary>

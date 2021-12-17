@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpProfileListResultType : NSXTListResultType
     {
+        public NSXTDhcpProfileListResultType()
+        {
+        }
         /// <summary>
         /// A paginated list of logical DHCP profiles.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSetType : NSXTManagedResourceType
     {
+        public NSXTIPSetType()
+        {
+        }
         /// <summary>
         /// IP addresses
         /// </summary>

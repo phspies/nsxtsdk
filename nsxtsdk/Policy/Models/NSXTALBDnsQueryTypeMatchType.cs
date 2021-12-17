@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsQueryTypeMatch object")]
     public class NSXTALBDnsQueryTypeMatchType 
     {
+        public NSXTALBDnsQueryTypeMatchType()
+        {
+        }
         /// <summary>
         /// DNS query types in the request query.
         /// Enum options - DNS_RECORD_OTHER, DNS_RECORD_A,

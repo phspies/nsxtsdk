@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbSnatTranslationType 
     {
+        public NSXTLbSnatTranslationType()
+        {
+            PortOverload = test
+        }
         /// <summary>
         /// Load balancers may need to perform SNAT to ensure reverse traffic from
         /// the server can be received and processed by them.
@@ -46,7 +50,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Both SNAT automap and SNAT IP list modes support port overloadingwhich allows the same SNAT IP and port to be used for multiplebackend connections as long as the tuple (source IP, source port,destination IP, destination port, IP protocol) after SNAT isperformed is unique.The valid number is 1, 2, 4, 8, 16, 32.This is a deprecated property. The port overload factor is fixedto 32 in load balancer engine. If it is upgraded from an old version,the value would be changed to 32 automatically.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(32)]
-        [NSXTDefaultProperty(Default: "")]
         public long? PortOverload { get; set; }
     }
 }

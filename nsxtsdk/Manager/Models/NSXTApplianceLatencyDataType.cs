@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTApplianceLatencyDataType : NSXTResourceType
     {
+        public NSXTApplianceLatencyDataType()
+        {
+        }
         /// <summary>
         /// Latency Data list.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTContainerIngressPolicyListResultType : NSXTListResultType
     {
+        public NSXTContainerIngressPolicyListResultType()
+        {
+        }
         /// <summary>
         /// List of Container Ingress Policy specs
         /// </summary>

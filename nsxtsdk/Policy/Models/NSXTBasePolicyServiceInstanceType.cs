@@ -17,6 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTBasePolicyServiceInstanceType : NSXTPolicyConfigResourceType
     {
+        public NSXTBasePolicyServiceInstanceType()
+        {
+            TransportType = test
+            DeploymentMode = test
+        }
         /// <summary>
         /// Unique name of Partner Service in the Marketplace
         /// </summary>
@@ -29,14 +34,12 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "transport_type")]
         [NSXTProperty(IsRequired: false, Description: @"Transport to be used while deploying Service-VM.")]
-        [NSXTDefaultProperty(Default: "L2_BRIDGE")]
         public NSXTBasePolicyServiceInstanceTransportTypeEnumType? TransportType { get; set; }
         /// <summary>
         /// Deployment mode specifies how the partner appliance will be deployed i.e. in HA or standalone mode.
         /// </summary>
         [JsonProperty(PropertyName = "deployment_mode")]
         [NSXTProperty(IsRequired: false, Description: @"Deployment mode specifies how the partner appliance will be deployed i.e. in HA or standalone mode.")]
-        [NSXTDefaultProperty(Default: "ACTIVE_STANDBY")]
         public NSXTBasePolicyServiceInstanceDeploymentModeEnumType? DeploymentMode { get; set; }
     }
 }

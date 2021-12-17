@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbMonitorType : NSXTManagedResourceType
     {
+        public NSXTLbMonitorType()
+        {
+        }
         /// <summary>
         /// Load balancers monitor the health of backend servers to ensure traffic
         /// is not black holed.

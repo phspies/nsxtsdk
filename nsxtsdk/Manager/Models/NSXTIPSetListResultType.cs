@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSetListResultType : NSXTListResultType
     {
+        public NSXTIPSetListResultType()
+        {
+        }
         /// <summary>
         /// IPSet list results
         /// </summary>

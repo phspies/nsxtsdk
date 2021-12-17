@@ -17,11 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HTTPResponseRule object")]
     public class NSXTALBHTTPResponseRuleType 
     {
+        public NSXTALBHTTPResponseRuleType()
+        {
+            Enable = test
+        }
         /// <summary>
-        /// Location header rewrite action.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "loc_hdr_action")]
-        [NSXTProperty(IsRequired: false, Description: @"Location header rewrite action.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHTTPRewriteLocHdrActionType LocHdrAction { get; set; }
         /// <summary>
         /// Index of the rule.
@@ -38,7 +42,6 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "enable", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"Enable or disable the rule.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "")]
         public bool Enable { get; set; }
         /// <summary>
         /// Log HTTP request upon rule match.
@@ -60,10 +63,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Log all HTTP headers upon rule match.")]
         public bool? AllHeaders { get; set; }
         /// <summary>
-        /// Add match criteria to the rule.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "match")]
-        [NSXTProperty(IsRequired: false, Description: @"Add match criteria to the rule.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBResponseMatchTargetType Match { get; set; }
         /// <summary>
         /// HTTP header rewrite action.

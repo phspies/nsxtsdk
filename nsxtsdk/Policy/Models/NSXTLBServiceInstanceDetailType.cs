@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBServiceInstanceDetailType 
     {
+        public NSXTLBServiceInstanceDetailType()
+        {
+        }
         /// <summary>
         /// The path of the resource which the load balancer instance deploys on.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDistributedVirtualPortgroupType : NSXTVirtualPortgroupType
     {
+        public NSXTDistributedVirtualPortgroupType()
+        {
+        }
         /// <summary>
         /// This parameters reflects the managed entity status of the portgroup
         /// as reported by VC.

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer L4ConnectionPolicy object")]
     public class NSXTALBL4ConnectionPolicyType 
     {
+        public NSXTALBL4ConnectionPolicyType()
+        {
+        }
         /// <summary>
         /// Rules to apply when a new transport connection is setup.
         /// </summary>

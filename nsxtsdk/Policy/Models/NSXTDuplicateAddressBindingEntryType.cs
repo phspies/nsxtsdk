@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDuplicateAddressBindingEntryType : NSXTAddressBindingEntryType
     {
+        public NSXTDuplicateAddressBindingEntryType()
+        {
+        }
         /// <summary>
         /// Provides the ID of the port on which the same address bidning exists
         /// </summary>

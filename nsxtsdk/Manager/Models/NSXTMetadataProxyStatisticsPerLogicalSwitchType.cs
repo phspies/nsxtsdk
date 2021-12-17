@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMetadataProxyStatisticsPerLogicalSwitchType 
     {
+        public NSXTMetadataProxyStatisticsPerLogicalSwitchType()
+        {
+        }
         /// <summary>
         /// requests to nova server
         /// </summary>

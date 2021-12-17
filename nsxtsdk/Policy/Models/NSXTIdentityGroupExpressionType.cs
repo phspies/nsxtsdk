@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdentityGroupExpressionType : NSXTExpressionType
     {
+        public NSXTIdentityGroupExpressionType()
+        {
+        }
         /// <summary>
         /// This array consists of set of identity group object. All members within this array are implicitly OR'ed together.
         /// </summary>

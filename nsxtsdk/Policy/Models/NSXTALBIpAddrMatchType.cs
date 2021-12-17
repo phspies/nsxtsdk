@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer IpAddrMatch object")]
     public class NSXTALBIpAddrMatchType 
     {
+        public NSXTALBIpAddrMatchType()
+        {
+        }
         /// <summary>
         /// IP address prefix(es).
         /// </summary>

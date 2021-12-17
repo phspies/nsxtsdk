@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBaseServiceProfileType : NSXTManagedResourceType
     {
+        public NSXTBaseServiceProfileType()
+        {
+        }
         /// <summary>
         /// Service Profile type, for example 'GiServiceProfile', 'ServiceInsertionServiceProfile'
         /// </summary>

@@ -17,23 +17,26 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer AuthenticationMatch object")]
     public class NSXTALBAuthenticationMatchType 
     {
+        public NSXTALBAuthenticationMatchType()
+        {
+        }
         /// <summary>
-        /// Configure the host header.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "host_hdr")]
-        [NSXTProperty(IsRequired: false, Description: @"Configure the host header.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHostHdrMatchType HostHdr { get; set; }
         /// <summary>
-        /// Configure client ip addresses.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "client_ip")]
-        [NSXTProperty(IsRequired: false, Description: @"Configure client ip addresses.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBIpAddrMatchType ClientIp { get; set; }
         /// <summary>
-        /// Configure request paths.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "path")]
-        [NSXTProperty(IsRequired: false, Description: @"Configure request paths.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBPathMatchType Path { get; set; }
     }
 }

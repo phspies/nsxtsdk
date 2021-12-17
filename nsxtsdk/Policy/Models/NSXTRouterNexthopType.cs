@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Next hop configuration for network")]
     public class NSXTRouterNexthopType 
     {
+        public NSXTRouterNexthopType()
+        {
+            AdminDistance = test
+        }
         /// <summary>
         /// Interface path associated with current route.
         /// For example: specify a policy path referencing the IPSec VPN Session.
@@ -37,7 +41,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Cost associated with next hop route")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(255)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? AdminDistance { get; set; }
+        public int? AdminDistance { get; set; }
     }
 }

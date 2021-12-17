@@ -17,14 +17,24 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBNetworkProfileType : NSXTPolicyConfigResourceType
     {
+        public NSXTALBNetworkProfileType()
+        {
+        }
         /// <summary>
-        /// Placeholder for description of property profile of obj type
-        /// NetworkProfile field type str  type ref.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "profile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Placeholder for description of property profile of obj typeNetworkProfile field type str  type ref.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBNetworkProfileUnionType Profile { get; set; }
+        /// <summary>
+        /// List of labels to be used for granular RBAC.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
+        /// </summary>
+        [JsonProperty(PropertyName = "markers")]
+        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
+        public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
         /// <summary>
         /// When enabled, Avi mirrors all TCP fastpath connections to
         /// standby.

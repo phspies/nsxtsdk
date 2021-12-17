@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTraceflowType : NSXTManagedResourceType
     {
+        public NSXTTraceflowType()
+        {
+        }
         /// <summary>
         /// Represents the traceflow operation state
         /// </summary>
@@ -24,18 +27,19 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Represents the traceflow operation state")]
         public NSXTTraceflowOperationStateEnumType? OperationState { get; set; }
         /// <summary>
-        /// counters of observations from logical components
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "logical_counters")]
-        [NSXTProperty(IsRequired: false, Description: @"counters of observations from logical components")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTTraceflowObservationCountersType LogicalCounters { get; set; }
         /// <summary>
-        /// Maximum time (in ms) the management plane will be waiting for this traceflow round.
+        /// Maximum time (in ms) the management plane will be waiting for this traceflow round. Upper limit for federation case is
+        /// 90000, for non-federation case is 15000, the maximum is set to 90000 as the higher of the two cases.
         /// </summary>
         [JsonProperty(PropertyName = "timeout")]
-        [NSXTProperty(IsRequired: false, Description: @"Maximum time (in ms) the management plane will be waiting for this traceflow round.")]
+        [NSXTProperty(IsRequired: false, Description: @"Maximum time (in ms) the management plane will be waiting for this traceflow round. Upper limit for federation case is 90000, for non-federation case is 15000, the maximum is set to 90000 as the higher of the two cases.")]
         //[System.ComponentModel.DataAnnotations.MinLength(5000)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(15000)]
+        //[System.ComponentModel.DataAnnotations.MaxLength(90000)]
         public long? Timeout { get; set; }
         /// <summary>
         /// A flag, when set true, indicates some observations were deleted from the result set.
@@ -50,10 +54,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"id of the source logical port used for injecting the traceflow packet")]
         public string? LportId { get; set; }
         /// <summary>
-        /// observation counters
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "counters")]
-        [NSXTProperty(IsRequired: false, Description: @"observation counters")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTTraceflowObservationCountersType Counters { get; set; }
         /// <summary>
         /// The status of the traceflow RPC request. SUCCESS - The traceflow request is sent successfully. TIMEOUT - The traceflow

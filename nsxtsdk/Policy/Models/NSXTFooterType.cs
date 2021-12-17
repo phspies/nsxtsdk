@@ -18,6 +18,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Footer of a widget that provides additional information or allows an action such as clickable url for navigation. An example usage of footer is provided under &apos;example_request&apos; section of &apos;CreateWidgetConfiguration&apos; API.")]
     public class NSXTFooterType 
     {
+        public NSXTFooterType()
+        {
+        }
         /// <summary>
         /// If the condition is met then the footer will be applied. Examples of expression syntax are provided under
         /// 'example_request' section of 'CreateWidgetConfiguration' API.

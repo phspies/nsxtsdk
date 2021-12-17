@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Upgrade progress status")]
     public class NSXTUpgradeProgressStatusType 
     {
+        public NSXTUpgradeProgressStatusType()
+        {
+        }
         /// <summary>
         /// True if upgrade bundle is present
         /// </summary>

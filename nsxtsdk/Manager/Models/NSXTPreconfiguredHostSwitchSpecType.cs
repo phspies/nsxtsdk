@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPreconfiguredHostSwitchSpecType : NSXTHostSwitchSpecType
     {
+        public NSXTPreconfiguredHostSwitchSpecType()
+        {
+        }
         /// <summary>
         /// Preconfigured Transport Node host switches
         /// </summary>

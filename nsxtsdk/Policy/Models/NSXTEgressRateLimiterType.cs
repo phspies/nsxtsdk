@@ -17,29 +17,32 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTEgressRateLimiterType : NSXTQoSBaseRateLimiterType
     {
+        public NSXTEgressRateLimiterType()
+        {
+            PeakBandwidth = test
+            AverageBandwidth = test
+            BurstSize = test
+        }
         /// <summary>
         /// Peak bandwidth in Mb/s
         /// </summary>
         [JsonProperty(PropertyName = "peak_bandwidth")]
         [NSXTProperty(IsRequired: false, Description: @"Peak bandwidth in Mb/s")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? PeakBandwidth { get; set; }
+        public int? PeakBandwidth { get; set; }
         /// <summary>
         /// Average bandwidth in Mb/s
         /// </summary>
         [JsonProperty(PropertyName = "average_bandwidth")]
         [NSXTProperty(IsRequired: false, Description: @"Average bandwidth in Mb/s")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? AverageBandwidth { get; set; }
+        public int? AverageBandwidth { get; set; }
         /// <summary>
         /// Burst size in bytes
         /// </summary>
         [JsonProperty(PropertyName = "burst_size")]
         [NSXTProperty(IsRequired: false, Description: @"Burst size in bytes")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? BurstSize { get; set; }
+        public int? BurstSize { get; set; }
     }
 }

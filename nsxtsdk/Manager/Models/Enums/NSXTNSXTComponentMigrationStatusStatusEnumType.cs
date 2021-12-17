@@ -20,7 +20,9 @@ namespace nsxtsdk.ManagerModels
         INPROGRESS = 3,
         [EnumMember(Value = "NOT_STARTED")]
         NOTSTARTED = 4,
+        [EnumMember(Value = "PAUSING")]
+        PAUSING = 5,
         [EnumMember(Value = "PAUSED")]
-        PAUSED = 5,
+        PAUSED = 6,
     }
 }

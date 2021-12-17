@@ -18,11 +18,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Allocation rule on edge cluster which will be considered in auto placementof TIER1 logical routers, DHCP and MDProxy.")]
     public class NSXTAllocationRuleType 
     {
+        public NSXTAllocationRuleType()
+        {
+        }
         /// <summary>
-        /// Set action for each allocation rule
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "action", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Set action for each allocation rule")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTAllocationRuleActionType Action { get; set; }
     }

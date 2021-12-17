@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Time interval on which firewall schedule will be applicable")]
     public class NSXTPolicyTimeIntervalValueType 
     {
+        public NSXTPolicyTimeIntervalValueType()
+        {
+        }
         /// <summary>
         /// Time in 24 hour and minutes in multiple of 30. Example, 9:00.
         /// </summary>

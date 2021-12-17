@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildALBWafPolicyType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildALBWafPolicyType()
+        {
+        }
         /// <summary>
-        /// Contains the actual ALBWafPolicy object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ALBWafPolicy", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual ALBWafPolicy object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBWafPolicyType ALBWafPolicy { get; set; }
     }

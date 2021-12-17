@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPortQoSProfileBindingMapType : NSXTQoSProfileBindingMapType
     {
+        public NSXTPortQoSProfileBindingMapType()
+        {
+        }
         /// <summary>
         /// PolicyPath of associated  QoS Profile
         /// </summary>

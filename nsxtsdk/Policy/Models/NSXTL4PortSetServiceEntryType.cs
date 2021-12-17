@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTL4PortSetServiceEntryType : NSXTServiceEntryType
     {
+        public NSXTL4PortSetServiceEntryType()
+        {
+        }
         /// <summary>
         /// Number of values should not exceed 15, ranges count as 2 values.
         /// </summary>

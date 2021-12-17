@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPimRpMappingCsvRecordType : NSXTCsvRecordType
     {
+        public NSXTPimRpMappingCsvRecordType()
+        {
+        }
         /// <summary>
         /// Value of this field will be true if this edge transport node
         /// acts as rendezvous point, otherwise false.

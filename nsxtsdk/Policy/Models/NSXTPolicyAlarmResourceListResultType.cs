@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyAlarmResourceListResultType : NSXTListResultType
     {
+        public NSXTPolicyAlarmResourceListResultType()
+        {
+        }
         /// <summary>
         /// List of alarm resources
         /// </summary>

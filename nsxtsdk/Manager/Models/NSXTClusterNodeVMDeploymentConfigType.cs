@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Contains info used to configure the VM on deployment")]
     public class NSXTClusterNodeVMDeploymentConfigType 
     {
+        public NSXTClusterNodeVMDeploymentConfigType()
+        {
+        }
         /// <summary>
         /// Specifies the config for the platform through which to deploy the VM
         /// </summary>

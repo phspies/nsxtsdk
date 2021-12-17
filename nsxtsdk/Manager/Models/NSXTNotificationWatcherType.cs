@@ -17,6 +17,11 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNotificationWatcherType : NSXTManagedResourceType
     {
+        public NSXTNotificationWatcherType()
+        {
+            SendTimeout = test
+            MaxSendUriCount = test
+        }
         /// <summary>
         /// Optional description that can be associated with this NotificationWatcher.
         /// </summary>
@@ -30,7 +35,6 @@ namespace nsxtsdk.ManagerModels
         [JsonProperty(PropertyName = "send_timeout")]
         [NSXTProperty(IsRequired: false, Description: @"Optional time duration (in seconds) to specify request timeout to notification watcher. If the send reaches the timeout, will try to send refresh_needed as true in the next time interval. The default value is 30 seconds.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        [NSXTDefaultProperty(Default: "")]
         public long? SendTimeout { get; set; }
         /// <summary>
         /// URI notification requests should be made on the specified server.
@@ -77,13 +81,12 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"If the number of notification URIs accumulated in specified send_interval exceeds max_send_uri_count, then multiple notification requests (each with max_send_uri_count or less number of notification URIs) will be sent to this NotificationWatcher. The default value is 5000.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(5000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? MaxSendUriCount { get; set; }
         /// <summary>
-        /// A NotificationAuthenticationScheme that describes how notification requests should authenticate to the server.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "authentication_scheme", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"A NotificationAuthenticationScheme that describes how notification requests should authenticate to the server.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTNotificationAuthenticationSchemeType AuthenticationScheme { get; set; }
         /// <summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVPNServiceListResultType : NSXTListResultType
     {
+        public NSXTIPSecVPNServiceListResultType()
+        {
+        }
         /// <summary>
         /// IPSec VPN serivce list result
         /// </summary>

@@ -18,6 +18,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Contains a list of cluster node VM deployment requests and optionallya clustering configuration.")]
     public class NSXTAddClusterNodeVMInfoType 
     {
+        public NSXTAddClusterNodeVMInfoType()
+        {
+        }
         /// <summary>
         /// Cluster node VM deployment requests to be deployed by the Manager.
         /// </summary>
@@ -26,11 +29,10 @@ namespace nsxtsdk.ManagerModels
         [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTClusterNodeVMDeploymentRequestType> DeploymentRequests { get; set; }
         /// <summary>
-        /// This property is deprecated since ClusteringConfig is no longer
-        /// needed for auto-installation and will be ignored if provided.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "clustering_config")]
-        [NSXTProperty(IsRequired: false, Description: @"This property is deprecated since ClusteringConfig is no longerneeded for auto-installation and will be ignored if provided.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTClusteringConfigType ClusteringConfig { get; set; }
     }
 }

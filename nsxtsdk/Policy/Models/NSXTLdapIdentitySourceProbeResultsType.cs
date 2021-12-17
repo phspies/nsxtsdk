@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLdapIdentitySourceProbeResultsType : NSXTResourceType
     {
+        public NSXTLdapIdentitySourceProbeResultsType()
+        {
+        }
         /// <summary>
         /// Probe results for all probed LDAP servers.
         /// </summary>

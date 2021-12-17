@@ -18,6 +18,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Contains a set of information of a VM on the network interfaces present on the partner appliance that needs to be configured by the NSX Manager.")]
     public class NSXTVmNicInfoType 
     {
+        public NSXTVmNicInfoType()
+        {
+        }
         /// <summary>
         /// Set of information of a VM on the network interfaces present on the partner appliance that needs to be configured by the
         /// NSX Manager.

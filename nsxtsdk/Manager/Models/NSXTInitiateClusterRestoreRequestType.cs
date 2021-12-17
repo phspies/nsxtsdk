@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTInitiateClusterRestoreRequestType 
     {
+        public NSXTInitiateClusterRestoreRequestType()
+        {
+        }
         /// <summary>
         /// Timestamp of the backed-up configuration from which
         /// the appliance will be restored

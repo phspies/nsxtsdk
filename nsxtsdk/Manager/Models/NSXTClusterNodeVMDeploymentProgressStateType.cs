@@ -18,6 +18,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Deployment progress state of node VM. This Object contains name of current deployment step and overall progress percentage.")]
     public class NSXTClusterNodeVMDeploymentProgressStateType 
     {
+        public NSXTClusterNodeVMDeploymentProgressStateType()
+        {
+        }
         /// <summary>
         /// Overall progress percentage of deployment completed
         /// </summary>

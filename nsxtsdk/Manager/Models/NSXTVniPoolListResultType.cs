@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTVniPoolListResultType : NSXTListResultType
     {
+        public NSXTVniPoolListResultType()
+        {
+        }
         /// <summary>
         /// VNI pool list results
         /// </summary>

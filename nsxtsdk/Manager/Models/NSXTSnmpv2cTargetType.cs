@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"This object contains SNMP v2c target/receiver where SNMP traps/notifications will be sent.")]
     public class NSXTSnmpv2cTargetType 
     {
+        public NSXTSnmpv2cTargetType()
+        {
+            Port = test
+        }
         /// <summary>
         /// Unique non-sensitive community name to identify community.
         /// </summary>
@@ -39,7 +43,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"SNMP v2c target server&apos;s port number.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Port { get; set; }
         /// <summary>
         /// SNMP v2c target server's IP or FQDN.

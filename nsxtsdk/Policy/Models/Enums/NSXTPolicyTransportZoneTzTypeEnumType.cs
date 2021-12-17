@@ -7,9 +7,9 @@ using nsxtsdk.Models;
 namespace nsxtsdk.PolicyModels
 {
     /// <summary>
-    /// Transport Zone Type.
+    /// Transport Zone Traffic type. OVERLAY_STANDARD and OVERLAY_ENS are deprecated.STANDARD, ENS and ENS_INTERRUPT are hostSwitch modes and same can be given in HostTransportNode.HostSwitchSpec.
     /// </summary>
-    [NSXTProperty(Description: @"Transport Zone Type.")]
+    [NSXTProperty(Description: @"Transport Zone Traffic type. OVERLAY_STANDARD and OVERLAY_ENS are deprecated.STANDARD, ENS and ENS_INTERRUPT are hostSwitch modes and same can be given in HostTransportNode.HostSwitchSpec.")]
     public enum NSXTPolicyTransportZoneTzTypeEnumType
     {
         [EnumMember(Value = "OVERLAY_STANDARD")]
@@ -18,7 +18,9 @@ namespace nsxtsdk.PolicyModels
         OVERLAYENS = 2,
         [EnumMember(Value = "VLAN_BACKED")]
         VLANBACKED = 3,
+        [EnumMember(Value = "OVERLAY_BACKED")]
+        OVERLAYBACKED = 4,
         [EnumMember(Value = "UNKNOWN")]
-        UNKNOWN = 4,
+        UNKNOWN = 5,
     }
 }

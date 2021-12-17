@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildFqdnAnalysisConfigType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildFqdnAnalysisConfigType()
+        {
+        }
         /// <summary>
-        /// Contains the actual FqdnAnalysisConfig object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "FqdnAnalysisConfig", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual FqdnAnalysisConfig object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTFqdnAnalysisConfigType FqdnAnalysisConfig { get; set; }
     }

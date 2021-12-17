@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Gives the statistics of a NAT rule per enforcement point.")]
     public class NSXTPolicyNatRuleStatisticsPerEnforcementPointType 
     {
+        public NSXTPolicyNatRuleStatisticsPerEnforcementPointType()
+        {
+        }
         /// <summary>
         /// Gives NAT rule stats on an enforcement point.
         /// </summary>

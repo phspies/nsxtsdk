@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTComputeCollectionListResultType : NSXTListResultType
     {
+        public NSXTComputeCollectionListResultType()
+        {
+        }
         /// <summary>
         /// Compute Collection list results
         /// </summary>

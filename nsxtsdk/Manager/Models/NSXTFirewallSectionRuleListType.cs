@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFirewallSectionRuleListType : NSXTFirewallSectionType
     {
+        public NSXTFirewallSectionRuleListType()
+        {
+        }
         /// <summary>
         /// List of firewall rules in the section. Only homogenous rules are supported.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUpdatePrincipalIdentityCertificateRequestType : NSXTManagedResourceType
     {
+        public NSXTUpdatePrincipalIdentityCertificateRequestType()
+        {
+        }
         /// <summary>
         /// Unique ID of the principal.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Amount of memory and CPU allocated to the Edge VM.")]
     public class NSXTResourceAssignmentType 
     {
+        public NSXTResourceAssignmentType()
+        {
+        }
         /// <summary>
         /// Memory allocation in MB.
         /// </summary>

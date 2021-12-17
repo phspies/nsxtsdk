@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRoutingConfigType : NSXTManagedResourceType
     {
+        public NSXTRoutingConfigType()
+        {
+        }
         /// <summary>
         /// Defines the extra time the router must wait before sending the UP notification
         /// after the first BGP session is established. Default means forward immediately.

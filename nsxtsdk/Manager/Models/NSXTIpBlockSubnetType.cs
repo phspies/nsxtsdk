@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpBlockSubnetType : NSXTManagedResourceType
     {
+        public NSXTIpBlockSubnetType()
+        {
+        }
         /// <summary>
         /// For internal system use Only. Represents start ip address of the subnet from IP block. Subnet ip adddress will start
         /// from this ip address.

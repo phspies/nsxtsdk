@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Identity (Directory) group")]
     public class NSXTIdentityGroupInfoType 
     {
+        public NSXTIdentityGroupInfoType()
+        {
+        }
         /// <summary>
         /// Each LDAP object is uniquely identified by its distinguished name (DN).
         /// A DN is a sequence of relative distinguished names (RDN) connected by commas.

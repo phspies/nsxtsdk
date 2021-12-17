@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HealthMonitorUdp object")]
     public class NSXTALBHealthMonitorUdpType 
     {
+        public NSXTALBHealthMonitorUdpType()
+        {
+        }
         /// <summary>
         /// Match or look for this keyword in the first 2KB of server's
         /// response indicating server maintenance.

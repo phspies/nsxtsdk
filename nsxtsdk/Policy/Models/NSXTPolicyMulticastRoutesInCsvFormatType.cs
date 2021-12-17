@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyMulticastRoutesInCsvFormatType : NSXTCsvListResultType
     {
+        public NSXTPolicyMulticastRoutesInCsvFormatType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

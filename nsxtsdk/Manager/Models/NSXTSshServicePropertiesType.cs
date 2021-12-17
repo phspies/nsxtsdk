@@ -17,6 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"SSH Service properties")]
     public class NSXTSshServicePropertiesType 
     {
+        public NSXTSshServicePropertiesType()
+        {
+        }
+        /// <summary>
+        /// Permit SSH Root login
+        /// </summary>
+        [JsonProperty(PropertyName = "root_login")]
+        [NSXTProperty(IsRequired: false, Description: @"Permit SSH Root login")]
+        public bool? RootLogin { get; set; }
         /// <summary>
         /// Start service when system boots
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Answer of nslookup")]
     public class NSXTDnsQueryAnswerType 
     {
+        public NSXTDnsQueryAnswerType()
+        {
+        }
         /// <summary>
         /// Unparsed answer string from raw_answer.
         /// </summary>

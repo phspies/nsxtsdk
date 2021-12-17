@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildPolicyFirewallSessionTimerProfileType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildPolicyFirewallSessionTimerProfileType()
+        {
+        }
         /// <summary>
-        /// Contains the actual PolicyFirewallSessionTimerProfile object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "PolicyFirewallSessionTimerProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual PolicyFirewallSessionTimerProfile object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTPolicyFirewallSessionTimerProfileType PolicyFirewallSessionTimerProfile { get; set; }
     }

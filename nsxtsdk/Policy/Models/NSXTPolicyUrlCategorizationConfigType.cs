@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyUrlCategorizationConfigType : NSXTPolicyConfigResourceType
     {
+        public NSXTPolicyUrlCategorizationConfigType()
+        {
+            UpdateFrequency = test
+        }
         /// <summary>
         /// The frequency in minutes at which the updates are downloaded from the
         /// URL categorization cloud service. The minimum allowed value is 5
@@ -25,8 +29,7 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "update_frequency")]
         [NSXTProperty(IsRequired: false, Description: @"The frequency in minutes at which the updates are downloaded from theURL categorization cloud service. The minimum allowed value is 5minutes.")]
         //[System.ComponentModel.DataAnnotations.MinLength(5)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? UpdateFrequency { get; set; }
+        public int? UpdateFrequency { get; set; }
         /// <summary>
         /// The ids of the context profiles that provides the list of categories to
         /// be detected. This field is deprecated. URL Categorization will not be

@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer ClientLogFilter object")]
     public class NSXTALBClientLogFilterType 
     {
+        public NSXTALBClientLogFilterType()
+        {
+            Duration = test
+        }
         /// <summary>
         /// Number of index.
         /// </summary>
@@ -25,11 +29,10 @@ namespace nsxtsdk.PolicyModels
         [System.ComponentModel.DataAnnotations.Required]
         public long Index { get; set; }
         /// <summary>
-        /// Placeholder for description of property client_ip of obj
-        /// type ClientLogFilter field type str  type ref.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "client_ip")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property client_ip of objtype ClientLogFilter field type str  type ref.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBIpAddrMatchType ClientIp { get; set; }
         /// <summary>
         /// Name of the object.
@@ -46,7 +49,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "duration")]
         [NSXTProperty(IsRequired: false, Description: @"Special values are 0 - &apos;infinite&apos;.Unit is MIN.Default value when not specified in API or module isinterpreted by ALB Controller as 30.")]
-        [NSXTDefaultProperty(Default: "")]
         public long? Duration { get; set; }
         /// <summary>
         /// Placeholder for description of property all_headers of obj
@@ -68,11 +70,10 @@ namespace nsxtsdk.PolicyModels
         [System.ComponentModel.DataAnnotations.Required]
         public bool Enabled { get; set; }
         /// <summary>
-        /// Placeholder for description of property uri of obj type
-        /// ClientLogFilter field type str  type ref.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "uri")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property uri of obj typeClientLogFilter field type str  type ref.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBStringMatchType Uri { get; set; }
     }
 }

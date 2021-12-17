@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildTier0RouteMapType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildTier0RouteMapType()
+        {
+        }
         /// <summary>
-        /// Contains the actual Tier0RouteMap object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "Tier0RouteMap", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual Tier0RouteMap object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTTier0RouteMapType Tier0RouteMap { get; set; }
     }

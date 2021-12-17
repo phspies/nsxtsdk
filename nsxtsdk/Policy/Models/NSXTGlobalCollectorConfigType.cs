@@ -18,6 +18,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"The GlobalCollectorConfig is the base class for global collector configurations fordifferent types in a NSX domain.")]
     public class NSXTGlobalCollectorConfigType 
     {
+        public NSXTGlobalCollectorConfigType()
+        {
+        }
         /// <summary>
         /// Port for the global collector.
         /// </summary>
@@ -26,7 +29,7 @@ namespace nsxtsdk.PolicyModels
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         [System.ComponentModel.DataAnnotations.Required]
-        public long CollectorPort { get; set; }
+        public int CollectorPort { get; set; }
         /// <summary>
         /// Specify the global collector type.
         /// </summary>

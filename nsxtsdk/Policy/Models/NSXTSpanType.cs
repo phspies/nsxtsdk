@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSpanType : NSXTPolicyConfigResourceType
     {
+        public NSXTSpanType()
+        {
+        }
         /// <summary>
         /// Policy resource type of the streached entity.
         /// </summary>

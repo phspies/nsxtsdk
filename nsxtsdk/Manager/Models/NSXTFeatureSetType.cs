@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Represents list of features required to view the widget.")]
     public class NSXTFeatureSetType 
     {
+        public NSXTFeatureSetType()
+        {
+        }
         /// <summary>
         /// List of features required for to view widget.
         /// </summary>

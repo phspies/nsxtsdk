@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSftpProtocolType : NSXTProtocolType
     {
+        public NSXTSftpProtocolType()
+        {
+        }
         /// <summary>
         /// SSH fingerprint of server
         /// </summary>
@@ -25,10 +28,10 @@ namespace nsxtsdk.ManagerModels
         [System.ComponentModel.DataAnnotations.Required]
         public string SshFingerprint { get; set; }
         /// <summary>
-        /// Scheme to authenticate if required
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "authentication_scheme", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Scheme to authenticate if required")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTPasswordAuthenticationSchemeType AuthenticationScheme { get; set; }
     }

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBGPCommunityListListResultType : NSXTListResultType
     {
+        public NSXTBGPCommunityListListResultType()
+        {
+        }
         /// <summary>
         /// Paginated list of bgp community lists
         /// </summary>

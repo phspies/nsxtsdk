@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Cluster Certificate ID")]
     public class NSXTClusterCertificateIdType 
     {
+        public NSXTClusterCertificateIdType()
+        {
+        }
         /// <summary>
         /// Certificate ID
         /// </summary>

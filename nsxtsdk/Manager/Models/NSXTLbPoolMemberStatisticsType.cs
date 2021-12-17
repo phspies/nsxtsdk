@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbPoolMemberStatisticsType 
     {
+        public NSXTLbPoolMemberStatisticsType()
+        {
+        }
         /// <summary>
-        /// Pool member statistics counter
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "statistics", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Pool member statistics counter")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTLbStatisticsCounterType Statistics { get; set; }
         /// <summary>

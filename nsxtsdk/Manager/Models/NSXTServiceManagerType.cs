@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceManagerType : NSXTManagedResourceType
     {
+        public NSXTServiceManagerType()
+        {
+        }
         /// <summary>
         /// Integer port value to specify a standard/non-standard HTTPS port.
         /// </summary>
@@ -34,11 +37,10 @@ namespace nsxtsdk.ManagerModels
         [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTResourceReferenceType> ServiceIds { get; set; }
         /// <summary>
-        /// A CallbackAuthenticationScheme that describes how notification requests/callbacks from NSX, should authenticate to the
-        /// server.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "authentication_scheme", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"A CallbackAuthenticationScheme that describes how notification requests/callbacks from NSX, should authenticate to the server.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTCallbackAuthenticationSchemeType AuthenticationScheme { get; set; }
         /// <summary>

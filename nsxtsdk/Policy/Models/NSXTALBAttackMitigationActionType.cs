@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer AttackMitigationAction object")]
     public class NSXTALBAttackMitigationActionType 
     {
+        public NSXTALBAttackMitigationActionType()
+        {
+            Deny = test
+        }
         /// <summary>
         /// Deny the attack packets further processing and drop them.
         /// Default value when not specified in API or module is
@@ -24,7 +28,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "deny")]
         [NSXTProperty(IsRequired: false, Description: @"Deny the attack packets further processing and drop them.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Deny { get; set; }
     }
 }

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Information on the Network interfaces present on the partner appliance that needs to be configured by the NSX Manager.")]
     public class NSXTNicMetadataType 
     {
+        public NSXTNicMetadataType()
+        {
+        }
         /// <summary>
         /// Network Interface label.
         /// </summary>
@@ -33,13 +36,13 @@ namespace nsxtsdk.ManagerModels
         public NSXTNicMetadataInterfaceTypeEnumType InterfaceType { get; set; }
         /// <summary>
         /// Transport Type of the service, which is the mechanism of redirecting the traffic to the the partner appliance. Transport
-        /// type is required if Service caters to any functionality other than EPP. Here, the transports array specifies the kinds
-        /// of transport where this particular NIC is user configurable. If nothing is specified, and the "user_configurable" flag
-        /// is true, then user configuration will be allowed for all transports. If any transport is/are specified, then it will be
-        /// considered as user configurable for the specified transports only."
+        /// type is required if Service caters to any functionality other than EPP and MPS. Here, the transports array specifies the
+        /// kinds of transport where this particular NIC is user configurable. If nothing is specified, and the "user_configurable"
+        /// flag is true, then user configuration will be allowed for all transports. If any transport is/are specified, then it
+        /// will be considered as user configurable for the specified transports only."
         /// </summary>
         [JsonProperty(PropertyName = "transports")]
-        [NSXTProperty(IsRequired: false, Description: @"Transport Type of the service, which is the mechanism of redirecting the traffic to the the partner appliance. Transport type is required if Service caters to any functionality other than EPP. Here, the transports array specifies the kinds of transport where this particular NIC is user configurable. If nothing is specified, and the &quot;user_configurable&quot; flag is true, then user configuration will be allowed for all transports. If any transport is/are specified, then it will be considered as user configurable for the specified transports only.&quot;")]
+        [NSXTProperty(IsRequired: false, Description: @"Transport Type of the service, which is the mechanism of redirecting the traffic to the the partner appliance. Transport type is required if Service caters to any functionality other than EPP and MPS. Here, the transports array specifies the kinds of transport where this particular NIC is user configurable. If nothing is specified, and the &quot;user_configurable&quot; flag is true, then user configuration will be allowed for all transports. If any transport is/are specified, then it will be considered as user configurable for the specified transports only.&quot;")]
         public IList<string> Transports { get; set; }
         /// <summary>
         /// Used to specify if the given interface needs configuration. Management nics will always need the configuration, for

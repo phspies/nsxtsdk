@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Upgrade coordinator Uc functional State.")]
     public class NSXTUcFunctionalStateType 
     {
+        public NSXTUcFunctionalStateType()
+        {
+        }
         /// <summary>
         /// function state of the upgrade coordinator
         /// </summary>

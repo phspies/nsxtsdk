@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTGlobalIdsSignatureListResultType : NSXTListResultType
     {
+        public NSXTGlobalIdsSignatureListResultType()
+        {
+        }
         /// <summary>
         /// Global IDS signature list results
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSamplingArgumentType 
     {
+        public NSXTSamplingArgumentType()
+        {
+        }
         /// <summary>
         /// Sampling type
         /// </summary>

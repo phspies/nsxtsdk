@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyDraftListResultType : NSXTListResultType
     {
+        public NSXTPolicyDraftListResultType()
+        {
+        }
         /// <summary>
         /// Paginated list of policy drafts.
         /// </summary>

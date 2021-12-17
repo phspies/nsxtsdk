@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTOverriddenResourceListResultType : NSXTListResultType
     {
+        public NSXTOverriddenResourceListResultType()
+        {
+        }
         /// <summary>
         /// OverriddenResource list results.
         /// </summary>

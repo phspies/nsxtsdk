@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildPolicyServiceChainType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildPolicyServiceChainType()
+        {
+        }
         /// <summary>
-        /// Contains actual PolicyServiceChain.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "PolicyServiceChain", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains actual PolicyServiceChain.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTPolicyServiceChainType PolicyServiceChain { get; set; }
     }

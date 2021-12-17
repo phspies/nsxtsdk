@@ -17,29 +17,34 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer AuthorizationMatch object")]
     public class NSXTALBAuthorizationMatchType 
     {
+        public NSXTALBAuthorizationMatchType()
+        {
+        }
         /// <summary>
-        /// Host header value to be matched.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "host_hdr")]
-        [NSXTProperty(IsRequired: false, Description: @"Host header value to be matched.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHostHdrMatchType HostHdr { get; set; }
         /// <summary>
-        /// Paths/URLs to be matched.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "path")]
-        [NSXTProperty(IsRequired: false, Description: @"Paths/URLs to be matched.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBPathMatchType Path { get; set; }
         /// <summary>
-        /// HTTP methods to be matched.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "method")]
-        [NSXTProperty(IsRequired: false, Description: @"HTTP methods to be matched.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBMethodMatchType Method { get; set; }
         /// <summary>
-        /// Attributes whose values need to be matched .
+        /// Attributes whose values need to be matched.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
         /// </summary>
         [JsonProperty(PropertyName = "attr_matches")]
-        [NSXTProperty(IsRequired: false, Description: @"Attributes whose values need to be matched .")]
+        [NSXTProperty(IsRequired: false, Description: @"Attributes whose values need to be matched.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
         public IList<NSXTALBAuthAttributeMatchType> AttrMatches { get; set; }
     }
 }

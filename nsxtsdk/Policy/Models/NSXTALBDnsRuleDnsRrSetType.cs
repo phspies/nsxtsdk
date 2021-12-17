@@ -17,12 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsRuleDnsRrSet object")]
     public class NSXTALBDnsRuleDnsRrSetType 
     {
+        public NSXTALBDnsRuleDnsRrSetType()
+        {
+            Section = test
+        }
         /// <summary>
-        /// DNS resource record set - (records in the resource record
-        /// set share the DNS domain name, type, and class).
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "resource_record_set", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"DNS resource record set - (records in the resource recordset share the DNS domain name, type, and class).")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBDnsRrSetType ResourceRecordSet { get; set; }
         /// <summary>
@@ -35,7 +38,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "section")]
         [NSXTProperty(IsRequired: false, Description: @"DNS message section for the resource record set.Enum options - DNS_MESSAGE_SECTION_QUESTION,DNS_MESSAGE_SECTION_ANSWER, DNS_MESSAGE_SECTION_AUTHORITY,DNS_MESSAGE_SECTION_ADDITIONAL.Default value when not specified in API or module isinterpreted by ALB Controller as DNS_MESSAGE_SECTION_ANSWER.")]
-        [NSXTDefaultProperty(Default: "DNS_MESSAGE_SECTION_ANSWER")]
         public NSXTAlbdnsRuleDnsRrSetSectionEnumType? Section { get; set; }
     }
 }

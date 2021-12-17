@@ -17,6 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbHttpsMonitorType : NSXTLbActiveMonitorType
     {
+        public NSXTLbHttpsMonitorType()
+        {
+            ServerAuth = test
+            RequestMethod = test
+            CertificateChainDepth = test
+            RequestVersion = test
+        }
         /// <summary>
         /// The HTTP response status code should be a valid HTTP status code.
         /// </summary>
@@ -43,7 +50,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "server_auth")]
         [NSXTProperty(IsRequired: false, Description: @"server authentication mode")]
-        [NSXTDefaultProperty(Default: "IGNORE")]
         public NSXTLbHttpsMonitorServerAuthEnumType? ServerAuth { get; set; }
         /// <summary>
         /// String to send as part of HTTP health check request body. Valid only
@@ -87,7 +93,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "request_method")]
         [NSXTProperty(IsRequired: false, Description: @"the health check method for HTTP monitor type")]
-        [NSXTDefaultProperty(Default: "GET")]
         public NSXTLbHttpsMonitorRequestMethodEnumType? RequestMethod { get; set; }
         /// <summary>
         /// This flag is set to true when all the ciphers and protocols are FIPS
@@ -105,7 +110,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"authentication depth is used to set the verification depth in the servercertificates chain.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
-        [NSXTDefaultProperty(Default: "")]
         public long? CertificateChainDepth { get; set; }
         /// <summary>
         /// This flag is set to true when all the ciphers and protocols are secure.
@@ -131,7 +135,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "request_version")]
         [NSXTProperty(IsRequired: false, Description: @"HTTP request version")]
-        [NSXTDefaultProperty(Default: "HTTP_VERSION_1_1")]
         public NSXTLbHttpsMonitorRequestVersionEnumType? RequestVersion { get; set; }
         /// <summary>
         /// SSL versions TLS1.1 and TLS1.2 are supported and enabled by default.

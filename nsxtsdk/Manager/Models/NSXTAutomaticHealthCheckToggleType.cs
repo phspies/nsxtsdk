@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAutomaticHealthCheckToggleType : NSXTManagedResourceType
     {
+        public NSXTAutomaticHealthCheckToggleType()
+        {
+        }
         /// <summary>
         /// Status of automatic health check
         /// </summary>

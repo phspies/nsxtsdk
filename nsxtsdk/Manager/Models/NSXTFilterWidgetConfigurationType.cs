@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFilterWidgetConfigurationType : NSXTWidgetConfigurationType
     {
+        public NSXTFilterWidgetConfigurationType()
+        {
+        }
         /// <summary>
         /// Alias to be used when emitting filter value.
         /// </summary>

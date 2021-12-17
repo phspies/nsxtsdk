@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBgpNeighborListResultType : NSXTListResultType
     {
+        public NSXTBgpNeighborListResultType()
+        {
+        }
         /// <summary>
         /// Paginated list of bgp neighbors
         /// </summary>

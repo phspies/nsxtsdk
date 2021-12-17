@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTConditionalForwarderZoneType : NSXTForwarderZoneType
     {
+        public NSXTConditionalForwarderZoneType()
+        {
+        }
         /// <summary>
         /// A forwarder domain name should be a valid FQDN. If reverse lookup is
         /// needed for this zone, reverse lookup domain name like X.in-addr.arpa

@@ -17,12 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTCommunicationEntryType : NSXTPolicyConfigResourceType
     {
+        public NSXTCommunicationEntryType()
+        {
+            Direction = test
+        }
         /// <summary>
         /// Define direction of traffic.
         /// </summary>
         [JsonProperty(PropertyName = "direction")]
         [NSXTProperty(IsRequired: false, Description: @"Define direction of traffic.")]
-        [NSXTDefaultProperty(Default: "IN_OUT")]
         public NSXTCommunicationEntryDirectionEnumType? Direction { get; set; }
         /// <summary>
         /// Text for additional notes on changes.
@@ -94,7 +97,7 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "sequence_number")]
         [NSXTProperty(IsRequired: false, Description: @"This field is used to resolve conflicts between multipleCommunicationEntries under CommunicationMap for a DomainIf no sequence number is specified in the payload, a value of 0 isassigned by default. If there are multiple communication entries withthe same sequence number then their order is not deterministic. If aspecific order of communication entry is desired, then one has tospecify unique sequence numbers or use the POST request on thecommunication entry entity with a query parameter action=revise to letthe framework assign a sequence number")]
-        public long? SequenceNumber { get; set; }
+        public int? SequenceNumber { get; set; }
         /// <summary>
         /// We need paths as duplicate names may exist for groups under different
         /// domains. In order to specify all groups, use the constant "ANY". This

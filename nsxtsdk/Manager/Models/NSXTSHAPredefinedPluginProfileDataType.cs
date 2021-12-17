@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Describes a config item for System Health profile.")]
     public class NSXTSHAPredefinedPluginProfileDataType 
     {
+        public NSXTSHAPredefinedPluginProfileDataType()
+        {
+        }
         /// <summary>
         /// The interval of plugin to report the status.
         /// </summary>

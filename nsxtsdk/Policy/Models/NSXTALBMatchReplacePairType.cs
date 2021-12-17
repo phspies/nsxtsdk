@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer MatchReplacePair object")]
     public class NSXTALBMatchReplacePairType 
     {
+        public NSXTALBMatchReplacePairType()
+        {
+        }
         /// <summary>
         /// String to be matched.
         /// </summary>
@@ -25,10 +28,10 @@ namespace nsxtsdk.PolicyModels
         [System.ComponentModel.DataAnnotations.Required]
         public string MatchString { get; set; }
         /// <summary>
-        /// Replacement string.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "replacement_string")]
-        [NSXTProperty(IsRequired: false, Description: @"Replacement string.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBReplaceStringVarType ReplacementString { get; set; }
     }
 }

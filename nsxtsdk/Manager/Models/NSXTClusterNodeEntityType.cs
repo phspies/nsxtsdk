@@ -20,6 +20,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"NSX Cluster is made up of multiple cluster nodes. Each node can perform multiple functions, commonly referred to as roles. Cluster node entities are processes running in a cluster node that assist in the performance of a role. Cluster Boot Manager is a daemon that securely bootstraps and configures the entities. This type contains attributes of a cluster node entity that are relevant to the Cluster Boot Manager.")]
     public class NSXTClusterNodeEntityType 
     {
+        public NSXTClusterNodeEntityType()
+        {
+        }
         /// <summary>
         /// Public certificate of the entity in PEM format
         /// </summary>

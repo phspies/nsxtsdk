@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildALBHealthMonitorType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildALBHealthMonitorType()
+        {
+        }
         /// <summary>
-        /// Contains the actual ALBHealthMonitor object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ALBHealthMonitor", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual ALBHealthMonitor object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBHealthMonitorType ALBHealthMonitor { get; set; }
     }

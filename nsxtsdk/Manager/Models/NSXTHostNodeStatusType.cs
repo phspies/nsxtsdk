@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Host Node Status")]
     public class NSXTHostNodeStatusType 
     {
+        public NSXTHostNodeStatusType()
+        {
+        }
         /// <summary>
         /// Gives details of state of desired configuration. This property is available only if Tranport Node exists for the host.
         /// Following are the supported values pending  - Transport Node configuration status is pending in_progress - Transport

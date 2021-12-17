@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTThreatStatusType 
     {
+        public NSXTThreatStatusType()
+        {
+        }
         /// <summary>
         /// Transport node threat status
         /// </summary>

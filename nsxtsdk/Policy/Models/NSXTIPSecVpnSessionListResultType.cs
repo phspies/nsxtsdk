@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVpnSessionListResultType : NSXTListResultType
     {
+        public NSXTIPSecVpnSessionListResultType()
+        {
+        }
         /// <summary>
         /// IPSecVpnSession list results.
         /// </summary>

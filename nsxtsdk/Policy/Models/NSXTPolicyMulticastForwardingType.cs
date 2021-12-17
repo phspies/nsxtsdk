@@ -12,11 +12,14 @@ using System.ComponentModel;
 namespace nsxtsdk.PolicyModels
 {
     /// <summary>
-    /// Multicast Forwarding.
+    /// 
     /// </summary>
-    [NSXTProperty(Description: @"Multicast Forwarding.")]
-    public class NSXTPolicyMulticastForwardingType 
+    [NSXTProperty(Description: @"")]
+    public class NSXTPolicyMulticastForwardingType : NSXTListResultType
     {
+        public NSXTPolicyMulticastForwardingType()
+        {
+        }
         /// <summary>
         /// Policy path to Tier0 or Tier1 gateway.
         /// </summary>

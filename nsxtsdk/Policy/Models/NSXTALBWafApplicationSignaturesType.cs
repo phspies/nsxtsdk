@@ -17,16 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer WafApplicationSignatures object")]
     public class NSXTALBWafApplicationSignaturesType 
     {
-        /// <summary>
-        /// The active application specific rules.
-        /// You can change attributes like enabled, waf mode and
-        /// exclusions, but not the rules itself.
-        /// To change the rules, you can change the tags or the rule
-        /// provider.
-        /// </summary>
-        [JsonProperty(PropertyName = "rules")]
-        [NSXTProperty(IsRequired: false, Description: @"The active application specific rules.You can change attributes like enabled, waf mode andexclusions, but not the rules itself.To change the rules, you can change the tags or the ruleprovider.")]
-        public IList<NSXTALBWafRuleType> Rules { get; set; }
+        public NSXTALBWafApplicationSignaturesType()
+        {
+        }
         /// <summary>
         /// The version in use of the provided ruleset.
         /// </summary>
@@ -41,5 +34,11 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "selected_applications")]
         [NSXTProperty(IsRequired: false, Description: @"List of applications for which we use the rules from theWafApplicationSignatureProvider.Maximum of 8 items allowed.")]
         public IList<string> SelectedApplications { get; set; }
+        /// <summary>
+        /// Override attributes of application signature rules.
+        /// </summary>
+        [JsonProperty(PropertyName = "rule_overrides")]
+        [NSXTProperty(IsRequired: false, Description: @"Override attributes of application signature rules.")]
+        public IList<NSXTALBWafRuleOverridesType> RuleOverrides { get; set; }
     }
 }

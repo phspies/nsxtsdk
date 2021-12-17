@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildALBAutoScaleLaunchConfigType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildALBAutoScaleLaunchConfigType()
+        {
+        }
         /// <summary>
-        /// Contains the actual ALBAutoScaleLaunchConfig object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ALBAutoScaleLaunchConfig", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual ALBAutoScaleLaunchConfig object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBAutoScaleLaunchConfigType ALBAutoScaleLaunchConfig { get; set; }
     }

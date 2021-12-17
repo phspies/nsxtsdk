@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPortConnectionRouterType : NSXTPortConnectionEntityType
     {
+        public NSXTPortConnectionRouterType()
+        {
+        }
         /// <summary>
         /// Uplink ports of the Logical Router.
         /// </summary>

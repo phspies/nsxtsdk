@@ -17,18 +17,23 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBHttpsMonitorProfileType : NSXTLBActiveMonitorType
     {
+        public NSXTLBHttpsMonitorProfileType()
+        {
+            RequestMethod = test
+            RequestUrl = test
+            RequestVersion = test
+        }
         /// <summary>
         /// The HTTP response status code should be a valid HTTP status code.
         /// </summary>
         [JsonProperty(PropertyName = "response_status_codes")]
         [NSXTProperty(IsRequired: false, Description: @"The HTTP response status code should be a valid HTTP status code.")]
-        public long? ResponseStatusCodes { get; set; }
+        public int? ResponseStatusCodes { get; set; }
         /// <summary>
         /// The health check method for HTTP monitor type.
         /// </summary>
         [JsonProperty(PropertyName = "request_method")]
         [NSXTProperty(IsRequired: false, Description: @"The health check method for HTTP monitor type.")]
-        [NSXTDefaultProperty(Default: "GET")]
         public NSXTLbhttpsMonitorProfileRequestMethodEnumType? RequestMethod { get; set; }
         /// <summary>
         /// String to send as part of HTTP health check request body. Valid only
@@ -55,21 +60,18 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "request_url")]
         [NSXTProperty(IsRequired: false, Description: @"For HTTPS active healthchecks, the HTTPS request url sent can becustomized and can include query parameters.")]
-        [NSXTDefaultProperty(Default: "/")]
         public string? RequestUrl { get; set; }
         /// <summary>
-        /// The setting is used when the monitor acts as an SSL client and
-        /// establishing a connection to the backend server.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "server_ssl_profile_binding")]
-        [NSXTProperty(IsRequired: false, Description: @"The setting is used when the monitor acts as an SSL client andestablishing a connection to the backend server.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLBServerSslProfileBindingType ServerSslProfileBinding { get; set; }
         /// <summary>
         /// HTTP request version.
         /// </summary>
         [JsonProperty(PropertyName = "request_version")]
         [NSXTProperty(IsRequired: false, Description: @"HTTP request version.")]
-        [NSXTDefaultProperty(Default: "HTTP_VERSION_1_1")]
         public NSXTLbhttpsMonitorProfileRequestVersionEnumType? RequestVersion { get; set; }
         /// <summary>
         /// Array of HTTP request headers.

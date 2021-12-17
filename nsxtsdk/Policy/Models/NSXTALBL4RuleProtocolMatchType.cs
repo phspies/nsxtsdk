@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer L4RuleProtocolMatch object")]
     public class NSXTALBL4RuleProtocolMatchType 
     {
+        public NSXTALBL4RuleProtocolMatchType()
+        {
+        }
         /// <summary>
         /// Transport protocol to match.
         /// Enum options - PROTOCOL_ICMP, PROTOCOL_TCP, PROTOCOL_UDP.

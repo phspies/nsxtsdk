@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBgpNeighborsStatusListResultType : NSXTListResultType
     {
+        public NSXTBgpNeighborsStatusListResultType()
+        {
+        }
         /// <summary>
         /// Name of the logical router
         /// </summary>

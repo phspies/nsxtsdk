@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTGlobalConfigsListResultType : NSXTListResultType
     {
+        public NSXTGlobalConfigsListResultType()
+        {
+        }
         /// <summary>
         /// Domain specific global configuration.
         /// </summary>

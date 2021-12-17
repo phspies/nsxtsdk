@@ -17,17 +17,20 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"IPSec VPN session traffic summary.")]
     public class NSXTIPSecVPNSessionTrafficSummaryType 
     {
+        public NSXTIPSecVPNSessionTrafficSummaryType()
+        {
+        }
         /// <summary>
-        /// Traffic stastics.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "traffic_counters")]
-        [NSXTProperty(IsRequired: false, Description: @"Traffic stastics.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPSecVPNTrafficCountersType TrafficCounters { get; set; }
         /// <summary>
-        /// VPN Session.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ipsec_vpn_session")]
-        [NSXTProperty(IsRequired: false, Description: @"VPN Session.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType IpsecVpnSession { get; set; }
     }
 }

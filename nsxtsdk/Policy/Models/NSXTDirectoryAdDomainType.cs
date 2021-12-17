@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDirectoryAdDomainType : NSXTDirectoryDomainType
     {
+        public NSXTDirectoryAdDomainType()
+        {
+        }
         /// <summary>
         /// Each active directory domain has a domain naming context (NC), which contains domain-specific data. The root of this
         /// naming context is represented by a domain's distinguished name (DN) and is typically referred to as the NC head.
@@ -26,11 +29,10 @@ namespace nsxtsdk.PolicyModels
         [System.ComponentModel.DataAnnotations.Required]
         public string BaseDistinguishedName { get; set; }
         /// <summary>
-        /// Each domain sync settings can be changed using this object. It is not required since there are default values used if
-        /// there is no specification for this object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "sync_settings")]
-        [NSXTProperty(IsRequired: false, Description: @"Each domain sync settings can be changed using this object. It is not required since there are default values used if there is no specification for this object.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTDirectoryDomainSyncSettingsType SyncSettings { get; set; }
         /// <summary>
         /// NetBIOS names can contain all alphanumeric characters except for the certain disallowed characters. Names can contain a
@@ -43,12 +45,10 @@ namespace nsxtsdk.PolicyModels
         [System.ComponentModel.DataAnnotations.Required]
         public string NetbiosName { get; set; }
         /// <summary>
-        /// SelectiveSync settings toggle the SelectiveSync feature and
-        /// selected OrgUnits. If this is not specified, SelectiveSync is
-        /// disabled by default.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "selective_sync_settings")]
-        [NSXTProperty(IsRequired: false, Description: @"SelectiveSync settings toggle the SelectiveSync feature andselected OrgUnits. If this is not specified, SelectiveSync isdisabled by default.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTSelectiveSyncSettingsType SelectiveSyncSettings { get; set; }
     }
 }

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSelectiveSyncSettingsType : NSXTListResultType
     {
+        public NSXTSelectiveSyncSettingsType()
+        {
+        }
         /// <summary>
         /// Enable or disable SelectiveSync
         /// </summary>

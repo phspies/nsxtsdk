@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTEvpnTunnelEndpointConfigListResultType : NSXTListResultType
     {
+        public NSXTEvpnTunnelEndpointConfigListResultType()
+        {
+        }
         /// <summary>
         /// Evpn Tunnel Endpoint Configuration list results
         /// </summary>

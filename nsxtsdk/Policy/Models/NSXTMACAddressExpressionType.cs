@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTMACAddressExpressionType : NSXTExpressionType
     {
+        public NSXTMACAddressExpressionType()
+        {
+        }
         /// <summary>
         /// This array can consist of one or more MAC addresses.
         /// </summary>

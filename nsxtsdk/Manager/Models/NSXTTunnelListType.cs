@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTunnelListType : NSXTListResultType
     {
+        public NSXTTunnelListType()
+        {
+        }
         /// <summary>
         /// List of transport node tunnels
         /// </summary>

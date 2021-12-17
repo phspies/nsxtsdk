@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Reference to a CRL Distribution Point where to fetch a CRL")]
     public class NSXTCrlDistributionPointStatusType 
     {
+        public NSXTCrlDistributionPointStatusType()
+        {
+        }
         /// <summary>
         /// Status of the fetched CRL for this CrlDistributionPoint
         /// </summary>

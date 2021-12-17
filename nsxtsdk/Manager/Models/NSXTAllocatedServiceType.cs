@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAllocatedServiceType 
     {
+        public NSXTAllocatedServiceType()
+        {
+        }
         /// <summary>
-        /// Id and Name of the service context configured on edge node.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "service_reference")]
-        [NSXTProperty(IsRequired: false, Description: @"Id and Name of the service context configured on edge node.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType ServiceReference { get; set; }
         /// <summary>
         /// Represents the active or the standby state of the service.

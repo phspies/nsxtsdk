@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTMetadataProxyConfigType : NSXTPolicyConfigResourceType
     {
+        public NSXTMetadataProxyConfigType()
+        {
+        }
         /// <summary>
         /// Secret word or phrase to access metadata server.
         /// </summary>

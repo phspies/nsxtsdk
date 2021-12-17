@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildDhcpStaticBindingConfigType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildDhcpStaticBindingConfigType()
+        {
+        }
         /// <summary>
-        /// Contains the actual DhcpStaticBindingConfig object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "DhcpStaticBindingConfig", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual DhcpStaticBindingConfig object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTDhcpStaticBindingConfigType DhcpStaticBindingConfig { get; set; }
     }

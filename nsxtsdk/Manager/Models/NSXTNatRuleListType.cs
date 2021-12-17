@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNatRuleListType 
     {
+        public NSXTNatRuleListType()
+        {
+        }
         /// <summary>
         /// Add new NatRules to the list in Bulk creation.
         /// </summary>

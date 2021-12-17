@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"PIM (Protocol Independent Multicast) RP (Randezvous Point) mapping details.")]
     public class NSXTPimRpMappingType 
     {
+        public NSXTPimRpMappingType()
+        {
+        }
         /// <summary>
         /// Value of this field will be true if this edge transport node
         /// acts as rendezvous point, otherwise false.

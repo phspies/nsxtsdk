@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Information about the upgrade bundle")]
     public class NSXTUpgradeBundleInfoType 
     {
+        public NSXTUpgradeBundleInfoType()
+        {
+        }
         /// <summary>
         /// URL for uploading upgrade bundle
         /// </summary>

@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildLocaleServicesType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildLocaleServicesType()
+        {
+        }
         /// <summary>
-        /// Contains the actual LocaleServices object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "LocaleServices", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual LocaleServices object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTLocaleServicesType LocaleServices { get; set; }
     }

@@ -17,12 +17,23 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBL4PolicySetType : NSXTPolicyConfigResourceType
     {
+        public NSXTALBL4PolicySetType()
+        {
+        }
         /// <summary>
-        /// Policy to apply when a new transport connection is setup.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "l4_connection_policy")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy to apply when a new transport connection is setup.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBL4ConnectionPolicyType L4ConnectionPolicy { get; set; }
+        /// <summary>
+        /// List of labels to be used for granular RBAC.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
+        /// </summary>
+        [JsonProperty(PropertyName = "markers")]
+        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
+        public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
         /// <summary>
         /// Creator name.
         /// </summary>

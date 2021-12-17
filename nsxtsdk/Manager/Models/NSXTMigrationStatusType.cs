@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMigrationStatusType 
     {
+        public NSXTMigrationStatusType()
+        {
+        }
         /// <summary>
         /// Status of migration
         /// </summary>

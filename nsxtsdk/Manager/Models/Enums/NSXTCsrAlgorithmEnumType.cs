@@ -7,9 +7,9 @@ using nsxtsdk.Models;
 namespace nsxtsdk.ManagerModels
 {
     /// <summary>
-    /// Cryptographic algorithm(asymmetric ) used by the public key for data encryption.
+    /// Cryptographic algorithm (asymmetric) used by the public key for data encryption.
     /// </summary>
-    [NSXTProperty(Description: @"Cryptographic algorithm(asymmetric ) used by the public key for data encryption.")]
+    [NSXTProperty(Description: @"Cryptographic algorithm (asymmetric) used by the public key for data encryption.")]
     public enum NSXTCsrAlgorithmEnumType
     {
         [EnumMember(Value = "RSA")]

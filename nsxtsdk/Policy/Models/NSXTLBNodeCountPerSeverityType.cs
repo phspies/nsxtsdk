@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"The node count for specific load balancer usage severity.")]
     public class NSXTLBNodeCountPerSeverityType 
     {
+        public NSXTLBNodeCountPerSeverityType()
+        {
+        }
         /// <summary>
         /// Node count for specific serverity.
         /// </summary>

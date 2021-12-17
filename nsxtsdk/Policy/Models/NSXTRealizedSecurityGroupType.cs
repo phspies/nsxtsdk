@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRealizedSecurityGroupType : NSXTRealizedGroupType
     {
+        public NSXTRealizedSecurityGroupType()
+        {
+        }
         /// <summary>
         /// Reference to the evaluted members of the Security Group.
         /// </summary>

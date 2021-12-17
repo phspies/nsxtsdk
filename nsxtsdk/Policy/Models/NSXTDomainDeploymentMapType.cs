@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDomainDeploymentMapType : NSXTPolicyConfigResourceType
     {
+        public NSXTDomainDeploymentMapType()
+        {
+        }
         /// <summary>
         /// Path of enforcement point on which domain shall be enforced.
         /// </summary>

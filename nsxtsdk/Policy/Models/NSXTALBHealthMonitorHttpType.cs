@@ -17,12 +17,18 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HealthMonitorHttp object")]
     public class NSXTALBHealthMonitorHttpType 
     {
+        public NSXTALBHealthMonitorHttpType()
+        {
+            HttpRequest = test
+        }
         /// <summary>
         /// Type of the authentication method.
         /// Enum options - AUTH_BASIC, AUTH_NTLM.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
         /// </summary>
         [JsonProperty(PropertyName = "auth_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Type of the authentication method.Enum options - AUTH_BASIC, AUTH_NTLM.")]
+        [NSXTProperty(IsRequired: false, Description: @"Type of the authentication method.Enum options - AUTH_BASIC, AUTH_NTLM.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
         public NSXTAlbhealthMonitorHttpAuthTypeEnumType? AuthType { get; set; }
         /// <summary>
         /// Send an HTTP request to the server.
@@ -35,7 +41,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "http_request")]
         [NSXTProperty(IsRequired: false, Description: @"Send an HTTP request to the server.The default GET / HTTP/1.0 may be extended with additionalheaders or information.For instance, GET /index.htm HTTP/1.1 Host  www.site.comConnection  Close.Default value when not specified in API or module isinterpreted by ALB Controller as GET / HTTP/1.0.")]
-        [NSXTDefaultProperty(Default: "GET / HTTP/1.0")]
         public string? HttpRequest { get; set; }
         /// <summary>
         /// List of HTTP response codes to match as successful.
@@ -82,10 +87,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Match or look for this keyword in the first 2KB of serverheader and body response indicating server maintenance.A successful match results in the server being marked down.")]
         public string? MaintenanceResponse { get; set; }
         /// <summary>
-        /// SSL attributes for HTTPS health monitor.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ssl_attributes")]
-        [NSXTProperty(IsRequired: false, Description: @"SSL attributes for HTTPS health monitor.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHealthMonitorSSLAttributesType SslAttributes { get; set; }
         /// <summary>
         /// HTTP request body.

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DosThreshold object")]
     public class NSXTALBDosThresholdType 
     {
+        public NSXTALBDosThresholdType()
+        {
+        }
         /// <summary>
         /// Maximum number of packets or connections or requests in a
         /// given interval of time to be deemed as attack.

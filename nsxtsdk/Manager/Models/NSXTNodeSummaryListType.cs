@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeSummaryListType 
     {
+        public NSXTNodeSummaryListType()
+        {
+        }
         /// <summary>
         /// List of Node Summary
         /// </summary>

@@ -17,12 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"NTP Service properties")]
     public class NSXTNtpServicePropertiesType 
     {
+        public NSXTNtpServicePropertiesType()
+        {
+            StartOnBoot = test
+        }
         /// <summary>
         /// Start NTP service when system boots
         /// </summary>
         [JsonProperty(PropertyName = "start_on_boot")]
         [NSXTProperty(IsRequired: false, Description: @"Start NTP service when system boots")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? StartOnBoot { get; set; }
         /// <summary>
         /// NTP servers

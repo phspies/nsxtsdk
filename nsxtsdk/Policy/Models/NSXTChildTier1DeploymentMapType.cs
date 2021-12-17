@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildTier1DeploymentMapType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildTier1DeploymentMapType()
+        {
+        }
         /// <summary>
-        /// Contains the actual Tier1DeploymentMap object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "Tier1DeploymentMap", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual Tier1DeploymentMap object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTTier1DeploymentMapType Tier1DeploymentMap { get; set; }
     }

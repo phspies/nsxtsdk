@@ -17,6 +17,12 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbClientSslProfileType : NSXTLbSslProfileType
     {
+        public NSXTLbClientSslProfileType()
+        {
+            SessionCacheEnabled = test
+            SessionCacheTimeout = test
+            PreferServerCiphers = test
+        }
         /// <summary>
         /// SSL session caching allows SSL client and server to reuse previously
         /// negotiated security parameters avoiding the expensive public key
@@ -24,7 +30,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "session_cache_enabled")]
         [NSXTProperty(IsRequired: false, Description: @"SSL session caching allows SSL client and server to reuse previouslynegotiated security parameters avoiding the expensive public keyoperation during handshake.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? SessionCacheEnabled { get; set; }
         /// <summary>
         /// Session cache timeout specifies how long the SSL session parameters
@@ -34,7 +39,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Session cache timeout specifies how long the SSL session parametersare held on to and can be reused.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(86400)]
-        [NSXTDefaultProperty(Default: "")]
         public long? SessionCacheTimeout { get; set; }
         /// <summary>
         /// It is a label of cipher group which is mostly consumed by GUI.
@@ -66,7 +70,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "prefer_server_ciphers")]
         [NSXTProperty(IsRequired: false, Description: @"During SSL handshake as part of the SSL client Hello client sends anordered list of ciphers that it can support (or prefers) and typicallyserver selects the first one from the top of that list it can alsosupport. For Perfect Forward Secrecy(PFS), server could override theclient&apos;s preference.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? PreferServerCiphers { get; set; }
         /// <summary>
         /// supported SSL cipher list to client side

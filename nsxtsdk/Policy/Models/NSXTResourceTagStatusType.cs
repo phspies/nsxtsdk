@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"It represents tag operation status for a resource and details of the failure if any.")]
     public class NSXTResourceTagStatusType 
     {
+        public NSXTResourceTagStatusType()
+        {
+        }
         /// <summary>
         /// Status of tag apply or remove operation
         /// </summary>

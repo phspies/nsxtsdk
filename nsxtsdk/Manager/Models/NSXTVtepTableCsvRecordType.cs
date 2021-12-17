@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTVtepTableCsvRecordType : NSXTCsvRecordType
     {
+        public NSXTVtepTableCsvRecordType()
+        {
+        }
         /// <summary>
         /// The virtual tunnel endpoint label
         /// </summary>

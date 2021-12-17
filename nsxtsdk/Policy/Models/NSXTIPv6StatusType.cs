@@ -17,6 +17,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"IPv6 status")]
     public class NSXTIPv6StatusType 
     {
+        public NSXTIPv6StatusType()
+        {
+        }
+        /// <summary>
+        /// Tier-0 Gateway this router Link belongs to.
+        /// </summary>
+        [JsonProperty(PropertyName = "tier0_gateway")]
+        [NSXTProperty(IsRequired: false, Description: @"Tier-0 Gateway this router Link belongs to.")]
+        public string? Tier0Gateway { get; set; }
+        /// <summary>
+        /// Tier-1 Gateway this router Link belongs to.
+        /// </summary>
+        [JsonProperty(PropertyName = "tier1_gateway")]
+        [NSXTProperty(IsRequired: false, Description: @"Tier-1 Gateway this router Link belongs to.")]
+        public string? Tier1Gateway { get; set; }
         /// <summary>
         /// Array of DAD status which contains DAD information for IP addresses
         /// on the interface.

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTControlConnStatusType 
     {
+        public NSXTControlConnStatusType()
+        {
+        }
         /// <summary>
         /// Status of the control Node for e.g  UP, DOWN.
         /// </summary>

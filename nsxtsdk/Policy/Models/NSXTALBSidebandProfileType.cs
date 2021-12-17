@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer SidebandProfile object")]
     public class NSXTALBSidebandProfileType 
     {
+        public NSXTALBSidebandProfileType()
+        {
+            SidebandMaxRequestBodySize = test
+        }
         /// <summary>
         /// IP Address of the sideband server.
         /// </summary>
@@ -35,7 +39,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Maximum size of the request body that will be sent on thesideband.Allowed values are 0-16384.Unit is BYTES.Default value when not specified in API or module isinterpreted by ALB Controller as 1024.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(16384)]
-        [NSXTDefaultProperty(Default: "")]
         public long? SidebandMaxRequestBodySize { get; set; }
     }
 }

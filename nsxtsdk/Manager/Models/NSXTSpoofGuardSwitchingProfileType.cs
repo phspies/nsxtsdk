@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSpoofGuardSwitchingProfileType : NSXTBaseSwitchingProfileType
     {
+        public NSXTSpoofGuardSwitchingProfileType()
+        {
+        }
         /// <summary>
         /// List of providers for white listed address bindings.
         /// </summary>

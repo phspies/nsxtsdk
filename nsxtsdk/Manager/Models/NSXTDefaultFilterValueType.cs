@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"An instance of a datasource configuration.")]
     public class NSXTDefaultFilterValueType 
     {
+        public NSXTDefaultFilterValueType()
+        {
+        }
         /// <summary>
         /// Filter alias.
         /// </summary>

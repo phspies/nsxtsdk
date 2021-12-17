@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Local egress routing policy")]
     public class NSXTLocalEgressRoutingEntryType 
     {
+        public NSXTLocalEgressRoutingEntryType()
+        {
+        }
         /// <summary>
         /// Next hop address for proximity routing.
         /// </summary>

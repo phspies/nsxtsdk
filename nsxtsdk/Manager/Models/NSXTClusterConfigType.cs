@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTClusterConfigType : NSXTRevisionedResourceType
     {
+        public NSXTClusterConfigType()
+        {
+        }
         /// <summary>
         /// True if control cluster nodes may be added or removed
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer URIParamToken object")]
     public class NSXTALBURIParamTokenType 
     {
+        public NSXTALBURIParamTokenType()
+        {
+        }
         /// <summary>
         /// Constant string to use as a token.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Represents a list of widget configurations.")]
     public class NSXTWidgetConfigurationListType 
     {
+        public NSXTWidgetConfigurationListType()
+        {
+        }
         /// <summary>
         /// Array of widget configurations
         /// </summary>

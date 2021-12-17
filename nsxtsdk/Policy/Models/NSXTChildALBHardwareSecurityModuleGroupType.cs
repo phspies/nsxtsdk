@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildALBHardwareSecurityModuleGroupType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildALBHardwareSecurityModuleGroupType()
+        {
+        }
         /// <summary>
-        /// Contains the actual ALBHardwareSecurityModuleGroup object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ALBHardwareSecurityModuleGroup", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual ALBHardwareSecurityModuleGroup object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBHardwareSecurityModuleGroupType ALBHardwareSecurityModuleGroup { get; set; }
     }

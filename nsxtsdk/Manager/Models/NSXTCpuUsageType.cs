@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"CPU usage of DPDK and non-DPDK cores")]
     public class NSXTCpuUsageType 
     {
+        public NSXTCpuUsageType()
+        {
+        }
         /// <summary>
         /// Indicates the average usage of all DPDK cores in percentage.
         /// </summary>

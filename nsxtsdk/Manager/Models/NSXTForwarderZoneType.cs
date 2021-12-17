@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTForwarderZoneType 
     {
+        public NSXTForwarderZoneType()
+        {
+        }
         /// <summary>
         /// Ip address of the upstream DNS servers the DNS forwarder accesses.
         /// </summary>

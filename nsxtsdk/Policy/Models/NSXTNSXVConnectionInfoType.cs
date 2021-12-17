@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTNSXVConnectionInfoType : NSXTEnforcementPointConnectionInfoType
     {
+        public NSXTNSXVConnectionInfoType()
+        {
+        }
         /// <summary>
         /// Username.
         /// </summary>

@@ -40,9 +40,5 @@ namespace nsxtsdk.ManagerModels
         SLESSERVER = 13,
         [EnumMember(Value = "OELSERVER")]
         OELSERVER = 14,
-        [EnumMember(Value = "RHELSMARTNIC")]
-        RHELSMARTNIC = 15,
-        [EnumMember(Value = "UBUNTUSMARTNIC")]
-        UBUNTUSMARTNIC = 16,
     }
 }

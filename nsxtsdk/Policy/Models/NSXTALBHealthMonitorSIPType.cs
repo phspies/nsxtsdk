@@ -17,6 +17,12 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HealthMonitorSIP object")]
     public class NSXTALBHealthMonitorSIPType 
     {
+        public NSXTALBHealthMonitorSIPType()
+        {
+            SipMonitorTransport = test
+            SipRequestCode = test
+            SipResponse = test
+        }
         /// <summary>
         /// Specify the transport protocol TCP or UDP, to be used for
         /// SIP health monitor.
@@ -27,7 +33,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "sip_monitor_transport")]
         [NSXTProperty(IsRequired: false, Description: @"Specify the transport protocol TCP or UDP, to be used forSIP health monitor.The default transport is UDP.Enum options - SIP_UDP_PROTO, SIP_TCP_PROTO.Default value when not specified in API or module isinterpreted by ALB Controller as SIP_UDP_PROTO.")]
-        [NSXTDefaultProperty(Default: "SIP_UDP_PROTO")]
         public NSXTAlbhealthMonitorSIPSipMonitorTransportEnumType? SipMonitorTransport { get; set; }
         /// <summary>
         /// Specify the SIP request to be sent to the server.
@@ -38,7 +43,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "sip_request_code")]
         [NSXTProperty(IsRequired: false, Description: @"Specify the SIP request to be sent to the server.By default, SIP OPTIONS request will be sent.Enum options - SIP_OPTIONS.Default value when not specified in API or module isinterpreted by ALB Controller as SIP_OPTIONS.")]
-        [NSXTDefaultProperty(Default: "SIP_OPTIONS")]
         public NSXTAlbhealthMonitorSIPSipRequestCodeEnumType? SipRequestCode { get; set; }
         /// <summary>
         /// Match for a keyword in the first 2KB of the server header
@@ -49,7 +53,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "sip_response")]
         [NSXTProperty(IsRequired: false, Description: @"Match for a keyword in the first 2KB of the server headerand body response.By default, it matches for SIP/2.0.Default value when not specified in API or module isinterpreted by ALB Controller as SIP/2.0.")]
-        [NSXTDefaultProperty(Default: "SIP/2.0")]
         public string? SipResponse { get; set; }
     }
 }

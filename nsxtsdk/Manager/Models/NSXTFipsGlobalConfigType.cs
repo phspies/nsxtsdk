@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFipsGlobalConfigType : NSXTGlobalConfigsType
     {
+        public NSXTFipsGlobalConfigType()
+        {
+        }
         /// <summary>
         /// When this flag is set to true FIPS mode will be set on ssl encryptions of load balancer feature.
         /// </summary>

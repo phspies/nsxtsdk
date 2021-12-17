@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Duplicate IP detection and control")]
     public class NSXTDuplicateIPDetectionType 
     {
+        public NSXTDuplicateIPDetectionType()
+        {
+        }
         /// <summary>
         /// Indicates whether duplicate IP detection should be enabled
         /// </summary>

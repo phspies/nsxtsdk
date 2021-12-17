@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"OSPF Neighbor Per Edge.")]
     public class NSXTOspfNeighborType 
     {
+        public NSXTOspfNeighborType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

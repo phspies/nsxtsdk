@@ -208,25 +208,25 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEdgeClusterType ReplaceEdgeClusterMemberTransportNodeReplaceTransportNode(string EdgeClusterId, NSXTEdgeClusterMemberTransportNodeType EdgeClusterMemberTransportNode)
+        public NSXTEdgeClusterType ReplaceEdgeClusterMemberTransportNode(string EdgeClusterId, NSXTEdgeClusterMemberTransportNodeType EdgeClusterMemberTransportNode)
         {
             if (EdgeClusterId == null) { throw new System.ArgumentNullException("EdgeClusterId cannot be null"); }
             if (EdgeClusterMemberTransportNode == null) { throw new System.ArgumentNullException("EdgeClusterMemberTransportNode cannot be null"); }
             NSXTEdgeClusterType returnValue = default(NSXTEdgeClusterType);
-            StringBuilder ReplaceEdgeClusterMemberTransportNodeReplaceTransportNodeServiceURL = new StringBuilder("/edge-clusters/{edge-cluster-id}?action=replace_transport_node");
+            StringBuilder ReplaceEdgeClusterMemberTransportNodeServiceURL = new StringBuilder("/edge-clusters/{edge-cluster-id}?action=replace_transport_node");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            ReplaceEdgeClusterMemberTransportNodeReplaceTransportNodeServiceURL.Replace("{edge-cluster-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EdgeClusterId, System.Globalization.CultureInfo.InvariantCulture)));
+            ReplaceEdgeClusterMemberTransportNodeServiceURL.Replace("{edge-cluster-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EdgeClusterId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(EdgeClusterMemberTransportNode, defaultSerializationSettings));
-            request.Resource = ReplaceEdgeClusterMemberTransportNodeReplaceTransportNodeServiceURL.ToString();
+            request.Resource = ReplaceEdgeClusterMemberTransportNodeServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + ReplaceEdgeClusterMemberTransportNodeReplaceTransportNodeServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + ReplaceEdgeClusterMemberTransportNodeServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else

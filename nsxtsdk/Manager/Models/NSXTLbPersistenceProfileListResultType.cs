@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbPersistenceProfileListResultType : NSXTListResultType
     {
+        public NSXTLbPersistenceProfileListResultType()
+        {
+        }
         /// <summary>
         /// paginated list of load balancer persistence profiles
         /// </summary>

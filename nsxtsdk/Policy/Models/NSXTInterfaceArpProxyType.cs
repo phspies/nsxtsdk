@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTInterfaceArpProxyType : NSXTListResultType
     {
+        public NSXTInterfaceArpProxyType()
+        {
+        }
         /// <summary>
         /// Array of ARP proxy table entries
         /// </summary>

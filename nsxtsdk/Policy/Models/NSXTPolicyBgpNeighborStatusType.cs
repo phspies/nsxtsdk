@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyBgpNeighborStatusType 
     {
+        public NSXTPolicyBgpNeighborStatusType()
+        {
+        }
         /// <summary>
         /// Current state of the BGP session.
         /// </summary>
@@ -127,10 +130,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Sum of in prefixes counts across all address families.")]
         public long? TotalInPrefixCount { get; set; }
         /// <summary>
-        /// Remote site details.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "remote_site")]
-        [NSXTProperty(IsRequired: false, Description: @"Remote site details.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType RemoteSite { get; set; }
         /// <summary>
         /// Transport node policy path

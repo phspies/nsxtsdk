@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Overall restore process status")]
     public class NSXTGlobalRestoreStatusType 
     {
+        public NSXTGlobalRestoreStatusType()
+        {
+        }
         /// <summary>
         /// A description of the restore status
         /// </summary>

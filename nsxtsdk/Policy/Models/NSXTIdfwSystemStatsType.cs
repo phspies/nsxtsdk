@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Identity Firewall statistics data.")]
     public class NSXTIdfwSystemStatsType 
     {
+        public NSXTIdfwSystemStatsType()
+        {
+        }
         /// <summary>
         /// Number of concurrent logged on users (across VDI & RDSH).  Multiple
         /// logins by the same user is counted as 1.
@@ -24,7 +27,7 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "num_concurrent_users", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"Number of concurrent logged on users (across VDI &amp; RDSH).  Multiplelogins by the same user is counted as 1.")]
         [System.ComponentModel.DataAnnotations.Required]
-        public long NumConcurrentUsers { get; set; }
+        public int NumConcurrentUsers { get; set; }
         /// <summary>
         /// Number of active user sessions/logins in IDFW enabled compute collections
         /// (including both UP and DOWN hosts).  N sessions/logins by the same user
@@ -33,6 +36,6 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "num_user_sessions", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"Number of active user sessions/logins in IDFW enabled compute collections(including both UP and DOWN hosts).  N sessions/logins by the same useris counted as n.")]
         [System.ComponentModel.DataAnnotations.Required]
-        public long NumUserSessions { get; set; }
+        public int NumUserSessions { get; set; }
     }
 }

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbServiceInstanceDetailPerTransportNodeType 
     {
+        public NSXTLbServiceInstanceDetailPerTransportNodeType()
+        {
+        }
         /// <summary>
         /// Load balancer instances details for each load balancer instance
         /// status type from the given transport node.

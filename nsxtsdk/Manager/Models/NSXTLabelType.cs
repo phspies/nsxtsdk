@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Label that will be displayed for a UI element.")]
     public class NSXTLabelType 
     {
+        public NSXTLabelType()
+        {
+        }
         /// <summary>
         /// Text to be displayed at the label.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUpgradeSummaryType 
     {
+        public NSXTUpgradeSummaryType()
+        {
+        }
         /// <summary>
         /// Has upgrade coordinator been updated after upload of upgrade bundle file
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Request Type to get a CRL&apos;s PEM file.")]
     public class NSXTCrlPemRequestTypeType 
     {
+        public NSXTCrlPemRequestTypeType()
+        {
+        }
         /// <summary>
         /// CRL Distribution Point URI where to fetch the CRL.
         /// </summary>

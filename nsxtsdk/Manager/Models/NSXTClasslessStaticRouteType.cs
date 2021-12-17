@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"DHCP classless static route option.")]
     public class NSXTClasslessStaticRouteType 
     {
+        public NSXTClasslessStaticRouteType()
+        {
+        }
         /// <summary>
         /// IP address of next hop of the route.
         /// </summary>

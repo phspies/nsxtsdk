@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNatStatisticsPerLogicalRouterType 
     {
+        public NSXTNatStatisticsPerLogicalRouterType()
+        {
+        }
         /// <summary>
         /// Timestamp when the data was last updated; unset if data source has never updated the data.
         /// </summary>
@@ -30,10 +33,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Detailed per node statistics")]
         public IList<NSXTNatStatisticsPerTransportNodeType> PerTransportNodeStatistics { get; set; }
         /// <summary>
-        /// Rolled-up statistics for all rules on the logical router across all the nodes
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "statistics_across_all_nodes")]
-        [NSXTProperty(IsRequired: false, Description: @"Rolled-up statistics for all rules on the logical router across all the nodes")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTNatCountersType StatisticsAcrossAllNodes { get; set; }
         /// <summary>
         /// Id for the logical router

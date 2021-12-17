@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Properties of the layout of a container or widget")]
     public class NSXTLayoutPropertiesType 
     {
+        public NSXTLayoutPropertiesType()
+        {
+        }
         /// <summary>
         /// Describes the number of rows of grid layout of a container or widget. This property is applicable for grid layout only.
         /// </summary>

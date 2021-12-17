@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPrefixConfigType 
     {
+        public NSXTPrefixConfigType()
+        {
+        }
         /// <summary>
         /// Action for the IPPrefix
         /// </summary>

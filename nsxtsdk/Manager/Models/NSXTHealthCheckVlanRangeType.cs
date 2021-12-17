@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"VLAN ID range")]
     public class NSXTHealthCheckVlanRangeType 
     {
+        public NSXTHealthCheckVlanRangeType()
+        {
+        }
         /// <summary>
         /// Virtual Local Area Network Identifier
         /// </summary>

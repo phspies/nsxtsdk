@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Query statistics counters of a forwarder identified by domain names.")]
     public class NSXTPerForwarderStatisticsType 
     {
+        public NSXTPerForwarderStatisticsType()
+        {
+        }
         /// <summary>
         /// Statistics per upstream server.
         /// </summary>

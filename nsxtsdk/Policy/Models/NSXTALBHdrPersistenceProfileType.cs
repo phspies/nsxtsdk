@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HdrPersistenceProfile object")]
     public class NSXTALBHdrPersistenceProfileType 
     {
+        public NSXTALBHdrPersistenceProfileType()
+        {
+        }
         /// <summary>
         /// Header name for custom header persistence.
         /// </summary>

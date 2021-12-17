@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTCapacityThresholdListType : NSXTManagedResourceType
     {
+        public NSXTCapacityThresholdListType()
+        {
+        }
         /// <summary>
         /// List of capacity thresholds for NSX Objects
         /// </summary>

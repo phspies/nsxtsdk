@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTExternalIDExpressionType : NSXTExpressionType
     {
+        public NSXTExternalIDExpressionType()
+        {
+        }
         /// <summary>
         /// This array can consist of one or more external IDs for the specified member type.
         /// </summary>

@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildALBPKIProfileType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildALBPKIProfileType()
+        {
+        }
         /// <summary>
-        /// Contains the actual ALBPKIProfile object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ALBPKIProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual ALBPKIProfile object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBPKIProfileType ALBPKIProfile { get; set; }
     }

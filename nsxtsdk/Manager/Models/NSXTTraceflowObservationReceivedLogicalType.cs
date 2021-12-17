@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTraceflowObservationReceivedLogicalType : NSXTTraceflowObservationType
     {
+        public NSXTTraceflowObservationReceivedLogicalType()
+        {
+        }
         /// <summary>
         /// MAC address of SAN volume controller for service insertion(SI)
         /// in service VM(SVM) where the traceflow packet was received.
@@ -55,16 +58,24 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"The name of the logical port at which the traceflow packet was received")]
         public string? LportName { get; set; }
         /// <summary>
+        /// This field is specified when the traceflow packet was received by a VLAN
+        /// logical network.
+        /// </summary>
+        [JsonProperty(PropertyName = "vlan")]
+        [NSXTProperty(IsRequired: false, Description: @"This field is specified when the traceflow packet was received by a VLANlogical network.")]
+        public long? Vlan { get; set; }
+        /// <summary>
         /// The name of source component from which the traceflow packet was received.
         /// </summary>
         [JsonProperty(PropertyName = "src_component_name")]
         [NSXTProperty(IsRequired: false, Description: @"The name of source component from which the traceflow packet was received.")]
         public string? SrcComponentName { get; set; }
         /// <summary>
-        /// VNI for the logical network on which the traceflow packet was received.
+        /// This field is specified when the traceflow packet was received by an overlay
+        /// logical network.
         /// </summary>
         [JsonProperty(PropertyName = "vni")]
-        [NSXTProperty(IsRequired: false, Description: @"VNI for the logical network on which the traceflow packet was received.")]
+        [NSXTProperty(IsRequired: false, Description: @"This field is specified when the traceflow packet was received by an overlaylogical network.")]
         public int? Vni { get; set; }
     }
 }

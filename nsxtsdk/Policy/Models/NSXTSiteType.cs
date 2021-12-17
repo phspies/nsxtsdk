@@ -17,18 +17,23 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSiteType : NSXTPolicyConfigResourceType
     {
+        public NSXTSiteType()
+        {
+            FailIfRttExceeded = test
+            MaximumRtt = test
+            FailIfRtepMisconfigured = test
+        }
         /// <summary>
-        /// System managed federation config.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "federation_config")]
-        [NSXTProperty(IsRequired: false, Description: @"System managed federation config.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTGmFederationSiteConfigType FederationConfig { get; set; }
         /// <summary>
         /// Fail onboarding if maximum RTT exceeded.
         /// </summary>
         [JsonProperty(PropertyName = "fail_if_rtt_exceeded")]
         [NSXTProperty(IsRequired: false, Description: @"Fail onboarding if maximum RTT exceeded.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? FailIfRttExceeded { get; set; }
         /// <summary>
         /// 12-bit system generated site number
@@ -44,7 +49,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"If provided and fail_if_rtt_exceeded is true, onboarding of the site willfail if measured RTT is greater than this value.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(1000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? MaximumRtt { get; set; }
         /// <summary>
         /// Both the local site and the remote site must have edge clusters correctly
@@ -53,7 +57,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "fail_if_rtep_misconfigured")]
         [NSXTProperty(IsRequired: false, Description: @"Both the local site and the remote site must have edge clusters correctlyconfigured and remote tunnel endpoint (RTEP) interfaces must be defined,or onboarding will fail.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? FailIfRtepMisconfigured { get; set; }
         /// <summary>
         /// To onboard a site, the connection information (username, password,

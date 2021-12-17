@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"IPSec VPN policy traffic statistics")]
     public class NSXTIPSecVPNPolicyTrafficStatisticsType 
     {
+        public NSXTIPSecVPNPolicyTrafficStatisticsType()
+        {
+        }
         /// <summary>
-        /// Aggregate traffic statistics across all ipsec tunnels.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "aggregate_traffic_counters")]
-        [NSXTProperty(IsRequired: false, Description: @"Aggregate traffic statistics across all ipsec tunnels.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPSecVPNTrafficCountersType AggregateTrafficCounters { get; set; }
         /// <summary>
         /// Tunnel statistics.

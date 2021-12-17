@@ -17,6 +17,11 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUpgradeUnitGroupAggregateInfoType : NSXTManagedResourceType
     {
+        public NSXTUpgradeUnitGroupAggregateInfoType()
+        {
+            Enabled = test
+            Parallel = test
+        }
         /// <summary>
         /// Upgrade status of upgrade unit group
         /// </summary>
@@ -36,17 +41,16 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Number of nodes in the upgrade unit group that failed upgrade")]
         public int? FailedCount { get; set; }
         /// <summary>
-        /// Post-upgrade status of group
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "post_upgrade_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Post-upgrade status of group")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTUpgradeChecksExecutionStatusType PostUpgradeStatus { get; set; }
         /// <summary>
         /// Flag to indicate whether upgrade of this group is enabled or not
         /// </summary>
         [JsonProperty(PropertyName = "enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Flag to indicate whether upgrade of this group is enabled or not")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// List of upgrade units in the group
@@ -78,7 +82,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "parallel")]
         [NSXTProperty(IsRequired: false, Description: @"Upgrade method to specify whether the upgrade is to be performed in parallel or serially")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Parallel { get; set; }
         /// <summary>
         /// Reports failures that occured at the group or cluster level.

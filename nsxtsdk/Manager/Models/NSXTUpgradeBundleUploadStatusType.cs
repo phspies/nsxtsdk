@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Upload status of upgrade bundle uploaded from url")]
     public class NSXTUpgradeBundleUploadStatusType 
     {
+        public NSXTUpgradeBundleUploadStatusType()
+        {
+        }
         /// <summary>
         /// URL for uploading upgrade bundle
         /// </summary>

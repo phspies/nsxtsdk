@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"The basic node info of management plane node")]
     public class NSXTManagementPlaneBaseNodeInfoType 
     {
+        public NSXTManagementPlaneBaseNodeInfoType()
+        {
+        }
         /// <summary>
         /// Management plane node UUID
         /// </summary>

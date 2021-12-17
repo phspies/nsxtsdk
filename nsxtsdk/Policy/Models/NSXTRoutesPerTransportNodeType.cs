@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"BGP routes per transport node.")]
     public class NSXTRoutesPerTransportNodeType 
     {
+        public NSXTRoutesPerTransportNodeType()
+        {
+        }
         /// <summary>
         /// Array of BGP neighbor route details for this transport node.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Used to specify the local/peer subnets in IPSec VPN rule.")]
     public class NSXTIPSecVpnSubnetType 
     {
+        public NSXTIPSecVpnSubnetType()
+        {
+        }
         /// <summary>
         /// Subnet used in policy rule.
         /// </summary>

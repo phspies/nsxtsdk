@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer WafPSMMatchElement object")]
     public class NSXTALBWafPSMMatchElementType 
     {
+        public NSXTALBWafPSMMatchElementType()
+        {
+        }
         /// <summary>
         /// The name of the request collection element.
         /// This can be empty, if we address the whole collection or a

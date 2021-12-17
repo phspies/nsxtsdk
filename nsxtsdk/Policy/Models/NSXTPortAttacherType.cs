@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"VM or vmknic entity attached to LogicalPort")]
     public class NSXTPortAttacherType 
     {
+        public NSXTPortAttacherType()
+        {
+        }
         /// <summary>
         /// TransportNode on which the attacher resides
         /// </summary>

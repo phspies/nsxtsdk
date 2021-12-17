@@ -20,6 +20,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBMonitorProfileType : NSXTPolicyConfigResourceType
     {
+        public NSXTLBMonitorProfileType()
+        {
+        }
         /// <summary>
         /// There are two types of healthchecks: active and passive.
         /// Passive healthchecks depend on failures in actual client traffic (e.g. RST

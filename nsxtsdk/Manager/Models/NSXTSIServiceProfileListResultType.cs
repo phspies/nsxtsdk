@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSIServiceProfileListResultType : NSXTListResultType
     {
+        public NSXTSIServiceProfileListResultType()
+        {
+        }
         /// <summary>
         /// List of the Service-Insertion Services. The list has to be homogenous.
         /// </summary>

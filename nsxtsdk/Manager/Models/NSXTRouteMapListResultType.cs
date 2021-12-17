@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRouteMapListResultType : NSXTListResultType
     {
+        public NSXTRouteMapListResultType()
+        {
+        }
         /// <summary>
         /// Paginated list of RouteMaps
         /// </summary>

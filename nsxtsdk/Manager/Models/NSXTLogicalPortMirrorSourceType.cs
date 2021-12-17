@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalPortMirrorSourceType : NSXTMirrorSourceType
     {
+        public NSXTLogicalPortMirrorSourceType()
+        {
+        }
         /// <summary>
         /// Source logical port identifier list
         /// </summary>

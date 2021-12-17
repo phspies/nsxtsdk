@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Overall status of the upgrade readiness check")]
     public class NSXTNvdsUpgradeStatusSummaryType 
     {
+        public NSXTNvdsUpgradeStatusSummaryType()
+        {
+        }
         /// <summary>
         /// Tracking ID of nvds upgrade precheck
         /// </summary>

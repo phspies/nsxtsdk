@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Transport zone runtime status information")]
     public class NSXTTransportZoneStatusType 
     {
+        public NSXTTransportZoneStatusType()
+        {
+        }
         /// <summary>
         /// Count of logical ports in the transport zone
         /// </summary>

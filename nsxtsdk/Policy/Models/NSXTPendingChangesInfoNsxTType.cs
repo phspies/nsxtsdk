@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Information about recent changes, if any, that are not reflected in the Enforced Realized Status.")]
     public class NSXTPendingChangesInfoNsxTType 
     {
+        public NSXTPendingChangesInfoNsxTType()
+        {
+        }
         /// <summary>
         /// Flag describing whether there are any pending changes that are not reflected in the status.
         /// </summary>

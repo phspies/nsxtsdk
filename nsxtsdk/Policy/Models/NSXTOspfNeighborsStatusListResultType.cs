@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTOspfNeighborsStatusListResultType : NSXTListResultType
     {
+        public NSXTOspfNeighborsStatusListResultType()
+        {
+        }
         /// <summary>
         /// Policy path to Tier0 gateway.
         /// </summary>

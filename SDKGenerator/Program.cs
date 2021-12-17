@@ -42,6 +42,8 @@ namespace nsxtapi
             Helpers.Register(nameof(GetServiceUrl), GetServiceUrl);
             Helpers.Register(nameof(GetResponseName), GetResponseName);
             Helpers.Register(nameof(GetParameterPascalCase), GetParameterPascalCase);
+            Helpers.Register(nameof(SetDefaultValue), SetDefaultValue);
+            
 
 
 
@@ -350,6 +352,11 @@ namespace nsxtapi
         {
             var (method, operation) = ((KeyValuePair<string, OpenApiPathItem>)arguments[0]);
             context.Write($"{method}");
+        }
+        private static void SetDefaultValue(RenderContext context, IList<object> arguments, IDictionary<string, object> options, RenderBlock fn, RenderBlock inverse)
+        {
+            //var (method, operation) = ((KeyValuePair<string, OpenApiPathItem>)arguments[0]);
+            context.Write($"test");
         }
         private static void GetCmdLetReturnCode(RenderContext context, IList<object> arguments, IDictionary<string, object> options, RenderBlock fn, RenderBlock inverse)
         {
@@ -901,16 +908,19 @@ namespace nsxtapi
 
         private static void GetDotNetName(RenderContext context, IList<object> arguments, IDictionary<string, object> options, RenderBlock fn, RenderBlock inverse)
         {
-            if (arguments != null && arguments.Count > 0 && arguments[0] != null && arguments[0] is OpenApiParameter)
+            if (arguments != null && arguments.Count > 0 && arguments[0] != null && arguments[0] is JsonSchemaProperty)
+            {
+                var parameter = arguments[0] as JsonSchemaProperty;
+                context.Write(PascalCase(parameter.Name));
+            }
+            else if (arguments != null && arguments.Count > 0 && arguments[0] != null && arguments[0] is OpenApiParameter)
             {
                 var parameter = arguments[0] as OpenApiParameter;
                 context.Write(GetDotNetName(parameter.Name));
-
                 if (arguments.Count > 1 && arguments[1] as string == "true" && !parameter.IsRequired)
                 {
                     context.Write($" = null");
                 }
-
             }
             else if (arguments != null && arguments.Count > 0 && arguments[0] != null && arguments[0] is string)
             {
@@ -1012,6 +1022,7 @@ namespace nsxtapi
                 str = str.Replace(" ", "");
                 str = str.Replace("_", "");
                 str = str.Replace("-", "");
+                str = str.Replace("+", "_");
             }
             return str;
         }

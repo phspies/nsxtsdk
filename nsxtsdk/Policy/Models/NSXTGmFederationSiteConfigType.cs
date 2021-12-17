@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Additional configuration required for federation at Site.")]
     public class NSXTGmFederationSiteConfigType 
     {
+        public NSXTGmFederationSiteConfigType()
+        {
+        }
         /// <summary>
         /// IP Addresses to be allocated for transit segment when the gateway is
         /// stretched. Note that Global Manager will carve out the IP Pool for each

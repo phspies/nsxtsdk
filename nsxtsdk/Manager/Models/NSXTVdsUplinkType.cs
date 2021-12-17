@@ -19,6 +19,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"If Virtual Distributed Switch is used as a HostSwitch to configure TransportNode or TransportNodeProfie, this mapping should be specified. You can either use vds_uplink_name or vds_lag_name to associate with uplink_name from UplinkHostSwitch profile.")]
     public class NSXTVdsUplinkType 
     {
+        public NSXTVdsUplinkType()
+        {
+        }
         /// <summary>
         /// Uplink name of VDS that is connected to Physical NIC on a host from vSphere.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPAddressElementType : NSXTRevisionedResourceType
     {
+        public NSXTIPAddressElementType()
+        {
+        }
         /// <summary>
         /// IPElement can be a single IP address, IP address range or a Subnet. Its
         /// type can be of IPv4 or IPv6. Supported list of formats are "192.168.1.1",

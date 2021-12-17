@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"compute collection ID and status connected to VC.")]
     public class NSXTIdfwComputeCollectionStatusType 
     {
+        public NSXTIdfwComputeCollectionStatusType()
+        {
+        }
         /// <summary>
         /// IDFW enabled compute collection status.
         /// </summary>

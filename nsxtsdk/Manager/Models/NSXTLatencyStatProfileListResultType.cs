@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLatencyStatProfileListResultType : NSXTListResultType
     {
+        public NSXTLatencyStatProfileListResultType()
+        {
+        }
         /// <summary>
         /// Latency stat profile list.
         /// </summary>

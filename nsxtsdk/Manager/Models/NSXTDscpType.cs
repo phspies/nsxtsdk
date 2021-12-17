@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Dscp value is ignored in case of &apos;TRUSTED&apos; DscpMode.")]
     public class NSXTDscpType 
     {
+        public NSXTDscpType()
+        {
+            Priority = test
+        }
         /// <summary>
         /// Internal Forwarding Priority
         /// </summary>
@@ -24,7 +28,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Internal Forwarding Priority")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(63)]
-        [NSXTDefaultProperty(Default: "")]
         public int? Priority { get; set; }
         /// <summary>
         /// Trust settings

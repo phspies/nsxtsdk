@@ -7,9 +7,9 @@ using nsxtsdk.Models;
 namespace nsxtsdk.PolicyModels
 {
     /// <summary>
-    /// Criteria for flow distribution among SEs.Enum options - LOAD_AWARE,CONSISTENT_HASH_SOURCE_IP_ADDRESS,CONSISTENT_HASH_SOURCE_IP_ADDRESS_AND_PORT.Default value when not specified in API or module isinterpreted by ALB Controller as LOAD_AWARE.
+    /// Criteria for flow distribution among SEs.Enum options - LOAD_AWARE,CONSISTENT_HASH_SOURCE_IP_ADDRESS,CONSISTENT_HASH_SOURCE_IP_ADDRESS_AND_PORT.Allowed in Basic(Allowed values- LOAD_AWARE) edition,Essentials(Allowed values- LOAD_AWARE) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as LOAD_AWARE.
     /// </summary>
-    [NSXTProperty(Description: @"Criteria for flow distribution among SEs.Enum options - LOAD_AWARE,CONSISTENT_HASH_SOURCE_IP_ADDRESS,CONSISTENT_HASH_SOURCE_IP_ADDRESS_AND_PORT.Default value when not specified in API or module isinterpreted by ALB Controller as LOAD_AWARE.")]
+    [NSXTProperty(Description: @"Criteria for flow distribution among SEs.Enum options - LOAD_AWARE,CONSISTENT_HASH_SOURCE_IP_ADDRESS,CONSISTENT_HASH_SOURCE_IP_ADDRESS_AND_PORT.Allowed in Basic(Allowed values- LOAD_AWARE) edition,Essentials(Allowed values- LOAD_AWARE) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as LOAD_AWARE.")]
     public enum NSXTAlbvirtualServiceFlowDistEnumType
     {
         [EnumMember(Value = "LOAD_AWARE")]

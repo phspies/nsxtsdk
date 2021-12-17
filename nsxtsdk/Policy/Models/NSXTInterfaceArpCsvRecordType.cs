@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTInterfaceArpCsvRecordType : NSXTCsvRecordType
     {
+        public NSXTInterfaceArpCsvRecordType()
+        {
+        }
         /// <summary>
         /// The IP address
         /// </summary>

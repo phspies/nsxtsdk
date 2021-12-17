@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"L2VPN tunnel encapsulation config.")]
     public class NSXTL2VPNTunnelEncapsulationType 
     {
+        public NSXTL2VPNTunnelEncapsulationType()
+        {
+            Protocol = test
+        }
         /// <summary>
         /// IP Address of the local tunnel port. This property only applies in
         /// CLIENT mode.
@@ -29,7 +33,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "protocol")]
         [NSXTProperty(IsRequired: false, Description: @"Encapsulation protocol used by the tunnel.")]
-        [NSXTDefaultProperty(Default: "GRE")]
         public NSXTL2VpntunnelEncapsulationProtocolEnumType? Protocol { get; set; }
         /// <summary>
         /// IP Address of the peer tunnel port. This property only applies in

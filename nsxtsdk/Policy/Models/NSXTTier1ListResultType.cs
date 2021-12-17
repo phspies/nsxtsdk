@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTier1ListResultType : NSXTListResultType
     {
+        public NSXTTier1ListResultType()
+        {
+        }
         /// <summary>
         /// Tier-1 list results
         /// </summary>

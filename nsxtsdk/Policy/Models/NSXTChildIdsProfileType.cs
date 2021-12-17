@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildIdsProfileType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildIdsProfileType()
+        {
+        }
         /// <summary>
-        /// Contains the IdsProfile object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "IdsProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the IdsProfile object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTIdsProfileType IdsProfile { get; set; }
     }

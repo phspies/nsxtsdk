@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTFederationGatewayConfigType : NSXTFederationConnectivityConfigType
     {
+        public NSXTFederationGatewayConfigType()
+        {
+        }
         /// <summary>
         /// Indicies for cross site allocation for edge cluster
         /// and its members referred by gateway.

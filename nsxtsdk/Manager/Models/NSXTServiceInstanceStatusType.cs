@@ -17,18 +17,20 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceInstanceStatusType 
     {
+        public NSXTServiceInstanceStatusType()
+        {
+        }
         /// <summary>
-        /// Deployment status of NXGI Partner Service-VM.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "instance_deployment_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Deployment status of NXGI Partner Service-VM.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTServiceDeploymentStatusType InstanceDeploymentStatus { get; set; }
         /// <summary>
-        /// This object contains the list of issues which might come during post deployment configuration for a particular service
-        /// instance.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "configuration_issue")]
-        [NSXTProperty(IsRequired: false, Description: @"This object contains the list of issues which might come during post deployment configuration for a particular service instance.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTSVMConfigureIssueType ConfigurationIssue { get; set; }
         /// <summary>
         /// Id of an instantiation of a registered service.
@@ -37,10 +39,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Id of an instantiation of a registered service.")]
         public string? ServiceInstanceId { get; set; }
         /// <summary>
-        /// Health status of NXGI components on Partner Service-VM.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "instance_health_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Health status of NXGI components on Partner Service-VM.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTServiceInstanceHealthStatusType InstanceHealthStatus { get; set; }
     }
 }

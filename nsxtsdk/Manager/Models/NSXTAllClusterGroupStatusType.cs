@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"A list of the statuses of all the groups in the cluster.")]
     public class NSXTAllClusterGroupStatusType 
     {
+        public NSXTAllClusterGroupStatusType()
+        {
+        }
         /// <summary>
         /// Overall status of the cluster
         /// </summary>

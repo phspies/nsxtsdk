@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalSwitchStateType : NSXTConfigurationStateType
     {
+        public NSXTLogicalSwitchStateType()
+        {
+        }
         /// <summary>
         /// Id of the logical switch
         /// </summary>

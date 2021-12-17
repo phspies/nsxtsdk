@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Neighbor discovery protocol header")]
     public class NSXTNdpHeaderType 
     {
+        public NSXTNdpHeaderType()
+        {
+            MsgType = test
+        }
         /// <summary>
         /// The IP address of the destination of the solicitation. It MUST NOT be a multicast address.
         /// </summary>
@@ -30,7 +34,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "msg_type")]
         [NSXTProperty(IsRequired: false, Description: @"This field specifies the type of the Neighbor discover message being sent. NEIGHBOR_SOLICITATION - Neighbor Solicitation message to discover the link-layer address of an on-link IPv6 node or to confirm a previously determined link-layer address. NEIGHBOR_ADVERTISEMENT - Neighbor Advertisement message in response to a Neighbor Solicitation message.")]
-        [NSXTDefaultProperty(Default: "NEIGHBOR_SOLICITATION")]
         public NSXTNdpHeaderMsgTypeEnumType? MsgType { get; set; }
     }
 }

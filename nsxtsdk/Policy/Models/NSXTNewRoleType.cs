@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"New Role")]
     public class NSXTNewRoleType 
     {
+        public NSXTNewRoleType()
+        {
+        }
         /// <summary>
         /// New role name
         /// </summary>

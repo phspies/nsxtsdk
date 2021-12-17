@@ -17,13 +17,18 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIngressRateShaperType : NSXTQosBaseRateShaperType
     {
+        public NSXTIngressRateShaperType()
+        {
+            AverageBandwidthMbps = test
+            PeakBandwidthMbps = test
+            BurstSizeBytes = test
+        }
         /// <summary>
         /// Average bandwidth in Mb/s
         /// </summary>
         [JsonProperty(PropertyName = "average_bandwidth_mbps")]
         [NSXTProperty(IsRequired: false, Description: @"Average bandwidth in Mb/s")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        [NSXTDefaultProperty(Default: "")]
         public int? AverageBandwidthMbps { get; set; }
         /// <summary>
         /// Peak bandwidth in Mb/s
@@ -31,7 +36,6 @@ namespace nsxtsdk.ManagerModels
         [JsonProperty(PropertyName = "peak_bandwidth_mbps")]
         [NSXTProperty(IsRequired: false, Description: @"Peak bandwidth in Mb/s")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        [NSXTDefaultProperty(Default: "")]
         public int? PeakBandwidthMbps { get; set; }
         /// <summary>
         /// Burst size in bytes
@@ -39,7 +43,6 @@ namespace nsxtsdk.ManagerModels
         [JsonProperty(PropertyName = "burst_size_bytes")]
         [NSXTProperty(IsRequired: false, Description: @"Burst size in bytes")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        [NSXTDefaultProperty(Default: "")]
         public int? BurstSizeBytes { get; set; }
     }
 }

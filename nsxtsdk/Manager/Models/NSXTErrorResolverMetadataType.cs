@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Error along with its metadata")]
     public class NSXTErrorResolverMetadataType 
     {
+        public NSXTErrorResolverMetadataType()
+        {
+        }
         /// <summary>
         /// The error id as reported by the entity where the error occurred.
         /// </summary>
@@ -25,10 +28,10 @@ namespace nsxtsdk.ManagerModels
         [System.ComponentModel.DataAnnotations.Required]
         public long ErrorId { get; set; }
         /// <summary>
-        /// This can come from some external system like syslog collector
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "system_metadata")]
-        [NSXTProperty(IsRequired: false, Description: @"This can come from some external system like syslog collector")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTErrorResolverSystemMetadataType SystemMetadata { get; set; }
         /// <summary>
         /// The entity/node UUID where the error has occurred.
@@ -38,10 +41,10 @@ namespace nsxtsdk.ManagerModels
         [System.ComponentModel.DataAnnotations.Required]
         public string EntityId { get; set; }
         /// <summary>
-        /// User supplied metadata that might be required by the resolver
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "user_metadata")]
-        [NSXTProperty(IsRequired: false, Description: @"User supplied metadata that might be required by the resolver")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTErrorResolverUserMetadataType UserMetadata { get; set; }
     }
 }

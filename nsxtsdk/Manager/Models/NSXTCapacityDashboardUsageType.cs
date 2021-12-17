@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTCapacityDashboardUsageType 
     {
+        public NSXTCapacityDashboardUsageType()
+        {
+        }
         /// <summary>
         /// Indicate the current usage count of object type.
         /// </summary>

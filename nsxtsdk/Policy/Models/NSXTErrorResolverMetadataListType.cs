@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"List of errors with their metadata")]
     public class NSXTErrorResolverMetadataListType 
     {
+        public NSXTErrorResolverMetadataListType()
+        {
+        }
         /// <summary>
         /// List of errors with their corresponding metadata.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyCapacityDashboardUsageType 
     {
+        public NSXTPolicyCapacityDashboardUsageType()
+        {
+        }
         /// <summary>
         /// Indicate the current usage count of object type.
         /// </summary>

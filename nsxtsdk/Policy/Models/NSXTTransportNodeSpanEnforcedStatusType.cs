@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTransportNodeSpanEnforcedStatusType : NSXTEnforcedStatusPerScopeNsxTType
     {
+        public NSXTTransportNodeSpanEnforcedStatusType()
+        {
+        }
         /// <summary>
         /// List of Detailed Realized Status per Transport Node.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTaskListResultType : NSXTListResultType
     {
+        public NSXTTaskListResultType()
+        {
+        }
         /// <summary>
         /// Task property results
         /// </summary>

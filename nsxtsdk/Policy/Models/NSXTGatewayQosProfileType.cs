@@ -17,14 +17,19 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTGatewayQosProfileType : NSXTPolicyConfigResourceType
     {
+        public NSXTGatewayQosProfileType()
+        {
+            BurstSize = test
+            CommittedBandwitdth = test
+            CommittedBandwidth = test
+        }
         /// <summary>
         /// Burst size in bytes.
         /// </summary>
         [JsonProperty(PropertyName = "burst_size")]
         [NSXTProperty(IsRequired: false, Description: @"Burst size in bytes.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? BurstSize { get; set; }
+        public int? BurstSize { get; set; }
         /// <summary>
         /// Action on traffic exceeding bandwidth.
         /// </summary>
@@ -40,8 +45,7 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "committed_bandwitdth")]
         [NSXTProperty(IsRequired: false, Description: @"Committed bandwidth in both directions specified in Mbps.Bandwidth is limited to line rate when the value configured is greaterthan line rate.This property is deprecated, use committed_bandwidth instead.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? CommittedBandwitdth { get; set; }
+        public int? CommittedBandwitdth { get; set; }
         /// <summary>
         /// Committed bandwidth in both directions specified in Mbps.
         /// Bandwidth is limited to line rate when the value configured is greater
@@ -50,7 +54,6 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "committed_bandwidth")]
         [NSXTProperty(IsRequired: false, Description: @"Committed bandwidth in both directions specified in Mbps.Bandwidth is limited to line rate when the value configured is greaterthan line rate.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? CommittedBandwidth { get; set; }
+        public int? CommittedBandwidth { get; set; }
     }
 }

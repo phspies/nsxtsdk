@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTICMPTypeNSServiceType : NSXTNSServiceElementType
     {
+        public NSXTICMPTypeNSServiceType()
+        {
+        }
         /// <summary>
         /// ICMP message code
         /// </summary>

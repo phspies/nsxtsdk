@@ -17,12 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Parameters to tell where rule/section need to be added. All the params take rule/section Id.")]
     public class NSXTDSInsertParametersType 
     {
+        public NSXTDSInsertParametersType()
+        {
+            Operation = test
+        }
         /// <summary>
         /// Operation
         /// </summary>
         [JsonProperty(PropertyName = "operation")]
         [NSXTProperty(IsRequired: false, Description: @"Operation")]
-        [NSXTDefaultProperty(Default: "insert_top")]
         public NSXTDsinsertParametersOperationEnumType? Operation { get; set; }
         /// <summary>
         /// Identifier of the anchor rule or section. This is a required field in case operation like 'insert_before' and

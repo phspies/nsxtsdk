@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"DNS forwarder statistics per enforcement point.")]
     public class NSXTDNSForwarderStatisticsPerEnforcementPointType 
     {
+        public NSXTDNSForwarderStatisticsPerEnforcementPointType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer PoolAnalyticsPolicy object")]
     public class NSXTALBPoolAnalyticsPolicyType 
     {
+        public NSXTALBPoolAnalyticsPolicyType()
+        {
+        }
         /// <summary>
         /// Enable real time metrics for server and pool metrics eg.
         /// l4_server.xxx, l7_server.xxx.

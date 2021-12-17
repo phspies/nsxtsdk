@@ -100,21 +100,21 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void IgnoreMigrateStatusIgnoreMigrateStatus()
+        public void IgnoreMigrateStatus()
         {
             
-            StringBuilder IgnoreMigrateStatusIgnoreMigrateStatusServiceURL = new StringBuilder("/nvds-urt?action=ignore_migrate_status");
+            StringBuilder IgnoreMigrateStatusServiceURL = new StringBuilder("/nvds-urt?action=ignore_migrate_status");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            request.Resource = IgnoreMigrateStatusIgnoreMigrateStatusServiceURL.ToString();
+            request.Resource = IgnoreMigrateStatusServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + IgnoreMigrateStatusIgnoreMigrateStatusServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + IgnoreMigrateStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -198,45 +198,6 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUpgradeTopologyType SetTargetVdsTopologyApply(NSXTUpgradeTopologyType UpgradeTopology, string? ClusterId = null, bool? UseRecommendedTopologyConfig = null)
-        {
-            if (UpgradeTopology == null) { throw new System.ArgumentNullException("UpgradeTopology cannot be null"); }
-            NSXTUpgradeTopologyType returnValue = default(NSXTUpgradeTopologyType);
-            StringBuilder SetTargetVdsTopologyApplyServiceURL = new StringBuilder("/nvds-urt/topology?action=apply");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.POST
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.AddJsonBody(JsonConvert.SerializeObject(UpgradeTopology, defaultSerializationSettings));
-            if (ClusterId != null) { request.AddQueryParameter("cluster_id", ClusterId.ToString()); }
-            if (UseRecommendedTopologyConfig != null) { request.AddQueryParameter("use_recommended_topology_config", UseRecommendedTopologyConfig.ToString()); }
-            request.Resource = SetTargetVdsTopologyApplyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP POST operation to " + SetTargetVdsTopologyApplyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUpgradeTopologyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUpgradeTopologyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public void NvdsUpgradeCleanup()
         {
             
@@ -255,6 +216,45 @@ namespace nsxtapi.ManagerModules
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTUpgradeTopologyType SetTargetVdsTopology(NSXTUpgradeTopologyType UpgradeTopology, string? ClusterId = null, bool? UseRecommendedTopologyConfig = null)
+        {
+            if (UpgradeTopology == null) { throw new System.ArgumentNullException("UpgradeTopology cannot be null"); }
+            NSXTUpgradeTopologyType returnValue = default(NSXTUpgradeTopologyType);
+            StringBuilder SetTargetVdsTopologyServiceURL = new StringBuilder("/nvds-urt/topology?action=apply");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.POST
+            };
+            request.AddHeader("Content-type", "application/json");
+            request.AddJsonBody(JsonConvert.SerializeObject(UpgradeTopology, defaultSerializationSettings));
+            if (ClusterId != null) { request.AddQueryParameter("cluster_id", ClusterId.ToString()); }
+            if (UseRecommendedTopologyConfig != null) { request.AddQueryParameter("use_recommended_topology_config", UseRecommendedTopologyConfig.ToString()); }
+            request.Resource = SetTargetVdsTopologyServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP POST operation to " + SetTargetVdsTopologyServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTUpgradeTopologyType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTUpgradeTopologyType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 

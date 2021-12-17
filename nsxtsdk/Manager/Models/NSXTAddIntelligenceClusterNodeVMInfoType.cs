@@ -18,6 +18,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Contains a list of NSX-Intelligence cluster node VM deployment requests and optionallya clustering configuration.")]
     public class NSXTAddIntelligenceClusterNodeVMInfoType 
     {
+        public NSXTAddIntelligenceClusterNodeVMInfoType()
+        {
+        }
         /// <summary>
         /// Intelligence Cluster node VM deployment requests to be deployed by NSX.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpfixConfigType : NSXTManagedResourceType
     {
+        public NSXTIpfixConfigType()
+        {
+        }
         /// <summary>
         /// List of objects where the IPFIX Config will be enabled.
         /// </summary>

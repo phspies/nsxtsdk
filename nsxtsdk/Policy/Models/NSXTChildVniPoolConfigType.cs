@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildVniPoolConfigType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildVniPoolConfigType()
+        {
+        }
         /// <summary>
-        /// Contains the actual VniPoolConfig object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "VniPoolConfig", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual VniPoolConfig object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTVniPoolConfigType VniPoolConfig { get; set; }
     }

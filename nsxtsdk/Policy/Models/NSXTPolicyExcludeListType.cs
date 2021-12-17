@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyExcludeListType : NSXTPolicyConfigResourceType
     {
+        public NSXTPolicyExcludeListType()
+        {
+        }
         /// <summary>
         /// List of the members in the exclude list
         /// </summary>

@@ -7,12 +7,14 @@ using nsxtsdk.Models;
 namespace nsxtsdk.PolicyModels
 {
     /// <summary>
-    /// A sub-type of LabelValueConfiguration. If sub-type is not specified the parent type is rendered. For VERTICALLY_ALIGNED sub_type, the value is placed below the label.
+    /// A sub-type of LabelValueConfiguration. If sub-type is not specified the parent type is rendered. For VERTICALLY_ALIGNED sub_type, the value is placed below the label. For HORIZONTALLY_ALIGNED sub_type, the value is placed right hand side of the label.
     /// </summary>
-    [NSXTProperty(Description: @"A sub-type of LabelValueConfiguration. If sub-type is not specified the parent type is rendered. For VERTICALLY_ALIGNED sub_type, the value is placed below the label.")]
+    [NSXTProperty(Description: @"A sub-type of LabelValueConfiguration. If sub-type is not specified the parent type is rendered. For VERTICALLY_ALIGNED sub_type, the value is placed below the label. For HORIZONTALLY_ALIGNED sub_type, the value is placed right hand side of the label.")]
     public enum NSXTLabelValueConfigurationSubTypeEnumType
     {
         [EnumMember(Value = "VERTICALLY_ALIGNED")]
         VERTICALLYALIGNED = 1,
+        [EnumMember(Value = "HORIZONTALLY_ALIGNED")]
+        HORIZONTALLYALIGNED = 2,
     }
 }

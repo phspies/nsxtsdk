@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUpgradeHistoryListType : NSXTListResultType
     {
+        public NSXTUpgradeHistoryListType()
+        {
+        }
         /// <summary>
         /// Upgrade history list
         /// </summary>

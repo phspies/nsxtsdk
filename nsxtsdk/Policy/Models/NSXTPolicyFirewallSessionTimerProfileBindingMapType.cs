@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyFirewallSessionTimerProfileBindingMapType : NSXTPolicyConfigResourceType
     {
+        public NSXTPolicyFirewallSessionTimerProfileBindingMapType()
+        {
+        }
         /// <summary>
         /// Sequence number is used to resolve conflicts when two profiles get applied
         /// to a single port. Lower value gets higher precedence. Two binding maps

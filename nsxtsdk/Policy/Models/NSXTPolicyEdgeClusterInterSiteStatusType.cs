@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyEdgeClusterInterSiteStatusType 
     {
+        public NSXTPolicyEdgeClusterInterSiteStatusType()
+        {
+        }
         /// <summary>
         /// Timestamp when the edge cluster inter-site status was last updated.
         /// </summary>

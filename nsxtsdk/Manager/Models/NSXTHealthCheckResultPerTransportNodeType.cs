@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Health check result on specific transport node")]
     public class NSXTHealthCheckResultPerTransportNodeType 
     {
+        public NSXTHealthCheckResultPerTransportNodeType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

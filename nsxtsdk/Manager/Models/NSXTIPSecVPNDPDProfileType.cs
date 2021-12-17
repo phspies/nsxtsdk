@@ -17,6 +17,12 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVPNDPDProfileType : NSXTManagedResourceType
     {
+        public NSXTIPSecVPNDPDProfileType()
+        {
+            RetryCount = test
+            Enabled = test
+            DpdProbeMode = test
+        }
         /// <summary>
         /// Maximum number of DPD messages retry attempts. This value is applicable for both dpd probe modes, periodic and
         /// on-demand.
@@ -25,14 +31,12 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Maximum number of DPD messages retry attempts. This value is applicable for both dpd probe modes, periodic and on-demand.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(100)]
-        [NSXTDefaultProperty(Default: "")]
         public long? RetryCount { get; set; }
         /// <summary>
         /// If true, enable dead peer detection.
         /// </summary>
         [JsonProperty(PropertyName = "enabled")]
         [NSXTProperty(IsRequired: false, Description: @"If true, enable dead peer detection.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// DPD probe mode is used to query the liveliness of the peer. Two modes are possible -
@@ -50,7 +54,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "dpd_probe_mode")]
         [NSXTProperty(IsRequired: false, Description: @"DPD probe mode is used to query the liveliness of the peer. Two modes are possible -PERIODIC - is used to query the liveliness of the peer at regularintervals (dpd_probe_interval). It does not take into considerationtraffic coming from the peer. The benefit of this mode over theon-demand mode is earlier detection of dead peers.However, use of periodic DPD incurs extra overhead. Whencommunicating to large numbers of peers, please consider using on-demand DPD instead.ON_DEMAND - is used to query the liveliness of the peer byinstructing the local endpoint to send DPD message to a peer ifthere is traffic to send to the peer AND the peer was idle fordpd_probe_interval seconds (i.e. there was no traffic from thepeer for dpd_probe_interval seconds)")]
-        [NSXTDefaultProperty(Default: "PERIODIC")]
         public NSXTIpsecVpndpdprofileDpdProbeModeEnumType? DpdProbeMode { get; set; }
         /// <summary>
         /// When the DPD probe mode is periodic, this interval is the number

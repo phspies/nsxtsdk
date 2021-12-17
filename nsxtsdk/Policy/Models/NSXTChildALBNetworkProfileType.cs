@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildALBNetworkProfileType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildALBNetworkProfileType()
+        {
+        }
         /// <summary>
-        /// Contains the actual ALBNetworkProfile object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ALBNetworkProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual ALBNetworkProfile object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBNetworkProfileType ALBNetworkProfile { get; set; }
     }

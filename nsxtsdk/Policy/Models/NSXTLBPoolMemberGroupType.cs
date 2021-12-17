@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Pool member group.")]
     public class NSXTLBPoolMemberGroupType 
     {
+        public NSXTLBPoolMemberGroupType()
+        {
+            IpRevisionFilter = test
+        }
         /// <summary>
         /// Ip revision filter is used to filter IPv4 or IPv6 addresses from the
         /// grouping object.
@@ -26,7 +30,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "ip_revision_filter")]
         [NSXTProperty(IsRequired: false, Description: @"Ip revision filter is used to filter IPv4 or IPv6 addresses from thegrouping object.If the filter is not specified, both IPv4 and IPv6 addresses would beused as server IPs.The link local and loopback addresses would be always filtered out.")]
-        [NSXTDefaultProperty(Default: "IPV4")]
         public NSXTLbpoolMemberGroupIpRevisionFilterEnumType? IpRevisionFilter { get; set; }
         /// <summary>
         /// The list is used to show the customized pool member settings. User can
@@ -72,6 +75,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"If port is specified, all connections will be sent to this port.If unset, the same port the client connected to will be used, it couldbe overridden by default_pool_member_ports setting in virtual server.The port should not specified for multiple ports case.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        public long? Port { get; set; }
+        public int? Port { get; set; }
     }
 }

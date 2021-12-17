@@ -17,6 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"HTTP Service properties")]
     public class NSXTHttpServicePropertiesType 
     {
+        public NSXTHttpServicePropertiesType()
+        {
+            GlobalApiConcurrencyLimit = test
+            BasicAuthenticationEnabled = test
+            CookieBasedAuthenticationEnabled = test
+            ClientApiRateLimit = test
+            ClientApiConcurrencyLimit = test
+            LoggingLevel = test
+        }
         /// <summary>
         /// The maximum number of concurrent API requests that will be serviced. If the number of API requests being processed
         /// exceeds this limit, new API requests will be refused and a 503 Service Unavailable response will be returned to the
@@ -25,7 +34,6 @@ namespace nsxtsdk.ManagerModels
         [JsonProperty(PropertyName = "global_api_concurrency_limit")]
         [NSXTProperty(IsRequired: false, Description: @"The maximum number of concurrent API requests that will be serviced. If the number of API requests being processed exceeds this limit, new API requests will be refused and a 503 Service Unavailable response will be returned to the client.  To disable API concurrency limiting, set this value to 0.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        [NSXTDefaultProperty(Default: "")]
         public long? GlobalApiConcurrencyLimit { get; set; }
         /// <summary>
         /// 
@@ -38,7 +46,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "basic_authentication_enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Identifies whether basic authentication is enabled or disabled in API calls.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? BasicAuthenticationEnabled { get; set; }
         /// <summary>
         /// Identifies whether cookie-based authentication is enabled or disabled in API calls. When cookie-based authentication is
@@ -46,7 +53,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "cookie_based_authentication_enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Identifies whether cookie-based authentication is enabled or disabled in API calls. When cookie-based authentication is disabled, new sessions cannot be created via /api/session/create.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? CookieBasedAuthenticationEnabled { get; set; }
         /// <summary>
         /// Cipher suites used to secure contents of connection
@@ -76,7 +82,6 @@ namespace nsxtsdk.ManagerModels
         [JsonProperty(PropertyName = "client_api_rate_limit")]
         [NSXTProperty(IsRequired: false, Description: @"The maximum number of API requests that will be serviced per second for a given authenticated client.  If more API requests are received than can be serviced, a 429 Too Many Requests HTTP response will be returned. To disable API rate limiting, set this value to 0.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ClientApiRateLimit { get; set; }
         /// <summary>
         /// The maximum number of concurrent API requests that will be serviced for a given authenticated client.  If the number of
@@ -86,7 +91,6 @@ namespace nsxtsdk.ManagerModels
         [JsonProperty(PropertyName = "client_api_concurrency_limit")]
         [NSXTProperty(IsRequired: false, Description: @"The maximum number of concurrent API requests that will be serviced for a given authenticated client.  If the number of API requests being processed exceeds this limit, new API requests will be refused and a 503 Service Unavailable response will be returned to the client. To disable API concurrency limiting, set this value to 0.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ClientApiConcurrencyLimit { get; set; }
         /// <summary>
         /// TLS protocol versions
@@ -107,7 +111,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "logging_level")]
         [NSXTProperty(IsRequired: false, Description: @"Service logging level")]
-        [NSXTDefaultProperty(Default: "INFO")]
         public NSXTHttpServicePropertiesLoggingLevelEnumType? LoggingLevel { get; set; }
     }
 }

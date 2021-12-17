@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer PerformanceLimits object")]
     public class NSXTALBPerformanceLimitsType 
     {
+        public NSXTALBPerformanceLimitsType()
+        {
+        }
         /// <summary>
         /// The maximum number of concurrent client conections allowed
         /// to the Virtual Service.

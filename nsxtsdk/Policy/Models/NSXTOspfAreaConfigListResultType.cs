@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTOspfAreaConfigListResultType : NSXTListResultType
     {
+        public NSXTOspfAreaConfigListResultType()
+        {
+        }
         /// <summary>
         /// OSPF area configuration list results
         /// </summary>

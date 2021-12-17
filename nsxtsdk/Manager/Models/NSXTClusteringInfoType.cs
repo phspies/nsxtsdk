@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Clustering parameters for the controller cluster")]
     public class NSXTClusteringInfoType 
     {
+        public NSXTClusteringInfoType()
+        {
+        }
         /// <summary>
         /// Shared secret of the cluster.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTEventListResultType : NSXTListResultType
     {
+        public NSXTEventListResultType()
+        {
+        }
         /// <summary>
         /// List of events defined
         /// </summary>

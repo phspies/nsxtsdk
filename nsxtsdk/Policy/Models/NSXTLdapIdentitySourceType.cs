@@ -20,6 +20,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLdapIdentitySourceType : NSXTManagedResourceType
     {
+        public NSXTLdapIdentitySourceType()
+        {
+        }
         /// <summary>
         /// The list of LDAP servers that provide LDAP service for this identity source. Currently, only one LDAP server is
         /// supported.

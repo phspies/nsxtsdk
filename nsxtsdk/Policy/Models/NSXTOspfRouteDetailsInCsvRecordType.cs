@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTOspfRouteDetailsInCsvRecordType : NSXTCsvRecordType
     {
+        public NSXTOspfRouteDetailsInCsvRecordType()
+        {
+        }
         /// <summary>
         /// Type to cost of the route.
         /// </summary>

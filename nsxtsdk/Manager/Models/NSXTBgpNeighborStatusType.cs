@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBgpNeighborStatusType 
     {
+        public NSXTBgpNeighborStatusType()
+        {
+        }
         /// <summary>
         /// Current state of the BGP session.
         /// </summary>
@@ -124,16 +127,16 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Sum of in prefixes counts across all address families.")]
         public long? TotalInPrefixCount { get; set; }
         /// <summary>
-        /// Remote site details.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "remote_site")]
-        [NSXTProperty(IsRequired: false, Description: @"Remote site details.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType RemoteSite { get; set; }
         /// <summary>
-        /// Transport node id and name
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "transport_node")]
-        [NSXTProperty(IsRequired: false, Description: @"Transport node id and name")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType TransportNode { get; set; }
         /// <summary>
         /// TCP port number of Local BGP connection

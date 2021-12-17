@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTunnelSubnetType 
     {
+        public NSXTTunnelSubnetType()
+        {
+        }
         /// <summary>
         /// Subnet ip addresses
         /// </summary>

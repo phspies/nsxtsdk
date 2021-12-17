@@ -17,5 +17,8 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Base type for CSV records.")]
     public class NSXTCsvRecordType 
     {
+        public NSXTCsvRecordType()
+        {
+        }
     }
 }

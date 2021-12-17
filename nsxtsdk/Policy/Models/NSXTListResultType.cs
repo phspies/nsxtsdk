@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTListResultType : NSXTResourceType
     {
+        public NSXTListResultType()
+        {
+        }
         /// <summary>
         /// Opaque cursor to be used for getting next page of records (supplied by current result page)
         /// </summary>

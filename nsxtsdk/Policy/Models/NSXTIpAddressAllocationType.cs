@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpAddressAllocationType : NSXTPolicyConfigResourceType
     {
+        public NSXTIpAddressAllocationType()
+        {
+        }
         /// <summary>
         /// Address that is allocated from pool
         /// </summary>

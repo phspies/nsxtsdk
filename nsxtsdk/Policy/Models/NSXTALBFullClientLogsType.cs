@@ -17,6 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer FullClientLogs object")]
     public class NSXTALBFullClientLogsType 
     {
+        public NSXTALBFullClientLogsType()
+        {
+            Duration = test
+            Throttle = test
+        }
         /// <summary>
         /// How long should the system capture all logs, measured in
         /// minutes.
@@ -28,7 +33,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "duration")]
         [NSXTProperty(IsRequired: false, Description: @"How long should the system capture all logs, measured inminutes.Set to 0 for infinite.Special values are 0 - &apos;infinite&apos;.Unit is MIN.Default value when not specified in API or module isinterpreted by ALB Controller as 30.")]
-        [NSXTDefaultProperty(Default: "")]
         public long? Duration { get; set; }
         /// <summary>
         /// This setting limits the number of non-significant logs
@@ -41,16 +45,20 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "throttle")]
         [NSXTProperty(IsRequired: false, Description: @"This setting limits the number of non-significant logsgenerated per second for this VS on each SE.Default is 10 logs per second.Set it to zero (0) to deactivate throttling.Unit is PER_SECOND.Default value when not specified in API or module isinterpreted by ALB Controller as 10.")]
-        [NSXTDefaultProperty(Default: "")]
         public long? Throttle { get; set; }
         /// <summary>
         /// Capture all client logs including connections and requests.
         /// When deactivated, only errors will be logged.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
+        /// Special default for Basic edition is false, Essentials
+        /// edition is false, Enterprise is False.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "enabled", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Capture all client logs including connections and requests.When deactivated, only errors will be logged.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: true, Description: @"Capture all client logs including connections and requests.When deactivated, only errors will be logged.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Special default for Basic edition is false, Essentialsedition is false, Enterprise is False.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         [System.ComponentModel.DataAnnotations.Required]
         public bool Enabled { get; set; }
     }

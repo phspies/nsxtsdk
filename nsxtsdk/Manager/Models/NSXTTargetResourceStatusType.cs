@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Holds status of target resource in firewall context.")]
     public class NSXTTargetResourceStatusType 
     {
+        public NSXTTargetResourceStatusType()
+        {
+        }
         /// <summary>
         /// Firewall status on a target logical resource.
         /// </summary>

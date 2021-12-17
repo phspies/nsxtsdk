@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer WafDataFile object")]
     public class NSXTALBWafDataFileType 
     {
+        public NSXTALBWafDataFileType()
+        {
+            Type = test
+        }
         /// <summary>
         /// WAF data file type.
         /// Enum options - WAF_DATAFILE_PM_FROM_FILE, WAF_DATAFILE_DTD,
@@ -26,7 +30,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "type")]
         [NSXTProperty(IsRequired: false, Description: @"WAF data file type.Enum options - WAF_DATAFILE_PM_FROM_FILE, WAF_DATAFILE_DTD,WAF_DATAFILE_XSD.Default value when not specified in API or module isinterpreted by ALB Controller as WAF_DATAFILE_PM_FROM_FILE.")]
-        [NSXTDefaultProperty(Default: "WAF_DATAFILE_PM_FROM_FILE")]
         public NSXTAlbwafDataFileTypeEnumType? Type { get; set; }
         /// <summary>
         /// Stringified WAF File Data.

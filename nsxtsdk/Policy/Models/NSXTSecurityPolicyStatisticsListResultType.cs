@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSecurityPolicyStatisticsListResultType : NSXTListResultType
     {
+        public NSXTSecurityPolicyStatisticsListResultType()
+        {
+        }
         /// <summary>
         /// Security Policy statistics list results
         /// </summary>

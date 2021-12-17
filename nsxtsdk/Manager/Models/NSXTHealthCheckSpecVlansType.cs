@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"HealthCheckSpecVlan is used for specifying VLAN ID ranges for healthcheck.")]
     public class NSXTHealthCheckSpecVlansType 
     {
+        public NSXTHealthCheckSpecVlansType()
+        {
+        }
         /// <summary>
         /// VLAN ID ranges
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Traffic statistics for a segment.")]
     public class NSXTL2VpnPerSegmentTrafficStatisticsType 
     {
+        public NSXTL2VpnPerSegmentTrafficStatisticsType()
+        {
+        }
         /// <summary>
         /// Total number of outgoing packets.
         /// </summary>

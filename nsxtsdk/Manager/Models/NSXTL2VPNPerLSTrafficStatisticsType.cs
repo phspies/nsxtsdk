@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Traffic statistics for a logical switch.")]
     public class NSXTL2VPNPerLSTrafficStatisticsType 
     {
+        public NSXTL2VPNPerLSTrafficStatisticsType()
+        {
+        }
         /// <summary>
         /// Total number of outgoing packets.
         /// </summary>
@@ -48,10 +51,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Total number of outgoing Broadcast, Unknown unicast and Multicast (BUM) bytes.")]
         public long? BumBytesOut { get; set; }
         /// <summary>
-        /// Logical switch
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "logical_switch")]
-        [NSXTProperty(IsRequired: false, Description: @"Logical switch")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType LogicalSwitch { get; set; }
         /// <summary>
         /// Total number of outgoing bytes.

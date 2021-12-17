@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLocaleServicesType : NSXTPolicyConfigResourceType
     {
+        public NSXTLocaleServicesType()
+        {
+        }
         /// <summary>
         /// Policy paths to edge nodes. For Tier1 gateway, the field is used to
         /// statically assign the ordered list of up to two edge nodes for
@@ -39,17 +42,19 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"This configuration can be defined only for Active-Standby Tier0 gateway to provide redundancy. For mulitple external interfaces, multiple HA VIP configs must be defined and each config will pair exactly two external interfaces. The VIP will move and will always be owned by the Active node. When this property is configured, configuration of dynamic-routing is not allowed.")]
         public IList<NSXTTier0HaVipConfigType> HaVipConfigs { get; set; }
         /// <summary>
-        /// Configure all route redistribution properties like enable/disable redistributon, redistribution rule and so on.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "route_redistribution_config")]
-        [NSXTProperty(IsRequired: false, Description: @"Configure all route redistribution properties like enable/disable redistributon, redistribution rule and so on.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTTier0RouteRedistributionConfigType RouteRedistributionConfig { get; set; }
         /// <summary>
-        /// Policy path to edge cluster. Auto-assigned on Tier0 if associated
-        /// enforcement-point has only one edge cluster.
+        /// The reference to the edge cluster using the policy path of the edge cluster.
+        /// Auto assigned on Tier0 if the associated enforcement point has only one edge cluster.
+        /// For Tier1 ACTIVE-ACTIVE, edge cluster can not be removed and Edge Cluster will be defaulted
+        /// to edge cluster from connected Tier0.
         /// </summary>
         [JsonProperty(PropertyName = "edge_cluster_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy path to edge cluster. Auto-assigned on Tier0 if associatedenforcement-point has only one edge cluster.")]
+        [NSXTProperty(IsRequired: false, Description: @"The reference to the edge cluster using the policy path of the edge cluster.Auto assigned on Tier0 if the associated enforcement point has only one edge cluster.For Tier1 ACTIVE-ACTIVE, edge cluster can not be removed and Edge Cluster will be defaultedto edge cluster from connected Tier0.")]
         public string? EdgeClusterPath { get; set; }
         /// <summary>
         /// This profile is applied to all static route peers in this locale. BFD

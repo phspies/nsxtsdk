@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTraceflowObservationType 
     {
+        public NSXTTraceflowObservationType()
+        {
+        }
         /// <summary>
         /// Timestamp when the observation was created by the transport node (microseconds epoch)
         /// </summary>

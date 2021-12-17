@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyCapacityUsageResponseType : NSXTManagedResourceType
     {
+        public NSXTPolicyCapacityUsageResponseType()
+        {
+        }
         /// <summary>
         /// List of capacity usage for NSX Objects
         /// </summary>

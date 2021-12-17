@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeStatusPropertiesType : NSXTResourceType
     {
+        public NSXTNodeStatusPropertiesType()
+        {
+        }
         /// <summary>
         /// One, five, and fifteen minute load averages for the system
         /// </summary>
@@ -30,10 +33,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Amount of swap disk in use, in kilobytes")]
         public long? SwapUsed { get; set; }
         /// <summary>
-        /// Highest and average usage of DPDK and non-DPDK core of Edge Node.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "cpu_usage")]
-        [NSXTProperty(IsRequired: false, Description: @"Highest and average usage of DPDK and non-DPDK core of Edge Node.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTCpuUsageType CpuUsage { get; set; }
         /// <summary>
         /// Current time expressed in milliseconds since epoch
@@ -102,6 +105,12 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Amount of RAM on the system that can be flushed out to disk, in kilobytes")]
         public long? MemCache { get; set; }
         /// <summary>
+        /// Host name of the system
+        /// </summary>
+        [JsonProperty(PropertyName = "hostname")]
+        [NSXTProperty(IsRequired: false, Description: @"Host name of the system")]
+        public string? Hostname { get; set; }
+        /// <summary>
         /// File systems configured on the system
         /// </summary>
         [JsonProperty(PropertyName = "file_systems")]
@@ -114,10 +123,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Source of status data.")]
         public NSXTNodeStatusPropertiesSourceEnumType? Source { get; set; }
         /// <summary>
-        /// Point in time usage of system, datapath, swap and cache memory in edge node. Valid only for Edge transport node.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "edge_mem_usage")]
-        [NSXTProperty(IsRequired: false, Description: @"Point in time usage of system, datapath, swap and cache memory in edge node. Valid only for Edge transport node.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTEdgeTransportNodeMemoryUsageType EdgeMemUsage { get; set; }
     }
 }

@@ -17,6 +17,44 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Represents a label-value pair.")]
     public class NSXTPropertyItemType 
     {
+        public NSXTPropertyItemType()
+        {
+            Type = test
+        }
+        /// <summary>
+        /// A style object applicable for the property item. It could be the any padding, margin style sheet applicable to the
+        /// property item. A 'style' property is supported in case of layout 'AUTO' only.
+        /// </summary>
+        [JsonProperty(PropertyName = "style")]
+        [NSXTProperty(IsRequired: false, Description: @"A style object applicable for the property item. It could be the any padding, margin style sheet applicable to the property item. A &apos;style&apos; property is supported in case of layout &apos;AUTO&apos; only.")]
+        public object? Style { get; set; }
+        /// <summary>
+        /// Represent the vertical span of the widget / container
+        /// </summary>
+        [JsonProperty(PropertyName = "rowspan")]
+        [NSXTProperty(IsRequired: false, Description: @"Represent the vertical span of the widget / container")]
+        //[System.ComponentModel.DataAnnotations.MinLength(1)]
+        public int? Rowspan { get; set; }
+        /// <summary>
+        /// Represent the horizontal span of the widget / container.
+        /// </summary>
+        [JsonProperty(PropertyName = "span")]
+        [NSXTProperty(IsRequired: false, Description: @"Represent the horizontal span of the widget / container.")]
+        //[System.ComponentModel.DataAnnotations.MinLength(1)]
+        //[System.ComponentModel.DataAnnotations.MaxLength(12)]
+        public int? Span { get; set; }
+        /// <summary>
+        /// Label value separator used between label and value. It can be any separator like ":"  or "-".
+        /// </summary>
+        [JsonProperty(PropertyName = "label_value_separator")]
+        [NSXTProperty(IsRequired: false, Description: @"Label value separator used between label and value. It can be any separator like &quot;:&quot;  or &quot;-&quot;.")]
+        public string? LabelValueSeparator { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "label")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTLabelType Label { get; set; }
         /// <summary>
         /// Represents field value of the property.
         /// </summary>
@@ -31,25 +69,26 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"If true, separates this property in a widget.")]
         public bool? Separator { get; set; }
         /// <summary>
-        /// Hyperlink of the specified UI page that provides details. This will be linked with value of the property.
-        /// </summary>
-        [JsonProperty(PropertyName = "navigation")]
-        [NSXTProperty(IsRequired: false, Description: @"Hyperlink of the specified UI page that provides details. This will be linked with value of the property.")]
-        public string? Navigation { get; set; }
-        /// <summary>
-        /// Render configuration to be applied, if any.
-        /// </summary>
-        [JsonProperty(PropertyName = "render_configuration")]
-        [NSXTProperty(IsRequired: false, Description: @"Render configuration to be applied, if any.")]
-        public IList<NSXTRenderConfigurationType> RenderConfiguration { get; set; }
-        /// <summary>
         /// Data type of the field.
         /// </summary>
         [JsonProperty(PropertyName = "type", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"Data type of the field.")]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "String")]
         public NSXTPropertyItemTypeEnumType Type { get; set; }
+        /// <summary>
+        /// Id of drilldown widget, if any. Id should be a valid id of an existing widget. A widget is considered as drilldown
+        /// widget when it is associated with any other widget and provides more detailed information about any data item from the
+        /// parent widget.
+        /// </summary>
+        [JsonProperty(PropertyName = "drilldown_id")]
+        [NSXTProperty(IsRequired: false, Description: @"Id of drilldown widget, if any. Id should be a valid id of an existing widget. A widget is considered as drilldown widget when it is associated with any other widget and provides more detailed information about any data item from the parent widget.")]
+        public string? DrilldownId { get; set; }
+        /// <summary>
+        /// Hyperlink of the specified UI page that provides details. This will be linked with value of the property.
+        /// </summary>
+        [JsonProperty(PropertyName = "navigation")]
+        [NSXTProperty(IsRequired: false, Description: @"Hyperlink of the specified UI page that provides details. This will be linked with value of the property.")]
+        public string? Navigation { get; set; }
         /// <summary>
         /// Set to true if the field is a heading. Default is false.
         /// </summary>
@@ -64,10 +103,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"If the condition is met then the property will be displayed. Examples of expression syntax are provided under &apos;example_request&apos; section of &apos;CreateWidgetConfiguration&apos; API.")]
         public string? Condition { get; set; }
         /// <summary>
-        /// If a field represents a heading, then label is not needed
+        /// Render configuration to be applied, if any.
         /// </summary>
-        [JsonProperty(PropertyName = "label")]
-        [NSXTProperty(IsRequired: false, Description: @"If a field represents a heading, then label is not needed")]
-        public NSXTLabelType Label { get; set; }
+        [JsonProperty(PropertyName = "render_configuration")]
+        [NSXTProperty(IsRequired: false, Description: @"Render configuration to be applied, if any.")]
+        public IList<NSXTRenderConfigurationType> RenderConfiguration { get; set; }
     }
 }

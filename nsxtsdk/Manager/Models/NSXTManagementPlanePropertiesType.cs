@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTManagementPlanePropertiesType : NSXTResourceType
     {
+        public NSXTManagementPlanePropertiesType()
+        {
+        }
         /// <summary>
         /// The account name to use when authenticating to the management plane's message bus.
         /// </summary>

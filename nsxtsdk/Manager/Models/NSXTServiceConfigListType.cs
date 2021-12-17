@@ -18,6 +18,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"List of Service config objects that needs to be either createdor updated with the respective profiles and precedence.")]
     public class NSXTServiceConfigListType 
     {
+        public NSXTServiceConfigListType()
+        {
+        }
         /// <summary>
         /// An Array of ServiceConfig objects containing details of
         /// profiles to be applied, entities on which these profiles

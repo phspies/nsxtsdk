@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildPolicyContextProfileType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildPolicyContextProfileType()
+        {
+        }
         /// <summary>
-        /// Contains the actual PolicyContextProfile objects
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "PolicyContextProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual PolicyContextProfile objects")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTPolicyContextProfileType PolicyContextProfile { get; set; }
     }

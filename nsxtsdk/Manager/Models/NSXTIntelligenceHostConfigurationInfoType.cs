@@ -17,15 +17,27 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIntelligenceHostConfigurationInfoType : NSXTManagedResourceType
     {
+        public NSXTIntelligenceHostConfigurationInfoType()
+        {
+            MaxActiveFlowCountBm = test
+            ContextDataCollectionInterval = test
+            FlowDataCollectionInterval = test
+            EnableContextDataCollection = test
+            EnableFlowDataCollection = test
+            EnableDeepPacketInspection = test
+            EnableDataCollection = test
+            MaxInactiveFlowCountBm = test
+            MaxInactiveFlowCount = test
+            MaxActiveFlowCount = test
+        }
         /// <summary>
-        /// Maximum inactive network flow to collect in collection interval.
+        /// Maximum active network flow to collect in collection interval for Bare Metal server.
         /// </summary>
-        [JsonProperty(PropertyName = "max_inactive_flow_count")]
-        [NSXTProperty(IsRequired: false, Description: @"Maximum inactive network flow to collect in collection interval.")]
+        [JsonProperty(PropertyName = "max_active_flow_count_bm")]
+        [NSXTProperty(IsRequired: false, Description: @"Maximum active network flow to collect in collection interval for Bare Metal server.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(5000000)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? MaxInactiveFlowCount { get; set; }
+        public long? MaxActiveFlowCountBm { get; set; }
         /// <summary>
         /// Interval in minute of reporting VM guest context data to NSX-Intelligence.
         /// Recommend to keep this value the same as flow_data_collection_interval.
@@ -34,7 +46,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Interval in minute of reporting VM guest context data to NSX-Intelligence.Recommend to keep this value the same as flow_data_collection_interval.")]
         //[System.ComponentModel.DataAnnotations.MinLength(2)]
         //[System.ComponentModel.DataAnnotations.MaxLength(30)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ContextDataCollectionInterval { get; set; }
         /// <summary>
         /// A truststore to establish the trust between NSX and NSX-Intelligence brokers.
@@ -50,7 +61,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Interval in minute of reporting network flow data to NSX-Intelligence.Recommend to keep this value the same as context_data_collection_interval.")]
         //[System.ComponentModel.DataAnnotations.MinLength(2)]
         //[System.ComponentModel.DataAnnotations.MaxLength(30)]
-        [NSXTDefaultProperty(Default: "")]
         public long? FlowDataCollectionInterval { get; set; }
         /// <summary>
         /// A broker certificate to verify the identity of brokers.
@@ -70,7 +80,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "enable_context_data_collection")]
         [NSXTProperty(IsRequired: false, Description: @"Enable NSX-Intelligence context data collection in host nodes.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? EnableContextDataCollection { get; set; }
         /// <summary>
         /// List of linux user uid to collect context data.
@@ -84,14 +93,12 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "enable_flow_data_collection")]
         [NSXTProperty(IsRequired: false, Description: @"Enable NSX-Intelligence flow data collection in host nodes.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? EnableFlowDataCollection { get; set; }
         /// <summary>
         /// Enable NSX-Intelligence deep packet inspection in host nodes.
         /// </summary>
         [JsonProperty(PropertyName = "enable_deep_packet_inspection")]
         [NSXTProperty(IsRequired: false, Description: @"Enable NSX-Intelligence deep packet inspection in host nodes.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? EnableDeepPacketInspection { get; set; }
         /// <summary>
         /// List of hashes of processes to collect context data.
@@ -119,15 +126,27 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "enable_data_collection")]
         [NSXTProperty(IsRequired: false, Description: @"Enable NSX-Intelligence data collection in host nodes.This property has been deprecated.To enable flow data collection,use property enable_flow_data_collection instead.To enable context data collection,use property enable_context_data_collection instead.When this property is set to false, no data collectionis performed even if enable_flow_data_collection orenable_context_data_collection is set to true.When this property is set to true, propertyenable_flow_data_collection and enable_context_data_collectioncontrol whether to collect flow data and context data separately.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? EnableDataCollection { get; set; }
         /// <summary>
-        /// List of private IP prefix that NSX-Intelligence network flow
-        /// is collected from.
+        /// When this property is set to true, if the source or destination
+        /// of network traffic uses an IP address that is not included in
+        /// property private_ip_prefix, it is reported as ANY (255.255.255.255)
+        /// to NSX-Intelligence.
+        /// 
+        /// When this property is set to false, the original IP addresses of
+        /// network traffic are reported to NSX-Intelligence,
+        /// regardless whether they are included in property private_ip_prefix.
         /// </summary>
-        [JsonProperty(PropertyName = "private_ip_prefix")]
-        [NSXTProperty(IsRequired: false, Description: @"List of private IP prefix that NSX-Intelligence network flowis collected from.")]
-        public IList<NSXTIntelligenceFlowPrivateIpPrefixInfoType> PrivateIpPrefix { get; set; }
+        [JsonProperty(PropertyName = "enable_external_ip_aggregation")]
+        [NSXTProperty(IsRequired: false, Description: @"When this property is set to true, if the source or destinationof network traffic uses an IP address that is not included inproperty private_ip_prefix, it is reported as ANY (255.255.255.255)to NSX-Intelligence.When this property is set to false, the original IP addresses ofnetwork traffic are reported to NSX-Intelligence,regardless whether they are included in property private_ip_prefix.")]
+        public bool? EnableExternalIpAggregation { get; set; }
+        /// <summary>
+        /// List of processes to collect context data.
+        /// Empty implies all processes.
+        /// </summary>
+        [JsonProperty(PropertyName = "context_process_names")]
+        [NSXTProperty(IsRequired: false, Description: @"List of processes to collect context data.Empty implies all processes.")]
+        public IList<string> ContextProcessNames { get; set; }
         /// <summary>
         /// List of NSX-Intelligence broker endpoints that host nodes contact initially.
         /// </summary>
@@ -141,24 +160,22 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Maximum inactive network flow to collect in collection interval for Bare Metal server.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(5000000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? MaxInactiveFlowCountBm { get; set; }
         /// <summary>
-        /// Maximum active network flow to collect in collection interval for Bare Metal server.
+        /// Maximum inactive network flow to collect in collection interval.
         /// </summary>
-        [JsonProperty(PropertyName = "max_active_flow_count_bm")]
-        [NSXTProperty(IsRequired: false, Description: @"Maximum active network flow to collect in collection interval for Bare Metal server.")]
+        [JsonProperty(PropertyName = "max_inactive_flow_count")]
+        [NSXTProperty(IsRequired: false, Description: @"Maximum inactive network flow to collect in collection interval.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(5000000)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? MaxActiveFlowCountBm { get; set; }
+        public long? MaxInactiveFlowCount { get; set; }
         /// <summary>
-        /// List of processes to collect context data.
-        /// Empty implies all processes.
+        /// List of private IP prefix that NSX-Intelligence network flow
+        /// is collected from.
         /// </summary>
-        [JsonProperty(PropertyName = "context_process_names")]
-        [NSXTProperty(IsRequired: false, Description: @"List of processes to collect context data.Empty implies all processes.")]
-        public IList<string> ContextProcessNames { get; set; }
+        [JsonProperty(PropertyName = "private_ip_prefix")]
+        [NSXTProperty(IsRequired: false, Description: @"List of private IP prefix that NSX-Intelligence network flowis collected from.")]
+        public IList<NSXTIntelligenceFlowPrivateIpPrefixInfoType> PrivateIpPrefix { get; set; }
         /// <summary>
         /// Maximum active network flow to collect in collection interval.
         /// </summary>
@@ -166,7 +183,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Maximum active network flow to collect in collection interval.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(5000000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? MaxActiveFlowCount { get; set; }
     }
 }

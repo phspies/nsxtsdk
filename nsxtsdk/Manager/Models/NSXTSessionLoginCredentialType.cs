@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSessionLoginCredentialType : NSXTLoginCredentialType
     {
+        public NSXTSessionLoginCredentialType()
+        {
+        }
         /// <summary>
         /// The session_id to login to server.
         /// </summary>

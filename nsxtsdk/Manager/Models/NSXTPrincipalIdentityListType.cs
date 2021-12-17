@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPrincipalIdentityListType : NSXTListResultType
     {
+        public NSXTPrincipalIdentityListType()
+        {
+        }
         /// <summary>
         /// PrincipalIdentity list.
         /// </summary>

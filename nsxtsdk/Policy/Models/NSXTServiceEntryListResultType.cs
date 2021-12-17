@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceEntryListResultType : NSXTListResultType
     {
+        public NSXTServiceEntryListResultType()
+        {
+        }
         /// <summary>
         /// Service entry list results
         /// </summary>

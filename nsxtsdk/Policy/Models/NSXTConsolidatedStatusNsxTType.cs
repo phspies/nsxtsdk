@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTConsolidatedStatusNsxTType : NSXTConsolidatedStatusPerEnforcementPointType
     {
+        public NSXTConsolidatedStatusNsxTType()
+        {
+        }
         /// <summary>
-        /// Detailed Realized Status inherent to an NSX-T Enforcement Point.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "enforced_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Detailed Realized Status inherent to an NSX-T Enforcement Point.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTEnforcedStatusDetailsNsxTType EnforcedStatus { get; set; }
     }
 }

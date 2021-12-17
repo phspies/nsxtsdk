@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Root of the api result set for forming rows.")]
     public class NSXTRowListFieldType 
     {
+        public NSXTRowListFieldType()
+        {
+        }
         /// <summary>
         /// Short name or alias of row list field, if any. If unspecified, the row list field can be referenced by its index in the
         /// array of row list fields as $<index> (for example, $0).

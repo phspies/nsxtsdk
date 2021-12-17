@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBackupUiFramesInfoListType 
     {
+        public NSXTBackupUiFramesInfoListType()
+        {
+        }
         /// <summary>
         /// List of backup frames(and metadata) to be displayed in UI
         /// </summary>

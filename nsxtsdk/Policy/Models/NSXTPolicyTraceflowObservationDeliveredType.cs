@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyTraceflowObservationDeliveredType : NSXTTraceflowObservationDeliveredType
     {
+        public NSXTPolicyTraceflowObservationDeliveredType()
+        {
+        }
         /// <summary>
         /// The path of the segment port or router port into which the traceflow packet was delivered
         /// </summary>

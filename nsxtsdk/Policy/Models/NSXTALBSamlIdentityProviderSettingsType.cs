@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer SamlIdentityProviderSettings object")]
     public class NSXTALBSamlIdentityProviderSettingsType 
     {
+        public NSXTALBSamlIdentityProviderSettingsType()
+        {
+        }
         /// <summary>
         /// SAML IDP metadata.
         /// </summary>

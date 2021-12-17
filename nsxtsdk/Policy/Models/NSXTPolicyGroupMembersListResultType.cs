@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyGroupMembersListResultType : NSXTListResultType
     {
+        public NSXTPolicyGroupMembersListResultType()
+        {
+        }
         /// <summary>
         /// Paged Collection of members that belong to the given Group
         /// </summary>

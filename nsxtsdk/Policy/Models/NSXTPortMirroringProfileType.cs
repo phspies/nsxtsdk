@@ -17,28 +17,43 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPortMirroringProfileType : NSXTPolicyConfigResourceType
     {
+        public NSXTPortMirroringProfileType()
+        {
+            FilterAction = test
+            TcpIpStack = test
+            ProfileType = test
+            EncapsulationType = test
+            ErspanId = test
+            GreKey = test
+            Direction = test
+        }
         /// <summary>
-        /// Port mirroring profile direction
+        /// If set to INCLUDE, packets matching all filters will be mirrored.
+        /// If set to EXCLUDE, packets NOT matching any filters will be mirrored.
         /// </summary>
-        [JsonProperty(PropertyName = "direction")]
-        [NSXTProperty(IsRequired: false, Description: @"Port mirroring profile direction")]
-        [NSXTDefaultProperty(Default: "BIDIRECTIONAL")]
-        public NSXTPortMirroringProfileDirectionEnumType? Direction { get; set; }
+        [JsonProperty(PropertyName = "filter_action")]
+        [NSXTProperty(IsRequired: false, Description: @"If set to INCLUDE, packets matching all filters will be mirrored.If set to EXCLUDE, packets NOT matching any filters will be mirrored.")]
+        public NSXTPortMirroringProfileFilterActionEnumType? FilterAction { get; set; }
         /// <summary>
         /// User can provide Mirror stack or Default stack to send mirror traffic. If profile type is REMOTE_L3_SPAN, tcp_ip_stack
         /// type is used else ignored.
         /// </summary>
         [JsonProperty(PropertyName = "tcp_ip_stack")]
         [NSXTProperty(IsRequired: false, Description: @"User can provide Mirror stack or Default stack to send mirror traffic. If profile type is REMOTE_L3_SPAN, tcp_ip_stack type is used else ignored.")]
-        [NSXTDefaultProperty(Default: "Default")]
         public NSXTPortMirroringProfileTcpIpStackEnumType? TcpIpStack { get; set; }
         /// <summary>
         /// Allows user to select type of port mirroring session.
         /// </summary>
         [JsonProperty(PropertyName = "profile_type")]
         [NSXTProperty(IsRequired: false, Description: @"Allows user to select type of port mirroring session.")]
-        [NSXTDefaultProperty(Default: "REMOTE_L3_SPAN")]
         public NSXTPortMirroringProfileProfileTypeEnumType? ProfileType { get; set; }
+        /// <summary>
+        /// An array of 5-tuples used to filter packets for the mirror session. If not provided, all the packets will be mirrored.
+        /// This field is with filter_action which defines whether packets matching the filter will be included or excluded
+        /// </summary>
+        [JsonProperty(PropertyName = "port_mirroring_filters")]
+        [NSXTProperty(IsRequired: false, Description: @"An array of 5-tuples used to filter packets for the mirror session. If not provided, all the packets will be mirrored. This field is with filter_action which defines whether packets matching the filter will be included or excluded")]
+        public IList<NSXTPortMirrorFilterType> PortMirroringFilters { get; set; }
         /// <summary>
         /// If this property is set, the packet will be truncated to the provided
         /// length. If this property is unset, entire packet will be mirrored.
@@ -47,14 +62,13 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"If this property is set, the packet will be truncated to the providedlength. If this property is unset, entire packet will be mirrored.")]
         //[System.ComponentModel.DataAnnotations.MinLength(60)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        public long? SnapLength { get; set; }
+        public int? SnapLength { get; set; }
         /// <summary>
         /// User can provide Mirror Destination type e.g GRE, ERSPAN_TWO or ERSPAN_THREE.If profile type is REMOTE_L3_SPAN,
         /// encapsulation type is used else ignored.
         /// </summary>
         [JsonProperty(PropertyName = "encapsulation_type")]
         [NSXTProperty(IsRequired: false, Description: @"User can provide Mirror Destination type e.g GRE, ERSPAN_TWO or ERSPAN_THREE.If profile type is REMOTE_L3_SPAN, encapsulation type is used else ignored.")]
-        [NSXTDefaultProperty(Default: "GRE")]
         public NSXTPortMirroringProfileEncapsulationTypeEnumType? EncapsulationType { get; set; }
         /// <summary>
         /// Used by physical switch for the mirror traffic forwarding.
@@ -65,16 +79,20 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Used by physical switch for the mirror traffic forwarding.Must be provided and only effective when encapsulation type isERSPAN type II or type III.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(1023)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? ErspanId { get; set; }
+        public int? ErspanId { get; set; }
         /// <summary>
         /// User-configurable 32-bit key only for GRE
         /// </summary>
         [JsonProperty(PropertyName = "gre_key")]
         [NSXTProperty(IsRequired: false, Description: @"User-configurable 32-bit key only for GRE")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? GreKey { get; set; }
+        public int? GreKey { get; set; }
+        /// <summary>
+        /// Port mirroring profile direction
+        /// </summary>
+        [JsonProperty(PropertyName = "direction")]
+        [NSXTProperty(IsRequired: false, Description: @"Port mirroring profile direction")]
+        public NSXTPortMirroringProfileDirectionEnumType? Direction { get; set; }
         /// <summary>
         /// Data from source group will be copied to members of
         /// destination group. Only IPSET group and group with

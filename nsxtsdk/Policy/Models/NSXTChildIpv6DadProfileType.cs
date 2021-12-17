@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildIpv6DadProfileType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildIpv6DadProfileType()
+        {
+        }
         /// <summary>
-        /// Contains the actual Ipv6DadProfile objects
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "Ipv6DadProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual Ipv6DadProfile objects")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTIpv6DadProfileType Ipv6DadProfile { get; set; }
     }

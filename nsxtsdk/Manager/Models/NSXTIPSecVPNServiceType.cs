@@ -17,12 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVPNServiceType : NSXTManagedResourceType
     {
+        public NSXTIPSecVPNServiceType()
+        {
+            IkeLogLevel = test
+            IpsecHaSync = test
+            Enabled = test
+        }
         /// <summary>
         /// Log level for internet key exchange (IKE).
         /// </summary>
         [JsonProperty(PropertyName = "ike_log_level")]
         [NSXTProperty(IsRequired: false, Description: @"Log level for internet key exchange (IKE).")]
-        [NSXTDefaultProperty(Default: "INFO")]
         public NSXTIpsecVpnserviceIkeLogLevelEnumType? IkeLogLevel { get; set; }
         /// <summary>
         /// Logical router id.
@@ -38,7 +43,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "ipsec_ha_sync")]
         [NSXTProperty(IsRequired: false, Description: @"Enable/disable IPSec HA state sync. IPSec HA state synccan be disabled in case there are performance issues withthe state sync messages. Default is to enable HA Sync.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? IpsecHaSync { get; set; }
         /// <summary>
         /// Bypass policy rules are configured using VPN service.
@@ -55,7 +59,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "enabled")]
         [NSXTProperty(IsRequired: false, Description: @"If true, enable VPN services for given logical router.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enabled { get; set; }
     }
 }

@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTEthernetHeaderType 
     {
+        public NSXTEthernetHeaderType()
+        {
+            EthType = test
+        }
         /// <summary>
         /// The destination MAC address of form:
         /// "^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$". For example: 00:00:00:00:00:00.
@@ -31,7 +35,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"This field defaults to IPv4.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [NSXTDefaultProperty(Default: "")]
         public long? EthType { get; set; }
         /// <summary>
         /// The source MAC address of form:

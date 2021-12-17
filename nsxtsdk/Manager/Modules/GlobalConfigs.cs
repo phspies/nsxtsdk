@@ -30,25 +30,25 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGlobalConfigsType ResyncGlobalConfigsResyncConfig(string ConfigType, NSXTGlobalConfigsType GlobalConfigs)
+        public NSXTGlobalConfigsType ResyncGlobalConfigs(string ConfigType, NSXTGlobalConfigsType GlobalConfigs)
         {
             if (ConfigType == null) { throw new System.ArgumentNullException("ConfigType cannot be null"); }
             if (GlobalConfigs == null) { throw new System.ArgumentNullException("GlobalConfigs cannot be null"); }
             NSXTGlobalConfigsType returnValue = default(NSXTGlobalConfigsType);
-            StringBuilder ResyncGlobalConfigsResyncConfigServiceURL = new StringBuilder("/global-configs/{config-type}?action=resync_config");
+            StringBuilder ResyncGlobalConfigsServiceURL = new StringBuilder("/global-configs/{config-type}?action=resync_config");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.PUT
             };
             request.AddHeader("Content-type", "application/json");
-            ResyncGlobalConfigsResyncConfigServiceURL.Replace("{config-type}", System.Uri.EscapeDataString(Helpers.ConvertToString(ConfigType, System.Globalization.CultureInfo.InvariantCulture)));
+            ResyncGlobalConfigsServiceURL.Replace("{config-type}", System.Uri.EscapeDataString(Helpers.ConvertToString(ConfigType, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(GlobalConfigs, defaultSerializationSettings));
-            request.Resource = ResyncGlobalConfigsResyncConfigServiceURL.ToString();
+            request.Resource = ResyncGlobalConfigsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP PUT operation to " + ResyncGlobalConfigsResyncConfigServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP PUT operation to " + ResyncGlobalConfigsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else

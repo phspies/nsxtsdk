@@ -158,70 +158,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsClusterConfigListResultType GlobalListIdsClusterConfigs(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTIdsClusterConfigListResultType returnValue = default(NSXTIdsClusterConfigListResultType);
-            StringBuilder ListIdsClusterConfigsServiceURL = new StringBuilder("/global-infra/settings/firewall/security/intrusion-services/cluster-configs");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListIdsClusterConfigsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListIdsClusterConfigsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsClusterConfigListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsClusterConfigListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalUpdateIdsSignaturesUpdateSignatures()
-        {
-            
-            StringBuilder UpdateIdsSignaturesUpdateSignaturesServiceURL = new StringBuilder("/global-infra/settings/firewall/security/intrusion-services/signatures?action=update_signatures");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.POST
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.Resource = UpdateIdsSignaturesUpdateSignaturesServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP POST operation to " + UpdateIdsSignaturesUpdateSignaturesServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTIdsStandaloneHostConfigType CreateOrUpdateIdsStandaloneHostConfig(NSXTIdsStandaloneHostConfigType IdsStandaloneHostConfig)
         {
             if (IdsStandaloneHostConfig == null) { throw new System.ArgumentNullException("IdsStandaloneHostConfig cannot be null"); }
@@ -319,154 +255,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsRuleType GlobalReviseIdsRuleRevise(string DomainId, string PolicyId, string RuleId, NSXTIdsRuleType IdsRule, string? AnchorPath = null, string? Operation = null)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
-            if (RuleId == null) { throw new System.ArgumentNullException("RuleId cannot be null"); }
-            if (IdsRule == null) { throw new System.ArgumentNullException("IdsRule cannot be null"); }
-            NSXTIdsRuleType returnValue = default(NSXTIdsRuleType);
-            StringBuilder ReviseIdsRuleReviseServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/intrusion-service-policies/{policy-id}/rules/{rule-id}?action=revise");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.POST
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReviseIdsRuleReviseServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReviseIdsRuleReviseServiceURL.Replace("{policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReviseIdsRuleReviseServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(IdsRule, defaultSerializationSettings));
-            if (AnchorPath != null) { request.AddQueryParameter("anchor_path", AnchorPath.ToString()); }
-            if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
-            request.Resource = ReviseIdsRuleReviseServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP POST operation to " + ReviseIdsRuleReviseServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsRuleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsRuleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIdsClusterConfigType GlobalCreateOrUpdateIdsClusterConfig(string ClusterId, NSXTIdsClusterConfigType IdsClusterConfig)
-        {
-            if (ClusterId == null) { throw new System.ArgumentNullException("ClusterId cannot be null"); }
-            if (IdsClusterConfig == null) { throw new System.ArgumentNullException("IdsClusterConfig cannot be null"); }
-            NSXTIdsClusterConfigType returnValue = default(NSXTIdsClusterConfigType);
-            StringBuilder CreateOrUpdateIdsClusterConfigServiceURL = new StringBuilder("/global-infra/settings/firewall/security/intrusion-services/cluster-configs/{cluster-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            CreateOrUpdateIdsClusterConfigServiceURL.Replace("{cluster-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ClusterId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(IdsClusterConfig, defaultSerializationSettings));
-            request.Resource = CreateOrUpdateIdsClusterConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + CreateOrUpdateIdsClusterConfigServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsClusterConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsClusterConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchIdsClusterConfig(string ClusterId, NSXTIdsClusterConfigType IdsClusterConfig)
-        {
-            if (ClusterId == null) { throw new System.ArgumentNullException("ClusterId cannot be null"); }
-            if (IdsClusterConfig == null) { throw new System.ArgumentNullException("IdsClusterConfig cannot be null"); }
-            
-            StringBuilder PatchIdsClusterConfigServiceURL = new StringBuilder("/global-infra/settings/firewall/security/intrusion-services/cluster-configs/{cluster-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchIdsClusterConfigServiceURL.Replace("{cluster-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ClusterId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(IdsClusterConfig, defaultSerializationSettings));
-            request.Resource = PatchIdsClusterConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchIdsClusterConfigServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIdsClusterConfigType GlobalGetIdsClusterConfig(string ClusterId)
-        {
-            if (ClusterId == null) { throw new System.ArgumentNullException("ClusterId cannot be null"); }
-            NSXTIdsClusterConfigType returnValue = default(NSXTIdsClusterConfigType);
-            StringBuilder GetIdsClusterConfigServiceURL = new StringBuilder("/global-infra/settings/firewall/security/intrusion-services/cluster-configs/{cluster-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetIdsClusterConfigServiceURL.Replace("{cluster-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ClusterId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = GetIdsClusterConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetIdsClusterConfigServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsClusterConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsClusterConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTIdsProfileListResultType ListIdsProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTIdsProfileListResultType returnValue = default(NSXTIdsProfileListResultType);
@@ -508,62 +296,21 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsClusterConfigListResultType ListIdsClusterConfigs(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTIdsClusterConfigListResultType returnValue = default(NSXTIdsClusterConfigListResultType);
-            StringBuilder ListIdsClusterConfigsServiceURL = new StringBuilder("/infra/settings/firewall/security/intrusion-services/cluster-configs");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListIdsClusterConfigsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListIdsClusterConfigsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsClusterConfigListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsClusterConfigListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void UpdateIdsSignaturesUpdateSignatures()
+        public void UpdateIdsSignatures()
         {
             
-            StringBuilder UpdateIdsSignaturesUpdateSignaturesServiceURL = new StringBuilder("/infra/settings/firewall/security/intrusion-services/signatures?action=update_signatures");
+            StringBuilder UpdateIdsSignaturesServiceURL = new StringBuilder("/infra/settings/firewall/security/intrusion-services/signatures?action=update_signatures");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            request.Resource = UpdateIdsSignaturesUpdateSignaturesServiceURL.ToString();
+            request.Resource = UpdateIdsSignaturesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + UpdateIdsSignaturesUpdateSignaturesServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + UpdateIdsSignaturesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -651,373 +398,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsSignatureStatusType GlobalGetIdsSignatureStatus()
-        {
-            NSXTIdsSignatureStatusType returnValue = default(NSXTIdsSignatureStatusType);
-            StringBuilder GetIdsSignatureStatusServiceURL = new StringBuilder("/global-infra/settings/firewall/security/intrusion-services/signatures/status");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.Resource = GetIdsSignatureStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetIdsSignatureStatusServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsSignatureStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsSignatureStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIdsRuleType GlobalCreateOrUpdateIdsRule(string DomainId, string PolicyId, string RuleId, NSXTIdsRuleType IdsRule)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
-            if (RuleId == null) { throw new System.ArgumentNullException("RuleId cannot be null"); }
-            if (IdsRule == null) { throw new System.ArgumentNullException("IdsRule cannot be null"); }
-            NSXTIdsRuleType returnValue = default(NSXTIdsRuleType);
-            StringBuilder CreateOrUpdateIdsRuleServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/intrusion-service-policies/{policy-id}/rules/{rule-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            CreateOrUpdateIdsRuleServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            CreateOrUpdateIdsRuleServiceURL.Replace("{policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            CreateOrUpdateIdsRuleServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(IdsRule, defaultSerializationSettings));
-            request.Resource = CreateOrUpdateIdsRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + CreateOrUpdateIdsRuleServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsRuleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsRuleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchIdsRule(string DomainId, string PolicyId, string RuleId, NSXTIdsRuleType IdsRule)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
-            if (RuleId == null) { throw new System.ArgumentNullException("RuleId cannot be null"); }
-            if (IdsRule == null) { throw new System.ArgumentNullException("IdsRule cannot be null"); }
-            
-            StringBuilder PatchIdsRuleServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/intrusion-service-policies/{policy-id}/rules/{rule-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchIdsRuleServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchIdsRuleServiceURL.Replace("{policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchIdsRuleServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(IdsRule, defaultSerializationSettings));
-            request.Resource = PatchIdsRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchIdsRuleServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIdsRuleType GlobalGetIdsRule(string DomainId, string PolicyId, string RuleId)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
-            if (RuleId == null) { throw new System.ArgumentNullException("RuleId cannot be null"); }
-            NSXTIdsRuleType returnValue = default(NSXTIdsRuleType);
-            StringBuilder GetIdsRuleServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/intrusion-service-policies/{policy-id}/rules/{rule-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetIdsRuleServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetIdsRuleServiceURL.Replace("{policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetIdsRuleServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = GetIdsRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetIdsRuleServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsRuleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsRuleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteIdsRule(string DomainId, string PolicyId, string RuleId)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
-            if (RuleId == null) { throw new System.ArgumentNullException("RuleId cannot be null"); }
-            
-            StringBuilder DeleteIdsRuleServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/intrusion-service-policies/{policy-id}/rules/{rule-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteIdsRuleServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteIdsRuleServiceURL.Replace("{policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteIdsRuleServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteIdsRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteIdsRuleServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIdsClusterConfigType CreateOrUpdateIdsClusterConfig(string ClusterId, NSXTIdsClusterConfigType IdsClusterConfig)
-        {
-            if (ClusterId == null) { throw new System.ArgumentNullException("ClusterId cannot be null"); }
-            if (IdsClusterConfig == null) { throw new System.ArgumentNullException("IdsClusterConfig cannot be null"); }
-            NSXTIdsClusterConfigType returnValue = default(NSXTIdsClusterConfigType);
-            StringBuilder CreateOrUpdateIdsClusterConfigServiceURL = new StringBuilder("/infra/settings/firewall/security/intrusion-services/cluster-configs/{cluster-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            CreateOrUpdateIdsClusterConfigServiceURL.Replace("{cluster-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ClusterId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(IdsClusterConfig, defaultSerializationSettings));
-            request.Resource = CreateOrUpdateIdsClusterConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + CreateOrUpdateIdsClusterConfigServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsClusterConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsClusterConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void PatchIdsClusterConfig(string ClusterId, NSXTIdsClusterConfigType IdsClusterConfig)
-        {
-            if (ClusterId == null) { throw new System.ArgumentNullException("ClusterId cannot be null"); }
-            if (IdsClusterConfig == null) { throw new System.ArgumentNullException("IdsClusterConfig cannot be null"); }
-            
-            StringBuilder PatchIdsClusterConfigServiceURL = new StringBuilder("/infra/settings/firewall/security/intrusion-services/cluster-configs/{cluster-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchIdsClusterConfigServiceURL.Replace("{cluster-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ClusterId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(IdsClusterConfig, defaultSerializationSettings));
-            request.Resource = PatchIdsClusterConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchIdsClusterConfigServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIdsClusterConfigType GetIdsClusterConfig(string ClusterId)
-        {
-            if (ClusterId == null) { throw new System.ArgumentNullException("ClusterId cannot be null"); }
-            NSXTIdsClusterConfigType returnValue = default(NSXTIdsClusterConfigType);
-            StringBuilder GetIdsClusterConfigServiceURL = new StringBuilder("/infra/settings/firewall/security/intrusion-services/cluster-configs/{cluster-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetIdsClusterConfigServiceURL.Replace("{cluster-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ClusterId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = GetIdsClusterConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetIdsClusterConfigServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsClusterConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsClusterConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIdsSecurityPolicyListResultType GlobalListIdsSecurityPolicies(string DomainId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, bool? IncludeRuleCount = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            NSXTIdsSecurityPolicyListResultType returnValue = default(NSXTIdsSecurityPolicyListResultType);
-            StringBuilder ListIdsSecurityPoliciesServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/intrusion-service-policies");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ListIdsSecurityPoliciesServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludeRuleCount != null) { request.AddQueryParameter("include_rule_count", IncludeRuleCount.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListIdsSecurityPoliciesServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListIdsSecurityPoliciesServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsSecurityPolicyListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsSecurityPolicyListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIdsSignatureVersionListResultType GlobalGetIdsSignatureVersions(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTIdsSignatureVersionListResultType returnValue = default(NSXTIdsSignatureVersionListResultType);
-            StringBuilder GetIdsSignatureVersionsServiceURL = new StringBuilder("/global-infra/settings/firewall/security/intrusion-services/signature-versions");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetIdsSignatureVersionsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetIdsSignatureVersionsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsSignatureVersionListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsSignatureVersionListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTIdsRuleListResultType ListIdsRules(string DomainId, string PolicyId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
@@ -1063,29 +443,132 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsSecurityPolicyType ReviseIdsSecurityPolicyRevise(string DomainId, string PolicyId, NSXTIdsSecurityPolicyType IdsSecurityPolicy, string? AnchorPath = null, string? Operation = null)
+        public NSXTIdsClusterConfigType CreateOrUpdateIdsClusterConfig(string ClusterConfigId, NSXTIdsClusterConfigType IdsClusterConfig)
+        {
+            if (ClusterConfigId == null) { throw new System.ArgumentNullException("ClusterConfigId cannot be null"); }
+            if (IdsClusterConfig == null) { throw new System.ArgumentNullException("IdsClusterConfig cannot be null"); }
+            NSXTIdsClusterConfigType returnValue = default(NSXTIdsClusterConfigType);
+            StringBuilder CreateOrUpdateIdsClusterConfigServiceURL = new StringBuilder("/infra/settings/firewall/security/intrusion-services/cluster-configs/{cluster-config-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.PUT
+            };
+            request.AddHeader("Content-type", "application/json");
+            CreateOrUpdateIdsClusterConfigServiceURL.Replace("{cluster-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ClusterConfigId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.AddJsonBody(JsonConvert.SerializeObject(IdsClusterConfig, defaultSerializationSettings));
+            request.Resource = CreateOrUpdateIdsClusterConfigServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP PUT operation to " + CreateOrUpdateIdsClusterConfigServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTIdsClusterConfigType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsClusterConfigType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public void PatchIdsClusterConfig(string ClusterConfigId, NSXTIdsClusterConfigType IdsClusterConfig)
+        {
+            if (ClusterConfigId == null) { throw new System.ArgumentNullException("ClusterConfigId cannot be null"); }
+            if (IdsClusterConfig == null) { throw new System.ArgumentNullException("IdsClusterConfig cannot be null"); }
+            
+            StringBuilder PatchIdsClusterConfigServiceURL = new StringBuilder("/infra/settings/firewall/security/intrusion-services/cluster-configs/{cluster-config-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.PATCH
+            };
+            request.AddHeader("Content-type", "application/json");
+            PatchIdsClusterConfigServiceURL.Replace("{cluster-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ClusterConfigId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.AddJsonBody(JsonConvert.SerializeObject(IdsClusterConfig, defaultSerializationSettings));
+            request.Resource = PatchIdsClusterConfigServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP PATCH operation to " + PatchIdsClusterConfigServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTIdsClusterConfigType GetIdsClusterConfig(string ClusterConfigId)
+        {
+            if (ClusterConfigId == null) { throw new System.ArgumentNullException("ClusterConfigId cannot be null"); }
+            NSXTIdsClusterConfigType returnValue = default(NSXTIdsClusterConfigType);
+            StringBuilder GetIdsClusterConfigServiceURL = new StringBuilder("/infra/settings/firewall/security/intrusion-services/cluster-configs/{cluster-config-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GetIdsClusterConfigServiceURL.Replace("{cluster-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ClusterConfigId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GetIdsClusterConfigServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetIdsClusterConfigServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTIdsClusterConfigType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsClusterConfigType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTIdsSecurityPolicyType ReviseIdsSecurityPolicy(string DomainId, string PolicyId, NSXTIdsSecurityPolicyType IdsSecurityPolicy, string? AnchorPath = null, string? Operation = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
             if (IdsSecurityPolicy == null) { throw new System.ArgumentNullException("IdsSecurityPolicy cannot be null"); }
             NSXTIdsSecurityPolicyType returnValue = default(NSXTIdsSecurityPolicyType);
-            StringBuilder ReviseIdsSecurityPolicyReviseServiceURL = new StringBuilder("/infra/domains/{domain-id}/intrusion-service-policies/{policy-id}?action=revise");
+            StringBuilder ReviseIdsSecurityPolicyServiceURL = new StringBuilder("/infra/domains/{domain-id}/intrusion-service-policies/{policy-id}?action=revise");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            ReviseIdsSecurityPolicyReviseServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReviseIdsSecurityPolicyReviseServiceURL.Replace("{policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PolicyId, System.Globalization.CultureInfo.InvariantCulture)));
+            ReviseIdsSecurityPolicyServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
+            ReviseIdsSecurityPolicyServiceURL.Replace("{policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(IdsSecurityPolicy, defaultSerializationSettings));
             if (AnchorPath != null) { request.AddQueryParameter("anchor_path", AnchorPath.ToString()); }
             if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
-            request.Resource = ReviseIdsSecurityPolicyReviseServiceURL.ToString();
+            request.Resource = ReviseIdsSecurityPolicyServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + ReviseIdsSecurityPolicyReviseServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + ReviseIdsSecurityPolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1106,38 +589,34 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGlobalIdsSignatureListResultType GlobalListGlobalIdsSignatures(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTIdsProfileSignaturesType GetIdsProfileSignatures(string ProfileId)
         {
-            NSXTGlobalIdsSignatureListResultType returnValue = default(NSXTGlobalIdsSignatureListResultType);
-            StringBuilder ListGlobalIdsSignaturesServiceURL = new StringBuilder("/global-infra/settings/firewall/security/intrusion-services/global-signatures");
+            if (ProfileId == null) { throw new System.ArgumentNullException("ProfileId cannot be null"); }
+            NSXTIdsProfileSignaturesType returnValue = default(NSXTIdsProfileSignaturesType);
+            StringBuilder GetIdsProfileSignaturesServiceURL = new StringBuilder("/infra/settings/firewall/security/intrusion-services/profiles/{profile-id}/effective-signatures");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListGlobalIdsSignaturesServiceURL.ToString();
+            GetIdsProfileSignaturesServiceURL.Replace("{profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProfileId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GetIdsProfileSignaturesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ListGlobalIdsSignaturesServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GetIdsProfileSignaturesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
 			{
 				try
 				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGlobalIdsSignatureListResultType>(response.Content, defaultSerializationSettings);
+					returnValue = JsonConvert.DeserializeObject<NSXTIdsProfileSignaturesType>(response.Content, defaultSerializationSettings);
 				}
 				catch (Exception ex)
 				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGlobalIdsSignatureListResultType).FullName + ".";
+					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsProfileSignaturesType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -1190,10 +669,10 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsProfileListResultType GlobalListIdsProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTIdsClusterConfigListResultType ListIdsClusterConfigs(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
-            NSXTIdsProfileListResultType returnValue = default(NSXTIdsProfileListResultType);
-            StringBuilder ListIdsProfilesServiceURL = new StringBuilder("/global-infra/settings/firewall/security/intrusion-services/profiles");
+            NSXTIdsClusterConfigListResultType returnValue = default(NSXTIdsClusterConfigListResultType);
+            StringBuilder ListIdsClusterConfigsServiceURL = new StringBuilder("/infra/settings/firewall/security/intrusion-services/cluster-configs");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -1206,22 +685,22 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListIdsProfilesServiceURL.ToString();
+            request.Resource = ListIdsClusterConfigsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ListIdsProfilesServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + ListIdsClusterConfigsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
 			{
 				try
 				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsProfileListResultType>(response.Content, defaultSerializationSettings);
+					returnValue = JsonConvert.DeserializeObject<NSXTIdsClusterConfigListResultType>(response.Content, defaultSerializationSettings);
 				}
 				catch (Exception ex)
 				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsProfileListResultType).FullName + ".";
+					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsClusterConfigListResultType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -1231,139 +710,11 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGlobalIdsSignatureType GlobalCreateOrUpdateGlobalIdsSignature(string SignatureId, NSXTGlobalIdsSignatureType GlobalIdsSignature)
-        {
-            if (SignatureId == null) { throw new System.ArgumentNullException("SignatureId cannot be null"); }
-            if (GlobalIdsSignature == null) { throw new System.ArgumentNullException("GlobalIdsSignature cannot be null"); }
-            NSXTGlobalIdsSignatureType returnValue = default(NSXTGlobalIdsSignatureType);
-            StringBuilder CreateOrUpdateGlobalIdsSignatureServiceURL = new StringBuilder("/global-infra/settings/firewall/security/intrusion-services/global-signatures/{signature-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            CreateOrUpdateGlobalIdsSignatureServiceURL.Replace("{signature-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SignatureId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(GlobalIdsSignature, defaultSerializationSettings));
-            request.Resource = CreateOrUpdateGlobalIdsSignatureServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + CreateOrUpdateGlobalIdsSignatureServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGlobalIdsSignatureType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGlobalIdsSignatureType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchGlobalIdsSignature(string SignatureId, NSXTGlobalIdsSignatureType GlobalIdsSignature)
-        {
-            if (SignatureId == null) { throw new System.ArgumentNullException("SignatureId cannot be null"); }
-            if (GlobalIdsSignature == null) { throw new System.ArgumentNullException("GlobalIdsSignature cannot be null"); }
-            
-            StringBuilder PatchGlobalIdsSignatureServiceURL = new StringBuilder("/global-infra/settings/firewall/security/intrusion-services/global-signatures/{signature-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchGlobalIdsSignatureServiceURL.Replace("{signature-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SignatureId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(GlobalIdsSignature, defaultSerializationSettings));
-            request.Resource = PatchGlobalIdsSignatureServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchGlobalIdsSignatureServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTGlobalIdsSignatureType GlobalGetGlobalIdsSignature(string SignatureId)
-        {
-            if (SignatureId == null) { throw new System.ArgumentNullException("SignatureId cannot be null"); }
-            NSXTGlobalIdsSignatureType returnValue = default(NSXTGlobalIdsSignatureType);
-            StringBuilder GetGlobalIdsSignatureServiceURL = new StringBuilder("/global-infra/settings/firewall/security/intrusion-services/global-signatures/{signature-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetGlobalIdsSignatureServiceURL.Replace("{signature-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SignatureId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = GetGlobalIdsSignatureServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetGlobalIdsSignatureServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGlobalIdsSignatureType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGlobalIdsSignatureType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteGlobalIdsSignature(string SignatureId)
-        {
-            if (SignatureId == null) { throw new System.ArgumentNullException("SignatureId cannot be null"); }
-            
-            StringBuilder DeleteGlobalIdsSignatureServiceURL = new StringBuilder("/global-infra/settings/firewall/security/intrusion-services/global-signatures/{signature-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteGlobalIdsSignatureServiceURL.Replace("{signature-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SignatureId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteGlobalIdsSignatureServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteGlobalIdsSignatureServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void MakeVersionAsActiveMakeActiveVersion(NSXTIdsSignatureVersionType IdsSignatureVersion)
+        public void MakeVersionAsActive(NSXTIdsSignatureVersionType IdsSignatureVersion)
         {
             if (IdsSignatureVersion == null) { throw new System.ArgumentNullException("IdsSignatureVersion cannot be null"); }
             
-            StringBuilder MakeVersionAsActiveMakeActiveVersionServiceURL = new StringBuilder("/infra/settings/firewall/security/intrusion-services/signature-versions?action=make_active_version");
+            StringBuilder MakeVersionAsActiveServiceURL = new StringBuilder("/infra/settings/firewall/security/intrusion-services/signature-versions?action=make_active_version");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -1371,11 +722,11 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(IdsSignatureVersion, defaultSerializationSettings));
-            request.Resource = MakeVersionAsActiveMakeActiveVersionServiceURL.ToString();
+            request.Resource = MakeVersionAsActiveServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + MakeVersionAsActiveMakeActiveVersionServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + MakeVersionAsActiveServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -1520,74 +871,31 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsSignatureListResultType GlobalListIdsSignatures(string VersionId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (VersionId == null) { throw new System.ArgumentNullException("VersionId cannot be null"); }
-            NSXTIdsSignatureListResultType returnValue = default(NSXTIdsSignatureListResultType);
-            StringBuilder ListIdsSignaturesServiceURL = new StringBuilder("/global-infra/settings/firewall/security/intrusion-services/signature-versions/{version-id}/signatures");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ListIdsSignaturesServiceURL.Replace("{version-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(VersionId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListIdsSignaturesServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListIdsSignaturesServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsSignatureListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsSignatureListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIdsRuleType ReviseIdsRuleRevise(string DomainId, string PolicyId, string RuleId, NSXTIdsRuleType IdsRule, string? AnchorPath = null, string? Operation = null)
+        public NSXTIdsRuleType ReviseIdsRule(string DomainId, string PolicyId, string RuleId, NSXTIdsRuleType IdsRule, string? AnchorPath = null, string? Operation = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
             if (RuleId == null) { throw new System.ArgumentNullException("RuleId cannot be null"); }
             if (IdsRule == null) { throw new System.ArgumentNullException("IdsRule cannot be null"); }
             NSXTIdsRuleType returnValue = default(NSXTIdsRuleType);
-            StringBuilder ReviseIdsRuleReviseServiceURL = new StringBuilder("/infra/domains/{domain-id}/intrusion-service-policies/{policy-id}/rules/{rule-id}?action=revise");
+            StringBuilder ReviseIdsRuleServiceURL = new StringBuilder("/infra/domains/{domain-id}/intrusion-service-policies/{policy-id}/rules/{rule-id}?action=revise");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            ReviseIdsRuleReviseServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReviseIdsRuleReviseServiceURL.Replace("{policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReviseIdsRuleReviseServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
+            ReviseIdsRuleServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
+            ReviseIdsRuleServiceURL.Replace("{policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PolicyId, System.Globalization.CultureInfo.InvariantCulture)));
+            ReviseIdsRuleServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(IdsRule, defaultSerializationSettings));
             if (AnchorPath != null) { request.AddQueryParameter("anchor_path", AnchorPath.ToString()); }
             if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
-            request.Resource = ReviseIdsRuleReviseServiceURL.ToString();
+            request.Resource = ReviseIdsRuleServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + ReviseIdsRuleReviseServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + ReviseIdsRuleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1603,6 +911,103 @@ namespace nsxtapi.PolicyModules
 				}
 			}
 			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTIdsSettingsType UpdateIdsSettings(NSXTIdsSettingsType IdsSettings)
+        {
+            if (IdsSettings == null) { throw new System.ArgumentNullException("IdsSettings cannot be null"); }
+            NSXTIdsSettingsType returnValue = default(NSXTIdsSettingsType);
+            StringBuilder UpdateIdsSettingsServiceURL = new StringBuilder("/infra/settings/firewall/security/intrusion-services");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.PUT
+            };
+            request.AddHeader("Content-type", "application/json");
+            request.AddJsonBody(JsonConvert.SerializeObject(IdsSettings, defaultSerializationSettings));
+            request.Resource = UpdateIdsSettingsServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP PUT operation to " + UpdateIdsSettingsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTIdsSettingsType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsSettingsType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTIdsSettingsType GetIdsSettings()
+        {
+            NSXTIdsSettingsType returnValue = default(NSXTIdsSettingsType);
+            StringBuilder GetIdsSettingsServiceURL = new StringBuilder("/infra/settings/firewall/security/intrusion-services");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            request.Resource = GetIdsSettingsServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetIdsSettingsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTIdsSettingsType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsSettingsType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public void PatchIdsSettings(NSXTIdsSettingsType IdsSettings)
+        {
+            if (IdsSettings == null) { throw new System.ArgumentNullException("IdsSettings cannot be null"); }
+            
+            StringBuilder PatchIdsSettingsServiceURL = new StringBuilder("/infra/settings/firewall/security/intrusion-services");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.PATCH
+            };
+            request.AddHeader("Content-type", "application/json");
+            request.AddJsonBody(JsonConvert.SerializeObject(IdsSettings, defaultSerializationSettings));
+            request.Resource = PatchIdsSettingsServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP PATCH operation to " + PatchIdsSettingsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
         }
         /// <summary>
         /// 
@@ -1752,327 +1157,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsRuleListResultType GlobalListIdsRules(string DomainId, string PolicyId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
-            NSXTIdsRuleListResultType returnValue = default(NSXTIdsRuleListResultType);
-            StringBuilder ListIdsRulesServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/intrusion-service-policies/{policy-id}/rules");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ListIdsRulesServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            ListIdsRulesServiceURL.Replace("{policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListIdsRulesServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListIdsRulesServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsRuleListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsRuleListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIdsSecurityPolicyType GlobalCreateOrUpdateIdsSecurityPolicy(string DomainId, string PolicyId, NSXTIdsSecurityPolicyType IdsSecurityPolicy)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
-            if (IdsSecurityPolicy == null) { throw new System.ArgumentNullException("IdsSecurityPolicy cannot be null"); }
-            NSXTIdsSecurityPolicyType returnValue = default(NSXTIdsSecurityPolicyType);
-            StringBuilder CreateOrUpdateIdsSecurityPolicyServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/intrusion-service-policies/{policy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            CreateOrUpdateIdsSecurityPolicyServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            CreateOrUpdateIdsSecurityPolicyServiceURL.Replace("{policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(IdsSecurityPolicy, defaultSerializationSettings));
-            request.Resource = CreateOrUpdateIdsSecurityPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + CreateOrUpdateIdsSecurityPolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsSecurityPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsSecurityPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteIdsSecurityPolicy(string DomainId, string PolicyId)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
-            
-            StringBuilder DeleteIdsSecurityPolicyServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/intrusion-service-policies/{policy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteIdsSecurityPolicyServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteIdsSecurityPolicyServiceURL.Replace("{policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteIdsSecurityPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteIdsSecurityPolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchIdsSecurityPolicy(string DomainId, string PolicyId, NSXTIdsSecurityPolicyType IdsSecurityPolicy)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
-            if (IdsSecurityPolicy == null) { throw new System.ArgumentNullException("IdsSecurityPolicy cannot be null"); }
-            
-            StringBuilder PatchIdsSecurityPolicyServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/intrusion-service-policies/{policy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchIdsSecurityPolicyServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchIdsSecurityPolicyServiceURL.Replace("{policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(IdsSecurityPolicy, defaultSerializationSettings));
-            request.Resource = PatchIdsSecurityPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchIdsSecurityPolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIdsSecurityPolicyType GlobalGetIdsSecurityPolicy(string DomainId, string PolicyId)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
-            NSXTIdsSecurityPolicyType returnValue = default(NSXTIdsSecurityPolicyType);
-            StringBuilder GetIdsSecurityPolicyServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/intrusion-service-policies/{policy-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetIdsSecurityPolicyServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetIdsSecurityPolicyServiceURL.Replace("{policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = GetIdsSecurityPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetIdsSecurityPolicyServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsSecurityPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsSecurityPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIdsSecurityPolicyType GlobalReviseIdsSecurityPolicyRevise(string DomainId, string PolicyId, NSXTIdsSecurityPolicyType IdsSecurityPolicy, string? AnchorPath = null, string? Operation = null)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
-            if (IdsSecurityPolicy == null) { throw new System.ArgumentNullException("IdsSecurityPolicy cannot be null"); }
-            NSXTIdsSecurityPolicyType returnValue = default(NSXTIdsSecurityPolicyType);
-            StringBuilder ReviseIdsSecurityPolicyReviseServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/intrusion-service-policies/{policy-id}?action=revise");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.POST
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReviseIdsSecurityPolicyReviseServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReviseIdsSecurityPolicyReviseServiceURL.Replace("{policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(IdsSecurityPolicy, defaultSerializationSettings));
-            if (AnchorPath != null) { request.AddQueryParameter("anchor_path", AnchorPath.ToString()); }
-            if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
-            request.Resource = ReviseIdsSecurityPolicyReviseServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP POST operation to " + ReviseIdsSecurityPolicyReviseServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsSecurityPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsSecurityPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIdsStandaloneHostConfigType GlobalCreateOrUpdateIdsStandaloneHostConfig(NSXTIdsStandaloneHostConfigType IdsStandaloneHostConfig)
-        {
-            if (IdsStandaloneHostConfig == null) { throw new System.ArgumentNullException("IdsStandaloneHostConfig cannot be null"); }
-            NSXTIdsStandaloneHostConfigType returnValue = default(NSXTIdsStandaloneHostConfigType);
-            StringBuilder CreateOrUpdateIdsStandaloneHostConfigServiceURL = new StringBuilder("/global-infra/settings/firewall/security/intrusion-services/ids-standalone-host-config");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.AddJsonBody(JsonConvert.SerializeObject(IdsStandaloneHostConfig, defaultSerializationSettings));
-            request.Resource = CreateOrUpdateIdsStandaloneHostConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + CreateOrUpdateIdsStandaloneHostConfigServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsStandaloneHostConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsStandaloneHostConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchIdsStandaloneHostConfig(NSXTIdsStandaloneHostConfigType IdsStandaloneHostConfig)
-        {
-            if (IdsStandaloneHostConfig == null) { throw new System.ArgumentNullException("IdsStandaloneHostConfig cannot be null"); }
-            
-            StringBuilder PatchIdsStandaloneHostConfigServiceURL = new StringBuilder("/global-infra/settings/firewall/security/intrusion-services/ids-standalone-host-config");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.AddJsonBody(JsonConvert.SerializeObject(IdsStandaloneHostConfig, defaultSerializationSettings));
-            request.Resource = PatchIdsStandaloneHostConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchIdsStandaloneHostConfigServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIdsStandaloneHostConfigType GlobalGetIdsStandaloneHostConfig()
-        {
-            NSXTIdsStandaloneHostConfigType returnValue = default(NSXTIdsStandaloneHostConfigType);
-            StringBuilder GetIdsStandaloneHostConfigServiceURL = new StringBuilder("/global-infra/settings/firewall/security/intrusion-services/ids-standalone-host-config");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.Resource = GetIdsStandaloneHostConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetIdsStandaloneHostConfigServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsStandaloneHostConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsStandaloneHostConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTGlobalIdsSignatureListResultType ListGlobalIdsSignatures(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTGlobalIdsSignatureListResultType returnValue = default(NSXTGlobalIdsSignatureListResultType);
@@ -2109,353 +1193,6 @@ namespace nsxtapi.PolicyModules
 				}
 			}
 			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIdsSettingsType GlobalUpdateIdsSettings(NSXTIdsSettingsType IdsSettings)
-        {
-            if (IdsSettings == null) { throw new System.ArgumentNullException("IdsSettings cannot be null"); }
-            NSXTIdsSettingsType returnValue = default(NSXTIdsSettingsType);
-            StringBuilder UpdateIdsSettingsServiceURL = new StringBuilder("/global-infra/settings/firewall/security/intrusion-services");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.AddJsonBody(JsonConvert.SerializeObject(IdsSettings, defaultSerializationSettings));
-            request.Resource = UpdateIdsSettingsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateIdsSettingsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsSettingsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsSettingsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIdsSettingsType GlobalGetIdsSettings()
-        {
-            NSXTIdsSettingsType returnValue = default(NSXTIdsSettingsType);
-            StringBuilder GetIdsSettingsServiceURL = new StringBuilder("/global-infra/settings/firewall/security/intrusion-services");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.Resource = GetIdsSettingsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetIdsSettingsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsSettingsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsSettingsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchIdsSettings(NSXTIdsSettingsType IdsSettings)
-        {
-            if (IdsSettings == null) { throw new System.ArgumentNullException("IdsSettings cannot be null"); }
-            
-            StringBuilder PatchIdsSettingsServiceURL = new StringBuilder("/global-infra/settings/firewall/security/intrusion-services");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.AddJsonBody(JsonConvert.SerializeObject(IdsSettings, defaultSerializationSettings));
-            request.Resource = PatchIdsSettingsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchIdsSettingsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalMakeVersionAsActiveMakeActiveVersion(NSXTIdsSignatureVersionType IdsSignatureVersion)
-        {
-            if (IdsSignatureVersion == null) { throw new System.ArgumentNullException("IdsSignatureVersion cannot be null"); }
-            
-            StringBuilder MakeVersionAsActiveMakeActiveVersionServiceURL = new StringBuilder("/global-infra/settings/firewall/security/intrusion-services/signature-versions?action=make_active_version");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.POST
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.AddJsonBody(JsonConvert.SerializeObject(IdsSignatureVersion, defaultSerializationSettings));
-            request.Resource = MakeVersionAsActiveMakeActiveVersionServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP POST operation to " + MakeVersionAsActiveMakeActiveVersionServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIdsProfileType GlobalCreateOrUpdateIdsProfile(string ProfileId, NSXTIdsProfileType IdsProfile)
-        {
-            if (ProfileId == null) { throw new System.ArgumentNullException("ProfileId cannot be null"); }
-            if (IdsProfile == null) { throw new System.ArgumentNullException("IdsProfile cannot be null"); }
-            NSXTIdsProfileType returnValue = default(NSXTIdsProfileType);
-            StringBuilder CreateOrUpdateIdsProfileServiceURL = new StringBuilder("/global-infra/settings/firewall/security/intrusion-services/profiles/{profile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            CreateOrUpdateIdsProfileServiceURL.Replace("{profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProfileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(IdsProfile, defaultSerializationSettings));
-            request.Resource = CreateOrUpdateIdsProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + CreateOrUpdateIdsProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchIdsProfile(string ProfileId, NSXTIdsProfileType IdsProfile)
-        {
-            if (ProfileId == null) { throw new System.ArgumentNullException("ProfileId cannot be null"); }
-            if (IdsProfile == null) { throw new System.ArgumentNullException("IdsProfile cannot be null"); }
-            
-            StringBuilder PatchIdsProfileServiceURL = new StringBuilder("/global-infra/settings/firewall/security/intrusion-services/profiles/{profile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchIdsProfileServiceURL.Replace("{profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProfileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(IdsProfile, defaultSerializationSettings));
-            request.Resource = PatchIdsProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchIdsProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIdsProfileType GlobalGetIdsProfile(string ProfileId)
-        {
-            if (ProfileId == null) { throw new System.ArgumentNullException("ProfileId cannot be null"); }
-            NSXTIdsProfileType returnValue = default(NSXTIdsProfileType);
-            StringBuilder GetIdsProfileServiceURL = new StringBuilder("/global-infra/settings/firewall/security/intrusion-services/profiles/{profile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetIdsProfileServiceURL.Replace("{profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProfileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = GetIdsProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetIdsProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteIdsProfile(string ProfileId)
-        {
-            if (ProfileId == null) { throw new System.ArgumentNullException("ProfileId cannot be null"); }
-            
-            StringBuilder DeleteIdsProfileServiceURL = new StringBuilder("/global-infra/settings/firewall/security/intrusion-services/profiles/{profile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteIdsProfileServiceURL.Replace("{profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProfileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteIdsProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteIdsProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIdsSettingsType UpdateIdsSettings(NSXTIdsSettingsType IdsSettings)
-        {
-            if (IdsSettings == null) { throw new System.ArgumentNullException("IdsSettings cannot be null"); }
-            NSXTIdsSettingsType returnValue = default(NSXTIdsSettingsType);
-            StringBuilder UpdateIdsSettingsServiceURL = new StringBuilder("/infra/settings/firewall/security/intrusion-services");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.AddJsonBody(JsonConvert.SerializeObject(IdsSettings, defaultSerializationSettings));
-            request.Resource = UpdateIdsSettingsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateIdsSettingsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsSettingsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsSettingsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIdsSettingsType GetIdsSettings()
-        {
-            NSXTIdsSettingsType returnValue = default(NSXTIdsSettingsType);
-            StringBuilder GetIdsSettingsServiceURL = new StringBuilder("/infra/settings/firewall/security/intrusion-services");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.Resource = GetIdsSettingsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetIdsSettingsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsSettingsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsSettingsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void PatchIdsSettings(NSXTIdsSettingsType IdsSettings)
-        {
-            if (IdsSettings == null) { throw new System.ArgumentNullException("IdsSettings cannot be null"); }
-            
-            StringBuilder PatchIdsSettingsServiceURL = new StringBuilder("/infra/settings/firewall/security/intrusion-services");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.AddJsonBody(JsonConvert.SerializeObject(IdsSettings, defaultSerializationSettings));
-            request.Resource = PatchIdsSettingsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchIdsSettingsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
         }
         /// <summary>
         /// 

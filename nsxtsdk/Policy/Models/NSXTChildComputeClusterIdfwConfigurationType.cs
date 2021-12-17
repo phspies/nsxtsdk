@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildComputeClusterIdfwConfigurationType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildComputeClusterIdfwConfigurationType()
+        {
+        }
         /// <summary>
-        /// Contains the actual compute cluster idfw configuration object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ComputeClusterIdfwConfiguration", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual compute cluster idfw configuration object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTComputeClusterIdfwConfigurationType ComputeClusterIdfwConfiguration { get; set; }
     }

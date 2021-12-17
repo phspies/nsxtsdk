@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Collection of various x509 v3 extensions to be added to a CSR")]
     public class NSXTCsrExtensionsType 
     {
+        public NSXTCsrExtensionsType()
+        {
+        }
         /// <summary>
-        /// Subject alternative names of the CSR
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "subject_alt_names")]
-        [NSXTProperty(IsRequired: false, Description: @"Subject alternative names of the CSR")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTSubjectAltNamesType SubjectAltNames { get; set; }
     }
 }

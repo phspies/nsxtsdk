@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Multicast Forwarding Per Edge.")]
     public class NSXTMulticastForwardingPerEdgeType 
     {
+        public NSXTMulticastForwardingPerEdgeType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

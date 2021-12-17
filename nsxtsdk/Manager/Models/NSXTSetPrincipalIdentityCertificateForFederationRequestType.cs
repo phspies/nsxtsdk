@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Data for setting a principal identity certificate")]
     public class NSXTSetPrincipalIdentityCertificateForFederationRequestType 
     {
+        public NSXTSetPrincipalIdentityCertificateForFederationRequestType()
+        {
+        }
         /// <summary>
         /// Service type for which the certificate should be used.
         /// </summary>

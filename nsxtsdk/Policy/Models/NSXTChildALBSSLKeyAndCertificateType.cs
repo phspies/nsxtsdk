@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildALBSSLKeyAndCertificateType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildALBSSLKeyAndCertificateType()
+        {
+        }
         /// <summary>
-        /// Contains the actual ALBSSLKeyAndCertificate object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ALBSSLKeyAndCertificate", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual ALBSSLKeyAndCertificate object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBSSLKeyAndCertificateType ALBSSLKeyAndCertificate { get; set; }
     }

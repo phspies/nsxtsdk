@@ -18,6 +18,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Attribute specific to a partner. There attributes are passed on to the partner appliance and is opaque to the NSX Manager. The Attributes used by the partner applicance.")]
     public class NSXTAttributeType 
     {
+        public NSXTAttributeType()
+        {
+        }
         /// <summary>
         /// Read only Attribute cannot be overdidden by service instance/deployment.
         /// </summary>

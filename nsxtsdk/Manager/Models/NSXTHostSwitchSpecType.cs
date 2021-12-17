@@ -18,6 +18,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"The HostSwitchSpec is the base class for standard and preconfiguredhost switch specifications.")]
     public class NSXTHostSwitchSpecType 
     {
+        public NSXTHostSwitchSpecType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

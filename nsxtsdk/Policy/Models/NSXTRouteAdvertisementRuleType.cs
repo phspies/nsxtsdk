@@ -17,6 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Route advertisement rules and filtering")]
     public class NSXTRouteAdvertisementRuleType 
     {
+        public NSXTRouteAdvertisementRuleType()
+        {
+            Action = test
+            PrefixOperator = test
+        }
         /// <summary>
         /// Action to advertise filtered routes to the connected Tier0 gateway.
         /// PERMIT: Enables the advertisment
@@ -25,7 +30,6 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "action", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"Action to advertise filtered routes to the connected Tier0 gateway.PERMIT: Enables the advertismentDENY: Disables the advertisement")]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "PERMIT")]
         public NSXTRouteAdvertisementRuleActionEnumType Action { get; set; }
         /// <summary>
         /// Network CIDRs to be routed.
@@ -42,7 +46,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "prefix_operator")]
         [NSXTProperty(IsRequired: false, Description: @"Prefix operator to filter subnets.GE prefix operator filters all the routes with prefix length greaterthan or equal to the subnets configured.EQ prefix operator filter all the routes with prefix length equal tothe subnets configured.")]
-        [NSXTDefaultProperty(Default: "GE")]
         public NSXTRouteAdvertisementRulePrefixOperatorEnumType? PrefixOperator { get; set; }
         /// <summary>
         /// Display name should be unique.

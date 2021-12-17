@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalPortMacAddressListResultType : NSXTListResultType
     {
+        public NSXTLogicalPortMacAddressListResultType()
+        {
+        }
         /// <summary>
         /// The id of the logical port
         /// </summary>

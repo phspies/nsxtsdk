@@ -17,6 +17,12 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer WafPSMRule object")]
     public class NSXTALBWafPSMRuleType 
     {
+        public NSXTALBWafPSMRuleType()
+        {
+            Enable = test
+            MatchCase = test
+            ParanoiaLevel = test
+        }
         /// <summary>
         /// Rule index, this is used to determine the order of the
         /// rules.
@@ -32,7 +38,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "enable")]
         [NSXTProperty(IsRequired: false, Description: @"Enable or disable this rule.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enable { get; set; }
         /// <summary>
         /// Free-text comment about this rule.
@@ -74,7 +79,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "match_case")]
         [NSXTProperty(IsRequired: false, Description: @"The field match_value_pattern regular expression is casesensitive.Enum options - SENSITIVE, INSENSITIVE.Default value when not specified in API or module isinterpreted by ALB Controller as INSENSITIVE.")]
-        [NSXTDefaultProperty(Default: "INSENSITIVE")]
         public NSXTAlbwafPsmruleMatchCaseEnumType? MatchCase { get; set; }
         /// <summary>
         /// The maximum allowed length of the match_value.
@@ -94,7 +98,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "paranoia_level")]
         [NSXTProperty(IsRequired: false, Description: @"WAF Ruleset paranoia mode.This is used to select Rules based on the paranoia-level.Enum options - WAF_PARANOIA_LEVEL_LOW,WAF_PARANOIA_LEVEL_MEDIUM, WAF_PARANOIA_LEVEL_HIGH,WAF_PARANOIA_LEVEL_EXTREME.Default value when not specified in API or module isinterpreted by ALB Controller as WAF_PARANOIA_LEVEL_LOW.")]
-        [NSXTDefaultProperty(Default: "WAF_PARANOIA_LEVEL_LOW")]
         public NSXTAlbwafPsmruleParanoiaLevelEnumType? ParanoiaLevel { get; set; }
         /// <summary>
         /// Id field which is used for log and metric generation.

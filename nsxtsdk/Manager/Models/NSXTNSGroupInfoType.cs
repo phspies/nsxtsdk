@@ -18,6 +18,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"NSGroupInfo contains information about a particular NSGroup used in a SI Rule. It also contains information about policy path used to create this NSGroup.")]
     public class NSXTNSGroupInfoType 
     {
+        public NSXTNSGroupInfoType()
+        {
+        }
         /// <summary>
         /// Relative Policy path of a particular NSGroup.
         /// </summary>
@@ -25,10 +28,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Relative Policy path of a particular NSGroup.")]
         public string? NsgroupPolicyPath { get; set; }
         /// <summary>
-        /// NSGroup Data.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "nsgroup")]
-        [NSXTProperty(IsRequired: false, Description: @"NSGroup Data.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType Nsgroup { get; set; }
     }
 }

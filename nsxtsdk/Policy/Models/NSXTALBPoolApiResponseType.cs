@@ -17,12 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBPoolApiResponseType : NSXTListResultType
     {
+        public NSXTALBPoolApiResponseType()
+        {
+        }
         /// <summary>
         /// count
         /// </summary>
         [JsonProperty(PropertyName = "count")]
         [NSXTProperty(IsRequired: false, Description: @"count")]
-        public long? Count { get; set; }
+        public int? Count { get; set; }
         /// <summary>
         /// Array of Pool
         /// </summary>

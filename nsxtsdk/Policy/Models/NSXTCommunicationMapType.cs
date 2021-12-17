@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTCommunicationMapType : NSXTPolicyConfigResourceType
     {
+        public NSXTCommunicationMapType()
+        {
+        }
         /// <summary>
         /// CommunicationEntries that are a part of this CommunicationMap
         /// </summary>
@@ -59,6 +62,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "precedence")]
         [NSXTProperty(IsRequired: false, Description: @"This field is used to resolve conflicts between communication mapsacross domains. In order to change the precedence of a communicationmap one can fire a POST request on the communication map entity witha query parameter action=reviseThe precedence field will reflect the value of the computed precedenceupon execution of the above mentioned POST request.For scenarios where the administrator is using a template to updateseveral communication maps, the only way to set the precedence is toexplicitly specify the precedence number for each communication map.If no precedence is specified in the payload, a value of 0 isassigned by default. If there are multiple communication maps withthe same precedence then their order is not deterministic. If aspecific order of communication map is desired, then one has tospecify a unique precedence or use the POST request on thecommunication map entity with a query parameter action=revise to letthe framework assign a precedence")]
-        public long? Precedence { get; set; }
+        public int? Precedence { get; set; }
     }
 }

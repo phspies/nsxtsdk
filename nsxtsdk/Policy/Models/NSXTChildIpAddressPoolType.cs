@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildIpAddressPoolType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildIpAddressPoolType()
+        {
+        }
         /// <summary>
-        /// Contains the actual IpAddressPool object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "IpAddressPool", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual IpAddressPool object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTIpAddressPoolType IpAddressPool { get; set; }
     }

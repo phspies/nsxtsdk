@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBaseFirewallProfileType : NSXTManagedResourceType
     {
+        public NSXTBaseFirewallProfileType()
+        {
+        }
         /// <summary>
         /// Resource type to use as profile type
         /// </summary>

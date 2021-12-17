@@ -17,17 +17,20 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTraceActionConfigType 
     {
+        public NSXTTraceActionConfigType()
+        {
+        }
         /// <summary>
-        /// Sample argument for trace
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "sampling_argument")]
-        [NSXTProperty(IsRequired: false, Description: @"Sample argument for trace")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTSamplingArgumentType SamplingArgument { get; set; }
         /// <summary>
-        /// Action argument for trace
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "action_argument")]
-        [NSXTProperty(IsRequired: false, Description: @"Action argument for trace")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTTraceActionArgumentType ActionArgument { get; set; }
     }
 }

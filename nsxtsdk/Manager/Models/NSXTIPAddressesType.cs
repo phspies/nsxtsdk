@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPAddressesType 
     {
+        public NSXTIPAddressesType()
+        {
+        }
         /// <summary>
         /// The IP addresses in the form of IP Address, IP Range, CIDR, used as source IPs or destination IPs of filters.
         /// </summary>

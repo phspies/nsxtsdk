@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAttachmentContextType 
     {
+        public NSXTAttachmentContextType()
+        {
+        }
         /// <summary>
         /// A flag to indicate whether to allocate addresses from allocation
         /// pools bound to the parent logical switch.

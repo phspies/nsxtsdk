@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRealizedGroupsType : NSXTPolicyRealizedResourceType
     {
+        public NSXTRealizedGroupsType()
+        {
+        }
         /// <summary>
         /// list of realized groups
         /// </summary>

@@ -17,6 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBgpNeighborType : NSXTManagedResourceType
     {
+        public NSXTBgpNeighborType()
+        {
+            HoldDownTimer = test
+            MaximumHopLimit = test
+            Enabled = test
+            KeepAliveTimer = test
+        }
         /// <summary>
         /// BGP Graceful Restart mode. If specified, then it will take precedence
         /// over global Graceful Restart mode configured in logical router
@@ -47,7 +54,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Wait period (seconds) before declaring peer dead")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [NSXTDefaultProperty(Default: "")]
         public long? HoldDownTimer { get; set; }
         /// <summary>
         /// BGP neighborship will be formed from all these source addresses to this neighbour.
@@ -71,14 +77,12 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"This value is set on TTL(time to live) of BGP header.When router receives the BGP packet, it decrements the TTL. The defaultvalue of TTL is one when BPG request is initiated.So in the case of aBGP peer multiple hops away and and value of TTL is one, then  nextrouter in the path will decrement the TTL to 0, realize it cant forwardthe packet and will drop it. If the hop count value to reach neighboris equal to or less than the maximum_hop_limit value then intermediaterouter decrements the TTL count by one and forwards the request toBGP neighour. If the hop count value is greater than the maximum_hop_limitvalue then intermediate router discards the request when TTL becomes 0.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(255)]
-        [NSXTDefaultProperty(Default: "")]
         public int? MaximumHopLimit { get; set; }
         /// <summary>
         /// Flag to enable this BGP Neighbor
         /// </summary>
         [JsonProperty(PropertyName = "enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Flag to enable this BGP Neighbor")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// 4 Byte ASN of the neighbor in ASPLAIN/ASDOT Format
@@ -95,11 +99,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"User can enable the neighbor for the specific address families and also define filters per address family.When the neighbor is created, it is default enabled for IPV4_UNICAST address family for backward compatibility reasons.User can change that if required, by defining the address family configuration.")]
         public IList<NSXTBgpNeighborAddressFamilyType> AddressFamilies { get; set; }
         /// <summary>
-        /// By specifying these paramaters BFD config for this given peer can be overriden | (the globally configured values will
-        /// not apply for this peer)
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "bfd_config")]
-        [NSXTProperty(IsRequired: false, Description: @"By specifying these paramaters BFD config for this given peer can be overriden | (the globally configured values will not apply for this peer)")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTBfdConfigParametersType BfdConfig { get; set; }
         /// <summary>
         /// Logical router id
@@ -132,7 +135,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Frequency (seconds) with which keep alive messages are sent to peers")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [NSXTDefaultProperty(Default: "")]
         public long? KeepAliveTimer { get; set; }
         /// <summary>
         /// User can create (POST) the neighbor with or without the password.

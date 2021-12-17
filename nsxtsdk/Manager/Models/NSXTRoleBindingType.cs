@@ -17,12 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRoleBindingType : NSXTManagedResourceType
     {
+        public NSXTRoleBindingType()
+        {
+            IdentitySourceType = test
+        }
         /// <summary>
         /// Identity source type
         /// </summary>
         [JsonProperty(PropertyName = "identity_source_type")]
         [NSXTProperty(IsRequired: false, Description: @"Identity source type")]
-        [NSXTDefaultProperty(Default: "VIDM")]
         public NSXTRoleBindingIdentitySourceTypeEnumType? IdentitySourceType { get; set; }
         /// <summary>
         /// Local user's numeric id on the system.
@@ -37,10 +40,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"User/Group&apos;s name")]
         public string? Name { get; set; }
         /// <summary>
-        /// Roles
+        /// The roles of the user.
         /// </summary>
         [JsonProperty(PropertyName = "roles")]
-        [NSXTProperty(IsRequired: false, Description: @"Roles")]
+        [NSXTProperty(IsRequired: false, Description: @"The roles of the user.")]
         public IList<NSXTRoleType> Roles { get; set; }
         /// <summary>
         /// Type

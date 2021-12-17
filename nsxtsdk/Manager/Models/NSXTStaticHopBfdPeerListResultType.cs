@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTStaticHopBfdPeerListResultType : NSXTListResultType
     {
+        public NSXTStaticHopBfdPeerListResultType()
+        {
+        }
         /// <summary>
         /// static hop BFD peer list results
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Cluster restore status")]
     public class NSXTClusterRestoreStatusType 
     {
+        public NSXTClusterRestoreStatusType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -54,6 +57,12 @@ namespace nsxtsdk.ManagerModels
         [JsonProperty(PropertyName = "restore_end_time")]
         [NSXTProperty(IsRequired: false, Description: @"Timestamp when restore was completed in epoch millisecond")]
         public long? RestoreEndTime { get; set; }
+        /// <summary>
+        /// List of actions that are not allowed
+        /// </summary>
+        [JsonProperty(PropertyName = "not_allowed_actions")]
+        [NSXTProperty(IsRequired: false, Description: @"List of actions that are not allowed")]
+        public IList<string> NotAllowedActions { get; set; }
         /// <summary>
         /// Timestamp when backup was initiated in epoch millisecond
         /// </summary>

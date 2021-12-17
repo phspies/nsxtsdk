@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPatchResourcesType : NSXTActionType
     {
+        public NSXTPatchResourcesType()
+        {
+        }
         /// <summary>
         /// Injections holding keys (variables) and their corresponding values.
         /// </summary>

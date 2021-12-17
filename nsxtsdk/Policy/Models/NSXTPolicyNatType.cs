@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyNatType : NSXTPolicyConfigResourceType
     {
+        public NSXTPolicyNatType()
+        {
+        }
         /// <summary>
         /// Represents a NAT section under tier-0/tier-1.
         /// </summary>

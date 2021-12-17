@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBSnatIpPoolType : NSXTLBSnatTranslationType
     {
+        public NSXTLBSnatIpPoolType()
+        {
+        }
         /// <summary>
         /// If an IP range is specified, the range may contain no more than 64
         /// IP addresses.

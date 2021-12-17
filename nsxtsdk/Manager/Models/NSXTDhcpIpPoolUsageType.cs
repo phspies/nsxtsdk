@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpIpPoolUsageType 
     {
+        public NSXTDhcpIpPoolUsageType()
+        {
+        }
         /// <summary>
         /// allocated percentage. COULD BE INACCURATE, REFERENCE ONLY.
         /// </summary>

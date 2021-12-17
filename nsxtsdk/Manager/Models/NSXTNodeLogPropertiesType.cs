@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeLogPropertiesType : NSXTResourceType
     {
+        public NSXTNodeLogPropertiesType()
+        {
+        }
         /// <summary>
         /// Last modified time expressed in milliseconds since epoch
         /// </summary>

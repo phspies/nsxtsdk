@@ -30,24 +30,59 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void CreateProxyServiceActionStop()
+        public void CreateProxyServiceActionStopStop()
         {
             
-            StringBuilder CreateProxyServiceActionStopServiceURL = new StringBuilder("/node/services/http?action=stop");
+            StringBuilder CreateProxyServiceActionStopStopServiceURL = new StringBuilder("/node/services/http?action=stop");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            request.Resource = CreateProxyServiceActionStopServiceURL.ToString();
+            request.Resource = CreateProxyServiceActionStopStopServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + CreateProxyServiceActionStopServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + CreateProxyServiceActionStopStopServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTNodeServiceStatusPropertiesType CreateProxyServiceActionStartStart()
+        {
+            NSXTNodeServiceStatusPropertiesType returnValue = default(NSXTNodeServiceStatusPropertiesType);
+            StringBuilder CreateProxyServiceActionStartStartServiceURL = new StringBuilder("/node/services/http?action=start");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.POST
+            };
+            request.AddHeader("Content-type", "application/json");
+            request.Resource = CreateProxyServiceActionStartStartServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP POST operation to " + CreateProxyServiceActionStartStartServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTNodeServiceStatusPropertiesType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeServiceStatusPropertiesType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
@@ -88,56 +123,21 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeServiceStatusPropertiesType CreateProxyServiceActionStart()
-        {
-            NSXTNodeServiceStatusPropertiesType returnValue = default(NSXTNodeServiceStatusPropertiesType);
-            StringBuilder CreateProxyServiceActionStartServiceURL = new StringBuilder("/node/services/http?action=start");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.POST
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.Resource = CreateProxyServiceActionStartServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP POST operation to " + CreateProxyServiceActionStartServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeServiceStatusPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeServiceStatusPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void CreateProxyServiceActionRestart()
+        public void CreateProxyServiceActionRestartRestart()
         {
             
-            StringBuilder CreateProxyServiceActionRestartServiceURL = new StringBuilder("/node/services/http?action=restart");
+            StringBuilder CreateProxyServiceActionRestartRestartServiceURL = new StringBuilder("/node/services/http?action=restart");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            request.Resource = CreateProxyServiceActionRestartServiceURL.ToString();
+            request.Resource = CreateProxyServiceActionRestartRestartServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + CreateProxyServiceActionRestartServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + CreateProxyServiceActionRestartRestartServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             

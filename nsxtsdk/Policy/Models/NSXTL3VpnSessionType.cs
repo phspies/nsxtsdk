@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Contains information about L3Vpn session.")]
     public class NSXTL3VpnSessionType 
     {
+        public NSXTL3VpnSessionType()
+        {
+        }
         /// <summary>
         /// - A Policy Based L3Vpn is a configuration in which protect rules to match local
         /// and remote subnet needs to be defined. Tunnel is established for each pair of

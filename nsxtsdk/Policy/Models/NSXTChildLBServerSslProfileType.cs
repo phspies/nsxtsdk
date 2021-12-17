@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildLBServerSslProfileType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildLBServerSslProfileType()
+        {
+        }
         /// <summary>
-        /// Contains the actual LBServerSslProfile object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "LBServerSslProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual LBServerSslProfile object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTLBServerSslProfileType LBServerSslProfile { get; set; }
     }

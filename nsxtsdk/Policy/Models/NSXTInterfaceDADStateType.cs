@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Duplicate address detection status on the interface.")]
     public class NSXTInterfaceDADStateType 
     {
+        public NSXTInterfaceDADStateType()
+        {
+        }
         /// <summary>
         /// Array of DAD status which contains DAD information for IP addresses
         /// on the interface.

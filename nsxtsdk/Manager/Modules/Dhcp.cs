@@ -30,25 +30,25 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpProfileType ReallocateDhcpProfileEdgeClusterReallocate(string ServerProfileId, NSXTDhcpProfileType DhcpProfile)
+        public NSXTDhcpProfileType ReallocateDhcpProfileEdgeCluster(string ServerProfileId, NSXTDhcpProfileType DhcpProfile)
         {
             if (ServerProfileId == null) { throw new System.ArgumentNullException("ServerProfileId cannot be null"); }
             if (DhcpProfile == null) { throw new System.ArgumentNullException("DhcpProfile cannot be null"); }
             NSXTDhcpProfileType returnValue = default(NSXTDhcpProfileType);
-            StringBuilder ReallocateDhcpProfileEdgeClusterReallocateServiceURL = new StringBuilder("/dhcp/server-profiles/{server-profile-id}?action=reallocate");
+            StringBuilder ReallocateDhcpProfileEdgeClusterServiceURL = new StringBuilder("/dhcp/server-profiles/{server-profile-id}?action=reallocate");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            ReallocateDhcpProfileEdgeClusterReallocateServiceURL.Replace("{server-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServerProfileId, System.Globalization.CultureInfo.InvariantCulture)));
+            ReallocateDhcpProfileEdgeClusterServiceURL.Replace("{server-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServerProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(DhcpProfile, defaultSerializationSettings));
-            request.Resource = ReallocateDhcpProfileEdgeClusterReallocateServiceURL.ToString();
+            request.Resource = ReallocateDhcpProfileEdgeClusterServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + ReallocateDhcpProfileEdgeClusterReallocateServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + ReallocateDhcpProfileEdgeClusterServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else

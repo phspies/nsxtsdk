@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFileThumbprintType : NSXTResourceType
     {
+        public NSXTFileThumbprintType()
+        {
+        }
         /// <summary>
         /// File's SHA256 thumbprint
         /// </summary>

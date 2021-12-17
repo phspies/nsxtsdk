@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpv6NdraProfileListResultType : NSXTListResultType
     {
+        public NSXTIpv6NdraProfileListResultType()
+        {
+        }
         /// <summary>
         /// Paginated list of Ipv6NdraProfile
         /// </summary>

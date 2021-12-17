@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUpgradeCheckFailureListResultType : NSXTListResultType
     {
+        public NSXTUpgradeCheckFailureListResultType()
+        {
+        }
         /// <summary>
         /// Collection of pre/post-upgrade check failures
         /// </summary>

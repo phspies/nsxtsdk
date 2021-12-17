@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbHttpRequestUriRewriteActionType : NSXTLbRuleActionType
     {
+        public NSXTLbHttpRequestUriRewriteActionType()
+        {
+        }
         /// <summary>
         /// Query string of URI, typically contains key value pairs, for example:
         /// foo1=bar1&foo2=bar2

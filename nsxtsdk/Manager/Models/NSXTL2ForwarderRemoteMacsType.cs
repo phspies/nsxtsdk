@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTL2ForwarderRemoteMacsType 
     {
+        public NSXTL2ForwarderRemoteMacsType()
+        {
+        }
         /// <summary>
         /// Timestamp when the l2 forwarder remote mac addresses was last updated.
         /// </summary>

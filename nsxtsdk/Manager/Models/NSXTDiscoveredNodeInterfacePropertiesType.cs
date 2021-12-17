@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Network interface properties of discovered node")]
     public class NSXTDiscoveredNodeInterfacePropertiesType 
     {
+        public NSXTDiscoveredNodeInterfacePropertiesType()
+        {
+        }
         /// <summary>
         /// Mac address of the interface
         /// </summary>

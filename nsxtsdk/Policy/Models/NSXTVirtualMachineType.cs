@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTVirtualMachineType : NSXTDiscoveredResourceType
     {
+        public NSXTVirtualMachineType()
+        {
+        }
         /// <summary>
-        /// Reference of the Host or Public Cloud Gateway that reported the VM
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "source")]
-        [NSXTProperty(IsRequired: false, Description: @"Reference of the Host or Public Cloud Gateway that reported the VM")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType Source { get; set; }
         /// <summary>
         /// Id of the vm unique within the host.
@@ -37,11 +40,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Virtual Machine type; Edge, Service VM or other.")]
         public NSXTVirtualMachineTypeEnumType? Type { get; set; }
         /// <summary>
-        /// Guest virtual machine details include OS name, computer name of guest VM. Currently
-        /// this is supported for guests on ESXi that have VMware Tools installed.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "guest_info")]
-        [NSXTProperty(IsRequired: false, Description: @"Guest virtual machine details include OS name, computer name of guest VM. Currentlythis is supported for guests on ESXi that have VMware Tools installed.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTGuestInfoType GuestInfo { get; set; }
         /// <summary>
         /// Current power state of this virtual machine in the system.

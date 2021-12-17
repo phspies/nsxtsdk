@@ -18,6 +18,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Describes the capacity and current usage of virtual servers, pools, poolmembers for the given load balancer service.")]
     public class NSXTLbServiceUsageType 
     {
+        public NSXTLbServiceUsageType()
+        {
+        }
         /// <summary>
         /// Pool capacity means maximum number of pools which could be configured
         /// in the given load balancer service.

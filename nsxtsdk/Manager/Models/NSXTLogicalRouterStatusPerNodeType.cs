@@ -17,6 +17,16 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalRouterStatusPerNodeType 
     {
+        public NSXTLogicalRouterStatusPerNodeType()
+        {
+        }
+        /// <summary>
+        /// This field is populated for sateful active-active mode.
+        /// Runtime state is only synced among nodes in the same sub cluster.
+        /// </summary>
+        [JsonProperty(PropertyName = "sub_cluster_id")]
+        [NSXTProperty(IsRequired: false, Description: @"This field is populated for sateful active-active mode.Runtime state is only synced among nodes in the same sub cluster.")]
+        public string? SubClusterId { get; set; }
         /// <summary>
         /// A service router's HA status on an edge node
         /// </summary>
@@ -30,6 +40,12 @@ namespace nsxtsdk.ManagerModels
         [JsonProperty(PropertyName = "service_router_id")]
         [NSXTProperty(IsRequired: false, Description: @"id of the service router where the router status is retrieved.")]
         public string? ServiceRouterId { get; set; }
+        /// <summary>
+        /// Only populated by Policy APIs
+        /// </summary>
+        [JsonProperty(PropertyName = "edge_path")]
+        [NSXTProperty(IsRequired: false, Description: @"Only populated by Policy APIs")]
+        public string? EdgePath { get; set; }
         /// <summary>
         /// id of the transport node where the router status is retrieved.
         /// </summary>

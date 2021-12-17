@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"VlanTrunkspec is used for specifying trunk VLAN id ranges.")]
     public class NSXTVlanTrunkSpecType 
     {
+        public NSXTVlanTrunkSpecType()
+        {
+        }
         /// <summary>
         /// Trunk VLAN id ranges
         /// </summary>

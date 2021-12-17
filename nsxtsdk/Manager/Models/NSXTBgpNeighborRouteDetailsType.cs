@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"BGP neighbor learned/advertised route details.")]
     public class NSXTBgpNeighborRouteDetailsType 
     {
+        public NSXTBgpNeighborRouteDetailsType()
+        {
+        }
         /// <summary>
         /// Logical router id
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTStatusCountType 
     {
+        public NSXTStatusCountType()
+        {
+        }
         /// <summary>
         /// Roll-up status
         /// </summary>

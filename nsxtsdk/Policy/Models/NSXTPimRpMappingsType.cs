@@ -12,11 +12,14 @@ using System.ComponentModel;
 namespace nsxtsdk.PolicyModels
 {
     /// <summary>
-    /// PIM Rendezvous Point Mappings.
+    /// 
     /// </summary>
-    [NSXTProperty(Description: @"PIM Rendezvous Point Mappings.")]
-    public class NSXTPimRpMappingsType 
+    [NSXTProperty(Description: @"")]
+    public class NSXTPimRpMappingsType : NSXTListResultType
     {
+        public NSXTPimRpMappingsType()
+        {
+        }
         /// <summary>
         /// Policy path to Tier0 gateway.
         /// </summary>

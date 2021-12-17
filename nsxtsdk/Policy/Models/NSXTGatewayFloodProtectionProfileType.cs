@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTGatewayFloodProtectionProfileType : NSXTFloodProtectionProfileType
     {
+        public NSXTGatewayFloodProtectionProfileType()
+        {
+            NatActiveConnLimit = test
+        }
         /// <summary>
         /// The maximum limit of active NAT connections. This limit only apply to EDGE components (such as, gateway). If this
         /// property is omitted, or set to null, then there is no limit on the specific component. Meanwhile there is an implicit
@@ -26,7 +30,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"The maximum limit of active NAT connections. This limit only apply to EDGE components (such as, gateway). If this property is omitted, or set to null, then there is no limit on the specific component. Meanwhile there is an implicit limit which depends on the underlying hardware resource.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(4294967295)]
-        [NSXTDefaultProperty(Default: "")]
         public long? NatActiveConnLimit { get; set; }
     }
 }

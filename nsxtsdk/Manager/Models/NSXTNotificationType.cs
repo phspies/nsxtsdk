@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNotificationType 
     {
+        public NSXTNotificationType()
+        {
+        }
         /// <summary>
         /// A string identifying feature_name.notification_name to indicate a notification watcher is interested in receiving
         /// notifications for the URI identified by the feature_name.notification_name.

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTGiServiceProfileType : NSXTBaseServiceProfileType
     {
+        public NSXTGiServiceProfileType()
+        {
+        }
         /// <summary>
         /// Different VMs in data center can have Different protection levels as specified by administrator in the policy. The
         /// identifier for the policy with which the partner appliance identifies this policy. This identifier will be passed to the

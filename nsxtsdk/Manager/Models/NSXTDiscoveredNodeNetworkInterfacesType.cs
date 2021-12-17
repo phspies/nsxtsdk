@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"All the network interfaces of the discovered node")]
     public class NSXTDiscoveredNodeNetworkInterfacesType 
     {
+        public NSXTDiscoveredNodeNetworkInterfacesType()
+        {
+        }
         /// <summary>
         /// Id of the discovered node
         /// </summary>

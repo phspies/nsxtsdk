@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"OSPF summary link state details.")]
     public class NSXTMpOspfSummaryLinkStatesType 
     {
+        public NSXTMpOspfSummaryLinkStatesType()
+        {
+        }
         /// <summary>
         /// LSA age
         /// </summary>

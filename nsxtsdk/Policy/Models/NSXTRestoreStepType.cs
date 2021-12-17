@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Restore step info")]
     public class NSXTRestoreStepType 
     {
+        public NSXTRestoreStepType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

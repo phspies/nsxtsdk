@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpStaticBindingConfigListResultType : NSXTListResultType
     {
+        public NSXTDhcpStaticBindingConfigListResultType()
+        {
+        }
         /// <summary>
         /// Paginated list of DhcpStaticBindingConfig
         /// </summary>

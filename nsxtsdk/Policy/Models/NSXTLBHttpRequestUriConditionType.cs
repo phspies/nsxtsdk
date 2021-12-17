@@ -17,12 +17,16 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBHttpRequestUriConditionType : NSXTLBRuleConditionType
     {
+        public NSXTLBHttpRequestUriConditionType()
+        {
+            MatchType = test
+            CaseSensitive = test
+        }
         /// <summary>
         /// Match type of URI
         /// </summary>
         [JsonProperty(PropertyName = "match_type")]
         [NSXTProperty(IsRequired: false, Description: @"Match type of URI")]
-        [NSXTDefaultProperty(Default: "REGEX")]
         public NSXTLbhttpRequestUriConditionMatchTypeEnumType? MatchType { get; set; }
         /// <summary>
         /// A string used to identify resource
@@ -36,7 +40,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "case_sensitive")]
         [NSXTProperty(IsRequired: false, Description: @"If true, case is significant when comparing URI.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? CaseSensitive { get; set; }
     }
 }

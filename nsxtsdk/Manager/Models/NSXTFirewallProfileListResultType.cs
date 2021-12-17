@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFirewallProfileListResultType : NSXTListResultType
     {
+        public NSXTFirewallProfileListResultType()
+        {
+        }
         /// <summary>
         /// List of firewall profiles.
         /// </summary>

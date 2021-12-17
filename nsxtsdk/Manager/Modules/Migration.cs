@@ -110,79 +110,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMigrationSwitchInfoType SetMigrationSwitch(NSXTMigrationSwitchInfoType MigrationSwitchInfo)
-        {
-            if (MigrationSwitchInfo == null) { throw new System.ArgumentNullException("MigrationSwitchInfo cannot be null"); }
-            NSXTMigrationSwitchInfoType returnValue = default(NSXTMigrationSwitchInfoType);
-            StringBuilder SetMigrationSwitchServiceURL = new StringBuilder("/migration/switch");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.AddJsonBody(JsonConvert.SerializeObject(MigrationSwitchInfo, defaultSerializationSettings));
-            request.Resource = SetMigrationSwitchServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + SetMigrationSwitchServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTMigrationSwitchInfoType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTMigrationSwitchInfoType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTMigrationSwitchInfoType GetMigrationSwitch()
-        {
-            NSXTMigrationSwitchInfoType returnValue = default(NSXTMigrationSwitchInfoType);
-            StringBuilder GetMigrationSwitchServiceURL = new StringBuilder("/migration/switch");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.Resource = GetMigrationSwitchServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetMigrationSwitchServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTMigrationSwitchInfoType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTMigrationSwitchInfoType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTMigrationFeedbackSummaryListResultType GetFeedbackSummary(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTMigrationFeedbackSummaryListResultType GetFeedbackSummary(string? Cursor = null, string? IncludedFields = null, string? NetworkLayer = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTMigrationFeedbackSummaryListResultType returnValue = default(NSXTMigrationFeedbackSummaryListResultType);
             StringBuilder GetFeedbackSummaryServiceURL = new StringBuilder("/migration/feedback-summary");
@@ -194,6 +122,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (NetworkLayer != null) { request.AddQueryParameter("network_layer", NetworkLayer.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
@@ -222,21 +151,21 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void AbortMigrationAbort()
+        public void AbortMigration()
         {
             
-            StringBuilder AbortMigrationAbortServiceURL = new StringBuilder("/migration/plan?action=abort");
+            StringBuilder AbortMigrationServiceURL = new StringBuilder("/migration/plan?action=abort");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            request.Resource = AbortMigrationAbortServiceURL.ToString();
+            request.Resource = AbortMigrationServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + AbortMigrationAbortServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + AbortMigrationServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -245,21 +174,57 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void StartMigrationStart()
+        public NSXTMigrationStatusType GetMigrationStatusSummary(string? ComponentType = null)
+        {
+            NSXTMigrationStatusType returnValue = default(NSXTMigrationStatusType);
+            StringBuilder GetMigrationStatusSummaryServiceURL = new StringBuilder("/migration/status-summary");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            if (ComponentType != null) { request.AddQueryParameter("component_type", ComponentType.ToString()); }
+            request.Resource = GetMigrationStatusSummaryServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetMigrationStatusSummaryServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTMigrationStatusType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTMigrationStatusType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public void StartMigration()
         {
             
-            StringBuilder StartMigrationStartServiceURL = new StringBuilder("/migration/plan?action=start");
+            StringBuilder StartMigrationServiceURL = new StringBuilder("/migration/plan?action=start");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            request.Resource = StartMigrationStartServiceURL.ToString();
+            request.Resource = StartMigrationServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + StartMigrationStartServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + StartMigrationServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -309,21 +274,23 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void FinishMigrationFinish()
+        public void SetEsgToRouterMappingOption(string MappingOption)
         {
+            if (MappingOption == null) { throw new System.ArgumentNullException("MappingOption cannot be null"); }
             
-            StringBuilder FinishMigrationFinishServiceURL = new StringBuilder("/migration/plan?action=finish");
+            StringBuilder SetEsgToRouterMappingOptionServiceURL = new StringBuilder("/migration/setup?action=setEsgToRouterMappingOption");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
-                Method = Method.POST
+                Method = Method.PUT
             };
             request.AddHeader("Content-type", "application/json");
-            request.Resource = FinishMigrationFinishServiceURL.ToString();
+            if (MappingOption != null) { request.AddQueryParameter("mapping_option", MappingOption.ToString()); }
+            request.Resource = SetEsgToRouterMappingOptionServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + FinishMigrationFinishServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP PUT operation to " + SetEsgToRouterMappingOptionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -332,21 +299,21 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void FinalizeInfraFinalizeInfra()
+        public void FinalizeInfra()
         {
             
-            StringBuilder FinalizeInfraFinalizeInfraServiceURL = new StringBuilder("/migration?action=finalize_infra");
+            StringBuilder FinalizeInfraServiceURL = new StringBuilder("/migration?action=finalize_infra");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            request.Resource = FinalizeInfraFinalizeInfraServiceURL.ToString();
+            request.Resource = FinalizeInfraServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + FinalizeInfraFinalizeInfraServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + FinalizeInfraServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -355,21 +322,22 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void AcceptRecommendedValueInFeedbackAcceptRecommended()
+        public void AcceptRecommendedValueInFeedback(string? NetworkLayer = null)
         {
             
-            StringBuilder AcceptRecommendedValueInFeedbackAcceptRecommendedServiceURL = new StringBuilder("/migration/feedback-response?action=accept-recommended");
+            StringBuilder AcceptRecommendedValueInFeedbackServiceURL = new StringBuilder("/migration/feedback-response?action=accept-recommended");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            request.Resource = AcceptRecommendedValueInFeedbackAcceptRecommendedServiceURL.ToString();
+            if (NetworkLayer != null) { request.AddQueryParameter("network_layer", NetworkLayer.ToString()); }
+            request.Resource = AcceptRecommendedValueInFeedbackServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + AcceptRecommendedValueInFeedbackAcceptRecommendedServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + AcceptRecommendedValueInFeedbackServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -378,11 +346,11 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PostVmGroupMigratePostMigrate(NSXTPostVmGroupMigrationSpecType PostVmGroupMigrationSpec)
+        public void PostVmGroupMigrate(NSXTPostVmGroupMigrationSpecType PostVmGroupMigrationSpec)
         {
             if (PostVmGroupMigrationSpec == null) { throw new System.ArgumentNullException("PostVmGroupMigrationSpec cannot be null"); }
             
-            StringBuilder PostVmGroupMigratePostMigrateServiceURL = new StringBuilder("/migration/vmgroup?action=post_migrate");
+            StringBuilder PostVmGroupMigrateServiceURL = new StringBuilder("/migration/vmgroup?action=post_migrate");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -390,11 +358,11 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(PostVmGroupMigrationSpec, defaultSerializationSettings));
-            request.Resource = PostVmGroupMigratePostMigrateServiceURL.ToString();
+            request.Resource = PostVmGroupMigrateServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + PostVmGroupMigratePostMigrateServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + PostVmGroupMigrateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -403,27 +371,27 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void ReorderMigrationUnitReorder(string GroupId, string MigrationUnitId, NSXTReorderMigrationRequestType ReorderMigrationRequest)
+        public void ReorderMigrationUnit(string GroupId, string MigrationUnitId, NSXTReorderMigrationRequestType ReorderMigrationRequest)
         {
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
             if (MigrationUnitId == null) { throw new System.ArgumentNullException("MigrationUnitId cannot be null"); }
             if (ReorderMigrationRequest == null) { throw new System.ArgumentNullException("ReorderMigrationRequest cannot be null"); }
             
-            StringBuilder ReorderMigrationUnitReorderServiceURL = new StringBuilder("/migration/migration-unit-groups/{group-id}/migration-unit/{migration-unit-id}?action=reorder");
+            StringBuilder ReorderMigrationUnitServiceURL = new StringBuilder("/migration/migration-unit-groups/{group-id}/migration-unit/{migration-unit-id}?action=reorder");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            ReorderMigrationUnitReorderServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReorderMigrationUnitReorderServiceURL.Replace("{migration-unit-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(MigrationUnitId, System.Globalization.CultureInfo.InvariantCulture)));
+            ReorderMigrationUnitServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
+            ReorderMigrationUnitServiceURL.Replace("{migration-unit-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(MigrationUnitId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(ReorderMigrationRequest, defaultSerializationSettings));
-            request.Resource = ReorderMigrationUnitReorderServiceURL.ToString();
+            request.Resource = ReorderMigrationUnitServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + ReorderMigrationUnitReorderServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + ReorderMigrationUnitServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -432,11 +400,11 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void ResetMigrationPlanReset(string ComponentType)
+        public void ResetMigrationPlan(string ComponentType)
         {
             if (ComponentType == null) { throw new System.ArgumentNullException("ComponentType cannot be null"); }
             
-            StringBuilder ResetMigrationPlanResetServiceURL = new StringBuilder("/migration/plan?action=reset");
+            StringBuilder ResetMigrationPlanServiceURL = new StringBuilder("/migration/plan?action=reset");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -444,11 +412,11 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             if (ComponentType != null) { request.AddQueryParameter("component_type", ComponentType.ToString()); }
-            request.Resource = ResetMigrationPlanResetServiceURL.ToString();
+            request.Resource = ResetMigrationPlanServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + ResetMigrationPlanResetServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + ResetMigrationPlanServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -498,21 +466,21 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PauseMigrationPause()
+        public void PauseMigration()
         {
             
-            StringBuilder PauseMigrationPauseServiceURL = new StringBuilder("/migration/plan?action=pause");
+            StringBuilder PauseMigrationServiceURL = new StringBuilder("/migration/plan?action=pause");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            request.Resource = PauseMigrationPauseServiceURL.ToString();
+            request.Resource = PauseMigrationServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + PauseMigrationPauseServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + PauseMigrationServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -521,25 +489,25 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMigrationUnitListType AddMigrationUnitsToGroupAddMigrationUnits(string GroupId, NSXTMigrationUnitListType MigrationUnitList)
+        public NSXTMigrationUnitListType AddMigrationUnitsToGroup(string GroupId, NSXTMigrationUnitListType MigrationUnitList)
         {
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
             if (MigrationUnitList == null) { throw new System.ArgumentNullException("MigrationUnitList cannot be null"); }
             NSXTMigrationUnitListType returnValue = default(NSXTMigrationUnitListType);
-            StringBuilder AddMigrationUnitsToGroupAddMigrationUnitsServiceURL = new StringBuilder("/migration/migration-unit-groups/{group-id}?action=add_migration_units");
+            StringBuilder AddMigrationUnitsToGroupServiceURL = new StringBuilder("/migration/migration-unit-groups/{group-id}?action=add_migration_units");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            AddMigrationUnitsToGroupAddMigrationUnitsServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
+            AddMigrationUnitsToGroupServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(MigrationUnitList, defaultSerializationSettings));
-            request.Resource = AddMigrationUnitsToGroupAddMigrationUnitsServiceURL.ToString();
+            request.Resource = AddMigrationUnitsToGroupServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + AddMigrationUnitsToGroupAddMigrationUnitsServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + AddMigrationUnitsToGroupServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -683,66 +651,21 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMigrationUnitAggregateInfoListResultType GetMigrationUnitAggregateInfo(string? ComponentType = null, string? Cursor = null, string? GroupId = null, bool? HasErrors = null, string? IncludedFields = null, string? Metadata = null, long? PageSize = null, string? SelectionStatus = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTMigrationUnitAggregateInfoListResultType returnValue = default(NSXTMigrationUnitAggregateInfoListResultType);
-            StringBuilder GetMigrationUnitAggregateInfoServiceURL = new StringBuilder("/migration/migration-units/aggregate-info");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (ComponentType != null) { request.AddQueryParameter("component_type", ComponentType.ToString()); }
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (GroupId != null) { request.AddQueryParameter("group_id", GroupId.ToString()); }
-            if (HasErrors != null) { request.AddQueryParameter("has_errors", HasErrors.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (Metadata != null) { request.AddQueryParameter("metadata", Metadata.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SelectionStatus != null) { request.AddQueryParameter("selection_status", SelectionStatus.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = GetMigrationUnitAggregateInfoServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetMigrationUnitAggregateInfoServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTMigrationUnitAggregateInfoListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTMigrationUnitAggregateInfoListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void StartRollbackMigrationRollback()
+        public void StartRollbackMigration()
         {
             
-            StringBuilder StartRollbackMigrationRollbackServiceURL = new StringBuilder("/migration/plan?action=rollback");
+            StringBuilder StartRollbackMigrationServiceURL = new StringBuilder("/migration/plan?action=rollback");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            request.Resource = StartRollbackMigrationRollbackServiceURL.ToString();
+            request.Resource = StartRollbackMigrationServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + StartRollbackMigrationRollbackServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + StartRollbackMigrationServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -786,7 +709,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGroupedMigrationFeedbackRequestListResultType GetGroupedFeedbackRequests(string? Category = null, string? Cursor = null, string? Hash = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? State = null, string? SubCategory = null)
+        public NSXTGroupedMigrationFeedbackRequestListResultType GetGroupedFeedbackRequests(string? Category = null, string? Cursor = null, string? FederationSiteId = null, string? Hash = null, string? IncludedFields = null, string? NetworkLayer = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? State = null, string? SubCategory = null)
         {
             NSXTGroupedMigrationFeedbackRequestListResultType returnValue = default(NSXTGroupedMigrationFeedbackRequestListResultType);
             StringBuilder GetGroupedFeedbackRequestsServiceURL = new StringBuilder("/migration/grouped-feedback-requests");
@@ -798,8 +721,10 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             if (Category != null) { request.AddQueryParameter("category", Category.ToString()); }
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (FederationSiteId != null) { request.AddQueryParameter("federation_site_id", FederationSiteId.ToString()); }
             if (Hash != null) { request.AddQueryParameter("hash", Hash.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (NetworkLayer != null) { request.AddQueryParameter("network_layer", NetworkLayer.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
@@ -825,6 +750,31 @@ namespace nsxtapi.ManagerModules
 				}
 			}
 			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public void AddAlbInfo(NSXTAviEndPointType AviEndPoint)
+        {
+            if (AviEndPoint == null) { throw new System.ArgumentNullException("AviEndPoint cannot be null"); }
+            
+            StringBuilder AddAlbInfoServiceURL = new StringBuilder("/migration/setup?action=addAlbInfo");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.PUT
+            };
+            request.AddHeader("Content-type", "application/json");
+            request.AddJsonBody(JsonConvert.SerializeObject(AviEndPoint, defaultSerializationSettings));
+            request.Resource = AddAlbInfoServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP PUT operation to " + AddAlbInfoServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
         }
         /// <summary>
         /// 
@@ -944,25 +894,25 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void ReorderMigrationUnitGroupReorder(string GroupId, NSXTReorderMigrationRequestType ReorderMigrationRequest)
+        public void ReorderMigrationUnitGroup(string GroupId, NSXTReorderMigrationRequestType ReorderMigrationRequest)
         {
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
             if (ReorderMigrationRequest == null) { throw new System.ArgumentNullException("ReorderMigrationRequest cannot be null"); }
             
-            StringBuilder ReorderMigrationUnitGroupReorderServiceURL = new StringBuilder("/migration/migration-unit-groups/{group-id}?action=reorder");
+            StringBuilder ReorderMigrationUnitGroupServiceURL = new StringBuilder("/migration/migration-unit-groups/{group-id}?action=reorder");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            ReorderMigrationUnitGroupReorderServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
+            ReorderMigrationUnitGroupServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(ReorderMigrationRequest, defaultSerializationSettings));
-            request.Resource = ReorderMigrationUnitGroupReorderServiceURL.ToString();
+            request.Resource = ReorderMigrationUnitGroupServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + ReorderMigrationUnitGroupReorderServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + ReorderMigrationUnitGroupServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -971,7 +921,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DownloadMigrationData(string FileType)
+        public void DownloadMigrationData(string FileType, string? FederationSiteId = null)
         {
             if (FileType == null) { throw new System.ArgumentNullException("FileType cannot be null"); }
             
@@ -982,6 +932,7 @@ namespace nsxtapi.ManagerModules
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
+            if (FederationSiteId != null) { request.AddQueryParameter("federation_site_id", FederationSiteId.ToString()); }
             if (FileType != null) { request.AddQueryParameter("file_type", FileType.ToString()); }
             request.Resource = DownloadMigrationDataServiceURL.ToString();
             var response = restClient.Execute(request);
@@ -996,7 +947,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMigrationDataInfoType GetMigrationDataInfo(string FileType)
+        public NSXTMigrationDataInfoType GetMigrationDataInfo(string FileType, string? FederationSiteId = null)
         {
             if (FileType == null) { throw new System.ArgumentNullException("FileType cannot be null"); }
             NSXTMigrationDataInfoType returnValue = default(NSXTMigrationDataInfoType);
@@ -1007,6 +958,7 @@ namespace nsxtapi.ManagerModules
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
+            if (FederationSiteId != null) { request.AddQueryParameter("federation_site_id", FederationSiteId.ToString()); }
             if (FileType != null) { request.AddQueryParameter("file_type", FileType.ToString()); }
             request.Resource = GetMigrationDataInfoServiceURL.ToString();
             var response = restClient.Execute(request);
@@ -1028,6 +980,32 @@ namespace nsxtapi.ManagerModules
 				}
 			}
 			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public void DeleteMigrationDataFile(string FileType, string? FederationSiteId = null)
+        {
+            if (FileType == null) { throw new System.ArgumentNullException("FileType cannot be null"); }
+            
+            StringBuilder DeleteMigrationDataFileServiceURL = new StringBuilder("/migration/data");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.DELETE
+            };
+            request.AddHeader("Content-type", "application/json");
+            if (FederationSiteId != null) { request.AddQueryParameter("federation_site_id", FederationSiteId.ToString()); }
+            if (FileType != null) { request.AddQueryParameter("file_type", FileType.ToString()); }
+            request.Resource = DeleteMigrationDataFileServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP DELETE operation to " + DeleteMigrationDataFileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
         }
         /// <summary>
         /// 
@@ -1246,10 +1224,33 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void ContinueMigrationContinue(bool? Skip = null)
+        public void FinishMigration()
         {
             
-            StringBuilder ContinueMigrationContinueServiceURL = new StringBuilder("/migration/plan?action=continue");
+            StringBuilder FinishMigrationServiceURL = new StringBuilder("/migration/plan?action=finish");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.POST
+            };
+            request.AddHeader("Content-type", "application/json");
+            request.Resource = FinishMigrationServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP POST operation to " + FinishMigrationServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public void ContinueMigration(bool? Skip = null)
+        {
+            
+            StringBuilder ContinueMigrationServiceURL = new StringBuilder("/migration/plan?action=continue");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -1257,11 +1258,11 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             if (Skip != null) { request.AddQueryParameter("skip", Skip.ToString()); }
-            request.Resource = ContinueMigrationContinueServiceURL.ToString();
+            request.Resource = ContinueMigrationServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + ContinueMigrationContinueServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + ContinueMigrationServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -1270,68 +1271,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMigrationStatusType GetMigrationStatusSummary(string? ComponentType = null)
-        {
-            NSXTMigrationStatusType returnValue = default(NSXTMigrationStatusType);
-            StringBuilder GetMigrationStatusSummaryServiceURL = new StringBuilder("/migration/status-summary");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (ComponentType != null) { request.AddQueryParameter("component_type", ComponentType.ToString()); }
-            request.Resource = GetMigrationStatusSummaryServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetMigrationStatusSummaryServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTMigrationStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTMigrationStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void UpdateFeedbackResponse(NSXTMigrationFeedbackResponseListType MigrationFeedbackResponseList)
-        {
-            if (MigrationFeedbackResponseList == null) { throw new System.ArgumentNullException("MigrationFeedbackResponseList cannot be null"); }
-            
-            StringBuilder UpdateFeedbackResponseServiceURL = new StringBuilder("/migration/feedback-response");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.AddJsonBody(JsonConvert.SerializeObject(MigrationFeedbackResponseList, defaultSerializationSettings));
-            request.Resource = UpdateFeedbackResponseServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateFeedbackResponseServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTMigrationFeedbackRequestListResultType GetFeedbackRequests(string? Category = null, string? Cursor = null, string? Hash = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? State = null, string? SubCategory = null)
+        public NSXTMigrationFeedbackRequestListResultType GetFeedbackRequests(string? Category = null, string? Cursor = null, string? FederationSiteId = null, string? Hash = null, string? IncludedFields = null, string? NetworkLayer = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? State = null, string? SubCategory = null)
         {
             NSXTMigrationFeedbackRequestListResultType returnValue = default(NSXTMigrationFeedbackRequestListResultType);
             StringBuilder GetFeedbackRequestsServiceURL = new StringBuilder("/migration/feedback-requests");
@@ -1343,8 +1283,10 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             if (Category != null) { request.AddQueryParameter("category", Category.ToString()); }
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (FederationSiteId != null) { request.AddQueryParameter("federation_site_id", FederationSiteId.ToString()); }
             if (Hash != null) { request.AddQueryParameter("hash", Hash.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (NetworkLayer != null) { request.AddQueryParameter("network_layer", NetworkLayer.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
@@ -1375,11 +1317,11 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PreVmGroupMigratePreMigrate(NSXTPreVmGroupMigrationSpecType PreVmGroupMigrationSpec)
+        public void PreVmGroupMigrate(NSXTPreVmGroupMigrationSpecType PreVmGroupMigrationSpec)
         {
             if (PreVmGroupMigrationSpec == null) { throw new System.ArgumentNullException("PreVmGroupMigrationSpec cannot be null"); }
             
-            StringBuilder PreVmGroupMigratePreMigrateServiceURL = new StringBuilder("/migration/vmgroup?action=pre_migrate");
+            StringBuilder PreVmGroupMigrateServiceURL = new StringBuilder("/migration/vmgroup?action=pre_migrate");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -1387,11 +1329,11 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(PreVmGroupMigrationSpec, defaultSerializationSettings));
-            request.Resource = PreVmGroupMigratePreMigrateServiceURL.ToString();
+            request.Resource = PreVmGroupMigrateServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + PreVmGroupMigratePreMigrateServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + PreVmGroupMigrateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -1440,6 +1382,51 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
+        public NSXTMigrationUnitAggregateInfoListResultType GetMigrationUnitAggregateInfo(string? ComponentType = null, string? Cursor = null, string? GroupId = null, bool? HasErrors = null, string? IncludedFields = null, string? Metadata = null, long? PageSize = null, string? SelectionStatus = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            NSXTMigrationUnitAggregateInfoListResultType returnValue = default(NSXTMigrationUnitAggregateInfoListResultType);
+            StringBuilder GetMigrationUnitAggregateInfoServiceURL = new StringBuilder("/migration/migration-units/aggregate-info");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            if (ComponentType != null) { request.AddQueryParameter("component_type", ComponentType.ToString()); }
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (GroupId != null) { request.AddQueryParameter("group_id", GroupId.ToString()); }
+            if (HasErrors != null) { request.AddQueryParameter("has_errors", HasErrors.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (Metadata != null) { request.AddQueryParameter("metadata", Metadata.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SelectionStatus != null) { request.AddQueryParameter("selection_status", SelectionStatus.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = GetMigrationUnitAggregateInfoServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetMigrationUnitAggregateInfoServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTMigrationUnitAggregateInfoListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTMigrationUnitAggregateInfoListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
         public NSXTMigrationUnitListResultType GetMigrationUnits(string? ComponentType = null, string? CurrentVersion = null, string? Cursor = null, string? GroupId = null, bool? HasWarnings = null, string? IncludedFields = null, string? Metadata = null, string? MigrationUnitType = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTMigrationUnitListResultType returnValue = default(NSXTMigrationUnitListResultType);
@@ -1477,6 +1464,78 @@ namespace nsxtapi.ManagerModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTMigrationUnitListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTMigrationSwitchInfoType SetMigrationSwitch(NSXTMigrationSwitchInfoType MigrationSwitchInfo)
+        {
+            if (MigrationSwitchInfo == null) { throw new System.ArgumentNullException("MigrationSwitchInfo cannot be null"); }
+            NSXTMigrationSwitchInfoType returnValue = default(NSXTMigrationSwitchInfoType);
+            StringBuilder SetMigrationSwitchServiceURL = new StringBuilder("/migration/switch");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.PUT
+            };
+            request.AddHeader("Content-type", "application/json");
+            request.AddJsonBody(JsonConvert.SerializeObject(MigrationSwitchInfo, defaultSerializationSettings));
+            request.Resource = SetMigrationSwitchServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP PUT operation to " + SetMigrationSwitchServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTMigrationSwitchInfoType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTMigrationSwitchInfoType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTMigrationSwitchInfoType GetMigrationSwitch()
+        {
+            NSXTMigrationSwitchInfoType returnValue = default(NSXTMigrationSwitchInfoType);
+            StringBuilder GetMigrationSwitchServiceURL = new StringBuilder("/migration/switch");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            request.Resource = GetMigrationSwitchServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetMigrationSwitchServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTMigrationSwitchInfoType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTMigrationSwitchInfoType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -1561,6 +1620,32 @@ namespace nsxtapi.ManagerModules
 				}
 			}
 			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public void UpdateFeedbackResponse(NSXTMigrationFeedbackResponseListType MigrationFeedbackResponseList, string? NetworkLayer = null)
+        {
+            if (MigrationFeedbackResponseList == null) { throw new System.ArgumentNullException("MigrationFeedbackResponseList cannot be null"); }
+            
+            StringBuilder UpdateFeedbackResponseServiceURL = new StringBuilder("/migration/feedback-response");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.PUT
+            };
+            request.AddHeader("Content-type", "application/json");
+            request.AddJsonBody(JsonConvert.SerializeObject(MigrationFeedbackResponseList, defaultSerializationSettings));
+            if (NetworkLayer != null) { request.AddQueryParameter("network_layer", NetworkLayer.ToString()); }
+            request.Resource = UpdateFeedbackResponseServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP PUT operation to " + UpdateFeedbackResponseServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
         }
     }
 }

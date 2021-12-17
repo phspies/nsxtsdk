@@ -20,6 +20,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTFloodProtectionProfileType : NSXTPolicyConfigResourceType
     {
+        public NSXTFloodProtectionProfileType()
+        {
+        }
         /// <summary>
         /// If this field is empty, firewall will not set a limit to active ICMP connections.
         /// </summary>

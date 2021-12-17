@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer SensitiveFieldRule object")]
     public class NSXTALBSensitiveFieldRuleType 
     {
+        public NSXTALBSensitiveFieldRuleType()
+        {
+            Action = test
+        }
         /// <summary>
         /// Action for the matched log field, for instance the matched
         /// field can be removed or masked off.
@@ -26,7 +30,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "action")]
         [NSXTProperty(IsRequired: false, Description: @"Action for the matched log field, for instance the matchedfield can be removed or masked off.Enum options - LOG_FIELD_REMOVE, LOG_FIELD_MASKOFF.Default value when not specified in API or module isinterpreted by ALB Controller as LOG_FIELD_REMOVE.")]
-        [NSXTDefaultProperty(Default: "LOG_FIELD_REMOVE")]
         public NSXTAlbsensitiveFieldRuleActionEnumType? Action { get; set; }
         /// <summary>
         /// Index of the rule.
@@ -49,10 +52,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Name of the rule.")]
         public string? Name { get; set; }
         /// <summary>
-        /// Criterion to use for matching in the Log.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "match")]
-        [NSXTProperty(IsRequired: false, Description: @"Criterion to use for matching in the Log.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBStringMatchType Match { get; set; }
     }
 }

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Collection of tags used in a policy group for a particular member type")]
     public class NSXTGroupMemberTagsListType 
     {
+        public NSXTGroupMemberTagsListType()
+        {
+        }
         /// <summary>
         /// Member type for which we will list the tags
         /// </summary>

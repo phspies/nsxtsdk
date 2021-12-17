@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"DHCP filtering configuration")]
     public class NSXTDhcpFilterType 
     {
+        public NSXTDhcpFilterType()
+        {
+        }
         /// <summary>
         /// Indicates whether DHCP client blocking is enabled
         /// </summary>

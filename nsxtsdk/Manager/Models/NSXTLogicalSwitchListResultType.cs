@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalSwitchListResultType : NSXTListResultType
     {
+        public NSXTLogicalSwitchListResultType()
+        {
+        }
         /// <summary>
         /// Logical Switch Results
         /// </summary>

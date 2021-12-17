@@ -17,6 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsAttack object")]
     public class NSXTALBDnsAttackType 
     {
+        public NSXTALBDnsAttackType()
+        {
+            MaxMitigationAge = test
+            Enabled = test
+        }
         /// <summary>
         /// Threshold, in terms of DNS packet per second, for the DNS
         /// attack vector.
@@ -36,13 +41,12 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Time in minutes after which mitigation will be deactivated.Allowed values are 1-4294967295.Special values are 0- &apos;blocked for ever&apos;.Unit is MIN.Default value when not specified in API or module isinterpreted by ALB Controller as 60.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(4294967295)]
-        [NSXTDefaultProperty(Default: "")]
         public long? MaxMitigationAge { get; set; }
         /// <summary>
-        /// Mitigation action to perform for this DNS attack vector.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "mitigation_action")]
-        [NSXTProperty(IsRequired: false, Description: @"Mitigation action to perform for this DNS attack vector.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBAttackMitigationActionType MitigationAction { get; set; }
         /// <summary>
         /// Enable or disable the mitigation of the attack vector.
@@ -51,7 +55,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Enable or disable the mitigation of the attack vector.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// The DNS attack vector.

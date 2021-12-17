@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Contains type specific properties of generic realized entity")]
     public class NSXTAttributeValType 
     {
+        public NSXTAttributeValType()
+        {
+        }
         /// <summary>
         /// List of attribute values
         /// </summary>

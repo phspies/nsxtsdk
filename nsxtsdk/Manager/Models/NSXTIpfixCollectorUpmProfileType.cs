@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpfixCollectorUpmProfileType : NSXTManagedResourceType
     {
+        public NSXTIpfixCollectorUpmProfileType()
+        {
+        }
         /// <summary>
         /// All IPFIX collector profile types.
         /// </summary>

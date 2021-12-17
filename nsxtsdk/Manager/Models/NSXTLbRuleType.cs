@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbRuleType : NSXTManagedResourceType
     {
+        public NSXTLbRuleType()
+        {
+        }
         /// <summary>
         /// Each load balancer rule is used at a specific phase of load balancer
         /// processing. Currently five phases are supported, HTTP_REQUEST_REWRITE,

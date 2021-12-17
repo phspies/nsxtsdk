@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpAddressPoolBlockSubnetType : NSXTIpAddressPoolSubnetType
     {
+        public NSXTIpAddressPoolBlockSubnetType()
+        {
+            AutoAssignGateway = test
+        }
         /// <summary>
         /// The path of the IpAddressBlock from which the subnet is to be created.
         /// </summary>
@@ -36,7 +40,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "auto_assign_gateway")]
         [NSXTProperty(IsRequired: false, Description: @"If this property is set to true, the first IP in the range will be reserved for gateway.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? AutoAssignGateway { get; set; }
         /// <summary>
         /// The size parameter is required for subnet creation. It must be specified during creation but cannot be changed later.

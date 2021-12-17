@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HTTPClientAuthenticationParams object")]
     public class NSXTALBHTTPClientAuthenticationParamsType 
     {
+        public NSXTALBHTTPClientAuthenticationParamsType()
+        {
+        }
         /// <summary>
         /// type of client authentication.
         /// Enum options - HTTP_BASIC_AUTH.
@@ -32,10 +35,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Basic authentication realm to present to a user along withthe prompt for credentials.")]
         public string? Realm { get; set; }
         /// <summary>
-        /// Rrequest URI path when the authentication applies.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "request_uri_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Rrequest URI path when the authentication applies.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBStringMatchType RequestUriPath { get; set; }
         /// <summary>
         /// Auth Profile to use for validating users.

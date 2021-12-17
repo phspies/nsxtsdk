@@ -17,6 +17,11 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpIpPoolType : NSXTIpAllocationBaseType
     {
+        public NSXTDhcpIpPoolType()
+        {
+            WarningThreshold = test
+            ErrorThreshold = test
+        }
         /// <summary>
         /// Ip-ranges to define dynamic ip allocation ranges.
         /// </summary>
@@ -32,7 +37,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Warning threshold. Alert will be raised if the pool usage reaches thegiven threshold.")]
         //[System.ComponentModel.DataAnnotations.MinLength(50)]
         //[System.ComponentModel.DataAnnotations.MaxLength(80)]
-        [NSXTDefaultProperty(Default: "")]
         public long? WarningThreshold { get; set; }
         /// <summary>
         /// Error threshold. Alert will be raised if the pool usage reaches the
@@ -42,7 +46,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Error threshold. Alert will be raised if the pool usage reaches thegiven threshold.")]
         //[System.ComponentModel.DataAnnotations.MinLength(80)]
         //[System.ComponentModel.DataAnnotations.MaxLength(100)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ErrorThreshold { get; set; }
     }
 }

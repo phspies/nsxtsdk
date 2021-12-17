@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildIpv6NdraProfileType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildIpv6NdraProfileType()
+        {
+        }
         /// <summary>
-        /// Contains the actual Ipv6NdraProfile objects
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "Ipv6NdraProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual Ipv6NdraProfile objects")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTIpv6NdraProfileType Ipv6NdraProfile { get; set; }
     }

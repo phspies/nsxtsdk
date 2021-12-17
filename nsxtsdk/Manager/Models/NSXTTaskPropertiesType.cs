@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTaskPropertiesType : NSXTResourceType
     {
+        public NSXTTaskPropertiesType()
+        {
+        }
         /// <summary>
         /// Current status of the task
         /// </summary>

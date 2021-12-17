@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildServiceInterfaceType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildServiceInterfaceType()
+        {
+        }
         /// <summary>
-        /// Contains the actual ServiceInterface object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ServiceInterface", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual ServiceInterface object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTServiceInterfaceType ServiceInterface { get; set; }
     }

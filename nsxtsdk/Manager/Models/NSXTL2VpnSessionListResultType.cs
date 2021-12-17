@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTL2VpnSessionListResultType : NSXTListResultType
     {
+        public NSXTL2VpnSessionListResultType()
+        {
+        }
         /// <summary>
         /// L2VPN sessions list result
         /// </summary>

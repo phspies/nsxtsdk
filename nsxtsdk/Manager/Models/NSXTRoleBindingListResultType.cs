@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRoleBindingListResultType : NSXTListResultType
     {
+        public NSXTRoleBindingListResultType()
+        {
+        }
         /// <summary>
         /// List results
         /// </summary>

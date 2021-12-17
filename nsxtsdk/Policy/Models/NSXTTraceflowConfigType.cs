@@ -17,28 +17,30 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTraceflowConfigType : NSXTPolicyConfigResourceType
     {
+        public NSXTTraceflowConfigType()
+        {
+            Timeout = test
+            IsTransient = test
+        }
         /// <summary>
-        /// Maximum time in seconds the management plane will wait for observation
-        /// result to be sent by opsAgent.
+        /// Timeout for traceflow observation results
         /// </summary>
         [JsonProperty(PropertyName = "timeout")]
-        [NSXTProperty(IsRequired: false, Description: @"Maximum time in seconds the management plane will wait for observationresult to be sent by opsAgent.")]
+        [NSXTProperty(IsRequired: false, Description: @"Timeout for traceflow observation results")]
         //[System.ComponentModel.DataAnnotations.MinLength(5)]
         //[System.ComponentModel.DataAnnotations.MaxLength(15)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Timeout { get; set; }
         /// <summary>
         /// This field indicates if intent is transient and will be cleaned up by the system if set to true
         /// </summary>
         [JsonProperty(PropertyName = "is_transient")]
         [NSXTProperty(IsRequired: false, Description: @"This field indicates if intent is transient and will be cleaned up by the system if set to true")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? IsTransient { get; set; }
         /// <summary>
-        /// Configuration of packet data
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "packet", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Configuration of packet data")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTPacketDataType Packet { get; set; }
         /// <summary>

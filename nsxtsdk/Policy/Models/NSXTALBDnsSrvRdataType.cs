@@ -17,6 +17,12 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsSrvRdata object")]
     public class NSXTALBDnsSrvRdataType 
     {
+        public NSXTALBDnsSrvRdataType()
+        {
+            Priority = test
+            Weight = test
+            Target = test
+        }
         /// <summary>
         /// Priority of the target hosting the service, low value
         /// implies higher priority for this service record.
@@ -28,7 +34,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Priority of the target hosting the service, low valueimplies higher priority for this service record.Allowed values are 0-65535.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Priority { get; set; }
         /// <summary>
         /// Service port.
@@ -52,7 +57,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Relative weight for service records with same priority,high value implies higher preference for this servicerecord.Allowed values are 0-65535.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Weight { get; set; }
         /// <summary>
         /// Canonical hostname, of the machine hosting the service,
@@ -63,7 +67,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "target")]
         [NSXTProperty(IsRequired: false, Description: @"Canonical hostname, of the machine hosting the service,with no trailing period.&apos;default.host&apos; is valid but not &apos;default.host.&apos;.Default value when not specified in API or module isinterpreted by ALB Controller as default.host.")]
-        [NSXTDefaultProperty(Default: "default.host")]
         public string? Target { get; set; }
     }
 }

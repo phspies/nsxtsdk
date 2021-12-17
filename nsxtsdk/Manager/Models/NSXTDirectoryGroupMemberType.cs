@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDirectoryGroupMemberType : NSXTManagedResourceType
     {
+        public NSXTDirectoryGroupMemberType()
+        {
+        }
         /// <summary>
         /// Directory group id this group member belongs to
         /// </summary>

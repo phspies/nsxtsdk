@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Section query parameters")]
     public class NSXTDSSectionQueryParametersType 
     {
+        public NSXTDSSectionQueryParametersType()
+        {
+        }
         /// <summary>
         /// Flag to cascade delete of this object to all it's child objects.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"It represent the resource with details of name and fields it owns.")]
     public class NSXTPolicyFineTuningResourceInfoType 
     {
+        public NSXTPolicyFineTuningResourceInfoType()
+        {
+        }
         /// <summary>
         /// List of all field of any resource
         /// </summary>

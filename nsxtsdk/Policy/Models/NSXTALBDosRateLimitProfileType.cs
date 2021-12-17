@@ -17,17 +17,20 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DosRateLimitProfile object")]
     public class NSXTALBDosRateLimitProfileType 
     {
+        public NSXTALBDosRateLimitProfileType()
+        {
+        }
         /// <summary>
-        /// Profile for Connections/Requests rate limiting.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "rl_profile")]
-        [NSXTProperty(IsRequired: false, Description: @"Profile for Connections/Requests rate limiting.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBRateLimiterProfileType RlProfile { get; set; }
         /// <summary>
-        /// Profile for DoS attack detection.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "dos_profile")]
-        [NSXTProperty(IsRequired: false, Description: @"Profile for DoS attack detection.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBDosThresholdProfileType DosProfile { get; set; }
     }
 }

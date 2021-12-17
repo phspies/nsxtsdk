@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTStaticRouteBfdPeerListResultType : NSXTListResultType
     {
+        public NSXTStaticRouteBfdPeerListResultType()
+        {
+        }
         /// <summary>
         /// StaticRouteBfdPeer list results.
         /// </summary>

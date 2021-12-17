@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildGroupType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildGroupType()
+        {
+        }
         /// <summary>
-        /// Contains the actual group objects.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "Group", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual group objects.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTGroupType Group { get; set; }
     }

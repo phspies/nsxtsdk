@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HTTPLocalFile object")]
     public class NSXTALBHTTPLocalFileType 
     {
+        public NSXTALBHTTPLocalFileType()
+        {
+        }
         /// <summary>
         /// File content to used in the local HTTP response body.
         /// </summary>

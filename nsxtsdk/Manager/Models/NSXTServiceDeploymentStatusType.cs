@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceDeploymentStatusType 
     {
+        public NSXTServiceDeploymentStatusType()
+        {
+        }
         /// <summary>
         /// List of issue and detailed description of the issue in case of deployment failure.
         /// </summary>

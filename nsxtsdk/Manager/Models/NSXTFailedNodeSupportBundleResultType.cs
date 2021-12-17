@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFailedNodeSupportBundleResultType 
     {
+        public NSXTFailedNodeSupportBundleResultType()
+        {
+        }
         /// <summary>
         /// Display name of node
         /// </summary>

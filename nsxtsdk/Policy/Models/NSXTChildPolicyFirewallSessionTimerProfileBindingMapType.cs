@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildPolicyFirewallSessionTimerProfileBindingMapType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildPolicyFirewallSessionTimerProfileBindingMapType()
+        {
+        }
         /// <summary>
-        /// Contains the actual PolicyFirewallSessionTimerProfileBindingMap object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "PolicyFirewallSessionTimerProfileBindingMap", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual PolicyFirewallSessionTimerProfileBindingMap object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTPolicyFirewallSessionTimerProfileBindingMapType PolicyFirewallSessionTimerProfileBindingMap { get; set; }
     }

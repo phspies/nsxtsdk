@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBServerSslProfileType : NSXTLBSslProfileType
     {
+        public NSXTLBServerSslProfileType()
+        {
+            SessionCacheEnabled = test
+        }
         /// <summary>
         /// SSL session caching allows SSL client and server to reuse previously
         /// negotiated security parameters avoiding the expensive public key
@@ -24,7 +28,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "session_cache_enabled")]
         [NSXTProperty(IsRequired: false, Description: @"SSL session caching allows SSL client and server to reuse previouslynegotiated security parameters avoiding the expensive public keyoperation during handshake.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? SessionCacheEnabled { get; set; }
         /// <summary>
         /// This flag is set to true when all the ciphers and protocols are FIPS

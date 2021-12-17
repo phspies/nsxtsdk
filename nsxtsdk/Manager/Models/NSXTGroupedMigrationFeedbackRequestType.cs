@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Detailed feedback requests from the migration tool where user input is required.")]
     public class NSXTGroupedMigrationFeedbackRequestType 
     {
+        public NSXTGroupedMigrationFeedbackRequestType()
+        {
+        }
         /// <summary>
         /// Indicates if a valid response already exist for all feedback requests in this group.
         /// </summary>

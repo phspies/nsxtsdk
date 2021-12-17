@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBServiceStatisticsType : NSXTLBServiceStatisticsPerEPType
     {
+        public NSXTLBServiceStatisticsType()
+        {
+        }
         /// <summary>
         /// Statistics of load balancer pools
         /// </summary>
@@ -42,10 +45,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"load balancer service identifier.")]
         public string? ServicePath { get; set; }
         /// <summary>
-        /// Load balancer service statistics counter.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "statistics")]
-        [NSXTProperty(IsRequired: false, Description: @"Load balancer service statistics counter.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLBServiceStatisticsCounterType Statistics { get; set; }
     }
 }

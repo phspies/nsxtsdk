@@ -23,6 +23,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"To join a new node to the NSX cluster, issue a JoinCluster API on the new node. The JoinCluster API takes this object as a parameter. Provide the ID of the NSX cluster you want the new node to join and the IP address of one of the nodes already in that cluster. The Cluster Boot Manager running on the new node will then add the new node to the NSX cluster by making a AttachClusterNode REST API call on the node that is already part of the cluster. In order to make a REST API call to the node in the cluster, the Cluster Boot Manager will need username and password of a priviledged user on the node in the cluster. In place of a username and password, Cluster Boot Manager could also use a OAuth token provided. The Cluster Boot Manager needs either the username and password or the OAuth token to make the REST call but not both.")]
     public class NSXTJoinClusterParametersType 
     {
+        public NSXTJoinClusterParametersType()
+        {
+            Port = test
+        }
         /// <summary>
         /// Username on the cluster node
         /// </summary>
@@ -69,7 +73,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"API port on the cluster node")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Port { get; set; }
     }
 }

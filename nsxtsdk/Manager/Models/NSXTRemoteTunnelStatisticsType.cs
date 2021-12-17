@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRemoteTunnelStatisticsType 
     {
+        public NSXTRemoteTunnelStatisticsType()
+        {
+        }
         /// <summary>
         /// Ip address of remote tunnel destination.
         /// </summary>
@@ -30,16 +33,16 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Ip address of remote tunnel source.")]
         public string? TunnelSourceAddress { get; set; }
         /// <summary>
-        /// Total received data from remote tunnel.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "rx")]
-        [NSXTProperty(IsRequired: false, Description: @"Total received data from remote tunnel.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTInterSitePortCountersType Rx { get; set; }
         /// <summary>
-        /// Total sent data to remote tunnel.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "tx")]
-        [NSXTProperty(IsRequired: false, Description: @"Total sent data to remote tunnel.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTInterSitePortCountersType Tx { get; set; }
     }
 }

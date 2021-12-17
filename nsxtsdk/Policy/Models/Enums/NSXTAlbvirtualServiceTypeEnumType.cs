@@ -7,9 +7,9 @@ using nsxtsdk.Models;
 namespace nsxtsdk.PolicyModels
 {
     /// <summary>
-    /// Specify if this is a normal Virtual Service, or if it isthe parent or child of an SNI-enabled virtual hosted VirtualService.Enum options - VS_TYPE_NORMAL, VS_TYPE_VH_PARENT,VS_TYPE_VH_CHILD.Default value when not specified in API or module isinterpreted by ALB Controller as VS_TYPE_NORMAL.
+    /// Specify if this is a normal Virtual Service, or if it isthe parent or child of an SNI-enabled virtual hosted VirtualService.Enum options - VS_TYPE_NORMAL, VS_TYPE_VH_PARENT,VS_TYPE_VH_CHILD.Allowed in Basic(Allowed values-VS_TYPE_NORMAL,VS_TYPE_VH_PARENT) edition,Essentials(Allowed values- VS_TYPE_NORMAL) edition,Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as VS_TYPE_NORMAL.
     /// </summary>
-    [NSXTProperty(Description: @"Specify if this is a normal Virtual Service, or if it isthe parent or child of an SNI-enabled virtual hosted VirtualService.Enum options - VS_TYPE_NORMAL, VS_TYPE_VH_PARENT,VS_TYPE_VH_CHILD.Default value when not specified in API or module isinterpreted by ALB Controller as VS_TYPE_NORMAL.")]
+    [NSXTProperty(Description: @"Specify if this is a normal Virtual Service, or if it isthe parent or child of an SNI-enabled virtual hosted VirtualService.Enum options - VS_TYPE_NORMAL, VS_TYPE_VH_PARENT,VS_TYPE_VH_CHILD.Allowed in Basic(Allowed values-VS_TYPE_NORMAL,VS_TYPE_VH_PARENT) edition,Essentials(Allowed values- VS_TYPE_NORMAL) edition,Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as VS_TYPE_NORMAL.")]
     public enum NSXTAlbvirtualServiceTypeEnumType
     {
         [EnumMember(Value = "VS_TYPE_NORMAL")]

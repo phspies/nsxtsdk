@@ -68,46 +68,6 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeInterfacePropertiesType ReadFabricNodeInterface(string NodeId, string InterfaceId, string? Source = null)
-        {
-            if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
-            if (InterfaceId == null) { throw new System.ArgumentNullException("InterfaceId cannot be null"); }
-            NSXTNodeInterfacePropertiesType returnValue = default(NSXTNodeInterfacePropertiesType);
-            StringBuilder ReadFabricNodeInterfaceServiceURL = new StringBuilder("/fabric/nodes/{node-id}/network/interfaces/{interface-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadFabricNodeInterfaceServiceURL.Replace("{node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReadFabricNodeInterfaceServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
-            request.Resource = ReadFabricNodeInterfaceServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadFabricNodeInterfaceServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeInterfacePropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeInterfacePropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTNodeInterfaceStatisticsPropertiesType ReadClusterNodeInterfaceStatistics(string NodeId, string InterfaceId, string? Source = null)
         {
             if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
@@ -258,46 +218,6 @@ namespace nsxtapi.ManagerModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeInterfacePropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTNodeInterfaceStatisticsPropertiesType ReadFabricNodeInterfaceStatistics(string NodeId, string InterfaceId, string? Source = null)
-        {
-            if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
-            if (InterfaceId == null) { throw new System.ArgumentNullException("InterfaceId cannot be null"); }
-            NSXTNodeInterfaceStatisticsPropertiesType returnValue = default(NSXTNodeInterfaceStatisticsPropertiesType);
-            StringBuilder ReadFabricNodeInterfaceStatisticsServiceURL = new StringBuilder("/fabric/nodes/{node-id}/network/interfaces/{interface-id}/stats");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadFabricNodeInterfaceStatisticsServiceURL.Replace("{node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReadFabricNodeInterfaceStatisticsServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
-            request.Resource = ReadFabricNodeInterfaceStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadFabricNodeInterfaceStatisticsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeInterfaceStatisticsPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeInterfaceStatisticsPropertiesType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}

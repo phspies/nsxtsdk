@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTEtherTypeServiceEntryType : NSXTServiceEntryType
     {
+        public NSXTEtherTypeServiceEntryType()
+        {
+        }
         /// <summary>
         /// Type of the encapsulated protocol
         /// </summary>

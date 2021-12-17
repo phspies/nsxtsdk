@@ -18,6 +18,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Criterion Evaluation is the basic logical condition to evaluatewhether the event could be potentially met.")]
     public class NSXTEvaluationType 
     {
+        public NSXTEvaluationType()
+        {
+        }
         /// <summary>
         /// Criterion Evaluation resource type.
         /// </summary>

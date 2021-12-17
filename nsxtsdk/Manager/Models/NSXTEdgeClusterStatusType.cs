@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTEdgeClusterStatusType 
     {
+        public NSXTEdgeClusterStatusType()
+        {
+        }
         /// <summary>
         /// Timestamp when the cluster status was last updated
         /// </summary>

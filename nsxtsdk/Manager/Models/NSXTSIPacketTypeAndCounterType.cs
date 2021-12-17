@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSIPacketTypeAndCounterType 
     {
+        public NSXTSIPacketTypeAndCounterType()
+        {
+        }
         /// <summary>
         /// The number of packets.
         /// </summary>

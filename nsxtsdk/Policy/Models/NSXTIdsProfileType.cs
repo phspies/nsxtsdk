@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdsProfileType : NSXTPolicyConfigResourceType
     {
+        public NSXTIdsProfileType()
+        {
+        }
         /// <summary>
         /// Represents the filtering criteria for the IDS Profile.
         /// 1. A non-empty criteria list, must be of odd size. In a list, with

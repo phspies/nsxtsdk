@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildALBWebhookType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildALBWebhookType()
+        {
+        }
         /// <summary>
-        /// Contains the actual ALBWebhook object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ALBWebhook", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual ALBWebhook object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBWebhookType ALBWebhook { get; set; }
     }

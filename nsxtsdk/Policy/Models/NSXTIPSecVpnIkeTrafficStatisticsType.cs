@@ -18,6 +18,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Traffic statistics for IPSec VPN Ike session.Note - Not supported in this release.")]
     public class NSXTIPSecVpnIkeTrafficStatisticsType 
     {
+        public NSXTIPSecVpnIkeTrafficStatisticsType()
+        {
+        }
         /// <summary>
         /// Number of packets out.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTAggregateL2VPNSessionStatusType : NSXTAggregatePolicyRuntimeInfoType
     {
+        public NSXTAggregateL2VPNSessionStatusType()
+        {
+        }
         /// <summary>
         /// List of L2VPN Session Status per Enforcement Point.
         /// </summary>

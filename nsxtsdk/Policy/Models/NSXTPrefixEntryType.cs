@@ -17,12 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Network prefix entry")]
     public class NSXTPrefixEntryType 
     {
+        public NSXTPrefixEntryType()
+        {
+            Action = test
+        }
         /// <summary>
         /// Action for the prefix list.
         /// </summary>
         [JsonProperty(PropertyName = "action")]
         [NSXTProperty(IsRequired: false, Description: @"Action for the prefix list.")]
-        [NSXTDefaultProperty(Default: "PERMIT")]
         public NSXTPrefixEntryActionEnumType? Action { get; set; }
         /// <summary>
         /// Prefix length greater than or equal to.
@@ -31,7 +34,7 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Prefix length greater than or equal to.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(128)]
-        public long? Ge { get; set; }
+        public int? Ge { get; set; }
         /// <summary>
         /// Prefix length less than or equal to.
         /// </summary>
@@ -39,7 +42,7 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Prefix length less than or equal to.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(128)]
-        public long? Le { get; set; }
+        public int? Le { get; set; }
         /// <summary>
         /// Network prefix in CIDR format. "ANY" matches all networks.
         /// </summary>

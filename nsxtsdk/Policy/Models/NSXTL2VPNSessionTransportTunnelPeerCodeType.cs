@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"L2VPN transport tunnel peer code.")]
     public class NSXTL2VPNSessionTransportTunnelPeerCodeType 
     {
+        public NSXTL2VPNSessionTransportTunnelPeerCodeType()
+        {
+        }
         /// <summary>
         /// Peer code represents a base64 encoded string which has
         /// all the configuration for tunnel. E.g local/peer ips and

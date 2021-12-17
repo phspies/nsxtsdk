@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildALBTrafficCloneProfileType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildALBTrafficCloneProfileType()
+        {
+        }
         /// <summary>
-        /// Contains the actual ALBTrafficCloneProfile object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ALBTrafficCloneProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual ALBTrafficCloneProfile object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBTrafficCloneProfileType ALBTrafficCloneProfile { get; set; }
     }

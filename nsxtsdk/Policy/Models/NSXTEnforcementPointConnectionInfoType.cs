@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Contains information required to connect to enforcement point.")]
     public class NSXTEnforcementPointConnectionInfoType 
     {
+        public NSXTEnforcementPointConnectionInfoType()
+        {
+        }
         /// <summary>
         /// Value of this property could be Hostname or IP. For instance:
         /// - On an NSX-T MP running on default port, the value could be "10.192.1.1"

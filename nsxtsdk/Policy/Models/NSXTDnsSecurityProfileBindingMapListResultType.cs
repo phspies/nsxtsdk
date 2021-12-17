@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDnsSecurityProfileBindingMapListResultType : NSXTListResultType
     {
+        public NSXTDnsSecurityProfileBindingMapListResultType()
+        {
+        }
         /// <summary>
         /// DNS Security Profile Binding Map List Results
         /// </summary>

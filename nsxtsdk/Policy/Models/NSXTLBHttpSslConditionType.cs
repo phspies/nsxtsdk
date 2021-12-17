@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBHttpSslConditionType : NSXTLBRuleConditionType
     {
+        public NSXTLBHttpSslConditionType()
+        {
+            SessionReused = test
+        }
         /// <summary>
         /// Cipher list which supported by client.
         /// </summary>
@@ -24,18 +28,16 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Cipher list which supported by client.")]
         public IList<string> ClientSupportedSslCiphers { get; set; }
         /// <summary>
-        /// The issuer DN match condition of the client certificate for an
-        /// established SSL connection.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "client_certificate_issuer_dn")]
-        [NSXTProperty(IsRequired: false, Description: @"The issuer DN match condition of the client certificate for anestablished SSL connection.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLBClientCertificateIssuerDnConditionType ClientCertificateIssuerDn { get; set; }
         /// <summary>
-        /// The subject DN match condition of the client certificate for an
-        /// established SSL connection.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "client_certificate_subject_dn")]
-        [NSXTProperty(IsRequired: false, Description: @"The subject DN match condition of the client certificate for anestablished SSL connection.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLBClientCertificateSubjectDnConditionType ClientCertificateSubjectDn { get; set; }
         /// <summary>
         /// Cipher used for an established SSL connection.
@@ -48,7 +50,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "session_reused")]
         [NSXTProperty(IsRequired: false, Description: @"The type of SSL session reused.")]
-        [NSXTDefaultProperty(Default: "IGNORE")]
         public NSXTLbhttpSslConditionSessionReusedEnumType? SessionReused { get; set; }
         /// <summary>
         /// Protocol of an established SSL connection.

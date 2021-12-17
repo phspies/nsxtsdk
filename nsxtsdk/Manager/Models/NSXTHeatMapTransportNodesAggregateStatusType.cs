@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTHeatMapTransportNodesAggregateStatusType 
     {
+        public NSXTHeatMapTransportNodesAggregateStatusType()
+        {
+        }
         /// <summary>
         /// Number of transport nodes that are degraded
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"List of PoolMemberSetting")]
     public class NSXTPoolMemberSettingListType 
     {
+        public NSXTPoolMemberSettingListType()
+        {
+        }
         /// <summary>
         /// List of pool member settings to be passed to add, update and remove APIs
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Type of issue and detailed description of the issues in case of post-VM  deployment configuration failure.")]
     public class NSXTSVMConfigureIssueType 
     {
+        public NSXTSVMConfigureIssueType()
+        {
+        }
         /// <summary>
         /// List of errors along with details like errorId and error messages.
         /// </summary>

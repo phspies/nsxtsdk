@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTransportZoneProfileTypeIdEntryType 
     {
+        public NSXTTransportZoneProfileTypeIdEntryType()
+        {
+        }
         /// <summary>
         /// profile id of the resource type
         /// </summary>

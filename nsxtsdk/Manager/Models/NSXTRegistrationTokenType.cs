@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Appliance registration access token")]
     public class NSXTRegistrationTokenType 
     {
+        public NSXTRegistrationTokenType()
+        {
+        }
         /// <summary>
         /// Access token
         /// </summary>

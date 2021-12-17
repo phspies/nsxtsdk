@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTBaseTier0InterfaceType : NSXTPolicyConfigResourceType
     {
+        public NSXTBaseTier0InterfaceType()
+        {
+        }
         /// <summary>
         /// Specify IP address and network prefix for interface.
         /// </summary>

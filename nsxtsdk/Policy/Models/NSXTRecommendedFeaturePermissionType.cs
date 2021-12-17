@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Recommended Feature Permission")]
     public class NSXTRecommendedFeaturePermissionType 
     {
+        public NSXTRecommendedFeaturePermissionType()
+        {
+        }
         /// <summary>
         /// List of source features
         /// </summary>

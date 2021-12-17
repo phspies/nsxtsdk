@@ -102,11 +102,11 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void ResolveErrorResolveError(NSXTErrorResolverMetadataListType ErrorResolverMetadataList)
+        public void ResolveError(NSXTErrorResolverMetadataListType ErrorResolverMetadataList)
         {
             if (ErrorResolverMetadataList == null) { throw new System.ArgumentNullException("ErrorResolverMetadataList cannot be null"); }
             
-            StringBuilder ResolveErrorResolveErrorServiceURL = new StringBuilder("/error-resolver?action=resolve_error");
+            StringBuilder ResolveErrorServiceURL = new StringBuilder("/error-resolver?action=resolve_error");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -114,11 +114,11 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(ErrorResolverMetadataList, defaultSerializationSettings));
-            request.Resource = ResolveErrorResolveErrorServiceURL.ToString();
+            request.Resource = ResolveErrorServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + ResolveErrorResolveErrorServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + ResolveErrorServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             

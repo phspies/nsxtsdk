@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Configuration where backup files are stored for restore")]
     public class NSXTRestoreConfigurationType 
     {
+        public NSXTRestoreConfigurationType()
+        {
+        }
         /// <summary>
-        /// The server from which backup files will be retrieved for restore.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "remote_file_server", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The server from which backup files will be retrieved for restore.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTRemoteFileServerType RemoteFileServer { get; set; }
         /// <summary>

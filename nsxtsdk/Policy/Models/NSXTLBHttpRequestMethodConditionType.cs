@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBHttpRequestMethodConditionType : NSXTLBRuleConditionType
     {
+        public NSXTLBHttpRequestMethodConditionType()
+        {
+        }
         /// <summary>
         /// Type of HTTP request method
         /// </summary>

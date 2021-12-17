@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSshKeyPropertiesListResultType : NSXTListResultType
     {
+        public NSXTSshKeyPropertiesListResultType()
+        {
+        }
         /// <summary>
         /// SSH key properties query results
         /// </summary>

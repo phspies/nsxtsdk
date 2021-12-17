@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceBindingType 
     {
+        public NSXTServiceBindingType()
+        {
+        }
         /// <summary>
-        /// Identifier of Logical Service
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "service_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Identifier of Logical Service")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTResourceReferenceType ServiceId { get; set; }
     }

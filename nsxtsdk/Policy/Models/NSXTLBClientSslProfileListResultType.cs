@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBClientSslProfileListResultType : NSXTListResultType
     {
+        public NSXTLBClientSslProfileListResultType()
+        {
+        }
         /// <summary>
         /// Paginated list of load balancer client SSL profiles
         /// </summary>

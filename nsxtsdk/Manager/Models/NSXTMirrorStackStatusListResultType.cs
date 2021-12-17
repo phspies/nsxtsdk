@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMirrorStackStatusListResultType : NSXTListResultType
     {
+        public NSXTMirrorStackStatusListResultType()
+        {
+        }
         /// <summary>
         /// SUCCESS if all the TN's stack status are SUCCESS,
         /// FAILED if some of the TN's stack status are FAILED.

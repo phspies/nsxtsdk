@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTStatsConfigurationType : NSXTWidgetConfigurationType
     {
+        public NSXTStatsConfigurationType()
+        {
+        }
         /// <summary>
         /// Hyperlink of the specified UI page that provides details.
         /// </summary>
@@ -24,12 +27,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Hyperlink of the specified UI page that provides details.")]
         public string? Navigation { get; set; }
         /// <summary>
-        /// Expression that fetches statistic. It can be used to show the characteristics of entities such as Logical Switches,
-        /// Firewall Rules, and so on. For example, number of logical switches and their admin states. If stat is not provided, then
-        /// it will not be displayed.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "stat")]
-        [NSXTProperty(IsRequired: false, Description: @"Expression that fetches statistic. It can be used to show the characteristics of entities such as Logical Switches, Firewall Rules, and so on. For example, number of logical switches and their admin states. If stat is not provided, then it will not be displayed.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTStatItemType Stat { get; set; }
         /// <summary>
         /// Sections
@@ -48,11 +49,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"A sub-type of StatsConfiguration. If sub-type is not specified the parent type is rendered. The COMPACT sub_type, conserves the space for the widget. The statistic is placed on the right side on top of the status bar and the title of the widget is placed on the left side on the top of the status bar. The COMPACT style aligns itself horizontally as per the width of the container. If multiple widgets are placed insided the container then the widgets are placed one below the other to conserve the space.")]
         public NSXTStatsConfigurationSubTypeEnumType? SubType { get; set; }
         /// <summary>
-        /// Displayed at the sections, by default. It labels the entities of sections. If label is not provided, the sections are
-        /// not labelled.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "label")]
-        [NSXTProperty(IsRequired: false, Description: @"Displayed at the sections, by default. It labels the entities of sections. If label is not provided, the sections are not labelled.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLabelType Label { get; set; }
     }
 }

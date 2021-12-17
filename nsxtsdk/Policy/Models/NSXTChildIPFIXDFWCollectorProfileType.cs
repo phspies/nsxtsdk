@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildIPFIXDFWCollectorProfileType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildIPFIXDFWCollectorProfileType()
+        {
+        }
         /// <summary>
-        /// Contains the actual IPFIXDFWCollectorProfile object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "IPFIXDFWCollectorProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual IPFIXDFWCollectorProfile object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTIPFIXDFWCollectorProfileType IPFIXDFWCollectorProfile { get; set; }
     }

@@ -17,12 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVpnServiceType : NSXTPolicyConfigResourceType
     {
+        public NSXTIPSecVpnServiceType()
+        {
+            IkeLogLevel = test
+            HaSync = test
+            Enabled = test
+        }
         /// <summary>
         /// Log level for internet key exchange (IKE).
         /// </summary>
         [JsonProperty(PropertyName = "ike_log_level")]
         [NSXTProperty(IsRequired: false, Description: @"Log level for internet key exchange (IKE).")]
-        [NSXTDefaultProperty(Default: "INFO")]
         public NSXTIpsecVpnServiceIkeLogLevelEnumType? IkeLogLevel { get; set; }
         /// <summary>
         /// Bypass policy rules are configured using VPN service.
@@ -40,14 +45,12 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "ha_sync")]
         [NSXTProperty(IsRequired: false, Description: @"Enable/disable IPSec HA state sync. IPSec HA state sync can be disabled if in case there are performance issues w.r.t. the state sync messages.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? HaSync { get; set; }
         /// <summary>
-        /// If true, enable VPN services for given locale service.
+        /// If true, enable VPN services under tier-0/tier-1.
         /// </summary>
         [JsonProperty(PropertyName = "enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"If true, enable VPN services for given locale service.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"If true, enable VPN services under tier-0/tier-1.")]
         public bool? Enabled { get; set; }
     }
 }

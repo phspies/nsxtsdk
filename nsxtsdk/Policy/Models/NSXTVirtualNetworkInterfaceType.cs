@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTVirtualNetworkInterfaceType : NSXTDiscoveredResourceType
     {
+        public NSXTVirtualNetworkInterfaceType()
+        {
+        }
         /// <summary>
         /// MAC address of the virtual network interface.
         /// </summary>

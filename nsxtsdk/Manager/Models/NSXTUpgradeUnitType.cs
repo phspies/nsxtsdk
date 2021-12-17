@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUpgradeUnitType : NSXTResourceType
     {
+        public NSXTUpgradeUnitType()
+        {
+        }
         /// <summary>
-        /// Info of the group to which this upgrade unit belongs
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "group")]
-        [NSXTProperty(IsRequired: false, Description: @"Info of the group to which this upgrade unit belongs")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTUpgradeUnitGroupInfoType Group { get; set; }
         /// <summary>
         /// List of warnings indicating issues with the upgrade unit that may result in upgrade failure

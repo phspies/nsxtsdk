@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"The reponse to a batch operation")]
     public class NSXTBatchResponseType 
     {
+        public NSXTBatchResponseType()
+        {
+        }
         /// <summary>
         /// Indicates if any of the APIs failed
         /// </summary>

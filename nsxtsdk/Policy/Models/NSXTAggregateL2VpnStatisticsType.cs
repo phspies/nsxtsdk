@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Aggregate of L2Vpn Statistics across Enforcement Points.")]
     public class NSXTAggregateL2VpnStatisticsType 
     {
+        public NSXTAggregateL2VpnStatisticsType()
+        {
+        }
         /// <summary>
         /// List of L2Vpn Statistics per Enforcement Point.
         /// </summary>

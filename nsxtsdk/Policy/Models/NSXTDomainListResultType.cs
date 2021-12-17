@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDomainListResultType : NSXTListResultType
     {
+        public NSXTDomainListResultType()
+        {
+        }
         /// <summary>
         /// Domain list results
         /// </summary>

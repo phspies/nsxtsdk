@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTVirtualMachineDetailsType : NSXTResourceType
     {
+        public NSXTVirtualMachineDetailsType()
+        {
+        }
         /// <summary>
         /// List of active (still logged in) user login/session data (no limit).
         /// </summary>

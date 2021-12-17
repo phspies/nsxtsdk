@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTVirtualSwitchListResultType : NSXTListResultType
     {
+        public NSXTVirtualSwitchListResultType()
+        {
+        }
         /// <summary>
         /// Virtual switch list results
         /// </summary>

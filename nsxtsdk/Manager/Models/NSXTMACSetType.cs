@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMACSetType : NSXTManagedResourceType
     {
+        public NSXTMACSetType()
+        {
+        }
         /// <summary>
         /// MAC addresses
         /// </summary>

@@ -18,11 +18,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Segment extra config is intended for supporting vendor specific configuration on thedata path, it can be set as key value string pairs on either segment or segment port.")]
     public class NSXTSegmentExtraConfigType 
     {
+        public NSXTSegmentExtraConfigType()
+        {
+        }
         /// <summary>
-        /// Key value pair in string for the configuration
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "config_pair", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Key value pair in string for the configuration")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTUnboundedKeyValuePairType ConfigPair { get; set; }
     }

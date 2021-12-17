@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"A collection of subject alternative names")]
     public class NSXTSubjectAltNamesType 
     {
+        public NSXTSubjectAltNamesType()
+        {
+        }
         /// <summary>
         /// A list of DNS names in subject alternative names
         /// </summary>

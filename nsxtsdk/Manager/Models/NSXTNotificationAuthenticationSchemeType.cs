@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"NotificationAuthenticationScheme describes how notification requests should authenticate to the server.")]
     public class NSXTNotificationAuthenticationSchemeType 
     {
+        public NSXTNotificationAuthenticationSchemeType()
+        {
+        }
         /// <summary>
         /// Username to use if scheme_name is BASIC_AUTH.
         /// </summary>

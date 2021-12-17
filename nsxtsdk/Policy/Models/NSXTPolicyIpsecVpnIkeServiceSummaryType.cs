@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyIpsecVpnIkeServiceSummaryType : NSXTPolicyIpsecVpnSessionSummaryType
     {
+        public NSXTPolicyIpsecVpnIkeServiceSummaryType()
+        {
+        }
         /// <summary>
         /// Display name of IPSec VPN service
         /// </summary>
@@ -29,5 +32,12 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "ipsec_vpn_service_path")]
         [NSXTProperty(IsRequired: false, Description: @"Policy path of IPSec VPN service")]
         public string? IpsecVpnServicePath { get; set; }
+        /// <summary>
+        /// Policy Path referencing the Primary site's enforcement point where the info is fetched.
+        /// This is applicable only on a GlobalManager.
+        /// </summary>
+        [JsonProperty(PropertyName = "enforcement_point_path")]
+        [NSXTProperty(IsRequired: false, Description: @"Policy Path referencing the Primary site&apos;s enforcement point where the info is fetched.This is applicable only on a GlobalManager.")]
+        public string? EnforcementPointPath { get; set; }
     }
 }

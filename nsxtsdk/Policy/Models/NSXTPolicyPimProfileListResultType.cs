@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyPimProfileListResultType : NSXTListResultType
     {
+        public NSXTPolicyPimProfileListResultType()
+        {
+        }
         /// <summary>
         /// PIM Profile list results.
         /// </summary>

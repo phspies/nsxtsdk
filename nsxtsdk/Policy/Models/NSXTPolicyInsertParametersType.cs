@@ -18,6 +18,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Parameters to let the admin specify a relative position of a securitypolicy or rule w.r.t to another one.")]
     public class NSXTPolicyInsertParametersType 
     {
+        public NSXTPolicyInsertParametersType()
+        {
+            Operation = test
+        }
         /// <summary>
         /// The security policy/rule path if operation is 'insert_after' or
         /// 'insert_before'
@@ -30,7 +34,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "operation")]
         [NSXTProperty(IsRequired: false, Description: @"Operation")]
-        [NSXTDefaultProperty(Default: "insert_top")]
         public NSXTPolicyInsertParametersOperationEnumType? Operation { get; set; }
     }
 }

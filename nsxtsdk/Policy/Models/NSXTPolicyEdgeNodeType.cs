@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyEdgeNodeType : NSXTPolicyConfigResourceType
     {
+        public NSXTPolicyEdgeNodeType()
+        {
+        }
         /// <summary>
         /// The numerical value of the member index in the edge cluster
         /// that this object represents and to which the edge node connects.

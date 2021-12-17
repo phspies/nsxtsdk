@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyTepTableEntryType 
     {
+        public NSXTPolicyTepTableEntryType()
+        {
+        }
         /// <summary>
         /// The tunnel endpoint label
         /// </summary>

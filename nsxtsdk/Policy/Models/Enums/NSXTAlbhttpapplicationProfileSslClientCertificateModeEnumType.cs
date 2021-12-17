@@ -7,9 +7,9 @@ using nsxtsdk.Models;
 namespace nsxtsdk.PolicyModels
 {
     /// <summary>
-    /// Specifies whether the client side verification is set tonone, request or require.Enum options - SSL_CLIENT_CERTIFICATE_NONE,SSL_CLIENT_CERTIFICATE_REQUEST,SSL_CLIENT_CERTIFICATE_REQUIRE.Default value when not specified in API or module isinterpreted by ALB Controller asSSL_CLIENT_CERTIFICATE_NONE.
+    /// Specifies whether the client side verification is set tonone, request or require.Enum options - SSL_CLIENT_CERTIFICATE_NONE,SSL_CLIENT_CERTIFICATE_REQUEST,SSL_CLIENT_CERTIFICATE_REQUIRE.Allowed in Basic(Allowed values-SSL_CLIENT_CERTIFICATE_NONE,SSL_CLIENT_CERTIFICATE_REQUIRE)edition, Essentials(Allowed values-SSL_CLIENT_CERTIFICATE_NONE,SSL_CLIENT_CERTIFICATE_REQUIRE)edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller asSSL_CLIENT_CERTIFICATE_NONE.
     /// </summary>
-    [NSXTProperty(Description: @"Specifies whether the client side verification is set tonone, request or require.Enum options - SSL_CLIENT_CERTIFICATE_NONE,SSL_CLIENT_CERTIFICATE_REQUEST,SSL_CLIENT_CERTIFICATE_REQUIRE.Default value when not specified in API or module isinterpreted by ALB Controller asSSL_CLIENT_CERTIFICATE_NONE.")]
+    [NSXTProperty(Description: @"Specifies whether the client side verification is set tonone, request or require.Enum options - SSL_CLIENT_CERTIFICATE_NONE,SSL_CLIENT_CERTIFICATE_REQUEST,SSL_CLIENT_CERTIFICATE_REQUIRE.Allowed in Basic(Allowed values-SSL_CLIENT_CERTIFICATE_NONE,SSL_CLIENT_CERTIFICATE_REQUIRE)edition, Essentials(Allowed values-SSL_CLIENT_CERTIFICATE_NONE,SSL_CLIENT_CERTIFICATE_REQUIRE)edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller asSSL_CLIENT_CERTIFICATE_NONE.")]
     public enum NSXTAlbhttpapplicationProfileSslClientCertificateModeEnumType
     {
         [EnumMember(Value = "SSL_CLIENT_CERTIFICATE_NONE")]

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAuditLogListResultType : NSXTListResultType
     {
+        public NSXTAuditLogListResultType()
+        {
+        }
         /// <summary>
         /// Timestamp of the last full audit log collection
         /// </summary>

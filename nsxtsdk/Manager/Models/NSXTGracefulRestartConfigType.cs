@@ -17,18 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"BGP Graceful Restart configuration parameters")]
     public class NSXTGracefulRestartConfigType 
     {
+        public NSXTGracefulRestartConfigType()
+        {
+            GracefulRestartMode = test
+        }
         /// <summary>
         /// BGP Graceful Restart mode
         /// </summary>
         [JsonProperty(PropertyName = "graceful_restart_mode")]
         [NSXTProperty(IsRequired: false, Description: @"BGP Graceful Restart mode")]
-        [NSXTDefaultProperty(Default: "HELPER_ONLY")]
         public NSXTGracefulRestartConfigGracefulRestartModeEnumType? GracefulRestartMode { get; set; }
         /// <summary>
-        /// Graceful Restart timers configuration
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "graceful_restart_timer")]
-        [NSXTProperty(IsRequired: false, Description: @"Graceful Restart timers configuration")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTGracefulRestartTimerType GracefulRestartTimer { get; set; }
     }
 }

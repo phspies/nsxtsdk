@@ -18,6 +18,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"All the filtering criteria objects extend from this abstract class.This is present for extensibility.")]
     public class NSXTIdsProfileCriteriaType 
     {
+        public NSXTIdsProfileCriteriaType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

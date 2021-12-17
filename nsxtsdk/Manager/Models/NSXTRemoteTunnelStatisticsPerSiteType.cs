@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRemoteTunnelStatisticsPerSiteType 
     {
+        public NSXTRemoteTunnelStatisticsPerSiteType()
+        {
+        }
         /// <summary>
         /// Statistics per remote tunnel.
         /// </summary>
@@ -24,22 +27,22 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Statistics per remote tunnel.")]
         public IList<NSXTRemoteTunnelStatisticsType> StatsPerTunnel { get; set; }
         /// <summary>
-        /// Remote site details.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "remote_site")]
-        [NSXTProperty(IsRequired: false, Description: @"Remote site details.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType RemoteSite { get; set; }
         /// <summary>
-        /// Total received data from remote site.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "rx")]
-        [NSXTProperty(IsRequired: false, Description: @"Total received data from remote site.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTInterSitePortCountersType Rx { get; set; }
         /// <summary>
-        /// Total sent data to remote site.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "tx")]
-        [NSXTProperty(IsRequired: false, Description: @"Total sent data to remote site.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTInterSitePortCountersType Tx { get; set; }
     }
 }

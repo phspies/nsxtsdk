@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUpgradeUnitGroupStatusType 
     {
+        public NSXTUpgradeUnitGroupStatusType()
+        {
+        }
         /// <summary>
         /// Upgrade status of upgrade unit group
         /// </summary>

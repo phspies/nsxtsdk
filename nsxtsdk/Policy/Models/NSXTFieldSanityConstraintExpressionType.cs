@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTFieldSanityConstraintExpressionType : NSXTConstraintExpressionType
     {
+        public NSXTFieldSanityConstraintExpressionType()
+        {
+        }
         /// <summary>
         /// A conditional operator
         /// </summary>

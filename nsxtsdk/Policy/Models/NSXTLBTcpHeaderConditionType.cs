@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBTcpHeaderConditionType : NSXTLBRuleConditionType
     {
+        public NSXTLBTcpHeaderConditionType()
+        {
+        }
         /// <summary>
         /// TCP source port of HTTP message
         /// </summary>

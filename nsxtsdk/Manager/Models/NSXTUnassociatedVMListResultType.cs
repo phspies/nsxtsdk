@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUnassociatedVMListResultType : NSXTListResultType
     {
+        public NSXTUnassociatedVMListResultType()
+        {
+        }
         /// <summary>
         /// Timestamp in milliseconds since epoch
         /// </summary>

@@ -68,18 +68,18 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalPortMacAddressCsvListResultType GetLogicalPortMacTableInCsvFormatCsv(string LportId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
+        public NSXTLogicalPortMacAddressCsvListResultType GetLogicalPortMacTableInCsvFormat(string LportId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
         {
             if (LportId == null) { throw new System.ArgumentNullException("LportId cannot be null"); }
             NSXTLogicalPortMacAddressCsvListResultType returnValue = default(NSXTLogicalPortMacAddressCsvListResultType);
-            StringBuilder GetLogicalPortMacTableInCsvFormatCsvServiceURL = new StringBuilder("/logical-ports/{lport-id}/mac-table?format=csv");
+            StringBuilder GetLogicalPortMacTableInCsvFormatServiceURL = new StringBuilder("/logical-ports/{lport-id}/mac-table?format=csv");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetLogicalPortMacTableInCsvFormatCsvServiceURL.Replace("{lport-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LportId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetLogicalPortMacTableInCsvFormatServiceURL.Replace("{lport-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LportId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
@@ -87,11 +87,11 @@ namespace nsxtapi.ManagerModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
-            request.Resource = GetLogicalPortMacTableInCsvFormatCsvServiceURL.ToString();
+            request.Resource = GetLogicalPortMacTableInCsvFormatServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetLogicalPortMacTableInCsvFormatCsvServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GetLogicalPortMacTableInCsvFormatServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else

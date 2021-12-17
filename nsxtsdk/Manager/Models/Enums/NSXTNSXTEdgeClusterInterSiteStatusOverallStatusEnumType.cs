@@ -20,5 +20,7 @@ namespace nsxtsdk.ManagerModels
         DEGRADED = 3,
         [EnumMember(Value = "UNKNOWN")]
         UNKNOWN = 4,
+        [EnumMember(Value = "CONFIGURED")]
+        CONFIGURED = 5,
     }
 }

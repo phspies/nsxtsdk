@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPFIXL2CollectorProfileType : NSXTPolicyConfigResourceType
     {
+        public NSXTIPFIXL2CollectorProfileType()
+        {
+        }
         /// <summary>
         /// It accepts Multiple Collector objects.
         /// </summary>

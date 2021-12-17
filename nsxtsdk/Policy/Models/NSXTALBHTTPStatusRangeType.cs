@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HTTPStatusRange object")]
     public class NSXTALBHTTPStatusRangeType 
     {
+        public NSXTALBHTTPStatusRangeType()
+        {
+        }
         /// <summary>
         /// Starting HTTP response status code.
         /// </summary>

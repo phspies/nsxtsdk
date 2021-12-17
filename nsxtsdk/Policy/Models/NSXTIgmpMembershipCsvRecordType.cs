@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIgmpMembershipCsvRecordType : NSXTCsvRecordType
     {
+        public NSXTIgmpMembershipCsvRecordType()
+        {
+        }
         /// <summary>
         /// Transport node uuid or policy path.
         /// </summary>

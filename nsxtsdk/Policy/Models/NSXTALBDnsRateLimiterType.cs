@@ -17,18 +17,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsRateLimiter object")]
     public class NSXTALBDnsRateLimiterType 
     {
+        public NSXTALBDnsRateLimiterType()
+        {
+        }
         /// <summary>
-        /// Action to perform upon rate limiting.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "action", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Action to perform upon rate limiting.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBDnsRuleRLActionType Action { get; set; }
         /// <summary>
-        /// Rate limiting object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "rate_limiter_object", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Rate limiting object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBRateLimiterType RateLimiterObject { get; set; }
     }

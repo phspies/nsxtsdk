@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTVendorTemplateListResultType : NSXTListResultType
     {
+        public NSXTVendorTemplateListResultType()
+        {
+        }
         /// <summary>
         /// List of the Service-Insertion Services. The list has to be homogenous.
         /// </summary>

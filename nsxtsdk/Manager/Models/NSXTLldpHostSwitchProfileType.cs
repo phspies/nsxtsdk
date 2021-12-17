@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLldpHostSwitchProfileType : NSXTBaseHostSwitchProfileType
     {
+        public NSXTLldpHostSwitchProfileType()
+        {
+        }
         /// <summary>
         /// Enabled or disabled sending LLDP packets
         /// </summary>

@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalRouterDownLinkPortType : NSXTLogicalRouterPortType
     {
+        public NSXTLogicalRouterDownLinkPortType()
+        {
+            UrpfMode = test
+        }
         /// <summary>
         /// Logical router port subnets
         /// </summary>
@@ -25,10 +29,10 @@ namespace nsxtsdk.ManagerModels
         [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTIPSubnetType> Subnets { get; set; }
         /// <summary>
-        /// Reference to the logical switch port to connect to
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "linked_logical_switch_port_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Reference to the logical switch port to connect to")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType LinkedLogicalSwitchPortId { get; set; }
         /// <summary>
         /// Identifier of Neighbor Discovery Router Advertisement profile
@@ -50,7 +54,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "urpf_mode")]
         [NSXTProperty(IsRequired: false, Description: @"Unicast Reverse Path Forwarding mode")]
-        [NSXTDefaultProperty(Default: "STRICT")]
         public NSXTLogicalRouterDownLinkPortUrpfModeEnumType? UrpfMode { get; set; }
         /// <summary>
         /// Routing policies used to specify how the traffic, which matches the

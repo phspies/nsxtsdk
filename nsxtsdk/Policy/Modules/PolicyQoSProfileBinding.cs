@@ -30,7 +30,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPortQoSProfileBindingMapType GlobalUpdatePortQoSbinding(string Tier1Id, string SegmentId, string PortId, string PortQosProfileBindingMapId, NSXTPortQoSProfileBindingMapType PortQoSprofileBindingMap)
+        public NSXTPortQoSProfileBindingMapType GlobalGlobalInfraUpdatePortQoSbinding(string Tier1Id, string SegmentId, string PortId, string PortQosProfileBindingMapId, NSXTPortQoSProfileBindingMapType PortQoSprofileBindingMap)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -38,23 +38,23 @@ namespace nsxtapi.PolicyModules
             if (PortQosProfileBindingMapId == null) { throw new System.ArgumentNullException("PortQosProfileBindingMapId cannot be null"); }
             if (PortQoSprofileBindingMap == null) { throw new System.ArgumentNullException("PortQoSprofileBindingMap cannot be null"); }
             NSXTPortQoSProfileBindingMapType returnValue = default(NSXTPortQoSProfileBindingMapType);
-            StringBuilder UpdatePortQoSbindingServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/ports/{port-id}/port-qos-profile-binding-maps/{port-qos-profile-binding-map-id}");
+            StringBuilder GlobalInfraUpdatePortQoSbindingServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/ports/{port-id}/port-qos-profile-binding-maps/{port-qos-profile-binding-map-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.PUT
             };
             request.AddHeader("Content-type", "application/json");
-            UpdatePortQoSbindingServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            UpdatePortQoSbindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
-            UpdatePortQoSbindingServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
-            UpdatePortQoSbindingServiceURL.Replace("{port-qos-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortQosProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraUpdatePortQoSbindingServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraUpdatePortQoSbindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraUpdatePortQoSbindingServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraUpdatePortQoSbindingServiceURL.Replace("{port-qos-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortQosProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PortQoSprofileBindingMap, defaultSerializationSettings));
-            request.Resource = UpdatePortQoSbindingServiceURL.ToString();
+            request.Resource = GlobalInfraUpdatePortQoSbindingServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP PUT operation to " + UpdatePortQoSbindingServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP PUT operation to " + GlobalInfraUpdatePortQoSbindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -75,29 +75,29 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPortQoSProfileBindingMapType GlobalGetPortQoSbinding(string Tier1Id, string SegmentId, string PortId, string PortQosProfileBindingMapId)
+        public NSXTPortQoSProfileBindingMapType GlobalGlobalInfraGetPortQoSbinding(string Tier1Id, string SegmentId, string PortId, string PortQosProfileBindingMapId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (PortId == null) { throw new System.ArgumentNullException("PortId cannot be null"); }
             if (PortQosProfileBindingMapId == null) { throw new System.ArgumentNullException("PortQosProfileBindingMapId cannot be null"); }
             NSXTPortQoSProfileBindingMapType returnValue = default(NSXTPortQoSProfileBindingMapType);
-            StringBuilder GetPortQoSbindingServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/ports/{port-id}/port-qos-profile-binding-maps/{port-qos-profile-binding-map-id}");
+            StringBuilder GlobalInfraGetPortQoSbindingServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/ports/{port-id}/port-qos-profile-binding-maps/{port-qos-profile-binding-map-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetPortQoSbindingServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetPortQoSbindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetPortQoSbindingServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetPortQoSbindingServiceURL.Replace("{port-qos-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortQosProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = GetPortQoSbindingServiceURL.ToString();
+            GlobalInfraGetPortQoSbindingServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetPortQoSbindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetPortQoSbindingServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetPortQoSbindingServiceURL.Replace("{port-qos-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortQosProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraGetPortQoSbindingServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetPortQoSbindingServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetPortQoSbindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -118,7 +118,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalPatchPortQoSbinding(string Tier1Id, string SegmentId, string PortId, string PortQosProfileBindingMapId, NSXTPortQoSProfileBindingMapType PortQoSprofileBindingMap)
+        public void GlobalGlobalInfraPatchPortQoSbinding(string Tier1Id, string SegmentId, string PortId, string PortQosProfileBindingMapId, NSXTPortQoSProfileBindingMapType PortQoSprofileBindingMap)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -126,23 +126,23 @@ namespace nsxtapi.PolicyModules
             if (PortQosProfileBindingMapId == null) { throw new System.ArgumentNullException("PortQosProfileBindingMapId cannot be null"); }
             if (PortQoSprofileBindingMap == null) { throw new System.ArgumentNullException("PortQoSprofileBindingMap cannot be null"); }
             
-            StringBuilder PatchPortQoSbindingServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/ports/{port-id}/port-qos-profile-binding-maps/{port-qos-profile-binding-map-id}");
+            StringBuilder GlobalInfraPatchPortQoSbindingServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/ports/{port-id}/port-qos-profile-binding-maps/{port-qos-profile-binding-map-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.PATCH
             };
             request.AddHeader("Content-type", "application/json");
-            PatchPortQoSbindingServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchPortQoSbindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchPortQoSbindingServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchPortQoSbindingServiceURL.Replace("{port-qos-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortQosProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraPatchPortQoSbindingServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraPatchPortQoSbindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraPatchPortQoSbindingServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraPatchPortQoSbindingServiceURL.Replace("{port-qos-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortQosProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PortQoSprofileBindingMap, defaultSerializationSettings));
-            request.Resource = PatchPortQoSbindingServiceURL.ToString();
+            request.Resource = GlobalInfraPatchPortQoSbindingServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP PATCH operation to " + PatchPortQoSbindingServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP PATCH operation to " + GlobalInfraPatchPortQoSbindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -151,29 +151,29 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalDeletePortQoSbinding(string Tier1Id, string SegmentId, string PortId, string PortQosProfileBindingMapId)
+        public void GlobalGlobalInfraDeletePortQoSbinding(string Tier1Id, string SegmentId, string PortId, string PortQosProfileBindingMapId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (PortId == null) { throw new System.ArgumentNullException("PortId cannot be null"); }
             if (PortQosProfileBindingMapId == null) { throw new System.ArgumentNullException("PortQosProfileBindingMapId cannot be null"); }
             
-            StringBuilder DeletePortQoSbindingServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/ports/{port-id}/port-qos-profile-binding-maps/{port-qos-profile-binding-map-id}");
+            StringBuilder GlobalInfraDeletePortQoSbindingServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/ports/{port-id}/port-qos-profile-binding-maps/{port-qos-profile-binding-map-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.DELETE
             };
             request.AddHeader("Content-type", "application/json");
-            DeletePortQoSbindingServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            DeletePortQoSbindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
-            DeletePortQoSbindingServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
-            DeletePortQoSbindingServiceURL.Replace("{port-qos-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortQosProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeletePortQoSbindingServiceURL.ToString();
+            GlobalInfraDeletePortQoSbindingServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraDeletePortQoSbindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraDeletePortQoSbindingServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraDeletePortQoSbindingServiceURL.Replace("{port-qos-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortQosProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraDeletePortQoSbindingServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP DELETE operation to " + DeletePortQoSbindingServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP DELETE operation to " + GlobalInfraDeletePortQoSbindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -326,32 +326,32 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPortQoSProfileBindingMapListResultType GlobalListPortQoSbindings(string Tier1Id, string SegmentId, string PortId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPortQoSProfileBindingMapListResultType GlobalGlobalInfraListPortQoSbindings(string Tier1Id, string SegmentId, string PortId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (PortId == null) { throw new System.ArgumentNullException("PortId cannot be null"); }
             NSXTPortQoSProfileBindingMapListResultType returnValue = default(NSXTPortQoSProfileBindingMapListResultType);
-            StringBuilder ListPortQoSbindingsServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/ports/{port-id}/port-qos-profile-binding-maps");
+            StringBuilder GlobalInfraListPortQoSbindingsServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/ports/{port-id}/port-qos-profile-binding-maps");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            ListPortQoSbindingsServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            ListPortQoSbindingsServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
-            ListPortQoSbindingsServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraListPortQoSbindingsServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraListPortQoSbindingsServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraListPortQoSbindingsServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListPortQoSbindingsServiceURL.ToString();
+            request.Resource = GlobalInfraListPortQoSbindingsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ListPortQoSbindingsServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraListPortQoSbindingsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -372,28 +372,28 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentQoSProfileBindingMapListResultType GlobalListInfraSegmentQoSbindings(string SegmentId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTSegmentQoSProfileBindingMapListResultType GlobalGlobalInfraListInfraSegmentQoSbindings(string SegmentId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             NSXTSegmentQoSProfileBindingMapListResultType returnValue = default(NSXTSegmentQoSProfileBindingMapListResultType);
-            StringBuilder ListInfraSegmentQoSbindingsServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/segment-qos-profile-binding-maps");
+            StringBuilder GlobalInfraListInfraSegmentQoSbindingsServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/segment-qos-profile-binding-maps");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            ListInfraSegmentQoSbindingsServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraListInfraSegmentQoSbindingsServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListInfraSegmentQoSbindingsServiceURL.ToString();
+            request.Resource = GlobalInfraListInfraSegmentQoSbindingsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ListInfraSegmentQoSbindingsServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraListInfraSegmentQoSbindingsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -460,30 +460,30 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentQoSProfileBindingMapListResultType GlobalListSegmentQoSbindings(string Tier1Id, string SegmentId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTSegmentQoSProfileBindingMapListResultType GlobalGlobalInfraListSegmentQoSbindings(string Tier1Id, string SegmentId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             NSXTSegmentQoSProfileBindingMapListResultType returnValue = default(NSXTSegmentQoSProfileBindingMapListResultType);
-            StringBuilder ListSegmentQoSbindingsServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/segment-qos-profile-binding-maps");
+            StringBuilder GlobalInfraListSegmentQoSbindingsServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/segment-qos-profile-binding-maps");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            ListSegmentQoSbindingsServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            ListSegmentQoSbindingsServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraListSegmentQoSbindingsServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraListSegmentQoSbindingsServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListSegmentQoSbindingsServiceURL.ToString();
+            request.Resource = GlobalInfraListSegmentQoSbindingsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ListSegmentQoSbindingsServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraListSegmentQoSbindingsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -504,99 +504,27 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentQoSProfileBindingMapType GlobalUpdateSegmentQoSbinding(string Tier1Id, string SegmentId, string SegmentQosProfileBindingMapId, NSXTSegmentQoSProfileBindingMapType SegmentQoSprofileBindingMap)
-        {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
-            if (SegmentQosProfileBindingMapId == null) { throw new System.ArgumentNullException("SegmentQosProfileBindingMapId cannot be null"); }
-            if (SegmentQoSprofileBindingMap == null) { throw new System.ArgumentNullException("SegmentQoSprofileBindingMap cannot be null"); }
-            NSXTSegmentQoSProfileBindingMapType returnValue = default(NSXTSegmentQoSProfileBindingMapType);
-            StringBuilder UpdateSegmentQoSbindingServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/segment-qos-profile-binding-maps/{segment-qos-profile-binding-map-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateSegmentQoSbindingServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            UpdateSegmentQoSbindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
-            UpdateSegmentQoSbindingServiceURL.Replace("{segment-qos-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentQosProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(SegmentQoSprofileBindingMap, defaultSerializationSettings));
-            request.Resource = UpdateSegmentQoSbindingServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateSegmentQoSbindingServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentQoSProfileBindingMapType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentQoSProfileBindingMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteSegmentQoSbinding(string Tier1Id, string SegmentId, string SegmentQosProfileBindingMapId)
-        {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
-            if (SegmentQosProfileBindingMapId == null) { throw new System.ArgumentNullException("SegmentQosProfileBindingMapId cannot be null"); }
-            
-            StringBuilder DeleteSegmentQoSbindingServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/segment-qos-profile-binding-maps/{segment-qos-profile-binding-map-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteSegmentQoSbindingServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteSegmentQoSbindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteSegmentQoSbindingServiceURL.Replace("{segment-qos-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentQosProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteSegmentQoSbindingServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteSegmentQoSbindingServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTSegmentQoSProfileBindingMapType GlobalGetSegmentQoSbinding(string Tier1Id, string SegmentId, string SegmentQosProfileBindingMapId)
+        public NSXTSegmentQoSProfileBindingMapType GlobalGlobalInfraGetSegmentQoSbinding(string Tier1Id, string SegmentId, string SegmentQosProfileBindingMapId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (SegmentQosProfileBindingMapId == null) { throw new System.ArgumentNullException("SegmentQosProfileBindingMapId cannot be null"); }
             NSXTSegmentQoSProfileBindingMapType returnValue = default(NSXTSegmentQoSProfileBindingMapType);
-            StringBuilder GetSegmentQoSbindingServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/segment-qos-profile-binding-maps/{segment-qos-profile-binding-map-id}");
+            StringBuilder GlobalInfraGetSegmentQoSbindingServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/segment-qos-profile-binding-maps/{segment-qos-profile-binding-map-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetSegmentQoSbindingServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            GetSegmentQoSbindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetSegmentQoSbindingServiceURL.Replace("{segment-qos-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentQosProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = GetSegmentQoSbindingServiceURL.ToString();
+            GlobalInfraGetSegmentQoSbindingServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetSegmentQoSbindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetSegmentQoSbindingServiceURL.Replace("{segment-qos-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentQosProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraGetSegmentQoSbindingServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetSegmentQoSbindingServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetSegmentQoSbindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -612,37 +540,6 @@ namespace nsxtapi.PolicyModules
 				}
 			}
 			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchSegmentQoSbinding(string Tier1Id, string SegmentId, string SegmentQosProfileBindingMapId, NSXTSegmentQoSProfileBindingMapType SegmentQoSprofileBindingMap)
-        {
-            if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
-            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
-            if (SegmentQosProfileBindingMapId == null) { throw new System.ArgumentNullException("SegmentQosProfileBindingMapId cannot be null"); }
-            if (SegmentQoSprofileBindingMap == null) { throw new System.ArgumentNullException("SegmentQoSprofileBindingMap cannot be null"); }
-            
-            StringBuilder PatchSegmentQoSbindingServiceURL = new StringBuilder("/global-infra/tier-1s/{tier-1-id}/segments/{segment-id}/segment-qos-profile-binding-maps/{segment-qos-profile-binding-map-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchSegmentQoSbindingServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchSegmentQoSbindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchSegmentQoSbindingServiceURL.Replace("{segment-qos-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentQosProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(SegmentQoSprofileBindingMap, defaultSerializationSettings));
-            request.Resource = PatchSegmentQoSbindingServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchSegmentQoSbindingServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
         }
         /// <summary>
         /// 
@@ -734,29 +631,29 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPortQoSProfileBindingMapType GlobalUpdateInfraPortQoSbinding(string SegmentId, string PortId, string PortQosProfileBindingMapId, NSXTPortQoSProfileBindingMapType PortQoSprofileBindingMap)
+        public NSXTPortQoSProfileBindingMapType GlobalGlobalInfraUpdateInfraPortQoSbinding(string SegmentId, string PortId, string PortQosProfileBindingMapId, NSXTPortQoSProfileBindingMapType PortQoSprofileBindingMap)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (PortId == null) { throw new System.ArgumentNullException("PortId cannot be null"); }
             if (PortQosProfileBindingMapId == null) { throw new System.ArgumentNullException("PortQosProfileBindingMapId cannot be null"); }
             if (PortQoSprofileBindingMap == null) { throw new System.ArgumentNullException("PortQoSprofileBindingMap cannot be null"); }
             NSXTPortQoSProfileBindingMapType returnValue = default(NSXTPortQoSProfileBindingMapType);
-            StringBuilder UpdateInfraPortQoSbindingServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/ports/{port-id}/port-qos-profile-binding-maps/{port-qos-profile-binding-map-id}");
+            StringBuilder GlobalInfraUpdateInfraPortQoSbindingServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/ports/{port-id}/port-qos-profile-binding-maps/{port-qos-profile-binding-map-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.PUT
             };
             request.AddHeader("Content-type", "application/json");
-            UpdateInfraPortQoSbindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
-            UpdateInfraPortQoSbindingServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
-            UpdateInfraPortQoSbindingServiceURL.Replace("{port-qos-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortQosProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraUpdateInfraPortQoSbindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraUpdateInfraPortQoSbindingServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraUpdateInfraPortQoSbindingServiceURL.Replace("{port-qos-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortQosProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PortQoSprofileBindingMap, defaultSerializationSettings));
-            request.Resource = UpdateInfraPortQoSbindingServiceURL.ToString();
+            request.Resource = GlobalInfraUpdateInfraPortQoSbindingServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP PUT operation to " + UpdateInfraPortQoSbindingServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP PUT operation to " + GlobalInfraUpdateInfraPortQoSbindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -777,27 +674,27 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalDeleteInfraPortQoSbinding(string SegmentId, string PortId, string PortQosProfileBindingMapId)
+        public void GlobalGlobalInfraDeleteInfraPortQoSbinding(string SegmentId, string PortId, string PortQosProfileBindingMapId)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (PortId == null) { throw new System.ArgumentNullException("PortId cannot be null"); }
             if (PortQosProfileBindingMapId == null) { throw new System.ArgumentNullException("PortQosProfileBindingMapId cannot be null"); }
             
-            StringBuilder DeleteInfraPortQoSbindingServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/ports/{port-id}/port-qos-profile-binding-maps/{port-qos-profile-binding-map-id}");
+            StringBuilder GlobalInfraDeleteInfraPortQoSbindingServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/ports/{port-id}/port-qos-profile-binding-maps/{port-qos-profile-binding-map-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.DELETE
             };
             request.AddHeader("Content-type", "application/json");
-            DeleteInfraPortQoSbindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteInfraPortQoSbindingServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteInfraPortQoSbindingServiceURL.Replace("{port-qos-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortQosProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteInfraPortQoSbindingServiceURL.ToString();
+            GlobalInfraDeleteInfraPortQoSbindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraDeleteInfraPortQoSbindingServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraDeleteInfraPortQoSbindingServiceURL.Replace("{port-qos-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortQosProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraDeleteInfraPortQoSbindingServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP DELETE operation to " + DeleteInfraPortQoSbindingServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP DELETE operation to " + GlobalInfraDeleteInfraPortQoSbindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -806,29 +703,29 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalPatchInfraPortQoSbinding(string SegmentId, string PortId, string PortQosProfileBindingMapId, NSXTPortQoSProfileBindingMapType PortQoSprofileBindingMap)
+        public void GlobalGlobalInfraPatchInfraPortQoSbinding(string SegmentId, string PortId, string PortQosProfileBindingMapId, NSXTPortQoSProfileBindingMapType PortQoSprofileBindingMap)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (PortId == null) { throw new System.ArgumentNullException("PortId cannot be null"); }
             if (PortQosProfileBindingMapId == null) { throw new System.ArgumentNullException("PortQosProfileBindingMapId cannot be null"); }
             if (PortQoSprofileBindingMap == null) { throw new System.ArgumentNullException("PortQoSprofileBindingMap cannot be null"); }
             
-            StringBuilder PatchInfraPortQoSbindingServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/ports/{port-id}/port-qos-profile-binding-maps/{port-qos-profile-binding-map-id}");
+            StringBuilder GlobalInfraPatchInfraPortQoSbindingServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/ports/{port-id}/port-qos-profile-binding-maps/{port-qos-profile-binding-map-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.PATCH
             };
             request.AddHeader("Content-type", "application/json");
-            PatchInfraPortQoSbindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchInfraPortQoSbindingServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchInfraPortQoSbindingServiceURL.Replace("{port-qos-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortQosProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraPatchInfraPortQoSbindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraPatchInfraPortQoSbindingServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraPatchInfraPortQoSbindingServiceURL.Replace("{port-qos-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortQosProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PortQoSprofileBindingMap, defaultSerializationSettings));
-            request.Resource = PatchInfraPortQoSbindingServiceURL.ToString();
+            request.Resource = GlobalInfraPatchInfraPortQoSbindingServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP PATCH operation to " + PatchInfraPortQoSbindingServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP PATCH operation to " + GlobalInfraPatchInfraPortQoSbindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -837,27 +734,27 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPortQoSProfileBindingMapType GlobalGetInfraPortQoSbinding(string SegmentId, string PortId, string PortQosProfileBindingMapId)
+        public NSXTPortQoSProfileBindingMapType GlobalGlobalInfraGetInfraPortQoSbinding(string SegmentId, string PortId, string PortQosProfileBindingMapId)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (PortId == null) { throw new System.ArgumentNullException("PortId cannot be null"); }
             if (PortQosProfileBindingMapId == null) { throw new System.ArgumentNullException("PortQosProfileBindingMapId cannot be null"); }
             NSXTPortQoSProfileBindingMapType returnValue = default(NSXTPortQoSProfileBindingMapType);
-            StringBuilder GetInfraPortQoSbindingServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/ports/{port-id}/port-qos-profile-binding-maps/{port-qos-profile-binding-map-id}");
+            StringBuilder GlobalInfraGetInfraPortQoSbindingServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/ports/{port-id}/port-qos-profile-binding-maps/{port-qos-profile-binding-map-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetInfraPortQoSbindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetInfraPortQoSbindingServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetInfraPortQoSbindingServiceURL.Replace("{port-qos-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortQosProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = GetInfraPortQoSbindingServiceURL.ToString();
+            GlobalInfraGetInfraPortQoSbindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetInfraPortQoSbindingServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetInfraPortQoSbindingServiceURL.Replace("{port-qos-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortQosProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraGetInfraPortQoSbindingServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetInfraPortQoSbindingServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetInfraPortQoSbindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -946,6 +843,35 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
+        public void PatchInfraSegmentQoSbinding(string SegmentId, string SegmentQosProfileBindingMapId, NSXTSegmentQoSProfileBindingMapType SegmentQoSprofileBindingMap)
+        {
+            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
+            if (SegmentQosProfileBindingMapId == null) { throw new System.ArgumentNullException("SegmentQosProfileBindingMapId cannot be null"); }
+            if (SegmentQoSprofileBindingMap == null) { throw new System.ArgumentNullException("SegmentQoSprofileBindingMap cannot be null"); }
+            
+            StringBuilder PatchInfraSegmentQoSbindingServiceURL = new StringBuilder("/infra/segments/{segment-id}/segment-qos-profile-binding-maps/{segment-qos-profile-binding-map-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.PATCH
+            };
+            request.AddHeader("Content-type", "application/json");
+            PatchInfraSegmentQoSbindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            PatchInfraSegmentQoSbindingServiceURL.Replace("{segment-qos-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentQosProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.AddJsonBody(JsonConvert.SerializeObject(SegmentQoSprofileBindingMap, defaultSerializationSettings));
+            request.Resource = PatchInfraSegmentQoSbindingServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP PATCH operation to " + PatchInfraSegmentQoSbindingServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
         public NSXTSegmentQoSProfileBindingMapType GetInfraSegmentQoSbinding(string SegmentId, string SegmentQosProfileBindingMapId)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -980,35 +906,6 @@ namespace nsxtapi.PolicyModules
 				}
 			}
 			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void PatchInfraSegmentQoSbinding(string SegmentId, string SegmentQosProfileBindingMapId, NSXTSegmentQoSProfileBindingMapType SegmentQoSprofileBindingMap)
-        {
-            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
-            if (SegmentQosProfileBindingMapId == null) { throw new System.ArgumentNullException("SegmentQosProfileBindingMapId cannot be null"); }
-            if (SegmentQoSprofileBindingMap == null) { throw new System.ArgumentNullException("SegmentQoSprofileBindingMap cannot be null"); }
-            
-            StringBuilder PatchInfraSegmentQoSbindingServiceURL = new StringBuilder("/infra/segments/{segment-id}/segment-qos-profile-binding-maps/{segment-qos-profile-binding-map-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchInfraSegmentQoSbindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchInfraSegmentQoSbindingServiceURL.Replace("{segment-qos-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentQosProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(SegmentQoSprofileBindingMap, defaultSerializationSettings));
-            request.Resource = PatchInfraSegmentQoSbindingServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchInfraSegmentQoSbindingServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
         }
         /// <summary>
         /// 
@@ -1202,93 +1099,25 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentQoSProfileBindingMapType GlobalUpdateInfraSegmentQoSbinding(string SegmentId, string SegmentQosProfileBindingMapId, NSXTSegmentQoSProfileBindingMapType SegmentQoSprofileBindingMap)
-        {
-            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
-            if (SegmentQosProfileBindingMapId == null) { throw new System.ArgumentNullException("SegmentQosProfileBindingMapId cannot be null"); }
-            if (SegmentQoSprofileBindingMap == null) { throw new System.ArgumentNullException("SegmentQoSprofileBindingMap cannot be null"); }
-            NSXTSegmentQoSProfileBindingMapType returnValue = default(NSXTSegmentQoSProfileBindingMapType);
-            StringBuilder UpdateInfraSegmentQoSbindingServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/segment-qos-profile-binding-maps/{segment-qos-profile-binding-map-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            UpdateInfraSegmentQoSbindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
-            UpdateInfraSegmentQoSbindingServiceURL.Replace("{segment-qos-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentQosProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(SegmentQoSprofileBindingMap, defaultSerializationSettings));
-            request.Resource = UpdateInfraSegmentQoSbindingServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + UpdateInfraSegmentQoSbindingServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentQoSProfileBindingMapType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentQoSProfileBindingMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteInfraSegmentQoSbinding(string SegmentId, string SegmentQosProfileBindingMapId)
-        {
-            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
-            if (SegmentQosProfileBindingMapId == null) { throw new System.ArgumentNullException("SegmentQosProfileBindingMapId cannot be null"); }
-            
-            StringBuilder DeleteInfraSegmentQoSbindingServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/segment-qos-profile-binding-maps/{segment-qos-profile-binding-map-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteInfraSegmentQoSbindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteInfraSegmentQoSbindingServiceURL.Replace("{segment-qos-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentQosProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteInfraSegmentQoSbindingServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteInfraSegmentQoSbindingServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTSegmentQoSProfileBindingMapType GlobalGetInfraSegmentQoSbinding(string SegmentId, string SegmentQosProfileBindingMapId)
+        public NSXTSegmentQoSProfileBindingMapType GlobalGlobalInfraGetInfraSegmentQoSbinding(string SegmentId, string SegmentQosProfileBindingMapId)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (SegmentQosProfileBindingMapId == null) { throw new System.ArgumentNullException("SegmentQosProfileBindingMapId cannot be null"); }
             NSXTSegmentQoSProfileBindingMapType returnValue = default(NSXTSegmentQoSProfileBindingMapType);
-            StringBuilder GetInfraSegmentQoSbindingServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/segment-qos-profile-binding-maps/{segment-qos-profile-binding-map-id}");
+            StringBuilder GlobalInfraGetInfraSegmentQoSbindingServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/segment-qos-profile-binding-maps/{segment-qos-profile-binding-map-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetInfraSegmentQoSbindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetInfraSegmentQoSbindingServiceURL.Replace("{segment-qos-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentQosProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = GetInfraSegmentQoSbindingServiceURL.ToString();
+            GlobalInfraGetInfraSegmentQoSbindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraGetInfraSegmentQoSbindingServiceURL.Replace("{segment-qos-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentQosProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraGetInfraSegmentQoSbindingServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetInfraSegmentQoSbindingServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetInfraSegmentQoSbindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1309,59 +1138,30 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalPatchInfraSegmentQoSbinding(string SegmentId, string SegmentQosProfileBindingMapId, NSXTSegmentQoSProfileBindingMapType SegmentQoSprofileBindingMap)
-        {
-            if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
-            if (SegmentQosProfileBindingMapId == null) { throw new System.ArgumentNullException("SegmentQosProfileBindingMapId cannot be null"); }
-            if (SegmentQoSprofileBindingMap == null) { throw new System.ArgumentNullException("SegmentQoSprofileBindingMap cannot be null"); }
-            
-            StringBuilder PatchInfraSegmentQoSbindingServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/segment-qos-profile-binding-maps/{segment-qos-profile-binding-map-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchInfraSegmentQoSbindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
-            PatchInfraSegmentQoSbindingServiceURL.Replace("{segment-qos-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentQosProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(SegmentQoSprofileBindingMap, defaultSerializationSettings));
-            request.Resource = PatchInfraSegmentQoSbindingServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchInfraSegmentQoSbindingServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTPortQoSProfileBindingMapListResultType GlobalListInfraPortQoSbindings(string SegmentId, string PortId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPortQoSProfileBindingMapListResultType GlobalGlobalInfraListInfraPortQoSbindings(string SegmentId, string PortId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (PortId == null) { throw new System.ArgumentNullException("PortId cannot be null"); }
             NSXTPortQoSProfileBindingMapListResultType returnValue = default(NSXTPortQoSProfileBindingMapListResultType);
-            StringBuilder ListInfraPortQoSbindingsServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/ports/{port-id}/port-qos-profile-binding-maps");
+            StringBuilder GlobalInfraListInfraPortQoSbindingsServiceURL = new StringBuilder("/global-infra/segments/{segment-id}/ports/{port-id}/port-qos-profile-binding-maps");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            ListInfraPortQoSbindingsServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
-            ListInfraPortQoSbindingsServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraListInfraPortQoSbindingsServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
+            GlobalInfraListInfraPortQoSbindingsServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListInfraPortQoSbindingsServiceURL.ToString();
+            request.Resource = GlobalInfraListInfraPortQoSbindingsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ListInfraPortQoSbindingsServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraListInfraPortQoSbindingsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else

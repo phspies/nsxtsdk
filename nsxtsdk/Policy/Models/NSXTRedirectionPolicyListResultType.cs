@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRedirectionPolicyListResultType : NSXTPolicyListResultType
     {
+        public NSXTRedirectionPolicyListResultType()
+        {
+        }
         /// <summary>
         /// Redirection policy list results
         /// </summary>

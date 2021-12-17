@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Tier-0 vrf configuration.")]
     public class NSXTTier0VrfConfigType 
     {
+        public NSXTTier0VrfConfigType()
+        {
+        }
         /// <summary>
         /// Route targets.
         /// </summary>
@@ -31,7 +34,7 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "evpn_transit_vni")]
         [NSXTProperty(IsRequired: false, Description: @"L3 VNI associated with the VRF for overlay traffic of ethernet virtualprivate network (EVPN). It must be unique and available from the VNIpool defined for EVPN service. It is required for VRF to participatein the EVPN service in INLINE mode.")]
-        public long? EvpnTransitVni { get; set; }
+        public int? EvpnTransitVni { get; set; }
         /// <summary>
         /// Default tier0 path. Cannot be modified after realization.
         /// </summary>
@@ -46,11 +49,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Route distinguisher with format in IPAddress:&lt;number&gt; or ASN:&lt;number&gt;.")]
         public string? RouteDistinguisher { get; set; }
         /// <summary>
-        /// It is required for VRF to participate in the EVPN service in ROUTE_SERVER
-        /// mode.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "evpn_l2_vni_config")]
-        [NSXTProperty(IsRequired: false, Description: @"It is required for VRF to participate in the EVPN service in ROUTE_SERVERmode.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTVrfEvpnL2VniConfigType EvpnL2VniConfig { get; set; }
     }
 }

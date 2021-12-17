@@ -7,9 +7,9 @@ using nsxtsdk.Models;
 namespace nsxtsdk.PolicyModels
 {
     /// <summary>
-    /// operator
+    /// Operator is made non-mandatory to support Segment and SegmentPort tag based expression. To evaluate expressionfor other types, operator value should be provided.
     /// </summary>
-    [NSXTProperty(Description: @"operator")]
+    [NSXTProperty(Description: @"Operator is made non-mandatory to support Segment and SegmentPort tag based expression. To evaluate expressionfor other types, operator value should be provided.")]
     public enum NSXTConditionOperatorEnumType
     {
         [EnumMember(Value = "EQUALS")]
@@ -22,5 +22,7 @@ namespace nsxtsdk.PolicyModels
         ENDSWITH = 4,
         [EnumMember(Value = "NOTEQUALS")]
         NOTEQUALS = 5,
+        [EnumMember(Value = "NOTIN")]
+        NOTIN = 6,
     }
 }

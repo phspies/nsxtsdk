@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTInstanceRuntimeType : NSXTManagedResourceType
     {
+        public NSXTInstanceRuntimeType()
+        {
+        }
         /// <summary>
         /// Service-VM/SVM id of deployed virtual-machine.
         /// </summary>
@@ -31,10 +34,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Service-Instance Runtime deployment status of the Service-VM. It shows the latest status during the process of deployment, redeploy, upgrade, and un-deployment of VM.")]
         public NSXTInstanceRuntimeDeploymentStatusEnumType? DeploymentStatus { get; set; }
         /// <summary>
-        /// VM NIC info
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "vm_nic_info")]
-        [NSXTProperty(IsRequired: false, Description: @"VM NIC info")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTVmNicInfoType VmNicInfo { get; set; }
         /// <summary>
         /// The maintenance mode indicates whether the corresponding service VM

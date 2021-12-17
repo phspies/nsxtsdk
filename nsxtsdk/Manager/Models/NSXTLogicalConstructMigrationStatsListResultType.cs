@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalConstructMigrationStatsListResultType : NSXTListResultType
     {
+        public NSXTLogicalConstructMigrationStatsListResultType()
+        {
+        }
         /// <summary>
         /// Paged collection of migration stats for logical constructs
         /// </summary>

@@ -17,5 +17,8 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTCCPUpgradeStatusType : NSXTComponentUpgradeStatusType
     {
+        public NSXTCCPUpgradeStatusType()
+        {
+        }
     }
 }

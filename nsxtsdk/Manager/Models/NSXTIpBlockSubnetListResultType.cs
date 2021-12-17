@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpBlockSubnetListResultType : NSXTListResultType
     {
+        public NSXTIpBlockSubnetListResultType()
+        {
+        }
         /// <summary>
         /// IP block subnet list results
         /// </summary>

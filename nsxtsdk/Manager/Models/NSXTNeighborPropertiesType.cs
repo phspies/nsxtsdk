@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Neighbor properties")]
     public class NSXTNeighborPropertiesType 
     {
+        public NSXTNeighborPropertiesType()
+        {
+        }
         /// <summary>
         /// System name
         /// </summary>

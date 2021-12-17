@@ -17,6 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer CompressionProfile object")]
     public class NSXTALBCompressionProfileType 
     {
+        public NSXTALBCompressionProfileType()
+        {
+            Type = test
+            RemoveAcceptEncodingHeader = test
+        }
         /// <summary>
         /// Custom filters used when auto compression is not selected.
         /// </summary>
@@ -33,7 +38,6 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "type", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"Compress content automatically or add custom filters todefine compressible content and compression levels.Enum options - AUTO_COMPRESSION, CUSTOM_COMPRESSION.Default value when not specified in API or module isinterpreted by ALB Controller as AUTO_COMPRESSION.")]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "AUTO_COMPRESSION")]
         public NSXTAlbcompressionProfileTypeEnumType Type { get; set; }
         /// <summary>
         /// Compress only content types listed in this string group.
@@ -52,7 +56,6 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "remove_accept_encoding_header", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"Offload compression from the servers to AVI.Saves compute cycles on the servers.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "")]
         public bool RemoveAcceptEncodingHeader { get; set; }
         /// <summary>
         /// Compress HTTP response content if it wasn't already

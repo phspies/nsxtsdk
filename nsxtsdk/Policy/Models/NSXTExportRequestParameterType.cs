@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"This holds the request parameters required to invoke export task.")]
     public class NSXTExportRequestParameterType 
     {
+        public NSXTExportRequestParameterType()
+        {
+        }
         /// <summary>
         /// Policy path of a draft which is to be exported.
         /// If not provided, current firewall configuration will then be exported.

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTContainerIngressPolicyType : NSXTDiscoveredResourceType
     {
+        public NSXTContainerIngressPolicyType()
+        {
+        }
         /// <summary>
         /// Network status of container ingress.
         /// </summary>

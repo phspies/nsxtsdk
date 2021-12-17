@@ -67,7 +67,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalSwitchListResultType ListLogicalSwitches(string? Cursor = null, bool? Diagnostic = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? SwitchingProfileId = null, string? TransportType = null, string? TransportZoneId = null, string? UplinkTeamingPolicyName = null, long? Vlan = null, int? Vni = null)
+        public NSXTLogicalSwitchListResultType ListLogicalSwitches(string? Cursor = null, bool? Diagnostic = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? SwitchType = null, string? SwitchingProfileId = null, string? TransportType = null, string? TransportZoneId = null, string? UplinkTeamingPolicyName = null, long? Vlan = null, int? Vni = null)
         {
             NSXTLogicalSwitchListResultType returnValue = default(NSXTLogicalSwitchListResultType);
             StringBuilder ListLogicalSwitchesServiceURL = new StringBuilder("/logical-switches");
@@ -83,6 +83,7 @@ namespace nsxtapi.ManagerModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            if (SwitchType != null) { request.AddQueryParameter("switch_type", SwitchType.ToString()); }
             if (SwitchingProfileId != null) { request.AddQueryParameter("switching_profile_id", SwitchingProfileId.ToString()); }
             if (TransportType != null) { request.AddQueryParameter("transport_type", TransportType.ToString()); }
             if (TransportZoneId != null) { request.AddQueryParameter("transport_zone_id", TransportZoneId.ToString()); }

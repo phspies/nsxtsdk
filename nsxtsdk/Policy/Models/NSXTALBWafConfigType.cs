@@ -17,6 +17,23 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer WafConfig object")]
     public class NSXTALBWafConfigType 
     {
+        public NSXTALBWafConfigType()
+        {
+            IgnoreIncompleteRequestBodyError = test
+            RegexMatchLimit = test
+            MaxExecutionTime = test
+            ResponseHdrDefaultAction = test
+            ResponseBodyDefaultAction = test
+            RequestHdrDefaultAction = test
+            XmlXxeProtection = test
+            RegexRecursionLimit = test
+            StatusCodeForRejectedRequests = test
+            ArgumentSeparator = test
+            CookieFormatVersion = test
+            RequestBodyDefaultAction = test
+            ServerResponseMaxBodySize = test
+            ClientRequestMaxBodySize = test
+        }
         /// <summary>
         /// Ignore request body parsing errors due to partial scanning.
         /// Default value when not specified in API or module is
@@ -24,7 +41,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "ignore_incomplete_request_body_error")]
         [NSXTProperty(IsRequired: false, Description: @"Ignore request body parsing errors due to partial scanning.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? IgnoreIncompleteRequestBodyError { get; set; }
         /// <summary>
         /// Limit CPU utilization for each regular expression match
@@ -34,7 +50,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "regex_match_limit")]
         [NSXTProperty(IsRequired: false, Description: @"Limit CPU utilization for each regular expression matchwhen processing rules.Default value when not specified in API or module isinterpreted by ALB Controller as 30000.")]
-        [NSXTDefaultProperty(Default: "")]
         public long? RegexMatchLimit { get; set; }
         /// <summary>
         /// WAF allowed Content Types.
@@ -81,7 +96,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"The maximum period of time WAF processing is allowed totake for a single request.A value of 0 (zero) means no limit and should not be chosenin production deployments.It is only used for exceptional situations where crashes ofse_dp processes are acceptable.The behavior of the system if this time is exceeded dependson two other configuration settings, the WAF policy mode andthe WAF failure mode.In WAF policy mode &apos;Detection&apos;, the request is allowed andflagged for both failure mode &apos;Closed&apos; and &apos;Open&apos;.In enforcement node, &apos;Closed&apos; means the request isrejected, &apos;Open&apos; means the request is allowed and flagged.Irrespective of these settings, no subsequent WAF rules ofthis or other phases will be executed once the maximumexecution time has been exceeded.Allowed values are 0-5000.Unit is MILLISECONDS.Default value when not specified in API or module isinterpreted by ALB Controller as 50.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(5000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? MaxExecutionTime { get; set; }
         /// <summary>
         /// WAF default action for Response Header Phase.
@@ -91,7 +105,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "response_hdr_default_action")]
         [NSXTProperty(IsRequired: false, Description: @"WAF default action for Response Header Phase.Default value when not specified in API or module isinterpreted by ALB Controller asphase:3,deny,status:403,log,auditlog.")]
-        [NSXTDefaultProperty(Default: "phase:3,deny,status:403,log,auditlog")]
         public string? ResponseHdrDefaultAction { get; set; }
         /// <summary>
         /// WAF allowed HTTP Versions.
@@ -116,7 +129,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "response_body_default_action")]
         [NSXTProperty(IsRequired: false, Description: @"WAF default action for Response Body Phase.Default value when not specified in API or module isinterpreted by ALB Controller asphase:4,deny,status:403,log,auditlog.")]
-        [NSXTDefaultProperty(Default: "phase:4,deny,status:403,log,auditlog")]
         public string? ResponseBodyDefaultAction { get; set; }
         /// <summary>
         /// WAF default action for Request Header Phase.
@@ -126,7 +138,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "request_hdr_default_action")]
         [NSXTProperty(IsRequired: false, Description: @"WAF default action for Request Header Phase.Default value when not specified in API or module isinterpreted by ALB Controller asphase:1,deny,status:403,log,auditlog.")]
-        [NSXTDefaultProperty(Default: "phase:1,deny,status:403,log,auditlog")]
         public string? RequestHdrDefaultAction { get; set; }
         /// <summary>
         /// WAF Static File Extensions.
@@ -144,7 +155,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "xml_xxe_protection")]
         [NSXTProperty(IsRequired: false, Description: @"Block or flag XML requests referring to External Entities.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? XmlXxeProtection { get; set; }
         /// <summary>
         /// Limit depth of recursion for each regular expression match
@@ -154,7 +164,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "regex_recursion_limit")]
         [NSXTProperty(IsRequired: false, Description: @"Limit depth of recursion for each regular expression matchwhen processing rules.Default value when not specified in API or module isinterpreted by ALB Controller as 10000.")]
-        [NSXTDefaultProperty(Default: "")]
         public long? RegexRecursionLimit { get; set; }
         /// <summary>
         /// WAF Restricted File Extensions.
@@ -182,7 +191,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "status_code_for_rejected_requests")]
         [NSXTProperty(IsRequired: false, Description: @"HTTP status code used by WAF Positive Security Model whenrejecting a request.Enum options - HTTP_RESPONSE_CODE_0,HTTP_RESPONSE_CODE_100, HTTP_RESPONSE_CODE_101,HTTP_RESPONSE_CODE_200, HTTP_RESPONSE_CODE_201,HTTP_RESPONSE_CODE_202, HTTP_RESPONSE_CODE_203,HTTP_RESPONSE_CODE_204, HTTP_RESPONSE_CODE_205,HTTP_RESPONSE_CODE_206, HTTP_RESPONSE_CODE_300,HTTP_RESPONSE_CODE_301, HTTP_RESPONSE_CODE_302,HTTP_RESPONSE_CODE_303, HTTP_RESPONSE_CODE_304,HTTP_RESPONSE_CODE_305, HTTP_RESPONSE_CODE_307,HTTP_RESPONSE_CODE_400, HTTP_RESPONSE_CODE_401,HTTP_RESPONSE_CODE_402...Default value when not specified in API or module isinterpreted by ALB Controller as HTTP_RESPONSE_CODE_403.")]
-        [NSXTDefaultProperty(Default: "HTTP_RESPONSE_CODE_403")]
         public NSXTAlbwafConfigStatusCodeForRejectedRequestsEnumType? StatusCodeForRejectedRequests { get; set; }
         /// <summary>
         /// Argument seperator.
@@ -191,7 +199,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "argument_separator")]
         [NSXTProperty(IsRequired: false, Description: @"Argument seperator.Default value when not specified in API or module isinterpreted by ALB Controller as &amp;.")]
-        [NSXTDefaultProperty(Default: "&amp;")]
         public string? ArgumentSeparator { get; set; }
         /// <summary>
         /// 0  For Netscape Cookies.
@@ -204,7 +211,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"0  For Netscape Cookies.1  For version 1 cookies.Allowed values are 0-1.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(1)]
-        [NSXTDefaultProperty(Default: "")]
         public long? CookieFormatVersion { get; set; }
         /// <summary>
         /// WAF default action for Request Body Phase.
@@ -214,7 +220,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "request_body_default_action")]
         [NSXTProperty(IsRequired: false, Description: @"WAF default action for Request Body Phase.Default value when not specified in API or module isinterpreted by ALB Controller asphase:2,deny,status:403,log,auditlog.")]
-        [NSXTDefaultProperty(Default: "phase:2,deny,status:403,log,auditlog")]
         public string? RequestBodyDefaultAction { get; set; }
         /// <summary>
         /// Maximum size for response body scanned by WAF.
@@ -227,7 +232,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Maximum size for response body scanned by WAF.Allowed values are 1-32768.Unit is KB.Default value when not specified in API or module isinterpreted by ALB Controller as 128.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(32768)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ServerResponseMaxBodySize { get; set; }
         /// <summary>
         /// Maximum size for the client request body scanned by WAF.
@@ -240,7 +244,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Maximum size for the client request body scanned by WAF.Allowed values are 1-32768.Unit is KB.Default value when not specified in API or module isinterpreted by ALB Controller as 32.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(32768)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ClientRequestMaxBodySize { get; set; }
     }
 }

@@ -17,6 +17,12 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer RateLimiter object")]
     public class NSXTALBRateLimiterType 
     {
+        public NSXTALBRateLimiterType()
+        {
+            Count = test
+            BurstSz = test
+            Period = test
+        }
         /// <summary>
         /// Maximum number of connections, requests or packets
         /// permitted each period.
@@ -28,7 +34,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Maximum number of connections, requests or packetspermitted each period.Allowed values are 1-1000000000.Default value when not specified in API or module isinterpreted by ALB Controller as 1000000000.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(1000000000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Count { get; set; }
         /// <summary>
         /// Maximum number of connections, requests or packets to be
@@ -42,7 +47,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Maximum number of connections, requests or packets to belet through instantaneously.If this is less than count, it will have no effect.Allowed values are 0-1000000000.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(1000000000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? BurstSz { get; set; }
         /// <summary>
         /// Identifier for Rate Limit.
@@ -62,7 +66,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Time value in seconds to enforce rate count.Allowed values are 1-1000000000.Unit is SEC.Default value when not specified in API or module isinterpreted by ALB Controller as 1.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(1000000000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Period { get; set; }
     }
 }

@@ -19,6 +19,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVpnSessionStatisticsPerEPType : NSXTPolicyRuntimeInfoPerEPType
     {
+        public NSXTIPSecVpnSessionStatisticsPerEPType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

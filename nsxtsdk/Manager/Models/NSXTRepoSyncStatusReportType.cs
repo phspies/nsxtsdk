@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRepoSyncStatusReportType 
     {
+        public NSXTRepoSyncStatusReportType()
+        {
+        }
         /// <summary>
         /// Status of the repo sync operation on the single nsx-manager
         /// </summary>

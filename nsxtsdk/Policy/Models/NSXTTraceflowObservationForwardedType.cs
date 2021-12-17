@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTraceflowObservationForwardedType : NSXTTraceflowObservationType
     {
+        public NSXTTraceflowObservationForwardedType()
+        {
+        }
         /// <summary>
         /// The name of the uplink the traceflow packet is forwarded on
         /// </summary>

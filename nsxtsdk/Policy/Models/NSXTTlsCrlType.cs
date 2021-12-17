@@ -17,18 +17,45 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTlsCrlType : NSXTPolicyConfigResourceType
     {
+        public NSXTTlsCrlType()
+        {
+            CrlType = test
+        }
         /// <summary>
-        /// Details of the X509Crl object.
+        /// Certificates revoked by subject and public key hash
+        /// </summary>
+        [JsonProperty(PropertyName = "details_revoked_by_subject_and_public_key_hash")]
+        [NSXTProperty(IsRequired: false, Description: @"Certificates revoked by subject and public key hash")]
+        public IList<NSXTSubjectPublicKeyHashType> DetailsRevokedBySubjectAndPublicKeyHash { get; set; }
+        /// <summary>
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "details")]
-        [NSXTProperty(IsRequired: false, Description: @"Details of the X509Crl object.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTX509CrlType Details { get; set; }
         /// <summary>
         /// Pem encoded crl data.
         /// </summary>
-        [JsonProperty(PropertyName = "pem_encoded", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Pem encoded crl data.")]
-        [System.ComponentModel.DataAnnotations.Required]
-        public string PemEncoded { get; set; }
+        [JsonProperty(PropertyName = "pem_encoded")]
+        [NSXTProperty(IsRequired: false, Description: @"Pem encoded crl data.")]
+        public string? PemEncoded { get; set; }
+        /// <summary>
+        /// JSON-encoded OneCRL-like object
+        /// </summary>
+        [JsonProperty(PropertyName = "one_crl")]
+        [NSXTProperty(IsRequired: false, Description: @"JSON-encoded OneCRL-like object")]
+        public string? OneCrl { get; set; }
+        /// <summary>
+        /// The type of the CRL. It can be "OneCRL" or "X509" (default).
+        /// </summary>
+        [JsonProperty(PropertyName = "crl_type")]
+        [NSXTProperty(IsRequired: false, Description: @"The type of the CRL. It can be &quot;OneCRL&quot; or &quot;X509&quot; (default).")]
+        public NSXTTlsCrlCrlTypeEnumType? CrlType { get; set; }
+        /// <summary>
+        /// Certificates revoked by issuer and serial number
+        /// </summary>
+        [JsonProperty(PropertyName = "details_revoked_by_issuer_and_serial_number")]
+        [NSXTProperty(IsRequired: false, Description: @"Certificates revoked by issuer and serial number")]
+        public IList<NSXTIssuerSerialNumberType> DetailsRevokedByIssuerAndSerialNumber { get; set; }
     }
 }

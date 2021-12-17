@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Statistics counters of the DNS forwarder zone.")]
     public class NSXTNsxTDNSForwarderZoneStatisticsType 
     {
+        public NSXTNsxTDNSForwarderZoneStatisticsType()
+        {
+        }
         /// <summary>
         /// Statistics per upstream server.
         /// </summary>

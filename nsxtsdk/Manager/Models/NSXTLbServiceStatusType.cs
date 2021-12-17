@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbServiceStatusType 
     {
+        public NSXTLbServiceStatusType()
+        {
+        }
         /// <summary>
         /// Cpu usage in percentage
         /// </summary>

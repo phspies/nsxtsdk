@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAllocationBasedOnFailureDomainType : NSXTAllocationRuleActionType
     {
+        public NSXTAllocationBasedOnFailureDomainType()
+        {
+        }
         /// <summary>
         /// Enable placement algorithm to consider failure domain of edge transport
         /// nodes and place active and standby contexts in different failure domains.

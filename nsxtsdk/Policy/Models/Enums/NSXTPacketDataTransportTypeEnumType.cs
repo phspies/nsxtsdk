@@ -7,9 +7,9 @@ using nsxtsdk.Models;
 namespace nsxtsdk.PolicyModels
 {
     /// <summary>
-    /// transport type of the traceflow packet
+    /// This type takes effect only for IP packet.
     /// </summary>
-    [NSXTProperty(Description: @"transport type of the traceflow packet")]
+    [NSXTProperty(Description: @"This type takes effect only for IP packet.")]
     public enum NSXTPacketDataTransportTypeEnumType
     {
         [EnumMember(Value = "BROADCAST")]

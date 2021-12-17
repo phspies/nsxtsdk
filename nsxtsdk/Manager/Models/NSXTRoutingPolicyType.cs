@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Routing policy details.")]
     public class NSXTRoutingPolicyType 
     {
+        public NSXTRoutingPolicyType()
+        {
+            RoutingPolicyType = test
+        }
         /// <summary>
         /// Array of next hop to prefix lists mapping.
         /// </summary>
@@ -29,7 +33,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "routing_policy_type")]
         [NSXTProperty(IsRequired: false, Description: @"Routing policy type.")]
-        [NSXTDefaultProperty(Default: "PROXIMITY_ROUTING")]
         public NSXTRoutingPolicyRoutingPolicyTypeEnumType? RoutingPolicyType { get; set; }
     }
 }

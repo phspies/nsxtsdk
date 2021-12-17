@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"A single request within a batch of operations")]
     public class NSXTBatchRequestItemType 
     {
+        public NSXTBatchRequestItemType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

@@ -629,25 +629,25 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbVirtualServerWithRuleType UpdateLoadBalancerVirtualServerWithRulesUpdateWithRules(string VirtualServerId, NSXTLbVirtualServerWithRuleType LbVirtualServerWithRule)
+        public NSXTLbVirtualServerWithRuleType UpdateLoadBalancerVirtualServerWithRules(string VirtualServerId, NSXTLbVirtualServerWithRuleType LbVirtualServerWithRule)
         {
             if (VirtualServerId == null) { throw new System.ArgumentNullException("VirtualServerId cannot be null"); }
             if (LbVirtualServerWithRule == null) { throw new System.ArgumentNullException("LbVirtualServerWithRule cannot be null"); }
             NSXTLbVirtualServerWithRuleType returnValue = default(NSXTLbVirtualServerWithRuleType);
-            StringBuilder UpdateLoadBalancerVirtualServerWithRulesUpdateWithRulesServiceURL = new StringBuilder("/loadbalancer/virtual-servers/{virtual-server-id}?action=update_with_rules");
+            StringBuilder UpdateLoadBalancerVirtualServerWithRulesServiceURL = new StringBuilder("/loadbalancer/virtual-servers/{virtual-server-id}?action=update_with_rules");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.PUT
             };
             request.AddHeader("Content-type", "application/json");
-            UpdateLoadBalancerVirtualServerWithRulesUpdateWithRulesServiceURL.Replace("{virtual-server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(VirtualServerId, System.Globalization.CultureInfo.InvariantCulture)));
+            UpdateLoadBalancerVirtualServerWithRulesServiceURL.Replace("{virtual-server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(VirtualServerId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LbVirtualServerWithRule, defaultSerializationSettings));
-            request.Resource = UpdateLoadBalancerVirtualServerWithRulesUpdateWithRulesServiceURL.ToString();
+            request.Resource = UpdateLoadBalancerVirtualServerWithRulesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP PUT operation to " + UpdateLoadBalancerVirtualServerWithRulesUpdateWithRulesServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP PUT operation to " + UpdateLoadBalancerVirtualServerWithRulesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -785,6 +785,31 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
+        public void DeleteLoadBalancerServerSslProfile(string ServerSslProfileId)
+        {
+            if (ServerSslProfileId == null) { throw new System.ArgumentNullException("ServerSslProfileId cannot be null"); }
+            
+            StringBuilder DeleteLoadBalancerServerSslProfileServiceURL = new StringBuilder("/loadbalancer/server-ssl-profiles/{server-ssl-profile-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.DELETE
+            };
+            request.AddHeader("Content-type", "application/json");
+            DeleteLoadBalancerServerSslProfileServiceURL.Replace("{server-ssl-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServerSslProfileId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = DeleteLoadBalancerServerSslProfileServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP DELETE operation to " + DeleteLoadBalancerServerSslProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
         public NSXTLbServerSslProfileType ReadLoadBalancerServerSslProfile(string ServerSslProfileId)
         {
             if (ServerSslProfileId == null) { throw new System.ArgumentNullException("ServerSslProfileId cannot be null"); }
@@ -817,31 +842,6 @@ namespace nsxtapi.ManagerModules
 				}
 			}
 			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void DeleteLoadBalancerServerSslProfile(string ServerSslProfileId)
-        {
-            if (ServerSslProfileId == null) { throw new System.ArgumentNullException("ServerSslProfileId cannot be null"); }
-            
-            StringBuilder DeleteLoadBalancerServerSslProfileServiceURL = new StringBuilder("/loadbalancer/server-ssl-profiles/{server-ssl-profile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteLoadBalancerServerSslProfileServiceURL.Replace("{server-ssl-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServerSslProfileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteLoadBalancerServerSslProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteLoadBalancerServerSslProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
         }
         /// <summary>
         /// 
@@ -1904,11 +1904,11 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbVirtualServerWithRuleType CreateLoadBalancerVirtualServerWithRulesCreateWithRules(NSXTLbVirtualServerWithRuleType LbVirtualServerWithRule)
+        public NSXTLbVirtualServerWithRuleType CreateLoadBalancerVirtualServerWithRules(NSXTLbVirtualServerWithRuleType LbVirtualServerWithRule)
         {
             if (LbVirtualServerWithRule == null) { throw new System.ArgumentNullException("LbVirtualServerWithRule cannot be null"); }
             NSXTLbVirtualServerWithRuleType returnValue = default(NSXTLbVirtualServerWithRuleType);
-            StringBuilder CreateLoadBalancerVirtualServerWithRulesCreateWithRulesServiceURL = new StringBuilder("/loadbalancer/virtual-servers?action=create_with_rules");
+            StringBuilder CreateLoadBalancerVirtualServerWithRulesServiceURL = new StringBuilder("/loadbalancer/virtual-servers?action=create_with_rules");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -1916,11 +1916,11 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(LbVirtualServerWithRule, defaultSerializationSettings));
-            request.Resource = CreateLoadBalancerVirtualServerWithRulesCreateWithRulesServiceURL.ToString();
+            request.Resource = CreateLoadBalancerVirtualServerWithRulesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + CreateLoadBalancerVirtualServerWithRulesCreateWithRulesServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + CreateLoadBalancerVirtualServerWithRulesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else

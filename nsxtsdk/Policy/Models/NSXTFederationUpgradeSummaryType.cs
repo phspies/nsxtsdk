@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Provides upgrade summary for a specific site.")]
     public class NSXTFederationUpgradeSummaryType 
     {
+        public NSXTFederationUpgradeSummaryType()
+        {
+        }
         /// <summary>
         /// This is NSX target version for the site, if it is undergoing upgrade.
         /// </summary>

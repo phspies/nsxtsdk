@@ -17,5 +17,8 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTEdgeUpgradeStatusType : NSXTComponentUpgradeStatusType
     {
+        public NSXTEdgeUpgradeStatusType()
+        {
+        }
     }
 }

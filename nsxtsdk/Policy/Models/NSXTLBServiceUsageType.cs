@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBServiceUsageType : NSXTLBServiceUsagePerEPType
     {
+        public NSXTLBServiceUsageType()
+        {
+        }
         /// <summary>
         /// Pool capacity means maximum number of pools which could be configured in
         /// the given load balancer service.

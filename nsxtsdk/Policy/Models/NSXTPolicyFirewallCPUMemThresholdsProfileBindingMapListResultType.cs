@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapListResultType : NSXTListResultType
     {
+        public NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapListResultType()
+        {
+        }
         /// <summary>
         /// Firewall CPU Memory Thresholds Profile Binding Map list results
         /// </summary>

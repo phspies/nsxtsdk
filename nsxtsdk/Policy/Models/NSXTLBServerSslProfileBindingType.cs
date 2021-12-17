@@ -13,10 +13,17 @@ namespace nsxtsdk.PolicyModels
 {
     /// <summary>
     /// Server SSL profile binding.
+        /// LBServerSslProfileBinding is deprecated as NSX-T Load Balancer is
+        /// deprecated.
     /// </summary>
-    [NSXTProperty(Description: @"Server SSL profile binding.")]
+    [NSXTProperty(Description: @"Server SSL profile binding.LBServerSslProfileBinding is deprecated as NSX-T Load Balancer isdeprecated.")]
     public class NSXTLBServerSslProfileBindingType 
     {
+        public NSXTLBServerSslProfileBindingType()
+        {
+            ServerAuth = test
+            CertificateChainDepth = test
+        }
         /// <summary>
         /// If server auth type is REQUIRED, server certificate must be signed by
         /// one of the trusted Certificate Authorities (CAs), also referred to as
@@ -38,7 +45,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "server_auth")]
         [NSXTProperty(IsRequired: false, Description: @"Server authentication mode.")]
-        [NSXTDefaultProperty(Default: "AUTO_APPLY")]
         public NSXTLbserverSslProfileBindingServerAuthEnumType? ServerAuth { get; set; }
         /// <summary>
         /// Authentication depth is used to set the verification depth in the server
@@ -48,7 +54,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Authentication depth is used to set the verification depth in the servercertificates chain.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
-        [NSXTDefaultProperty(Default: "")]
         public long? CertificateChainDepth { get; set; }
         /// <summary>
         /// A Certificate Revocation List (CRL) can be specified in the server-side

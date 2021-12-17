@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"The certificate chain presented by a remote TLS service.")]
     public class NSXTPeerCertificateChainType 
     {
+        public NSXTPeerCertificateChainType()
+        {
+        }
         /// <summary>
         /// List of X509Certificates.
         /// </summary>

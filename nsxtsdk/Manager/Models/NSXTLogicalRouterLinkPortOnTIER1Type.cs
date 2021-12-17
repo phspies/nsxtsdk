@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalRouterLinkPortOnTIER1Type : NSXTLogicalRouterPortType
     {
+        public NSXTLogicalRouterLinkPortOnTIER1Type()
+        {
+        }
         /// <summary>
         /// Logical router port subnets
         /// </summary>
@@ -30,10 +33,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"MAC address")]
         public string? MacAddress { get; set; }
         /// <summary>
-        /// Reference of LogicalRouterLinkPortOnTIER0 of TIER0 logical router to connect this TIER1 logical router outwards.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "linked_logical_router_port_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Reference of LogicalRouterLinkPortOnTIER0 of TIER0 logical router to connect this TIER1 logical router outwards.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType LinkedLogicalRouterPortId { get; set; }
         /// <summary>
         /// Please use logical router API to pass edge cluster members indexes manually.

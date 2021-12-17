@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Unary Operation.")]
     public class NSXTUnaryOperationType 
     {
+        public NSXTUnaryOperationType()
+        {
+        }
         /// <summary>
         /// Logical Operator describing the operation to apply to the operand.
         /// </summary>
@@ -25,10 +28,10 @@ namespace nsxtsdk.PolicyModels
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTUnaryOperationOperatorEnumType OperatorProperty { get; set; }
         /// <summary>
-        /// Represents an argument of the operation pointing to a specific field value.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "operand", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Represents an argument of the operation pointing to a specific field value.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTResourceFieldPointerType Operand { get; set; }
     }

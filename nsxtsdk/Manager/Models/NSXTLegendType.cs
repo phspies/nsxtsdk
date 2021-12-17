@@ -17,13 +17,43 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Represents legend that describes the entities of the widget.")]
     public class NSXTLegendType 
     {
+        public NSXTLegendType()
+        {
+            DisplayMode = test
+            Alignment = test
+            Position = test
+            DisplayCount = test
+            Type = test
+            MinLegendsDisplayCount = test
+            OtherGroupLegendLabel = test
+        }
+        /// <summary>
+        /// Display mode for legends.
+        /// </summary>
+        [JsonProperty(PropertyName = "display_mode")]
+        [NSXTProperty(IsRequired: false, Description: @"Display mode for legends.")]
+        public NSXTLegendDisplayModeEnumType? DisplayMode { get; set; }
+        /// <summary>
+        /// Describes the alignment of legend. Alignment of a legend denotes how individual items of the legend are aligned in a
+        /// container. For example, if VERTICAL is chosen then the items of the legend will appear one below the other and if
+        /// HORIZONTAL is chosen then the items will appear side by side.
+        /// </summary>
+        [JsonProperty(PropertyName = "alignment")]
+        [NSXTProperty(IsRequired: false, Description: @"Describes the alignment of legend. Alignment of a legend denotes how individual items of the legend are aligned in a container. For example, if VERTICAL is chosen then the items of the legend will appear one below the other and if HORIZONTAL is chosen then the items will appear side by side.")]
+        public NSXTLegendAlignmentEnumType? Alignment { get; set; }
+        /// <summary>
+        /// Show checkbox along with legends if value is set to true. Widget filtering capability can be enable based on legend
+        /// checkbox selection. for 'display_mode' SHOW_OTHER_GROUP_WITH_LEGENDS filterable property is not supported.
+        /// </summary>
+        [JsonProperty(PropertyName = "filterable")]
+        [NSXTProperty(IsRequired: false, Description: @"Show checkbox along with legends if value is set to true. Widget filtering capability can be enable based on legend checkbox selection. for &apos;display_mode&apos; SHOW_OTHER_GROUP_WITH_LEGENDS filterable property is not supported.")]
+        public bool? Filterable { get; set; }
         /// <summary>
         /// Describes the relative placement of legend. The legend of a widget can be placed either to the TOP or BOTTOM or LEFT or
         /// RIGHT relative to the widget. For example, if RIGHT is chosen then legend is placed to the right of the widget.
         /// </summary>
         [JsonProperty(PropertyName = "position")]
         [NSXTProperty(IsRequired: false, Description: @"Describes the relative placement of legend. The legend of a widget can be placed either to the TOP or BOTTOM or LEFT or RIGHT relative to the widget. For example, if RIGHT is chosen then legend is placed to the right of the widget.")]
-        [NSXTDefaultProperty(Default: "RIGHT")]
         public NSXTLegendPositionEnumType? Position { get; set; }
         /// <summary>
         /// If set to true, it will display the counts in legend. If set to false, counts of entities are not displayed in the
@@ -31,7 +61,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "display_count")]
         [NSXTProperty(IsRequired: false, Description: @"If set to true, it will display the counts in legend. If set to false, counts of entities are not displayed in the legend.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? DisplayCount { get; set; }
         /// <summary>
         /// Describes the render type for the legend. The legend for an entity describes the entity in the widget. The supported
@@ -40,8 +69,16 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "type")]
         [NSXTProperty(IsRequired: false, Description: @"Describes the render type for the legend. The legend for an entity describes the entity in the widget. The supported legend type is a circle against which the entity&apos;s details such as display_name are shown. The color of the circle denotes the color of the entity shown inside the widget.")]
-        [NSXTDefaultProperty(Default: "CIRCLE")]
         public NSXTLegendTypeEnumType? Type { get; set; }
+        /// <summary>
+        /// A minimum number of legends to be displayed upfront. if 'display_mode' is set to SHOW_MIN_NO_OF_LEGENDS then this
+        /// property value will be used to display number of legends upfront in the UI.
+        /// </summary>
+        [JsonProperty(PropertyName = "min_legends_display_count")]
+        [NSXTProperty(IsRequired: false, Description: @"A minimum number of legends to be displayed upfront. if &apos;display_mode&apos; is set to SHOW_MIN_NO_OF_LEGENDS then this property value will be used to display number of legends upfront in the UI.")]
+        //[System.ComponentModel.DataAnnotations.MinLength(1)]
+        //[System.ComponentModel.DataAnnotations.MaxLength(12)]
+        public int? MinLegendsDisplayCount { get; set; }
         /// <summary>
         /// Show unit of entities in the legend.
         /// </summary>
@@ -49,13 +86,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Show unit of entities in the legend.")]
         public string? Unit { get; set; }
         /// <summary>
-        /// Describes the alignment of legend. Alignment of a legend denotes how individual items of the legend are aligned in a
-        /// container. For example, if VERTICAL is chosen then the items of the legend will appear one below the other and if
-        /// HORIZONTAL is chosen then the items will appear side by side.
+        /// A translated label for showing other category label in legends.
         /// </summary>
-        [JsonProperty(PropertyName = "alignment")]
-        [NSXTProperty(IsRequired: false, Description: @"Describes the alignment of legend. Alignment of a legend denotes how individual items of the legend are aligned in a container. For example, if VERTICAL is chosen then the items of the legend will appear one below the other and if HORIZONTAL is chosen then the items will appear side by side.")]
-        [NSXTDefaultProperty(Default: "VERTICAL")]
-        public NSXTLegendAlignmentEnumType? Alignment { get; set; }
+        [JsonProperty(PropertyName = "other_group_legend_label")]
+        [NSXTProperty(IsRequired: false, Description: @"A translated label for showing other category label in legends.")]
+        public string? OtherGroupLegendLabel { get; set; }
     }
 }

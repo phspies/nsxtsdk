@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTVirtualNetworkInterfaceListResultType : NSXTListResultType
     {
+        public NSXTVirtualNetworkInterfaceListResultType()
+        {
+        }
         /// <summary>
         /// VirtualNetworkInterface list results
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Datapath memory pool usage value.")]
     public class NSXTEdgeTransportNodeDatapathMemoryPoolUsageType 
     {
+        public NSXTEdgeTransportNodeDatapathMemoryPoolUsageType()
+        {
+        }
         /// <summary>
         /// Percentage of memory pool in use.
         /// </summary>

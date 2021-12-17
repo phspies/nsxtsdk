@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Role")]
     public class NSXTRoleType 
     {
+        public NSXTRoleType()
+        {
+        }
         /// <summary>
         /// Short identifier for the role. Must be all lower case with no spaces.
         /// </summary>

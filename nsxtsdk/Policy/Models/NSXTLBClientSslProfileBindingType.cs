@@ -13,16 +13,22 @@ namespace nsxtsdk.PolicyModels
 {
     /// <summary>
     /// Client SSL profile binding.
+        /// LBClientSslProfileBinding is deprecated as NSX-T Load Balancer is
+        /// deprecated.
     /// </summary>
-    [NSXTProperty(Description: @"Client SSL profile binding.")]
+    [NSXTProperty(Description: @"Client SSL profile binding.LBClientSslProfileBinding is deprecated as NSX-T Load Balancer isdeprecated.")]
     public class NSXTLBClientSslProfileBindingType 
     {
+        public NSXTLBClientSslProfileBindingType()
+        {
+            ClientAuth = test
+            CertificateChainDepth = test
+        }
         /// <summary>
         /// Client authentication mode.
         /// </summary>
         [JsonProperty(PropertyName = "client_auth")]
         [NSXTProperty(IsRequired: false, Description: @"Client authentication mode.")]
-        [NSXTDefaultProperty(Default: "IGNORE")]
         public NSXTLbclientSslProfileBindingClientAuthEnumType? ClientAuth { get; set; }
         /// <summary>
         /// A Certificate Revocation List (CRL) can be specified in the client-side
@@ -47,7 +53,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Authentication depth is used to set the verification depth in the clientcertificates chain.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
-        [NSXTDefaultProperty(Default: "")]
         public long? CertificateChainDepth { get; set; }
         /// <summary>
         /// Client-side SSL profile binding allows multiple certificates, for

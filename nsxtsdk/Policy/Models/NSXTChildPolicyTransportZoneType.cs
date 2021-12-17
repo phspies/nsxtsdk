@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildPolicyTransportZoneType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildPolicyTransportZoneType()
+        {
+        }
         /// <summary>
-        /// Contains the actual PolicyTransportZone object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "PolicyTransportZone", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual PolicyTransportZone object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTPolicyTransportZoneType PolicyTransportZone { get; set; }
     }

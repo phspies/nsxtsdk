@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalPortMacTableCsvEntryType : NSXTCsvRecordType
     {
+        public NSXTLogicalPortMacTableCsvEntryType()
+        {
+        }
         /// <summary>
         /// The type of the MAC address
         /// </summary>

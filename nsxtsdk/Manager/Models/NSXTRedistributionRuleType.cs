@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRedistributionRuleType 
     {
+        public NSXTRedistributionRuleType()
+        {
+            AddressFamily = test
+        }
         /// <summary>
         /// Array of redistribution protocols
         /// </summary>
@@ -35,7 +39,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "address_family")]
         [NSXTProperty(IsRequired: false, Description: @"Address family for Route Redistribution")]
-        [NSXTDefaultProperty(Default: "IPV4_AND_IPV6")]
         public NSXTRedistributionRuleAddressFamilyEnumType? AddressFamily { get; set; }
         /// <summary>
         /// Display name

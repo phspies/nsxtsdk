@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyFirewallSessionTimerProfileListResultType : NSXTListResultType
     {
+        public NSXTPolicyFirewallSessionTimerProfileListResultType()
+        {
+        }
         /// <summary>
         /// Policy Firewall Session timeout profile list results
         /// </summary>

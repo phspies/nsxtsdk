@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer MetricsRealTimeUpdate object")]
     public class NSXTALBMetricsRealTimeUpdateType 
     {
+        public NSXTALBMetricsRealTimeUpdateType()
+        {
+            Duration = test
+        }
         /// <summary>
         /// Real time metrics collection duration in minutes.
         /// 0 for infinite.
@@ -27,7 +31,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "duration")]
         [NSXTProperty(IsRequired: false, Description: @"Real time metrics collection duration in minutes.0 for infinite.Special values are 0 - &apos;infinite&apos;.Unit is MIN.Default value when not specified in API or module isinterpreted by ALB Controller as 30.")]
-        [NSXTDefaultProperty(Default: "")]
         public long? Duration { get; set; }
         /// <summary>
         /// Enables real time metrics collection.

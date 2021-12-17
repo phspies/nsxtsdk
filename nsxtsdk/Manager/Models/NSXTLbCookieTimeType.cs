@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbCookieTimeType 
     {
+        public NSXTLbCookieTimeType()
+        {
+        }
         /// <summary>
         /// Both session cookie and persistence cookie are supported,
         /// Use LbSessionCookieTime for session cookie time setting,

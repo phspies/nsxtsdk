@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"RBAC Objects qualifier")]
     public class NSXTPathPermissionGroupType 
     {
+        public NSXTPathPermissionGroupType()
+        {
+        }
         /// <summary>
         /// Allowed operation
         /// </summary>

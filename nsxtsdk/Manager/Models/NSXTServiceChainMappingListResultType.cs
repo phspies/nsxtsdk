@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceChainMappingListResultType : NSXTListResultType
     {
+        public NSXTServiceChainMappingListResultType()
+        {
+        }
         /// <summary>
         /// List of the Service Chain Mappings. The list has to be homogenous.
         /// </summary>

@@ -17,12 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer IpAddrPort object")]
     public class NSXTALBIpAddrPortType 
     {
+        public NSXTALBIpAddrPortType()
+        {
+        }
         /// <summary>
-        /// IP Address of host.
-        /// One of IP address or hostname should be set.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ip")]
-        [NSXTProperty(IsRequired: false, Description: @"IP Address of host.One of IP address or hostname should be set.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBIpAddrType Ip { get; set; }
         /// <summary>
         /// Hostname of server.

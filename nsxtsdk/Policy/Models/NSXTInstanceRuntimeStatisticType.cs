@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Statistics for data NICs on an instance runtime")]
     public class NSXTInstanceRuntimeStatisticType 
     {
+        public NSXTInstanceRuntimeStatisticType()
+        {
+        }
         /// <summary>
         /// List of statistics for all data NICs on a runtime.
         /// </summary>

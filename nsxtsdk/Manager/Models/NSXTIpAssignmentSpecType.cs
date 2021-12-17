@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Abstract base type for specification of IPs to be used with host switch virtual tunnel endpoints")]
     public class NSXTIpAssignmentSpecType 
     {
+        public NSXTIpAssignmentSpecType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

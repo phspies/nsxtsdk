@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTEtherTypeNSServiceType : NSXTNSServiceElementType
     {
+        public NSXTEtherTypeNSServiceType()
+        {
+        }
         /// <summary>
         /// Type of the encapsulated protocol
         /// </summary>

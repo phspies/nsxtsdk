@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Central Config properties")]
     public class NSXTCentralConfigPropertiesType 
     {
+        public NSXTCentralConfigPropertiesType()
+        {
+        }
         /// <summary>
         /// Override Central Config
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Describes appliance latency data in detail.")]
     public class NSXTApplianceLatencyDataItemType 
     {
+        public NSXTApplianceLatencyDataItemType()
+        {
+        }
         /// <summary>
         /// Display the connection status between source node and destination node.
         /// </summary>

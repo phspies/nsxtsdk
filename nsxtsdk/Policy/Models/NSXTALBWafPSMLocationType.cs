@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer WafPSMLocation object")]
     public class NSXTALBWafPSMLocationType 
     {
+        public NSXTALBWafPSMLocationType()
+        {
+        }
         /// <summary>
         /// A list of rules which should be applied on this location.
         /// Maximum of 1024 items allowed.
@@ -39,11 +42,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Free-text comment about this location.")]
         public string? Description { get; set; }
         /// <summary>
-        /// Apply these rules only if the request is matching this
-        /// description.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "match")]
-        [NSXTProperty(IsRequired: false, Description: @"Apply these rules only if the request is matching thisdescription.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBWafPSMLocationMatchType Match { get; set; }
         /// <summary>
         /// User defined name for this location, it must be unique in

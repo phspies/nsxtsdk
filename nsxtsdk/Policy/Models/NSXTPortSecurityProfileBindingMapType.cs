@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPortSecurityProfileBindingMapType : NSXTSecurityProfileBindingMapType
     {
+        public NSXTPortSecurityProfileBindingMapType()
+        {
+        }
         /// <summary>
         /// The policy path of the asscociated SpoofGuard profile
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HSMSafenetLunaServer object")]
     public class NSXTALBHSMSafenetLunaServerType 
     {
+        public NSXTALBHSMSafenetLunaServerType()
+        {
+        }
         /// <summary>
         /// Number of index.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMacTableEntryType 
     {
+        public NSXTMacTableEntryType()
+        {
+        }
         /// <summary>
         /// The virtual tunnel endpoint MAC address
         /// </summary>

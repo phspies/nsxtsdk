@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalRouterLinkPortOnTIER0Type : NSXTLogicalRouterPortType
     {
+        public NSXTLogicalRouterLinkPortOnTIER0Type()
+        {
+        }
         /// <summary>
         /// Logical router port subnets
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Backup operation status")]
     public class NSXTBackupOperationStatusType 
     {
+        public NSXTBackupOperationStatusType()
+        {
+        }
         /// <summary>
         /// Unique identifier of a backup
         /// </summary>

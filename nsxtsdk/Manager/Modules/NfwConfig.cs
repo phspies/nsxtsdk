@@ -207,25 +207,25 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNotificationsListType DeleteUriFiltersDeleteUriFilters(string WatcherId, NSXTNotificationType Notification)
+        public NSXTNotificationsListType DeleteUriFilters(string WatcherId, NSXTNotificationType Notification)
         {
             if (WatcherId == null) { throw new System.ArgumentNullException("WatcherId cannot be null"); }
             if (Notification == null) { throw new System.ArgumentNullException("Notification cannot be null"); }
             NSXTNotificationsListType returnValue = default(NSXTNotificationsListType);
-            StringBuilder DeleteUriFiltersDeleteUriFiltersServiceURL = new StringBuilder("/notification-watchers/{watcher-id}/notifications?action=delete_uri_filters");
+            StringBuilder DeleteUriFiltersServiceURL = new StringBuilder("/notification-watchers/{watcher-id}/notifications?action=delete_uri_filters");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            DeleteUriFiltersDeleteUriFiltersServiceURL.Replace("{watcher-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(WatcherId, System.Globalization.CultureInfo.InvariantCulture)));
+            DeleteUriFiltersServiceURL.Replace("{watcher-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(WatcherId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Notification, defaultSerializationSettings));
-            request.Resource = DeleteUriFiltersDeleteUriFiltersServiceURL.ToString();
+            request.Resource = DeleteUriFiltersServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + DeleteUriFiltersDeleteUriFiltersServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + DeleteUriFiltersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -246,25 +246,25 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNotificationsListType AddUriFiltersAddUriFilters(string WatcherId, NSXTNotificationType Notification)
+        public NSXTNotificationsListType AddUriFilters(string WatcherId, NSXTNotificationType Notification)
         {
             if (WatcherId == null) { throw new System.ArgumentNullException("WatcherId cannot be null"); }
             if (Notification == null) { throw new System.ArgumentNullException("Notification cannot be null"); }
             NSXTNotificationsListType returnValue = default(NSXTNotificationsListType);
-            StringBuilder AddUriFiltersAddUriFiltersServiceURL = new StringBuilder("/notification-watchers/{watcher-id}/notifications?action=add_uri_filters");
+            StringBuilder AddUriFiltersServiceURL = new StringBuilder("/notification-watchers/{watcher-id}/notifications?action=add_uri_filters");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            AddUriFiltersAddUriFiltersServiceURL.Replace("{watcher-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(WatcherId, System.Globalization.CultureInfo.InvariantCulture)));
+            AddUriFiltersServiceURL.Replace("{watcher-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(WatcherId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Notification, defaultSerializationSettings));
-            request.Resource = AddUriFiltersAddUriFiltersServiceURL.ToString();
+            request.Resource = AddUriFiltersServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + AddUriFiltersAddUriFiltersServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + AddUriFiltersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else

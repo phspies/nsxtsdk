@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer PoolServer object")]
     public class NSXTALBPoolServerType 
     {
+        public NSXTALBPoolServerType()
+        {
+        }
         /// <summary>
-        /// IP address of the server in the poool.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ip", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IP address of the server in the poool.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBIpAddrType Ip { get; set; }
         /// <summary>

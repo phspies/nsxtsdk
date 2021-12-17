@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildGlobalConfigType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildGlobalConfigType()
+        {
+        }
         /// <summary>
-        /// Contains the actual GlobalConfig object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "GlobalConfig", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual GlobalConfig object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTGlobalConfigType GlobalConfig { get; set; }
     }

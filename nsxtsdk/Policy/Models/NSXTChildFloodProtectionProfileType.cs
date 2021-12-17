@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildFloodProtectionProfileType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildFloodProtectionProfileType()
+        {
+        }
         /// <summary>
-        /// Contains the actual FloodProtectionProfile object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "FloodProtectionProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual FloodProtectionProfile object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTFloodProtectionProfileType FloodProtectionProfile { get; set; }
     }

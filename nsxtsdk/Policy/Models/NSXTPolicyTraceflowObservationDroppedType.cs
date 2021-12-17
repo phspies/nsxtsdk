@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyTraceflowObservationDroppedType : NSXTTraceflowObservationDroppedType
     {
+        public NSXTPolicyTraceflowObservationDroppedType()
+        {
+        }
         /// <summary>
         /// The path of the ACL rule that was applied to forward the traceflow packet
         /// </summary>

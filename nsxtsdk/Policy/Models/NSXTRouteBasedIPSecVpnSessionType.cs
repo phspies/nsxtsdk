@@ -17,20 +17,23 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRouteBasedIPSecVpnSessionType : NSXTIPSecVpnSessionType
     {
+        public NSXTRouteBasedIPSecVpnSessionType()
+        {
+        }
         /// <summary>
         /// If true the default firewall rule Action is set to DROP, otherwise set to ALLOW.
-        /// This filed is deprecated and recommended to change Rule action filed. Note that this
-        /// filed is not synchornied with default rule field.
+        /// This field is deprecated and recommended to change Rule action field. Note that this
+        /// field is not synchornied with default rule field.
         /// </summary>
         [JsonProperty(PropertyName = "force_whitelisting")]
-        [NSXTProperty(IsRequired: false, Description: @"If true the default firewall rule Action is set to DROP, otherwise set to ALLOW.This filed is deprecated and recommended to change Rule action filed. Note that thisfiled is not synchornied with default rule field.")]
+        [NSXTProperty(IsRequired: false, Description: @"If true the default firewall rule Action is set to DROP, otherwise set to ALLOW.This field is deprecated and recommended to change Rule action field. Note that thisfield is not synchornied with default rule field.")]
         public bool? ForceWhitelisting { get; set; }
         /// <summary>
-        /// IP Tunnel interfaces.
+        /// IP Tunnel interfaces. This property is mandatory on LM. It is required on GM only in case of site_overrides property not
+        /// provided.
         /// </summary>
-        [JsonProperty(PropertyName = "tunnel_interfaces", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IP Tunnel interfaces.")]
-        [System.ComponentModel.DataAnnotations.Required]
+        [JsonProperty(PropertyName = "tunnel_interfaces")]
+        [NSXTProperty(IsRequired: false, Description: @"IP Tunnel interfaces. This property is mandatory on LM. It is required on GM only in case of site_overrides property not provided.")]
         public IList<NSXTIPSecVpnTunnelInterfaceType> TunnelInterfaces { get; set; }
     }
 }

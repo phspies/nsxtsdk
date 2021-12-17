@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSiteOffBoardingStateType : NSXTPolicyConfigResourceType
     {
+        public NSXTSiteOffBoardingStateType()
+        {
+        }
         /// <summary>
         /// Represents site offboarding status.
         /// </summary>

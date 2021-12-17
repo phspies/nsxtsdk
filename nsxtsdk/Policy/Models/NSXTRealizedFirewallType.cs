@@ -19,6 +19,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRealizedFirewallType : NSXTPolicyRealizedResourceType
     {
+        public NSXTRealizedFirewallType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

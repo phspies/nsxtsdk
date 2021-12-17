@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Detailed feedback requests from the migration tool where user input is required.")]
     public class NSXTMigrationFeedbackRequestType 
     {
+        public NSXTMigrationFeedbackRequestType()
+        {
+        }
         /// <summary>
         /// Indicates if a valid response already exist for this feedback request.
         /// </summary>
@@ -24,11 +27,11 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Indicates if a valid response already exist for this feedback request.")]
         public bool? Resolved { get; set; }
         /// <summary>
-        /// List of acceptable actions for this feedback request.
+        /// Name of this object in the source NSX endpoint.
         /// </summary>
-        [JsonProperty(PropertyName = "accepted_actions")]
-        [NSXTProperty(IsRequired: false, Description: @"List of acceptable actions for this feedback request.")]
-        public IList<string> AcceptedActions { get; set; }
+        [JsonProperty(PropertyName = "v_object_name")]
+        [NSXTProperty(IsRequired: false, Description: @"Name of this object in the source NSX endpoint.")]
+        public string? VObjectName { get; set; }
         /// <summary>
         /// Identify a feedback request type across objects. This can be used to group together objects with similar feedback
         /// request and resolve them in one go.
@@ -36,6 +39,12 @@ namespace nsxtsdk.ManagerModels
         [JsonProperty(PropertyName = "hash")]
         [NSXTProperty(IsRequired: false, Description: @"Identify a feedback request type across objects. This can be used to group together objects with similar feedback request and resolve them in one go.")]
         public string? Hash { get; set; }
+        /// <summary>
+        /// List of acceptable actions for this feedback request.
+        /// </summary>
+        [JsonProperty(PropertyName = "accepted_actions")]
+        [NSXTProperty(IsRequired: false, Description: @"List of acceptable actions for this feedback request.")]
+        public IList<string> AcceptedActions { get; set; }
         /// <summary>
         /// Functional area that this query falls into.
         /// </summary>
@@ -61,11 +70,11 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Detailed feedback request with options.")]
         public string? Message { get; set; }
         /// <summary>
-        /// Identifier of the object for which feedback is requested.
+        /// Indicates if multiple values can be selected as response from the list of acceptable value.
         /// </summary>
-        [JsonProperty(PropertyName = "object_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifier of the object for which feedback is requested.")]
-        public string? ObjectId { get; set; }
+        [JsonProperty(PropertyName = "multi_value")]
+        [NSXTProperty(IsRequired: false, Description: @"Indicates if multiple values can be selected as response from the list of acceptable value.")]
+        public bool? MultiValue { get; set; }
         /// <summary>
         /// Data type of the items listed in acceptable values list.
         /// </summary>
@@ -73,17 +82,17 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Data type of the items listed in acceptable values list.")]
         public string? AcceptedValueType { get; set; }
         /// <summary>
-        /// Name of this object in the source NSX endpoint.
+        /// Id of the site in NSX-T Federation
         /// </summary>
-        [JsonProperty(PropertyName = "v_object_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Name of this object in the source NSX endpoint.")]
-        public string? VObjectName { get; set; }
+        [JsonProperty(PropertyName = "federation_site_id")]
+        [NSXTProperty(IsRequired: false, Description: @"Id of the site in NSX-T Federation")]
+        public string? FederationSiteId { get; set; }
         /// <summary>
-        /// Indicates if multiple values can be selected as response from the list of acceptable value.
+        /// Identifier of the object for which feedback is requested.
         /// </summary>
-        [JsonProperty(PropertyName = "multi_value")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicates if multiple values can be selected as response from the list of acceptable value.")]
-        public bool? MultiValue { get; set; }
+        [JsonProperty(PropertyName = "object_id")]
+        [NSXTProperty(IsRequired: false, Description: @"Identifier of the object for which feedback is requested.")]
+        public string? ObjectId { get; set; }
         /// <summary>
         /// List of acceptable values for this feedback request.
         /// </summary>

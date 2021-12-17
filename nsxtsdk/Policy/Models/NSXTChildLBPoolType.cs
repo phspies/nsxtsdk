@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildLBPoolType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildLBPoolType()
+        {
+        }
         /// <summary>
-        /// Contains the actual LBPool object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "LBPool", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual LBPool object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTLBPoolType LBPool { get; set; }
     }

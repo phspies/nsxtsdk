@@ -17,19 +17,22 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Match condition for client certficate subject DN")]
     public class NSXTLbClientCertificateSubjectDnConditionType 
     {
+        public NSXTLbClientCertificateSubjectDnConditionType()
+        {
+            CaseSensitive = test
+            MatchType = test
+        }
         /// <summary>
         /// If true, case is significant when comparing subject DN value.
         /// </summary>
         [JsonProperty(PropertyName = "case_sensitive")]
         [NSXTProperty(IsRequired: false, Description: @"If true, case is significant when comparing subject DN value.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? CaseSensitive { get; set; }
         /// <summary>
         /// Match type of subject DN
         /// </summary>
         [JsonProperty(PropertyName = "match_type")]
         [NSXTProperty(IsRequired: false, Description: @"Match type of subject DN")]
-        [NSXTDefaultProperty(Default: "REGEX")]
         public NSXTLbClientCertificateSubjectDnConditionMatchTypeEnumType? MatchType { get; set; }
         /// <summary>
         /// Value of subject DN

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTComponentUpgradeStatusType 
     {
+        public NSXTComponentUpgradeStatusType()
+        {
+        }
         /// <summary>
         /// Upgrade status of component
         /// </summary>
@@ -24,10 +27,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Upgrade status of component")]
         public NSXTComponentUpgradeStatusStatusEnumType? Status { get; set; }
         /// <summary>
-        /// Pre-upgrade status of the component-type
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "pre_upgrade_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Pre-upgrade status of the component-type")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTUpgradeChecksExecutionStatusType PreUpgradeStatus { get; set; }
         /// <summary>
         /// Details about the upgrade status
@@ -66,10 +69,16 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Can the upgrade of the remaining units in this component be skipped")]
         public bool? CanSkip { get; set; }
         /// <summary>
-        /// Mapping of current versions of nodes and counts of nodes at the respective versions.
+        /// This field indicates whether we can perform upgrade rollback.
+        /// </summary>
+        [JsonProperty(PropertyName = "can_rollback")]
+        [NSXTProperty(IsRequired: false, Description: @"This field indicates whether we can perform upgrade rollback.")]
+        public bool? CanRollback { get; set; }
+        /// <summary>
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "current_version_node_summary")]
-        [NSXTProperty(IsRequired: false, Description: @"Mapping of current versions of nodes and counts of nodes at the respective versions.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTNodeSummaryListType CurrentVersionNodeSummary { get; set; }
     }
 }

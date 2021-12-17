@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRuleStateType : NSXTDSRuleStateType
     {
+        public NSXTRuleStateType()
+        {
+        }
         /// <summary>
         /// Pending changes to be realized.
         /// </summary>

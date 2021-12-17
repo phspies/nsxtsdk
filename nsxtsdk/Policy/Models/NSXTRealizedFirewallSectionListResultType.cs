@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRealizedFirewallSectionListResultType : NSXTListResultType
     {
+        public NSXTRealizedFirewallSectionListResultType()
+        {
+        }
         /// <summary>
         /// Paged Collection of firewall sections
         /// </summary>

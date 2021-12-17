@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyFirewallSchedulerListResultType : NSXTListResultType
     {
+        public NSXTPolicyFirewallSchedulerListResultType()
+        {
+        }
         /// <summary>
         /// Paged collection of PolicyFirewallSchedulers
         /// </summary>

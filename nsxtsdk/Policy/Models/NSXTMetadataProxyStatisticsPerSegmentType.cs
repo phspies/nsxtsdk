@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTMetadataProxyStatisticsPerSegmentType 
     {
+        public NSXTMetadataProxyStatisticsPerSegmentType()
+        {
+        }
         /// <summary>
         /// requests to nova server
         /// </summary>

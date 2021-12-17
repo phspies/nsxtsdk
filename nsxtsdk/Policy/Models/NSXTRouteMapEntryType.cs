@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Route map entry")]
     public class NSXTRouteMapEntryType 
     {
+        public NSXTRouteMapEntryType()
+        {
+        }
         /// <summary>
         /// Action for the route map entry
         /// </summary>
@@ -33,10 +36,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Community list match criteria for route map.Properties community_list_matches and prefix_list_matches are mutuallyexclusive and cannot be used in the same route map entry.")]
         public IList<NSXTCommunityMatchCriteriaType> CommunityListMatches { get; set; }
         /// <summary>
-        /// Set criteria for route map entry
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "set")]
-        [NSXTProperty(IsRequired: false, Description: @"Set criteria for route map entry")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTRouteMapEntrySetType Set { get; set; }
         /// <summary>
         /// Prefix list match criteria for route map.

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Answer of nslookup")]
     public class NSXTNsxTDnsQueryAnswerType 
     {
+        public NSXTNsxTDnsQueryAnswerType()
+        {
+        }
         /// <summary>
         /// Matched name of the given address.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSegmentConfigurationStateType : NSXTConfigurationStateType
     {
+        public NSXTSegmentConfigurationStateType()
+        {
+        }
         /// <summary>
         /// Segment path
         /// </summary>

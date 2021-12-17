@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildPortMirroringProfileType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildPortMirroringProfileType()
+        {
+        }
         /// <summary>
-        /// Contains the actual PortMirroringProfile object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "PortMirroringProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual PortMirroringProfile object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTPortMirroringProfileType PortMirroringProfile { get; set; }
     }

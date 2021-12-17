@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDSRuleStateType : NSXTConfigurationStateType
     {
+        public NSXTDSRuleStateType()
+        {
+        }
         /// <summary>
         /// This attribute represents revision number of rule's desired state.
         /// </summary>

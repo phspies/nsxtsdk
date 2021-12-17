@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildPolicyFirewallSchedulerType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildPolicyFirewallSchedulerType()
+        {
+        }
         /// <summary>
-        /// Contains the actual PolicyFirewallScheduler objects
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "PolicyFirewallScheduler", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual PolicyFirewallScheduler objects")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTPolicyFirewallSchedulerType PolicyFirewallScheduler { get; set; }
     }

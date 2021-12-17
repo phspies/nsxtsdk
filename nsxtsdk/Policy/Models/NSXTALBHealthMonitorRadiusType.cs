@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HealthMonitorRadius object")]
     public class NSXTALBHealthMonitorRadiusType 
     {
+        public NSXTALBHealthMonitorRadiusType()
+        {
+        }
         /// <summary>
         /// Radius monitor will query Radius server with this username.
         /// </summary>
@@ -27,17 +30,15 @@ namespace nsxtsdk.PolicyModels
         /// <summary>
         /// Radius monitor will query Radius server with this password.
         /// </summary>
-        [JsonProperty(PropertyName = "password", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Radius monitor will query Radius server with this password.")]
-        [System.ComponentModel.DataAnnotations.Required]
-        public string Password { get; set; }
+        [JsonProperty(PropertyName = "password")]
+        [NSXTProperty(IsRequired: false, Description: @"Radius monitor will query Radius server with this password.")]
+        public string? Password { get; set; }
         /// <summary>
         /// Radius monitor will query Radius server with this shared
         /// secret.
         /// </summary>
-        [JsonProperty(PropertyName = "shared_secret", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Radius monitor will query Radius server with this sharedsecret.")]
-        [System.ComponentModel.DataAnnotations.Required]
-        public string SharedSecret { get; set; }
+        [JsonProperty(PropertyName = "shared_secret")]
+        [NSXTProperty(IsRequired: false, Description: @"Radius monitor will query Radius server with this sharedsecret.")]
+        public string? SharedSecret { get; set; }
     }
 }

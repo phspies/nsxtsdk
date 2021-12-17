@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"IPSec VPN session status summary, gives total, failed, degraded and established IPSec VPN sessions.")]
     public class NSXTIPsecVPNIKESessionSummaryType 
     {
+        public NSXTIPsecVPNIKESessionSummaryType()
+        {
+        }
         /// <summary>
         /// Number of established sessions.
         /// </summary>

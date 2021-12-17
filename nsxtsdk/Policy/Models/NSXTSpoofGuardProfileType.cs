@@ -17,13 +17,26 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSpoofGuardProfileType : NSXTPolicyConfigResourceType
     {
+        public NSXTSpoofGuardProfileType()
+        {
+        }
         /// <summary>
         /// If true, enable the SpoofGuard, which only allows VM sending traffic
-        /// with the IPs in the whitelist.
+        /// with the IPs in the whitelist. This field is deprecated because it
+        /// has offensive terminology. Please use address_binding_allowlist.
+        /// This value cannot conflict with allow list.
         /// </summary>
         [JsonProperty(PropertyName = "address_binding_whitelist", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"If true, enable the SpoofGuard, which only allows VM sending trafficwith the IPs in the whitelist.")]
+        [NSXTProperty(IsRequired: true, Description: @"If true, enable the SpoofGuard, which only allows VM sending trafficwith the IPs in the whitelist. This field is deprecated because ithas offensive terminology. Please use address_binding_allowlist.This value cannot conflict with allow list.")]
         [System.ComponentModel.DataAnnotations.Required]
         public bool AddressBindingWhitelist { get; set; }
+        /// <summary>
+        /// If true, enable the SpoofGuard, which only allows VM sending traffic
+        /// with the IPs in the whitelist. This value cannot conflict with whitelist.
+        /// </summary>
+        [JsonProperty(PropertyName = "address_binding_allowlist", Required = Required.AllowNull)]
+        [NSXTProperty(IsRequired: true, Description: @"If true, enable the SpoofGuard, which only allows VM sending trafficwith the IPs in the whitelist. This value cannot conflict with whitelist.")]
+        [System.ComponentModel.DataAnnotations.Required]
+        public bool AddressBindingAllowlist { get; set; }
     }
 }

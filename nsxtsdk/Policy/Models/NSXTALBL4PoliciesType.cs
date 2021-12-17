@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer L4Policies object")]
     public class NSXTALBL4PoliciesType 
     {
+        public NSXTALBL4PoliciesType()
+        {
+        }
         /// <summary>
         /// ID of the virtual service L4 policy set.
         /// It is a reference to an object of type L4PolicySet.

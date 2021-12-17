@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"OSPF Neighbor Status.")]
     public class NSXTOspfNeighborStatusType 
     {
+        public NSXTOspfNeighborStatusType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

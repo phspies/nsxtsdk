@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyServiceInstanceStatisticsType : NSXTResourceType
     {
+        public NSXTPolicyServiceInstanceStatisticsType()
+        {
+        }
         /// <summary>
         /// PolicyServiceInsatnce path
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Detailed view of the datapath memory usage. Details out the heap and per memory pool point in time usage.")]
     public class NSXTEdgeTransportNodeDatapathMemoryUsageType 
     {
+        public NSXTEdgeTransportNodeDatapathMemoryUsageType()
+        {
+        }
         /// <summary>
         /// Highest percentage usage value among datapath memory pools.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTClusterNodeInfoType 
     {
+        public NSXTClusterNodeInfoType()
+        {
+        }
         /// <summary>
         /// Node clustering status
         /// </summary>
@@ -54,10 +57,28 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Certificate and thumbprint of all entities")]
         public IList<NSXTNodeCertificateInfoType> Certificates { get; set; }
         /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "api_listen_addr")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTServiceEndpointType ApiListenAddr { get; set; }
+        /// <summary>
         /// The fqdn of this node
         /// </summary>
         [JsonProperty(PropertyName = "fqdn")]
         [NSXTProperty(IsRequired: false, Description: @"The fqdn of this node")]
         public string? Fqdn { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "appliance_connection_info")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTServiceEndpointType ApplianceConnectionInfo { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "control_plane_listen_addr")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTServiceEndpointType ControlPlaneListenAddr { get; set; }
     }
 }

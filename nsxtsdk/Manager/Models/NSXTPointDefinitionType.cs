@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Defines the point of a graph.")]
     public class NSXTPointDefinitionType 
     {
+        public NSXTPointDefinitionType()
+        {
+        }
         /// <summary>
         /// Represents the variable for the Y value of points that are plotted on the graph.
         /// </summary>

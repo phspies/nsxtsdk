@@ -19,6 +19,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"A ServiceInsertionServiceProfile can be part of multiple ServiceChains. ServiceChainMapping for a particular profile will contain a list of all the ServiceChains it&apos;s part of. Each Mapping will also contain some metadata to uniquely identify a profile from other profiles.")]
     public class NSXTServiceChainMappingType 
     {
+        public NSXTServiceChainMappingType()
+        {
+        }
         /// <summary>
         /// A unique id generated for every ServiceChain. This is not a uuid.
         /// </summary>

@@ -244,23 +244,23 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void RetryTransportNodeCollectionRealizationRetryProfileRealization(string TransportNodeCollectionId)
+        public void RetryTransportNodeCollectionRealization(string TransportNodeCollectionId)
         {
             if (TransportNodeCollectionId == null) { throw new System.ArgumentNullException("TransportNodeCollectionId cannot be null"); }
             
-            StringBuilder RetryTransportNodeCollectionRealizationRetryProfileRealizationServiceURL = new StringBuilder("/transport-node-collections/{transport-node-collection-id}?action=retry_profile_realization");
+            StringBuilder RetryTransportNodeCollectionRealizationServiceURL = new StringBuilder("/transport-node-collections/{transport-node-collection-id}?action=retry_profile_realization");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            RetryTransportNodeCollectionRealizationRetryProfileRealizationServiceURL.Replace("{transport-node-collection-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TransportNodeCollectionId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = RetryTransportNodeCollectionRealizationRetryProfileRealizationServiceURL.ToString();
+            RetryTransportNodeCollectionRealizationServiceURL.Replace("{transport-node-collection-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TransportNodeCollectionId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = RetryTransportNodeCollectionRealizationServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + RetryTransportNodeCollectionRealizationRetryProfileRealizationServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + RetryTransportNodeCollectionRealizationServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTGlobalManagerListResultType : NSXTListResultType
     {
+        public NSXTGlobalManagerListResultType()
+        {
+        }
         /// <summary>
         /// Global Manager List Result.
         /// </summary>

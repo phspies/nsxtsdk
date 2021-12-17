@@ -15,8 +15,11 @@ namespace nsxtsdk.ManagerModels
     /// 
     /// </summary>
     [NSXTProperty(Description: @"")]
-    public class NSXTDhcpLeasesType 
+    public class NSXTDhcpLeasesType : NSXTListResultType
     {
+        public NSXTDhcpLeasesType()
+        {
+        }
         /// <summary>
         /// timestamp of the lease info
         /// </summary>

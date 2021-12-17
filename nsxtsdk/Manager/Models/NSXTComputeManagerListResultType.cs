@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTComputeManagerListResultType : NSXTListResultType
     {
+        public NSXTComputeManagerListResultType()
+        {
+        }
         /// <summary>
         /// List of compute managers
         /// </summary>

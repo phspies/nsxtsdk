@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpIpPoolListResultType : NSXTListResultType
     {
+        public NSXTDhcpIpPoolListResultType()
+        {
+        }
         /// <summary>
         /// A paginated list of DHCP ip pools.
         /// </summary>

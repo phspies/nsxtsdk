@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeCertificateInfoType 
     {
+        public NSXTNodeCertificateInfoType()
+        {
+        }
         /// <summary>
         /// SHA256 of certificate
         /// </summary>

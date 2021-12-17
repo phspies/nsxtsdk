@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTVirtualMachineListResultType : NSXTListResultType
     {
+        public NSXTVirtualMachineListResultType()
+        {
+        }
         /// <summary>
         /// VirtualMachine list results
         /// </summary>

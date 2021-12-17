@@ -17,11 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalRouterCentralizedServicePortType : NSXTLogicalRouterPortType
     {
+        public NSXTLogicalRouterCentralizedServicePortType()
+        {
+            UrpfMode = test
+        }
         /// <summary>
-        /// Reference to the logical switch port to connect to
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "linked_logical_switch_port_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Reference to the logical switch port to connect to")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType LinkedLogicalSwitchPortId { get; set; }
         /// <summary>
         /// Logical router port subnets
@@ -40,7 +44,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "urpf_mode")]
         [NSXTProperty(IsRequired: false, Description: @"Unicast Reverse Path Forwarding mode")]
-        [NSXTDefaultProperty(Default: "STRICT")]
         public NSXTLogicalRouterCentralizedServicePortUrpfModeEnumType? UrpfMode { get; set; }
         /// <summary>
         /// Identifier of Neighbor Discovery Router Advertisement profile

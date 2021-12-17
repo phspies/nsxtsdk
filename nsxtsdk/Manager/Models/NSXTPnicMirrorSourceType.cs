@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPnicMirrorSourceType : NSXTMirrorSourceType
     {
+        public NSXTPnicMirrorSourceType()
+        {
+        }
         /// <summary>
         /// Transport node identifier for the pnic located.
         /// </summary>

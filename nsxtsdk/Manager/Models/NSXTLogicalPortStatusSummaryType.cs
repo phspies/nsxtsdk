@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalPortStatusSummaryType 
     {
+        public NSXTLogicalPortStatusSummaryType()
+        {
+        }
         /// <summary>
         /// The total number of logical ports.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HTTPPolicies object")]
     public class NSXTALBHTTPPoliciesType 
     {
+        public NSXTALBHTTPPoliciesType()
+        {
+        }
         /// <summary>
         /// Index of the virtual service HTTP policy collection.
         /// </summary>

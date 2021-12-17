@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPortMirroringSessionType : NSXTManagedResourceType
     {
+        public NSXTPortMirroringSessionType()
+        {
+            SessionType = test
+        }
         /// <summary>
         /// Port mirroring session direction
         /// </summary>
@@ -43,7 +47,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "session_type")]
         [NSXTProperty(IsRequired: false, Description: @"If this property is unset, this session will be treated asLocalPortMirrorSession.")]
-        [NSXTDefaultProperty(Default: "LocalPortMirrorSession")]
         public NSXTPortMirroringSessionSessionTypeEnumType? SessionType { get; set; }
         /// <summary>
         /// If this property is set, the packet will be truncated to the provided
@@ -75,10 +78,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Only for Remote SPAN Port Mirror. Whether to preserve original VLAN.")]
         public bool? PreserveOriginalVlan { get; set; }
         /// <summary>
-        /// Mirror destination
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "mirror_destination", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Mirror destination")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTMirrorDestinationType MirrorDestination { get; set; }
     }

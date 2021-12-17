@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildDfwFirewallConfigurationType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildDfwFirewallConfigurationType()
+        {
+        }
         /// <summary>
-        /// Contains the actual dfw firewall configuration list object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "DfwFirewallConfiguration", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual dfw firewall configuration list object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTDfwFirewallConfigurationType DfwFirewallConfiguration { get; set; }
     }

@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"TCP MSS Clamping Direction and Value.")]
     public class NSXTTcpMaximumSegmentSizeClampingType 
     {
+        public NSXTTcpMaximumSegmentSizeClampingType()
+        {
+            Direction = test
+        }
         /// <summary>
         /// MSS defines the maximum amount of data that a host is willing to
         /// accept in a single TCP segment. This field is set in TCP header
@@ -36,7 +40,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "direction")]
         [NSXTProperty(IsRequired: false, Description: @"Specifies the traffic direction for which to apply MSS Clamping.")]
-        [NSXTDefaultProperty(Default: "NONE")]
         public NSXTTcpMaximumSegmentSizeClampingDirectionEnumType? Direction { get; set; }
     }
 }

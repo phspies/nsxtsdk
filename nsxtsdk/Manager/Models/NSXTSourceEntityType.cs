@@ -18,6 +18,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Service insertion data path inserts unique &apos;source node id&apos; value into each packet before it received by Service VM. This value can be resolved to multiple Source Entities. It represents source of the packets.")]
     public class NSXTSourceEntityType 
     {
+        public NSXTSourceEntityType()
+        {
+        }
         /// <summary>
         /// Type of source entity. Currently source value can be resolved to VIF and Virtual Machine.
         /// </summary>

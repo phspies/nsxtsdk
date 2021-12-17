@@ -17,12 +17,16 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTL2BridgeEndpointProfileType : NSXTPolicyConfigResourceType
     {
+        public NSXTL2BridgeEndpointProfileType()
+        {
+            FailoverMode = test
+            HaMode = test
+        }
         /// <summary>
         /// Failover mode for the edge bridge cluster
         /// </summary>
         [JsonProperty(PropertyName = "failover_mode")]
         [NSXTProperty(IsRequired: false, Description: @"Failover mode for the edge bridge cluster")]
-        [NSXTDefaultProperty(Default: "PREEMPTIVE")]
         public NSXTL2BridgeEndpointProfileFailoverModeEnumType? FailoverMode { get; set; }
         /// <summary>
         /// High avaialability mode can be active-active or active-standby. High availability mode cannot be modified after
@@ -30,7 +34,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "ha_mode")]
         [NSXTProperty(IsRequired: false, Description: @"High avaialability mode can be active-active or active-standby. High availability mode cannot be modified after realization.")]
-        [NSXTDefaultProperty(Default: "ACTIVE_STANDBY")]
         public NSXTL2BridgeEndpointProfileHaModeEnumType? HaMode { get; set; }
         /// <summary>
         /// List of policy paths to edge nodes. Edge allocation for L2 bridging.

@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildTlsCertificateType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildTlsCertificateType()
+        {
+        }
         /// <summary>
-        /// Contains the actual TlsCertificate object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "TlsCertificate", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual TlsCertificate object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTTlsCertificateType TlsCertificate { get; set; }
     }

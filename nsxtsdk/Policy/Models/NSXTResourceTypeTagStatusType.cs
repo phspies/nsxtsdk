@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Tag operation status for particular resource type and resource ids.")]
     public class NSXTResourceTypeTagStatusType 
     {
+        public NSXTResourceTypeTagStatusType()
+        {
+        }
         /// <summary>
-        /// List of resources on which tag needs to be applied
+        /// List of resources on which tag needs to be applied.
         /// </summary>
         [JsonProperty(PropertyName = "resource_tag_status")]
-        [NSXTProperty(IsRequired: false, Description: @"List of resources on which tag needs to be applied")]
+        [NSXTProperty(IsRequired: false, Description: @"List of resources on which tag needs to be applied.")]
         public IList<NSXTResourceTagStatusType> ResourceTagStatus { get; set; }
         /// <summary>
         /// Resource type

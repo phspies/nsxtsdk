@@ -17,12 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIntegerArrayConstraintValueType : NSXTConstraintValueType
     {
+        public NSXTIntegerArrayConstraintValueType()
+        {
+        }
         /// <summary>
         /// Array of integer values
         /// </summary>
         [JsonProperty(PropertyName = "values", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"Array of integer values")]
         [System.ComponentModel.DataAnnotations.Required]
-        public long Values { get; set; }
+        public int Values { get; set; }
     }
 }

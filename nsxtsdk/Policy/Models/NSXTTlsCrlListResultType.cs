@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTlsCrlListResultType : NSXTListResultType
     {
+        public NSXTTlsCrlListResultType()
+        {
+        }
         /// <summary>
         /// TlsCrl list results
         /// </summary>

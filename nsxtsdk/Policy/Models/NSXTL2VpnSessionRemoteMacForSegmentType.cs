@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Remote MAC addresses for logical switch.")]
     public class NSXTL2VpnSessionRemoteMacForSegmentType 
     {
+        public NSXTL2VpnSessionRemoteMacForSegmentType()
+        {
+        }
         /// <summary>
         /// Remote Mac addresses.
         /// </summary>

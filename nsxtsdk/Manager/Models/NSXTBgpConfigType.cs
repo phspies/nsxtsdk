@@ -17,11 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBgpConfigType : NSXTManagedResourceType
     {
+        public NSXTBgpConfigType()
+        {
+            Ecmp = test
+        }
         /// <summary>
-        /// Inter SR IBGP configuration
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "inter_sr_ibgp")]
-        [NSXTProperty(IsRequired: false, Description: @"Inter SR IBGP configuration")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTInterSRRoutingConfigType InterSrIbgp { get; set; }
         /// <summary>
         /// This is a deprecated property, Please use 'as_num' instead. For VRF logical router, the as_number from parent logical
@@ -77,12 +81,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"While creation of BGP config this flag will be set to- true for Tier0 logical router with Active-Active high-availabilitymode- false for Tier0 logical router with Active-Standby high-availanilitymode.User can change this value while updating the config. If thisproperty is not specified in the payload, the default value will beconsidered as false irrespective of the high-availability mode.")]
         public bool? Enabled { get; set; }
         /// <summary>
-        /// Configuration parameters for BGP Graceful Restart functionality.
-        /// It has graceful_restart_mode and graceful_restart_timer parameters.
-        /// For VRF logical router, the settings from parent logical router will be effective.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "graceful_restart_config")]
-        [NSXTProperty(IsRequired: false, Description: @"Configuration parameters for BGP Graceful Restart functionality.It has graceful_restart_mode and graceful_restart_timer parameters.For VRF logical router, the settings from parent logical router will be effective.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTGracefulRestartConfigType GracefulRestartConfig { get; set; }
         /// <summary>
         /// For TIER0 logical router, default is true. For VRF logical router, the settings from parent logical router will be
@@ -99,7 +101,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "ecmp")]
         [NSXTProperty(IsRequired: false, Description: @"While creation of BGP config this flag will be set to trueUser can change this value while updating BGP config. If this propertyis not specified in the payload, the default value will be consideredas true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Ecmp { get; set; }
     }
 }

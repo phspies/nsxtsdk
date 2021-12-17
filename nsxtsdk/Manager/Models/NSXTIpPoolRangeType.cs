@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpPoolRangeType : NSXTResourceType
     {
+        public NSXTIpPoolRangeType()
+        {
+        }
         /// <summary>
         /// The start IP Address of the IP Range.
         /// </summary>

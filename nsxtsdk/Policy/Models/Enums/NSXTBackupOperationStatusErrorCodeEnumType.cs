@@ -26,5 +26,7 @@ namespace nsxtsdk.PolicyModels
         BACKUPBADFINGERPRINT = 6,
         [EnumMember(Value = "BACKUP_GENERIC_ERROR")]
         BACKUPGENERICERROR = 7,
+        [EnumMember(Value = "UPGRADE_IN_PROGRESS")]
+        UPGRADEINPROGRESS = 8,
     }
 }

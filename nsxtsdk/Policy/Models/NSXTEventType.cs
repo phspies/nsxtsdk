@@ -25,12 +25,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"The Event is the criterion or criteria applied to the source and,when met, prompt Policy to run the action.All Reaction Events are constructed with reference tothe object, the &quot;source&quot;, that is logically deemed to be theobject upon which the Event in question initially occurred upon.Some example events include:- New object was created.- Change in realization state.- Specific API is called.")]
     public class NSXTEventType 
     {
+        public NSXTEventType()
+        {
+        }
         /// <summary>
-        /// Source that is logically deemed to be the "object" upon which the Event
-        /// in question initially occurred upon.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "source", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Source that is logically deemed to be the &quot;object&quot; upon which the Eventin question initially occurred upon.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTSourceType Source { get; set; }
         /// <summary>

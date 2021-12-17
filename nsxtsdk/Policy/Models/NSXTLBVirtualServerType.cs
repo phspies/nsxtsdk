@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBVirtualServerType : NSXTPolicyConfigResourceType
     {
+        public NSXTLBVirtualServerType()
+        {
+            Enabled = test
+        }
         /// <summary>
         /// Path to optional object that enables persistence on a virtual server
         /// allowing related client connections to be sent to the same backend
@@ -26,11 +30,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Path to optional object that enables persistence on a virtual serverallowing related client connections to be sent to the same backendserver. Persistence is disabled by default.")]
         public string? LbPersistenceProfilePath { get; set; }
         /// <summary>
-        /// Specifies the access list control to define how to filter the
-        /// connections from clients.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "access_list_control")]
-        [NSXTProperty(IsRequired: false, Description: @"Specifies the access list control to define how to filter theconnections from clients.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLBAccessListControlType AccessListControl { get; set; }
         /// <summary>
         /// The server pool(LBPool) contains backend servers. Server pool
@@ -55,10 +58,11 @@ namespace nsxtsdk.PolicyModels
         /// <summary>
         /// Load balancer rules allow customization of load balancing behavior using
         /// match/action rules. Currently, load balancer rules are supported for
-        /// only layer 7 virtual servers with LBHttpProfile.
+        /// only layer 7 virtual servers with LBHttpProfile. The property is
+        /// deprecated as NSX-T Load Balancer is deprecated.
         /// </summary>
         [JsonProperty(PropertyName = "rules")]
-        [NSXTProperty(IsRequired: false, Description: @"Load balancer rules allow customization of load balancing behavior usingmatch/action rules. Currently, load balancer rules are supported foronly layer 7 virtual servers with LBHttpProfile.")]
+        [NSXTProperty(IsRequired: false, Description: @"Load balancer rules allow customization of load balancing behavior usingmatch/action rules. Currently, load balancer rules are supported foronly layer 7 virtual servers with LBHttpProfile. The property isdeprecated as NSX-T Load Balancer is deprecated.")]
         public IList<NSXTLBRuleType> Rules { get; set; }
         /// <summary>
         /// Default pool member ports when member port is not defined.
@@ -67,11 +71,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Default pool member ports when member port is not defined.")]
         public IList<string> DefaultPoolMemberPorts { get; set; }
         /// <summary>
-        /// The setting is used when load balancer acts as an SSL client and
-        /// establishing a connection to the backend server.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "server_ssl_profile_binding")]
-        [NSXTProperty(IsRequired: false, Description: @"The setting is used when load balancer acts as an SSL client andestablishing a connection to the backend server.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLBServerSslProfileBindingType ServerSslProfileBinding { get; set; }
         /// <summary>
         /// The application profile defines the application protocol characteristics.
@@ -101,9 +104,10 @@ namespace nsxtsdk.PolicyModels
         /// affecting other applications hosted on the same LBS, connections
         /// to a virtual server can be capped.
         /// If it is not specified, it means that connections are unlimited.
+        /// The property is deprecated as NSX-T Load Balancer is deprecated.
         /// </summary>
         [JsonProperty(PropertyName = "max_concurrent_connections")]
-        [NSXTProperty(IsRequired: false, Description: @"To ensure one virtual server does not over consume resources,affecting other applications hosted on the same LBS, connectionsto a virtual server can be capped.If it is not specified, it means that connections are unlimited.")]
+        [NSXTProperty(IsRequired: false, Description: @"To ensure one virtual server does not over consume resources,affecting other applications hosted on the same LBS, connectionsto a virtual server can be capped.If it is not specified, it means that connections are unlimited.The property is deprecated as NSX-T Load Balancer is deprecated.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
         public long? MaxConcurrentConnections { get; set; }
@@ -111,9 +115,10 @@ namespace nsxtsdk.PolicyModels
         /// To ensure one virtual server does not over consume resources,
         /// connections to a member can be rate limited.
         /// If it is not specified, it means that connection rate is unlimited.
+        /// The property is deprecated as NSX-T Load Balancer is deprecated.
         /// </summary>
         [JsonProperty(PropertyName = "max_new_connection_rate")]
-        [NSXTProperty(IsRequired: false, Description: @"To ensure one virtual server does not over consume resources,connections to a member can be rate limited.If it is not specified, it means that connection rate is unlimited.")]
+        [NSXTProperty(IsRequired: false, Description: @"To ensure one virtual server does not over consume resources,connections to a member can be rate limited.If it is not specified, it means that connection rate is unlimited.The property is deprecated as NSX-T Load Balancer is deprecated.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
         public long? MaxNewConnectionRate { get; set; }
@@ -128,19 +133,19 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"virtual servers can be associated to LBService(which issimilar to physical/virtual load balancer), LB virtual servers,pools and other entities could be defined independently, the LBServiceidentifier list here would be used to maintain the relationship ofLBService and other LB entities.")]
         public string? LbServicePath { get; set; }
         /// <summary>
-        /// The setting is used when load balancer acts as an SSL server and
-        /// terminating the client SSL connection
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "client_ssl_profile_binding")]
-        [NSXTProperty(IsRequired: false, Description: @"The setting is used when load balancer acts as an SSL server andterminating the client SSL connection")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLBClientSslProfileBindingType ClientSslProfileBinding { get; set; }
         /// <summary>
         /// When load balancer can not select a backend server to serve the
         /// request in default pool or pool in rules, the request would be served
-        /// by sorry server pool.
+        /// by sorry server pool. The property is deprecated as NSX-T Load Balancer
+        /// is deprecated.
         /// </summary>
         [JsonProperty(PropertyName = "sorry_pool_path")]
-        [NSXTProperty(IsRequired: false, Description: @"When load balancer can not select a backend server to serve therequest in default pool or pool in rules, the request would be servedby sorry server pool.")]
+        [NSXTProperty(IsRequired: false, Description: @"When load balancer can not select a backend server to serve therequest in default pool or pool in rules, the request would be servedby sorry server pool. The property is deprecated as NSX-T Load Balanceris deprecated.")]
         public string? SorryPoolPath { get; set; }
         /// <summary>
         /// Configures the IP address of the LBVirtualServer where it
@@ -165,7 +170,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Flag to enable the load balancer virtual server.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enabled { get; set; }
     }
 }

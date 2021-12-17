@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"An NSService element that describes traffic corresponding to an NSService")]
     public class NSXTNSServiceElementType 
     {
+        public NSXTNSServiceElementType()
+        {
+        }
         /// <summary>
         /// The specific type of NSServiceElement
         /// </summary>

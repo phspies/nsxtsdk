@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRouteMapSequenceType 
     {
+        public NSXTRouteMapSequenceType()
+        {
+        }
         /// <summary>
-        /// Set Criteria for the RouteMap Sequence
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "set_criteria")]
-        [NSXTProperty(IsRequired: false, Description: @"Set Criteria for the RouteMap Sequence")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTRouteMapSequenceSetType SetCriteria { get; set; }
         /// <summary>
         /// Action for the Sequence
@@ -31,10 +34,10 @@ namespace nsxtsdk.ManagerModels
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTRouteMapSequenceActionEnumType Action { get; set; }
         /// <summary>
-        /// Match Criteria for the RouteMap Sequence
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "match_criteria", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Match Criteria for the RouteMap Sequence")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTRouteMapSequenceMatchType MatchCriteria { get; set; }
     }

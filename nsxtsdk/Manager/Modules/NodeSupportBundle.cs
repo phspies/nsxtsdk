@@ -88,5 +88,41 @@ namespace nsxtapi.ManagerModules
 			}
             
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTDynamicContentFiltersType GetDynamicContentFilterValues(string? Scope = null)
+        {
+            NSXTDynamicContentFiltersType returnValue = default(NSXTDynamicContentFiltersType);
+            StringBuilder GetDynamicContentFilterValuesServiceURL = new StringBuilder("/administration/support-bundles/dynamic-content-filters");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            if (Scope != null) { request.AddQueryParameter("scope", Scope.ToString()); }
+            request.Resource = GetDynamicContentFilterValuesServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetDynamicContentFilterValuesServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTDynamicContentFiltersType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTDynamicContentFiltersType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
     }
 }

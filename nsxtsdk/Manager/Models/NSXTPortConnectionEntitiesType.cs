@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Port Connection Entities (to help draw a visual picture of entities between two ports)")]
     public class NSXTPortConnectionEntitiesType 
     {
+        public NSXTPortConnectionEntitiesType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

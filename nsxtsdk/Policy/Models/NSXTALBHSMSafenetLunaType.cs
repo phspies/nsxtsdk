@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HSMSafenetLuna object")]
     public class NSXTALBHSMSafenetLunaType 
     {
+        public NSXTALBHSMSafenetLunaType()
+        {
+        }
         /// <summary>
         /// Node specific information.
         /// </summary>

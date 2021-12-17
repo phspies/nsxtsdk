@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBPoolMemberStatisticsType 
     {
+        public NSXTLBPoolMemberStatisticsType()
+        {
+        }
         /// <summary>
-        /// Pool member statistics counter.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "statistics")]
-        [NSXTProperty(IsRequired: false, Description: @"Pool member statistics counter.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLBStatisticsCounterType Statistics { get; set; }
         /// <summary>
         /// Pool member IP address.

@@ -17,6 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HTTPServerReselect object")]
     public class NSXTALBHTTPServerReselectType 
     {
+        public NSXTALBHTTPServerReselectType()
+        {
+            NumRetries = test
+            RetryTimeout = test
+        }
         /// <summary>
         /// Allow retry of non-idempotent HTTP requests.
         /// Default value when not specified in API or module is
@@ -33,7 +38,7 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "num_retries")]
         [NSXTProperty(IsRequired: false, Description: @"Number of times to retry an HTTP request when serverresponds with configured status codes.Default value when not specified in API or module isinterpreted by ALB Controller as 4.")]
-        [NSXTDefaultProperty(Default: "")]
+        //[System.ComponentModel.DataAnnotations.MinLength(0)]
         public long? NumRetries { get; set; }
         /// <summary>
         /// Timeout per retry attempt, for a given request.
@@ -47,24 +52,25 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Timeout per retry attempt, for a given request.Value of 0 indicates default timeout.Allowed values are 0-3600000.Unit is MILLISECONDS.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(3600000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? RetryTimeout { get; set; }
         /// <summary>
         /// Enable HTTP request reselect when server responds with
         /// specific response codes.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "enabled", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Enable HTTP request reselect when server responds withspecific response codes.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: true, Description: @"Enable HTTP request reselect when server responds withspecific response codes.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         [System.ComponentModel.DataAnnotations.Required]
         public bool Enabled { get; set; }
         /// <summary>
-        /// Server response codes which will trigger an HTTP request
-        /// retry.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "svr_resp_code")]
-        [NSXTProperty(IsRequired: false, Description: @"Server response codes which will trigger an HTTP requestretry.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHTTPReselectRespCodeType SvrRespCode { get; set; }
     }
 }

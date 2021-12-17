@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSubPoolType 
     {
+        public NSXTSubPoolType()
+        {
+        }
         /// <summary>
         /// Percentage utlization of sub-pool based on the number of services
         /// configured and the hard limits, if any.

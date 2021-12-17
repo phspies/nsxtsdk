@@ -19,6 +19,18 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Identity Firewall user session data on a client machine (typically a VM).Multiple entries for the same user can be returned if the user logins tomultiple sessions on the same VM.")]
     public class NSXTIdfwUserSessionDataType 
     {
+        public NSXTIdfwUserSessionDataType()
+        {
+        }
+        /// <summary>
+        /// User session source can be one of:
+        /// - GI (Guest Introspection)
+        /// - ELS (AD Event log server)
+        /// - LI (Log Insight)
+        /// </summary>
+        [JsonProperty(PropertyName = "session_source")]
+        [NSXTProperty(IsRequired: false, Description: @"User session source can be one of:  - GI (Guest Introspection)  - ELS (AD Event log server)  - LI (Log Insight)")]
+        public NSXTIdfwUserSessionDataSessionSourceEnumType? SessionSource { get; set; }
         /// <summary>
         /// AD user ID (may not exist).
         /// </summary>
@@ -31,7 +43,7 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "user_session_id", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"User session ID.  This also indicates whether this is VDI / RDSH.")]
         [System.ComponentModel.DataAnnotations.Required]
-        public long UserSessionId { get; set; }
+        public int UserSessionId { get; set; }
         /// <summary>
         /// Virtual machine (external ID or BIOS UUID) where login/logout events occurred.
         /// </summary>

@@ -19,6 +19,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"The load balancer node usage summary for all nodes. Only EdgeNode issupported. The summary calculation is based on all edge nodesconfigured in edge clusters.")]
     public class NSXTLbNodeUsageSummaryType 
     {
+        public NSXTLbNodeUsageSummaryType()
+        {
+        }
         /// <summary>
         /// The property identifies array of node count for each severity (RED,
         /// ORANGE and GREEN).

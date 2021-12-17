@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTICMPTypeServiceEntryType : NSXTServiceEntryType
     {
+        public NSXTICMPTypeServiceEntryType()
+        {
+        }
         /// <summary>
         /// ICMP message code
         /// </summary>

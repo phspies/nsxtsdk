@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSuccessNodeSupportBundleResultType 
     {
+        public NSXTSuccessNodeSupportBundleResultType()
+        {
+        }
         /// <summary>
         /// Name of support bundle, e.g. nsx_NODETYPE_UUID_YYYYMMDD_HHMMSS.tgz
         /// </summary>

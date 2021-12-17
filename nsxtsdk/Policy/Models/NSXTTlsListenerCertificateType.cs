@@ -19,6 +19,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Returns the certificate and thumbprint of a remote TLS listener, if thelistener is running and accepting requests. If the certificate cannot beretrieved, the result property describes the problem.")]
     public class NSXTTlsListenerCertificateType 
     {
+        public NSXTTlsListenerCertificateType()
+        {
+        }
         /// <summary>
         /// Result of get certificate operation.
         /// </summary>
@@ -26,10 +29,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Result of get certificate operation.")]
         public NSXTTlsListenerCertificateResultEnumType? Result { get; set; }
         /// <summary>
-        /// The certificate of the TLS listener.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "certificate")]
-        [NSXTProperty(IsRequired: false, Description: @"The certificate of the TLS listener.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTX509CertificateType Certificate { get; set; }
         /// <summary>
         /// The SHA-256 thumbprint of the TLS listener.

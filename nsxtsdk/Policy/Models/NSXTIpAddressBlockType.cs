@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpAddressBlockType : NSXTPolicyConfigResourceType
     {
+        public NSXTIpAddressBlockType()
+        {
+        }
         /// <summary>
         /// Represents a network address and the prefix length which will be associated with a layer-2 broadcast domain. Support
         /// IPv4 and IPv6 CIDR.

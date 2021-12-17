@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"DHCP option 121 to define classless static route.")]
     public class NSXTDhcpOption121Type 
     {
+        public NSXTDhcpOption121Type()
+        {
+        }
         /// <summary>
         /// Classless static route of DHCP option 121.
         /// </summary>

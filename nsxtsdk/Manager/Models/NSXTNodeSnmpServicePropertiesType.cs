@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeSnmpServicePropertiesType : NSXTNodeServicePropertiesType
     {
+        public NSXTNodeSnmpServicePropertiesType()
+        {
+        }
         /// <summary>
-        /// SNMP Service properties
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "service_properties", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"SNMP Service properties")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTSnmpServicePropertiesType ServiceProperties { get; set; }
     }

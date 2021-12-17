@@ -17,53 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTOspfDabtabaseCsvRecordType : NSXTCsvRecordType
     {
+        public NSXTOspfDabtabaseCsvRecordType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "col8")]
+        [JsonProperty(PropertyName = "results")]
         [NSXTProperty(IsRequired: false, Description: @"")]
-        public string? Col8 { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty(PropertyName = "col6")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
-        public string? Col6 { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty(PropertyName = "col7")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
-        public string? Col7 { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty(PropertyName = "col4")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
-        public string? Col4 { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty(PropertyName = "col5")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
-        public string? Col5 { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty(PropertyName = "col2")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
-        public string? Col2 { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty(PropertyName = "col3")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
-        public string? Col3 { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty(PropertyName = "col1")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
-        public string? Col1 { get; set; }
+        public string? Results { get; set; }
     }
 }

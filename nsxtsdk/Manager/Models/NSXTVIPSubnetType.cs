@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTVIPSubnetType 
     {
+        public NSXTVIPSubnetType()
+        {
+        }
         /// <summary>
         /// Subnet Prefix Length
         /// </summary>

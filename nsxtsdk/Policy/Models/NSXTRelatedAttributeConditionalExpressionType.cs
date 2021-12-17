@@ -17,18 +17,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRelatedAttributeConditionalExpressionType : NSXTConstraintExpressionType
     {
+        public NSXTRelatedAttributeConditionalExpressionType()
+        {
+        }
         /// <summary>
-        /// Related attribute.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "related_attribute", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Related attribute.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTRelatedAttributeType RelatedAttribute { get; set; }
         /// <summary>
-        /// Conditional value expression for target based on realted attribute value.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "condition", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Conditional value expression for target based on realted attribute value.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTConditionalValueConstraintExpressionType Condition { get; set; }
     }

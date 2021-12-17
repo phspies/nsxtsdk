@@ -106,23 +106,23 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void ResetIpsecVpnsessionStatisticsReset(string SessionId)
+        public void ResetIpsecVpnsessionStatistics(string SessionId)
         {
             if (SessionId == null) { throw new System.ArgumentNullException("SessionId cannot be null"); }
             
-            StringBuilder ResetIpsecVpnsessionStatisticsResetServiceURL = new StringBuilder("/vpn/ipsec/sessions/{session-id}/statistics?action=reset");
+            StringBuilder ResetIpsecVpnsessionStatisticsServiceURL = new StringBuilder("/vpn/ipsec/sessions/{session-id}/statistics?action=reset");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            ResetIpsecVpnsessionStatisticsResetServiceURL.Replace("{session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ResetIpsecVpnsessionStatisticsResetServiceURL.ToString();
+            ResetIpsecVpnsessionStatisticsServiceURL.Replace("{session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = ResetIpsecVpnsessionStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + ResetIpsecVpnsessionStatisticsResetServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + ResetIpsecVpnsessionStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             

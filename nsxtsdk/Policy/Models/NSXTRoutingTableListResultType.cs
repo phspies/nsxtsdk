@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRoutingTableListResultType : NSXTListResultType
     {
+        public NSXTRoutingTableListResultType()
+        {
+        }
         /// <summary>
         /// Paged Collection of Routes per transport node ID.
         /// </summary>

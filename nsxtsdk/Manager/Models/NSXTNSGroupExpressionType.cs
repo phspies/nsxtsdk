@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Policy expression for NSGroup membership")]
     public class NSXTNSGroupExpressionType 
     {
+        public NSXTNSGroupExpressionType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

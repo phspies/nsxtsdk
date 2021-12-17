@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"A weak reference to an NSX resource.")]
     public class NSXTResourceReferenceType 
     {
+        public NSXTResourceReferenceType()
+        {
+        }
         /// <summary>
         /// Display name of the NSX resource.
         /// </summary>

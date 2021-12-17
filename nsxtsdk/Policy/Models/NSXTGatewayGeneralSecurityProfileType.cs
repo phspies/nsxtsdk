@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTGatewayGeneralSecurityProfileType : NSXTGeneralSecurityProfileType
     {
+        public NSXTGatewayGeneralSecurityProfileType()
+        {
+        }
         /// <summary>
         /// The flag to indicate double flow check is enabled or not. This option applies only to EDGE components.
         /// </summary>

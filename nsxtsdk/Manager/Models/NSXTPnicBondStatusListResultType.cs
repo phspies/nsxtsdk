@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPnicBondStatusListResultType : NSXTListResultType
     {
+        public NSXTPnicBondStatusListResultType()
+        {
+        }
         /// <summary>
         /// List of pNIC statuses belonging to the transport node
         /// </summary>

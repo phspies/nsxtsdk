@@ -30,7 +30,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEffectiveProfileListResultType EffectiveProfiles(string ResourceId, string ResourceType, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTEffectiveProfileListResultType EffectiveProfiles(string ResourceId, string ResourceType, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? ProfileType = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (ResourceId == null) { throw new System.ArgumentNullException("ResourceId cannot be null"); }
             if (ResourceType == null) { throw new System.ArgumentNullException("ResourceType cannot be null"); }
@@ -45,6 +45,7 @@ namespace nsxtapi.ManagerModules
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (ProfileType != null) { request.AddQueryParameter("profile_type", ProfileType.ToString()); }
             if (ResourceId != null) { request.AddQueryParameter("resource_id", ResourceId.ToString()); }
             if (ResourceType != null) { request.AddQueryParameter("resource_type", ResourceType.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }

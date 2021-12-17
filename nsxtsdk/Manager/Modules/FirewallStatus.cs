@@ -145,25 +145,25 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTargetResourceStatusType EnableFirewallOnTargetResourceEnableFirewall(string ContextType, string Id)
+        public NSXTTargetResourceStatusType EnableFirewallOnTargetResource(string ContextType, string Id)
         {
             if (ContextType == null) { throw new System.ArgumentNullException("ContextType cannot be null"); }
             if (Id == null) { throw new System.ArgumentNullException("Id cannot be null"); }
             NSXTTargetResourceStatusType returnValue = default(NSXTTargetResourceStatusType);
-            StringBuilder EnableFirewallOnTargetResourceEnableFirewallServiceURL = new StringBuilder("/firewall/status/{context-type}/{id}?action=enable_firewall");
+            StringBuilder EnableFirewallOnTargetResourceServiceURL = new StringBuilder("/firewall/status/{context-type}/{id}?action=enable_firewall");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            EnableFirewallOnTargetResourceEnableFirewallServiceURL.Replace("{context-type}", System.Uri.EscapeDataString(Helpers.ConvertToString(ContextType, System.Globalization.CultureInfo.InvariantCulture)));
-            EnableFirewallOnTargetResourceEnableFirewallServiceURL.Replace("{id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Id, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = EnableFirewallOnTargetResourceEnableFirewallServiceURL.ToString();
+            EnableFirewallOnTargetResourceServiceURL.Replace("{context-type}", System.Uri.EscapeDataString(Helpers.ConvertToString(ContextType, System.Globalization.CultureInfo.InvariantCulture)));
+            EnableFirewallOnTargetResourceServiceURL.Replace("{id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Id, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = EnableFirewallOnTargetResourceServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + EnableFirewallOnTargetResourceEnableFirewallServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + EnableFirewallOnTargetResourceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -184,25 +184,25 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTargetResourceStatusType DisableFirewallOnTargetResourceDisableFirewall(string ContextType, string Id)
+        public NSXTTargetResourceStatusType DisableFirewallOnTargetResource(string ContextType, string Id)
         {
             if (ContextType == null) { throw new System.ArgumentNullException("ContextType cannot be null"); }
             if (Id == null) { throw new System.ArgumentNullException("Id cannot be null"); }
             NSXTTargetResourceStatusType returnValue = default(NSXTTargetResourceStatusType);
-            StringBuilder DisableFirewallOnTargetResourceDisableFirewallServiceURL = new StringBuilder("/firewall/status/{context-type}/{id}?action=disable_firewall");
+            StringBuilder DisableFirewallOnTargetResourceServiceURL = new StringBuilder("/firewall/status/{context-type}/{id}?action=disable_firewall");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            DisableFirewallOnTargetResourceDisableFirewallServiceURL.Replace("{context-type}", System.Uri.EscapeDataString(Helpers.ConvertToString(ContextType, System.Globalization.CultureInfo.InvariantCulture)));
-            DisableFirewallOnTargetResourceDisableFirewallServiceURL.Replace("{id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Id, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DisableFirewallOnTargetResourceDisableFirewallServiceURL.ToString();
+            DisableFirewallOnTargetResourceServiceURL.Replace("{context-type}", System.Uri.EscapeDataString(Helpers.ConvertToString(ContextType, System.Globalization.CultureInfo.InvariantCulture)));
+            DisableFirewallOnTargetResourceServiceURL.Replace("{id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Id, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = DisableFirewallOnTargetResourceServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + DisableFirewallOnTargetResourceDisableFirewallServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + DisableFirewallOnTargetResourceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else

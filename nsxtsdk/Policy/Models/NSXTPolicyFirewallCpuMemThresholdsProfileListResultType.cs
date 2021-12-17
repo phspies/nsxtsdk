@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyFirewallCpuMemThresholdsProfileListResultType : NSXTListResultType
     {
+        public NSXTPolicyFirewallCpuMemThresholdsProfileListResultType()
+        {
+        }
         /// <summary>
         /// PolicyFirewallCpuMemThresholdsProfile list results
         /// </summary>

@@ -7,9 +7,9 @@ using nsxtsdk.Models;
 namespace nsxtsdk.PolicyModels
 {
     /// <summary>
-    /// Content switching action type.Enum options - HTTP_SWITCHING_SELECT_POOL,HTTP_SWITCHING_SELECT_LOCAL,HTTP_SWITCHING_SELECT_POOLGROUP.
+    /// Content switching action type.Enum options - HTTP_SWITCHING_SELECT_POOL,HTTP_SWITCHING_SELECT_LOCAL,HTTP_SWITCHING_SELECT_POOLGROUP.Allowed in Essentials(Allowed values-HTTP_SWITCHING_SELECT_POOL,HTTP_SWITCHING_SELECT_LOCAL)edition, Enterprise edition.
     /// </summary>
-    [NSXTProperty(Description: @"Content switching action type.Enum options - HTTP_SWITCHING_SELECT_POOL,HTTP_SWITCHING_SELECT_LOCAL,HTTP_SWITCHING_SELECT_POOLGROUP.")]
+    [NSXTProperty(Description: @"Content switching action type.Enum options - HTTP_SWITCHING_SELECT_POOL,HTTP_SWITCHING_SELECT_LOCAL,HTTP_SWITCHING_SELECT_POOLGROUP.Allowed in Essentials(Allowed values-HTTP_SWITCHING_SELECT_POOL,HTTP_SWITCHING_SELECT_LOCAL)edition, Enterprise edition.")]
     public enum NSXTAlbhttpswitchingActionActionEnumType
     {
         [EnumMember(Value = "HTTP_SWITCHING_SELECT_POOL")]

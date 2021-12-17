@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Cluster backup details")]
     public class NSXTClusterBackupInfoType 
     {
+        public NSXTClusterBackupInfoType()
+        {
+        }
         /// <summary>
         /// timestamp of the cluster backup file
         /// </summary>

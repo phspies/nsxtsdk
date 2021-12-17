@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Remote MAC addresses for all logical switches for a L2VPN session.")]
     public class NSXTL2VPNSessionRemoteMacsType 
     {
+        public NSXTL2VPNSessionRemoteMacsType()
+        {
+        }
         /// <summary>
         /// List MAC addresses for all logical switch for a particular L2VPN session.
         /// </summary>

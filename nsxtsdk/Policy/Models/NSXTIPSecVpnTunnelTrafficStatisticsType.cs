@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"IPSec VPN tunnel traffic statistics.")]
     public class NSXTIpSecVpnTunnelTrafficStatisticsType 
     {
+        public NSXTIpSecVpnTunnelTrafficStatisticsType()
+        {
+        }
         /// <summary>
         /// Total number of packets dropped while sending for any reason.
         /// </summary>

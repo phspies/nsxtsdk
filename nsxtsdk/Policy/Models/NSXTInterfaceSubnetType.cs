@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Subnet specification for interface connectivity")]
     public class NSXTInterfaceSubnetType 
     {
+        public NSXTInterfaceSubnetType()
+        {
+        }
         /// <summary>
         /// IP addresses assigned to interface
         /// </summary>
@@ -32,6 +35,6 @@ namespace nsxtsdk.PolicyModels
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(128)]
         [System.ComponentModel.DataAnnotations.Required]
-        public long PrefixLen { get; set; }
+        public int PrefixLen { get; set; }
     }
 }

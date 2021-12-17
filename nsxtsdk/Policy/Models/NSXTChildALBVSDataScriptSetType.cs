@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildALBVSDataScriptSetType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildALBVSDataScriptSetType()
+        {
+        }
         /// <summary>
-        /// Contains the actual ALBVSDataScriptSet object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ALBVSDataScriptSet", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual ALBVSDataScriptSet object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBVSDataScriptSetType ALBVSDataScriptSet { get; set; }
     }

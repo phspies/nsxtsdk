@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSwitchingProfileTypeIdEntryType 
     {
+        public NSXTSwitchingProfileTypeIdEntryType()
+        {
+        }
         /// <summary>
         /// key value
         /// </summary>

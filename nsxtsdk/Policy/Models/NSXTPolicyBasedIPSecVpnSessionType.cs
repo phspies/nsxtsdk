@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyBasedIPSecVpnSessionType : NSXTIPSecVpnSessionType
     {
+        public NSXTPolicyBasedIPSecVpnSessionType()
+        {
+        }
         /// <summary>
         /// Rules
         /// </summary>

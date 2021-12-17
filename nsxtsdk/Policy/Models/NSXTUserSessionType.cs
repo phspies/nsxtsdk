@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"User login session information")]
     public class NSXTUserSessionType 
     {
+        public NSXTUserSessionType()
+        {
+        }
         /// <summary>
         /// Logout time if applicable.  An active user session has no logout time.
         /// </summary>
@@ -50,6 +53,6 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "user_session_id", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"User session ID. This also indicates whether this is VDI / RDSH.")]
         [System.ComponentModel.DataAnnotations.Required]
-        public long UserSessionId { get; set; }
+        public int UserSessionId { get; set; }
     }
 }

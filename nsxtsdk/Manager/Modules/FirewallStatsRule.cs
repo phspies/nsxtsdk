@@ -108,11 +108,11 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void ResetFirewallRuleStatsReset(string Category)
+        public void ResetFirewallRuleStats(string Category)
         {
             if (Category == null) { throw new System.ArgumentNullException("Category cannot be null"); }
             
-            StringBuilder ResetFirewallRuleStatsResetServiceURL = new StringBuilder("/firewall/stats?action=reset");
+            StringBuilder ResetFirewallRuleStatsServiceURL = new StringBuilder("/firewall/stats?action=reset");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -120,11 +120,11 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             if (Category != null) { request.AddQueryParameter("category", Category.ToString()); }
-            request.Resource = ResetFirewallRuleStatsResetServiceURL.ToString();
+            request.Resource = ResetFirewallRuleStatsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + ResetFirewallRuleStatsResetServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + ResetFirewallRuleStatsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             

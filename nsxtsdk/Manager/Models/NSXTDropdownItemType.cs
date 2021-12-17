@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Dropdown item definition")]
     public class NSXTDropdownItemType 
     {
+        public NSXTDropdownItemType()
+        {
+        }
         /// <summary>
         /// An expression that represents the items of the dropdown filter.
         /// </summary>
@@ -25,11 +28,24 @@ namespace nsxtsdk.ManagerModels
         [System.ComponentModel.DataAnnotations.Required]
         public string Field { get; set; }
         /// <summary>
+        /// Property value is shown in the drop down input box for a filter. If the value is not provided 'display_name' property
+        /// value is used.
+        /// </summary>
+        [JsonProperty(PropertyName = "short_display_name")]
+        [NSXTProperty(IsRequired: false, Description: @"Property value is shown in the drop down input box for a filter. If the value is not provided &apos;display_name&apos; property value is used.")]
+        public string? ShortDisplayName { get; set; }
+        /// <summary>
         /// expression to extract display name to be shown in the drop down.
         /// </summary>
         [JsonProperty(PropertyName = "display_name")]
         [NSXTProperty(IsRequired: false, Description: @"expression to extract display name to be shown in the drop down.")]
         public string? DisplayName { get; set; }
+        /// <summary>
+        /// An additional key-value pair for item to be display in dropdown.
+        /// </summary>
+        [JsonProperty(PropertyName = "additional_value")]
+        [NSXTProperty(IsRequired: false, Description: @"An additional key-value pair for item to be display in dropdown.")]
+        public object? AdditionalValue { get; set; }
         /// <summary>
         /// Value of filter inside dropdown filter.
         /// </summary>

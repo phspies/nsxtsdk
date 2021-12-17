@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbHttpRequestHeaderRewriteActionType : NSXTLbRuleActionType
     {
+        public NSXTLbHttpRequestHeaderRewriteActionType()
+        {
+        }
         /// <summary>
         /// Value of HTTP request header
         /// </summary>

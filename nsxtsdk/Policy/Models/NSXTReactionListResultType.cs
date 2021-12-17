@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTReactionListResultType : NSXTListResultType
     {
+        public NSXTReactionListResultType()
+        {
+        }
         /// <summary>
         /// Reaction list results.
         /// </summary>

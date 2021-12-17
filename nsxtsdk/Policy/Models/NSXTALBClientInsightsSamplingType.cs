@@ -17,23 +17,26 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer ClientInsightsSampling object")]
     public class NSXTALBClientInsightsSamplingType 
     {
+        public NSXTALBClientInsightsSamplingType()
+        {
+        }
         /// <summary>
-        /// URL patterns to avoid when inserting RUM script.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "skip_uris")]
-        [NSXTProperty(IsRequired: false, Description: @"URL patterns to avoid when inserting RUM script.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBStringMatchType SkipUris { get; set; }
         /// <summary>
-        /// Client IP addresses to check when inserting RUM script.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "client_ip")]
-        [NSXTProperty(IsRequired: false, Description: @"Client IP addresses to check when inserting RUM script.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBIpAddrMatchType ClientIp { get; set; }
         /// <summary>
-        /// URL patterns to check when inserting RUM script.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "sample_uris")]
-        [NSXTProperty(IsRequired: false, Description: @"URL patterns to check when inserting RUM script.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBStringMatchType SampleUris { get; set; }
     }
 }

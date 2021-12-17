@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyServiceInstanceType : NSXTBasePolicyServiceInstanceType
     {
+        public NSXTPolicyServiceInstanceType()
+        {
+            FailurePolicy = test
+        }
         /// <summary>
         /// Management IP Address of primary interface of the Service
         /// </summary>
@@ -145,7 +149,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "failure_policy")]
         [NSXTProperty(IsRequired: false, Description: @"Failure policy for the Service VM. If this values is not provided, it will be defaulted to FAIL_CLOSE.")]
-        [NSXTDefaultProperty(Default: "BLOCK")]
         public NSXTPolicyServiceInstanceFailurePolicyEnumType? FailurePolicy { get; set; }
     }
 }

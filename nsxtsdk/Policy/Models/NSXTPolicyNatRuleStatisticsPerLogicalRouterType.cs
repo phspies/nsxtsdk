@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Gives the statistics of a NAT rule per logical router on specified enforcement point.")]
     public class NSXTPolicyNatRuleStatisticsPerLogicalRouterType 
     {
+        public NSXTPolicyNatRuleStatisticsPerLogicalRouterType()
+        {
+        }
         /// <summary>
         /// Timestamp when the data was last updated.
         /// </summary>
@@ -30,10 +33,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Detailed Rule statistics per logical router.")]
         public IList<NSXTPolicyNatRuleStatisticsPerTransportNodeType> PerNodeStatistics { get; set; }
         /// <summary>
-        /// Rolled up statistics for all rules on the logical router.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "statistics")]
-        [NSXTProperty(IsRequired: false, Description: @"Rolled up statistics for all rules on the logical router.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTPolicyNATRuleCountersType Statistics { get; set; }
         /// <summary>
         /// Path of the router.

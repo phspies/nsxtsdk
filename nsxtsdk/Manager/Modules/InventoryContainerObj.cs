@@ -67,7 +67,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTContainerClusterListResultType ListContainerClusters(string? ClusterType = null, string? Cursor = null, string? IncludedFields = null, string? InfraType = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTContainerClusterListResultType ListContainerClusters(string? ClusterType = null, string? Cursor = null, string? IncludedFields = null, string? InfraType = null, long? PageSize = null, string? ScopeId = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTContainerClusterListResultType returnValue = default(NSXTContainerClusterListResultType);
             StringBuilder ListContainerClustersServiceURL = new StringBuilder("/fabric/container-clusters");
@@ -82,6 +82,7 @@ namespace nsxtapi.ManagerModules
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (InfraType != null) { request.AddQueryParameter("infra_type", InfraType.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (ScopeId != null) { request.AddQueryParameter("scope_id", ScopeId.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListContainerClustersServiceURL.ToString();
@@ -146,7 +147,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTContainerIngressPolicyListResultType ListContainerIngressPolicies(string? ContainerClusterId = null, string? ContainerProjectId = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTContainerIngressPolicyListResultType ListContainerIngressPolicies(string? ContainerClusterId = null, string? ContainerProjectId = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? ScopeId = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTContainerIngressPolicyListResultType returnValue = default(NSXTContainerIngressPolicyListResultType);
             StringBuilder ListContainerIngressPoliciesServiceURL = new StringBuilder("/fabric/container-ingress-policies");
@@ -161,6 +162,7 @@ namespace nsxtapi.ManagerModules
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (ScopeId != null) { request.AddQueryParameter("scope_id", ScopeId.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListContainerIngressPoliciesServiceURL.ToString();
@@ -225,7 +227,49 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTContainerApplicationListResultType ListContainerApplications(string? ContainerClusterId = null, string? ContainerProjectId = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTContainerProjectListResultType ListContainerProjects(string? ContainerClusterId = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? ScopeId = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            NSXTContainerProjectListResultType returnValue = default(NSXTContainerProjectListResultType);
+            StringBuilder ListContainerProjectsServiceURL = new StringBuilder("/fabric/container-projects");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            if (ContainerClusterId != null) { request.AddQueryParameter("container_cluster_id", ContainerClusterId.ToString()); }
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (ScopeId != null) { request.AddQueryParameter("scope_id", ScopeId.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = ListContainerProjectsServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + ListContainerProjectsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTContainerProjectListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTContainerProjectListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTContainerApplicationListResultType ListContainerApplications(string? ContainerClusterId = null, string? ContainerProjectId = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? ScopeId = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTContainerApplicationListResultType returnValue = default(NSXTContainerApplicationListResultType);
             StringBuilder ListContainerApplicationsServiceURL = new StringBuilder("/fabric/container-applications");
@@ -240,6 +284,7 @@ namespace nsxtapi.ManagerModules
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (ScopeId != null) { request.AddQueryParameter("scope_id", ScopeId.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListContainerApplicationsServiceURL.ToString();
@@ -267,7 +312,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTContainerNetworkPolicyListResultType ListContainerNetworkPolicies(string? ContainerClusterId = null, string? ContainerProjectId = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTContainerNetworkPolicyListResultType ListContainerNetworkPolicies(string? ContainerClusterId = null, string? ContainerProjectId = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? ScopeId = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTContainerNetworkPolicyListResultType returnValue = default(NSXTContainerNetworkPolicyListResultType);
             StringBuilder ListContainerNetworkPoliciesServiceURL = new StringBuilder("/fabric/container-network-policies");
@@ -282,6 +327,7 @@ namespace nsxtapi.ManagerModules
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (ScopeId != null) { request.AddQueryParameter("scope_id", ScopeId.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListContainerNetworkPoliciesServiceURL.ToString();
@@ -457,48 +503,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTContainerProjectListResultType ListContainerProjects(string? ContainerClusterId = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTContainerProjectListResultType returnValue = default(NSXTContainerProjectListResultType);
-            StringBuilder ListContainerProjectsServiceURL = new StringBuilder("/fabric/container-projects");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (ContainerClusterId != null) { request.AddQueryParameter("container_cluster_id", ContainerClusterId.ToString()); }
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListContainerProjectsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListContainerProjectsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTContainerProjectListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTContainerProjectListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTContainerApplicationInstanceListResultType ListContainerApplicationInstances(string? ContainerApplicationId = null, string? ContainerClusterId = null, string? ContainerProjectId = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTContainerApplicationInstanceListResultType ListContainerApplicationInstances(string? ContainerApplicationId = null, string? ContainerClusterId = null, string? ContainerProjectId = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? ScopeId = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTContainerApplicationInstanceListResultType returnValue = default(NSXTContainerApplicationInstanceListResultType);
             StringBuilder ListContainerApplicationInstancesServiceURL = new StringBuilder("/fabric/container-application-instances");
@@ -514,6 +519,7 @@ namespace nsxtapi.ManagerModules
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (ScopeId != null) { request.AddQueryParameter("scope_id", ScopeId.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListContainerApplicationInstancesServiceURL.ToString();
@@ -541,7 +547,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTContainerClusterNodeListResultType ListContainerClusterNodes(string? ContainerClusterId = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTContainerClusterNodeListResultType ListContainerClusterNodes(string? ContainerClusterId = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? ScopeId = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTContainerClusterNodeListResultType returnValue = default(NSXTContainerClusterNodeListResultType);
             StringBuilder ListContainerClusterNodesServiceURL = new StringBuilder("/fabric/container-cluster-nodes");
@@ -555,6 +561,7 @@ namespace nsxtapi.ManagerModules
             if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
             if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (ScopeId != null) { request.AddQueryParameter("scope_id", ScopeId.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListContainerClusterNodesServiceURL.ToString();

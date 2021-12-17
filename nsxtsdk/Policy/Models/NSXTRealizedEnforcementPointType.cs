@@ -17,23 +17,26 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRealizedEnforcementPointType : NSXTPolicyRealizedResourceType
     {
+        public NSXTRealizedEnforcementPointType()
+        {
+        }
         /// <summary>
-        /// Root of Realized Firewalls
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "realized_firewalls")]
-        [NSXTProperty(IsRequired: false, Description: @"Root of Realized Firewalls")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTRealizedFirewallsType RealizedFirewalls { get; set; }
         /// <summary>
-        /// Root of Realized Services
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "realized_services")]
-        [NSXTProperty(IsRequired: false, Description: @"Root of Realized Services")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTRealizedServicesType RealizedServices { get; set; }
         /// <summary>
-        /// Root of Realized Groups
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "realized_groups")]
-        [NSXTProperty(IsRequired: false, Description: @"Root of Realized Groups")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTRealizedGroupsType RealizedGroups { get; set; }
     }
 }

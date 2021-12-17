@@ -17,17 +17,20 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTClusterStatusType 
     {
+        public NSXTClusterStatusType()
+        {
+        }
         /// <summary>
-        /// The current status of the management cluster
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "mgmt_cluster_status")]
-        [NSXTProperty(IsRequired: false, Description: @"The current status of the management cluster")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTManagementClusterStatusType MgmtClusterStatus { get; set; }
         /// <summary>
-        /// The current status of the control cluster
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "control_cluster_status")]
-        [NSXTProperty(IsRequired: false, Description: @"The current status of the control cluster")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTControllerClusterStatusType ControlClusterStatus { get; set; }
         /// <summary>
         /// Unique identifier of this cluster
@@ -36,10 +39,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Unique identifier of this cluster")]
         public string? ClusterId { get; set; }
         /// <summary>
-        /// Status of all the cluster groups
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "detailed_cluster_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Status of all the cluster groups")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTAllClusterGroupStatusType DetailedClusterStatus { get; set; }
     }
 }

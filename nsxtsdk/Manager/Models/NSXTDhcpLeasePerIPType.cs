@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpLeasePerIPType 
     {
+        public NSXTDhcpLeasePerIPType()
+        {
+        }
         /// <summary>
         /// subnet of client network
         /// </summary>

@@ -15,8 +15,11 @@ namespace nsxtsdk.ManagerModels
     /// 
     /// </summary>
     [NSXTProperty(Description: @"")]
-    public class NSXTEULAContentType : NSXTResourceType
+    public class NSXTEULAContentType : NSXTManagedResourceType
     {
+        public NSXTEULAContentType()
+        {
+        }
         /// <summary>
         /// Content of End User License Agreement
         /// </summary>

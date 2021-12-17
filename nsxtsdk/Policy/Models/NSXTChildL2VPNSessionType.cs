@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildL2VPNSessionType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildL2VPNSessionType()
+        {
+        }
         /// <summary>
-        /// Contains the actual L2VPNSession object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "L2VPNSession", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual L2VPNSession object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTL2VPNSessionType L2VPNSession { get; set; }
     }

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalSwitchStatusType 
     {
+        public NSXTLogicalSwitchStatusType()
+        {
+        }
         /// <summary>
         /// Count of Logical Ports belonging to this switch
         /// </summary>

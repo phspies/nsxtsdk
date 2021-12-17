@@ -139,10 +139,10 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void RequestOnetimeBackupBackupToRemote(string? FrameType = null, string? SiteId = null)
+        public void RequestOnetimeBackup(string? FrameType = null, string? SiteId = null)
         {
             
-            StringBuilder RequestOnetimeBackupBackupToRemoteServiceURL = new StringBuilder("/cluster?action=backup_to_remote");
+            StringBuilder RequestOnetimeBackupServiceURL = new StringBuilder("/cluster?action=backup_to_remote");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -151,11 +151,11 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             if (FrameType != null) { request.AddQueryParameter("frame_type", FrameType.ToString()); }
             if (SiteId != null) { request.AddQueryParameter("site_id", SiteId.ToString()); }
-            request.Resource = RequestOnetimeBackupBackupToRemoteServiceURL.ToString();
+            request.Resource = RequestOnetimeBackupServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + RequestOnetimeBackupBackupToRemoteServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + RequestOnetimeBackupServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -314,21 +314,21 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void RequestOnetimeInventorySummarySummarizeInventoryToRemote()
+        public void RequestOnetimeInventorySummary()
         {
             
-            StringBuilder RequestOnetimeInventorySummarySummarizeInventoryToRemoteServiceURL = new StringBuilder("/cluster?action=summarize_inventory_to_remote");
+            StringBuilder RequestOnetimeInventorySummaryServiceURL = new StringBuilder("/cluster?action=summarize_inventory_to_remote");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            request.Resource = RequestOnetimeInventorySummarySummarizeInventoryToRemoteServiceURL.ToString();
+            request.Resource = RequestOnetimeInventorySummaryServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + RequestOnetimeInventorySummarySummarizeInventoryToRemoteServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + RequestOnetimeInventorySummaryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -337,11 +337,11 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRemoteServerFingerprintType GetSshFingerprintOfServerRetrieveSshFingerprint(NSXTRemoteServerFingerprintRequestType RemoteServerFingerprintRequest)
+        public NSXTRemoteServerFingerprintType GetSshFingerprintOfServer(NSXTRemoteServerFingerprintRequestType RemoteServerFingerprintRequest)
         {
             if (RemoteServerFingerprintRequest == null) { throw new System.ArgumentNullException("RemoteServerFingerprintRequest cannot be null"); }
             NSXTRemoteServerFingerprintType returnValue = default(NSXTRemoteServerFingerprintType);
-            StringBuilder GetSshFingerprintOfServerRetrieveSshFingerprintServiceURL = new StringBuilder("/cluster/backups?action=retrieve_ssh_fingerprint");
+            StringBuilder GetSshFingerprintOfServerServiceURL = new StringBuilder("/cluster/backups?action=retrieve_ssh_fingerprint");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -349,11 +349,11 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(RemoteServerFingerprintRequest, defaultSerializationSettings));
-            request.Resource = GetSshFingerprintOfServerRetrieveSshFingerprintServiceURL.ToString();
+            request.Resource = GetSshFingerprintOfServerServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + GetSshFingerprintOfServerRetrieveSshFingerprintServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + GetSshFingerprintOfServerServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else

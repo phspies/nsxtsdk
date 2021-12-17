@@ -226,44 +226,6 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbServiceStatisticsType GetLoadBalancerServiceStatistics(string ServiceId, string? Source = null)
-        {
-            if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
-            NSXTLbServiceStatisticsType returnValue = default(NSXTLbServiceStatisticsType);
-            StringBuilder GetLoadBalancerServiceStatisticsServiceURL = new StringBuilder("/loadbalancer/services/{service-id}/statistics");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetLoadBalancerServiceStatisticsServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
-            request.Resource = GetLoadBalancerServiceStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetLoadBalancerServiceStatisticsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbServiceStatisticsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbServiceStatisticsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTLbVirtualServerStatisticsListResultType ListLoadBalancerVirtualServersStatistics(string ServiceId, string? Source = null)
         {
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
@@ -293,6 +255,44 @@ namespace nsxtapi.ManagerModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTLbVirtualServerStatisticsListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTLbServiceStatisticsType GetLoadBalancerServiceStatistics(string ServiceId, string? Source = null)
+        {
+            if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
+            NSXTLbServiceStatisticsType returnValue = default(NSXTLbServiceStatisticsType);
+            StringBuilder GetLoadBalancerServiceStatisticsServiceURL = new StringBuilder("/loadbalancer/services/{service-id}/statistics");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GetLoadBalancerServiceStatisticsServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
+            request.Resource = GetLoadBalancerServiceStatisticsServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetLoadBalancerServiceStatisticsServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTLbServiceStatisticsType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTLbServiceStatisticsType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}

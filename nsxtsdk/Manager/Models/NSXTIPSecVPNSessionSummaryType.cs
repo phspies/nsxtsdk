@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Summarized view of all selected IPSec VPN sessions.")]
     public class NSXTIPSecVPNSessionSummaryType 
     {
+        public NSXTIPSecVPNSessionSummaryType()
+        {
+        }
         /// <summary>
         /// Traffic summary per session.
         /// </summary>
@@ -30,16 +33,16 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Timestamp when the data was last updated.")]
         public long? LastUpdateTimestamp { get; set; }
         /// <summary>
-        /// Session summary for number of total, established, failed and degraded IPSec VPN sessions.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "session_summary")]
-        [NSXTProperty(IsRequired: false, Description: @"Session summary for number of total, established, failed and degraded IPSec VPN sessions.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPsecVPNIKESessionSummaryType SessionSummary { get; set; }
         /// <summary>
-        /// Aggregate traffic statistics across all selected sessions.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "aggregate_traffic_counters")]
-        [NSXTProperty(IsRequired: false, Description: @"Aggregate traffic statistics across all selected sessions.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPSecVPNTrafficCountersType AggregateTrafficCounters { get; set; }
     }
 }

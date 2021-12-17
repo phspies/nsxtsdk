@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer WafRuleGroup object")]
     public class NSXTALBWafRuleGroupType 
     {
+        public NSXTALBWafRuleGroupType()
+        {
+            Enable = test
+        }
         /// <summary>
         /// Rules as per Modsec language.
         /// Maximum of 1024 items allowed.
@@ -42,7 +46,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "enable")]
         [NSXTProperty(IsRequired: false, Description: @"Enable or disable WAF Rule Group.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enable { get; set; }
         /// <summary>
         /// Name of the object.

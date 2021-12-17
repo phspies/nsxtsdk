@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPPrefixListType : NSXTManagedResourceType
     {
+        public NSXTIPPrefixListType()
+        {
+        }
         /// <summary>
         /// Ordered list of PrefixConfig
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Remote MAC addresses for logical switch.")]
     public class NSXTL2VPNSessionRemoteMacsForLSType 
     {
+        public NSXTL2VPNSessionRemoteMacsForLSType()
+        {
+        }
         /// <summary>
         /// Mac addresses.
         /// </summary>
@@ -24,10 +27,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Mac addresses.")]
         public IList<string> RemoteMacAddresses { get; set; }
         /// <summary>
-        /// Logical switch.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "logical_switch")]
-        [NSXTProperty(IsRequired: false, Description: @"Logical switch.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType LogicalSwitch { get; set; }
         /// <summary>
         /// Contains policy specific information like policy path.

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Capability of a fabric node")]
     public class NSXTNodeCapabilityType 
     {
+        public NSXTNodeCapabilityType()
+        {
+        }
         /// <summary>
         /// Value of this capability
         /// </summary>

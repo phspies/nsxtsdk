@@ -12,11 +12,14 @@ using System.ComponentModel;
 namespace nsxtsdk.ManagerModels
 {
     /// <summary>
-    /// URL of remote bundle which needs to be uploaded
+    /// URL of remote bundle which needs to be uploaded.
     /// </summary>
-    [NSXTProperty(Description: @"URL of remote bundle which needs to be uploaded")]
+    [NSXTProperty(Description: @"URL of remote bundle which needs to be uploaded.")]
     public class NSXTRemoteBundleUrlType 
     {
+        public NSXTRemoteBundleUrlType()
+        {
+        }
         /// <summary>
         /// URL for uploading remote bundle
         /// </summary>

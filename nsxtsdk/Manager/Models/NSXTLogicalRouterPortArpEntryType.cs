@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalRouterPortArpEntryType 
     {
+        public NSXTLogicalRouterPortArpEntryType()
+        {
+        }
         /// <summary>
         /// The IP address
         /// </summary>

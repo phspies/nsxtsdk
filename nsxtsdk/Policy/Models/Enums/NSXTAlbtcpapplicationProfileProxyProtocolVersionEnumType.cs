@@ -7,9 +7,9 @@ using nsxtsdk.Models;
 namespace nsxtsdk.PolicyModels
 {
     /// <summary>
-    /// Version of proxy protocol to be used to convey clientconnection information to the back-end servers.Enum options - PROXY_PROTOCOL_VERSION_1,PROXY_PROTOCOL_VERSION_2.Default value when not specified in API or module isinterpreted by ALB Controller as PROXY_PROTOCOL_VERSION_1.
+    /// Version of proxy protocol to be used to convey clientconnection information to the back-end servers.Enum options - PROXY_PROTOCOL_VERSION_1,PROXY_PROTOCOL_VERSION_2.Allowed in Basic(Allowed values- PROXY_PROTOCOL_VERSION_1)edition, Essentials(Allowed values-PROXY_PROTOCOL_VERSION_1) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as PROXY_PROTOCOL_VERSION_1.
     /// </summary>
-    [NSXTProperty(Description: @"Version of proxy protocol to be used to convey clientconnection information to the back-end servers.Enum options - PROXY_PROTOCOL_VERSION_1,PROXY_PROTOCOL_VERSION_2.Default value when not specified in API or module isinterpreted by ALB Controller as PROXY_PROTOCOL_VERSION_1.")]
+    [NSXTProperty(Description: @"Version of proxy protocol to be used to convey clientconnection information to the back-end servers.Enum options - PROXY_PROTOCOL_VERSION_1,PROXY_PROTOCOL_VERSION_2.Allowed in Basic(Allowed values- PROXY_PROTOCOL_VERSION_1)edition, Essentials(Allowed values-PROXY_PROTOCOL_VERSION_1) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as PROXY_PROTOCOL_VERSION_1.")]
     public enum NSXTAlbtcpapplicationProfileProxyProtocolVersionEnumType
     {
         [EnumMember(Value = "PROXY_PROTOCOL_VERSION_1")]

@@ -17,12 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"This type contains attributes of a cluster node that are relevant to the Cluster Boot Manager.")]
     public class NSXTClusterNodeType 
     {
+        public NSXTClusterNodeType()
+        {
+            Status = test
+        }
         /// <summary>
         /// Current clustering status of the node
         /// </summary>
         [JsonProperty(PropertyName = "status")]
         [NSXTProperty(IsRequired: false, Description: @"Current clustering status of the node")]
-        [NSXTDefaultProperty(Default: "REMOVED")]
         public NSXTClusterNodeStatusEnumType? Status { get; set; }
         /// <summary>
         /// Entities on the node

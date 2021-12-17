@@ -18,6 +18,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"DHCP server to support IPv6 DHCP service. Properties defined at DHCP serverlevel can be overridden by ip-pool or static-binding level properties.")]
     public class NSXTIPv6DhcpServerType 
     {
+        public NSXTIPv6DhcpServerType()
+        {
+        }
         /// <summary>
         /// DHCP server ip in CIDR format.
         /// </summary>

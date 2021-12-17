@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Segment specific L2 VPN configuration")]
     public class NSXTL2ExtensionType 
     {
+        public NSXTL2ExtensionType()
+        {
+        }
         /// <summary>
         /// Policy paths corresponding to the associated L2 VPN sessions
         /// </summary>
@@ -24,10 +27,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Policy paths corresponding to the associated L2 VPN sessions")]
         public IList<string> L2vpnPaths { get; set; }
         /// <summary>
-        /// Local Egress.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "local_egress")]
-        [NSXTProperty(IsRequired: false, Description: @"Local Egress.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLocalEgressType LocalEgress { get; set; }
         /// <summary>
         /// This property has been deprecated. Please use the property l2vpn_paths
@@ -46,6 +49,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Tunnel ID")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(4093)]
-        public long? TunnelId { get; set; }
+        public int? TunnelId { get; set; }
     }
 }

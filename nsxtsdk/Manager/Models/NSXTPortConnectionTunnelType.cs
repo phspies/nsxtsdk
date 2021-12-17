@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Tunnel information between two given transport nodes")]
     public class NSXTPortConnectionTunnelType 
     {
+        public NSXTPortConnectionTunnelType()
+        {
+        }
         /// <summary>
         /// Id of the source transport node
         /// </summary>
@@ -25,10 +28,10 @@ namespace nsxtsdk.ManagerModels
         [System.ComponentModel.DataAnnotations.Required]
         public string SrcNodeId { get; set; }
         /// <summary>
-        /// Tunnel properties between the source and the destination transport node
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "tunnel_properties", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Tunnel properties between the source and the destination transport node")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTTunnelPropertiesType TunnelProperties { get; set; }
     }

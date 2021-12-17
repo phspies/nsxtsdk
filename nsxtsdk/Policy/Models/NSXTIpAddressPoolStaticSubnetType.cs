@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpAddressPoolStaticSubnetType : NSXTIpAddressPoolSubnetType
     {
+        public NSXTIpAddressPoolStaticSubnetType()
+        {
+        }
         /// <summary>
         /// The collection of upto 3 DNS servers for the subnet.
         /// </summary>

@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTEdgeClusterMemberStatusType 
     {
+        public NSXTEdgeClusterMemberStatusType()
+        {
+        }
         /// <summary>
-        /// Transport node backed by an Edge node.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "transport_node", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Transport node backed by an Edge node.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTResourceReferenceType TransportNode { get; set; }
         /// <summary>

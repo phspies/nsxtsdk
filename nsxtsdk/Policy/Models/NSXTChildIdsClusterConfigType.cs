@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildIdsClusterConfigType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildIdsClusterConfigType()
+        {
+        }
         /// <summary>
-        /// Contains the IdsClusterConfig object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "IdsClusterConfig", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the IdsClusterConfig object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTIdsClusterConfigType IdsClusterConfig { get; set; }
     }

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTier0RouteMapListResultType : NSXTListResultType
     {
+        public NSXTTier0RouteMapListResultType()
+        {
+        }
         /// <summary>
         /// Tier0RouteMap results
         /// </summary>

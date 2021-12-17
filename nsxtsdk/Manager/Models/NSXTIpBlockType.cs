@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpBlockType : NSXTManagedResourceType
     {
+        public NSXTIpBlockType()
+        {
+        }
         /// <summary>
         /// Represents network address and the prefix length which will be associated with a layer-2 broadcast domain
         /// </summary>

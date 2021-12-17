@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Aggregate statistics of all the rules in a security policy.")]
     public class NSXTSecurityPolicyStatisticsType 
     {
+        public NSXTSecurityPolicyStatisticsType()
+        {
+        }
         /// <summary>
         /// Realized id of the section on NSX MP. Policy Manager can create more than
         /// one section per SecurityPolicy, in which case this identifier helps to

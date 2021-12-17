@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTMulticastForwardingCsvRecordType : NSXTCsvRecordType
     {
+        public NSXTMulticastForwardingCsvRecordType()
+        {
+        }
         /// <summary>
         /// Transport node uuid or policy path.
         /// </summary>

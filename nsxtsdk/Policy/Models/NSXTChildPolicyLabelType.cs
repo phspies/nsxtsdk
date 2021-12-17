@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildPolicyLabelType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildPolicyLabelType()
+        {
+        }
         /// <summary>
-        /// Contains the actual PolicyLabel object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "PolicyLabel", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual PolicyLabel object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTPolicyLabelType PolicyLabel { get; set; }
     }

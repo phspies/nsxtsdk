@@ -61,43 +61,5 @@ namespace nsxtapi.ManagerModules
 			}
 			return returnValue;
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTNodeType PerformHostNodeUpgradeActionUpgradeInfra(string NodeId, bool? DisableVmMigration = null)
-        {
-            if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
-            NSXTNodeType returnValue = default(NSXTNodeType);
-            StringBuilder PerformHostNodeUpgradeActionUpgradeInfraServiceURL = new StringBuilder("/fabric/nodes/{node-id}?action=upgrade_infra");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.POST
-            };
-            request.AddHeader("Content-type", "application/json");
-            PerformHostNodeUpgradeActionUpgradeInfraServiceURL.Replace("{node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (DisableVmMigration != null) { request.AddQueryParameter("disable_vm_migration", DisableVmMigration.ToString()); }
-            request.Resource = PerformHostNodeUpgradeActionUpgradeInfraServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP POST operation to " + PerformHostNodeUpgradeActionUpgradeInfraServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
     }
 }

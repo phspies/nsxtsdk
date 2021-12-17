@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Supported attributes and sub-attributes for NSProfile")]
     public class NSXTNSSupportedAttributesType 
     {
+        public NSXTNSSupportedAttributesType()
+        {
+        }
         /// <summary>
         /// The type represent pre-defined or user defined list of supported attributes
         /// and sub-attributes that can be used while creating NSProfile

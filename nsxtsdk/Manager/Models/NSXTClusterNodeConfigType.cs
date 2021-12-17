@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTClusterNodeConfigType : NSXTManagedResourceType
     {
+        public NSXTClusterNodeConfigType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

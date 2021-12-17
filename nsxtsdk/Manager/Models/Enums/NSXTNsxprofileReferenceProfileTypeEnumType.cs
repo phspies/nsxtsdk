@@ -32,5 +32,13 @@ namespace nsxtsdk.ManagerModels
         SystemHealthPluginProfile = 9,
         [EnumMember(Value = "GENERALSECURITYSETTINGSPROFILE")]
         GeneralSecuritySettingsProfile = 10,
+        [EnumMember(Value = "IPFIXSWITCHUPMPROFILE")]
+        IpfixSwitchUpmProfile = 11,
+        [EnumMember(Value = "IPFIXCOLLECTORUPMPROFILE")]
+        IpfixCollectorUpmProfile = 12,
+        [EnumMember(Value = "PACEHOSTCONFIGPROFILE")]
+        PaceHostConfigProfile = 13,
+        [EnumMember(Value = "COMMONAGENTHOSTCONFIGPROFILE")]
+        CommonAgentHostConfigProfile = 14,
     }
 }

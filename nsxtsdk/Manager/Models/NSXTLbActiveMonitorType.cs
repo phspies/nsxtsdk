@@ -17,6 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbActiveMonitorType : NSXTLbMonitorType
     {
+        public NSXTLbActiveMonitorType()
+        {
+            FallCount = test
+            Interval = test
+            RiseCount = test
+            Timeout = test
+        }
         /// <summary>
         /// If the monitor port is specified, it would override pool member port
         /// setting for healthcheck. A port range is not supported.
@@ -32,7 +39,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"num of consecutive checks must fail before marking it down")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
-        [NSXTDefaultProperty(Default: "")]
         public long? FallCount { get; set; }
         /// <summary>
         /// the frequency at which the system issues the monitor check (in second)
@@ -41,7 +47,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"the frequency at which the system issues the monitor check (in second)")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Interval { get; set; }
         /// <summary>
         /// num of consecutive checks must pass before marking it up
@@ -50,7 +55,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"num of consecutive checks must pass before marking it up")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
-        [NSXTDefaultProperty(Default: "")]
         public long? RiseCount { get; set; }
         /// <summary>
         /// the number of seconds the target has in which to respond to the monitor
@@ -60,7 +64,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"the number of seconds the target has in which to respond to the monitorrequest")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Timeout { get; set; }
     }
 }

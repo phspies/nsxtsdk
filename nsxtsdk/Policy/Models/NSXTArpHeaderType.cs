@@ -17,13 +17,16 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTArpHeaderType 
     {
+        public NSXTArpHeaderType()
+        {
+            OpCode = test
+        }
         /// <summary>
         /// This field specifies the nature of the Arp message being sent.
         /// </summary>
         [JsonProperty(PropertyName = "op_code", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"This field specifies the nature of the Arp message being sent.")]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "ARP_REQUEST")]
         public NSXTArpHeaderOpCodeEnumType OpCode { get; set; }
         /// <summary>
         /// This field specifies the IP address of the sender. If omitted, the src_ip is set to 0.0.0.0.

@@ -17,19 +17,22 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFirewallGlobalConfigType : NSXTGlobalConfigsType
     {
+        public NSXTFirewallGlobalConfigType()
+        {
+            GlobalFastpathModeEnabled = test
+            GlobalAddrsetModeEnabled = test
+        }
         /// <summary>
         /// This property is deprecated. The fast path mode is always enabled in Distributed Firewall.
         /// </summary>
         [JsonProperty(PropertyName = "global_fastpath_mode_enabled")]
         [NSXTProperty(IsRequired: false, Description: @"This property is deprecated. The fast path mode is always enabled in Distributed Firewall.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? GlobalFastpathModeEnabled { get; set; }
         /// <summary>
         /// When this flag is set to true, global address set is enabled in Distributed Firewall.
         /// </summary>
         [JsonProperty(PropertyName = "global_addrset_mode_enabled")]
         [NSXTProperty(IsRequired: false, Description: @"When this flag is set to true, global address set is enabled in Distributed Firewall.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? GlobalAddrsetModeEnabled { get; set; }
     }
 }

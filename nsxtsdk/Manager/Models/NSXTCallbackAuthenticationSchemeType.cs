@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"CallbackAuthenticationScheme describes how notification requests should authenticate to the server.")]
     public class NSXTCallbackAuthenticationSchemeType 
     {
+        public NSXTCallbackAuthenticationSchemeType()
+        {
+        }
         /// <summary>
         /// Username to use if scheme_name is BASIC_AUTH.
         /// </summary>

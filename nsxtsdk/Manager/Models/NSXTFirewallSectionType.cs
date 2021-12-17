@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFirewallSectionType : NSXTDSSectionType
     {
+        public NSXTFirewallSectionType()
+        {
+        }
         /// <summary>
         /// Category from policy framework.
         /// </summary>
@@ -65,10 +68,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Priority of current section with respect to other sections. In case the field is empty, the list section api should be used to get section priority.")]
         public long? Priority { get; set; }
         /// <summary>
-        /// Reference of the firewall schedule during which this section will be valid.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "firewall_schedule")]
-        [NSXTProperty(IsRequired: false, Description: @"Reference of the firewall schedule during which this section will be valid.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType FirewallSchedule { get; set; }
         /// <summary>
         /// Comments for section lock/unlock.

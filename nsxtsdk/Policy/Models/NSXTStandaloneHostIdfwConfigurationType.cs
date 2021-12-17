@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTStandaloneHostIdfwConfigurationType : NSXTPolicyConfigResourceType
     {
+        public NSXTStandaloneHostIdfwConfigurationType()
+        {
+        }
         /// <summary>
         /// If set to true, Idfw is enabled for standalone hosts
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyEdgeClusterMemberInterSiteStatusType 
     {
+        public NSXTPolicyEdgeClusterMemberInterSiteStatusType()
+        {
+        }
         /// <summary>
         /// Total number of current established inter-site IBGP sessions.
         /// </summary>
@@ -42,10 +45,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Total number of inter-site IBGP sessions.")]
         public long? TotalBgpSessions { get; set; }
         /// <summary>
-        /// Edge node details from where the status is being retrived.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "edge_node_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Edge node details from where the status is being retrived.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType EdgeNodePath { get; set; }
     }
 }

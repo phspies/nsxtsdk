@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceConfigType : NSXTManagedResourceType
     {
+        public NSXTServiceConfigType()
+        {
+        }
         /// <summary>
         /// The list of entities that the configurations should be applied to.
         /// This can either be a NSGroup or any other entity like TransportNode, LogicalPorts etc.

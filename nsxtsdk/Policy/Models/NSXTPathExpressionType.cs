@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPathExpressionType : NSXTExpressionType
     {
+        public NSXTPathExpressionType()
+        {
+        }
         /// <summary>
         /// This array can consist of one or more policy paths. Only policy paths of groups, segments and policy logical ports are
         /// allowed.

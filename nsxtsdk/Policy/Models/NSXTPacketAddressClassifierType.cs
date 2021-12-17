@@ -18,6 +18,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"A packet is classified to have an address binding, if its addressconfiguration matches with all user specified properties.")]
     public class NSXTPacketAddressClassifierType 
     {
+        public NSXTPacketAddressClassifierType()
+        {
+        }
         /// <summary>
         /// Virtual Local Area Network Identifier
         /// </summary>

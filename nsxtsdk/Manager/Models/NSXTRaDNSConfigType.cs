@@ -17,6 +17,11 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRaDNSConfigType 
     {
+        public NSXTRaDNSConfigType()
+        {
+            DomainNameLifetime = test
+            DnsServerLifetime = test
+        }
         /// <summary>
         /// Lifetime of Domain names in milliseconds
         /// </summary>
@@ -24,7 +29,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Lifetime of Domain names in milliseconds")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(4294967295)]
-        [NSXTDefaultProperty(Default: "")]
         public long? DomainNameLifetime { get; set; }
         /// <summary>
         /// DNS server.
@@ -45,7 +49,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Lifetime of DNS server in milliseconds")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(4294967295)]
-        [NSXTDefaultProperty(Default: "")]
         public long? DnsServerLifetime { get; set; }
     }
 }

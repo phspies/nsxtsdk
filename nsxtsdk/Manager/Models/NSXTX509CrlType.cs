@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"A CRL is a time-stamped list identifying revoked certificates.")]
     public class NSXTX509CrlType 
     {
+        public NSXTX509CrlType()
+        {
+        }
         /// <summary>
         /// Next update time for the CRL.
         /// </summary>

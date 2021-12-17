@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceInsertionStatusListResultType : NSXTListResultType
     {
+        public NSXTServiceInsertionStatusListResultType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

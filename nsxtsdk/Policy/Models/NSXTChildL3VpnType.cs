@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildL3VpnType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildL3VpnType()
+        {
+        }
         /// <summary>
-        /// Contains the actual L3Vpn object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "L3Vpn", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual L3Vpn object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTL3VpnType L3Vpn { get; set; }
     }

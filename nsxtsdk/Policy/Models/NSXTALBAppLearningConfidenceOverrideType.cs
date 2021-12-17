@@ -17,6 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer AppLearningConfidenceOverride object")]
     public class NSXTALBAppLearningConfidenceOverrideType 
     {
+        public NSXTALBAppLearningConfidenceOverrideType()
+        {
+            ConfidLowValue = test
+            ConfidProbableValue = test
+            ConfidVeryHighValue = test
+            ConfidHighValue = test
+        }
         /// <summary>
         /// Confidence threshold for label CONFIDENCE_LOW.
         /// Default value when not specified in API or module is
@@ -24,7 +31,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "confid_low_value")]
         [NSXTProperty(IsRequired: false, Description: @"Confidence threshold for label CONFIDENCE_LOW.Default value when not specified in API or module isinterpreted by ALB Controller as 7500.")]
-        [NSXTDefaultProperty(Default: "")]
         public long? ConfidLowValue { get; set; }
         /// <summary>
         /// Confidence threshold for label CONFIDENCE_PROBABLE.
@@ -33,7 +39,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "confid_probable_value")]
         [NSXTProperty(IsRequired: false, Description: @"Confidence threshold for label CONFIDENCE_PROBABLE.Default value when not specified in API or module isinterpreted by ALB Controller as 9000.")]
-        [NSXTDefaultProperty(Default: "")]
         public long? ConfidProbableValue { get; set; }
         /// <summary>
         /// Confidence threshold for label CONFIDENCE_VERY_HIGH.
@@ -42,7 +47,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "confid_very_high_value")]
         [NSXTProperty(IsRequired: false, Description: @"Confidence threshold for label CONFIDENCE_VERY_HIGH.Default value when not specified in API or module isinterpreted by ALB Controller as 9999.")]
-        [NSXTDefaultProperty(Default: "")]
         public long? ConfidVeryHighValue { get; set; }
         /// <summary>
         /// Confidence threshold for label CONFIDENCE_HIGH.
@@ -51,7 +55,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "confid_high_value")]
         [NSXTProperty(IsRequired: false, Description: @"Confidence threshold for label CONFIDENCE_HIGH.Default value when not specified in API or module isinterpreted by ALB Controller as 9500.")]
-        [NSXTDefaultProperty(Default: "")]
         public long? ConfidHighValue { get; set; }
     }
 }

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTEdgeConfigurationStateType : NSXTConfigurationStateType
     {
+        public NSXTEdgeConfigurationStateType()
+        {
+        }
         /// <summary>
         /// Request identifier of the API which modified the entity.
         /// </summary>

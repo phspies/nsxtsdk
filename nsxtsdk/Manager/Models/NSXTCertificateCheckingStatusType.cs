@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Result of checking a certificate")]
     public class NSXTCertificateCheckingStatusType 
     {
+        public NSXTCertificateCheckingStatusType()
+        {
+        }
         /// <summary>
         /// Status of the checked certificate.
         /// </summary>

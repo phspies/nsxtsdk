@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNamedTeamingPolicyType : NSXTTeamingPolicyType
     {
+        public NSXTNamedTeamingPolicyType()
+        {
+        }
         /// <summary>
         /// An uplink teaming policy of a given name defined in UplinkHostSwitchProfile. The names of all NamedTeamingPolicies in an
         /// UplinkHostSwitchProfile must be different, but a name can be shared by different UplinkHostSwitchProfiles. Different

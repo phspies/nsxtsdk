@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTConsolidatedRealizedStatusType : NSXTAggregatePolicyRuntimeInfoType
     {
+        public NSXTConsolidatedRealizedStatusType()
+        {
+        }
         /// <summary>
         /// Represent highest intent version across all realized objects
         /// </summary>
@@ -31,10 +34,10 @@ namespace nsxtsdk.PolicyModels
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTConsolidatedRealizedStatusPublishStatusEnumType PublishStatus { get; set; }
         /// <summary>
-        /// Consolidated Realized Status across enforcement points.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "consolidated_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Consolidated Realized Status across enforcement points.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTConsolidatedStatusType ConsolidatedStatus { get; set; }
         /// <summary>
         /// List of Consolidated Realized Status per enforcement point.

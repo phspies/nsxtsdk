@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Parameters that affect how list results are processed")]
     public class NSXTListResultQueryParametersType 
     {
+        public NSXTListResultQueryParametersType()
+        {
+        }
         /// <summary>
         /// Comma-separated field names to include in query result
         /// </summary>

@@ -17,12 +17,16 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTGlobalManagerType : NSXTPolicyConfigResourceType
     {
+        public NSXTGlobalManagerType()
+        {
+            FailIfRttExceeded = test
+            MaximumRtt = test
+        }
         /// <summary>
         /// Fail onboarding if maximum RTT exceeded.
         /// </summary>
         [JsonProperty(PropertyName = "fail_if_rtt_exceeded")]
         [NSXTProperty(IsRequired: false, Description: @"Fail onboarding if maximum RTT exceeded.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? FailIfRttExceeded { get; set; }
         /// <summary>
         /// Internally generated UUID to the federation of Global Manager.
@@ -56,7 +60,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"If provided and fail_if_rtt_exceeded is true, onboarding of the site willfail if measured RTT is greater than this value.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(1000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? MaximumRtt { get; set; }
         /// <summary>
         /// UUID of the site where Global manager is running. This is the

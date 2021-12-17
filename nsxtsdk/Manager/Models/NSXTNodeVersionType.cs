@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeVersionType 
     {
+        public NSXTNodeVersionType()
+        {
+        }
         /// <summary>
         /// Product version
         /// </summary>

@@ -250,23 +250,23 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void VerifyPortMirroringSessionVerify(string MirrorSessionId)
+        public void VerifyPortMirroringSession(string MirrorSessionId)
         {
             if (MirrorSessionId == null) { throw new System.ArgumentNullException("MirrorSessionId cannot be null"); }
             
-            StringBuilder VerifyPortMirroringSessionVerifyServiceURL = new StringBuilder("/mirror-sessions/{mirror-session-id}?action=verify");
+            StringBuilder VerifyPortMirroringSessionServiceURL = new StringBuilder("/mirror-sessions/{mirror-session-id}?action=verify");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            VerifyPortMirroringSessionVerifyServiceURL.Replace("{mirror-session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(MirrorSessionId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = VerifyPortMirroringSessionVerifyServiceURL.ToString();
+            VerifyPortMirroringSessionServiceURL.Replace("{mirror-session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(MirrorSessionId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = VerifyPortMirroringSessionServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + VerifyPortMirroringSessionVerifyServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + VerifyPortMirroringSessionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             

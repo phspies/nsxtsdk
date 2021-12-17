@@ -17,6 +17,12 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPFIXDFWProfileType : NSXTPolicyConfigResourceType
     {
+        public NSXTIPFIXDFWProfileType()
+        {
+            Priority = test
+            ActiveFlowExportTimeout = test
+            ObservationDomainId = test
+        }
         /// <summary>
         /// Policy path for IPFIX collector profiles. IPFIX data from
         /// these logical segments will be sent to all specified IPFIX
@@ -36,8 +42,7 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"This priority field is used to resolve conflicts in SegmentPorts which are covered by more than one IPFIX profiles. The IPFIXexporter will send records to Collectors in highest priorityprofile (lowest number) only.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(32000)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? Priority { get; set; }
+        public int? Priority { get; set; }
         /// <summary>
         /// For long standing active flows, IPFIX records will be sent
         /// per timeout period in minutes.
@@ -47,8 +52,7 @@ namespace nsxtsdk.PolicyModels
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(60)]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "")]
-        public long ActiveFlowExportTimeout { get; set; }
+        public int ActiveFlowExportTimeout { get; set; }
         /// <summary>
         /// An identifier that is unique to the exporting process
         /// and used to meter the flows.
@@ -57,7 +61,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"An identifier that is unique to the exporting processand used to meter the flows.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65536)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? ObservationDomainId { get; set; }
+        public int? ObservationDomainId { get; set; }
     }
 }

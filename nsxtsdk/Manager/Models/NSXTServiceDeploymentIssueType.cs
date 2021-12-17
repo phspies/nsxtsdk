@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Type of issue and detailed description of the issue in case of deployment failure.")]
     public class NSXTServiceDeploymentIssueType 
     {
+        public NSXTServiceDeploymentIssueType()
+        {
+        }
         /// <summary>
         /// Description of issue encountered while service deployment.
         /// </summary>

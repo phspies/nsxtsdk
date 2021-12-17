@@ -42,11 +42,13 @@ namespace nsxtsdk.PolicyModels
         NUMBEROFTIER0ROUTERS = 14,
         [EnumMember(Value = "NUMBER_OF_TIER1_ROUTERS")]
         NUMBEROFTIER1ROUTERS = 15,
+        [EnumMember(Value = "NUMBER_OF_PREFIX_LIST")]
+        NUMBEROFPREFIXLIST = 16,
         [EnumMember(Value = "NUMBER_OF_NAT_RULES")]
-        NUMBEROFNATRULES = 16,
+        NUMBEROFNATRULES = 17,
         [EnumMember(Value = "NUMBER_OF_DHCP_IP_POOLS")]
-        NUMBEROFDHCPIPPOOLS = 17,
+        NUMBEROFDHCPIPPOOLS = 18,
         [EnumMember(Value = "NUMBER_OF_TIER1_WITH_NAT_RULE")]
-        NUMBEROFTIER1WITHNATRULE = 18,
+        NUMBEROFTIER1WITHNATRULE = 19,
     }
 }

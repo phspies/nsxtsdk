@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRedirectionPolicyType : NSXTPolicyType
     {
+        public NSXTRedirectionPolicyType()
+        {
+        }
         /// <summary>
         /// Redirection rules that are a part of this RedirectionPolicy. At
         /// max, there can be 1000 rules in a given RedirectPolicy.

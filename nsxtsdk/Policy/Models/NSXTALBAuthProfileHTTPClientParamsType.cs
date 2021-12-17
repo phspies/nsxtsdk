@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer AuthProfileHTTPClientParams object")]
     public class NSXTALBAuthProfileHTTPClientParamsType 
     {
+        public NSXTALBAuthProfileHTTPClientParamsType()
+        {
+            CacheExpirationTime = test
+        }
         /// <summary>
         /// The max allowed length of time a clients authentication is
         /// cached.
@@ -29,7 +33,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"The max allowed length of time a clients authentication iscached.Allowed values are 1-30.Unit is SEC.Default value when not specified in API or module isinterpreted by ALB Controller as 5.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(30)]
-        [NSXTDefaultProperty(Default: "")]
         public long? CacheExpirationTime { get; set; }
         /// <summary>
         /// A user should be a member of these groups.

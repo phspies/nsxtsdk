@@ -17,12 +17,23 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBDnsPolicyType : NSXTPolicyConfigResourceType
     {
+        public NSXTALBDnsPolicyType()
+        {
+        }
         /// <summary>
         /// DNS rules.
         /// </summary>
         [JsonProperty(PropertyName = "rule")]
         [NSXTProperty(IsRequired: false, Description: @"DNS rules.")]
         public IList<NSXTALBDnsRuleType> Rule { get; set; }
+        /// <summary>
+        /// List of labels to be used for granular RBAC.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
+        /// </summary>
+        [JsonProperty(PropertyName = "markers")]
+        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
+        public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
         /// <summary>
         /// Creator name.
         /// </summary>

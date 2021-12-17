@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer SSLCertificateDescription object")]
     public class NSXTALBSSLCertificateDescriptionType 
     {
+        public NSXTALBSSLCertificateDescriptionType()
+        {
+        }
         /// <summary>
         /// common_name of SSLCertificateDescription.
         /// </summary>

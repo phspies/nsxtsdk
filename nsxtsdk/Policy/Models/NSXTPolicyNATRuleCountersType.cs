@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Gives the statistics count of a NAT rule.")]
     public class NSXTPolicyNATRuleCountersType 
     {
+        public NSXTPolicyNATRuleCountersType()
+        {
+        }
         /// <summary>
         /// Gives the total number of packets.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Base type for CSV result.")]
     public class NSXTCsvListResultType 
     {
+        public NSXTCsvListResultType()
+        {
+        }
         /// <summary>
         /// File name set by HTTP server if API  returns CSV result as a file.
         /// </summary>

@@ -17,5 +17,8 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSecurityProfileBindingMapType : NSXTPolicyConfigResourceType
     {
+        public NSXTSecurityProfileBindingMapType()
+        {
+        }
     }
 }

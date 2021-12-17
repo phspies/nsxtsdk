@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer Service object")]
     public class NSXTALBServiceType 
     {
+        public NSXTALBServiceType()
+        {
+            PortRangeEnd = test
+        }
         /// <summary>
         /// Enable SSL termination and offload for traffic from
         /// clients.
@@ -37,7 +41,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"The end of the Virtual Service&apos;s port number range.Allowed values are 1-65535.Special values are 0- &apos;single port&apos;.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [NSXTDefaultProperty(Default: "")]
         public long? PortRangeEnd { get; set; }
         /// <summary>
         /// Override the network profile for this specific service
@@ -51,9 +54,11 @@ namespace nsxtsdk.PolicyModels
         /// Enable application layer specific features for the this
         /// specific service.
         /// It is a reference to an object of type ApplicationProfile.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
         /// </summary>
         [JsonProperty(PropertyName = "override_application_profile_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable application layer specific features for the thisspecific service.It is a reference to an object of type ApplicationProfile.")]
+        [NSXTProperty(IsRequired: false, Description: @"Enable application layer specific features for the thisspecific service.It is a reference to an object of type ApplicationProfile.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
         public string? OverrideApplicationProfilePath { get; set; }
         /// <summary>
         /// The Virtual Service's port number.
@@ -67,11 +72,14 @@ namespace nsxtsdk.PolicyModels
         public long Port { get; set; }
         /// <summary>
         /// Enable HTTP2 on this port.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "enable_http2")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable HTTP2 on this port.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"Enable HTTP2 on this port.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? EnableHttp2 { get; set; }
     }
 }

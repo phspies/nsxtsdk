@@ -17,6 +17,12 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer AnalyticsPolicy object")]
     public class NSXTALBAnalyticsPolicyType 
     {
+        public NSXTALBAnalyticsPolicyType()
+        {
+            UdfLogThrottle = test
+            SignificantLogThrottle = test
+            ClientInsights = test
+        }
         /// <summary>
         /// Placeholder for description of property client_log_filters
         /// of obj type AnalyticsPolicy field type str  type array.
@@ -37,14 +43,12 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "udf_log_throttle")]
         [NSXTProperty(IsRequired: false, Description: @"This setting limits the total number of UDF logs generatedper second for this VS on each SE.UDF logs are generated due to the configured client logfilters or the rules with logging enabled.Default is 10 logs per second.Set it to zero (0) to deactivate throttling.Unit is PER_SECOND.Default value when not specified in API or module isinterpreted by ALB Controller as 10.")]
-        [NSXTDefaultProperty(Default: "")]
         public long? UdfLogThrottle { get; set; }
         /// <summary>
-        /// Settings to turn on realtime metrics and set duration for
-        /// realtime updates.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "metrics_realtime_update")]
-        [NSXTProperty(IsRequired: false, Description: @"Settings to turn on realtime metrics and set duration forrealtime updates.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBMetricsRealTimeUpdateType MetricsRealtimeUpdate { get; set; }
         /// <summary>
         /// This setting limits the number of significant logs
@@ -57,7 +61,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "significant_log_throttle")]
         [NSXTProperty(IsRequired: false, Description: @"This setting limits the number of significant logsgenerated per second for this VS on each SE.Default is 10 logs per second.Set it to zero (0) to deactivate throttling.Unit is PER_SECOND.Default value when not specified in API or module isinterpreted by ALB Controller as 10.")]
-        [NSXTDefaultProperty(Default: "")]
         public long? SignificantLogThrottle { get; set; }
         /// <summary>
         /// Gain insights from sampled client to server HTTP requests
@@ -68,7 +71,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "client_insights")]
         [NSXTProperty(IsRequired: false, Description: @"Gain insights from sampled client to server HTTP requestsand responses.Enum options - NO_INSIGHTS, PASSIVE, ACTIVE.Default value when not specified in API or module isinterpreted by ALB Controller as NO_INSIGHTS.")]
-        [NSXTDefaultProperty(Default: "NO_INSIGHTS")]
         public NSXTAlbanalyticsPolicyClientInsightsEnumType? ClientInsights { get; set; }
         /// <summary>
         /// Log all headers.
@@ -79,19 +81,16 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Log all headers.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? AllHeaders { get; set; }
         /// <summary>
-        /// Placeholder for description of property
-        /// client_insights_sampling of obj type AnalyticsPolicy field
-        /// type str  type ref.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "client_insights_sampling")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of propertyclient_insights_sampling of obj type AnalyticsPolicy fieldtype str  type ref.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBClientInsightsSamplingType ClientInsightsSampling { get; set; }
         /// <summary>
-        /// Placeholder for description of property full_client_logs of
-        /// obj type AnalyticsPolicy field type str  type ref.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "full_client_logs")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property full_client_logs ofobj type AnalyticsPolicy field type str  type ref.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBFullClientLogsType FullClientLogs { get; set; }
     }
 }

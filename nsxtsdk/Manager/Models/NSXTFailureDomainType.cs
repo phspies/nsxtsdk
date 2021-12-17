@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFailureDomainType : NSXTManagedResourceType
     {
+        public NSXTFailureDomainType()
+        {
+        }
         /// <summary>
         /// Set preference for edge transport node failure domain which will be
         /// considered while doing auto placement of logical router, DHCP and

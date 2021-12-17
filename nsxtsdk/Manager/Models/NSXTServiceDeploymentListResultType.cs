@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceDeploymentListResultType : NSXTListResultType
     {
+        public NSXTServiceDeploymentListResultType()
+        {
+        }
         /// <summary>
         /// Array of existing ServiceDeployments in database
         /// </summary>

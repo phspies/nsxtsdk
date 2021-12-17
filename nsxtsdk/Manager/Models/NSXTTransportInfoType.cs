@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTransportInfoType 
     {
+        public NSXTTransportInfoType()
+        {
+        }
         /// <summary>
         /// Source port
         /// </summary>

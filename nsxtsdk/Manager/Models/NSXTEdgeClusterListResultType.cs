@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTEdgeClusterListResultType : NSXTListResultType
     {
+        public NSXTEdgeClusterListResultType()
+        {
+        }
         /// <summary>
         /// Edge cluster list results
         /// </summary>

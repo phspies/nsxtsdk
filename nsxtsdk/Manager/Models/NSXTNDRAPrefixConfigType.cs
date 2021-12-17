@@ -18,6 +18,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Overrides the router advertisement attributes for theIPv6 prefixes.")]
     public class NSXTNDRAPrefixConfigType 
     {
+        public NSXTNDRAPrefixConfigType()
+        {
+        }
         /// <summary>
         /// Override the neighbor discovery prefix preferred time and
         /// prefix valid time for the subnet on uplink port whose

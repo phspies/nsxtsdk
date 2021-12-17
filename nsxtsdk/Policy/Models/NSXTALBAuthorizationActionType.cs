@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer AuthorizationAction object")]
     public class NSXTALBAuthorizationActionType 
     {
+        public NSXTALBAuthorizationActionType()
+        {
+            Type = test
+        }
         /// <summary>
         /// HTTP status code to use for local response when an policy
         /// rule is matched.
@@ -37,7 +41,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "type")]
         [NSXTProperty(IsRequired: false, Description: @"Defines the action taken when an authorization policy ruleis matched.By default, access is allowed to the requested resource.Enum options - ALLOW_ACCESS, CLOSE_CONNECTION,HTTP_LOCAL_RESPONSE.Default value when not specified in API or module isinterpreted by ALB Controller as ALLOW_ACCESS.")]
-        [NSXTDefaultProperty(Default: "ALLOW_ACCESS")]
         public NSXTAlbauthorizationActionTypeEnumType? Type { get; set; }
     }
 }

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbJwtCertificateKeyType : NSXTLbJwtKeyType
     {
+        public NSXTLbJwtCertificateKeyType()
+        {
+        }
         /// <summary>
         /// Certificate identifier
         /// </summary>

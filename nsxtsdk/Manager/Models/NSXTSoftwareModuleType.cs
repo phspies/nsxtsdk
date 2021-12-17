@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Software module details")]
     public class NSXTSoftwareModuleType 
     {
+        public NSXTSoftwareModuleType()
+        {
+        }
         /// <summary>
         /// Name of the module in the node
         /// </summary>

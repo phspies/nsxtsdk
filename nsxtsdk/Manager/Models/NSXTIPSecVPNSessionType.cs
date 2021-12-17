@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVPNSessionType : NSXTManagedResourceType
     {
+        public NSXTIPSecVPNSessionType()
+        {
+            Enabled = test
+        }
         /// <summary>
         /// Peer endpoint identifier.
         /// </summary>
@@ -48,7 +52,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Enable/Disable IPSec VPN session.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// A Policy Based VPN requires to define protect rules that match

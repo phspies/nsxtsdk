@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer CRL object")]
     public class NSXTALBCRLType 
     {
+        public NSXTALBCRLType()
+        {
+        }
         /// <summary>
         /// Certificate Revocation list from a given issuer in PEM
         /// format.

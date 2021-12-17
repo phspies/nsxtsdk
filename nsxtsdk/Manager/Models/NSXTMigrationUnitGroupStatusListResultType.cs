@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMigrationUnitGroupStatusListResultType : NSXTListResultType
     {
+        public NSXTMigrationUnitGroupStatusListResultType()
+        {
+        }
         /// <summary>
         /// Paged collection of migration status for migration unit groups
         /// </summary>

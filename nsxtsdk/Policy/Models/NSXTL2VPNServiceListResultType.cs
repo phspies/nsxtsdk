@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTL2VPNServiceListResultType : NSXTListResultType
     {
+        public NSXTL2VPNServiceListResultType()
+        {
+        }
         /// <summary>
         /// L2VPNService list results
         /// </summary>

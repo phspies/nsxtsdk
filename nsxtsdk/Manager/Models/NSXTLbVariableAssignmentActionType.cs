@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbVariableAssignmentActionType : NSXTLbRuleActionType
     {
+        public NSXTLbVariableAssignmentActionType()
+        {
+        }
         /// <summary>
         /// Value of variable
         /// </summary>

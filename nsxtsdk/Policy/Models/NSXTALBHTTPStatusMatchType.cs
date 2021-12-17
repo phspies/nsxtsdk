@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HTTPStatusMatch object")]
     public class NSXTALBHTTPStatusMatchType 
     {
+        public NSXTALBHTTPStatusMatchType()
+        {
+        }
         /// <summary>
         /// HTTP response status code range(s).
         /// </summary>

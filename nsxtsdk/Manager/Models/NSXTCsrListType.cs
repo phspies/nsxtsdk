@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTCsrListType : NSXTListResultType
     {
+        public NSXTCsrListType()
+        {
+        }
         /// <summary>
         /// CSR list.
         /// </summary>

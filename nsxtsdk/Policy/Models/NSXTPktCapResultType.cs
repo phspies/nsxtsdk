@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"The packet capture result for transport nodes")]
     public class NSXTPktCapResultType 
     {
+        public NSXTPktCapResultType()
+        {
+        }
         /// <summary>
         /// The packet capture resource info for ports where packet
         /// capture action is performed

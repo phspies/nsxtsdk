@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsRuleRLAction object")]
     public class NSXTALBDnsRuleRLActionType 
     {
+        public NSXTALBDnsRuleRLActionType()
+        {
+            Type = test
+        }
         /// <summary>
         /// Type of action to be enforced upon hitting the rate limit.
         /// Enum options - DNS_RL_ACTION_NONE, DNS_RL_ACTION_DROP_REQ.
@@ -25,7 +29,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "type")]
         [NSXTProperty(IsRequired: false, Description: @"Type of action to be enforced upon hitting the rate limit.Enum options - DNS_RL_ACTION_NONE, DNS_RL_ACTION_DROP_REQ.Default value when not specified in API or module isinterpreted by ALB Controller as DNS_RL_ACTION_NONE.")]
-        [NSXTDefaultProperty(Default: "DNS_RL_ACTION_NONE")]
         public NSXTAlbdnsRuleRlactionTypeEnumType? Type { get; set; }
     }
 }

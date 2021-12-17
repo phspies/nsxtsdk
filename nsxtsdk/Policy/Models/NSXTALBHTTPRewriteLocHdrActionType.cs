@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HTTPRewriteLocHdrAction object")]
     public class NSXTALBHTTPRewriteLocHdrActionType 
     {
+        public NSXTALBHTTPRewriteLocHdrActionType()
+        {
+            KeepQuery = test
+        }
         /// <summary>
         /// Keep or drop the query from the server side redirect URI.
         /// Default value when not specified in API or module is
@@ -24,19 +28,18 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "keep_query")]
         [NSXTProperty(IsRequired: false, Description: @"Keep or drop the query from the server side redirect URI.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? KeepQuery { get; set; }
         /// <summary>
-        /// Path config.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "path")]
-        [NSXTProperty(IsRequired: false, Description: @"Path config.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBURIParamType Path { get; set; }
         /// <summary>
-        /// Host config.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "host")]
-        [NSXTProperty(IsRequired: false, Description: @"Host config.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBURIParamType Host { get; set; }
         /// <summary>
         /// HTTP protocol type.

@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsRuleActionGslbSiteSelection object")]
     public class NSXTALBDnsRuleActionGslbSiteSelectionType 
     {
+        public NSXTALBDnsRuleActionGslbSiteSelectionType()
+        {
+            IsSitePreferred = test
+        }
         /// <summary>
         /// When set to true, GSLB site is a preferred site.
         /// This setting comes into play when the site is down, as well
@@ -29,7 +33,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "is_site_preferred")]
         [NSXTProperty(IsRequired: false, Description: @"When set to true, GSLB site is a preferred site.This setting comes into play when the site is down, as wellas no configured fallback site is available (all fallbacksites are also down), then any one available site isselected based on the default algorithm for GSLB pool memberselection.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? IsSitePreferred { get; set; }
         /// <summary>
         /// GSLB site name.

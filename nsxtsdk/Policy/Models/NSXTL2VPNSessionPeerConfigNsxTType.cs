@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTL2VPNSessionPeerConfigNsxTType : NSXTL2VPNSessionPeerConfigPerEPType
     {
+        public NSXTL2VPNSessionPeerConfigNsxTType()
+        {
+        }
         /// <summary>
         /// List of peer codes per transport tunnel.
         /// </summary>

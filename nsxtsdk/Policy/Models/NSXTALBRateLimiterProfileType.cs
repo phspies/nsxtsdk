@@ -17,124 +17,68 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer RateLimiterProfile object")]
     public class NSXTALBRateLimiterProfileType 
     {
+        public NSXTALBRateLimiterProfileType()
+        {
+        }
         /// <summary>
-        /// Rate Limit all requests to a URI for a specified period of
-        /// time once the count of failed requests to that URI crosses a
-        /// threshold for that period.
-        /// Count and time period are specified through the
-        /// RateProfile.
-        /// Requests are deemed failed based on client or server side
-        /// error status codes, consistent with how Avi Logs and Metrics
-        /// subsystems mark failed requests.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "uri_failed_requests_rate_limit")]
-        [NSXTProperty(IsRequired: false, Description: @"Rate Limit all requests to a URI for a specified period oftime once the count of failed requests to that URI crosses athreshold for that period.Count and time period are specified through theRateProfile.Requests are deemed failed based on client or server sideerror status codes, consistent with how Avi Logs and Metricssubsystems mark failed requests.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBRateProfileType UriFailedRequestsRateLimit { get; set; }
         /// <summary>
-        /// Automatically track clients and classify them into 3 groups
-        /// - Good, Bad, Unknown.
-        /// Clients are tracked based on their IP Address.
-        /// Clients are added to the Good group when the Avi Scan
-        /// Detection system builds history of requests from them that
-        /// complete successfully.
-        /// Clients are added to Unknown group when there is
-        /// insufficient history about them.
-        /// Requests from such clients are rate limited to the rate
-        /// specified in the RateProfile.
-        /// Finally, Clients with history of failed requests are added
-        /// to Bad group and their requests are rate limited with
-        /// stricter thresholds than the Unknown Clients group.
-        /// The Avi Scan Detection system automatically tunes itself so
-        /// that the Good, Bad, and Unknown client IPs group membership
-        /// changes dynamically with the changes in traffic patterns
-        /// through the ADC.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "client_ip_scanners_requests_rate_limit")]
-        [NSXTProperty(IsRequired: false, Description: @"Automatically track clients and classify them into 3 groups- Good, Bad, Unknown.Clients are tracked based on their IP Address.Clients are added to the Good group when the Avi ScanDetection system builds history of requests from them thatcomplete successfully.Clients are added to Unknown group when there isinsufficient history about them.Requests from such clients are rate limited to the ratespecified in the RateProfile.Finally, Clients with history of failed requests are addedto Bad group and their requests are rate limited withstricter thresholds than the Unknown Clients group.The Avi Scan Detection system automatically tunes itself sothat the Good, Bad, and Unknown client IPs group membershipchanges dynamically with the changes in traffic patternsthrough the ADC.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBRateProfileType ClientIpScannersRequestsRateLimit { get; set; }
         /// <summary>
-        /// Rate Limit all HTTP requests that map to any custom string.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "custom_requests_rate_limit")]
-        [NSXTProperty(IsRequired: false, Description: @"Rate Limit all HTTP requests that map to any custom string.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBRateProfileType CustomRequestsRateLimit { get; set; }
         /// <summary>
-        /// Rate Limit all requests from a client to a URI for a
-        /// specified period of time once the count of failed requests
-        /// from that client to the URI crosses a threshold for that
-        /// period.
-        /// Clients are tracked based on their IP address.
-        /// Count and time period are specified through the
-        /// RateProfile.
-        /// Requests are deemed failed based on client or server side
-        /// error status codes, consistent with how Avi Logs and Metrics
-        /// subsystems mark failed requests.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "client_ip_to_uri_failed_requests_rate_limit")]
-        [NSXTProperty(IsRequired: false, Description: @"Rate Limit all requests from a client to a URI for aspecified period of time once the count of failed requestsfrom that client to the URI crosses a threshold for thatperiod.Clients are tracked based on their IP address.Count and time period are specified through theRateProfile.Requests are deemed failed based on client or server sideerror status codes, consistent with how Avi Logs and Metricssubsystems mark failed requests.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBRateProfileType ClientIpToUriFailedRequestsRateLimit { get; set; }
         /// <summary>
-        /// Rate Limit all HTTP requests from any single client IP
-        /// address to any single URL.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "client_ip_to_uri_requests_rate_limit")]
-        [NSXTProperty(IsRequired: false, Description: @"Rate Limit all HTTP requests from any single client IPaddress to any single URL.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBRateProfileType ClientIpToUriRequestsRateLimit { get; set; }
         /// <summary>
-        /// Rate Limit all requests from a client for a specified
-        /// period of time once the count of failed requests from that
-        /// client crosses a threshold for that period.
-        /// Clients are tracked based on their IP address.
-        /// Count and time period are specified through the
-        /// RateProfile.
-        /// Requests are deemed failed based on client or server side
-        /// error status codes, consistent with how Avi Logs and Metrics
-        /// subsystems mark failed requests.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "client_ip_failed_requests_rate_limit")]
-        [NSXTProperty(IsRequired: false, Description: @"Rate Limit all requests from a client for a specifiedperiod of time once the count of failed requests from thatclient crosses a threshold for that period.Clients are tracked based on their IP address.Count and time period are specified through theRateProfile.Requests are deemed failed based on client or server sideerror status codes, consistent with how Avi Logs and Metricssubsystems mark failed requests.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBRateProfileType ClientIpFailedRequestsRateLimit { get; set; }
         /// <summary>
-        /// Rate Limit all HTTP requests from all client IP addresses
-        /// to any single URL.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "uri_requests_rate_limit")]
-        [NSXTProperty(IsRequired: false, Description: @"Rate Limit all HTTP requests from all client IP addressesto any single URL.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBRateProfileType UriRequestsRateLimit { get; set; }
         /// <summary>
-        /// Automatically track URIs and classify them into 3 groups -
-        /// Good, Bad, Unknown.
-        /// URIs are added to the Good group when the Avi Scan
-        /// Detection system builds history of requests to URIs that
-        /// complete successfully.
-        /// URIs are added to Unknown group when there is insufficient
-        /// history about them.
-        /// Requests for such URIs are rate limited to the rate
-        /// specified in the RateProfile.
-        /// Finally, URIs with history of failed requests are added to
-        /// Bad group and requests to them are rate limited with
-        /// stricter thresholds than the Unknown URIs group.
-        /// The Avi Scan Detection system automatically tunes itself so
-        /// that the Good, Bad, and Unknown URIs group membership
-        /// changes dynamically with the changes in traffic patterns
-        /// through the ADC.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "uri_scanners_requests_rate_limit")]
-        [NSXTProperty(IsRequired: false, Description: @"Automatically track URIs and classify them into 3 groups -Good, Bad, Unknown.URIs are added to the Good group when the Avi ScanDetection system builds history of requests to URIs thatcomplete successfully.URIs are added to Unknown group when there is insufficienthistory about them.Requests for such URIs are rate limited to the ratespecified in the RateProfile.Finally, URIs with history of failed requests are added toBad group and requests to them are rate limited withstricter thresholds than the Unknown URIs group.The Avi Scan Detection system automatically tunes itself sothat the Good, Bad, and Unknown URIs group membershipchanges dynamically with the changes in traffic patternsthrough the ADC.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBRateProfileType UriScannersRequestsRateLimit { get; set; }
         /// <summary>
-        /// Rate Limit all HTTP requests from any single client IP
-        /// address to all URLs of the Virtual Service.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "client_ip_requests_rate_limit")]
-        [NSXTProperty(IsRequired: false, Description: @"Rate Limit all HTTP requests from any single client IPaddress to all URLs of the Virtual Service.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBRateProfileType ClientIpRequestsRateLimit { get; set; }
         /// <summary>
-        /// Rate Limit all connections made from any single client IP
-        /// address to the Virtual Service.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "client_ip_connections_rate_limit")]
-        [NSXTProperty(IsRequired: false, Description: @"Rate Limit all connections made from any single client IPaddress to the Virtual Service.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBRateProfileType ClientIpConnectionsRateLimit { get; set; }
         /// <summary>
         /// Rate Limit all HTTP requests from all client IP addresses

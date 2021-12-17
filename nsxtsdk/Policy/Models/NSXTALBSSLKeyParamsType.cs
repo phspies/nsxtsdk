@@ -17,19 +17,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer SSLKeyParams object")]
     public class NSXTALBSSLKeyParamsType 
     {
+        public NSXTALBSSLKeyParamsType()
+        {
+            Algorithm = test
+        }
         /// <summary>
-        /// Placeholder for description of property ec_params of obj
-        /// type SSLKeyParams field type str  type ref.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ec_params")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property ec_params of objtype SSLKeyParams field type str  type ref.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBSSLKeyECParamsType EcParams { get; set; }
         /// <summary>
-        /// Placeholder for description of property rsa_params of obj
-        /// type SSLKeyParams field type str  type ref.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "rsa_params")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property rsa_params of objtype SSLKeyParams field type str  type ref.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBSSLKeyRSAParamsType RsaParams { get; set; }
         /// <summary>
         /// Enum options - SSL_KEY_ALGORITHM_RSA, SSL_KEY_ALGORITHM_EC.
@@ -39,7 +41,6 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "algorithm", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"Enum options - SSL_KEY_ALGORITHM_RSA, SSL_KEY_ALGORITHM_EC.Default value when not specified in API or module isinterpreted by ALB Controller as SSL_KEY_ALGORITHM_RSA.")]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "SSL_KEY_ALGORITHM_RSA")]
         public NSXTAlbsslkeyParamsAlgorithmEnumType Algorithm { get; set; }
     }
 }

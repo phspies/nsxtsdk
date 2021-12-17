@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Base class for resources")]
     public class NSXTResourceType 
     {
+        public NSXTResourceType()
+        {
+        }
         /// <summary>
-        /// Link to this resource
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "_self")]
-        [NSXTProperty(IsRequired: false, Description: @"Link to this resource")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTSelfResourceLinkType Self { get; set; }
         /// <summary>
         /// The server will populate this field when returing the resource. Ignored on PUT and POST.

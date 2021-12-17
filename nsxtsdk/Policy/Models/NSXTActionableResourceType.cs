@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTActionableResourceType : NSXTManagedResourceType
     {
+        public NSXTActionableResourceType()
+        {
+        }
         /// <summary>
         /// A resource reference on which actions can be performed
         /// </summary>

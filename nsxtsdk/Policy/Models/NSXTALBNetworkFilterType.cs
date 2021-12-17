@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer NetworkFilter object")]
     public class NSXTALBNetworkFilterType 
     {
+        public NSXTALBNetworkFilterType()
+        {
+        }
         /// <summary>
         /// server_filter of NetworkFilter.
         /// </summary>

@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildLBMonitorProfileType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildLBMonitorProfileType()
+        {
+        }
         /// <summary>
-        /// Contains the actual LBMonitorProfile object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "LBMonitorProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual LBMonitorProfile object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTLBMonitorProfileType LBMonitorProfile { get; set; }
     }

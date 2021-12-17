@@ -17,17 +17,20 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsNsRdata object")]
     public class NSXTALBDnsNsRdataType 
     {
+        public NSXTALBDnsNsRdataType()
+        {
+        }
         /// <summary>
-        /// IPv6 address for Name Server.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ip6_address")]
-        [NSXTProperty(IsRequired: false, Description: @"IPv6 address for Name Server.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBIpAddrType Ip6Address { get; set; }
         /// <summary>
-        /// IP address for Name Server.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ip_address")]
-        [NSXTProperty(IsRequired: false, Description: @"IP address for Name Server.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBIpAddrType IpAddress { get; set; }
         /// <summary>
         /// Name Server name.

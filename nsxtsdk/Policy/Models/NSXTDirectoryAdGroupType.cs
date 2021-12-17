@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDirectoryAdGroupType : NSXTDirectoryGroupType
     {
+        public NSXTDirectoryAdGroupType()
+        {
+        }
         /// <summary>
         /// GUID is a 128-bit value that is unique not only in the enterprise but also across the world. GUIDs are assigned to every
         /// object created by Active Directory, not just User and Group objects.

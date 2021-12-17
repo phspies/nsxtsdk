@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"This object contains list of syslog exporters used by NSX nodes.")]
     public class NSXTSyslogPropertiesType 
     {
+        public NSXTSyslogPropertiesType()
+        {
+        }
         /// <summary>
         /// List of syslog exporters.
         /// </summary>

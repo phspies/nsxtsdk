@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbVirtualServerListResultType : NSXTListResultType
     {
+        public NSXTLbVirtualServerListResultType()
+        {
+        }
         /// <summary>
         /// paginated list of virtual servers
         /// </summary>

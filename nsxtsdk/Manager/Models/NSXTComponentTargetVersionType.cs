@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTComponentTargetVersionType 
     {
+        public NSXTComponentTargetVersionType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

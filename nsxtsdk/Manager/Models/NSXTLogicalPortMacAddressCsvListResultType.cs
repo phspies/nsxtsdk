@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalPortMacAddressCsvListResultType : NSXTCsvListResultType
     {
+        public NSXTLogicalPortMacAddressCsvListResultType()
+        {
+        }
         /// <summary>
         /// Timestamp when the data was last updated; unset if data source has never updated the data.
         /// </summary>

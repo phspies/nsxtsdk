@@ -17,24 +17,27 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer VipPlacementNetwork object")]
     public class NSXTALBVipPlacementNetworkType 
     {
+        public NSXTALBVipPlacementNetworkType()
+        {
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "subnet")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTALBIpAddrPrefixType Subnet { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "subnet6")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTALBIpAddrPrefixType Subnet6 { get; set; }
         /// <summary>
         /// Network to use for vip placement.
         /// It is a reference to an object of type Network.
         /// </summary>
-        [JsonProperty(PropertyName = "network_path")]
+        [JsonProperty(PropertyName = "network_name")]
         [NSXTProperty(IsRequired: false, Description: @"Network to use for vip placement.It is a reference to an object of type Network.")]
-        public string? NetworkPath { get; set; }
-        /// <summary>
-        /// IPv4 Subnet to use for vip placement.
-        /// </summary>
-        [JsonProperty(PropertyName = "subnet")]
-        [NSXTProperty(IsRequired: false, Description: @"IPv4 Subnet to use for vip placement.")]
-        public NSXTALBIpAddrPrefixType Subnet { get; set; }
-        /// <summary>
-        /// IPv6 subnet to use for vip placement.
-        /// </summary>
-        [JsonProperty(PropertyName = "subnet6")]
-        [NSXTProperty(IsRequired: false, Description: @"IPv6 subnet to use for vip placement.")]
-        public NSXTALBIpAddrPrefixType Subnet6 { get; set; }
+        public string? NetworkName { get; set; }
     }
 }

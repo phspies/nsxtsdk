@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildStaticARPConfigType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildStaticARPConfigType()
+        {
+        }
         /// <summary>
-        /// Contains the actual StaticARPConfig object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "StaticARPConfig", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual StaticARPConfig object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTStaticARPConfigType StaticARPConfig { get; set; }
     }

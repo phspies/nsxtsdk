@@ -16,5 +16,11 @@ namespace nsxtsdk.PolicyModels
         ALLOWINTRA = 1,
         [EnumMember(Value = "ALLOW_EGRESS")]
         ALLOWEGRESS = 2,
+        [EnumMember(Value = "ALLOW_INGRESS")]
+        ALLOWINGRESS = 3,
+        [EnumMember(Value = "DROP_INGRESS")]
+        DROPINGRESS = 4,
+        [EnumMember(Value = "DROP_EGRESS")]
+        DROPEGRESS = 5,
     }
 }

@@ -139,24 +139,24 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAutoDeployedPaceClusterNodeVmdelete(string NodeId, bool? ForceDelete = null)
+        public void DeleteAutoDeployedPaceClusterNodeVM(string NodeId, bool? ForceDelete = null)
         {
             if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
             
-            StringBuilder DeleteAutoDeployedPaceClusterNodeVmdeleteServiceURL = new StringBuilder("/intelligence/nodes/deployments/{node-id}?action=delete");
+            StringBuilder DeleteAutoDeployedPaceClusterNodeVMServiceURL = new StringBuilder("/intelligence/nodes/deployments/{node-id}?action=delete");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            DeleteAutoDeployedPaceClusterNodeVmdeleteServiceURL.Replace("{node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeId, System.Globalization.CultureInfo.InvariantCulture)));
+            DeleteAutoDeployedPaceClusterNodeVMServiceURL.Replace("{node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeId, System.Globalization.CultureInfo.InvariantCulture)));
             if (ForceDelete != null) { request.AddQueryParameter("force_delete", ForceDelete.ToString()); }
-            request.Resource = DeleteAutoDeployedPaceClusterNodeVmdeleteServiceURL.ToString();
+            request.Resource = DeleteAutoDeployedPaceClusterNodeVMServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + DeleteAutoDeployedPaceClusterNodeVmdeleteServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + DeleteAutoDeployedPaceClusterNodeVMServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             

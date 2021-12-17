@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Information about a messaging client")]
     public class NSXTMsgClientInfoType 
     {
+        public NSXTMsgClientInfoType()
+        {
+        }
         /// <summary>
         /// Software version of the node.
         /// </summary>

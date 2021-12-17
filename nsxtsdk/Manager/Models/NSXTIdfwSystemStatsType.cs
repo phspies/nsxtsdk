@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Identity Firewall statistics data.")]
     public class NSXTIdfwSystemStatsType 
     {
+        public NSXTIdfwSystemStatsType()
+        {
+        }
         /// <summary>
         /// Number of concurrent logged on users (across VDI & RDSH).  Multiple
         /// logins by the same user is counted as 1.

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdsSignatureVersionType : NSXTPolicyConfigResourceType
     {
+        public NSXTIdsSignatureVersionType()
+        {
+        }
         /// <summary>
         /// This flag tells the status of the signatures under a version.
         /// OUTDATED: It means the signatures under this version are outdated and new version is available.

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyContextProfileListResultType : NSXTListResultType
     {
+        public NSXTPolicyContextProfileListResultType()
+        {
+        }
         /// <summary>
         /// Paged collection of PolicyContextProfiles
         /// </summary>

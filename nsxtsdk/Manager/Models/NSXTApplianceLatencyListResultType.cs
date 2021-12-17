@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTApplianceLatencyListResultType : NSXTListResultType
     {
+        public NSXTApplianceLatencyListResultType()
+        {
+        }
         /// <summary>
         /// Display the appliance latency data list.
         /// </summary>

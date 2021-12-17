@@ -17,12 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Render configuration to be applied to the widget.")]
     public class NSXTRenderConfigurationType 
     {
+        public NSXTRenderConfigurationType()
+        {
+        }
         /// <summary>
         /// The color to use when rendering an entity. For example, set color as 'RED' to render a portion of donut in red.
         /// </summary>
         [JsonProperty(PropertyName = "color")]
         [NSXTProperty(IsRequired: false, Description: @"The color to use when rendering an entity. For example, set color as &apos;RED&apos; to render a portion of donut in red.")]
-        public NSXTRenderConfigurationColorEnumType? Color { get; set; }
+        public string? Color { get; set; }
         /// <summary>
         /// If the condition is met then the rendering specified for the condition will be applied. Examples of expression syntax
         /// are provided under 'example_request' section of 'CreateWidgetConfiguration' API.

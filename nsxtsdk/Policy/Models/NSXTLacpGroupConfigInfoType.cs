@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLacpGroupConfigInfoType 
     {
+        public NSXTLacpGroupConfigInfoType()
+        {
+            TimeoutType = test
+        }
         /// <summary>
         /// The key represents the identifier for the group that is unique
         /// across VC.
@@ -42,7 +46,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "timeout_type")]
         [NSXTProperty(IsRequired: false, Description: @"To set the lag mode as fast for LACP. By default, it will be slow.")]
-        [NSXTDefaultProperty(Default: "SLOW")]
         public NSXTLacpGroupConfigInfoTimeoutTypeEnumType? TimeoutType { get; set; }
         /// <summary>
         /// Load balance algorithm used in LACP group. The possible values

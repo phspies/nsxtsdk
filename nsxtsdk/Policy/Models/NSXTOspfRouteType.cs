@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTOspfRouteType 
     {
+        public NSXTOspfRouteType()
+        {
+        }
         /// <summary>
         /// Type to cost of the route.
         /// </summary>

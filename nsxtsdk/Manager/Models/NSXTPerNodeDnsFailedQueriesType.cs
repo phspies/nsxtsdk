@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPerNodeDnsFailedQueriesType : NSXTListResultType
     {
+        public NSXTPerNodeDnsFailedQueriesType()
+        {
+        }
         /// <summary>
         /// Timestamp of the request, in YYYY-MM-DD HH:MM:SS.zzz format.
         /// </summary>

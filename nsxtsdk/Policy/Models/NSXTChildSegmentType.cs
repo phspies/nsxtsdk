@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildSegmentType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildSegmentType()
+        {
+        }
         /// <summary>
-        /// Contains the actual Segment object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "Segment", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual Segment object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTSegmentType Segment { get; set; }
     }

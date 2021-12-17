@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPrefixListType : NSXTPolicyConfigResourceType
     {
+        public NSXTPrefixListType()
+        {
+        }
         /// <summary>
         /// Specify ordered list of network prefixes.
         /// </summary>

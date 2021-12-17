@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBTcpMonitorProfileType : NSXTLBActiveMonitorType
     {
+        public NSXTLBTcpMonitorProfileType()
+        {
+        }
         /// <summary>
         /// Expected data, if specified, can be anywhere in the response and it has
         /// to be a string, regular expressions are not supported.

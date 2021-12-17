@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTVifAttachmentContextType : NSXTAttachmentContextType
     {
+        public NSXTVifAttachmentContextType()
+        {
+        }
         /// <summary>
         /// Type of the VIF attached to logical port
         /// </summary>
@@ -42,11 +45,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Current we use VLAN id as the traffic tag.Only effective when vif_type is CHILD.Each logical port inside a container must have aunique traffic tag. If the traffic_tag is notunique, no error is generated, but traffic willnot be delivered to any port with a non-unique tag.")]
         public int? TrafficTag { get; set; }
         /// <summary>
-        /// Indicate application interface configuration for Bare Metal Server. Only
-        /// effective when vif_type is INDEPENDENT.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "bms_interface_config")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicate application interface configuration for Bare Metal Server. Onlyeffective when vif_type is INDEPENDENT.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTAttachedInterfaceType BmsInterfaceConfig { get; set; }
         /// <summary>
         /// An application ID used to identify / look up a child VIF

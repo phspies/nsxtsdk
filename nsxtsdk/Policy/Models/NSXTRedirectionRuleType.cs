@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRedirectionRuleType : NSXTBaseRuleType
     {
+        public NSXTRedirectionRuleType()
+        {
+        }
         /// <summary>
         /// The action to be applied to all the services
         /// </summary>

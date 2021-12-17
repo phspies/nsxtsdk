@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTInstanceEndpointListResultType : NSXTListResultType
     {
+        public NSXTInstanceEndpointListResultType()
+        {
+        }
         /// <summary>
         /// List of instance endpoints.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Define action for each allocation rule which added on edge cluster.")]
     public class NSXTAllocationRuleActionType 
     {
+        public NSXTAllocationRuleActionType()
+        {
+        }
         /// <summary>
         /// Set action for each allocation rule on edge cluster which will help in
         /// auto placement.

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Recommended topology for migrating NVDS to VDS")]
     public class NSXTUpgradeTopologyType 
     {
+        public NSXTUpgradeTopologyType()
+        {
+        }
         /// <summary>
         /// All resultant VDS mapping for a NVDS after the migration
         /// </summary>

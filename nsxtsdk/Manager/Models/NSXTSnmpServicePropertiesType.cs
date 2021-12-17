@@ -17,13 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"SNMP Service properties")]
     public class NSXTSnmpServicePropertiesType 
     {
+        public NSXTSnmpServicePropertiesType()
+        {
+            V3AuthProtocol = test
+            V3PrivProtocol = test
+        }
         /// <summary>
         /// SNMP v3 auth protocol
         /// </summary>
         [JsonProperty(PropertyName = "v3_auth_protocol", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"SNMP v3 auth protocol")]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "SHA1")]
         public NSXTSnmpServicePropertiesV3AuthProtocolEnumType V3AuthProtocol { get; set; }
         /// <summary>
         /// SNMP v1, v2c community strings
@@ -43,7 +47,6 @@ namespace nsxtsdk.ManagerModels
         [JsonProperty(PropertyName = "v3_priv_protocol", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"SNMP v3 private protocol")]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "AES128")]
         public NSXTSnmpServicePropertiesV3PrivProtocolEnumType V3PrivProtocol { get; set; }
         /// <summary>
         /// SNMP v3 users information

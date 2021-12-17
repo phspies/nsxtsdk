@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTOidcEndPointType : NSXTManagedResourceType
     {
+        public NSXTOidcEndPointType()
+        {
+            OidcType = test
+        }
         /// <summary>
         /// The URL of the OpenID provider's userinfo endpoint.
         /// </summary>
@@ -41,7 +45,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "oidc_type")]
         [NSXTProperty(IsRequired: false, Description: @"Type used to distinguish the OIDC end-points by IDP.")]
-        [NSXTDefaultProperty(Default: "vcenter")]
         public NSXTOidcEndPointOidcTypeEnumType? OidcType { get; set; }
         /// <summary>
         /// URI of the OpenID Connect end-point.

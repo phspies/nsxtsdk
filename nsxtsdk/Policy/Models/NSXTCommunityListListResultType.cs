@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTCommunityListListResultType : NSXTListResultType
     {
+        public NSXTCommunityListListResultType()
+        {
+        }
         /// <summary>
         /// CommunityList results
         /// </summary>

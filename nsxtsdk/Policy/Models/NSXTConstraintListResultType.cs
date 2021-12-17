@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTConstraintListResultType : NSXTListResultType
     {
+        public NSXTConstraintListResultType()
+        {
+        }
         /// <summary>
         /// Constraint list results
         /// </summary>

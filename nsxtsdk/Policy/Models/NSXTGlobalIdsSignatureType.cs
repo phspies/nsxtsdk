@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTGlobalIdsSignatureType : NSXTPolicyConfigResourceType
     {
+        public NSXTGlobalIdsSignatureType()
+        {
+            Enable = test
+        }
         /// <summary>
         /// It denotes the global action of a IDS Signature.
         /// This will take precedence over IDS signature's action.
@@ -36,7 +40,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "enable")]
         [NSXTProperty(IsRequired: false, Description: @"Flag through which user can Enable/Disable a Signature at Global Level.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enable { get; set; }
     }
 }

@@ -20,6 +20,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRealizedGroupType : NSXTPolicyRealizedResourceType
     {
+        public NSXTRealizedGroupType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

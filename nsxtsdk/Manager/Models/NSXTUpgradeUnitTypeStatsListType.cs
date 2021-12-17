@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUpgradeUnitTypeStatsListType : NSXTListResultType
     {
+        public NSXTUpgradeUnitTypeStatsListType()
+        {
+        }
         /// <summary>
         /// List of upgrade unit type stats
         /// </summary>

@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildIpAddressPoolSubnetType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildIpAddressPoolSubnetType()
+        {
+        }
         /// <summary>
-        /// Contains the actual IpAddressPoolSubnet object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "IpAddressPoolSubnet", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual IpAddressPoolSubnet object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTIpAddressPoolSubnetType IpAddressPoolSubnet { get; set; }
     }

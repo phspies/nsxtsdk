@@ -17,13 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Define DHCP options of the DHCP service.")]
     public class NSXTDhcpOptionsType 
     {
+        public NSXTDhcpOptionsType()
+        {
+        }
         /// <summary>
-        /// DHCP option 121 to define classless static routes. Once Option 121
-        /// was defined, Option 249 will be auto-generated because they are
-        /// equivalent.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "option121")]
-        [NSXTProperty(IsRequired: false, Description: @"DHCP option 121 to define classless static routes. Once Option 121was defined, Option 249 will be auto-generated because they areequivalent.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTDhcpOption121Type Option121 { get; set; }
         /// <summary>
         /// To define DHCP options other than option 121 in generic format.

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer AuthorizationPolicy object")]
     public class NSXTALBAuthorizationPolicyType 
     {
+        public NSXTALBAuthorizationPolicyType()
+        {
+        }
         /// <summary>
         /// Authorization Policy Rules.
         /// </summary>

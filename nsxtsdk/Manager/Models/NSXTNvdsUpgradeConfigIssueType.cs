@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNvdsUpgradeConfigIssueType : NSXTManagedResourceType
     {
+        public NSXTNvdsUpgradeConfigIssueType()
+        {
+        }
         /// <summary>
         /// Recommendation to resolve the error returned for component
         /// </summary>

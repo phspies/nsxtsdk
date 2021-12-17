@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Dscp value is ignored in case of &apos;TRUSTED&apos; DscpTrustMode.")]
     public class NSXTQoSDscpType 
     {
+        public NSXTQoSDscpType()
+        {
+            Priority = test
+        }
         /// <summary>
         /// Internal Forwarding Priority
         /// </summary>
@@ -24,8 +28,7 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Internal Forwarding Priority")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(63)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? Priority { get; set; }
+        public int? Priority { get; set; }
         /// <summary>
         /// When you select the Trusted mode the inner header DSCP value is applied
         /// to the outer IP header for IP/IPv6 traffic. For non IP/IPv6 traffic,

@@ -30,11 +30,11 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTResourceReferenceType RemoveMemberRemoveMember(string ObjectId, bool? DeepCheck = null, string? ObjectType = null)
+        public NSXTResourceReferenceType RemoveMember(string ObjectId, bool? DeepCheck = null, string? ObjectType = null)
         {
             if (ObjectId == null) { throw new System.ArgumentNullException("ObjectId cannot be null"); }
             NSXTResourceReferenceType returnValue = default(NSXTResourceReferenceType);
-            StringBuilder RemoveMemberRemoveMemberServiceURL = new StringBuilder("/firewall/excludelist?action=remove_member");
+            StringBuilder RemoveMemberServiceURL = new StringBuilder("/firewall/excludelist?action=remove_member");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -44,11 +44,11 @@ namespace nsxtapi.ManagerModules
             if (DeepCheck != null) { request.AddQueryParameter("deep_check", DeepCheck.ToString()); }
             if (ObjectId != null) { request.AddQueryParameter("object_id", ObjectId.ToString()); }
             if (ObjectType != null) { request.AddQueryParameter("object_type", ObjectType.ToString()); }
-            request.Resource = RemoveMemberRemoveMemberServiceURL.ToString();
+            request.Resource = RemoveMemberServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + RemoveMemberRemoveMemberServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + RemoveMemberServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -141,11 +141,11 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTResourceReferenceType AddMemberAddMember(NSXTResourceReferenceType ResourceReference)
+        public NSXTResourceReferenceType AddMember(NSXTResourceReferenceType ResourceReference)
         {
             if (ResourceReference == null) { throw new System.ArgumentNullException("ResourceReference cannot be null"); }
             NSXTResourceReferenceType returnValue = default(NSXTResourceReferenceType);
-            StringBuilder AddMemberAddMemberServiceURL = new StringBuilder("/firewall/excludelist?action=add_member");
+            StringBuilder AddMemberServiceURL = new StringBuilder("/firewall/excludelist?action=add_member");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -153,11 +153,11 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(ResourceReference, defaultSerializationSettings));
-            request.Resource = AddMemberAddMemberServiceURL.ToString();
+            request.Resource = AddMemberServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + AddMemberAddMemberServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + AddMemberServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -178,11 +178,11 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTResourceReferenceType CheckMemberIfExistsCheckIfExists(string ObjectId, bool? DeepCheck = null, string? ObjectType = null)
+        public NSXTResourceReferenceType CheckMemberIfExists(string ObjectId, bool? DeepCheck = null, string? ObjectType = null)
         {
             if (ObjectId == null) { throw new System.ArgumentNullException("ObjectId cannot be null"); }
             NSXTResourceReferenceType returnValue = default(NSXTResourceReferenceType);
-            StringBuilder CheckMemberIfExistsCheckIfExistsServiceURL = new StringBuilder("/firewall/excludelist?action=check_if_exists");
+            StringBuilder CheckMemberIfExistsServiceURL = new StringBuilder("/firewall/excludelist?action=check_if_exists");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -192,11 +192,11 @@ namespace nsxtapi.ManagerModules
             if (DeepCheck != null) { request.AddQueryParameter("deep_check", DeepCheck.ToString()); }
             if (ObjectId != null) { request.AddQueryParameter("object_id", ObjectId.ToString()); }
             if (ObjectType != null) { request.AddQueryParameter("object_type", ObjectType.ToString()); }
-            request.Resource = CheckMemberIfExistsCheckIfExistsServiceURL.ToString();
+            request.Resource = CheckMemberIfExistsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + CheckMemberIfExistsCheckIfExistsServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + CheckMemberIfExistsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else

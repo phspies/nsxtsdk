@@ -17,13 +17,16 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyUrlCategoryType : NSXTPolicyConfigResourceType
     {
+        public NSXTPolicyUrlCategoryType()
+        {
+        }
         /// <summary>
         /// The id of the category.
         /// </summary>
         [JsonProperty(PropertyName = "category_id", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"The id of the category.")]
         [System.ComponentModel.DataAnnotations.Required]
-        public long CategoryId { get; set; }
+        public int CategoryId { get; set; }
         /// <summary>
         /// The name of the category.
         /// </summary>

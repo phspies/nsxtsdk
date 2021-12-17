@@ -18,6 +18,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"The array of the failed DNS queries with entry count and timestampon active and standby transport node.")]
     public class NSXTDnsFailedQueriesType 
     {
+        public NSXTDnsFailedQueriesType()
+        {
+        }
         /// <summary>
         /// Timestamp of the request, in YYYY-MM-DD HH:MM:SS.zzz format.
         /// </summary>

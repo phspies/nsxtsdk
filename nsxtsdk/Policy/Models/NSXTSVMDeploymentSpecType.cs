@@ -18,6 +18,12 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Deployment Specs holds information required to deploy the Service-VMs.i.e. OVF url where the partner Service-VM OVF is hosted. The host type on which the OVF(Open Virtualization Format) can be deployed, Form factor to name a few.")]
     public class NSXTSVMDeploymentSpecType 
     {
+        public NSXTSVMDeploymentSpecType()
+        {
+            MinHostVersion = test
+            ServiceFormFactor = test
+            SvmVersion = test
+        }
         /// <summary>
         /// Location of the partner VM OVF to be deployed.
         /// </summary>
@@ -37,14 +43,12 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "min_host_version")]
         [NSXTProperty(IsRequired: false, Description: @"Minimum host version supported by this ovf. If a host in the deployment cluster is having version less than this, then service deployment will not happen on that host.")]
-        [NSXTDefaultProperty(Default: "6.5")]
         public string? MinHostVersion { get; set; }
         /// <summary>
         /// Supported ServiceInsertion Form Factor for the OVF deployment. The default FormFactor is Medium.
         /// </summary>
         [JsonProperty(PropertyName = "service_form_factor")]
         [NSXTProperty(IsRequired: false, Description: @"Supported ServiceInsertion Form Factor for the OVF deployment. The default FormFactor is Medium.")]
-        [NSXTDefaultProperty(Default: "MEDIUM")]
         public NSXTSvmdeploymentSpecServiceFormFactorEnumType? ServiceFormFactor { get; set; }
         /// <summary>
         /// Host Type on which the specified OVF can be deployed.
@@ -58,7 +62,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "svm_version")]
         [NSXTProperty(IsRequired: false, Description: @"Partner needs to specify the Service VM version which will get deployed.")]
-        [NSXTDefaultProperty(Default: "1.0")]
         public string? SvmVersion { get; set; }
     }
 }

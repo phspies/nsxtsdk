@@ -17,6 +17,11 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDSRuleType : NSXTEmbeddedResourceType
     {
+        public NSXTDSRuleType()
+        {
+            Direction = test
+            IpProtocol = test
+        }
         /// <summary>
         /// Flag to indicate whether rule is default.
         /// </summary>
@@ -29,7 +34,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "direction")]
         [NSXTProperty(IsRequired: false, Description: @"Rule direction in case of stateless distributed service rules. This will only considered if section level parameter is set to stateless. Default to IN_OUT if not specified.")]
-        [NSXTDefaultProperty(Default: "IN_OUT")]
         public NSXTDsruleDirectionEnumType? Direction { get; set; }
         /// <summary>
         /// User level field which will be printed in CLI and packet logs.
@@ -42,7 +46,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "ip_protocol")]
         [NSXTProperty(IsRequired: false, Description: @"Type of IP packet that should be matched while enforcing the rule.")]
-        [NSXTDefaultProperty(Default: "IPV4_IPV6")]
         public NSXTDsruleIpProtocolEnumType? IpProtocol { get; set; }
         /// <summary>
         /// User notes specific to the rule.

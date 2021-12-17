@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdsProfileSeverityType : NSXTPolicyConfigResourceType
     {
+        public NSXTIdsProfileSeverityType()
+        {
+        }
         /// <summary>
         /// Contains the id of signatures that will be ignored as part of the profile.
         /// This field is deprecated, please use ignore_signatures field under IdsProfile

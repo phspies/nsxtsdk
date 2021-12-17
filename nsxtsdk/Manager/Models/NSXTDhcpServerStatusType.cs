@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpServerStatusType 
     {
+        public NSXTDhcpServerStatusType()
+        {
+        }
         /// <summary>
         /// Error message, if available
         /// </summary>

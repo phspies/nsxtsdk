@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTunnelPropertiesType : NSXTResourceType
     {
+        public NSXTTunnelPropertiesType()
+        {
+        }
         /// <summary>
         /// Status of tunnel
         /// </summary>
@@ -36,10 +39,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"UUID of the remote transport node")]
         public string? RemoteNodeId { get; set; }
         /// <summary>
-        /// Detailed information about BFD configured on interface
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "bfd")]
-        [NSXTProperty(IsRequired: false, Description: @"Detailed information about BFD configured on interface")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTBFDPropertiesType Bfd { get; set; }
         /// <summary>
         /// Local IP address of tunnel

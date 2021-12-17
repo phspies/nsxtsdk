@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Port Connection Entity")]
     public class NSXTPortConnectionEntityType 
     {
+        public NSXTPortConnectionEntityType()
+        {
+        }
         /// <summary>
-        /// Resource reference with details of the entity
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "resource")]
-        [NSXTProperty(IsRequired: false, Description: @"Resource reference with details of the entity")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTManagedResourceType Resource { get; set; }
         /// <summary>
         /// Resource ID is mapped to this. (ID is Generated for Edge node groups, since resource will be null)

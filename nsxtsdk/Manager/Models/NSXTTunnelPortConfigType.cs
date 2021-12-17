@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"IP Tunnel port configuration.")]
     public class NSXTTunnelPortConfigType 
     {
+        public NSXTTunnelPortConfigType()
+        {
+        }
         /// <summary>
         /// IP Tunnel port  (commonly referred as VTI) subnet.
         /// </summary>

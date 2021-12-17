@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAuditLogRequestType 
     {
+        public NSXTAuditLogRequestType()
+        {
+            LogFilterType = test
+        }
         /// <summary>
         /// Audit logs should meet the filter condition
         /// </summary>
@@ -35,7 +39,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "log_filter_type")]
         [NSXTProperty(IsRequired: false, Description: @"Type of log filter")]
-        [NSXTDefaultProperty(Default: "TEXT")]
         public NSXTAuditLogRequestLogFilterTypeEnumType? LogFilterType { get; set; }
     }
 }

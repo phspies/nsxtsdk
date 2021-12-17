@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer ReplaceStringVar object")]
     public class NSXTALBReplaceStringVarType 
     {
+        public NSXTALBReplaceStringVarType()
+        {
+        }
         /// <summary>
         /// Type of replacement string - can be a variable exposed from
         /// datascript, value of an HTTP header or a custom user-input

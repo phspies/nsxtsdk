@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsGeoLocationMatch object")]
     public class NSXTALBDnsGeoLocationMatchType 
     {
+        public NSXTALBDnsGeoLocationMatchType()
+        {
+            UseEdnsClientSubnetIp = test
+        }
         /// <summary>
         /// Geographical location of the client IP to be used in the
         /// match.
@@ -34,7 +38,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "use_edns_client_subnet_ip")]
         [NSXTProperty(IsRequired: false, Description: @"Use the IP address from the EDNS client subnet option, ifavailable, to derive geo location of the DNS query.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? UseEdnsClientSubnetIp { get; set; }
         /// <summary>
         /// Geolocation tag for the client IP.

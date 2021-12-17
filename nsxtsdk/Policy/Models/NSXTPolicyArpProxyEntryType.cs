@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyArpProxyEntryType 
     {
+        public NSXTPolicyArpProxyEntryType()
+        {
+        }
         /// <summary>
         /// Identifier of connected service on port.
         /// </summary>

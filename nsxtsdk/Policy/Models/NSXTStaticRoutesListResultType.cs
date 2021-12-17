@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTStaticRoutesListResultType : NSXTListResultType
     {
+        public NSXTStaticRoutesListResultType()
+        {
+        }
         /// <summary>
         /// Static Routes list results
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTVdsTopologyType : NSXTManagedResourceType
     {
+        public NSXTVdsTopologyType()
+        {
+        }
         /// <summary>
         /// Status of the VDS configuration
         /// </summary>
@@ -49,10 +52,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Details of the VDS configuration status")]
         public IList<string> StatusDetails { get; set; }
         /// <summary>
-        /// VDS configuration
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "vds_config")]
-        [NSXTProperty(IsRequired: false, Description: @"VDS configuration")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTDVSConfigType VdsConfig { get; set; }
         /// <summary>
         /// VDS name that will be created under above datacenter

@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildIdsSignatureType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildIdsSignatureType()
+        {
+        }
         /// <summary>
-        /// Contains the IdsSignature object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "IdsSignature", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the IdsSignature object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTIdsSignatureType IdsSignature { get; set; }
     }

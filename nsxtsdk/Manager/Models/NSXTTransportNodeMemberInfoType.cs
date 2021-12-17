@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Information about participating transport nodes")]
     public class NSXTTransportNodeMemberInfoType 
     {
+        public NSXTTransportNodeMemberInfoType()
+        {
+        }
         /// <summary>
         /// List of host switches using the transport zone
         /// </summary>

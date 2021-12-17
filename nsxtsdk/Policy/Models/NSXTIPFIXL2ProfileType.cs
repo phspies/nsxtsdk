@@ -17,6 +17,16 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPFIXL2ProfileType : NSXTPolicyConfigResourceType
     {
+        public NSXTIPFIXL2ProfileType()
+        {
+            Priority = test
+            IdleTimeout = test
+            MaxFlows = test
+            ObservationDomainId = test
+            ActiveTimeout = test
+            ExportOverlayFlow = test
+            PacketSampleProbability = test
+        }
         /// <summary>
         /// This priority field is used to resolve conflicts in Segment
         /// Ports which are covered by more than one IPFIX profiles. The IPFIX
@@ -27,8 +37,7 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"This priority field is used to resolve conflicts in SegmentPorts which are covered by more than one IPFIX profiles. The IPFIXexporter will send records to Collectors in highest priorityprofile (lowest number) only.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(32000)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? Priority { get; set; }
+        public int? Priority { get; set; }
         /// <summary>
         /// The time in seconds after a flow is expired if
         /// no more packets matching this flow are received by the cache.
@@ -37,8 +46,7 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"The time in seconds after a flow is expired ifno more packets matching this flow are received by the cache.")]
         //[System.ComponentModel.DataAnnotations.MinLength(60)]
         //[System.ComponentModel.DataAnnotations.MaxLength(3600)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? IdleTimeout { get; set; }
+        public int? IdleTimeout { get; set; }
         /// <summary>
         /// Policy path for IPFIX collector profile. User can specify only one IPFIX collector.
         /// </summary>
@@ -54,7 +62,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"The maximum number of flow entries ineach exporter flow cache.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(4294967295)]
-        [NSXTDefaultProperty(Default: "")]
         public long? MaxFlows { get; set; }
         /// <summary>
         /// An identifier that is unique to the exporting process and used to
@@ -64,7 +71,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"An identifier that is unique to the exporting process and used tometer the flows.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(4294967295)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ObservationDomainId { get; set; }
         /// <summary>
         /// The time in seconds after a flow is expired even if
@@ -74,15 +80,13 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"The time in seconds after a flow is expired even ifmore packets matching this flow are received by the cache.")]
         //[System.ComponentModel.DataAnnotations.MinLength(60)]
         //[System.ComponentModel.DataAnnotations.MaxLength(3600)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? ActiveTimeout { get; set; }
+        public int? ActiveTimeout { get; set; }
         /// <summary>
         /// This property controls whether overlay flow info is included in the
         /// sample result.
         /// </summary>
         [JsonProperty(PropertyName = "export_overlay_flow")]
         [NSXTProperty(IsRequired: false, Description: @"This property controls whether overlay flow info is included in thesample result.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? ExportOverlayFlow { get; set; }
         /// <summary>
         /// The probability in percentage that a packet is sampled,
@@ -93,7 +97,6 @@ namespace nsxtsdk.PolicyModels
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(100)]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "")]
         public double PacketSampleProbability { get; set; }
     }
 }

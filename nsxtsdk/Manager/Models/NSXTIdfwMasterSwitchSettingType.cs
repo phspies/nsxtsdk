@@ -20,6 +20,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Identity Firewall master switch setting.  This setting enables or disablesIdentity Firewall feature across the system.  It affects compute collections,hypervisor and virtual machines.  This operation is expensive and also has bigimpact and implication on system perforamce.")]
     public class NSXTIdfwMasterSwitchSettingType 
     {
+        public NSXTIdfwMasterSwitchSettingType()
+        {
+        }
         /// <summary>
         /// IDFW master switch (true=Enabled / false=Disabled).
         /// </summary>

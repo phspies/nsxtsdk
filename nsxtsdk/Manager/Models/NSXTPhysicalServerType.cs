@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPhysicalServerType : NSXTManagedResourceType
     {
+        public NSXTPhysicalServerType()
+        {
+        }
         /// <summary>
         /// OS type of the physical server.
         /// </summary>

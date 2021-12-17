@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTConjunctionOperatorType : NSXTExpressionType
     {
+        public NSXTConjunctionOperatorType()
+        {
+        }
         /// <summary>
         /// Conjunction Operator Node
         /// </summary>

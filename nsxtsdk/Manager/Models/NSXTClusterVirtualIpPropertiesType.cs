@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Cluster virtual IP properties")]
     public class NSXTClusterVirtualIpPropertiesType 
     {
+        public NSXTClusterVirtualIpPropertiesType()
+        {
+        }
         /// <summary>
         /// Virtual IP address, 0.0.0.0 if not configured
         /// </summary>

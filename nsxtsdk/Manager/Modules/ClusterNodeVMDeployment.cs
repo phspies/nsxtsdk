@@ -67,21 +67,21 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PerformRepoSyncRepoSync()
+        public void PerformRepoSync()
         {
             
-            StringBuilder PerformRepoSyncRepoSyncServiceURL = new StringBuilder("/cluster/node?action=repo_sync");
+            StringBuilder PerformRepoSyncServiceURL = new StringBuilder("/cluster/node?action=repo_sync");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            request.Resource = PerformRepoSyncRepoSyncServiceURL.ToString();
+            request.Resource = PerformRepoSyncServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + PerformRepoSyncRepoSyncServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + PerformRepoSyncServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -90,24 +90,24 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAutoDeployedClusterNodeVmdelete(string NodeId, bool? ForceDelete = null)
+        public void DeleteAutoDeployedClusterNodeVM(string NodeId, bool? ForceDelete = null)
         {
             if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
             
-            StringBuilder DeleteAutoDeployedClusterNodeVmdeleteServiceURL = new StringBuilder("/cluster/nodes/deployments/{node-id}?action=delete");
+            StringBuilder DeleteAutoDeployedClusterNodeVMServiceURL = new StringBuilder("/cluster/nodes/deployments/{node-id}?action=delete");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            DeleteAutoDeployedClusterNodeVmdeleteServiceURL.Replace("{node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeId, System.Globalization.CultureInfo.InvariantCulture)));
+            DeleteAutoDeployedClusterNodeVMServiceURL.Replace("{node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeId, System.Globalization.CultureInfo.InvariantCulture)));
             if (ForceDelete != null) { request.AddQueryParameter("force_delete", ForceDelete.ToString()); }
-            request.Resource = DeleteAutoDeployedClusterNodeVmdeleteServiceURL.ToString();
+            request.Resource = DeleteAutoDeployedClusterNodeVMServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + DeleteAutoDeployedClusterNodeVmdeleteServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + DeleteAutoDeployedClusterNodeVMServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             

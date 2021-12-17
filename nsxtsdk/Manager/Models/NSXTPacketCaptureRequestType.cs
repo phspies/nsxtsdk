@@ -18,6 +18,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"This type is used to create packet request on give node. Need to specify related parameters according to the capture point.")]
     public class NSXTPacketCaptureRequestType 
     {
+        public NSXTPacketCaptureRequestType()
+        {
+        }
         /// <summary>
         /// Define the transport node to capture data.
         /// </summary>
@@ -81,10 +84,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Define the packet capture file size limit.")]
         public int? Capfilesize { get; set; }
         /// <summary>
-        /// Define the packet capture additional options to filter the capture data.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "options")]
-        [NSXTProperty(IsRequired: false, Description: @"Define the packet capture additional options to filter the capture data.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTPacketCaptureOptionListType Options { get; set; }
         /// <summary>
         /// Set the stream port to receive the capture packet. The STREAM mode is based on GRE-in-UDP Encapsulation(RFC8086).

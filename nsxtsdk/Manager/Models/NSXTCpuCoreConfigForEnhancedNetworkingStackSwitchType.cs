@@ -18,6 +18,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Non Uniform Memory Access (NUMA) nodes and Logical cpu cores (Lcores) per NUMA node configuration for Enhanced Networking Stack enabled HostSwitch.")]
     public class NSXTCpuCoreConfigForEnhancedNetworkingStackSwitchType 
     {
+        public NSXTCpuCoreConfigForEnhancedNetworkingStackSwitchType()
+        {
+        }
         /// <summary>
         /// Number of Logical cpu cores (Lcores) to be placed on a specified NUMA node
         /// </summary>

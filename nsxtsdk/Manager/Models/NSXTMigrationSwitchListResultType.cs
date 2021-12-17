@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMigrationSwitchListResultType : NSXTListResultType
     {
+        public NSXTMigrationSwitchListResultType()
+        {
+        }
         /// <summary>
         /// A paginated list of DVS/VSS present on the VC.
         /// </summary>

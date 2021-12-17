@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsAAAARdata object")]
     public class NSXTALBDnsAAAARdataType 
     {
+        public NSXTALBDnsAAAARdataType()
+        {
+        }
         /// <summary>
-        /// IPv6 address for FQDN.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ip6_address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IPv6 address for FQDN.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBIpAddrType Ip6Address { get; set; }
     }

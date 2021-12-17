@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"IP and MAC pair.")]
     public class NSXTIpMacPairType 
     {
+        public NSXTIpMacPairType()
+        {
+        }
         /// <summary>
         /// IP address
         /// </summary>

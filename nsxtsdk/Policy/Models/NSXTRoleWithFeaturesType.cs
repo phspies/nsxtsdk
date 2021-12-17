@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRoleWithFeaturesType : NSXTManagedResourceType
     {
+        public NSXTRoleWithFeaturesType()
+        {
+        }
         /// <summary>
         /// Short identifier for the role. Must be all lower case with no spaces.
         /// </summary>

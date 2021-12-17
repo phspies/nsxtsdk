@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"IGMP (Internet Group Management Protocol) membership details.")]
     public class NSXTIgmpMembershipType 
     {
+        public NSXTIgmpMembershipType()
+        {
+        }
         /// <summary>
         /// Multicast group membership active time.
         /// </summary>

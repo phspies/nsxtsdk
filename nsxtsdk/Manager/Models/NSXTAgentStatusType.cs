@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAgentStatusType 
     {
+        public NSXTAgentStatusType()
+        {
+        }
         /// <summary>
         /// Agent status
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTraceflowConfigListResultType : NSXTListResultType
     {
+        public NSXTTraceflowConfigListResultType()
+        {
+        }
         /// <summary>
         /// TraceflowConfig list results
         /// </summary>

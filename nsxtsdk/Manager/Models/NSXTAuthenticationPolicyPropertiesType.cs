@@ -17,6 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAuthenticationPolicyPropertiesType : NSXTResourceType
     {
+        public NSXTAuthenticationPolicyPropertiesType()
+        {
+            ApiFailedAuthResetPeriod = test
+            MinimumPasswordLength = test
+            CliFailedAuthLockoutPeriod = test
+            ApiMaxAuthFailures = test
+            ApiFailedAuthLockoutPeriod = test
+            CliMaxAuthFailures = test
+        }
         /// <summary>
         /// In order to trigger an account lockout, all authentication failures must occur in this time window. If the reset period
         /// expires, the failed login count is reset to zero. Only applies to NSX Manager nodes. Ignored on other node types.
@@ -24,7 +33,6 @@ namespace nsxtsdk.ManagerModels
         [JsonProperty(PropertyName = "api_failed_auth_reset_period")]
         [NSXTProperty(IsRequired: false, Description: @"In order to trigger an account lockout, all authentication failures must occur in this time window. If the reset period expires, the failed login count is reset to zero. Only applies to NSX Manager nodes. Ignored on other node types.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ApiFailedAuthResetPeriod { get; set; }
         /// <summary>
         /// Minimum number of characters required in account passwords
@@ -32,7 +40,6 @@ namespace nsxtsdk.ManagerModels
         [JsonProperty(PropertyName = "minimum_password_length")]
         [NSXTProperty(IsRequired: false, Description: @"Minimum number of characters required in account passwords")]
         //[System.ComponentModel.DataAnnotations.MinLength(8)]
-        [NSXTDefaultProperty(Default: "")]
         public long? MinimumPasswordLength { get; set; }
         /// <summary>
         /// Once a lockout occurs, the account remains locked out of the CLI for this time period. While the lockout period is in
@@ -41,7 +48,6 @@ namespace nsxtsdk.ManagerModels
         [JsonProperty(PropertyName = "cli_failed_auth_lockout_period")]
         [NSXTProperty(IsRequired: false, Description: @"Once a lockout occurs, the account remains locked out of the CLI for this time period. While the lockout period is in effect, additional authentication attempts restart the lockout period, even if a valid password is specified.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        [NSXTDefaultProperty(Default: "")]
         public long? CliFailedAuthLockoutPeriod { get; set; }
         /// <summary>
         /// Only applies to NSX Manager nodes. Ignored on other node types.
@@ -49,7 +55,6 @@ namespace nsxtsdk.ManagerModels
         [JsonProperty(PropertyName = "api_max_auth_failures")]
         [NSXTProperty(IsRequired: false, Description: @"Only applies to NSX Manager nodes. Ignored on other node types.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ApiMaxAuthFailures { get; set; }
         /// <summary>
         /// Once a lockout occurs, the account remains locked out of the API for this time period. Only applies to NSX Manager
@@ -58,7 +63,6 @@ namespace nsxtsdk.ManagerModels
         [JsonProperty(PropertyName = "api_failed_auth_lockout_period")]
         [NSXTProperty(IsRequired: false, Description: @"Once a lockout occurs, the account remains locked out of the API for this time period. Only applies to NSX Manager nodes. Ignored on other node types.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ApiFailedAuthLockoutPeriod { get; set; }
         /// <summary>
         /// Number of authentication failures that trigger CLI lockout
@@ -66,7 +70,6 @@ namespace nsxtsdk.ManagerModels
         [JsonProperty(PropertyName = "cli_max_auth_failures")]
         [NSXTProperty(IsRequired: false, Description: @"Number of authentication failures that trigger CLI lockout")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        [NSXTDefaultProperty(Default: "")]
         public long? CliMaxAuthFailures { get; set; }
     }
 }

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSessionTimerProfileBindingListResultType : NSXTListResultType
     {
+        public NSXTSessionTimerProfileBindingListResultType()
+        {
+        }
         /// <summary>
         /// Session timer profile binding maps list results
         /// </summary>

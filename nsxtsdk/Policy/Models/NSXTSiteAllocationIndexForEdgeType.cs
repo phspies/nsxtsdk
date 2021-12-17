@@ -18,6 +18,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Index for cross site allocation for edge clusterand its members referred by gateway.")]
     public class NSXTSiteAllocationIndexForEdgeType 
     {
+        public NSXTSiteAllocationIndexForEdgeType()
+        {
+        }
         /// <summary>
         /// Unqiue edge cluster node index across sites based on stretch of the
         /// Gateway. For example, if a Gateway is streched to sites S1 with one

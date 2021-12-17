@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTEffectiveIPAddressMemberListResultType : NSXTListResultType
     {
+        public NSXTEffectiveIPAddressMemberListResultType()
+        {
+        }
         /// <summary>
         /// Paged Collection of effective ip addresses for the given NSGroup
         /// </summary>

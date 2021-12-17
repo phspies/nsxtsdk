@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Interface IGMP[Internet Group Management Protocol] configuration parameters.")]
     public class NSXTInterfaceIgmpLocalGroupConfigType 
     {
+        public NSXTInterfaceIgmpLocalGroupConfigType()
+        {
+        }
         /// <summary>
         /// IGMP join group manages the membership of hosts and routing devices in
         /// the multicast group. Host will join the group by conveying its information

@@ -17,6 +17,12 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTBgpNeighborConfigType : NSXTPolicyConfigResourceType
     {
+        public NSXTBgpNeighborConfigType()
+        {
+            KeepAliveTime = test
+            MaximumHopLimit = test
+            HoldDownTime = test
+        }
         /// <summary>
         /// Specify path of prefix-list or route map to filter routes for OUT direction.
         /// When not specified, a built-in prefix-list named 'prefixlist-out-default'
@@ -40,11 +46,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"If mode is DISABLE, then graceful restart and helper modes are disabled.If mode is GR_AND_HELPER, then both graceful restart and helper modes are enabled.If mode is HELPER_ONLY, then helper mode is enabled.HELPER_ONLY mode is the ability for a BGP speaker to indicate its abilityto preserve forwarding state during BGP restart.GRACEFUL_RESTART mode is the ability of a BGP speaker to advertise its restartto its peers.")]
         public NSXTBgpNeighborConfigGracefulRestartModeEnumType? GracefulRestartMode { get; set; }
         /// <summary>
-        /// BFD configuration for failure detection.
-        /// BFD is enabled with default values when not configured.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "bfd")]
-        [NSXTProperty(IsRequired: false, Description: @"BFD configuration for failure detection.BFD is enabled with default values when not configured.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTBgpBfdConfigType Bfd { get; set; }
         /// <summary>
         /// Interval (in seconds) between keep alive messages sent to peer.
@@ -53,8 +58,7 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Interval (in seconds) between keep alive messages sent to peer.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? KeepAliveTime { get; set; }
+        public int? KeepAliveTime { get; set; }
         /// <summary>
         /// Maximum number of hops allowed to reach BGP neighbor.
         /// </summary>
@@ -62,8 +66,7 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Maximum number of hops allowed to reach BGP neighbor.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(255)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? MaximumHopLimit { get; set; }
+        public int? MaximumHopLimit { get; set; }
         /// <summary>
         /// Wait time in seconds before declaring peer dead.
         /// </summary>
@@ -71,8 +74,7 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Wait time in seconds before declaring peer dead.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? HoldDownTime { get; set; }
+        public int? HoldDownTime { get; set; }
         /// <summary>
         /// Specify path of prefix-list or route map to filter routes for IN direction.
         /// This property is deprecated, use route_filtering instead. Specifying different

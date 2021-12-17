@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Represents a service VM implementing a particular service in a service chain")]
     public class NSXTServicePathHopType 
     {
+        public NSXTServicePathHopType()
+        {
+        }
         /// <summary>
         /// Indicating whether the corresponding service VM is active or not per DP.
         /// </summary>

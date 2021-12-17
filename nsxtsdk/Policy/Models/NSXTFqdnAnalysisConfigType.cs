@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTFqdnAnalysisConfigType : NSXTPolicyConfigResourceType
     {
+        public NSXTFqdnAnalysisConfigType()
+        {
+        }
         /// <summary>
         /// Property which specifies the enabling/disabling of the feature.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAllocationIpAddressType : NSXTManagedResourceType
     {
+        public NSXTAllocationIpAddressType()
+        {
+        }
         /// <summary>
         /// Address that is allocated from pool
         /// </summary>

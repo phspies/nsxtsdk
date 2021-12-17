@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBHttpRedirectActionType : NSXTLBRuleActionType
     {
+        public NSXTLBHttpRedirectActionType()
+        {
+        }
         /// <summary>
         /// HTTP response status code.
         /// </summary>

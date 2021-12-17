@@ -17,6 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTUdpHeaderType 
     {
+        public NSXTUdpHeaderType()
+        {
+            SrcPort = test
+            DstPort = test
+        }
         /// <summary>
         /// Source port of udp header
         /// </summary>
@@ -24,7 +29,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Source port of udp header")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [NSXTDefaultProperty(Default: "")]
         public long? SrcPort { get; set; }
         /// <summary>
         /// Destination port of udp header
@@ -33,7 +37,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Destination port of udp header")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [NSXTDefaultProperty(Default: "")]
         public long? DstPort { get; set; }
     }
 }

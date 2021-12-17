@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTProxyType : NSXTManagedResourceType
     {
+        public NSXTProxyType()
+        {
+        }
         /// <summary>
         /// Specify the user name used to authenticate with the proxy server, if required.
         /// </summary>

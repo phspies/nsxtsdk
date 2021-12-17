@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRealizedVirtualMachineType : NSXTPolicyRealizedResourceType
     {
+        public NSXTRealizedVirtualMachineType()
+        {
+        }
         /// <summary>
         /// Id of the host on which the vm exists.
         /// </summary>

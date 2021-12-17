@@ -20,12 +20,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Information about the realized status of the intent object on an NSX-T type of enforcement point.Some very recent changes may be excluded when preparing this information, which is indicated byPending Changes Info. In addition to the realized status across all scopes, this information holdsdetails about enforced realized status per scope.")]
     public class NSXTEnforcedStatusInfoNsxTType 
     {
+        public NSXTEnforcedStatusInfoNsxTType()
+        {
+        }
         /// <summary>
-        /// Consolidated Realized Status of an Intent object across all scopes of an NSX-T type of
-        /// enforcement point.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "enforced_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Consolidated Realized Status of an Intent object across all scopes of an NSX-T type ofenforcement point.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTEnforcedStatusNsxTType EnforcedStatus { get; set; }
         /// <summary>
         /// List of Enforced Realized Status per Scope.

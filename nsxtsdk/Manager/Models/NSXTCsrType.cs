@@ -17,13 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTCsrType : NSXTManagedResourceType
     {
+        public NSXTCsrType()
+        {
+            KeySize = test
+            Algorithm = test
+        }
         /// <summary>
         /// Size measured in bits of the public key used in a cryptographic algorithm.
         /// </summary>
-        [JsonProperty(PropertyName = "key_size", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Size measured in bits of the public key used in a cryptographic algorithm.")]
-        [System.ComponentModel.DataAnnotations.Required]
-        public long KeySize { get; set; }
+        [JsonProperty(PropertyName = "key_size")]
+        [NSXTProperty(IsRequired: false, Description: @"Size measured in bits of the public key used in a cryptographic algorithm.")]
+        public long? KeySize { get; set; }
         /// <summary>
         /// PEM encoded certificate data.
         /// </summary>
@@ -31,17 +35,22 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"PEM encoded certificate data.")]
         public string? PemEncoded { get; set; }
         /// <summary>
-        /// Cryptographic algorithm(asymmetric ) used by the public key for data encryption.
+        /// Cryptographic algorithm (asymmetric) used by the public key for data encryption.
         /// </summary>
-        [JsonProperty(PropertyName = "algorithm", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Cryptographic algorithm(asymmetric ) used by the public key for data encryption.")]
-        [System.ComponentModel.DataAnnotations.Required]
-        public NSXTCsrAlgorithmEnumType Algorithm { get; set; }
+        [JsonProperty(PropertyName = "algorithm")]
+        [NSXTProperty(IsRequired: false, Description: @"Cryptographic algorithm (asymmetric) used by the public key for data encryption.")]
+        public NSXTCsrAlgorithmEnumType? Algorithm { get; set; }
         /// <summary>
-        /// The certificate owner's information. (CN, O, OU, C, ST, L)
+        /// Whether the CSR is for a CA certificate.
+        /// </summary>
+        [JsonProperty(PropertyName = "is_ca")]
+        [NSXTProperty(IsRequired: false, Description: @"Whether the CSR is for a CA certificate.")]
+        public bool? IsCa { get; set; }
+        /// <summary>
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "subject", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The certificate owner&apos;s information. (CN, O, OU, C, ST, L)")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTPrincipalType Subject { get; set; }
     }

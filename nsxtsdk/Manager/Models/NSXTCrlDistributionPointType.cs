@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTCrlDistributionPointType : NSXTManagedResourceType
     {
+        public NSXTCrlDistributionPointType()
+        {
+        }
         /// <summary>
         /// CRL Distribution Point URI where to fetch the CRL.
         /// </summary>

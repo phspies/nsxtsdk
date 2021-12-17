@@ -17,11 +17,16 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsInfo object")]
     public class NSXTALBDnsInfoType 
     {
+        public NSXTALBDnsInfoType()
+        {
+            Algorithm = test
+            Type = test
+        }
         /// <summary>
-        /// Canonical name in CNAME record.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "cname")]
-        [NSXTProperty(IsRequired: false, Description: @"Canonical name in CNAME record.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBDnsCnameRdataType Cname { get; set; }
         /// <summary>
         /// Specifies the algorithm to pick the IP address(es) to be
@@ -36,7 +41,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "algorithm")]
         [NSXTProperty(IsRequired: false, Description: @"Specifies the algorithm to pick the IP address(es) to bereturned, when multiple entries are configured.This does not apply if num_records_in_response is 0.Default is consistent hash.Enum options - DNS_RECORD_RESPONSE_ROUND_ROBIN,DNS_RECORD_RESPONSE_CONSISTENT_HASH.Default value when not specified in API or module isinterpreted by ALB Controller asDNS_RECORD_RESPONSE_CONSISTENT_HASH.")]
-        [NSXTDefaultProperty(Default: "DNS_RECORD_RESPONSE_CONSISTENT_HASH")]
         public NSXTAlbdnsInfoAlgorithmEnumType? Algorithm { get; set; }
         /// <summary>
         /// Time to live for fqdn record.
@@ -52,14 +56,11 @@ namespace nsxtsdk.PolicyModels
         /// Default is 0.
         /// Allowed values are 0-20.
         /// Special values are 0- 'Return all records'.
-        /// Default value when not specified in API or module is
-        /// interpreted by ALB Controller as 1.
         /// </summary>
         [JsonProperty(PropertyName = "num_records_in_response")]
-        [NSXTProperty(IsRequired: false, Description: @"Specifies the number of records returned for this FQDN.Enter 0 to return all records.Default is 0.Allowed values are 0-20.Special values are 0- &apos;Return all records&apos;.Default value when not specified in API or module isinterpreted by ALB Controller as 1.")]
+        [NSXTProperty(IsRequired: false, Description: @"Specifies the number of records returned for this FQDN.Enter 0 to return all records.Default is 0.Allowed values are 0-20.Special values are 0- &apos;Return all records&apos;.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(20)]
-        [NSXTDefaultProperty(Default: "")]
         public long? NumRecordsInResponse { get; set; }
         /// <summary>
         /// DNS record type.
@@ -74,7 +75,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "type")]
         [NSXTProperty(IsRequired: false, Description: @"DNS record type.Enum options - DNS_RECORD_OTHER, DNS_RECORD_A,DNS_RECORD_NS, DNS_RECORD_CNAME, DNS_RECORD_SOA,DNS_RECORD_PTR, DNS_RECORD_HINFO, DNS_RECORD_MX,DNS_RECORD_TXT, DNS_RECORD_RP, DNS_RECORD_DNSKEY,DNS_RECORD_AAAA, DNS_RECORD_SRV, DNS_RECORD_OPT,DNS_RECORD_RRSIG, DNS_RECORD_AXFR, DNS_RECORD_ANY.Default value when not specified in API or module isinterpreted by ALB Controller as DNS_RECORD_A.")]
-        [NSXTDefaultProperty(Default: "DNS_RECORD_A")]
         public NSXTAlbdnsInfoTypeEnumType? Type { get; set; }
         /// <summary>
         /// Fully qualified domain name.

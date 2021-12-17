@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTVirtualEndpointType : NSXTBaseEndpointType
     {
+        public NSXTVirtualEndpointType()
+        {
+        }
         /// <summary>
         /// One VirtualEndpoint will be created per service name.
         /// </summary>

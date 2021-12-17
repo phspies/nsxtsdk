@@ -17,6 +17,12 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVpnTunnelProfileType : NSXTPolicyConfigResourceType
     {
+        public NSXTIPSecVpnTunnelProfileType()
+        {
+            EnablePerfectForwardSecrecy = test
+            DfPolicy = test
+            SaLifeTime = test
+        }
         /// <summary>
         /// Collection of type specific properties. As of now, to hold
         /// encapsulation mode and transform protocol.
@@ -43,7 +49,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "enable_perfect_forward_secrecy")]
         [NSXTProperty(IsRequired: false, Description: @"If true, perfect forward secrecy (PFS) is enabled.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? EnablePerfectForwardSecrecy { get; set; }
         /// <summary>
         /// Diffie-Hellman group to be used if PFS is enabled. Default is GROUP14.
@@ -57,7 +62,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "df_policy")]
         [NSXTProperty(IsRequired: false, Description: @"Defragmentation policy helps to handle defragmentation bit present in the inner packet. COPY copies the defragmentation bit from the inner IP packet into the outer packet. CLEAR ignores the defragmentation bit present in the inner packet.")]
-        [NSXTDefaultProperty(Default: "COPY")]
         public NSXTIpsecVpnTunnelProfileDfPolicyEnumType? DfPolicy { get; set; }
         /// <summary>
         /// SA life time specifies the expiry time of security association. Default is 3600 seconds.
@@ -66,7 +70,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"SA life time specifies the expiry time of security association. Default is 3600 seconds.")]
         //[System.ComponentModel.DataAnnotations.MinLength(900)]
         //[System.ComponentModel.DataAnnotations.MaxLength(31536000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? SaLifeTime { get; set; }
     }
 }

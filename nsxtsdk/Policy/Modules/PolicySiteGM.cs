@@ -65,10 +65,10 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGlobalManagerListResultType GlobalListInfraGlobalManagers(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTGlobalManagerListResultType GlobalGlobalInfraListInfraGlobalManagers(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTGlobalManagerListResultType returnValue = default(NSXTGlobalManagerListResultType);
-            StringBuilder ListInfraGlobalManagersServiceURL = new StringBuilder("/global-infra/global-managers");
+            StringBuilder GlobalInfraListInfraGlobalManagersServiceURL = new StringBuilder("/global-infra/global-managers");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -81,11 +81,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListInfraGlobalManagersServiceURL.ToString();
+            request.Resource = GlobalInfraListInfraGlobalManagersServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ListInfraGlobalManagersServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraListInfraGlobalManagersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -106,7 +106,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTlsListenerCertificateType GetInfraSiteListenerCertificate(string Address, long Port)
+        public NSXTTlsListenerCertificateType GetInfraSiteListenerCertificate(string Address, int Port)
         {
             if (Address == null) { throw new System.ArgumentNullException("Address cannot be null"); }
             if (Port == null) { throw new System.ArgumentNullException("Port cannot be null"); }
@@ -145,233 +145,36 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGlobalManagerListResultType ListInfraGlobalManagers(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTFederationConfigType GlobalGlobalInfraReadFederationConfig()
         {
-            NSXTGlobalManagerListResultType returnValue = default(NSXTGlobalManagerListResultType);
-            StringBuilder ListInfraGlobalManagersServiceURL = new StringBuilder("/infra/global-managers");
+            NSXTFederationConfigType returnValue = default(NSXTFederationConfigType);
+            StringBuilder GlobalInfraReadFederationConfigServiceURL = new StringBuilder("/global-infra/federation-config");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListInfraGlobalManagersServiceURL.ToString();
+            request.Resource = GlobalInfraReadFederationConfigServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ListInfraGlobalManagersServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraReadFederationConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
 			{
 				try
 				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGlobalManagerListResultType>(response.Content, defaultSerializationSettings);
+					returnValue = JsonConvert.DeserializeObject<NSXTFederationConfigType>(response.Content, defaultSerializationSettings);
 				}
 				catch (Exception ex)
 				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGlobalManagerListResultType).FullName + ".";
+					var message = "Could not deserialize the response body string as " + typeof(NSXTFederationConfigType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
 			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTGlobalManagerConfigType CreateOrUpdateGlobalManagerConfig(NSXTGlobalManagerConfigType GlobalManagerConfig)
-        {
-            if (GlobalManagerConfig == null) { throw new System.ArgumentNullException("GlobalManagerConfig cannot be null"); }
-            NSXTGlobalManagerConfigType returnValue = default(NSXTGlobalManagerConfigType);
-            StringBuilder CreateOrUpdateGlobalManagerConfigServiceURL = new StringBuilder("/infra/global-manager-config");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.AddJsonBody(JsonConvert.SerializeObject(GlobalManagerConfig, defaultSerializationSettings));
-            request.Resource = CreateOrUpdateGlobalManagerConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + CreateOrUpdateGlobalManagerConfigServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGlobalManagerConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGlobalManagerConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void PatchGlobalManagerConfig(NSXTGlobalManagerConfigType GlobalManagerConfig)
-        {
-            if (GlobalManagerConfig == null) { throw new System.ArgumentNullException("GlobalManagerConfig cannot be null"); }
-            
-            StringBuilder PatchGlobalManagerConfigServiceURL = new StringBuilder("/infra/global-manager-config");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.AddJsonBody(JsonConvert.SerializeObject(GlobalManagerConfig, defaultSerializationSettings));
-            request.Resource = PatchGlobalManagerConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchGlobalManagerConfigServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTSiteType GlobalCreateOrUpdateInfraSite(string SiteId, NSXTSiteType Site)
-        {
-            if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
-            if (Site == null) { throw new System.ArgumentNullException("Site cannot be null"); }
-            NSXTSiteType returnValue = default(NSXTSiteType);
-            StringBuilder CreateOrUpdateInfraSiteServiceURL = new StringBuilder("/global-infra/sites/{site-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            CreateOrUpdateInfraSiteServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(Site, defaultSerializationSettings));
-            request.Resource = CreateOrUpdateInfraSiteServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + CreateOrUpdateInfraSiteServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSiteType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSiteType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTSiteType GlobalReadSite(string SiteId)
-        {
-            if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
-            NSXTSiteType returnValue = default(NSXTSiteType);
-            StringBuilder ReadSiteServiceURL = new StringBuilder("/global-infra/sites/{site-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadSiteServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadSiteServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadSiteServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSiteType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSiteType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchInfraSite(string SiteId, NSXTSiteType Site)
-        {
-            if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
-            if (Site == null) { throw new System.ArgumentNullException("Site cannot be null"); }
-            
-            StringBuilder PatchInfraSiteServiceURL = new StringBuilder("/global-infra/sites/{site-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchInfraSiteServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(Site, defaultSerializationSettings));
-            request.Resource = PatchInfraSiteServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchInfraSiteServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteInfraSite(string SiteId, bool? Force = null)
-        {
-            if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
-            
-            StringBuilder DeleteInfraSiteServiceURL = new StringBuilder("/global-infra/sites/{site-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteInfraSiteServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = DeleteInfraSiteServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteInfraSiteServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
         }
         /// <summary>
         /// 
@@ -506,131 +309,23 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGlobalManagerConfigType ReadGlobalManagerConfigWithSensitiveDataShowSensitiveData()
-        {
-            NSXTGlobalManagerConfigType returnValue = default(NSXTGlobalManagerConfigType);
-            StringBuilder ReadGlobalManagerConfigWithSensitiveDataShowSensitiveDataServiceURL = new StringBuilder("/infra/global-manager-config?action=show-sensitive-data");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.Resource = ReadGlobalManagerConfigWithSensitiveDataShowSensitiveDataServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadGlobalManagerConfigWithSensitiveDataShowSensitiveDataServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGlobalManagerConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGlobalManagerConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTGlobalManagerConfigType GlobalReadGlobalManagerConfigWithSensitiveDataShowSensitiveData()
-        {
-            NSXTGlobalManagerConfigType returnValue = default(NSXTGlobalManagerConfigType);
-            StringBuilder ReadGlobalManagerConfigWithSensitiveDataShowSensitiveDataServiceURL = new StringBuilder("/global-infra/global-manager-config?action=show-sensitive-data");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.Resource = ReadGlobalManagerConfigWithSensitiveDataShowSensitiveDataServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadGlobalManagerConfigWithSensitiveDataShowSensitiveDataServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGlobalManagerConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGlobalManagerConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTFederationConfigType GlobalReadFederationConfig()
-        {
-            NSXTFederationConfigType returnValue = default(NSXTFederationConfigType);
-            StringBuilder ReadFederationConfigServiceURL = new StringBuilder("/global-infra/federation-config");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.Resource = ReadFederationConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadFederationConfigServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFederationConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFederationConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTGlobalManagerType CreateOrUpdateInfraGlobalManager(string GlobalManagerId, NSXTGlobalManagerType GlobalManager, bool? Force = null)
+        public NSXTGlobalManagerType GlobalGlobalInfraReadInfraGlobalManager(string GlobalManagerId)
         {
             if (GlobalManagerId == null) { throw new System.ArgumentNullException("GlobalManagerId cannot be null"); }
-            if (GlobalManager == null) { throw new System.ArgumentNullException("GlobalManager cannot be null"); }
             NSXTGlobalManagerType returnValue = default(NSXTGlobalManagerType);
-            StringBuilder CreateOrUpdateInfraGlobalManagerServiceURL = new StringBuilder("/infra/global-managers/{global-manager-id}");
+            StringBuilder GlobalInfraReadInfraGlobalManagerServiceURL = new StringBuilder("/global-infra/global-managers/{global-manager-id}");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
-                Method = Method.PUT
+                Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            CreateOrUpdateInfraGlobalManagerServiceURL.Replace("{global-manager-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GlobalManagerId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(GlobalManager, defaultSerializationSettings));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = CreateOrUpdateInfraGlobalManagerServiceURL.ToString();
+            GlobalInfraReadInfraGlobalManagerServiceURL.Replace("{global-manager-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GlobalManagerId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraReadInfraGlobalManagerServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP PUT operation to " + CreateOrUpdateInfraGlobalManagerServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraReadInfraGlobalManagerServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -651,113 +346,21 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteInfraGlobalManager(string GlobalManagerId)
+        public NSXTGlobalManagerConfigType GlobalGlobalInfraReadGlobalManagerConfigWithSensitiveData()
         {
-            if (GlobalManagerId == null) { throw new System.ArgumentNullException("GlobalManagerId cannot be null"); }
-            
-            StringBuilder DeleteInfraGlobalManagerServiceURL = new StringBuilder("/infra/global-managers/{global-manager-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteInfraGlobalManagerServiceURL.Replace("{global-manager-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GlobalManagerId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteInfraGlobalManagerServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteInfraGlobalManagerServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTGlobalManagerType ReadInfraGlobalManager(string GlobalManagerId)
-        {
-            if (GlobalManagerId == null) { throw new System.ArgumentNullException("GlobalManagerId cannot be null"); }
-            NSXTGlobalManagerType returnValue = default(NSXTGlobalManagerType);
-            StringBuilder ReadInfraGlobalManagerServiceURL = new StringBuilder("/infra/global-managers/{global-manager-id}");
+            NSXTGlobalManagerConfigType returnValue = default(NSXTGlobalManagerConfigType);
+            StringBuilder GlobalInfraReadGlobalManagerConfigWithSensitiveDataServiceURL = new StringBuilder("/global-infra/global-manager-config?action=show-sensitive-data");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            ReadInfraGlobalManagerServiceURL.Replace("{global-manager-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GlobalManagerId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadInfraGlobalManagerServiceURL.ToString();
+            request.Resource = GlobalInfraReadGlobalManagerConfigWithSensitiveDataServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ReadInfraGlobalManagerServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGlobalManagerType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGlobalManagerType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void PatchInfraGlobalManager(string GlobalManagerId, NSXTGlobalManagerType GlobalManager, bool? Force = null)
-        {
-            if (GlobalManagerId == null) { throw new System.ArgumentNullException("GlobalManagerId cannot be null"); }
-            if (GlobalManager == null) { throw new System.ArgumentNullException("GlobalManager cannot be null"); }
-            
-            StringBuilder PatchInfraGlobalManagerServiceURL = new StringBuilder("/infra/global-managers/{global-manager-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchInfraGlobalManagerServiceURL.Replace("{global-manager-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GlobalManagerId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(GlobalManager, defaultSerializationSettings));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = PatchInfraGlobalManagerServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchInfraGlobalManagerServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTGlobalManagerConfigType GlobalCreateOrUpdateGlobalManagerConfig(NSXTGlobalManagerConfigType GlobalManagerConfig)
-        {
-            if (GlobalManagerConfig == null) { throw new System.ArgumentNullException("GlobalManagerConfig cannot be null"); }
-            NSXTGlobalManagerConfigType returnValue = default(NSXTGlobalManagerConfigType);
-            StringBuilder CreateOrUpdateGlobalManagerConfigServiceURL = new StringBuilder("/global-infra/global-manager-config");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.AddJsonBody(JsonConvert.SerializeObject(GlobalManagerConfig, defaultSerializationSettings));
-            request.Resource = CreateOrUpdateGlobalManagerConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + CreateOrUpdateGlobalManagerConfigServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraReadGlobalManagerConfigWithSensitiveDataServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -778,37 +381,12 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalPatchGlobalManagerConfig(NSXTGlobalManagerConfigType GlobalManagerConfig)
-        {
-            if (GlobalManagerConfig == null) { throw new System.ArgumentNullException("GlobalManagerConfig cannot be null"); }
-            
-            StringBuilder PatchGlobalManagerConfigServiceURL = new StringBuilder("/global-infra/global-manager-config");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            request.AddJsonBody(JsonConvert.SerializeObject(GlobalManagerConfig, defaultSerializationSettings));
-            request.Resource = PatchGlobalManagerConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchGlobalManagerConfigServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTTlsListenerCertificateType GlobalGetInfraSiteListenerCertificate(string Address, long Port)
+        public NSXTTlsListenerCertificateType GlobalGlobalInfraGetInfraSiteListenerCertificate(string Address, int Port)
         {
             if (Address == null) { throw new System.ArgumentNullException("Address cannot be null"); }
             if (Port == null) { throw new System.ArgumentNullException("Port cannot be null"); }
             NSXTTlsListenerCertificateType returnValue = default(NSXTTlsListenerCertificateType);
-            StringBuilder GetInfraSiteListenerCertificateServiceURL = new StringBuilder("/global-infra/sites/listener_certificate");
+            StringBuilder GlobalInfraGetInfraSiteListenerCertificateServiceURL = new StringBuilder("/global-infra/sites/listener_certificate");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -817,11 +395,11 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             if (Address != null) { request.AddQueryParameter("address", Address.ToString()); }
             if (Port != null) { request.AddQueryParameter("port", Port.ToString()); }
-            request.Resource = GetInfraSiteListenerCertificateServiceURL.ToString();
+            request.Resource = GlobalInfraGetInfraSiteListenerCertificateServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetInfraSiteListenerCertificateServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraGetInfraSiteListenerCertificateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -837,136 +415,6 @@ namespace nsxtapi.PolicyModules
 				}
 			}
 			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTGlobalManagerType GlobalCreateOrUpdateInfraGlobalManager(string GlobalManagerId, NSXTGlobalManagerType GlobalManager, bool? Force = null)
-        {
-            if (GlobalManagerId == null) { throw new System.ArgumentNullException("GlobalManagerId cannot be null"); }
-            if (GlobalManager == null) { throw new System.ArgumentNullException("GlobalManager cannot be null"); }
-            NSXTGlobalManagerType returnValue = default(NSXTGlobalManagerType);
-            StringBuilder CreateOrUpdateInfraGlobalManagerServiceURL = new StringBuilder("/global-infra/global-managers/{global-manager-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            CreateOrUpdateInfraGlobalManagerServiceURL.Replace("{global-manager-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GlobalManagerId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(GlobalManager, defaultSerializationSettings));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = CreateOrUpdateInfraGlobalManagerServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + CreateOrUpdateInfraGlobalManagerServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGlobalManagerType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGlobalManagerType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteInfraGlobalManager(string GlobalManagerId)
-        {
-            if (GlobalManagerId == null) { throw new System.ArgumentNullException("GlobalManagerId cannot be null"); }
-            
-            StringBuilder DeleteInfraGlobalManagerServiceURL = new StringBuilder("/global-infra/global-managers/{global-manager-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteInfraGlobalManagerServiceURL.Replace("{global-manager-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GlobalManagerId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteInfraGlobalManagerServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteInfraGlobalManagerServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTGlobalManagerType GlobalReadInfraGlobalManager(string GlobalManagerId)
-        {
-            if (GlobalManagerId == null) { throw new System.ArgumentNullException("GlobalManagerId cannot be null"); }
-            NSXTGlobalManagerType returnValue = default(NSXTGlobalManagerType);
-            StringBuilder ReadInfraGlobalManagerServiceURL = new StringBuilder("/global-infra/global-managers/{global-manager-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadInfraGlobalManagerServiceURL.Replace("{global-manager-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GlobalManagerId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadInfraGlobalManagerServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadInfraGlobalManagerServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGlobalManagerType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGlobalManagerType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchInfraGlobalManager(string GlobalManagerId, NSXTGlobalManagerType GlobalManager, bool? Force = null)
-        {
-            if (GlobalManagerId == null) { throw new System.ArgumentNullException("GlobalManagerId cannot be null"); }
-            if (GlobalManager == null) { throw new System.ArgumentNullException("GlobalManager cannot be null"); }
-            
-            StringBuilder PatchInfraGlobalManagerServiceURL = new StringBuilder("/global-infra/global-managers/{global-manager-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchInfraGlobalManagerServiceURL.Replace("{global-manager-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GlobalManagerId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(GlobalManager, defaultSerializationSettings));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            request.Resource = PatchInfraGlobalManagerServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchInfraGlobalManagerServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
         }
     }
 }

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTier0DeploymentMapType : NSXTPolicyConfigResourceType
     {
+        public NSXTTier0DeploymentMapType()
+        {
+        }
         /// <summary>
         /// Path of enforcement point on which Tier-0 shall be deployed.
         /// </summary>

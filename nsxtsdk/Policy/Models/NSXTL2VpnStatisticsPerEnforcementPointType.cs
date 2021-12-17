@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"L2Vpn Statistics Per Enforcement Point.")]
     public class NSXTL2VpnStatisticsPerEnforcementPointType 
     {
+        public NSXTL2VpnStatisticsPerEnforcementPointType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

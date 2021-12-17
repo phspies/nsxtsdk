@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSystemHealthPluginProfileType : NSXTManagedResourceType
     {
+        public NSXTSystemHealthPluginProfileType()
+        {
+            Type = test
+        }
         /// <summary>
         /// Display the running node types of pre-defined plugin.
         /// The config can be changed by API /systemhealth/profiles.
@@ -33,13 +37,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"The publisher of System Health Agent plugin")]
         public string? Publisher { get; set; }
         /// <summary>
-        /// Display the default config of pre defined plugin.
-        /// The config can be changed by API /systemhealth/profiles.
-        /// To see the effective status on given node, use the status API per node
-        /// /systemhealth/plugins/status/<node-id>.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "config")]
-        [NSXTProperty(IsRequired: false, Description: @"Display the default config of pre defined plugin.The config can be changed by API /systemhealth/profiles.To see the effective status on given node, use the status API per node/systemhealth/plugins/status/&lt;node-id&gt;.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTSHAPredefinedPluginProfileDataType Config { get; set; }
         /// <summary>
         /// Display the default on-off switch of pre defined plugin.
@@ -55,7 +56,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "type")]
         [NSXTProperty(IsRequired: false, Description: @"The type of System Health Agent plugin")]
-        [NSXTDefaultProperty(Default: "NETWORK")]
         public NSXTSystemHealthPluginProfileTypeEnumType? Type { get; set; }
     }
 }

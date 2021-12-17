@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpV6InfoBaseType : NSXTManagedResourceType
     {
+        public NSXTDhcpV6InfoBaseType()
+        {
+            LeaseTime = test
+        }
         /// <summary>
         /// Lease time, in seconds.
         /// </summary>
@@ -24,7 +28,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Lease time, in seconds.")]
         //[System.ComponentModel.DataAnnotations.MinLength(60)]
         //[System.ComponentModel.DataAnnotations.MaxLength(4294967295)]
-        [NSXTDefaultProperty(Default: "")]
         public long? LeaseTime { get; set; }
         /// <summary>
         /// SNTP server ips.

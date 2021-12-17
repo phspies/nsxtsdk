@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbVirtualServerWithRuleType 
     {
+        public NSXTLbVirtualServerWithRuleType()
+        {
+        }
         /// <summary>
         /// It is used to add rules, update rules and bind rules to the virtual
         /// server.
@@ -34,20 +37,16 @@ namespace nsxtsdk.ManagerModels
         /// If there are some rules which are not modified, those rule should not
         /// be specified in the rules list, the UUID list of rules should be
         /// specified in rule_ids of LbVirtualServer.
+        /// The property is deprecated as NSX-T Load Balancer is deprecated.
         /// </summary>
         [JsonProperty(PropertyName = "rules")]
-        [NSXTProperty(IsRequired: false, Description: @"It is used to add rules, update rules and bind rules to the virtualserver.To add new rules, make sure that the rules have no identifierspecified, the new rules are automatically generated and associated tothe virtual server.If the virtual server need to consume some existed rules withoutchange, those rules should not be specified in the list, otherwise,the rules are updated.For update_with_rules action, it supports rules delete and update.To delete old rules, the rules should not be configured in new action,the UUID of deleted rules should be removed from rule_ids.To update rules, the rules should be specified with new change andconfigured with identifier.If there are some rules which are not modified, those rule should notbe specified in the rules list, the UUID list of rules should bespecified in rule_ids of LbVirtualServer.")]
+        [NSXTProperty(IsRequired: false, Description: @"It is used to add rules, update rules and bind rules to the virtualserver.To add new rules, make sure that the rules have no identifierspecified, the new rules are automatically generated and associated tothe virtual server.If the virtual server need to consume some existed rules withoutchange, those rules should not be specified in the list, otherwise,the rules are updated.For update_with_rules action, it supports rules delete and update.To delete old rules, the rules should not be configured in new action,the UUID of deleted rules should be removed from rule_ids.To update rules, the rules should be specified with new change andconfigured with identifier.If there are some rules which are not modified, those rule should notbe specified in the rules list, the UUID list of rules should bespecified in rule_ids of LbVirtualServer.The property is deprecated as NSX-T Load Balancer is deprecated.")]
         public IList<NSXTLbRuleType> Rules { get; set; }
         /// <summary>
-        /// If rules need to be associated to the virtual server, please set rules
-        /// properties of LbVirtualServerWithRule with rule list configuration.
-        /// For the rules which are not modified but associated to the virtual
-        /// server, the rule UUID list should be specified in rule_ids property of
-        /// LbVirtualServer and the associated rules should not be specified in
-        /// rules of LbVirtualServerWithRule.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "virtual_server", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"If rules need to be associated to the virtual server, please set rulesproperties of LbVirtualServerWithRule with rule list configuration.For the rules which are not modified but associated to the virtualserver, the rule UUID list should be specified in rule_ids property ofLbVirtualServer and the associated rules should not be specified inrules of LbVirtualServerWithRule.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTLbVirtualServerType VirtualServer { get; set; }
     }

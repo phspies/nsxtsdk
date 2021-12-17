@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTGenericPolicyRealizedResourceType : NSXTPolicyRealizedResourceType
     {
+        public NSXTGenericPolicyRealizedResourceType()
+        {
+        }
         /// <summary>
         /// The site where this entity resides.
         /// </summary>

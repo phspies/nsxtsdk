@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Runtime status information of the compute manager")]
     public class NSXTComputeManagerStatusType 
     {
+        public NSXTComputeManagerStatusType()
+        {
+        }
         /// <summary>
         /// Version of the compute manager
         /// </summary>

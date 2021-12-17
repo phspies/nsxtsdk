@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSegmentPortMacAddressCsvListResultType : NSXTCsvListResultType
     {
+        public NSXTSegmentPortMacAddressCsvListResultType()
+        {
+        }
         /// <summary>
         /// Timestamp when the data was last updated; unset if data source has never updated the data.
         /// </summary>

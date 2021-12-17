@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Health check result for specific uplink.")]
     public class NSXTHealthCheckResultPerUplinkType 
     {
+        public NSXTHealthCheckResultPerUplinkType()
+        {
+        }
         /// <summary>
         /// Name of the uplink.
         /// </summary>

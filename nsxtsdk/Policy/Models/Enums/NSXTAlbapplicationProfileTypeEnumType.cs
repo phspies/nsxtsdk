@@ -7,9 +7,9 @@ using nsxtsdk.Models;
 namespace nsxtsdk.PolicyModels
 {
     /// <summary>
-    /// Specifies which application layer proxy is enabled for thevirtual service.Enum options - APPLICATION_PROFILE_TYPE_L4,APPLICATION_PROFILE_TYPE_HTTP,APPLICATION_PROFILE_TYPE_SYSLOG,APPLICATION_PROFILE_TYPE_DNS, APPLICATION_PROFILE_TYPE_SSL,APPLICATION_PROFILE_TYPE_SIP.
+    /// Specifies which application layer proxy is enabled for thevirtual service.Enum options - APPLICATION_PROFILE_TYPE_L4,APPLICATION_PROFILE_TYPE_HTTP,APPLICATION_PROFILE_TYPE_SYSLOG,APPLICATION_PROFILE_TYPE_DNS, APPLICATION_PROFILE_TYPE_SSL,APPLICATION_PROFILE_TYPE_SIP.Allowed in Basic(Allowed values-APPLICATION_PROFILE_TYPE_L4,APPLICATION_PROFILE_TYPE_HTTP)edition, Essentials(Allowed values-APPLICATION_PROFILE_TYPE_L4) edition, Enterprise edition.
     /// </summary>
-    [NSXTProperty(Description: @"Specifies which application layer proxy is enabled for thevirtual service.Enum options - APPLICATION_PROFILE_TYPE_L4,APPLICATION_PROFILE_TYPE_HTTP,APPLICATION_PROFILE_TYPE_SYSLOG,APPLICATION_PROFILE_TYPE_DNS, APPLICATION_PROFILE_TYPE_SSL,APPLICATION_PROFILE_TYPE_SIP.")]
+    [NSXTProperty(Description: @"Specifies which application layer proxy is enabled for thevirtual service.Enum options - APPLICATION_PROFILE_TYPE_L4,APPLICATION_PROFILE_TYPE_HTTP,APPLICATION_PROFILE_TYPE_SYSLOG,APPLICATION_PROFILE_TYPE_DNS, APPLICATION_PROFILE_TYPE_SSL,APPLICATION_PROFILE_TYPE_SIP.Allowed in Basic(Allowed values-APPLICATION_PROFILE_TYPE_L4,APPLICATION_PROFILE_TYPE_HTTP)edition, Essentials(Allowed values-APPLICATION_PROFILE_TYPE_L4) edition, Enterprise edition.")]
     public enum NSXTAlbapplicationProfileTypeEnumType
     {
         [EnumMember(Value = "APPLICATION_PROFILE_TYPE_L4")]

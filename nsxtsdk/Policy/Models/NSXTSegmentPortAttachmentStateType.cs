@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"VIF attachment state of a segment port")]
     public class NSXTSegmentPortAttachmentStateType 
     {
+        public NSXTSegmentPortAttachmentStateType()
+        {
+        }
         /// <summary>
         /// A segment port must be in one of following states.
         /// FREE - If there are no active attachers. The port may or

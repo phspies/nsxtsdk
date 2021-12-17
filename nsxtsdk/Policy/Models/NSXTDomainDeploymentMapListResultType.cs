@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDomainDeploymentMapListResultType : NSXTListResultType
     {
+        public NSXTDomainDeploymentMapListResultType()
+        {
+        }
         /// <summary>
         /// Domain Deployment Map list result.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTransportZoneProfileType : NSXTManagedResourceType
     {
+        public NSXTTransportZoneProfileType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

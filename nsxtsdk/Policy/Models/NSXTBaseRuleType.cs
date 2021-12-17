@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTBaseRuleType : NSXTPolicyConfigResourceType
     {
+        public NSXTBaseRuleType()
+        {
+            Direction = test
+        }
         /// <summary>
         /// Flag to disable the rule. Default is enabled.
         /// </summary>
@@ -28,7 +32,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "direction")]
         [NSXTProperty(IsRequired: false, Description: @"Define direction of traffic.")]
-        [NSXTDefaultProperty(Default: "IN_OUT")]
         public NSXTBaseRuleDirectionEnumType? Direction { get; set; }
         /// <summary>
         /// Type of IP packet that should be matched while enforcing the rule.
@@ -54,10 +57,12 @@ namespace nsxtsdk.PolicyModels
         /// Holds the list of layer 7 service profile paths. These profiles accept
         /// attributes and sub-attributes of various network services
         /// (e.g. L4 AppId, encryption algorithm, domain name, etc) as key value
-        /// pairs.
+        /// pairs. Instead of Layer 7 service profiles you can use a L7 access profile.
+        /// One of either Layer 7 service profiles or L7 Access Profile can be used in firewall rule.
+        /// In case of L7 access profile only one is allowed.
         /// </summary>
         [JsonProperty(PropertyName = "profiles")]
-        [NSXTProperty(IsRequired: false, Description: @"Holds the list of layer 7 service profile paths. These profiles acceptattributes and sub-attributes of various network services(e.g. L4 AppId, encryption algorithm, domain name, etc) as key valuepairs.")]
+        [NSXTProperty(IsRequired: false, Description: @"Holds the list of layer 7 service profile paths. These profiles acceptattributes and sub-attributes of various network services(e.g. L4 AppId, encryption algorithm, domain name, etc) as key valuepairs. Instead of Layer 7 service profiles you can use a L7 access profile.One of either Layer 7 service profiles or L7 Access Profile can be used in firewall rule.In case of L7 access profile only one is allowed.")]
         public IList<string> Profiles { get; set; }
         /// <summary>
         /// This is a unique 4 byte positive number that is assigned by the system.
@@ -77,9 +82,11 @@ namespace nsxtsdk.PolicyModels
         public bool? IsDefault { get; set; }
         /// <summary>
         /// User level field which will be printed in CLI and packet logs.
+        /// Even though there is no limitation on length of a tag, internally
+        /// tag will get truncated after 32 characters.
         /// </summary>
         [JsonProperty(PropertyName = "tag")]
-        [NSXTProperty(IsRequired: false, Description: @"User level field which will be printed in CLI and packet logs.")]
+        [NSXTProperty(IsRequired: false, Description: @"User level field which will be printed in CLI and packet logs.Even though there is no limitation on length of a tag, internallytag will get truncated after 32 characters.")]
         public string? Tag { get; set; }
         /// <summary>
         /// We need paths as duplicate names may exist for groups under different
@@ -152,7 +159,7 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "sequence_number")]
         [NSXTProperty(IsRequired: false, Description: @"This field is used to resolve conflicts between multipleRules under Security or Gateway Policy for a DomainIf no sequence number is specified in the payload, a value of 0 isassigned by default. If there are multiple rules with the samesequence number then their order is not deterministic. If a specificorder of rules is desired, then one has to specify unique sequencenumbers or use the POST request on the rule entity witha query parameter action=revise to let the framework assign asequence number")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        public long? SequenceNumber { get; set; }
+        public int? SequenceNumber { get; set; }
         /// <summary>
         /// If set to true, the rule gets applied on all the groups that are
         /// NOT part of the source groups. If false, the rule applies to the

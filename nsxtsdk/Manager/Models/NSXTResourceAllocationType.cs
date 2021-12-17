@@ -21,6 +21,12 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Specify limit, shares and reservation for all kinds of traffic.Values for limit and reservation are expressed in percentage. And for shares,the value is expressed as a number between 1-100.The overall reservation among all traffic types should not exceed 75%.Otherwise, the API request will be rejected.")]
     public class NSXTResourceAllocationType 
     {
+        public NSXTResourceAllocationType()
+        {
+            Reservation = test
+            Limit = test
+            Shares = test
+        }
         /// <summary>
         /// Minimum guaranteed bandwidth percentage
         /// </summary>
@@ -29,13 +35,12 @@ namespace nsxtsdk.ManagerModels
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(75)]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "")]
         public double Reservation { get; set; }
         /// <summary>
-        /// Resource allocation traffic type
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "traffic_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Resource allocation traffic type")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTHostInfraTrafficTypeType TrafficType { get; set; }
         /// <summary>
@@ -50,7 +55,6 @@ namespace nsxtsdk.ManagerModels
         //[System.ComponentModel.DataAnnotations.MinLength(-1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(100)]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "")]
         public double Limit { get; set; }
         /// <summary>
         /// Shares
@@ -60,7 +64,6 @@ namespace nsxtsdk.ManagerModels
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(100)]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "")]
         public int Shares { get; set; }
     }
 }

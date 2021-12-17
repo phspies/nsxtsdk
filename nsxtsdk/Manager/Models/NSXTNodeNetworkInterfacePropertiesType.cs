@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeNetworkInterfacePropertiesType : NSXTResourceType
     {
+        public NSXTNodeNetworkInterfacePropertiesType()
+        {
+        }
         /// <summary>
         /// Interface MAC address
         /// </summary>
@@ -68,23 +71,29 @@ namespace nsxtsdk.ManagerModels
         //[System.ComponentModel.DataAnnotations.MaxLength(4094)]
         public long? Vlan { get; set; }
         /// <summary>
-        /// Bond mode
-        /// </summary>
-        [JsonProperty(PropertyName = "bond_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"Bond mode")]
-        public NSXTNodeNetworkInterfacePropertiesBondModeEnumType? BondMode { get; set; }
-        /// <summary>
-        /// Interface ID
-        /// </summary>
-        [JsonProperty(PropertyName = "interface_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Interface ID")]
-        public string? InterfaceId { get; set; }
-        /// <summary>
         /// Interface administration status
         /// </summary>
         [JsonProperty(PropertyName = "admin_status")]
         [NSXTProperty(IsRequired: false, Description: @"Interface administration status")]
         public NSXTNodeNetworkInterfacePropertiesAdminStatusEnumType? AdminStatus { get; set; }
+        /// <summary>
+        /// Bond's primary device name in active-backup bond mode
+        /// </summary>
+        [JsonProperty(PropertyName = "bond_primary_slave")]
+        [NSXTProperty(IsRequired: false, Description: @"Bond&apos;s primary device name in active-backup bond mode")]
+        public string? BondPrimarySlave { get; set; }
+        /// <summary>
+        /// Interface MTU
+        /// </summary>
+        [JsonProperty(PropertyName = "mtu")]
+        [NSXTProperty(IsRequired: false, Description: @"Interface MTU")]
+        public long? Mtu { get; set; }
+        /// <summary>
+        /// Bond mode
+        /// </summary>
+        [JsonProperty(PropertyName = "bond_mode")]
+        [NSXTProperty(IsRequired: false, Description: @"Bond mode")]
+        public NSXTNodeNetworkInterfacePropertiesBondModeEnumType? BondMode { get; set; }
         /// <summary>
         /// Interface plane
         /// </summary>
@@ -92,11 +101,23 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Interface plane")]
         public NSXTNodeNetworkInterfacePropertiesPlaneEnumType? Plane { get; set; }
         /// <summary>
+        /// Bond's currently active slave device
+        /// </summary>
+        [JsonProperty(PropertyName = "bond_cur_active_slave")]
+        [NSXTProperty(IsRequired: false, Description: @"Bond&apos;s currently active slave device")]
+        public string? BondCurActiveSlave { get; set; }
+        /// <summary>
         /// Interface is a KNI
         /// </summary>
         [JsonProperty(PropertyName = "is_kni")]
         [NSXTProperty(IsRequired: false, Description: @"Interface is a KNI")]
         public bool? IsKni { get; set; }
+        /// <summary>
+        /// Bond's rate at which we'll ask our link partner to transmit LACPDU packets in 802.3ad mode
+        /// </summary>
+        [JsonProperty(PropertyName = "bond_lacp_rate")]
+        [NSXTProperty(IsRequired: false, Description: @"Bond&apos;s rate at which we&apos;ll ask our link partner to transmit LACPDU packets in 802.3ad mode")]
+        public string? BondLacpRate { get; set; }
         /// <summary>
         /// Interface configuration
         /// </summary>
@@ -105,10 +126,16 @@ namespace nsxtsdk.ManagerModels
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTNodeNetworkInterfacePropertiesIpConfigurationEnumType IpConfiguration { get; set; }
         /// <summary>
-        /// Interface MTU
+        /// Interface ID
         /// </summary>
-        [JsonProperty(PropertyName = "mtu")]
-        [NSXTProperty(IsRequired: false, Description: @"Interface MTU")]
-        public long? Mtu { get; set; }
+        [JsonProperty(PropertyName = "interface_id")]
+        [NSXTProperty(IsRequired: false, Description: @"Interface ID")]
+        public string? InterfaceId { get; set; }
+        /// <summary>
+        /// Bond's transmit hash policy for balance-xor and 802.3ad modes
+        /// </summary>
+        [JsonProperty(PropertyName = "bond_xmit_hash_policy")]
+        [NSXTProperty(IsRequired: false, Description: @"Bond&apos;s transmit hash policy for balance-xor and 802.3ad modes")]
+        public NSXTNodeNetworkInterfacePropertiesBondXmitHashPolicyEnumType? BondXmitHashPolicy { get; set; }
     }
 }

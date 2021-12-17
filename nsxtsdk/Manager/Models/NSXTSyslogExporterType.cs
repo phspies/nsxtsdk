@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"This object specifies what, where and how logs on NSX nodes are forwarded.")]
     public class NSXTSyslogExporterType 
     {
+        public NSXTSyslogExporterType()
+        {
+            Port = test
+        }
         /// <summary>
         /// Maximum logging level for messages to be exported.
         /// </summary>
@@ -38,7 +42,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Server port on which syslog listener is listening.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Port { get; set; }
         /// <summary>
         /// Syslog server IP address or hostname.

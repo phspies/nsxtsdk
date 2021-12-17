@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdsSignatureStatusType : NSXTPolicyConfigResourceType
     {
+        public NSXTIdsSignatureStatusType()
+        {
+        }
         /// <summary>
         /// READY means signatures were downloaded and parsed successfully.
         /// PENDING means that signatures download is in progress.

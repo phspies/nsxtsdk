@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsZone object")]
     public class NSXTALBDnsZoneType 
     {
+        public NSXTALBDnsZoneType()
+        {
+        }
         /// <summary>
         /// Email address of the administrator responsible for this
         /// zone.

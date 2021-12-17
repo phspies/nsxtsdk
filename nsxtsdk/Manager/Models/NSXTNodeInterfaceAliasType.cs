@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Node network interface alias")]
     public class NSXTNodeInterfaceAliasType 
     {
+        public NSXTNodeInterfaceAliasType()
+        {
+        }
         /// <summary>
         /// Interface configuration
         /// </summary>

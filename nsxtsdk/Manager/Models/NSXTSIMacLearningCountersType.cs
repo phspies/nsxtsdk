@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSIMacLearningCountersType 
     {
+        public NSXTSIMacLearningCountersType()
+        {
+        }
         /// <summary>
         /// Number of MACs learned
         /// </summary>

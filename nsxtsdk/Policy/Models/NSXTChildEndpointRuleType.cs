@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildEndpointRuleType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildEndpointRuleType()
+        {
+        }
         /// <summary>
-        /// Contains actual EndpointRule.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "EndpointRule", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains actual EndpointRule.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTEndpointRuleType EndpointRule { get; set; }
     }

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceInsertionStatusType : NSXTManagedResourceType
     {
+        public NSXTServiceInsertionStatusType()
+        {
+        }
         /// <summary>
         /// service insertion status for a context type (e.g. east_west traffic).
         /// </summary>

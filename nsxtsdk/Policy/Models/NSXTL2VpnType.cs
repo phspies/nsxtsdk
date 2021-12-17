@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTL2VpnType : NSXTPolicyConfigResourceType
     {
+        public NSXTL2VpnType()
+        {
+            Enabled = test
+        }
         /// <summary>
         /// List of paths referencing transport tunnels.
         /// </summary>
@@ -29,7 +33,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Enable to extend all the associated segments.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enabled { get; set; }
     }
 }

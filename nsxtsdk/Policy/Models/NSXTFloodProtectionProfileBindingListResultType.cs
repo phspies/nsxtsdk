@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTFloodProtectionProfileBindingListResultType : NSXTListResultType
     {
+        public NSXTFloodProtectionProfileBindingListResultType()
+        {
+        }
         /// <summary>
         /// Flood protection profile binding maps list results
         /// </summary>

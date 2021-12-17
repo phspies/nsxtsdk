@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeIdServicesMapType 
     {
+        public NSXTNodeIdServicesMapType()
+        {
+        }
         /// <summary>
         /// List of ServiceTypes.
         /// </summary>

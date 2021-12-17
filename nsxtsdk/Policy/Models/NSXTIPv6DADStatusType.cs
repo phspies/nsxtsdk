@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"IPv6 DAD status")]
     public class NSXTIPv6DADStatusType 
     {
+        public NSXTIPv6DADStatusType()
+        {
+        }
         /// <summary>
         /// DAD status for IP address on the port.
         /// </summary>

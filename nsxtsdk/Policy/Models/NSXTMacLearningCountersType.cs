@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTMacLearningCountersType 
     {
+        public NSXTMacLearningCountersType()
+        {
+        }
         /// <summary>
         /// Number of MACs learned
         /// </summary>

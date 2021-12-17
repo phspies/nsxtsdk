@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Audit log in RFC5424 format")]
     public class NSXTAuditLogType 
     {
+        public NSXTAuditLogType()
+        {
+        }
         /// <summary>
         /// Priority field of the log
         /// </summary>
@@ -81,10 +84,10 @@ namespace nsxtsdk.ManagerModels
         [System.ComponentModel.DataAnnotations.Required]
         public string Hostname { get; set; }
         /// <summary>
-        /// Structured data field of the log
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "struct_data", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Structured data field of the log")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTStructuredDataType StructData { get; set; }
     }

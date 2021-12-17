@@ -17,29 +17,32 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIngressRateLimiterType : NSXTQoSBaseRateLimiterType
     {
+        public NSXTIngressRateLimiterType()
+        {
+            PeakBandwidth = test
+            AverageBandwidth = test
+            BurstSize = test
+        }
         /// <summary>
         /// The peak bandwidth rate is used to support burst traffic.
         /// </summary>
         [JsonProperty(PropertyName = "peak_bandwidth")]
         [NSXTProperty(IsRequired: false, Description: @"The peak bandwidth rate is used to support burst traffic.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? PeakBandwidth { get; set; }
+        public int? PeakBandwidth { get; set; }
         /// <summary>
         /// You can use the average bandwidth to reduce network congestion.
         /// </summary>
         [JsonProperty(PropertyName = "average_bandwidth")]
         [NSXTProperty(IsRequired: false, Description: @"You can use the average bandwidth to reduce network congestion.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? AverageBandwidth { get; set; }
+        public int? AverageBandwidth { get; set; }
         /// <summary>
         /// The burst duration is set in the burst size setting.
         /// </summary>
         [JsonProperty(PropertyName = "burst_size")]
         [NSXTProperty(IsRequired: false, Description: @"The burst duration is set in the burst size setting.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? BurstSize { get; set; }
+        public int? BurstSize { get; set; }
     }
 }

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpAddressBlockListResultType : NSXTListResultType
     {
+        public NSXTIpAddressBlockListResultType()
+        {
+        }
         /// <summary>
         /// IpAddressBlock list results
         /// </summary>

@@ -30,10 +30,10 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyContextProfileListResultType GlobalListProfileSupportedAttributes(string? AttributeKey = null, string? AttributeSource = null, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyContextProfileListResultType GlobalGlobalInfraListProfileSupportedAttributes(string? AttributeKey = null, string? AttributeSource = null, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTPolicyContextProfileListResultType returnValue = default(NSXTPolicyContextProfileListResultType);
-            StringBuilder ListProfileSupportedAttributesServiceURL = new StringBuilder("/global-infra/context-profiles/attributes");
+            StringBuilder GlobalInfraListProfileSupportedAttributesServiceURL = new StringBuilder("/global-infra/context-profiles/attributes");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -48,11 +48,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListProfileSupportedAttributesServiceURL.ToString();
+            request.Resource = GlobalInfraListProfileSupportedAttributesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ListProfileSupportedAttributesServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraListProfileSupportedAttributesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -73,10 +73,10 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyContextProfileListResultType GlobalListPolicyContextProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public NSXTPolicyContextProfileListResultType GlobalGlobalInfraListPolicyContextProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTPolicyContextProfileListResultType returnValue = default(NSXTPolicyContextProfileListResultType);
-            StringBuilder ListPolicyContextProfilesServiceURL = new StringBuilder("/global-infra/context-profiles");
+            StringBuilder GlobalInfraListPolicyContextProfilesServiceURL = new StringBuilder("/global-infra/context-profiles");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -89,11 +89,11 @@ namespace nsxtapi.PolicyModules
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListPolicyContextProfilesServiceURL.ToString();
+            request.Resource = GlobalInfraListPolicyContextProfilesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ListPolicyContextProfilesServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GlobalInfraListPolicyContextProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -114,12 +114,12 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalAddRemoveCustomAttributeValues(NSXTPolicyAttributesType PolicyAttributes, string Action)
+        public void GlobalGlobalInfraAddRemoveCustomAttributeValues(NSXTPolicyAttributesType PolicyAttributes, string Action)
         {
             if (PolicyAttributes == null) { throw new System.ArgumentNullException("PolicyAttributes cannot be null"); }
             if (Action == null) { throw new System.ArgumentNullException("Action cannot be null"); }
             
-            StringBuilder AddRemoveCustomAttributeValuesServiceURL = new StringBuilder("/global-infra/context-profiles/custom-attributes");
+            StringBuilder GlobalInfraAddRemoveCustomAttributeValuesServiceURL = new StringBuilder("/global-infra/context-profiles/custom-attributes");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -128,11 +128,11 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyAttributes, defaultSerializationSettings));
             if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
-            request.Resource = AddRemoveCustomAttributeValuesServiceURL.ToString();
+            request.Resource = GlobalInfraAddRemoveCustomAttributeValuesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + AddRemoveCustomAttributeValuesServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + GlobalInfraAddRemoveCustomAttributeValuesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -141,11 +141,11 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalPatchCustomAttributeList(NSXTPolicyAttributesType PolicyAttributes)
+        public void GlobalGlobalInfraPatchCustomAttributeList(NSXTPolicyAttributesType PolicyAttributes)
         {
             if (PolicyAttributes == null) { throw new System.ArgumentNullException("PolicyAttributes cannot be null"); }
             
-            StringBuilder PatchCustomAttributeListServiceURL = new StringBuilder("/global-infra/context-profiles/custom-attributes");
+            StringBuilder GlobalInfraPatchCustomAttributeListServiceURL = new StringBuilder("/global-infra/context-profiles/custom-attributes");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -153,146 +153,14 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyAttributes, defaultSerializationSettings));
-            request.Resource = PatchCustomAttributeListServiceURL.ToString();
+            request.Resource = GlobalInfraPatchCustomAttributeListServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP PATCH operation to " + PatchCustomAttributeListServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP PATCH operation to " + GlobalInfraPatchCustomAttributeListServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTPolicyContextProfileType GlobalPutCreateOrUpdatePolicyContextProfile(string ContextProfileId, NSXTPolicyContextProfileType PolicyContextProfile, bool? Override = null)
-        {
-            if (ContextProfileId == null) { throw new System.ArgumentNullException("ContextProfileId cannot be null"); }
-            if (PolicyContextProfile == null) { throw new System.ArgumentNullException("PolicyContextProfile cannot be null"); }
-            NSXTPolicyContextProfileType returnValue = default(NSXTPolicyContextProfileType);
-            StringBuilder PutCreateOrUpdatePolicyContextProfileServiceURL = new StringBuilder("/global-infra/context-profiles/{context-profile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            PutCreateOrUpdatePolicyContextProfileServiceURL.Replace("{context-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ContextProfileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(PolicyContextProfile, defaultSerializationSettings));
-            if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
-            request.Resource = PutCreateOrUpdatePolicyContextProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + PutCreateOrUpdatePolicyContextProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyContextProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyContextProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeletePolicyContextProfile(string ContextProfileId, bool? Force = null, bool? Override = null)
-        {
-            if (ContextProfileId == null) { throw new System.ArgumentNullException("ContextProfileId cannot be null"); }
-            
-            StringBuilder DeletePolicyContextProfileServiceURL = new StringBuilder("/global-infra/context-profiles/{context-profile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeletePolicyContextProfileServiceURL.Replace("{context-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ContextProfileId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
-            if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
-            request.Resource = DeletePolicyContextProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeletePolicyContextProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalPatchCreateOrUpdatePolicyContextProfile(string ContextProfileId, NSXTPolicyContextProfileType PolicyContextProfile, bool? Override = null)
-        {
-            if (ContextProfileId == null) { throw new System.ArgumentNullException("ContextProfileId cannot be null"); }
-            if (PolicyContextProfile == null) { throw new System.ArgumentNullException("PolicyContextProfile cannot be null"); }
-            
-            StringBuilder PatchCreateOrUpdatePolicyContextProfileServiceURL = new StringBuilder("/global-infra/context-profiles/{context-profile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            PatchCreateOrUpdatePolicyContextProfileServiceURL.Replace("{context-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ContextProfileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(PolicyContextProfile, defaultSerializationSettings));
-            if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
-            request.Resource = PatchCreateOrUpdatePolicyContextProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + PatchCreateOrUpdatePolicyContextProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTPolicyContextProfileType GlobalGetPolicyContextProfile(string ContextProfileId)
-        {
-            if (ContextProfileId == null) { throw new System.ArgumentNullException("ContextProfileId cannot be null"); }
-            NSXTPolicyContextProfileType returnValue = default(NSXTPolicyContextProfileType);
-            StringBuilder GetPolicyContextProfileServiceURL = new StringBuilder("/global-infra/context-profiles/{context-profile-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetPolicyContextProfileServiceURL.Replace("{context-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ContextProfileId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = GetPolicyContextProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetPolicyContextProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyContextProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyContextProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
         }
         /// <summary>
         /// 
@@ -332,6 +200,233 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyContextProfileListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public void AddRemoveCustomAttribute(NSXTPolicyCustomAttributesType PolicyCustomAttributes, string Action)
+        {
+            if (PolicyCustomAttributes == null) { throw new System.ArgumentNullException("PolicyCustomAttributes cannot be null"); }
+            if (Action == null) { throw new System.ArgumentNullException("Action cannot be null"); }
+            
+            StringBuilder AddRemoveCustomAttributeServiceURL = new StringBuilder("/infra/context-profiles/custom-attributes/default");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.POST
+            };
+            request.AddHeader("Content-type", "application/json");
+            request.AddJsonBody(JsonConvert.SerializeObject(PolicyCustomAttributes, defaultSerializationSettings));
+            if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
+            request.Resource = AddRemoveCustomAttributeServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP POST operation to " + AddRemoveCustomAttributeServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public void PatchCustomAttribute(NSXTPolicyCustomAttributesType PolicyCustomAttributes)
+        {
+            if (PolicyCustomAttributes == null) { throw new System.ArgumentNullException("PolicyCustomAttributes cannot be null"); }
+            
+            StringBuilder PatchCustomAttributeServiceURL = new StringBuilder("/infra/context-profiles/custom-attributes/default");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.PATCH
+            };
+            request.AddHeader("Content-type", "application/json");
+            request.AddJsonBody(JsonConvert.SerializeObject(PolicyCustomAttributes, defaultSerializationSettings));
+            request.Resource = PatchCustomAttributeServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP PATCH operation to " + PatchCustomAttributeServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPolicyContextProfileListResultType GetCustomAttribute(string? AttributeKey = null, string? AttributeSource = null, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            NSXTPolicyContextProfileListResultType returnValue = default(NSXTPolicyContextProfileListResultType);
+            StringBuilder GetCustomAttributeServiceURL = new StringBuilder("/infra/context-profiles/custom-attributes/default");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            if (AttributeKey != null) { request.AddQueryParameter("attribute_key", AttributeKey.ToString()); }
+            if (AttributeSource != null) { request.AddQueryParameter("attribute_source", AttributeSource.ToString()); }
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = GetCustomAttributeServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetCustomAttributeServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyContextProfileListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyContextProfileListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPolicyContextProfileType GlobalGlobalInfraPutCreateOrUpdatePolicyContextProfile(string ContextProfileId, NSXTPolicyContextProfileType PolicyContextProfile, bool? Override = null)
+        {
+            if (ContextProfileId == null) { throw new System.ArgumentNullException("ContextProfileId cannot be null"); }
+            if (PolicyContextProfile == null) { throw new System.ArgumentNullException("PolicyContextProfile cannot be null"); }
+            NSXTPolicyContextProfileType returnValue = default(NSXTPolicyContextProfileType);
+            StringBuilder GlobalInfraPutCreateOrUpdatePolicyContextProfileServiceURL = new StringBuilder("/global-infra/context-profiles/{context-profile-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.PUT
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraPutCreateOrUpdatePolicyContextProfileServiceURL.Replace("{context-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ContextProfileId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.AddJsonBody(JsonConvert.SerializeObject(PolicyContextProfile, defaultSerializationSettings));
+            if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
+            request.Resource = GlobalInfraPutCreateOrUpdatePolicyContextProfileServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP PUT operation to " + GlobalInfraPutCreateOrUpdatePolicyContextProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyContextProfileType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyContextProfileType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public void GlobalGlobalInfraDeletePolicyContextProfile(string ContextProfileId, bool? Force = null, bool? Override = null)
+        {
+            if (ContextProfileId == null) { throw new System.ArgumentNullException("ContextProfileId cannot be null"); }
+            
+            StringBuilder GlobalInfraDeletePolicyContextProfileServiceURL = new StringBuilder("/global-infra/context-profiles/{context-profile-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.DELETE
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraDeletePolicyContextProfileServiceURL.Replace("{context-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ContextProfileId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
+            if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
+            request.Resource = GlobalInfraDeletePolicyContextProfileServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP DELETE operation to " + GlobalInfraDeletePolicyContextProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public void GlobalGlobalInfraPatchCreateOrUpdatePolicyContextProfile(string ContextProfileId, NSXTPolicyContextProfileType PolicyContextProfile, bool? Override = null)
+        {
+            if (ContextProfileId == null) { throw new System.ArgumentNullException("ContextProfileId cannot be null"); }
+            if (PolicyContextProfile == null) { throw new System.ArgumentNullException("PolicyContextProfile cannot be null"); }
+            
+            StringBuilder GlobalInfraPatchCreateOrUpdatePolicyContextProfileServiceURL = new StringBuilder("/global-infra/context-profiles/{context-profile-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.PATCH
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraPatchCreateOrUpdatePolicyContextProfileServiceURL.Replace("{context-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ContextProfileId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.AddJsonBody(JsonConvert.SerializeObject(PolicyContextProfile, defaultSerializationSettings));
+            if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
+            request.Resource = GlobalInfraPatchCreateOrUpdatePolicyContextProfileServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP PATCH operation to " + GlobalInfraPatchCreateOrUpdatePolicyContextProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPolicyContextProfileType GlobalGlobalInfraGetPolicyContextProfile(string ContextProfileId)
+        {
+            if (ContextProfileId == null) { throw new System.ArgumentNullException("ContextProfileId cannot be null"); }
+            NSXTPolicyContextProfileType returnValue = default(NSXTPolicyContextProfileType);
+            StringBuilder GlobalInfraGetPolicyContextProfileServiceURL = new StringBuilder("/global-infra/context-profiles/{context-profile-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GlobalInfraGetPolicyContextProfileServiceURL.Replace("{context-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ContextProfileId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GlobalInfraGetPolicyContextProfileServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetPolicyContextProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyContextProfileType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyContextProfileType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -505,6 +600,101 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyContextProfileType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public void GlobalGlobalInfraAddRemoveCustomAttribute(NSXTPolicyCustomAttributesType PolicyCustomAttributes, string Action)
+        {
+            if (PolicyCustomAttributes == null) { throw new System.ArgumentNullException("PolicyCustomAttributes cannot be null"); }
+            if (Action == null) { throw new System.ArgumentNullException("Action cannot be null"); }
+            
+            StringBuilder GlobalInfraAddRemoveCustomAttributeServiceURL = new StringBuilder("/global-infra/context-profiles/custom-attributes/default");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.POST
+            };
+            request.AddHeader("Content-type", "application/json");
+            request.AddJsonBody(JsonConvert.SerializeObject(PolicyCustomAttributes, defaultSerializationSettings));
+            if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
+            request.Resource = GlobalInfraAddRemoveCustomAttributeServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP POST operation to " + GlobalInfraAddRemoveCustomAttributeServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public void GlobalGlobalInfraPatchCustomAttribute(NSXTPolicyCustomAttributesType PolicyCustomAttributes)
+        {
+            if (PolicyCustomAttributes == null) { throw new System.ArgumentNullException("PolicyCustomAttributes cannot be null"); }
+            
+            StringBuilder GlobalInfraPatchCustomAttributeServiceURL = new StringBuilder("/global-infra/context-profiles/custom-attributes/default");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.PATCH
+            };
+            request.AddHeader("Content-type", "application/json");
+            request.AddJsonBody(JsonConvert.SerializeObject(PolicyCustomAttributes, defaultSerializationSettings));
+            request.Resource = GlobalInfraPatchCustomAttributeServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP PATCH operation to " + GlobalInfraPatchCustomAttributeServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTPolicyContextProfileListResultType GlobalGlobalInfraGetCustomAttribute(string? AttributeKey = null, string? AttributeSource = null, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        {
+            NSXTPolicyContextProfileListResultType returnValue = default(NSXTPolicyContextProfileListResultType);
+            StringBuilder GlobalInfraGetCustomAttributeServiceURL = new StringBuilder("/global-infra/context-profiles/custom-attributes/default");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            if (AttributeKey != null) { request.AddQueryParameter("attribute_key", AttributeKey.ToString()); }
+            if (AttributeSource != null) { request.AddQueryParameter("attribute_source", AttributeSource.ToString()); }
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = GlobalInfraGetCustomAttributeServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GlobalInfraGetCustomAttributeServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTPolicyContextProfileListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyContextProfileListResultType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}

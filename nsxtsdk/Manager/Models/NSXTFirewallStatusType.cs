@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFirewallStatusType : NSXTManagedResourceType
     {
+        public NSXTFirewallStatusType()
+        {
+        }
         /// <summary>
         /// Firewall status for a fabric entity or in global context where firewall is supported.
         /// </summary>

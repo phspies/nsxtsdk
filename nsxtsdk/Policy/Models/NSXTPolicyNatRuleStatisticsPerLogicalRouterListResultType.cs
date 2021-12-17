@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType : NSXTListResultType
     {
+        public NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType()
+        {
+        }
         /// <summary>
         /// NAT rules statistics per logical router
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HttpCookiePersistenceProfile object")]
     public class NSXTALBHttpCookiePersistenceProfileType 
     {
+        public NSXTALBHttpCookiePersistenceProfileType()
+        {
+        }
         /// <summary>
         /// HTTP cookie name for cookie persistence.
         /// </summary>

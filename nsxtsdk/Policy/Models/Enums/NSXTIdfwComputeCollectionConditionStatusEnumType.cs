@@ -20,7 +20,9 @@ namespace nsxtsdk.PolicyModels
         DOWN = 3,
         [EnumMember(Value = "DFW_DISABLED")]
         DFWDISABLED = 4,
+        [EnumMember(Value = "IDFW_ENABLED")]
+        IDFWENABLED = 5,
         [EnumMember(Value = "IDFW_DISABLED")]
-        IDFWDISABLED = 5,
+        IDFWDISABLED = 6,
     }
 }

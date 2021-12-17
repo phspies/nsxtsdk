@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer L4RuleActionSelectPool object")]
     public class NSXTALBL4RuleActionSelectPoolType 
     {
+        public NSXTALBL4RuleActionSelectPoolType()
+        {
+        }
         /// <summary>
         /// ID of the pool of servers to serve the request.
         /// It is a reference to an object of type Pool.
@@ -28,17 +31,23 @@ namespace nsxtsdk.PolicyModels
         /// Indicates action to take on rule match.
         /// Enum options - L4_RULE_ACTION_SELECT_POOL,
         /// L4_RULE_ACTION_SELECT_POOLGROUP.
+        /// Allowed in Basic(Allowed values-
+        /// L4_RULE_ACTION_SELECT_POOL) edition, Essentials(Allowed
+        /// values- L4_RULE_ACTION_SELECT_POOL) edition, Enterprise
+        /// edition.
         /// </summary>
         [JsonProperty(PropertyName = "action_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Indicates action to take on rule match.Enum options - L4_RULE_ACTION_SELECT_POOL,L4_RULE_ACTION_SELECT_POOLGROUP.")]
+        [NSXTProperty(IsRequired: true, Description: @"Indicates action to take on rule match.Enum options - L4_RULE_ACTION_SELECT_POOL,L4_RULE_ACTION_SELECT_POOLGROUP.Allowed in Basic(Allowed values-L4_RULE_ACTION_SELECT_POOL) edition, Essentials(Allowedvalues- L4_RULE_ACTION_SELECT_POOL) edition, Enterpriseedition.")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBL4RuleActionSelectPoolActionTypeEnumType ActionType { get; set; }
         /// <summary>
         /// ID of the pool group to serve the request.
         /// It is a reference to an object of type PoolGroup.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
         /// </summary>
         [JsonProperty(PropertyName = "pool_group_path")]
-        [NSXTProperty(IsRequired: false, Description: @"ID of the pool group to serve the request.It is a reference to an object of type PoolGroup.")]
+        [NSXTProperty(IsRequired: false, Description: @"ID of the pool group to serve the request.It is a reference to an object of type PoolGroup.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
         public string? PoolGroupPath { get; set; }
     }
 }

@@ -12,12 +12,16 @@ using System.ComponentModel;
 namespace nsxtsdk.ManagerModels
 {
     /// <summary>
-    /// An endpoint to connect to NSX-Intelligence broker.
+    /// This is deprecated. Please use CommonAgentEndpointInfo instead.
+        /// An endpoint to connect to NSX-Intelligence broker.
         /// Either FQDN or IP address can be used in the endpoint info.
     /// </summary>
-    [NSXTProperty(Description: @"An endpoint to connect to NSX-Intelligence broker.Either FQDN or IP address can be used in the endpoint info.")]
+    [NSXTProperty(Description: @"This is deprecated. Please use CommonAgentEndpointInfo instead.An endpoint to connect to NSX-Intelligence broker.Either FQDN or IP address can be used in the endpoint info.")]
     public class NSXTIntelligenceBrokerEndpointInfoType 
     {
+        public NSXTIntelligenceBrokerEndpointInfoType()
+        {
+        }
         /// <summary>
         /// The port number where the broker is listening to.
         /// </summary>

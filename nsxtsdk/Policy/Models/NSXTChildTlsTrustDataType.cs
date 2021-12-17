@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildTlsTrustDataType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildTlsTrustDataType()
+        {
+        }
         /// <summary>
-        /// Contains the actual TlsTrustData object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "TlsTrustData", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual TlsTrustData object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTTlsTrustDataType TlsTrustData { get; set; }
     }

@@ -17,12 +17,16 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBridgeHighAvailabilityClusterProfileType : NSXTClusterProfileType
     {
+        public NSXTBridgeHighAvailabilityClusterProfileType()
+        {
+            Enable = test
+            BfdProbeInterval = test
+        }
         /// <summary>
         /// whether the heartbeat is enabled
         /// </summary>
         [JsonProperty(PropertyName = "enable")]
         [NSXTProperty(IsRequired: false, Description: @"whether the heartbeat is enabled")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enable { get; set; }
         /// <summary>
         /// the time interval (in millisec) between probe packets for heartbeat purpose
@@ -31,7 +35,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"the time interval (in millisec) between probe packets for heartbeat purpose")]
         //[System.ComponentModel.DataAnnotations.MinLength(300)]
         //[System.ComponentModel.DataAnnotations.MaxLength(60000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? BfdProbeInterval { get; set; }
     }
 }

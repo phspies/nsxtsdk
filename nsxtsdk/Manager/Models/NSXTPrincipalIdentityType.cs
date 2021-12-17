@@ -17,6 +17,16 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPrincipalIdentityType : NSXTManagedResourceType
     {
+        public NSXTPrincipalIdentityType()
+        {
+        }
+        /// <summary>
+        /// Id of the stored certificate. When used with the deprecated POST /trust-management/principal-identities API this field
+        /// is required.
+        /// </summary>
+        [JsonProperty(PropertyName = "certificate_id")]
+        [NSXTProperty(IsRequired: false, Description: @"Id of the stored certificate. When used with the deprecated POST /trust-management/principal-identities API this field is required.")]
+        public string? CertificateId { get; set; }
         /// <summary>
         /// Indicator whether the entities created by this principal should be protected.
         /// </summary>
@@ -24,10 +34,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Indicator whether the entities created by this principal should be protected.")]
         public bool? IsProtected { get; set; }
         /// <summary>
-        /// Role
+        /// The roles that are associated with this PI.
         /// </summary>
         [JsonProperty(PropertyName = "role")]
-        [NSXTProperty(IsRequired: false, Description: @"Role")]
+        [NSXTProperty(IsRequired: false, Description: @"The roles that are associated with this PI.")]
         public string? Role { get; set; }
         /// <summary>
         /// Name of the principal.
@@ -36,19 +46,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: true, Description: @"Name of the principal.")]
         [System.ComponentModel.DataAnnotations.Required]
         public string Name { get; set; }
-        /// <summary>
-        /// Use the 'role' field instead and pass in 'auditor' for read_only_api_users or 'enterprise_admin' for the others.
-        /// </summary>
-        [JsonProperty(PropertyName = "permission_group")]
-        [NSXTProperty(IsRequired: false, Description: @"Use the &apos;role&apos; field instead and pass in &apos;auditor&apos; for read_only_api_users or &apos;enterprise_admin&apos; for the others.")]
-        public NSXTPrincipalIdentityPermissionGroupEnumType? PermissionGroup { get; set; }
-        /// <summary>
-        /// Id of the stored certificate. When used with the deprecated POST /trust-management/principal-identities API this field
-        /// is required.
-        /// </summary>
-        [JsonProperty(PropertyName = "certificate_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Id of the stored certificate. When used with the deprecated POST /trust-management/principal-identities API this field is required.")]
-        public string? CertificateId { get; set; }
         /// <summary>
         /// Unique node-id of a principal. This is used primarily in the case
         /// where a cluster of nodes is used to make calls to the NSX Manager and

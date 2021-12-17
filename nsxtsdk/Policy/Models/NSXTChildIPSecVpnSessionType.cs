@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildIPSecVpnSessionType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildIPSecVpnSessionType()
+        {
+        }
         /// <summary>
-        /// Contains the actual IPSecVpnSession object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "IPSecVpnSession", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual IPSecVpnSession object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTIPSecVpnSessionType IPSecVpnSession { get; set; }
     }

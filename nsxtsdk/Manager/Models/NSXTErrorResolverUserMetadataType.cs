@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"User supplied metadata needed for resolving errors")]
     public class NSXTErrorResolverUserMetadataType 
     {
+        public NSXTErrorResolverUserMetadataType()
+        {
+        }
         /// <summary>
         /// List of user supplied input data.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVPNIKEServiceSummaryType : NSXTIPSecVPNSessionSummaryType
     {
+        public NSXTIPSecVPNIKEServiceSummaryType()
+        {
+        }
         /// <summary>
         /// UUID for a vpn service.
         /// </summary>

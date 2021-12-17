@@ -15,8 +15,11 @@ namespace nsxtsdk.PolicyModels
     /// 
     /// </summary>
     [NSXTProperty(Description: @"")]
-    public class NSXTPolicyEdgeClusterInterSiteBgpSummaryType 
+    public class NSXTPolicyEdgeClusterInterSiteBgpSummaryType : NSXTListResultType
     {
+        public NSXTPolicyEdgeClusterInterSiteBgpSummaryType()
+        {
+        }
         /// <summary>
         /// Edge cluster path whose status is being reported.
         /// </summary>

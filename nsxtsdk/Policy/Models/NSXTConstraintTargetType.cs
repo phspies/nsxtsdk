@@ -24,6 +24,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Resource attribute on which constraint should be applied.Example - sourceGroups attribute of Edge CommunicationEntry to be  restricted, is given as:  {     &quot;target_resource_type&quot;:&quot;CommunicationEntry&quot;,     &quot;attribute&quot;:&quot;sourceGroups&quot;,     &quot;path_prefix&quot;:&quot;/infra/domains/vmc-domain/edge-communication-maps/default/communication-entries&quot;  }")]
     public class NSXTConstraintTargetType 
     {
+        public NSXTConstraintTargetType()
+        {
+        }
         /// <summary>
         /// Attribute name of the target entity.
         /// </summary>

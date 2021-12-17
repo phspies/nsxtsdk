@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTBasePktCapResourceType 
     {
+        public NSXTBasePktCapResourceType()
+        {
+        }
         /// <summary>
         /// Type of packet capture resource
         /// </summary>

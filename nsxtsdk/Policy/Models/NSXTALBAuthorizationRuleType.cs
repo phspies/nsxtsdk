@@ -17,11 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer AuthorizationRule object")]
     public class NSXTALBAuthorizationRuleType 
     {
+        public NSXTALBAuthorizationRuleType()
+        {
+            Enable = test
+        }
         /// <summary>
-        /// Authorization action when rule is matched.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "action", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Authorization action when rule is matched.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBAuthorizationActionType Action { get; set; }
         /// <summary>
@@ -38,7 +42,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "enable")]
         [NSXTProperty(IsRequired: false, Description: @"Enable or disable the rule.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enable { get; set; }
         /// <summary>
         /// Name of the rule.
@@ -48,10 +51,10 @@ namespace nsxtsdk.PolicyModels
         [System.ComponentModel.DataAnnotations.Required]
         public string Name { get; set; }
         /// <summary>
-        /// Authorization match criteria for the rule.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "match", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Authorization match criteria for the rule.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBAuthorizationMatchType Match { get; set; }
     }

@@ -17,6 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRoutingGlobalConfigType : NSXTGlobalConfigsType
     {
+        public NSXTRoutingGlobalConfigType()
+        {
+            LogicalUplinkMtu = test
+            VdrMacNested = test
+            L3ForwardingMode = test
+            VdrMac = test
+        }
         /// <summary>
         /// This is the global default MTU for all the logical uplinks in a NSX domain. Currently logical uplink MTU can only be set
         /// globally and applies to the entire NSX domain. There is no option to override this value at transport zone level or
@@ -24,7 +31,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "logical_uplink_mtu")]
         [NSXTProperty(IsRequired: false, Description: @"This is the global default MTU for all the logical uplinks in a NSX domain. Currently logical uplink MTU can only be set globally and applies to the entire NSX domain. There is no option to override this value at transport zone level or transport node level. If this value is not set, the default value of 1500 will be used.")]
-        [NSXTDefaultProperty(Default: "")]
         public int? LogicalUplinkMtu { get; set; }
         /// <summary>
         /// This is the global default MAC address for all VDRs in all transport nodes in a NSX system nested in another NSX system.
@@ -36,7 +42,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "vdr_mac_nested")]
         [NSXTProperty(IsRequired: false, Description: @"This is the global default MAC address for all VDRs in all transport nodes in a NSX system nested in another NSX system. All transport zones in such a nested NSX system will have the &quot;nested_nsx&quot; property being true so that all transport nodes will use this MAC for the VDR ports to avoid conflict with the VDR MAC in the outer NSX system. When the property &quot;allow_changing_vdr_mac_in_use&quot; is false, it can not be changed if the current VDR MAC is being used by any transport node in a nested NSX environment. A transport node uses this VDR MAC if any host switch in the node is in an OVERLAY transport zone whose &quot;nested_nsx&quot; property is true.")]
-        [NSXTDefaultProperty(Default: "02:50:56:56:44:53")]
         public string? VdrMacNested { get; set; }
         /// <summary>
         /// When this flag is set to true, it is allowed to change the VDR MAC being used by existing transport nodes in a NSX
@@ -65,7 +70,6 @@ namespace nsxtsdk.ManagerModels
         [JsonProperty(PropertyName = "l3_forwarding_mode", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"This setting does not restrict configuration as per other modes. But the forwarding will only work as per the mode set here.")]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "IPV4_ONLY")]
         public NSXTRoutingGlobalConfigL3ForwardingModeEnumType L3ForwardingMode { get; set; }
         /// <summary>
         /// This is the global default MAC address for all VDRs in all transport nodes in a NSX system. When the property
@@ -75,7 +79,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "vdr_mac")]
         [NSXTProperty(IsRequired: false, Description: @"This is the global default MAC address for all VDRs in all transport nodes in a NSX system. When the property &quot;allow_changing_vdr_mac_in_use&quot; is false, it can not be changed if the current VDR MAC is being used by any transport node. A transport node uses this VDR MAC if any host switch in the node is in OVERLAY transport zone(s) but none of the transport zone(s) has &quot;nested_nsx&quot; property being true.")]
-        [NSXTDefaultProperty(Default: "02:50:56:56:44:52")]
         public string? VdrMac { get; set; }
     }
 }

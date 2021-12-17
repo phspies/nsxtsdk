@@ -18,6 +18,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"LBJwtKey specifies the symmetric key or asymmetric public key used todecrypt the data in JWT.")]
     public class NSXTLBJwtKeyType 
     {
+        public NSXTLBJwtKeyType()
+        {
+        }
         /// <summary>
         /// The property is used to identify JWT key type.
         /// </summary>

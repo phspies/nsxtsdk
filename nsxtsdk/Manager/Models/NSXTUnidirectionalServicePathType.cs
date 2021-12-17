@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Representing either forward or reverse service path for ingress or egress traffic respectively.")]
     public class NSXTUnidirectionalServicePathType 
     {
+        public NSXTUnidirectionalServicePathType()
+        {
+        }
         /// <summary>
         /// List of service path hops that constitutes the forward or reverse service path.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"L2Vpn transport tunnel peer code.")]
     public class NSXTL2VpnTransportTunnelPeerCodeType 
     {
+        public NSXTL2VpnTransportTunnelPeerCodeType()
+        {
+        }
         /// <summary>
         /// Copy this code to paste on the remote end of the tunnel.
         /// This is a base64 encoded string which has all the configuration for tunnel.

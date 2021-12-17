@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Errors encountered while fetching entities in the forwarding path")]
     public class NSXTPortConnectionErrorType 
     {
+        public NSXTPortConnectionErrorType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"List of ServiceInsertion Rules.")]
     public class NSXTServiceInsertionRuleListType 
     {
+        public NSXTServiceInsertionRuleListType()
+        {
+        }
         /// <summary>
         /// List of ServiceInsertion rules in the section. Only homogeneous rules are supported.
         /// </summary>

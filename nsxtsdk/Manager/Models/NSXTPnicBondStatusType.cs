@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"pNIC/bond statuses")]
     public class NSXTPnicBondStatusType 
     {
+        public NSXTPnicBondStatusType()
+        {
+        }
         /// <summary>
         /// Status of pNIC/bond
         /// </summary>

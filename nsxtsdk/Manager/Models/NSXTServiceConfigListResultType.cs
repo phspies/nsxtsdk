@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceConfigListResultType : NSXTListResultType
     {
+        public NSXTServiceConfigListResultType()
+        {
+        }
         /// <summary>
         /// service config list results
         /// </summary>

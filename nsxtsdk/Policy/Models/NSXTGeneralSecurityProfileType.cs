@@ -19,6 +19,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTGeneralSecurityProfileType : NSXTPolicyConfigResourceType
     {
+        public NSXTGeneralSecurityProfileType()
+        {
+        }
         /// <summary>
         /// GatewayGeneralSecurityProfile is used for all Tier0 and Tier1 gateways.
         /// </summary>

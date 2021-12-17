@@ -18,6 +18,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Get the peer_code for each tunnel to paste on the remote end of the tunnel. Currently only stand-along/unmanaged edge is supported on the remote end of the tunnel.")]
     public class NSXTL2VpnSessionPeerCodesType 
     {
+        public NSXTL2VpnSessionPeerCodesType()
+        {
+        }
         /// <summary>
         /// List of peer codes per transport tunnel.
         /// </summary>

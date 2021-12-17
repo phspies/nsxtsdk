@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAddManagementNodeSpecType 
     {
+        public NSXTAddManagementNodeSpecType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

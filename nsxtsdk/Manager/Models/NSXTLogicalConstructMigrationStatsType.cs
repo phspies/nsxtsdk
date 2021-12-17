@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Contains migration related information about logical constructs")]
     public class NSXTLogicalConstructMigrationStatsType 
     {
+        public NSXTLogicalConstructMigrationStatsType()
+        {
+        }
         /// <summary>
         /// Type of the vSphere object (e.g. dvportgroup).
         /// </summary>
@@ -30,17 +33,23 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Number of objects of source type.")]
         public string? SourceCount { get; set; }
         /// <summary>
-        /// Type of the Policy object corresponding to the source type (e.g. Segment).
-        /// </summary>
-        [JsonProperty(PropertyName = "target_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Type of the Policy object corresponding to the source type (e.g. Segment).")]
-        public string? TargetType { get; set; }
-        /// <summary>
         /// Functional area that this vSphere object falls into
         /// </summary>
         [JsonProperty(PropertyName = "vertical")]
         [NSXTProperty(IsRequired: false, Description: @"Functional area that this vSphere object falls into")]
         public string? Vertical { get; set; }
+        /// <summary>
+        /// Federation site id.
+        /// </summary>
+        [JsonProperty(PropertyName = "site_id")]
+        [NSXTProperty(IsRequired: false, Description: @"Federation site id.")]
+        public string? SiteId { get; set; }
+        /// <summary>
+        /// Type of the Policy object corresponding to the source type (e.g. Segment).
+        /// </summary>
+        [JsonProperty(PropertyName = "target_type")]
+        [NSXTProperty(IsRequired: false, Description: @"Type of the Policy object corresponding to the source type (e.g. Segment).")]
+        public string? TargetType { get; set; }
         /// <summary>
         /// Number of objects of target type.
         /// </summary>

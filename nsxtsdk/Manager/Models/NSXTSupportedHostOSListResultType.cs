@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSupportedHostOSListResultType : NSXTListResultType
     {
+        public NSXTSupportedHostOSListResultType()
+        {
+        }
         /// <summary>
         /// Supported host OS list results
         /// </summary>

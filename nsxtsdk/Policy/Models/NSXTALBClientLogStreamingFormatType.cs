@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer ClientLogStreamingFormat object")]
     public class NSXTALBClientLogStreamingFormatType 
     {
+        public NSXTALBClientLogStreamingFormatType()
+        {
+        }
         /// <summary>
         /// List of log fields to be streamed, when selective fields
         /// (LOG_STREAMING_FORMAT_JSON_SELECTED) option is chosen.

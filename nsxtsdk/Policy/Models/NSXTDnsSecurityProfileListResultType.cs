@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDnsSecurityProfileListResultType : NSXTListResultType
     {
+        public NSXTDnsSecurityProfileListResultType()
+        {
+        }
         /// <summary>
         /// DnsSecurityProfile list results
         /// </summary>

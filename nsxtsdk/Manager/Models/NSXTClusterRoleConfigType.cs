@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTClusterRoleConfigType 
     {
+        public NSXTClusterRoleConfigType()
+        {
+        }
         /// <summary>
         /// Type of this role configuration
         /// </summary>

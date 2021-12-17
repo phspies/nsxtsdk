@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"List of same type members to either add or remove from a group.")]
     public class NSXTGroupMemberListType 
     {
+        public NSXTGroupMemberListType()
+        {
+        }
         /// <summary>
         /// This array contains group members of similar types.
         /// </summary>

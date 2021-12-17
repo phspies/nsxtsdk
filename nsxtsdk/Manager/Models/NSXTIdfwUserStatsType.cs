@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Identity Firewall user login/session data for a single user.")]
     public class NSXTIdfwUserStatsType 
     {
+        public NSXTIdfwUserStatsType()
+        {
+        }
         /// <summary>
         /// AD user Identifier (String ID)
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"List of effective ip address along with site id")]
     public class NSXTEffectiveIPInfoType 
     {
+        public NSXTEffectiveIPInfoType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

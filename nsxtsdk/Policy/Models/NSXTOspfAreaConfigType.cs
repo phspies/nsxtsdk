@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTOspfAreaConfigType : NSXTPolicyConfigResourceType
     {
+        public NSXTOspfAreaConfigType()
+        {
+            AreaType = test
+        }
         /// <summary>
         /// OSPF area-id either in decimal or dotted format.
         /// </summary>
@@ -25,17 +29,16 @@ namespace nsxtsdk.PolicyModels
         [System.ComponentModel.DataAnnotations.Required]
         public string AreaId { get; set; }
         /// <summary>
-        /// Enables/Disables authentication for an OSPF area.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "authentication")]
-        [NSXTProperty(IsRequired: false, Description: @"Enables/Disables authentication for an OSPF area.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTOspfAuthenticationConfigType Authentication { get; set; }
         /// <summary>
         /// Configures OSPF area with defined area type. If area_type field not specified, default is NSSA.
         /// </summary>
         [JsonProperty(PropertyName = "area_type")]
         [NSXTProperty(IsRequired: false, Description: @"Configures OSPF area with defined area type. If area_type field not specified, default is NSSA.")]
-        [NSXTDefaultProperty(Default: "NORMAL")]
         public NSXTOspfAreaConfigAreaTypeEnumType? AreaType { get; set; }
     }
 }

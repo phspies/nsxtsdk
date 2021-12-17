@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildStaticRoutesType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildStaticRoutesType()
+        {
+        }
         /// <summary>
-        /// Contains the actual StaticRoutes object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "StaticRoutes", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual StaticRoutes object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTStaticRoutesType StaticRoutes { get; set; }
     }

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HSMSafenetClientInfo object")]
     public class NSXTALBHSMSafenetClientInfoType 
     {
+        public NSXTALBHSMSafenetClientInfoType()
+        {
+        }
         /// <summary>
         /// Name prepended to client key and certificate filename.
         /// </summary>

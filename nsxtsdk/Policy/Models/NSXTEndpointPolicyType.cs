@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTEndpointPolicyType : NSXTPolicyConfigResourceType
     {
+        public NSXTEndpointPolicyType()
+        {
+            SequenceNumber = test
+        }
         /// <summary>
         /// Endpoint Rules that are a part of this EndpointPolicy
         /// </summary>
@@ -31,7 +35,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"This field is used to resolve conflicts between mapsacross domains.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(499)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? SequenceNumber { get; set; }
+        public int? SequenceNumber { get; set; }
     }
 }

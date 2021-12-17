@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"The results of probing an individual LDAP server.")]
     public class NSXTIdentitySourceLdapServerProbeResultType 
     {
+        public NSXTIdentitySourceLdapServerProbeResultType()
+        {
+        }
         /// <summary>
         /// THe URL of the probed LDAP host.
         /// </summary>

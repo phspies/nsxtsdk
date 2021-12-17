@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTNsxTDNSForwarderStatusType : NSXTDNSForwarderStatusPerEnforcementPointType
     {
+        public NSXTNsxTDNSForwarderStatusType()
+        {
+        }
         /// <summary>
         /// UP means the DNS forwarder is working correctly on the active transport
         /// node and the stand-by transport node (if present). Failover will occur

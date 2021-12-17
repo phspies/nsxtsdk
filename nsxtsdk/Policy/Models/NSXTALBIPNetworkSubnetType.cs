@@ -17,39 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer IPNetworkSubnet object")]
     public class NSXTALBIPNetworkSubnetType 
     {
-        /// <summary>
-        /// Network for VirtualService IP allocation with Vantage as
-        /// the IPAM provider.
-        /// Network should be created before this is configured.
-        /// It is a reference to an object of type Network.
-        /// </summary>
-        [JsonProperty(PropertyName = "network_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Network for VirtualService IP allocation with Vantage asthe IPAM provider.Network should be created before this is configured.It is a reference to an object of type Network.")]
-        public string? NetworkPath { get; set; }
-        /// <summary>
-        /// Subnet for VirtualService IP allocation with Vantage or
-        /// Infoblox as the IPAM provider.
-        /// Only one of subnet or subnet_uuid configuration is allowed.
-        /// </summary>
-        [JsonProperty(PropertyName = "subnet")]
-        [NSXTProperty(IsRequired: false, Description: @"Subnet for VirtualService IP allocation with Vantage orInfoblox as the IPAM provider.Only one of subnet or subnet_uuid configuration is allowed.")]
-        public NSXTALBIpAddrPrefixType Subnet { get; set; }
-        /// <summary>
-        /// Subnet UUID or Name or Prefix for VirtualService IPv6
-        /// allocation with AWS or OpenStack as the IPAM provider.
-        /// Only one of subnet or subnet_uuid configuration is allowed.
-        /// </summary>
-        [JsonProperty(PropertyName = "subnet6_uuid")]
-        [NSXTProperty(IsRequired: false, Description: @"Subnet UUID or Name or Prefix for VirtualService IPv6allocation with AWS or OpenStack as the IPAM provider.Only one of subnet or subnet_uuid configuration is allowed.")]
-        public string? Subnet6Uuid { get; set; }
-        /// <summary>
-        /// Subnet for VirtualService IPv6 allocation with Vantage or
-        /// Infoblox as the IPAM provider.
-        /// Only one of subnet or subnet_uuid configuration is allowed.
-        /// </summary>
-        [JsonProperty(PropertyName = "subnet6")]
-        [NSXTProperty(IsRequired: false, Description: @"Subnet for VirtualService IPv6 allocation with Vantage orInfoblox as the IPAM provider.Only one of subnet or subnet_uuid configuration is allowed.")]
-        public NSXTALBIpAddrPrefixType Subnet6 { get; set; }
+        public NSXTALBIPNetworkSubnetType()
+        {
+        }
         /// <summary>
         /// Subnet UUID or Name or Prefix for VirtualService IP
         /// allocation with AWS or OpenStack as the IPAM provider.
@@ -58,5 +28,36 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "subnet_uuid")]
         [NSXTProperty(IsRequired: false, Description: @"Subnet UUID or Name or Prefix for VirtualService IPallocation with AWS or OpenStack as the IPAM provider.Only one of subnet or subnet_uuid configuration is allowed.")]
         public string? SubnetUuid { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "subnet")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTALBIpAddrPrefixType Subnet { get; set; }
+        /// <summary>
+        /// Subnet UUID or Name or Prefix for VirtualService IPv6
+        /// allocation with AWS or OpenStack as the IPAM provider.
+        /// Only one of subnet or subnet_uuid configuration is allowed.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
+        /// </summary>
+        [JsonProperty(PropertyName = "subnet6_uuid")]
+        [NSXTProperty(IsRequired: false, Description: @"Subnet UUID or Name or Prefix for VirtualService IPv6allocation with AWS or OpenStack as the IPAM provider.Only one of subnet or subnet_uuid configuration is allowed.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
+        public string? Subnet6Uuid { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "subnet6")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTALBIpAddrPrefixType Subnet6 { get; set; }
+        /// <summary>
+        /// Network for VirtualService IP allocation with Vantage as
+        /// the IPAM provider.
+        /// Network should be created before this is configured.
+        /// It is a reference to an object of type Network.
+        /// </summary>
+        [JsonProperty(PropertyName = "network_name")]
+        [NSXTProperty(IsRequired: false, Description: @"Network for VirtualService IP allocation with Vantage asthe IPAM provider.Network should be created before this is configured.It is a reference to an object of type Network.")]
+        public string? NetworkName { get; set; }
     }
 }

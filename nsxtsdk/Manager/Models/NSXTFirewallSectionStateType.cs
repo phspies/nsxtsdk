@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFirewallSectionStateType : NSXTDSSectionStateType
     {
+        public NSXTFirewallSectionStateType()
+        {
+        }
         /// <summary>
         /// Pending changes to be realized.
         /// </summary>

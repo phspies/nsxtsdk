@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Filtering parameters to get only a subset of intrusion events.")]
     public class NSXTIDSEventDataRequestType 
     {
+        public NSXTIDSEventDataRequestType()
+        {
+        }
         /// <summary>
         /// An array of filter conditions.
         /// </summary>

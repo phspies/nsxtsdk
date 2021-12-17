@@ -28,10 +28,12 @@ namespace nsxtgui
             {
                 statusListControl.Items.Clear();
                 Mouse.OverrideCursor = Cursors.Wait;
-                nsxtClient = new NSXTClient(nsxtConnectionHost.Text, nsxtConnectionUsername.Text, nsxtConnectionPassword.Password, (bool)nsxtConnectionValidateCertificate.IsChecked, new Newtonsoft.Json.JsonSerializerSettings() {  Formatting = Newtonsoft.Json.Formatting.None });
+                nsxtClient = new NSXTClient(nsxtConnectionHost.Text, nsxtConnectionUsername.Text, nsxtConnectionPassword.Password, (bool)nsxtConnectionValidateCertificate.IsChecked);
                 var status = nsxtClient.ManagerEngine.ClusterManagementModule.ReadClusterNodesAggregateStatus();
                 var cluster = nsxtClient.ManagerEngine.ClusterManagementModule.ReadClusterStatus();
                 var tnnodes = nsxtClient.ManagerEngine.TransportNodeLcmModule.ListTransportNodesWithDeploymentInfo();
+
+                //use policy engine to get Tier0's and Tier1's
                 var tier0s = nsxtClient.PolicyEngine.PolicyConnectivityModule.ListTier0s().Results;
                 var tier1s = nsxtClient.PolicyEngine.PolicyConnectivityModule.ListTier1().Results;
                 if (status != null || cluster != null || tnnodes != null)
@@ -89,7 +91,6 @@ namespace nsxtgui
             Mouse.OverrideCursor = Cursors.Arrow;
         }
 
-
         private void dfwSectionsControl_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             Mouse.OverrideCursor = Cursors.Wait;
@@ -126,9 +127,33 @@ namespace nsxtgui
 
         private void createDFWButton_Click(object sender, RoutedEventArgs e)
         {
-            NSXTInfraType infraObject = new NSXTInfraType();
-            infraObject.Children.Add(new NSXTChildPolicyConfigResourceType() { ResourceType = "ChildDomain", Id = "default", });
-            nsxtClient.PolicyEngine.PolicyModule.PatchInfra(infraObject);
+            NSXTSecurityPolicyType selectedPolicy = dfwSectionsControl.SelectedItem as NSXTSecurityPolicyType;
+            NSXTRuleType selectedRule = dfwRulesControl.SelectedItem as NSXTRuleType;
+            var id = (new Random()).Next(10000, 20000).ToString();
+            NSXTInfraType test = nsxtClient.PolicyEngine.PolicyModule.ReadInfra("/infra/domains/default");
+            //NSXTInfraType rule = new NSXTInfraType()
+            //{
+            //    Children = new List<NSXTChildPolicyConfigResourceType>() { new NSXTChildPolicyConfigResourceType() { Id = "default", ResourceType = "Domain"} }
+            //}
+            //nsxtClient.PolicyEngine.DfwSecurityPolicyModule.PatchSecurityRule(
+            //    selectedRule.ParentPath.Split("/")[2], 
+            //    selectedRule.ParentPath.Split("/").Last(),
+            //    id, 
+            //    new NSXTRuleType() {
+            //        DisplayName = $"{id}rule",
+            //        ResourceType = "SecurityPolicy",
+                    
+            //        IpProtocol =  NSXTBaseRuleIpProtocolEnumType.IPV4IPV6,
+            //        Action = NSXTRuleActionEnumType.ALLOW,
+            //        Direction = NSXTBaseRuleDirectionEnumType.INOUT,
+            //        Profiles = new List<string> { "ANY" },
+            //        DestinationGroups = new List<string> { "ANY" },
+            //        SourceGroups = new List<string> { "ANY" },
+            //        Services = new List<string> { "ANY" },
+            //        Scope = new List<string> { "ANY" }
+            //    }
+            //    );
+            dfwRulesControl.ItemsSource = nsxtClient.PolicyEngine.DfwSecurityPolicyModule.ListSecurityRules("default", selectedPolicy.Id).Results;
 
         }
     }

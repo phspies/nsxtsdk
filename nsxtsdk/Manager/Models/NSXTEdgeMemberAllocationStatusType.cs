@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTEdgeMemberAllocationStatusType 
     {
+        public NSXTEdgeMemberAllocationStatusType()
+        {
+        }
         /// <summary>
         /// List of services allocated on the edge node.
         /// </summary>

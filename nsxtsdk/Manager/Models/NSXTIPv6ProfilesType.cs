@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPv6ProfilesType 
     {
+        public NSXTIPv6ProfilesType()
+        {
+        }
         /// <summary>
         /// Identifier of Duplicate Address Detection profile.
         /// DAD profile has various configurations related to duplicate

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Rule statistics for a specfic enforcement point.")]
     public class NSXTRuleStatisticsForEnforcementPointType 
     {
+        public NSXTRuleStatisticsForEnforcementPointType()
+        {
+        }
         /// <summary>
         /// Rule statistics for a single enforcement point
         /// </summary>
@@ -24,10 +27,16 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Rule statistics for a single enforcement point")]
         public string? EnforcementPoint { get; set; }
         /// <summary>
-        /// Statistics for the specified enforcement point
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "statistics")]
-        [NSXTProperty(IsRequired: false, Description: @"Statistics for the specified enforcement point")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTRuleStatisticsType Statistics { get; set; }
+        /// <summary>
+        /// Rule statistics for a single container cluster
+        /// </summary>
+        [JsonProperty(PropertyName = "container_cluster_path")]
+        [NSXTProperty(IsRequired: false, Description: @"Rule statistics for a single container cluster")]
+        public string? ContainerClusterPath { get; set; }
     }
 }

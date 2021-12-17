@@ -17,17 +17,20 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTClusterNodeStatusType 
     {
+        public NSXTClusterNodeStatusType()
+        {
+        }
         /// <summary>
-        /// Node status properties
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "system_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Node status properties")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTNodeStatusPropertiesType SystemStatus { get; set; }
         /// <summary>
-        /// Clustering status for management plane functions on this node
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "mgmt_cluster_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Clustering status for management plane functions on this node")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTManagementClusterNodeStatusType MgmtClusterStatus { get; set; }
         /// <summary>
         /// Software version running on node
@@ -36,10 +39,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Software version running on node")]
         public string? Version { get; set; }
         /// <summary>
-        /// Clustering status for control plane functions on this node
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "control_cluster_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Clustering status for control plane functions on this node")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTControlClusterNodeStatusType ControlClusterStatus { get; set; }
     }
 }

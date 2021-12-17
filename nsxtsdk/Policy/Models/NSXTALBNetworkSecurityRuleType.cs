@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer NetworkSecurityRule object")]
     public class NSXTALBNetworkSecurityRuleType 
     {
+        public NSXTALBNetworkSecurityRuleType()
+        {
+            Age = test
+        }
         /// <summary>
         /// Number of index.
         /// </summary>
@@ -33,13 +37,14 @@ namespace nsxtsdk.PolicyModels
         [System.ComponentModel.DataAnnotations.Required]
         public bool Enable { get; set; }
         /// <summary>
-        /// Placeholder for description of property log of obj type
-        /// NetworkSecurityRule field type str  type boolean.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "log")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property log of obj typeNetworkSecurityRule field type str  type boolean.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? Log { get; set; }
         /// <summary>
         /// Name of the object.
@@ -52,9 +57,14 @@ namespace nsxtsdk.PolicyModels
         /// Enum options - NETWORK_SECURITY_POLICY_ACTION_TYPE_ALLOW,
         /// NETWORK_SECURITY_POLICY_ACTION_TYPE_DENY,
         /// NETWORK_SECURITY_POLICY_ACTION_TYPE_RATE_LIMIT.
+        /// Allowed in Basic(Allowed values-
+        /// NETWORK_SECURITY_POLICY_ACTION_TYPE_DENY) edition,
+        /// Essentials(Allowed values-
+        /// NETWORK_SECURITY_POLICY_ACTION_TYPE_DENY) edition,
+        /// Enterprise edition.
         /// </summary>
         [JsonProperty(PropertyName = "action", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Enum options - NETWORK_SECURITY_POLICY_ACTION_TYPE_ALLOW,NETWORK_SECURITY_POLICY_ACTION_TYPE_DENY,NETWORK_SECURITY_POLICY_ACTION_TYPE_RATE_LIMIT.")]
+        [NSXTProperty(IsRequired: true, Description: @"Enum options - NETWORK_SECURITY_POLICY_ACTION_TYPE_ALLOW,NETWORK_SECURITY_POLICY_ACTION_TYPE_DENY,NETWORK_SECURITY_POLICY_ACTION_TYPE_RATE_LIMIT.Allowed in Basic(Allowed values-NETWORK_SECURITY_POLICY_ACTION_TYPE_DENY) edition,Essentials(Allowed values-NETWORK_SECURITY_POLICY_ACTION_TYPE_DENY) edition,Enterprise edition.")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTAlbnetworkSecurityRuleActionEnumType Action { get; set; }
         /// <summary>
@@ -62,21 +72,21 @@ namespace nsxtsdk.PolicyModels
         /// Allowed values are 1-4294967295.
         /// Special values are 0- 'blocked for ever'.
         /// Unit is MIN.
+        /// Allowed in Basic(Allowed values- 0) edition,
+        /// Essentials(Allowed values- 0) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 0.
         /// </summary>
         [JsonProperty(PropertyName = "age")]
-        [NSXTProperty(IsRequired: false, Description: @"Time in minutes after which rule will be deleted.Allowed values are 1-4294967295.Special values are 0- &apos;blocked for ever&apos;.Unit is MIN.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
+        [NSXTProperty(IsRequired: false, Description: @"Time in minutes after which rule will be deleted.Allowed values are 1-4294967295.Special values are 0- &apos;blocked for ever&apos;.Unit is MIN.Allowed in Basic(Allowed values- 0) edition,Essentials(Allowed values- 0) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(4294967295)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Age { get; set; }
         /// <summary>
-        /// Placeholder for description of property rl_param of obj
-        /// type NetworkSecurityRule field type str  type ref.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "rl_param")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property rl_param of objtype NetworkSecurityRule field type str  type ref.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBNetworkSecurityPolicyActionRLParamType RlParam { get; set; }
         /// <summary>
         /// Creator name.
@@ -85,11 +95,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Creator name.")]
         public string? CreatedBy { get; set; }
         /// <summary>
-        /// Placeholder for description of property match of obj type
-        /// NetworkSecurityRule field type str  type ref.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "match", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Placeholder for description of property match of obj typeNetworkSecurityRule field type str  type ref.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBNetworkSecurityMatchTargetType Match { get; set; }
     }

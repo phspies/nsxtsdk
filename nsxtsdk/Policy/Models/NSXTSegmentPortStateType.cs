@@ -19,6 +19,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Contains realized state of the segment port. For example: transport nodeon which the port is located, discovered and realized address bindings ofthe port.")]
     public class NSXTSegmentPortStateType 
     {
+        public NSXTSegmentPortStateType()
+        {
+        }
         /// <summary>
         /// Identifiers of the transport nodes where the port is located
         /// </summary>
@@ -52,10 +55,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"List of segment port bindings that are realized. This list may bepopulated from the discovered bindings or manual user specified bindings.This binding configuration can be used by features such as firewall,spoof-guard, traceflow etc.")]
         public IList<NSXTAddressBindingEntryType> RealizedBindings { get; set; }
         /// <summary>
-        /// Segment port attachment state
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "attachment")]
-        [NSXTProperty(IsRequired: false, Description: @"Segment port attachment state")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTSegmentPortAttachmentStateType Attachment { get; set; }
     }
 }

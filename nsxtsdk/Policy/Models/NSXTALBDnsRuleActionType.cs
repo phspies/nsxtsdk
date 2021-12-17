@@ -17,39 +17,38 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsRuleAction object")]
     public class NSXTALBDnsRuleActionType 
     {
+        public NSXTALBDnsRuleActionType()
+        {
+        }
         /// <summary>
-        /// Select a pool or pool group for the passthrough DNS query
-        /// which cannot be served locally but could be served by
-        /// upstream servers.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "pool_switching")]
-        [NSXTProperty(IsRequired: false, Description: @"Select a pool or pool group for the passthrough DNS querywhich cannot be served locally but could be served byupstream servers.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBDnsRuleActionPoolSwitchingType PoolSwitching { get; set; }
         /// <summary>
-        /// Select a specific GSLB site for the DNS query.
-        /// This action should be used only when GSLB services have
-        /// been configured for the DNS virtual service.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "gslb_site_selection")]
-        [NSXTProperty(IsRequired: false, Description: @"Select a specific GSLB site for the DNS query.This action should be used only when GSLB services havebeen configured for the DNS virtual service.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBDnsRuleActionGslbSiteSelectionType GslbSiteSelection { get; set; }
         /// <summary>
-        /// Generate a response for the DNS query.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "response")]
-        [NSXTProperty(IsRequired: false, Description: @"Generate a response for the DNS query.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBDnsRuleActionResponseType Response { get; set; }
         /// <summary>
-        /// Allow or drop the DNS query.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "allow")]
-        [NSXTProperty(IsRequired: false, Description: @"Allow or drop the DNS query.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBDnsRuleActionAllowDropType Allow { get; set; }
         /// <summary>
-        /// Rate limits the DNS requests.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "dns_rate_limiter")]
-        [NSXTProperty(IsRequired: false, Description: @"Rate limits the DNS requests.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBDnsRateLimiterType DnsRateLimiter { get; set; }
     }
 }

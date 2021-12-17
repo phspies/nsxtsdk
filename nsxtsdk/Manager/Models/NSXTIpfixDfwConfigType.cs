@@ -17,6 +17,11 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpfixDfwConfigType : NSXTIpfixConfigType
     {
+        public NSXTIpfixDfwConfigType()
+        {
+            Priority = test
+            ActiveFlowExportTimeout = test
+        }
         /// <summary>
         /// This priority field is used to resolve conflicts in Logical Ports
         /// which are covered by more than one IPFIX profiles. The IPFIX
@@ -28,7 +33,6 @@ namespace nsxtsdk.ManagerModels
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65536)]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "")]
         public long Priority { get; set; }
         /// <summary>
         /// Each IPFIX DFW config can have its own collector config.
@@ -44,14 +48,12 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"For long standing active flows, IPFIX records will be sent per timeout period")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(60)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ActiveFlowExportTimeout { get; set; }
         /// <summary>
-        /// An object that indicates whether each corresponding template parameter
-        /// is required or not.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "template_parameters")]
-        [NSXTProperty(IsRequired: false, Description: @"An object that indicates whether each corresponding template parameteris required or not.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIpfixDfwTemplateParametersType TemplateParameters { get; set; }
         /// <summary>
         /// An identifier that is unique to the exporting process and used to

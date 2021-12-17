@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer WafPositiveSecurityModel object")]
     public class NSXTALBWafPositiveSecurityModelType 
     {
+        public NSXTALBWafPositiveSecurityModelType()
+        {
+        }
         /// <summary>
         /// These groups should be used to separate different levels of
         /// concern.

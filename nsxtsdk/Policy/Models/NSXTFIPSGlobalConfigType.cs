@@ -17,11 +17,20 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Global configuration")]
     public class NSXTFIPSGlobalConfigType 
     {
+        public NSXTFIPSGlobalConfigType()
+        {
+        }
         /// <summary>
         /// When this flag is set to true FIPS mode will be set on ssl encryptions of load balancer feature.
         /// </summary>
         [JsonProperty(PropertyName = "lb_fips_enabled")]
         [NSXTProperty(IsRequired: false, Description: @"When this flag is set to true FIPS mode will be set on ssl encryptions of load balancer feature.")]
         public bool? LbFipsEnabled { get; set; }
+        /// <summary>
+        /// When this flag is set to true FIPS mode will be set on ssl encryptions of TLS inspection feature.
+        /// </summary>
+        [JsonProperty(PropertyName = "tls_fips_enabled")]
+        [NSXTProperty(IsRequired: false, Description: @"When this flag is set to true FIPS mode will be set on ssl encryptions of TLS inspection feature.")]
+        public bool? TlsFipsEnabled { get; set; }
     }
 }

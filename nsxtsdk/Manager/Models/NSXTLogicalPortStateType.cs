@@ -19,6 +19,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Contians realized state of the logical port. For example, transport nodeon which the port is located, discovered and realized address bindings ofthe logical port.")]
     public class NSXTLogicalPortStateType 
     {
+        public NSXTLogicalPortStateType()
+        {
+        }
         /// <summary>
         /// Identifiers of the transport node where the port is located
         /// </summary>
@@ -26,10 +29,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Identifiers of the transport node where the port is located")]
         public IList<string> TransportNodeIds { get; set; }
         /// <summary>
-        /// Logical port attachment state
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "attachment")]
-        [NSXTProperty(IsRequired: false, Description: @"Logical port attachment state")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLogicalPortAttachmentStateType Attachment { get; set; }
         /// <summary>
         /// If any address binding discovered on the port is also found on

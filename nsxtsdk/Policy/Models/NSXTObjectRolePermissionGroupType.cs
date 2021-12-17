@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTObjectRolePermissionGroupType : NSXTManagedResourceType
     {
+        public NSXTObjectRolePermissionGroupType()
+        {
+        }
         /// <summary>
         /// Allowed operation
         /// </summary>

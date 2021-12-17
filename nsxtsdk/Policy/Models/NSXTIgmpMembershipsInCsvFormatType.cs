@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIgmpMembershipsInCsvFormatType : NSXTCsvListResultType
     {
+        public NSXTIgmpMembershipsInCsvFormatType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

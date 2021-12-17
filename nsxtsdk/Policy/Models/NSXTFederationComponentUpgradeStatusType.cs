@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTFederationComponentUpgradeStatusType 
     {
+        public NSXTFederationComponentUpgradeStatusType()
+        {
+        }
         /// <summary>
         /// Upgrade status of component
         /// </summary>

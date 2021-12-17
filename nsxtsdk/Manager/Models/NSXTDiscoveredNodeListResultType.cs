@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDiscoveredNodeListResultType : NSXTListResultType
     {
+        public NSXTDiscoveredNodeListResultType()
+        {
+        }
         /// <summary>
         /// Discovered Node list results
         /// </summary>

@@ -20,12 +20,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"The setting is used to add, update or remove pool members from pool.For static pool members, admin_state, display_name and weight can beupdated.For dynamic pool members, only admin_state can be updated.")]
     public class NSXTPoolMemberSettingType 
     {
+        public NSXTPoolMemberSettingType()
+        {
+            AdminState = test
+        }
         /// <summary>
         /// Member admin state
         /// </summary>
         [JsonProperty(PropertyName = "admin_state")]
         [NSXTProperty(IsRequired: false, Description: @"Member admin state")]
-        [NSXTDefaultProperty(Default: "ENABLED")]
         public NSXTPoolMemberSettingAdminStateEnumType? AdminState { get; set; }
         /// <summary>
         /// Pool member IP address

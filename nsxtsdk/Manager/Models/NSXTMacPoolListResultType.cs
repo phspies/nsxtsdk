@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMacPoolListResultType : NSXTListResultType
     {
+        public NSXTMacPoolListResultType()
+        {
+        }
         /// <summary>
         /// MAC pool list results
         /// </summary>

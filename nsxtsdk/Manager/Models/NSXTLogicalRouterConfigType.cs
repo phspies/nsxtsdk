@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Logical router configuration parameters.")]
     public class NSXTLogicalRouterConfigType 
     {
+        public NSXTLogicalRouterConfigType()
+        {
+        }
         /// <summary>
         /// CIDR block defining service router to distributed router links.
         /// If the value for this field is not provided, then it will be

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBridgeEndpointStatusType 
     {
+        public NSXTBridgeEndpointStatusType()
+        {
+        }
         /// <summary>
         /// The Ids of the transport nodes which actively serve the endpoint.
         /// </summary>

@@ -19,6 +19,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Parameters to let the admin specify a relative position of a communicationmap or communication entry w.r.t to another one.This type is deprecated. Use the type RuleInsertParameters instead.")]
     public class NSXTCommunicationInsertParametersType 
     {
+        public NSXTCommunicationInsertParametersType()
+        {
+            Operation = test
+        }
         /// <summary>
         /// The communication map/communication entry path if operation is
         /// 'insert_after' or 'insert_before'
@@ -31,7 +35,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "operation")]
         [NSXTProperty(IsRequired: false, Description: @"Operation")]
-        [NSXTDefaultProperty(Default: "insert_top")]
         public NSXTCommunicationInsertParametersOperationEnumType? Operation { get; set; }
     }
 }

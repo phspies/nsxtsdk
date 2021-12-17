@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"The current global barrier number of the realized state")]
     public class NSXTCurrentRealizationStateBarrierType 
     {
+        public NSXTCurrentRealizationStateBarrierType()
+        {
+        }
         /// <summary>
         /// Gives the current global barrier number for NSX
         /// </summary>

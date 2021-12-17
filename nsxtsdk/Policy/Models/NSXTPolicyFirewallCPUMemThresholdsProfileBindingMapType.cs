@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapType : NSXTProfileBindingMapType
     {
+        public NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapType()
+        {
+        }
         /// <summary>
         /// Sequence number is used to resolve conflicts when two profiles get
         /// applied to a single node. Lower value gets higher precedence. Two

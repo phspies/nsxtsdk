@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPacketsDroppedBySecurityType 
     {
+        public NSXTPacketsDroppedBySecurityType()
+        {
+        }
         /// <summary>
         /// The packets dropped by "Spoof Guard"; supported packet types are IPv4, IPv6, ARP, ND, non-IP.
         /// </summary>

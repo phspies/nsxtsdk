@@ -17,13 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNSGroupSimpleExpressionType : NSXTNSGroupExpressionType
     {
+        public NSXTNSGroupSimpleExpressionType()
+        {
+        }
         /// <summary>
-        /// Reference of the target. Will be populated when
-        /// the property is a resource id, the op (operator) is EQUALS and
-        /// populate_references is set to be true.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "target_resource")]
-        [NSXTProperty(IsRequired: false, Description: @"Reference of the target. Will be populated whenthe property is a resource id, the op (operator) is EQUALS andpopulate_references is set to be true.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType TargetResource { get; set; }
         /// <summary>
         /// Field of the resource on which this expression is evaluated

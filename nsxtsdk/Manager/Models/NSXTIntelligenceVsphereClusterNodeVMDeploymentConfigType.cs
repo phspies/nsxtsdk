@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIntelligenceVsphereClusterNodeVMDeploymentConfigType : NSXTIntelligenceClusterNodeVMDeploymentConfigType
     {
+        public NSXTIntelligenceVsphereClusterNodeVMDeploymentConfigType()
+        {
+            DiskProvisioning = test
+        }
         /// <summary>
         /// The NSX-Intelligence cluster node VM OVF URL to download and install the OVF file.
         /// This field is deprecated now. Please upload OVA file using "/repository/bundles" API
@@ -83,7 +87,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "disk_provisioning")]
         [NSXTProperty(IsRequired: false, Description: @"Specifies the disk provisioning type of the VM.")]
-        [NSXTDefaultProperty(Default: "THIN")]
         public NSXTIntelligenceVsphereClusterNodeVmdeploymentConfigDiskProvisioningEnumType? DiskProvisioning { get; set; }
         /// <summary>
         /// The VC-specific identifiers will be resolved on this VC, so all other

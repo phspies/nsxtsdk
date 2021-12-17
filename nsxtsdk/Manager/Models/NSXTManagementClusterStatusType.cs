@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTManagementClusterStatusType 
     {
+        public NSXTManagementClusterStatusType()
+        {
+        }
         /// <summary>
         /// The current status of the management cluster
         /// </summary>

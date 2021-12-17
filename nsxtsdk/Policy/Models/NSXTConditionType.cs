@@ -17,13 +17,16 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTConditionType : NSXTExpressionType
     {
+        public NSXTConditionType()
+        {
+        }
         /// <summary>
-        /// operator
+        /// Operator is made non-mandatory to support Segment and SegmentPort tag based expression. To evaluate expression
+        /// for other types, operator value should be provided.
         /// </summary>
-        [JsonProperty(PropertyName = "operator", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"operator")]
-        [System.ComponentModel.DataAnnotations.Required]
-        public NSXTConditionOperatorEnumType OperatorProperty { get; set; }
+        [JsonProperty(PropertyName = "operator")]
+        [NSXTProperty(IsRequired: false, Description: @"Operator is made non-mandatory to support Segment and SegmentPort tag based expression. To evaluate expressionfor other types, operator value should be provided.")]
+        public NSXTConditionOperatorEnumType? OperatorProperty { get; set; }
         /// <summary>
         /// Value
         /// </summary>
@@ -31,6 +34,15 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: true, Description: @"Value")]
         [System.ComponentModel.DataAnnotations.Required]
         public string Value { get; set; }
+        /// <summary>
+        /// Default operator when not specified explicitly would be considered as EQUALS.
+        /// If value for Condition is empty, then condition will not be evaluated.
+        /// For example, Condition with key as Tag and value as "|tag" would be evaluated for tag value not for empty
+        /// scope value.
+        /// </summary>
+        [JsonProperty(PropertyName = "scope_operator")]
+        [NSXTProperty(IsRequired: false, Description: @"Default operator when not specified explicitly would be considered as EQUALS.If value for Condition is empty, then condition will not be evaluated.For example, Condition with key as Tag and value as &quot;|tag&quot; would be evaluated for tag value not for emptyscope value.")]
+        public NSXTConditionScopeOperatorEnumType? ScopeOperator { get; set; }
         /// <summary>
         /// Key
         /// </summary>

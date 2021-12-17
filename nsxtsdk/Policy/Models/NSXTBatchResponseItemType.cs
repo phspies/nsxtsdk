@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"A single respose in a list of batched responses")]
     public class NSXTBatchResponseItemType 
     {
+        public NSXTBatchResponseItemType()
+        {
+        }
         /// <summary>
         /// object returned by api
         /// </summary>

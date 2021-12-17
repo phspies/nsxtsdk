@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMigrationUnitGroupAggregateInfoType : NSXTManagedResourceType
     {
+        public NSXTMigrationUnitGroupAggregateInfoType()
+        {
+        }
         /// <summary>
         /// Migration status of migration unit group
         /// </summary>
@@ -30,10 +33,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Number of nodes in the migration unit group that failed migration")]
         public int? FailedCount { get; set; }
         /// <summary>
-        /// Migration unit group details
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "group", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Migration unit group details")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTMigrationUnitGroupType Group { get; set; }
         /// <summary>

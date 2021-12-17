@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyTepTableCsvRecordType : NSXTCsvRecordType
     {
+        public NSXTPolicyTepTableCsvRecordType()
+        {
+        }
         /// <summary>
         /// The tunnel endpoint label
         /// </summary>

@@ -20,6 +20,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTBaseEndpointType : NSXTPolicyConfigResourceType
     {
+        public NSXTBaseEndpointType()
+        {
+        }
         /// <summary>
         /// IPs where either inbound or outbound traffic is to be redirected.
         /// </summary>

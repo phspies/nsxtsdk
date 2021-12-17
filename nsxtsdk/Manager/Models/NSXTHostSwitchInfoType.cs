@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Information of host switch participating in transport zone")]
     public class NSXTHostSwitchInfoType 
     {
+        public NSXTHostSwitchInfoType()
+        {
+        }
         /// <summary>
         /// Type of a host switch
         /// </summary>

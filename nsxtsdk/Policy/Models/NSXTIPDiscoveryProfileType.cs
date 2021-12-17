@@ -17,6 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPDiscoveryProfileType : NSXTPolicyConfigResourceType
     {
+        public NSXTIPDiscoveryProfileType()
+        {
+            ArpNdBindingTimeout = test
+            TofuEnabled = test
+        }
         /// <summary>
         /// This property controls the ARP and ND cache timeout period. It
         /// is recommended that this property be greater than the ARP/ND
@@ -26,37 +31,30 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"This property controls the ARP and ND cache timeout period. Itis recommended that this property be greater than the ARP/NDcache timeout on the VM.")]
         //[System.ComponentModel.DataAnnotations.MinLength(5)]
         //[System.ComponentModel.DataAnnotations.MaxLength(120)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? ArpNdBindingTimeout { get; set; }
+        public int? ArpNdBindingTimeout { get; set; }
         /// <summary>
-        /// Indicates IPv6 Discovery options
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ip_v6_discovery_options")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicates IPv6 Discovery options")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPv6DiscoveryOptionsType IpV6DiscoveryOptions { get; set; }
         /// <summary>
-        /// Duplicate IP detection is used to determine if there is any IP conflict
-        /// with any other port on the same logical switch. If a conflict is detected,
-        /// then the IP is marked as a duplicate on the port where the IP was
-        /// discovered last. The duplicate IP will not be added to the realized
-        /// address binings for the port and hence will not be used in DFW rules or
-        /// other security configurations for the port.rt.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "duplicate_ip_detection")]
-        [NSXTProperty(IsRequired: false, Description: @"Duplicate IP detection is used to determine if there is any IP conflictwith any other port on the same logical switch. If a conflict is detected,then the IP is marked as a duplicate on the port where the IP wasdiscovered last. The duplicate IP will not be added to the realizedaddress binings for the port and hence will not be used in DFW rules orother security configurations for the port.rt.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTDuplicateIPDetectionOptionsType DuplicateIpDetection { get; set; }
         /// <summary>
         /// Indicates whether "Trust on First Use(TOFU)" paradigm is enabled.
         /// </summary>
         [JsonProperty(PropertyName = "tofu_enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Indicates whether &quot;Trust on First Use(TOFU)&quot; paradigm is enabled.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? TofuEnabled { get; set; }
         /// <summary>
-        /// Indicates IPv4 Discovery options
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ip_v4_discovery_options")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicates IPv4 Discovery options")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPv4DiscoveryOptionsType IpV4DiscoveryOptions { get; set; }
     }
 }

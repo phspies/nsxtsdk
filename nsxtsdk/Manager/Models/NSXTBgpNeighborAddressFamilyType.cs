@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBgpNeighborAddressFamilyType 
     {
+        public NSXTBgpNeighborAddressFamilyType()
+        {
+            Enabled = test
+        }
         /// <summary>
         /// Id of the IPPrefix List to be used for IN direction filter
         /// </summary>
@@ -47,7 +51,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Enable this address family")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// Id of the IPPrefixList to be used for OUT direction filter

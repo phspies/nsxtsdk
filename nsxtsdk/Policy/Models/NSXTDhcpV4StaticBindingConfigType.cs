@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpV4StaticBindingConfigType : NSXTDhcpStaticBindingConfigType
     {
+        public NSXTDhcpV4StaticBindingConfigType()
+        {
+            LeaseTime = test
+        }
         /// <summary>
         /// When not specified, gateway address is auto-assigned from segment
         /// configuration.
@@ -44,7 +48,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"DHCP lease time in seconds.")]
         //[System.ComponentModel.DataAnnotations.MinLength(60)]
         //[System.ComponentModel.DataAnnotations.MaxLength(4294967295)]
-        [NSXTDefaultProperty(Default: "")]
         public long? LeaseTime { get; set; }
         /// <summary>
         /// IP assigned to host. The IP address must belong to the subnet, if any,
@@ -55,10 +58,10 @@ namespace nsxtsdk.PolicyModels
         [System.ComponentModel.DataAnnotations.Required]
         public string IpAddress { get; set; }
         /// <summary>
-        /// IPv4 DHCP options.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "options")]
-        [NSXTProperty(IsRequired: false, Description: @"IPv4 DHCP options.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTDhcpV4OptionsType Options { get; set; }
     }
 }

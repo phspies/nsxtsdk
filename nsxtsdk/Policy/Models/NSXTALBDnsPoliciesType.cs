@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsPolicies object")]
     public class NSXTALBDnsPoliciesType 
     {
+        public NSXTALBDnsPoliciesType()
+        {
+        }
         /// <summary>
         /// Index of the dns policy.
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyPktCapResourceType : NSXTPktCapResourceType
     {
+        public NSXTPolicyPktCapResourceType()
+        {
+        }
         /// <summary>
         /// The path of segment port or router port where the packets are captured
         /// </summary>

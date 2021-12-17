@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer FailActionHTTPLocalResponse object")]
     public class NSXTALBFailActionHTTPLocalResponseType 
     {
+        public NSXTALBFailActionHTTPLocalResponseType()
+        {
+            StatusCode = test
+        }
         /// <summary>
         /// Enum options - FAIL_HTTP_STATUS_CODE_200,
         /// FAIL_HTTP_STATUS_CODE_503.
@@ -25,14 +29,12 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "status_code")]
         [NSXTProperty(IsRequired: false, Description: @"Enum options - FAIL_HTTP_STATUS_CODE_200,FAIL_HTTP_STATUS_CODE_503.Default value when not specified in API or module isinterpreted by ALB Controller as FAIL_HTTP_STATUS_CODE_503.")]
-        [NSXTDefaultProperty(Default: "FAIL_HTTP_STATUS_CODE_503")]
         public NSXTAlbfailActionHttplocalResponseStatusCodeEnumType? StatusCode { get; set; }
         /// <summary>
-        /// Placeholder for description of property file of obj type
-        /// FailActionHTTPLocalResponse field type str  type ref.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "file")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property file of obj typeFailActionHTTPLocalResponse field type str  type ref.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHTTPLocalFileType File { get; set; }
     }
 }

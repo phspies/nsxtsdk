@@ -17,12 +17,16 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBridgeEndpointProfileType : NSXTManagedResourceType
     {
+        public NSXTBridgeEndpointProfileType()
+        {
+            FailoverMode = test
+            HighAvailabilityMode = test
+        }
         /// <summary>
         /// Faileover mode can be preemmptive or non-preemptive
         /// </summary>
         [JsonProperty(PropertyName = "failover_mode")]
         [NSXTProperty(IsRequired: false, Description: @"Faileover mode can be preemmptive or non-preemptive")]
-        [NSXTDefaultProperty(Default: "PREEMPTIVE")]
         public NSXTBridgeEndpointProfileFailoverModeEnumType? FailoverMode { get; set; }
         /// <summary>
         /// First index will be used as the preferred member
@@ -35,7 +39,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "high_availability_mode")]
         [NSXTProperty(IsRequired: false, Description: @"High avaialability mode can be active-active or active-standby")]
-        [NSXTDefaultProperty(Default: "ACTIVE_STANDBY")]
         public NSXTBridgeEndpointProfileHighAvailabilityModeEnumType? HighAvailabilityMode { get; set; }
         /// <summary>
         /// UUID of the edge cluster for this bridge endpoint

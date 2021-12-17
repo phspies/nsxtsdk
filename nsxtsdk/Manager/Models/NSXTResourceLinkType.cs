@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"A link to a related resource")]
     public class NSXTResourceLinkType 
     {
+        public NSXTResourceLinkType()
+        {
+        }
         /// <summary>
         /// Optional action
         /// </summary>

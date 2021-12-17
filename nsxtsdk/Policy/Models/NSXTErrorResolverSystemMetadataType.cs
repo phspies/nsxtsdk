@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Metadata fetched from an external system like Syslog or LogInsight.")]
     public class NSXTErrorResolverSystemMetadataType 
     {
+        public NSXTErrorResolverSystemMetadataType()
+        {
+        }
         /// <summary>
         /// The value fetched from another system
         /// </summary>

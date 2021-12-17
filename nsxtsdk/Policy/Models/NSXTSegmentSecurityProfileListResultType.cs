@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSegmentSecurityProfileListResultType : NSXTListResultType
     {
+        public NSXTSegmentSecurityProfileListResultType()
+        {
+        }
         /// <summary>
         /// Segment Security profile list results
         /// </summary>

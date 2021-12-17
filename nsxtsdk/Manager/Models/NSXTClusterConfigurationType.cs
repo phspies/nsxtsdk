@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"The configuration of the NSX cluster. The cluster configuration consists of a list of cluster node attributes.")]
     public class NSXTClusterConfigurationType 
     {
+        public NSXTClusterConfigurationType()
+        {
+        }
         /// <summary>
         /// Cluster configuration version
         /// </summary>

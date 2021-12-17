@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"OSPF Routes Per Edge.")]
     public class NSXTOspfRoutesType 
     {
+        public NSXTOspfRoutesType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

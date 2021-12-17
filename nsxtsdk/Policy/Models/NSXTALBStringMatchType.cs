@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer StringMatch object")]
     public class NSXTALBStringMatchType 
     {
+        public NSXTALBStringMatchType()
+        {
+        }
         /// <summary>
         /// path of the string group(s).
         /// It is a reference to an object of type StringGroup.
@@ -35,9 +38,14 @@ namespace nsxtsdk.PolicyModels
         /// Enum options - BEGINS_WITH, DOES_NOT_BEGIN_WITH, CONTAINS,
         /// DOES_NOT_CONTAIN, ENDS_WITH, DOES_NOT_END_WITH, EQUALS,
         /// DOES_NOT_EQUAL, REGEX_MATCH, REGEX_DOES_NOT_MATCH.
+        /// Allowed in Basic(Allowed values-
+        /// BEGINS_WITH,DOES_NOT_BEGIN_WITH,CONTAINS,DOES_NOT_CONTAIN,ENDS_WITH,DOES_NOT_END_WITH,EQUALS,DOES_NOT_EQUAL)
+        /// edition, Essentials(Allowed values-
+        /// BEGINS_WITH,DOES_NOT_BEGIN_WITH,CONTAINS,DOES_NOT_CONTAIN,ENDS_WITH,DOES_NOT_END_WITH,EQUALS,DOES_NOT_EQUAL)
+        /// edition, Enterprise edition.
         /// </summary>
         [JsonProperty(PropertyName = "match_criteria", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Criterion to use for string matching the HTTP request.Enum options - BEGINS_WITH, DOES_NOT_BEGIN_WITH, CONTAINS,DOES_NOT_CONTAIN, ENDS_WITH, DOES_NOT_END_WITH, EQUALS,DOES_NOT_EQUAL, REGEX_MATCH, REGEX_DOES_NOT_MATCH.")]
+        [NSXTProperty(IsRequired: true, Description: @"Criterion to use for string matching the HTTP request.Enum options - BEGINS_WITH, DOES_NOT_BEGIN_WITH, CONTAINS,DOES_NOT_CONTAIN, ENDS_WITH, DOES_NOT_END_WITH, EQUALS,DOES_NOT_EQUAL, REGEX_MATCH, REGEX_DOES_NOT_MATCH.Allowed in Basic(Allowed values-BEGINS_WITH,DOES_NOT_BEGIN_WITH,CONTAINS,DOES_NOT_CONTAIN,ENDS_WITH,DOES_NOT_END_WITH,EQUALS,DOES_NOT_EQUAL)edition, Essentials(Allowed values-BEGINS_WITH,DOES_NOT_BEGIN_WITH,CONTAINS,DOES_NOT_CONTAIN,ENDS_WITH,DOES_NOT_END_WITH,EQUALS,DOES_NOT_EQUAL)edition, Enterprise edition.")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTAlbstringMatchMatchCriteriaEnumType MatchCriteria { get; set; }
     }

@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNiocProfileType : NSXTBaseHostSwitchProfileType
     {
+        public NSXTNiocProfileType()
+        {
+            Enabled = test
+        }
         /// <summary>
         /// host_infra_traffic_res specifies bandwidth allocation for
         /// various traffic resources.
@@ -34,7 +38,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "enabled")]
         [NSXTProperty(IsRequired: false, Description: @"The enabled property specifies the status of NIOC feature.When enabled is set to true, NIOC feature is turned on andthe bandwidth allocations specified for the traffic resourcesare enforced. When enabled is set to false, NIOC featureis turned off and no bandwidth allocation is guaranteed.By default, enabled will be set to true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enabled { get; set; }
     }
 }

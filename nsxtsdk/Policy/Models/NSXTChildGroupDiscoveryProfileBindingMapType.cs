@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildGroupDiscoveryProfileBindingMapType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildGroupDiscoveryProfileBindingMapType()
+        {
+        }
         /// <summary>
-        /// Contains the actual GroupDiscoveryProfileBindingMap object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "GroupDiscoveryProfileBindingMap", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual GroupDiscoveryProfileBindingMap object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTGroupDiscoveryProfileBindingMapType GroupDiscoveryProfileBindingMap { get; set; }
     }

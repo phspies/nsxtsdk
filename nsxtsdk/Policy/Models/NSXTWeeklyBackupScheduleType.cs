@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTWeeklyBackupScheduleType : NSXTBackupScheduleType
     {
+        public NSXTWeeklyBackupScheduleType()
+        {
+        }
         /// <summary>
         /// Days of week when backup is taken. 0 - Sunday, 1 - Monday, 2 - Tuesday, 3 - Wednesday ...
         /// </summary>

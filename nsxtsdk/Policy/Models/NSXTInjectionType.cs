@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Injection holding a key and a corresponding value.")]
     public class NSXTInjectionType 
     {
+        public NSXTInjectionType()
+        {
+        }
         /// <summary>
-        /// Injection value.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "value", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Injection value.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTInjectionValueType Value { get; set; }
         /// <summary>

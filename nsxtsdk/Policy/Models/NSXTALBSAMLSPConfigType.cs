@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer SAMLSPConfig object")]
     public class NSXTALBSAMLSPConfigType 
     {
+        public NSXTALBSAMLSPConfigType()
+        {
+            CookieTimeout = test
+        }
         /// <summary>
         /// SAML Single Signon URL to be programmed on the IDP.
         /// </summary>
@@ -71,7 +75,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Cookie timeout in minutes.Allowed values are 1-1440.Unit is MIN.Default value when not specified in API or module isinterpreted by ALB Controller as 60.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(1440)]
-        [NSXTDefaultProperty(Default: "")]
         public long? CookieTimeout { get; set; }
         /// <summary>
         /// By enabling this field IdP can control how long the SP

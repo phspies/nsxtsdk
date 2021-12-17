@@ -17,6 +17,11 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFirewallCpuMemThresholdsProfileType : NSXTBaseFirewallProfileType
     {
+        public NSXTFirewallCpuMemThresholdsProfileType()
+        {
+            MemThresholdPercentage = test
+            CpuThresholdPercentage = test
+        }
         /// <summary>
         /// Heap memory threshold percentage to monitor and report for distributed firewall.
         /// </summary>
@@ -25,7 +30,6 @@ namespace nsxtsdk.ManagerModels
         //[System.ComponentModel.DataAnnotations.MinLength(10)]
         //[System.ComponentModel.DataAnnotations.MaxLength(100)]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "")]
         public long MemThresholdPercentage { get; set; }
         /// <summary>
         /// CPU utilization threshold percentage to monitor and report for distributed firewall.
@@ -35,7 +39,6 @@ namespace nsxtsdk.ManagerModels
         //[System.ComponentModel.DataAnnotations.MinLength(10)]
         //[System.ComponentModel.DataAnnotations.MaxLength(100)]
         [System.ComponentModel.DataAnnotations.Required]
-        [NSXTDefaultProperty(Default: "")]
         public long CpuThresholdPercentage { get; set; }
     }
 }

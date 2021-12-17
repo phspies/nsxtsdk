@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Data for setting Appliance Proxy certificate for inter-site communication")]
     public class NSXTSetInterSiteAphCertificateRequestType 
     {
+        public NSXTSetInterSiteAphCertificateRequestType()
+        {
+        }
         /// <summary>
         /// ID of the certificate that is already imported.
         /// </summary>

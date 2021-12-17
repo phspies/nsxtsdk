@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyTier1MulticastConfigType : NSXTPolicyConfigResourceType
     {
+        public NSXTPolicyTier1MulticastConfigType()
+        {
+        }
         /// <summary>
         /// Enable/disable Multicast Configuration. Whenever service router needs to be added/deleted from tier1, user needs to
         /// disable multicast first.

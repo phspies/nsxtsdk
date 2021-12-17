@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTProtocolType 
     {
+        public NSXTProtocolType()
+        {
+        }
         /// <summary>
         /// Protocol name
         /// </summary>

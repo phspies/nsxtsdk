@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSourceEntityResultType : NSXTListResultType
     {
+        public NSXTSourceEntityResultType()
+        {
+        }
         /// <summary>
         /// List of the Service Entities
         /// </summary>

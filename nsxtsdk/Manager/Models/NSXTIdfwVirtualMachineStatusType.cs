@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"ID and status of the VM on Identity Firewall compute collection.")]
     public class NSXTIdfwVirtualMachineStatusType 
     {
+        public NSXTIdfwVirtualMachineStatusType()
+        {
+        }
         /// <summary>
         /// Status of the Identity Firewall compute collection's Virtual Machine.
         /// </summary>

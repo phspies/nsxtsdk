@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAlarmType : NSXTManagedResourceType
     {
+        public NSXTAlarmType()
+        {
+        }
         /// <summary>
         /// Indicates when the corresponding Event instance was last reported in
         /// milliseconds since epoch.
@@ -52,12 +55,6 @@ namespace nsxtsdk.ManagerModels
         [JsonProperty(PropertyName = "recommended_action")]
         [NSXTProperty(IsRequired: false, Description: @"Recommended action for Alarm. This is the same action as thecorresponding Event identified by feature_name.event_type.")]
         public string? RecommendedAction { get; set; }
-        /// <summary>
-        /// Severity of the Alarm.Can be one of - CRITICAL, HIGH, MEDIUM, LOW.
-        /// </summary>
-        [JsonProperty(PropertyName = "severity")]
-        [NSXTProperty(IsRequired: false, Description: @"Severity of the Alarm.Can be one of - CRITICAL, HIGH, MEDIUM, LOW.")]
-        public NSXTAlarmSeverityEnumType? Severity { get; set; }
         /// <summary>
         /// The UUID of the node that the Event instance applies to.
         /// </summary>
@@ -120,11 +117,17 @@ namespace nsxtsdk.ManagerModels
         public string? Description { get; set; }
         /// <summary>
         /// The resource type of node that the Event instance applies to
-        /// eg. ClusterNodeConfig, HostNode, EdgeNode.
+        /// eg. ClusterNodeConfig, TransportNode.
         /// </summary>
         [JsonProperty(PropertyName = "node_resource_type")]
-        [NSXTProperty(IsRequired: false, Description: @"The resource type of node that the Event instance applies toeg. ClusterNodeConfig, HostNode, EdgeNode.")]
+        [NSXTProperty(IsRequired: false, Description: @"The resource type of node that the Event instance applies toeg. ClusterNodeConfig, TransportNode.")]
         public string? NodeResourceType { get; set; }
+        /// <summary>
+        /// Severity of the Alarm.Can be one of - CRITICAL, HIGH, MEDIUM, LOW.
+        /// </summary>
+        [JsonProperty(PropertyName = "severity")]
+        [NSXTProperty(IsRequired: false, Description: @"Severity of the Alarm.Can be one of - CRITICAL, HIGH, MEDIUM, LOW.")]
+        public NSXTAlarmSeverityEnumType? Severity { get; set; }
         /// <summary>
         /// If alarm_source_type = INTENT_PATH, this field will contain a
         /// list of intent paths for the entity that the event instance applies to.
@@ -176,6 +179,15 @@ namespace nsxtsdk.ManagerModels
         [JsonProperty(PropertyName = "suppress_duration")]
         [NSXTProperty(IsRequired: false, Description: @"The time period between suppress_start_time and suppress_start_time +suppress_duration (specified in hours) an Alarm is SUPPRESSED.This property is only returned when the status value is SUPPRESSED.")]
         public long? SuppressDuration { get; set; }
+        /// <summary>
+        /// Runtime data for Alarm. When an alarming condition occurs, there may
+        /// be additional data of interest when triaging the underlying issue, for
+        /// example, output from system commands captured at the time of the error.
+        /// Note, the contents of this property are not localized.
+        /// </summary>
+        [JsonProperty(PropertyName = "runtime_data")]
+        [NSXTProperty(IsRequired: false, Description: @"Runtime data for Alarm. When an alarming condition occurs, there maybe additional data of interest when triaging the underlying issue, forexample, output from system commands captured at the time of the error.Note, the contents of this property are not localized.")]
+        public string? RuntimeData { get; set; }
         /// <summary>
         /// IP addresses of node that the event instance applies to.
         /// </summary>

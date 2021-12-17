@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTConstantFieldValueType : NSXTFieldSettingValueType
     {
+        public NSXTConstantFieldValueType()
+        {
+        }
         /// <summary>
         /// Constant Value that the field must be set to.
         /// </summary>

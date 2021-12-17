@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPhysicalServerListResultType : NSXTListResultType
     {
+        public NSXTPhysicalServerListResultType()
+        {
+        }
         /// <summary>
         /// List of physical servers.
         /// </summary>

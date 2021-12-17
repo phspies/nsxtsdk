@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBServiceListResultType : NSXTListResultType
     {
+        public NSXTLBServiceListResultType()
+        {
+        }
         /// <summary>
         /// LBService list results
         /// </summary>

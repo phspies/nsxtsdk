@@ -17,17 +17,20 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"This object contains SNMP v2c and SNMP v3 properties.")]
     public class NSXTSnmpPropertiesType 
     {
+        public NSXTSnmpPropertiesType()
+        {
+        }
         /// <summary>
-        /// SNMP v2c properties
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "v2c")]
-        [NSXTProperty(IsRequired: false, Description: @"SNMP v2c properties")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTSnmpv2cPropertiesType V2c { get; set; }
         /// <summary>
-        /// SNMP v3 properties
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "v3")]
-        [NSXTProperty(IsRequired: false, Description: @"SNMP v3 properties")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTSnmpv3PropertiesType V3 { get; set; }
     }
 }

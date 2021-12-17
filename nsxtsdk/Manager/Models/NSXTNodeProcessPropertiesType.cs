@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeProcessPropertiesType : NSXTResourceType
     {
+        public NSXTNodeProcessPropertiesType()
+        {
+        }
         /// <summary>
         /// Virtual memory used by process in bytes
         /// </summary>

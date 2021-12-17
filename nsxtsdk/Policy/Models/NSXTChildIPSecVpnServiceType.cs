@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildIPSecVpnServiceType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildIPSecVpnServiceType()
+        {
+        }
         /// <summary>
-        /// Contains the actual IPSecVpnService object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "IPSecVpnService", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual IPSecVpnService object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTIPSecVpnServiceType IPSecVpnService { get; set; }
     }

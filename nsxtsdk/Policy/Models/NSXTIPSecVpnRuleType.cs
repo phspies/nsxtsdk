@@ -17,6 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVpnRuleType : NSXTPolicyConfigResourceType
     {
+        public NSXTIPSecVpnRuleType()
+        {
+            Action = test
+            Enabled = test
+        }
         /// <summary>
         /// List of local subnets. Specifying no value is interpreted
         /// as 0.0.0.0/0.
@@ -33,14 +38,12 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "action")]
         [NSXTProperty(IsRequired: false, Description: @"PROTECT - Protect rules are defined per policy basedIPSec VPN session.BYPASS - Bypass rules are defined per IPSec VPNservice and affects all policy based IPSec VPN sessions.Bypass rules are prioritized over protect rules.")]
-        [NSXTDefaultProperty(Default: "PROTECT")]
         public NSXTIpsecVpnRuleActionEnumType? Action { get; set; }
         /// <summary>
         /// A flag to enable/disable the rule.
         /// </summary>
         [JsonProperty(PropertyName = "enabled")]
         [NSXTProperty(IsRequired: false, Description: @"A flag to enable/disable the rule.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// A flag to enable/disable the logging for the rule.
@@ -54,7 +57,7 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "sequence_number")]
         [NSXTProperty(IsRequired: false, Description: @"A sequence number is used to give a priority to an IPSecVpnRule.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        public long? SequenceNumber { get; set; }
+        public int? SequenceNumber { get; set; }
         /// <summary>
         /// List of peer subnets. Specifying no value is interpreted
         /// as 0.0.0.0/0.

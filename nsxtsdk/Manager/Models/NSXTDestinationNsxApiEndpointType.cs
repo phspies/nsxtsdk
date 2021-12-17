@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Details about the destination NSX manager for the migration")]
     public class NSXTDestinationNsxApiEndpointType 
     {
+        public NSXTDestinationNsxApiEndpointType()
+        {
+            DestinationNsxPort = test
+        }
         /// <summary>
         /// IP address or host name of the destination NSX manager to which the config will be migrated.
         /// </summary>
@@ -35,7 +39,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "destination_nsx_port")]
         [NSXTProperty(IsRequired: false, Description: @"Destination NSX manager port that will be used to apply details.")]
-        [NSXTDefaultProperty(Default: "")]
         public int? DestinationNsxPort { get; set; }
         /// <summary>
         /// Valid username for connecting to the destination NSX manager.

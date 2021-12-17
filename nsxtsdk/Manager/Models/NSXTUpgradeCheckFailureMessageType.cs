@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Pre/post-upgrade check failure message")]
     public class NSXTUpgradeCheckFailureMessageType 
     {
+        public NSXTUpgradeCheckFailureMessageType()
+        {
+        }
         /// <summary>
         /// Error/warning message
         /// </summary>

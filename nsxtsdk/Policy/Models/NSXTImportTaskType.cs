@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTImportTaskType : NSXTPolicyTaskType
     {
+        public NSXTImportTaskType()
+        {
+        }
         /// <summary>
         /// Policy path of a draft in which the imported configuration gets stored
         /// after completion of import task.

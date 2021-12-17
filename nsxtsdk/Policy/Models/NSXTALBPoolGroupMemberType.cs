@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer PoolGroupMember object")]
     public class NSXTALBPoolGroupMemberType 
     {
+        public NSXTALBPoolGroupMemberType()
+        {
+            Ratio = test
+        }
         /// <summary>
         /// All pools with same label are treated similarly in a pool
         /// group.
@@ -32,14 +36,15 @@ namespace nsxtsdk.PolicyModels
         /// Allowed values are 1-1000.
         /// Special values are 0 - 'Do not select this pool for new
         /// connections'.
+        /// Allowed in Basic(Allowed values- 1) edition,
+        /// Essentials(Allowed values- 1) edition, Enterprise edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 1.
         /// </summary>
         [JsonProperty(PropertyName = "ratio")]
-        [NSXTProperty(IsRequired: false, Description: @"Ratio of selecting eligible pools in the pool group.Allowed values are 1-1000.Special values are 0 - &apos;Do not select this pool for newconnections&apos;.Default value when not specified in API or module isinterpreted by ALB Controller as 1.")]
+        [NSXTProperty(IsRequired: false, Description: @"Ratio of selecting eligible pools in the pool group.Allowed values are 1-1000.Special values are 0 - &apos;Do not select this pool for newconnections&apos;.Allowed in Basic(Allowed values- 1) edition,Essentials(Allowed values- 1) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 1.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(1000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Ratio { get; set; }
         /// <summary>
         /// path of the pool.

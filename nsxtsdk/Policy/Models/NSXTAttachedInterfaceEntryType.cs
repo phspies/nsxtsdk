@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"The Attached interface is only effective for the segment port on Bare metal server.")]
     public class NSXTAttachedInterfaceEntryType 
     {
+        public NSXTAttachedInterfaceEntryType()
+        {
+        }
         /// <summary>
         /// Routing rules
         /// </summary>

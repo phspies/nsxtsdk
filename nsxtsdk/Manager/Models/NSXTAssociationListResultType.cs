@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAssociationListResultType : NSXTListResultType
     {
+        public NSXTAssociationListResultType()
+        {
+        }
         /// <summary>
         /// Paged Collection of ResourceReference
         /// </summary>

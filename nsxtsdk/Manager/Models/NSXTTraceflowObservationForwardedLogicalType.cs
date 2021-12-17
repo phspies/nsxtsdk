@@ -17,67 +17,35 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTraceflowObservationForwardedLogicalType : NSXTTraceflowObservationType
     {
+        public NSXTTraceflowObservationForwardedLogicalType()
+        {
+        }
         /// <summary>
-        /// The path index of the service insertion component
+        /// The id of the destination component to which the traceflow packet was forwarded.
         /// </summary>
-        [JsonProperty(PropertyName = "service_path_index")]
-        [NSXTProperty(IsRequired: false, Description: @"The path index of the service insertion component")]
-        public long? ServicePathIndex { get; set; }
+        [JsonProperty(PropertyName = "dst_component_id")]
+        [NSXTProperty(IsRequired: false, Description: @"The id of the destination component to which the traceflow packet was forwarded.")]
+        public string? DstComponentId { get; set; }
         /// <summary>
-        /// The id of the component that forwarded the traceflow packet.
+        /// This field is specified when the traceflow packet was forwarded by a VLAN
+        /// logical network.
         /// </summary>
-        [JsonProperty(PropertyName = "component_id")]
-        [NSXTProperty(IsRequired: false, Description: @"The id of the component that forwarded the traceflow packet.")]
-        public string? ComponentId { get; set; }
+        [JsonProperty(PropertyName = "vlan")]
+        [NSXTProperty(IsRequired: false, Description: @"This field is specified when the traceflow packet was forwarded by a VLANlogical network.")]
+        public long? Vlan { get; set; }
         /// <summary>
-        /// This field specified the VLAN id a traceflow packet matched in the whitelist in spoofguard.
-        /// </summary>
-        [JsonProperty(PropertyName = "spoofguard_vlan_id")]
-        [NSXTProperty(IsRequired: false, Description: @"This field specified the VLAN id a traceflow packet matched in the whitelist in spoofguard.")]
-        public long? SpoofguardVlanId { get; set; }
-        /// <summary>
-        /// ARP_UNKNOWN_FROM_CP - Unknown ARP query result emitted by control plane ND_NS_UNKNOWN_FROM_CP - Unknown neighbor
-        /// solicitation query result emitted by control plane UNKNOWN - Unknown resend type
-        /// </summary>
-        [JsonProperty(PropertyName = "resend_type")]
-        [NSXTProperty(IsRequired: false, Description: @"ARP_UNKNOWN_FROM_CP - Unknown ARP query result emitted by control plane ND_NS_UNKNOWN_FROM_CP - Unknown neighbor solicitation query result emitted by control plane UNKNOWN - Unknown resend type")]
-        public NSXTTraceflowObservationForwardedLogicalResendTypeEnumType? ResendType { get; set; }
-        /// <summary>
-        /// The name of the logical port through which the traceflow packet was forwarded.
-        /// </summary>
-        [JsonProperty(PropertyName = "lport_name")]
-        [NSXTProperty(IsRequired: false, Description: @"The name of the logical port through which the traceflow packet was forwarded.")]
-        public string? LportName { get; set; }
-        /// <summary>
-        /// The id of the acl rule that was applied to forward the traceflow packet
-        /// </summary>
-        [JsonProperty(PropertyName = "acl_rule_id")]
-        [NSXTProperty(IsRequired: false, Description: @"The id of the acl rule that was applied to forward the traceflow packet")]
-        public long? AclRuleId { get; set; }
-        /// <summary>
-        /// The index of the service insertion component
-        /// </summary>
-        [JsonProperty(PropertyName = "service_index")]
-        [NSXTProperty(IsRequired: false, Description: @"The index of the service insertion component")]
-        public long? ServiceIndex { get; set; }
-        /// <summary>
-        /// VNI for the logical network on which the traceflow packet was forwarded.
+        /// This field is specified when the traceflow packet was forwarded by an overlay
+        /// logical network.
         /// </summary>
         [JsonProperty(PropertyName = "vni")]
-        [NSXTProperty(IsRequired: false, Description: @"VNI for the logical network on which the traceflow packet was forwarded.")]
+        [NSXTProperty(IsRequired: false, Description: @"This field is specified when the traceflow packet was forwarded by an overlaylogical network.")]
         public int? Vni { get; set; }
         /// <summary>
-        /// The name of the destination component to which the traceflow packet was forwarded.
+        /// This field is specified when the traceflow packet matched a l2 rule.
         /// </summary>
-        [JsonProperty(PropertyName = "dst_component_name")]
-        [NSXTProperty(IsRequired: false, Description: @"The name of the destination component to which the traceflow packet was forwarded.")]
-        public string? DstComponentName { get; set; }
-        /// <summary>
-        /// The ID of the NAT rule that was applied to forward the traceflow packet
-        /// </summary>
-        [JsonProperty(PropertyName = "nat_rule_id")]
-        [NSXTProperty(IsRequired: false, Description: @"The ID of the NAT rule that was applied to forward the traceflow packet")]
-        public long? NatRuleId { get; set; }
+        [JsonProperty(PropertyName = "l2_rule_id")]
+        [NSXTProperty(IsRequired: false, Description: @"This field is specified when the traceflow packet matched a l2 rule.")]
+        public long? L2RuleId { get; set; }
         /// <summary>
         /// The translated source IP address of VPN/NAT
         /// </summary>
@@ -98,23 +66,12 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"The source MAC address of form:&quot;^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$&quot;. For example: 00:00:00:00:00:00.")]
         public string? SpoofguardMac { get; set; }
         /// <summary>
-        /// The type of the destination component to which the traceflow packet was forwarded.
+        /// ARP_UNKNOWN_FROM_CP - Unknown ARP query result emitted by control plane ND_NS_UNKNOWN_FROM_CP - Unknown neighbor
+        /// solicitation query result emitted by control plane UNKNOWN - Unknown resend type
         /// </summary>
-        [JsonProperty(PropertyName = "dst_component_type")]
-        [NSXTProperty(IsRequired: false, Description: @"The type of the destination component to which the traceflow packet was forwarded.")]
-        public NSXTTraceflowObservationForwardedLogicalDstComponentTypeEnumType? DstComponentType { get; set; }
-        /// <summary>
-        /// The id of the logical port through which the traceflow packet was forwarded.
-        /// </summary>
-        [JsonProperty(PropertyName = "lport_id")]
-        [NSXTProperty(IsRequired: false, Description: @"The id of the logical port through which the traceflow packet was forwarded.")]
-        public string? LportId { get; set; }
-        /// <summary>
-        /// The id of the destination component to which the traceflow packet was forwarded.
-        /// </summary>
-        [JsonProperty(PropertyName = "dst_component_id")]
-        [NSXTProperty(IsRequired: false, Description: @"The id of the destination component to which the traceflow packet was forwarded.")]
-        public string? DstComponentId { get; set; }
+        [JsonProperty(PropertyName = "resend_type")]
+        [NSXTProperty(IsRequired: false, Description: @"ARP_UNKNOWN_FROM_CP - Unknown ARP query result emitted by control plane ND_NS_UNKNOWN_FROM_CP - Unknown neighbor solicitation query result emitted by control plane UNKNOWN - Unknown resend type")]
+        public NSXTTraceflowObservationForwardedLogicalResendTypeEnumType? ResendType { get; set; }
         /// <summary>
         /// This field specified the prefix IP address a traceflow packet matched in the whitelist in spoofguard.
         /// </summary>
@@ -122,11 +79,71 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"This field specified the prefix IP address a traceflow packet matched in the whitelist in spoofguard.")]
         public string? SpoofguardIp { get; set; }
         /// <summary>
-        /// The ttl of the service insertion component
+        /// This field is specified when the traceflow packet matched a jump-to rule.
         /// </summary>
-        [JsonProperty(PropertyName = "service_ttl")]
-        [NSXTProperty(IsRequired: false, Description: @"The ttl of the service insertion component")]
-        public long? ServiceTtl { get; set; }
+        [JsonProperty(PropertyName = "jumpto_rule_id")]
+        [NSXTProperty(IsRequired: false, Description: @"This field is specified when the traceflow packet matched a jump-to rule.")]
+        public long? JumptoRuleId { get; set; }
+        /// <summary>
+        /// The path index of the service insertion component
+        /// </summary>
+        [JsonProperty(PropertyName = "service_path_index")]
+        [NSXTProperty(IsRequired: false, Description: @"The path index of the service insertion component")]
+        public long? ServicePathIndex { get; set; }
+        /// <summary>
+        /// The id of the component that forwarded the traceflow packet.
+        /// </summary>
+        [JsonProperty(PropertyName = "component_id")]
+        [NSXTProperty(IsRequired: false, Description: @"The id of the component that forwarded the traceflow packet.")]
+        public string? ComponentId { get; set; }
+        /// <summary>
+        /// This field specified the VLAN id a traceflow packet matched in the whitelist in spoofguard.
+        /// </summary>
+        [JsonProperty(PropertyName = "spoofguard_vlan_id")]
+        [NSXTProperty(IsRequired: false, Description: @"This field specified the VLAN id a traceflow packet matched in the whitelist in spoofguard.")]
+        public long? SpoofguardVlanId { get; set; }
+        /// <summary>
+        /// The name of the logical port through which the traceflow packet was forwarded.
+        /// </summary>
+        [JsonProperty(PropertyName = "lport_name")]
+        [NSXTProperty(IsRequired: false, Description: @"The name of the logical port through which the traceflow packet was forwarded.")]
+        public string? LportName { get; set; }
+        /// <summary>
+        /// This field is specified when the traceflow packet matched a L3 firewall rule.
+        /// </summary>
+        [JsonProperty(PropertyName = "acl_rule_id")]
+        [NSXTProperty(IsRequired: false, Description: @"This field is specified when the traceflow packet matched a L3 firewall rule.")]
+        public long? AclRuleId { get; set; }
+        /// <summary>
+        /// The index of the service insertion component
+        /// </summary>
+        [JsonProperty(PropertyName = "service_index")]
+        [NSXTProperty(IsRequired: false, Description: @"The index of the service insertion component")]
+        public long? ServiceIndex { get; set; }
+        /// <summary>
+        /// The type of the destination component to which the traceflow packet was forwarded.
+        /// </summary>
+        [JsonProperty(PropertyName = "dst_component_type")]
+        [NSXTProperty(IsRequired: false, Description: @"The type of the destination component to which the traceflow packet was forwarded.")]
+        public NSXTTraceflowObservationForwardedLogicalDstComponentTypeEnumType? DstComponentType { get; set; }
+        /// <summary>
+        /// The name of the destination component to which the traceflow packet was forwarded.
+        /// </summary>
+        [JsonProperty(PropertyName = "dst_component_name")]
+        [NSXTProperty(IsRequired: false, Description: @"The name of the destination component to which the traceflow packet was forwarded.")]
+        public string? DstComponentName { get; set; }
+        /// <summary>
+        /// This field is specified when the traceflow packet matched a NAT rule.
+        /// </summary>
+        [JsonProperty(PropertyName = "nat_rule_id")]
+        [NSXTProperty(IsRequired: false, Description: @"This field is specified when the traceflow packet matched a NAT rule.")]
+        public long? NatRuleId { get; set; }
+        /// <summary>
+        /// The id of the logical port through which the traceflow packet was forwarded.
+        /// </summary>
+        [JsonProperty(PropertyName = "lport_id")]
+        [NSXTProperty(IsRequired: false, Description: @"The id of the logical port through which the traceflow packet was forwarded.")]
+        public string? LportId { get; set; }
         /// <summary>
         /// MAC address of nexthop for service insertion(SI)
         /// in service VM(SVM) where the traceflow packet was received.
@@ -134,5 +151,11 @@ namespace nsxtsdk.ManagerModels
         [JsonProperty(PropertyName = "svc_nh_mac")]
         [NSXTProperty(IsRequired: false, Description: @"MAC address of nexthop for service insertion(SI)in service VM(SVM) where the traceflow packet was received.")]
         public string? SvcNhMac { get; set; }
+        /// <summary>
+        /// The ttl of the service insertion component
+        /// </summary>
+        [JsonProperty(PropertyName = "service_ttl")]
+        [NSXTProperty(IsRequired: false, Description: @"The ttl of the service insertion component")]
+        public long? ServiceTtl { get; set; }
     }
 }

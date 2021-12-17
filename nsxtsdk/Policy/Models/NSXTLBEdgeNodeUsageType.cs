@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBEdgeNodeUsageType : NSXTLBNodeUsageType
     {
+        public NSXTLBEdgeNodeUsageType()
+        {
+        }
         /// <summary>
         /// The count of medium load balancer services configured on the node.
         /// </summary>

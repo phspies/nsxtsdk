@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer MicroServiceMatch object")]
     public class NSXTALBMicroServiceMatchType 
     {
+        public NSXTALBMicroServiceMatchType()
+        {
+        }
         /// <summary>
         /// Criterion to use for Micro Service matching the HTTP
         /// request.

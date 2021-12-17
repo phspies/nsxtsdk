@@ -17,6 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBSSLProfileType : NSXTPolicyConfigResourceType
     {
+        public NSXTALBSSLProfileType()
+        {
+            SslSessionTimeout = test
+            AcceptedCiphers = test
+            Type = test
+            SendCloseNotify = test
+            EnableSslSessionReuse = test
+            Ciphersuites = test
+        }
         /// <summary>
         /// The amount of time in seconds before an SSL session
         /// expires.
@@ -26,17 +35,15 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "ssl_session_timeout")]
         [NSXTProperty(IsRequired: false, Description: @"The amount of time in seconds before an SSL sessionexpires.Unit is SEC.Default value when not specified in API or module isinterpreted by ALB Controller as 86400.")]
-        [NSXTDefaultProperty(Default: "")]
         public long? SslSessionTimeout { get; set; }
         /// <summary>
-        /// Ciphers suites represented as defined by U(http
-        /// //www.openssl.org/docs/apps/ciphers.html).
+        /// Ciphers suites represented as defined by https
+        /// //www.openssl.org/docs/apps/ciphers.html.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as AES:3DES:RC4.
         /// </summary>
         [JsonProperty(PropertyName = "accepted_ciphers")]
-        [NSXTProperty(IsRequired: false, Description: @"Ciphers suites represented as defined by U(http//www.openssl.org/docs/apps/ciphers.html).Default value when not specified in API or module isinterpreted by ALB Controller as AES:3DES:RC4.")]
-        [NSXTDefaultProperty(Default: "AES:3DES:RC4")]
+        [NSXTProperty(IsRequired: false, Description: @"Ciphers suites represented as defined by https//www.openssl.org/docs/apps/ciphers.html.Default value when not specified in API or module isinterpreted by ALB Controller as AES:3DES:RC4.")]
         public string? AcceptedCiphers { get; set; }
         /// <summary>
         /// Prefer the SSL cipher ordering presented by the client
@@ -65,7 +72,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "type")]
         [NSXTProperty(IsRequired: false, Description: @"SSL Profile Type.Enum options - SSL_PROFILE_TYPE_APPLICATION,SSL_PROFILE_TYPE_SYSTEM.Default value when not specified in API or module isinterpreted by ALB Controller asSSL_PROFILE_TYPE_APPLICATION.")]
-        [NSXTDefaultProperty(Default: "SSL_PROFILE_TYPE_APPLICATION")]
         public NSXTAlbsslprofileTypeEnumType? Type { get; set; }
         /// <summary>
         /// Set of versions accepted by the server.
@@ -76,14 +82,13 @@ namespace nsxtsdk.PolicyModels
         [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTALBSSLVersionType> AcceptedVersions { get; set; }
         /// <summary>
-        /// Enable SSL session re-use.
-        /// Default value when not specified in API or module is
-        /// interpreted by ALB Controller as true.
+        /// List of labels to be used for granular RBAC.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
         /// </summary>
-        [JsonProperty(PropertyName = "enable_ssl_session_reuse")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable SSL session re-use.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
-        public bool? EnableSslSessionReuse { get; set; }
+        [JsonProperty(PropertyName = "markers")]
+        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
+        public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
         /// <summary>
         /// Enum options - TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
         /// TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,
@@ -103,9 +108,14 @@ namespace nsxtsdk.PolicyModels
         /// TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,
         /// TLS_RSA_WITH_AES_128_CBC_SHA, TLS_RSA_WITH_AES_256_CBC_SHA,
         /// TLS_RSA_WITH_3DES_EDE_CBC_SHA, TLS_AES_256_GCM_SHA384...
+        /// Allowed in Basic(Allowed values-
+        /// TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_CBC_SHA256,TLS_RSA_WITH_AES_256_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA,TLS_RSA_WITH_AES_256_CBC_SHA,TLS_RSA_WITH_3DES_EDE_CBC_SHA)
+        /// edition, Essentials(Allowed values-
+        /// TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_CBC_SHA256,TLS_RSA_WITH_AES_256_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA,TLS_RSA_WITH_AES_256_CBC_SHA,TLS_RSA_WITH_3DES_EDE_CBC_SHA)
+        /// edition, Enterprise edition.
         /// </summary>
         [JsonProperty(PropertyName = "cipher_enums")]
-        [NSXTProperty(IsRequired: false, Description: @"Enum options - TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_CBC_SHA256,TLS_RSA_WITH_AES_256_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA, TLS_RSA_WITH_AES_256_CBC_SHA,TLS_RSA_WITH_3DES_EDE_CBC_SHA, TLS_AES_256_GCM_SHA384...")]
+        [NSXTProperty(IsRequired: false, Description: @"Enum options - TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_CBC_SHA256,TLS_RSA_WITH_AES_256_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA, TLS_RSA_WITH_AES_256_CBC_SHA,TLS_RSA_WITH_3DES_EDE_CBC_SHA, TLS_AES_256_GCM_SHA384...Allowed in Basic(Allowed values-TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_CBC_SHA256,TLS_RSA_WITH_AES_256_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA,TLS_RSA_WITH_AES_256_CBC_SHA,TLS_RSA_WITH_3DES_EDE_CBC_SHA)edition, Essentials(Allowed values-TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_CBC_SHA256,TLS_RSA_WITH_AES_256_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA,TLS_RSA_WITH_AES_256_CBC_SHA,TLS_RSA_WITH_3DES_EDE_CBC_SHA)edition, Enterprise edition.")]
         public IList<string> CipherEnums { get; set; }
         /// <summary>
         /// Send 'close notify' alert message for a clean shutdown of
@@ -115,33 +125,48 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "send_close_notify")]
         [NSXTProperty(IsRequired: false, Description: @"Send &apos;close notify&apos; alert message for a clean shutdown ofthe SSL connection.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? SendCloseNotify { get; set; }
         /// <summary>
+        /// Enable SSL session re-use.
+        /// Default value when not specified in API or module is
+        /// interpreted by ALB Controller as true.
+        /// </summary>
+        [JsonProperty(PropertyName = "enable_ssl_session_reuse")]
+        [NSXTProperty(IsRequired: false, Description: @"Enable SSL session re-use.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
+        public bool? EnableSslSessionReuse { get; set; }
+        /// <summary>
         /// Enable early data processing for TLS1.3 connections.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "enable_early_data")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable early data processing for TLS1.3 connections.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"Enable early data processing for TLS1.3 connections.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? EnableEarlyData { get; set; }
         /// <summary>
-        /// Placeholder for description of property ssl_rating of obj
-        /// type SSLProfile field type str  type ref.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ssl_rating")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property ssl_rating of objtype SSLProfile field type str  type ref.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBSSLRatingType SslRating { get; set; }
         /// <summary>
         /// TLS 1.3 Ciphers suites represented as defined by U(https
         /// //www.openssl.org/docs/manmaster/man1/ciphers.html).
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
+        /// Special default for Basic edition is
+        /// TLS_AES_256_GCM_SHA384-TLS_AES_128_GCM_SHA256, Essentials
+        /// edition is TLS_AES_256_GCM_SHA384-TLS_AES_128_GCM_SHA256,
+        /// Enterprise is
+        /// TLS_AES_256_GCM_SHA384-TLS_CHACHA20_POLY1305_SHA256-TLS_AES_128_GCM_SHA256.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as
-        /// TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256.
+        /// TLS_AES_256_GCM_SHA384:TLS_AES_128_GCM_SHA256.
         /// </summary>
         [JsonProperty(PropertyName = "ciphersuites")]
-        [NSXTProperty(IsRequired: false, Description: @"TLS 1.3 Ciphers suites represented as defined by U(https//www.openssl.org/docs/manmaster/man1/ciphers.html).Default value when not specified in API or module isinterpreted by ALB Controller asTLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256.")]
-        [NSXTDefaultProperty(Default: "TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256")]
+        [NSXTProperty(IsRequired: false, Description: @"TLS 1.3 Ciphers suites represented as defined by U(https//www.openssl.org/docs/manmaster/man1/ciphers.html).Allowed in Basic edition, Essentials edition, Enterpriseedition.Special default for Basic edition isTLS_AES_256_GCM_SHA384-TLS_AES_128_GCM_SHA256, Essentialsedition is TLS_AES_256_GCM_SHA384-TLS_AES_128_GCM_SHA256,Enterprise isTLS_AES_256_GCM_SHA384-TLS_CHACHA20_POLY1305_SHA256-TLS_AES_128_GCM_SHA256.Default value when not specified in API or module isinterpreted by ALB Controller asTLS_AES_256_GCM_SHA384:TLS_AES_128_GCM_SHA256.")]
         public string? Ciphersuites { get; set; }
     }
 }

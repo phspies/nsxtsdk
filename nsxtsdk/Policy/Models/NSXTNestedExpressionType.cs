@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTNestedExpressionType : NSXTExpressionType
     {
+        public NSXTNestedExpressionType()
+        {
+        }
         /// <summary>
         /// Expression.
         /// </summary>

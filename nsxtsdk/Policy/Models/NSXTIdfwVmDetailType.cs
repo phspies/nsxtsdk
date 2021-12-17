@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Identity Firewall user login/session data for a single VM")]
     public class NSXTIdfwVmDetailType 
     {
+        public NSXTIdfwVmDetailType()
+        {
+        }
         /// <summary>
         /// Virtual machine (external ID or BIOS UUID) where login/logout event occurred.
         /// </summary>
@@ -31,10 +34,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"List of client machine IP addresses.")]
         public IList<string> VmIpAddresses { get; set; }
         /// <summary>
-        /// Record of the last logged in user session (if exists).
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "last_login_user_session")]
-        [NSXTProperty(IsRequired: false, Description: @"Record of the last logged in user session (if exists).")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType LastLoginUserSession { get; set; }
         /// <summary>
         /// List of user session data.

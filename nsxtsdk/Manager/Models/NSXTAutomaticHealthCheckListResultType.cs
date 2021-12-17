@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAutomaticHealthCheckListResultType : NSXTListResultType
     {
+        public NSXTAutomaticHealthCheckListResultType()
+        {
+        }
         /// <summary>
         /// Automatic Health Check List
         /// </summary>

@@ -186,25 +186,25 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void CancelBundleUploadCancelUpload(string BundleId, string Product)
+        public void CancelBundleUpload(string BundleId, string Product)
         {
             if (BundleId == null) { throw new System.ArgumentNullException("BundleId cannot be null"); }
             if (Product == null) { throw new System.ArgumentNullException("Product cannot be null"); }
             
-            StringBuilder CancelBundleUploadCancelUploadServiceURL = new StringBuilder("/repository/bundles/{bundle-id}?action=cancel_upload");
+            StringBuilder CancelBundleUploadServiceURL = new StringBuilder("/repository/bundles/{bundle-id}?action=cancel_upload");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            CancelBundleUploadCancelUploadServiceURL.Replace("{bundle-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BundleId, System.Globalization.CultureInfo.InvariantCulture)));
+            CancelBundleUploadServiceURL.Replace("{bundle-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BundleId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Product != null) { request.AddQueryParameter("product", Product.ToString()); }
-            request.Resource = CancelBundleUploadCancelUploadServiceURL.ToString();
+            request.Resource = CancelBundleUploadServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + CancelBundleUploadCancelUploadServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + CancelBundleUploadServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -250,13 +250,13 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBundleIdType UploadBundleViaLocalFileUpload(string File, string FileType, string Product)
+        public NSXTBundleIdType UploadBundleViaLocalFile(string File, string FileType, string Product)
         {
             if (File == null) { throw new System.ArgumentNullException("File cannot be null"); }
             if (FileType == null) { throw new System.ArgumentNullException("FileType cannot be null"); }
             if (Product == null) { throw new System.ArgumentNullException("Product cannot be null"); }
             NSXTBundleIdType returnValue = default(NSXTBundleIdType);
-            StringBuilder UploadBundleViaLocalFileUploadServiceURL = new StringBuilder("/repository/bundles?action=upload");
+            StringBuilder UploadBundleViaLocalFileServiceURL = new StringBuilder("/repository/bundles?action=upload");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -266,11 +266,11 @@ namespace nsxtapi.ManagerModules
             
             if (FileType != null) { request.AddQueryParameter("file_type", FileType.ToString()); }
             if (Product != null) { request.AddQueryParameter("product", Product.ToString()); }
-            request.Resource = UploadBundleViaLocalFileUploadServiceURL.ToString();
+            request.Resource = UploadBundleViaLocalFileServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + UploadBundleViaLocalFileUploadServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + UploadBundleViaLocalFileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else

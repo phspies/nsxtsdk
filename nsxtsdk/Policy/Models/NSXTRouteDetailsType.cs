@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"BGP route details.")]
     public class NSXTRouteDetailsType 
     {
+        public NSXTRouteDetailsType()
+        {
+        }
         /// <summary>
         /// BGP Multi Exit Discriminator attribute.
         /// </summary>

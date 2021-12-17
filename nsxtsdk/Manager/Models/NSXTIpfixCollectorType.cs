@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpfixCollectorType 
     {
+        public NSXTIpfixCollectorType()
+        {
+            CollectorPort = test
+        }
         /// <summary>
         /// IP address for the IPFIX collector
         /// </summary>
@@ -31,7 +35,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Port for the IPFIX collector")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [NSXTDefaultProperty(Default: "")]
         public int? CollectorPort { get; set; }
     }
 }

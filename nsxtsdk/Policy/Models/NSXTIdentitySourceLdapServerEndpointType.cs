@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Information about a single LDAP server endpoint.")]
     public class NSXTIdentitySourceLdapServerEndpointType 
     {
+        public NSXTIdentitySourceLdapServerEndpointType()
+        {
+        }
         /// <summary>
         /// The URL for the LDAP server. Supported URL schemes are LDAP and LDAPS. Either a hostname or an IP address may be given,
         /// and the port number is optional and defaults to 389 for the LDAP scheme and 636 for the LDAPS scheme.

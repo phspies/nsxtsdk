@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Uplink Teaming Policy")]
     public class NSXTTeamingPolicyType 
     {
+        public NSXTTeamingPolicyType()
+        {
+        }
         /// <summary>
         /// Teaming policy
         /// </summary>
@@ -37,5 +40,11 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: true, Description: @"List of Uplinks used in active list")]
         [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTUplinkType> ActiveList { get; set; }
+        /// <summary>
+        /// Flag for preemptive mode
+        /// </summary>
+        [JsonProperty(PropertyName = "rolling_order")]
+        [NSXTProperty(IsRequired: false, Description: @"Flag for preemptive mode")]
+        public bool? RollingOrder { get; set; }
     }
 }

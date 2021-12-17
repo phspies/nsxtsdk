@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTVidmInfoListResultType : NSXTListResultType
     {
+        public NSXTVidmInfoListResultType()
+        {
+        }
         /// <summary>
         /// List results
         /// </summary>

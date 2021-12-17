@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIDSEventsBySignatureResultType : NSXTListResultType
     {
+        public NSXTIDSEventsBySignatureResultType()
+        {
+        }
         /// <summary>
         /// List of all intrusions detected, grouped by signature. The details include signature id, name, severity, timestamp, and
         /// total number of attempts per signature.

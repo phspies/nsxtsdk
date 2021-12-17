@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBgpNeighborStatusLiteDtoType 
     {
+        public NSXTBgpNeighborStatusLiteDtoType()
+        {
+        }
         /// <summary>
         /// Current state of the BGP session.
         /// </summary>
@@ -24,10 +27,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Current state of the BGP session.")]
         public NSXTBgpNeighborStatusLiteDtoConnectionStateEnumType? ConnectionState { get; set; }
         /// <summary>
-        /// Remote site details.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "remote_site")]
-        [NSXTProperty(IsRequired: false, Description: @"Remote site details.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType RemoteSite { get; set; }
         /// <summary>
         /// Source Ip address.

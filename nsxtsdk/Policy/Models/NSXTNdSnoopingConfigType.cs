@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Contains Neighbor Discovery Protocol (ND) snooping related configuration.")]
     public class NSXTNdSnoopingConfigType 
     {
+        public NSXTNdSnoopingConfigType()
+        {
+            NdSnoopingLimit = test
+        }
         /// <summary>
         /// Maximum number of ND (Neighbor Discovery Protocol) snooped IPv6 addresses
         /// </summary>
@@ -24,8 +28,7 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Maximum number of ND (Neighbor Discovery Protocol) snooped IPv6 addresses")]
         //[System.ComponentModel.DataAnnotations.MinLength(2)]
         //[System.ComponentModel.DataAnnotations.MaxLength(15)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? NdSnoopingLimit { get; set; }
+        public int? NdSnoopingLimit { get; set; }
         /// <summary>
         /// Enable this method will snoop the NS (Neighbor Solicitation) and NA
         /// (Neighbor Advertisement) messages in the ND (Neighbor Discovery Protocol)

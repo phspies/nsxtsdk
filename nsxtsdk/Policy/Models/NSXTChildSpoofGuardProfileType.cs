@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildSpoofGuardProfileType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildSpoofGuardProfileType()
+        {
+        }
         /// <summary>
-        /// Contains the actual SpoofGuardProfile object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "SpoofGuardProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual SpoofGuardProfile object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTSpoofGuardProfileType SpoofGuardProfile { get; set; }
     }

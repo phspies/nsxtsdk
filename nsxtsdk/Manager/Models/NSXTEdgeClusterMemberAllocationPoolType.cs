@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTEdgeClusterMemberAllocationPoolType 
     {
+        public NSXTEdgeClusterMemberAllocationPoolType()
+        {
+        }
         /// <summary>
         /// Types of logical router allocation pool based on services
         /// </summary>

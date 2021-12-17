@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTEffectiveProfileListResultType : NSXTListResultType
     {
+        public NSXTEffectiveProfileListResultType()
+        {
+        }
         /// <summary>
         /// Paged Collection of profiles which are applied to an Entity
         /// </summary>

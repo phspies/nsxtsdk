@@ -200,11 +200,11 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCrlListType AddCrlImport(NSXTCrlObjectDataType CrlObjectData)
+        public NSXTCrlListType AddCrl(NSXTCrlObjectDataType CrlObjectData)
         {
             if (CrlObjectData == null) { throw new System.ArgumentNullException("CrlObjectData cannot be null"); }
             NSXTCrlListType returnValue = default(NSXTCrlListType);
-            StringBuilder AddCrlImportServiceURL = new StringBuilder("/trust-management/crls?action=import");
+            StringBuilder AddCrlServiceURL = new StringBuilder("/trust-management/crls?action=import");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -212,11 +212,11 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(CrlObjectData, defaultSerializationSettings));
-            request.Resource = AddCrlImportServiceURL.ToString();
+            request.Resource = AddCrlServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + AddCrlImportServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + AddCrlServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -237,25 +237,90 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCertificateListType ImportCertificateImport(string CsrId, NSXTTrustObjectDataType TrustObjectData)
+        public NSXTCertificateProfileType GetCertificateProfile(string ServiceType)
         {
-            if (CsrId == null) { throw new System.ArgumentNullException("CsrId cannot be null"); }
-            if (TrustObjectData == null) { throw new System.ArgumentNullException("TrustObjectData cannot be null"); }
-            NSXTCertificateListType returnValue = default(NSXTCertificateListType);
-            StringBuilder ImportCertificateImportServiceURL = new StringBuilder("/trust-management/csrs/{csr-id}?action=import");
+            if (ServiceType == null) { throw new System.ArgumentNullException("ServiceType cannot be null"); }
+            NSXTCertificateProfileType returnValue = default(NSXTCertificateProfileType);
+            StringBuilder GetCertificateProfileServiceURL = new StringBuilder("/trust-management/certificate-profile/{service-type}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            GetCertificateProfileServiceURL.Replace("{service-type}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceType, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = GetCertificateProfileServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + GetCertificateProfileServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTCertificateProfileType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTCertificateProfileType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public void ApplyCertificate(string CertId, string ServiceType, string? NodeId = null)
+        {
+            if (CertId == null) { throw new System.ArgumentNullException("CertId cannot be null"); }
+            if (ServiceType == null) { throw new System.ArgumentNullException("ServiceType cannot be null"); }
+            
+            StringBuilder ApplyCertificateServiceURL = new StringBuilder("/trust-management/certificates/{cert-id}?action=apply_certificate");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            ImportCertificateImportServiceURL.Replace("{csr-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CsrId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(TrustObjectData, defaultSerializationSettings));
-            request.Resource = ImportCertificateImportServiceURL.ToString();
+            ApplyCertificateServiceURL.Replace("{cert-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CertId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (NodeId != null) { request.AddQueryParameter("node_id", NodeId.ToString()); }
+            if (ServiceType != null) { request.AddQueryParameter("service_type", ServiceType.ToString()); }
+            request.Resource = ApplyCertificateServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + ImportCertificateImportServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + ApplyCertificateServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTCertificateListType ImportCertificate(string CsrId, NSXTTrustObjectDataType TrustObjectData)
+        {
+            if (CsrId == null) { throw new System.ArgumentNullException("CsrId cannot be null"); }
+            if (TrustObjectData == null) { throw new System.ArgumentNullException("TrustObjectData cannot be null"); }
+            NSXTCertificateListType returnValue = default(NSXTCertificateListType);
+            StringBuilder ImportCertificateServiceURL = new StringBuilder("/trust-management/csrs/{csr-id}?action=import");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.POST
+            };
+            request.AddHeader("Content-type", "application/json");
+            ImportCertificateServiceURL.Replace("{csr-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CsrId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.AddJsonBody(JsonConvert.SerializeObject(TrustObjectData, defaultSerializationSettings));
+            request.Resource = ImportCertificateServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP POST operation to " + ImportCertificateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -353,24 +418,24 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCertificateCheckingStatusType ValidateCertificateValidate(string CertId, string? Usage = null)
+        public NSXTCertificateCheckingStatusType ValidateCertificate(string CertId, string? Usage = null)
         {
             if (CertId == null) { throw new System.ArgumentNullException("CertId cannot be null"); }
             NSXTCertificateCheckingStatusType returnValue = default(NSXTCertificateCheckingStatusType);
-            StringBuilder ValidateCertificateValidateServiceURL = new StringBuilder("/trust-management/certificates/{cert-id}?action=validate");
+            StringBuilder ValidateCertificateServiceURL = new StringBuilder("/trust-management/certificates/{cert-id}?action=validate");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            ValidateCertificateValidateServiceURL.Replace("{cert-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CertId, System.Globalization.CultureInfo.InvariantCulture)));
+            ValidateCertificateServiceURL.Replace("{cert-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CertId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Usage != null) { request.AddQueryParameter("usage", Usage.ToString()); }
-            request.Resource = ValidateCertificateValidateServiceURL.ToString();
+            request.Resource = ValidateCertificateServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ValidateCertificateValidateServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + ValidateCertificateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -382,6 +447,43 @@ namespace nsxtapi.ManagerModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTCertificateCheckingStatusType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public NSXTCertificateType GenerateSelfSignedCertificate(NSXTCsrWithDaysValidType CsrWithDaysValid)
+        {
+            if (CsrWithDaysValid == null) { throw new System.ArgumentNullException("CsrWithDaysValid cannot be null"); }
+            NSXTCertificateType returnValue = default(NSXTCertificateType);
+            StringBuilder GenerateSelfSignedCertificateServiceURL = new StringBuilder("/trust-management/csrs?action=self_sign");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.POST
+            };
+            request.AddHeader("Content-type", "application/json");
+            request.AddJsonBody(JsonConvert.SerializeObject(CsrWithDaysValid, defaultSerializationSettings));
+            request.Resource = GenerateSelfSignedCertificateServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP POST operation to " + GenerateSelfSignedCertificateServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTCertificateType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTCertificateType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -465,11 +567,11 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void SetInterSiteAphCertificateSetApplianceProxyCertificateForInterSiteCommunication(NSXTSetInterSiteAphCertificateRequestType SetInterSiteAphCertificateRequest)
+        public void SetInterSiteAphCertificate(NSXTSetInterSiteAphCertificateRequestType SetInterSiteAphCertificateRequest)
         {
             if (SetInterSiteAphCertificateRequest == null) { throw new System.ArgumentNullException("SetInterSiteAphCertificateRequest cannot be null"); }
             
-            StringBuilder SetInterSiteAphCertificateSetApplianceProxyCertificateForInterSiteCommunicationServiceURL = new StringBuilder("/trust-management/certificates?action=set_appliance_proxy_certificate_for_inter_site_communication");
+            StringBuilder SetInterSiteAphCertificateServiceURL = new StringBuilder("/trust-management/certificates?action=set_appliance_proxy_certificate_for_inter_site_communication");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -477,11 +579,11 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(SetInterSiteAphCertificateRequest, defaultSerializationSettings));
-            request.Resource = SetInterSiteAphCertificateSetApplianceProxyCertificateForInterSiteCommunicationServiceURL.ToString();
+            request.Resource = SetInterSiteAphCertificateServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + SetInterSiteAphCertificateSetApplianceProxyCertificateForInterSiteCommunicationServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + SetInterSiteAphCertificateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -624,11 +726,11 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTOidcEndPointType UpdateOidcEndPointThumbprintUpdateThumbprint(NSXTUpdateOidcEndPointThumbprintRequestType UpdateOidcEndPointThumbprintRequest)
+        public NSXTOidcEndPointType UpdateOidcEndPointThumbprint(NSXTUpdateOidcEndPointThumbprintRequestType UpdateOidcEndPointThumbprintRequest)
         {
             if (UpdateOidcEndPointThumbprintRequest == null) { throw new System.ArgumentNullException("UpdateOidcEndPointThumbprintRequest cannot be null"); }
             NSXTOidcEndPointType returnValue = default(NSXTOidcEndPointType);
-            StringBuilder UpdateOidcEndPointThumbprintUpdateThumbprintServiceURL = new StringBuilder("/trust-management/oidc-uris?action=update_thumbprint");
+            StringBuilder UpdateOidcEndPointThumbprintServiceURL = new StringBuilder("/trust-management/oidc-uris?action=update_thumbprint");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -636,11 +738,11 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(UpdateOidcEndPointThumbprintRequest, defaultSerializationSettings));
-            request.Resource = UpdateOidcEndPointThumbprintUpdateThumbprintServiceURL.ToString();
+            request.Resource = UpdateOidcEndPointThumbprintServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + UpdateOidcEndPointThumbprintUpdateThumbprintServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + UpdateOidcEndPointThumbprintServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1087,25 +1189,25 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCertificateType SelfSignCertificateSelfSign(string CsrId, long DaysValid)
+        public NSXTCertificateType SelfSignCertificate(string CsrId, long DaysValid)
         {
             if (CsrId == null) { throw new System.ArgumentNullException("CsrId cannot be null"); }
             if (DaysValid == null) { throw new System.ArgumentNullException("DaysValid cannot be null"); }
             NSXTCertificateType returnValue = default(NSXTCertificateType);
-            StringBuilder SelfSignCertificateSelfSignServiceURL = new StringBuilder("/trust-management/csrs/{csr-id}?action=self_sign");
+            StringBuilder SelfSignCertificateServiceURL = new StringBuilder("/trust-management/csrs/{csr-id}?action=self_sign");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            SelfSignCertificateSelfSignServiceURL.Replace("{csr-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CsrId, System.Globalization.CultureInfo.InvariantCulture)));
+            SelfSignCertificateServiceURL.Replace("{csr-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CsrId, System.Globalization.CultureInfo.InvariantCulture)));
             if (DaysValid != null) { request.AddQueryParameter("days_valid", DaysValid.ToString()); }
-            request.Resource = SelfSignCertificateSelfSignServiceURL.ToString();
+            request.Resource = SelfSignCertificateServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + SelfSignCertificateSelfSignServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + SelfSignCertificateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1189,11 +1291,11 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPrincipalIdentityType UpdatePrincipalIdentityCertificateUpdateCertificate(NSXTUpdatePrincipalIdentityCertificateRequestType UpdatePrincipalIdentityCertificateRequest)
+        public NSXTPrincipalIdentityType UpdatePrincipalIdentityCertificate(NSXTUpdatePrincipalIdentityCertificateRequestType UpdatePrincipalIdentityCertificateRequest)
         {
             if (UpdatePrincipalIdentityCertificateRequest == null) { throw new System.ArgumentNullException("UpdatePrincipalIdentityCertificateRequest cannot be null"); }
             NSXTPrincipalIdentityType returnValue = default(NSXTPrincipalIdentityType);
-            StringBuilder UpdatePrincipalIdentityCertificateUpdateCertificateServiceURL = new StringBuilder("/trust-management/principal-identities?action=update_certificate");
+            StringBuilder UpdatePrincipalIdentityCertificateServiceURL = new StringBuilder("/trust-management/principal-identities?action=update_certificate");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -1201,11 +1303,11 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(UpdatePrincipalIdentityCertificateRequest, defaultSerializationSettings));
-            request.Resource = UpdatePrincipalIdentityCertificateUpdateCertificateServiceURL.ToString();
+            request.Resource = UpdatePrincipalIdentityCertificateServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + UpdatePrincipalIdentityCertificateUpdateCertificateServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + UpdatePrincipalIdentityCertificateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1330,48 +1432,11 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCertificateProfileType GetCertificateProfile(string ServiceType)
-        {
-            if (ServiceType == null) { throw new System.ArgumentNullException("ServiceType cannot be null"); }
-            NSXTCertificateProfileType returnValue = default(NSXTCertificateProfileType);
-            StringBuilder GetCertificateProfileServiceURL = new StringBuilder("/trust-management/certificate-profile/{service-type}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetCertificateProfileServiceURL.Replace("{service-type}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceType, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = GetCertificateProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetCertificateProfileServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCertificateProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCertificateProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void SetPrincipalIdentityCertificateForFederationSetPiCertificateForFederation(NSXTSetPrincipalIdentityCertificateForFederationRequestType SetPrincipalIdentityCertificateForFederationRequest)
+        public void SetPrincipalIdentityCertificateForFederation(NSXTSetPrincipalIdentityCertificateForFederationRequestType SetPrincipalIdentityCertificateForFederationRequest)
         {
             if (SetPrincipalIdentityCertificateForFederationRequest == null) { throw new System.ArgumentNullException("SetPrincipalIdentityCertificateForFederationRequest cannot be null"); }
             
-            StringBuilder SetPrincipalIdentityCertificateForFederationSetPiCertificateForFederationServiceURL = new StringBuilder("/trust-management/certificates?action=set_pi_certificate_for_federation");
+            StringBuilder SetPrincipalIdentityCertificateForFederationServiceURL = new StringBuilder("/trust-management/certificates?action=set_pi_certificate_for_federation");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -1379,11 +1444,11 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(SetPrincipalIdentityCertificateForFederationRequest, defaultSerializationSettings));
-            request.Resource = SetPrincipalIdentityCertificateForFederationSetPiCertificateForFederationServiceURL.ToString();
+            request.Resource = SetPrincipalIdentityCertificateForFederationServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + SetPrincipalIdentityCertificateForFederationSetPiCertificateForFederationServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + SetPrincipalIdentityCertificateForFederationServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -1506,11 +1571,11 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCertificateListType AddCertificateImport(NSXTTrustObjectDataType TrustObjectData)
+        public NSXTCertificateListType AddCertificate(NSXTTrustObjectDataType TrustObjectData)
         {
             if (TrustObjectData == null) { throw new System.ArgumentNullException("TrustObjectData cannot be null"); }
             NSXTCertificateListType returnValue = default(NSXTCertificateListType);
-            StringBuilder AddCertificateImportServiceURL = new StringBuilder("/trust-management/certificates?action=import");
+            StringBuilder AddCertificateServiceURL = new StringBuilder("/trust-management/certificates?action=import");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -1518,11 +1583,11 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(TrustObjectData, defaultSerializationSettings));
-            request.Resource = AddCertificateImportServiceURL.ToString();
+            request.Resource = AddCertificateServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + AddCertificateImportServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + AddCertificateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -1538,34 +1603,6 @@ namespace nsxtapi.ManagerModules
 				}
 			}
 			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void ApplyCertificateApplyCertificate(string CertId, string ServiceType, string? NodeId = null)
-        {
-            if (CertId == null) { throw new System.ArgumentNullException("CertId cannot be null"); }
-            if (ServiceType == null) { throw new System.ArgumentNullException("ServiceType cannot be null"); }
-            
-            StringBuilder ApplyCertificateApplyCertificateServiceURL = new StringBuilder("/trust-management/certificates/{cert-id}?action=apply_certificate");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.POST
-            };
-            request.AddHeader("Content-type", "application/json");
-            ApplyCertificateApplyCertificateServiceURL.Replace("{cert-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CertId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (NodeId != null) { request.AddQueryParameter("node_id", NodeId.ToString()); }
-            if (ServiceType != null) { request.AddQueryParameter("service_type", ServiceType.ToString()); }
-            request.Resource = ApplyCertificateApplyCertificateServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP POST operation to " + ApplyCertificateApplyCertificateServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
         }
         /// <summary>
         /// 

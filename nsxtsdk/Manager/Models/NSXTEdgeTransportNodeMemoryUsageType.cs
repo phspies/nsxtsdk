@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Point in time usage of system, datapath, swap and cache memory in edge node.")]
     public class NSXTEdgeTransportNodeMemoryUsageType 
     {
+        public NSXTEdgeTransportNodeMemoryUsageType()
+        {
+        }
         /// <summary>
         /// Percentage of RAM on the system that can be flushed out to disk.
         /// </summary>
@@ -42,10 +45,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Percentage of memory in use by datapath processes which includes RES and hugepage memory.")]
         public double? DatapathTotalUsage { get; set; }
         /// <summary>
-        /// Detailed view of the datapath memory usage. Details out the heap and per memory pool point in time usage.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "datapath_mem_usage_details")]
-        [NSXTProperty(IsRequired: false, Description: @"Detailed view of the datapath memory usage. Details out the heap and per memory pool point in time usage.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTEdgeTransportNodeDatapathMemoryUsageType DatapathMemUsageDetails { get; set; }
     }
 }

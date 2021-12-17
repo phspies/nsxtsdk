@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRealizedSecurityGroupListResultType : NSXTListResultType
     {
+        public NSXTRealizedSecurityGroupListResultType()
+        {
+        }
         /// <summary>
         /// Paged Collection of realized Security Groups
         /// </summary>

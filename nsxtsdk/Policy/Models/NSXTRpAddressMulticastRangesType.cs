@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Static IPv4 multicast address and assciated multicast group ranges.")]
     public class NSXTRpAddressMulticastRangesType 
     {
+        public NSXTRpAddressMulticastRangesType()
+        {
+        }
         /// <summary>
         /// Assciated multicast group ranges configuration.
         /// </summary>

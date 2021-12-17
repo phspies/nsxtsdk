@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildPolicyEdgeClusterType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildPolicyEdgeClusterType()
+        {
+        }
         /// <summary>
-        /// Contains the actual PolicyEdgeCluster object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "PolicyEdgeCluster", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual PolicyEdgeCluster object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTPolicyEdgeClusterType PolicyEdgeCluster { get; set; }
     }

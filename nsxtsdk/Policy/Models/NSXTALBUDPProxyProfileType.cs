@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer UDPProxyProfile object")]
     public class NSXTALBUDPProxyProfileType 
     {
+        public NSXTALBUDPProxyProfileType()
+        {
+            SessionIdleTimeout = test
+        }
         /// <summary>
         /// The amount of time (in sec) for which a flow needs to be
         /// idle before it is deleted.
@@ -29,7 +33,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"The amount of time (in sec) for which a flow needs to beidle before it is deleted.Allowed values are 2-3600.Unit is SEC.Default value when not specified in API or module isinterpreted by ALB Controller as 10.")]
         //[System.ComponentModel.DataAnnotations.MinLength(2)]
         //[System.ComponentModel.DataAnnotations.MaxLength(3600)]
-        [NSXTDefaultProperty(Default: "")]
         public long? SessionIdleTimeout { get; set; }
     }
 }

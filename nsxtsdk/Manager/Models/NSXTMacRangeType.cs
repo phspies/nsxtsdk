@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"A range of MAC addresses with a start and end value")]
     public class NSXTMacRangeType 
     {
+        public NSXTMacRangeType()
+        {
+        }
         /// <summary>
         /// Start value for MAC address range
         /// </summary>

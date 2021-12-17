@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTL3VpnRuleType : NSXTPolicyConfigResourceType
     {
+        public NSXTL3VpnRuleType()
+        {
+            Action = test
+        }
         /// <summary>
         /// Action to exchange data with or without protection.
         /// PROTECT - Allows to exchange data with ipsec protection. Protect rules are defined per
@@ -27,7 +31,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "action")]
         [NSXTProperty(IsRequired: false, Description: @"Action to exchange data with or without protection.PROTECT - Allows to exchange data with ipsec protection. Protect rules are defined perL3Vpn.BYPASS - Allows to exchange data without ipsec protection. Bypass rules are defined perL3VpnContext and affects all policy based L3Vpns. Bypass rules are prioritized overprotect rules.")]
-        [NSXTDefaultProperty(Default: "PROTECT")]
         public NSXTL3VpnRuleActionEnumType? Action { get; set; }
         /// <summary>
         /// List of local subnets used in policy-based L3Vpn.
@@ -42,7 +45,7 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "sequence_number")]
         [NSXTProperty(IsRequired: false, Description: @"This field is used to resolve conflicts between multiple L3VpnRules associated with asingle L3Vpn or L3VpnContext.")]
-        public long? SequenceNumber { get; set; }
+        public int? SequenceNumber { get; set; }
         /// <summary>
         /// List of remote subnets used in policy-based L3Vpn.
         /// </summary>

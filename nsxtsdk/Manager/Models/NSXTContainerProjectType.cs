@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTContainerProjectType : NSXTDiscoveredResourceType
     {
+        public NSXTContainerProjectType()
+        {
+        }
         /// <summary>
         /// Network status of container project.
         /// </summary>

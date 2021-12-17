@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Transport tunnel status.")]
     public class NSXTL2VPNSessionTransportTunnelStatusType 
     {
+        public NSXTL2VPNSessionTransportTunnelStatusType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

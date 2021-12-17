@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalRouterPortListResultType : NSXTListResultType
     {
+        public NSXTLogicalRouterPortListResultType()
+        {
+        }
         /// <summary>
         /// Logical router port list results
         /// </summary>

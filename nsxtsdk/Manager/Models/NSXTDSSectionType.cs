@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDSSectionType : NSXTManagedResourceType
     {
+        public NSXTDSSectionType()
+        {
+        }
         /// <summary>
         /// Stateful or Stateless nature of distributed service section is enforced on all rules inside the section. Layer3 sections
         /// can be stateful or stateless. Layer2 sections can only be stateless.

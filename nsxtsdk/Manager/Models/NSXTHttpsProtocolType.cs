@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTHttpsProtocolType : NSXTProtocolType
     {
+        public NSXTHttpsProtocolType()
+        {
+        }
         /// <summary>
         /// SSL thumbprint of server
         /// </summary>
@@ -25,10 +28,10 @@ namespace nsxtsdk.ManagerModels
         [System.ComponentModel.DataAnnotations.Required]
         public string Sha256Thumbprint { get; set; }
         /// <summary>
-        /// Scheme to authenticate if required
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "authentication_scheme")]
-        [NSXTProperty(IsRequired: false, Description: @"Scheme to authenticate if required")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTBasicAuthenticationSchemeType AuthenticationScheme { get; set; }
     }
 }

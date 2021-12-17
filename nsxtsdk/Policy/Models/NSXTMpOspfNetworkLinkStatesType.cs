@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"OSPF router link state details.")]
     public class NSXTMpOspfNetworkLinkStatesType 
     {
+        public NSXTMpOspfNetworkLinkStatesType()
+        {
+        }
         /// <summary>
         /// Cost of the route
         /// </summary>

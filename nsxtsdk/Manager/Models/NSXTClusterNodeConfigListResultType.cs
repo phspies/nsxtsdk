@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTClusterNodeConfigListResultType : NSXTListResultType
     {
+        public NSXTClusterNodeConfigListResultType()
+        {
+        }
         /// <summary>
         /// Cluster node configuration results
         /// </summary>

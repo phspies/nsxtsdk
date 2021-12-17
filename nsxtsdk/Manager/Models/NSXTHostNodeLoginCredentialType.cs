@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"The credentials to login into the host node")]
     public class NSXTHostNodeLoginCredentialType 
     {
+        public NSXTHostNodeLoginCredentialType()
+        {
+        }
         /// <summary>
         /// The username of the account on the host node
         /// </summary>

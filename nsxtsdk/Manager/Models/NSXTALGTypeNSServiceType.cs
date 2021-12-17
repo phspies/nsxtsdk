@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTALGTypeNSServiceType : NSXTNSServiceElementType
     {
+        public NSXTALGTypeNSServiceType()
+        {
+        }
         /// <summary>
         /// The Application Layer Gateway (ALG) protocol.
         /// Please note, protocol NBNS_BROADCAST and NBDG_BROADCAST are  deprecated.

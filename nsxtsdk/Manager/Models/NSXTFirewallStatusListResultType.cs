@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFirewallStatusListResultType : NSXTListResultType
     {
+        public NSXTFirewallStatusListResultType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

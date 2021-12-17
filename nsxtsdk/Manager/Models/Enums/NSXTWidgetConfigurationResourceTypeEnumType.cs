@@ -7,9 +7,9 @@ using nsxtsdk.Models;
 namespace nsxtsdk.ManagerModels
 {
     /// <summary>
-    /// Supported visualization types are LabelValueConfiguration, DonutConfiguration, GridConfiguration, StatsConfiguration, MultiWidgetConfiguration, GraphConfiguration, ContainerConfiguration, CustomWidgetConfiguration and DropdownFilterWidgetConfiguration.
+    /// Supported visualization types are LabelValueConfiguration, DonutConfiguration, GridConfiguration, StatsConfiguration, MultiWidgetConfiguration, GraphConfiguration, ContainerConfiguration, CustomWidgetConfiguration, CustomFilterWidgetConfiguration, TimeRangeDropdownFilterWidgetConfiguration, SpacerWidgetConfiguration, LegendWidgetConfiguration and DropdownFilterWidgetConfiguration.
     /// </summary>
-    [NSXTProperty(Description: @"Supported visualization types are LabelValueConfiguration, DonutConfiguration, GridConfiguration, StatsConfiguration, MultiWidgetConfiguration, GraphConfiguration, ContainerConfiguration, CustomWidgetConfiguration and DropdownFilterWidgetConfiguration.")]
+    [NSXTProperty(Description: @"Supported visualization types are LabelValueConfiguration, DonutConfiguration, GridConfiguration, StatsConfiguration, MultiWidgetConfiguration, GraphConfiguration, ContainerConfiguration, CustomWidgetConfiguration, CustomFilterWidgetConfiguration, TimeRangeDropdownFilterWidgetConfiguration, SpacerWidgetConfiguration, LegendWidgetConfiguration and DropdownFilterWidgetConfiguration.")]
     public enum NSXTWidgetConfigurationResourceTypeEnumType
     {
         [EnumMember(Value = "LABELVALUECONFIGURATION")]
@@ -28,7 +28,15 @@ namespace nsxtsdk.ManagerModels
         GraphConfiguration = 7,
         [EnumMember(Value = "CUSTOMWIDGETCONFIGURATION")]
         CustomWidgetConfiguration = 8,
+        [EnumMember(Value = "CUSTOMFILTERWIDGETCONFIGURATION")]
+        CustomFilterWidgetConfiguration = 9,
+        [EnumMember(Value = "TIMERANGEDROPDOWNFILTERWIDGETCONFIGURATION")]
+        TimeRangeDropdownFilterWidgetConfiguration = 10,
         [EnumMember(Value = "DROPDOWNFILTERWIDGETCONFIGURATION")]
-        DropdownFilterWidgetConfiguration = 9,
+        DropdownFilterWidgetConfiguration = 11,
+        [EnumMember(Value = "SPACERWIDGETCONFIGURATION")]
+        SpacerWidgetConfiguration = 12,
+        [EnumMember(Value = "LEGENDWIDGETCONFIGURATION")]
+        LegendWidgetConfiguration = 13,
     }
 }

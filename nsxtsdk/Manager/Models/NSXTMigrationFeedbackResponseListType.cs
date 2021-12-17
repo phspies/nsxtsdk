@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"List of detailed feedback response for the migration tool.")]
     public class NSXTMigrationFeedbackResponseListType 
     {
+        public NSXTMigrationFeedbackResponseListType()
+        {
+        }
         /// <summary>
         /// List of feedback responses.
         /// </summary>

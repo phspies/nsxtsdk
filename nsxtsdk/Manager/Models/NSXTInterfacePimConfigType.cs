@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Interface PIM[Protocol Independent Multicast] configuration parameters.")]
     public class NSXTInterfacePimConfigType 
     {
+        public NSXTInterfacePimConfigType()
+        {
+            HelloInterval = test
+        }
         /// <summary>
         /// PIM hold interval. Ranges from 1 to 630 seconds. hold_interval
         /// should be greater than hello_interval.
@@ -43,7 +47,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"PIM hello interval. Ranges from 1 to 180 seconds.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(180)]
-        [NSXTDefaultProperty(Default: "")]
         public long? HelloInterval { get; set; }
     }
 }

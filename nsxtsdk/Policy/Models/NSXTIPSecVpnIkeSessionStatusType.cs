@@ -18,6 +18,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Status for IPSec VPN Ike session UP, DOWN, NEGOTIATING and fail reason if Ike sessionis down.")]
     public class NSXTIPSecVpnIkeSessionStatusType 
     {
+        public NSXTIPSecVpnIkeSessionStatusType()
+        {
+        }
         /// <summary>
         /// Reason for failure.
         /// </summary>

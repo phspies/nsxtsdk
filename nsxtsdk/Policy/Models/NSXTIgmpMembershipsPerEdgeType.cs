@@ -12,11 +12,14 @@ using System.ComponentModel;
 namespace nsxtsdk.PolicyModels
 {
     /// <summary>
-    /// IGMP Memberships Per Edge.
+    /// 
     /// </summary>
-    [NSXTProperty(Description: @"IGMP Memberships Per Edge.")]
-    public class NSXTIgmpMembershipsPerEdgeType 
+    [NSXTProperty(Description: @"")]
+    public class NSXTIgmpMembershipsPerEdgeType : NSXTListResultType
     {
+        public NSXTIgmpMembershipsPerEdgeType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

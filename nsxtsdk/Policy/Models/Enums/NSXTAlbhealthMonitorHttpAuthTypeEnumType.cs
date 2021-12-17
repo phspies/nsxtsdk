@@ -7,9 +7,9 @@ using nsxtsdk.Models;
 namespace nsxtsdk.PolicyModels
 {
     /// <summary>
-    /// Type of the authentication method.Enum options - AUTH_BASIC, AUTH_NTLM.
+    /// Type of the authentication method.Enum options - AUTH_BASIC, AUTH_NTLM.Allowed in Basic edition, Essentials edition, Enterpriseedition.
     /// </summary>
-    [NSXTProperty(Description: @"Type of the authentication method.Enum options - AUTH_BASIC, AUTH_NTLM.")]
+    [NSXTProperty(Description: @"Type of the authentication method.Enum options - AUTH_BASIC, AUTH_NTLM.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
     public enum NSXTAlbhealthMonitorHttpAuthTypeEnumType
     {
         [EnumMember(Value = "AUTH_BASIC")]

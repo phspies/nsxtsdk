@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildForwardingPolicyType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildForwardingPolicyType()
+        {
+        }
         /// <summary>
-        /// Contains actual ForwardingPolicy.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ForwardingPolicy", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains actual ForwardingPolicy.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTForwardingPolicyType ForwardingPolicy { get; set; }
     }

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"SSL protocol")]
     public class NSXTLbSslProtocolInfoType 
     {
+        public NSXTLbSslProtocolInfoType()
+        {
+        }
         /// <summary>
         /// Default SSL protocol flag
         /// </summary>

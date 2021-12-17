@@ -17,23 +17,20 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLiveTraceActionConfigType 
     {
+        public NSXTLiveTraceActionConfigType()
+        {
+        }
         /// <summary>
-        /// The trace action config
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "trace_config")]
-        [NSXTProperty(IsRequired: false, Description: @"The trace action config")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTTraceActionConfigType TraceConfig { get; set; }
         /// <summary>
-        /// The packet capture action config
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "pktcap_config")]
-        [NSXTProperty(IsRequired: false, Description: @"The packet capture action config")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTPktcapActionConfigType PktcapConfig { get; set; }
-        /// <summary>
-        /// The count action config
-        /// </summary>
-        [JsonProperty(PropertyName = "count_config")]
-        [NSXTProperty(IsRequired: false, Description: @"The count action config")]
-        public NSXTCountActionConfigType CountConfig { get; set; }
     }
 }

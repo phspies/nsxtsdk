@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"List of routes to be aggregated")]
     public class NSXTRouteAggregationEntryType 
     {
+        public NSXTRouteAggregationEntryType()
+        {
+            SummaryOnly = test
+        }
         /// <summary>
         /// Send only summarized route.
         /// Summarization reduces number of routes advertised by representing
@@ -24,7 +28,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "summary_only")]
         [NSXTProperty(IsRequired: false, Description: @"Send only summarized route.Summarization reduces number of routes advertised by representingmultiple related routes with prefix property.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? SummaryOnly { get; set; }
         /// <summary>
         /// CIDR of aggregate address

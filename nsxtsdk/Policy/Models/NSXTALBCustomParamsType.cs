@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer CustomParams object")]
     public class NSXTALBCustomParamsType 
     {
+        public NSXTALBCustomParamsType()
+        {
+        }
         /// <summary>
         /// Placeholder for description of property is_dynamic of obj
         /// type CustomParams field type str  type boolean.

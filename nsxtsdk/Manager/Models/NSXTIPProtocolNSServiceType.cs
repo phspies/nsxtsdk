@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPProtocolNSServiceType : NSXTNSServiceElementType
     {
+        public NSXTIPProtocolNSServiceType()
+        {
+        }
         /// <summary>
         /// The IP protocol number
         /// </summary>

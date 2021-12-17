@@ -17,12 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HardwareSecurityModule object")]
     public class NSXTALBHardwareSecurityModuleType 
     {
+        public NSXTALBHardwareSecurityModuleType()
+        {
+        }
         /// <summary>
-        /// Thales Remote File Server (RFS), used for the netHSMs,
-        /// configuration.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "rfs")]
-        [NSXTProperty(IsRequired: false, Description: @"Thales Remote File Server (RFS), used for the netHSMs,configuration.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHSMThalesRFSType Rfs { get; set; }
         /// <summary>
         /// HSM type to use.
@@ -34,16 +36,16 @@ namespace nsxtsdk.PolicyModels
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTAlbhardwareSecurityModuleTypeEnumType Type { get; set; }
         /// <summary>
-        /// Safenet/Gemalto Luna/Gem specific configuration.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "sluna")]
-        [NSXTProperty(IsRequired: false, Description: @"Safenet/Gemalto Luna/Gem specific configuration.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHSMSafenetLunaType Sluna { get; set; }
         /// <summary>
-        /// AWS CloudHSM specific configuration.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "cloudhsm")]
-        [NSXTProperty(IsRequired: false, Description: @"AWS CloudHSM specific configuration.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHSMAwsCloudHsmType Cloudhsm { get; set; }
         /// <summary>
         /// Thales netHSM specific configuration.

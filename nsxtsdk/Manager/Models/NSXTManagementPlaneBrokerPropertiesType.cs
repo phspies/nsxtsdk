@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Information about a management plane node this controller is configured to communicate with")]
     public class NSXTManagementPlaneBrokerPropertiesType 
     {
+        public NSXTManagementPlaneBrokerPropertiesType()
+        {
+            Port = test
+        }
         /// <summary>
         /// IP address or hostname of the message bus broker on the management plane node.
         /// </summary>
@@ -31,7 +35,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Port number of the message bus broker on the management plane node.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Port { get; set; }
         /// <summary>
         /// Certificate thumbprint of the message bus broker on the management plane node.

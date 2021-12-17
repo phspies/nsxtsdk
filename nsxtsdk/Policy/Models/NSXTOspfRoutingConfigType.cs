@@ -17,6 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTOspfRoutingConfigType : NSXTPolicyConfigResourceType
     {
+        public NSXTOspfRoutingConfigType()
+        {
+            GracefulRestartMode = test
+            Ecmp = test
+        }
         /// <summary>
         /// List of summary address configruation to summarize or filter external routes based on the
         /// setting of advertise flag in each OspfSummaryAddressConfig
@@ -37,7 +42,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "graceful_restart_mode")]
         [NSXTProperty(IsRequired: false, Description: @"Configuration field to hold OSPF Restart mode .")]
-        [NSXTDefaultProperty(Default: "HELPER_ONLY")]
         public NSXTOspfRoutingConfigGracefulRestartModeEnumType? GracefulRestartMode { get; set; }
         /// <summary>
         /// Flag to enable OSPF routing protocol. Disabling will stop feature and
@@ -51,7 +55,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "ecmp")]
         [NSXTProperty(IsRequired: false, Description: @"Flag to enable ECMP.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Ecmp { get; set; }
     }
 }

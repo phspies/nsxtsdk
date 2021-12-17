@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpV6StaticBindingType : NSXTDhcpV6InfoBaseType
     {
+        public NSXTDhcpV6StaticBindingType()
+        {
+        }
         /// <summary>
         /// When not specified, no ip address will be assigned to client host.
         /// </summary>

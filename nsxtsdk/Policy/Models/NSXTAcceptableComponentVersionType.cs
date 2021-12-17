@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTAcceptableComponentVersionType : NSXTVersionListType
     {
+        public NSXTAcceptableComponentVersionType()
+        {
+        }
         /// <summary>
         /// Node type
         /// </summary>

@@ -24,21 +24,20 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"CPU and Memory resource configuration is defined per Edge VMform factor.These resources are reserved 100 percent by default with Normal VMimportance. Resource reservation tuning provides a means to optimizeresource utilization and workaround hard resource limits.This solution should be used as a temporary workaround. It is recommendedto add more resources to the compute cluster and change the reservationback to 100 percent for optimal performance.")]
     public class NSXTReservationInfoType 
     {
+        public NSXTReservationInfoType()
+        {
+        }
         /// <summary>
-        /// Specify a reservation if you need to guarantee that the minimum
-        /// required amount of CPU is always available for the virtual
-        /// machine.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "cpu_reservation")]
-        [NSXTProperty(IsRequired: false, Description: @"Specify a reservation if you need to guarantee that the minimumrequired amount of CPU is always available for the virtualmachine.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTCPUReservationType CpuReservation { get; set; }
         /// <summary>
-        /// Specify a reservation if you need to guarantee that the minimum
-        /// required amount of memory is always available for the virtual
-        /// machine.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "memory_reservation")]
-        [NSXTProperty(IsRequired: false, Description: @"Specify a reservation if you need to guarantee that the minimumrequired amount of memory is always available for the virtualmachine.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTMemoryReservationType MemoryReservation { get; set; }
     }
 }

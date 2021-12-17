@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBHttpRequestHeaderDeleteActionType : NSXTLBRuleActionType
     {
+        public NSXTLBHttpRequestHeaderDeleteActionType()
+        {
+        }
         /// <summary>
         /// Name of a header field of HTTP request message.
         /// </summary>

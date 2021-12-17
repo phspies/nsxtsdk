@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeServicePropertiesType : NSXTResourceType
     {
+        public NSXTNodeServicePropertiesType()
+        {
+        }
         /// <summary>
         /// Service name
         /// </summary>

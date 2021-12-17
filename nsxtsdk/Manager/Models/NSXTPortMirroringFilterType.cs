@@ -17,12 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPortMirroringFilterType 
     {
+        public NSXTPortMirroringFilterType()
+        {
+            FilterAction = test
+        }
         /// <summary>
         /// If set to MIRROR, packets will be mirrored. If set to DO_NOT_MIRROR, packets will not be mirrored.
         /// </summary>
         [JsonProperty(PropertyName = "filter_action")]
         [NSXTProperty(IsRequired: false, Description: @"If set to MIRROR, packets will be mirrored. If set to DO_NOT_MIRROR, packets will not be mirrored.")]
-        [NSXTDefaultProperty(Default: "MIRROR")]
         public NSXTPortMirroringFilterFilterActionEnumType? FilterAction { get; set; }
         /// <summary>
         /// The transport protocols of TCP or UDP, used to match the transport protocol of a packet. If not provided, no filtering
@@ -32,18 +35,16 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"The transport protocols of TCP or UDP, used to match the transport protocol of a packet. If not provided, no filtering by IP protocols is performed.")]
         public NSXTPortMirroringFilterIpProtocolEnumType? IpProtocol { get; set; }
         /// <summary>
-        /// Source IP in the form of IPAddresses, used to match the source IP of a packet. If not provided, no filtering by source
-        /// IPs is performed.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "src_ips")]
-        [NSXTProperty(IsRequired: false, Description: @"Source IP in the form of IPAddresses, used to match the source IP of a packet. If not provided, no filtering by source IPs is performed.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPAddressesType SrcIps { get; set; }
         /// <summary>
-        /// Destination IP in the form of IPAddresses, used to match the destination IP of a packet. If not provided, no filtering
-        /// by destination IPs is performed.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "dst_ips")]
-        [NSXTProperty(IsRequired: false, Description: @"Destination IP in the form of IPAddresses, used to match the destination IP of a packet. If not provided, no filtering by destination IPs is performed.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPAddressesType DstIps { get; set; }
         /// <summary>
         /// Destination port in the form of a port or port range, used to match the destination port of a packet. If not provided,

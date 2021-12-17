@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTVtepLabelPoolListResultType : NSXTListResultType
     {
+        public NSXTVtepLabelPoolListResultType()
+        {
+        }
         /// <summary>
         /// Virtual tunnel endpoint label pool list results
         /// </summary>

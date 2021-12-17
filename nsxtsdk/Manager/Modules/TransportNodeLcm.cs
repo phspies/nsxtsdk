@@ -30,7 +30,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void RefreshTransportNode(string TransportNodeId)
+        public void RefreshTransportNode(string TransportNodeId, bool? ReadOnly = null)
         {
             if (TransportNodeId == null) { throw new System.ArgumentNullException("TransportNodeId cannot be null"); }
             
@@ -42,6 +42,7 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             RefreshTransportNodeServiceURL.Replace("{transport-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TransportNodeId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (ReadOnly != null) { request.AddQueryParameter("read_only", ReadOnly.ToString()); }
             request.Resource = RefreshTransportNodeServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
@@ -55,23 +56,60 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void RestartTransportNodeInventorySyncRestartInventorySync(string TransportNodeId)
+        public NSXTTransportNodeType ReapplyTnprofileOnDiscoveredNode(string NodeExtId)
         {
-            if (TransportNodeId == null) { throw new System.ArgumentNullException("TransportNodeId cannot be null"); }
-            
-            StringBuilder RestartTransportNodeInventorySyncRestartInventorySyncServiceURL = new StringBuilder("/transport-nodes/{transport-node-id}?action=restart_inventory_sync");
+            if (NodeExtId == null) { throw new System.ArgumentNullException("NodeExtId cannot be null"); }
+            NSXTTransportNodeType returnValue = default(NSXTTransportNodeType);
+            StringBuilder ReapplyTnprofileOnDiscoveredNodeServiceURL = new StringBuilder("/fabric/discovered-nodes/{node-ext-id}?action=reapply_cluster_config");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            RestartTransportNodeInventorySyncRestartInventorySyncServiceURL.Replace("{transport-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TransportNodeId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = RestartTransportNodeInventorySyncRestartInventorySyncServiceURL.ToString();
+            ReapplyTnprofileOnDiscoveredNodeServiceURL.Replace("{node-ext-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeExtId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = ReapplyTnprofileOnDiscoveredNodeServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + RestartTransportNodeInventorySyncRestartInventorySyncServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + ReapplyTnprofileOnDiscoveredNodeServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTTransportNodeType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTTransportNodeType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public void RestartTransportNodeInventorySync(string TransportNodeId)
+        {
+            if (TransportNodeId == null) { throw new System.ArgumentNullException("TransportNodeId cannot be null"); }
+            
+            StringBuilder RestartTransportNodeInventorySyncServiceURL = new StringBuilder("/transport-nodes/{transport-node-id}?action=restart_inventory_sync");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.POST
+            };
+            request.AddHeader("Content-type", "application/json");
+            RestartTransportNodeInventorySyncServiceURL.Replace("{transport-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TransportNodeId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = RestartTransportNodeInventorySyncServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP POST operation to " + RestartTransportNodeInventorySyncServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -80,25 +118,25 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTransportNodeType CreateTransportNodeForDiscoveredNodeCreateTransportNode(string NodeExtId, NSXTTransportNodeType TransportNode)
+        public NSXTTransportNodeType CreateTransportNodeForDiscoveredNode(string NodeExtId, NSXTTransportNodeType TransportNode)
         {
             if (NodeExtId == null) { throw new System.ArgumentNullException("NodeExtId cannot be null"); }
             if (TransportNode == null) { throw new System.ArgumentNullException("TransportNode cannot be null"); }
             NSXTTransportNodeType returnValue = default(NSXTTransportNodeType);
-            StringBuilder CreateTransportNodeForDiscoveredNodeCreateTransportNodeServiceURL = new StringBuilder("/fabric/discovered-nodes/{node-ext-id}?action=create_transport_node");
+            StringBuilder CreateTransportNodeForDiscoveredNodeServiceURL = new StringBuilder("/fabric/discovered-nodes/{node-ext-id}?action=create_transport_node");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            CreateTransportNodeForDiscoveredNodeCreateTransportNodeServiceURL.Replace("{node-ext-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeExtId, System.Globalization.CultureInfo.InvariantCulture)));
+            CreateTransportNodeForDiscoveredNodeServiceURL.Replace("{node-ext-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeExtId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(TransportNode, defaultSerializationSettings));
-            request.Resource = CreateTransportNodeForDiscoveredNodeCreateTransportNodeServiceURL.ToString();
+            request.Resource = CreateTransportNodeForDiscoveredNodeServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + CreateTransportNodeForDiscoveredNodeCreateTransportNodeServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + CreateTransportNodeForDiscoveredNodeServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -156,23 +194,48 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void RestoreParentClusterConfigurationRestoreClusterConfig(string TransportNodeId)
+        public void ResyncTransportNode(string TransportnodeId)
         {
-            if (TransportNodeId == null) { throw new System.ArgumentNullException("TransportNodeId cannot be null"); }
+            if (TransportnodeId == null) { throw new System.ArgumentNullException("TransportnodeId cannot be null"); }
             
-            StringBuilder RestoreParentClusterConfigurationRestoreClusterConfigServiceURL = new StringBuilder("/transport-nodes/{transport-node-id}?action=restore_cluster_config");
+            StringBuilder ResyncTransportNodeServiceURL = new StringBuilder("/transport-nodes/{transportnode-id}?action=resync_host_config");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            RestoreParentClusterConfigurationRestoreClusterConfigServiceURL.Replace("{transport-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TransportNodeId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = RestoreParentClusterConfigurationRestoreClusterConfigServiceURL.ToString();
+            ResyncTransportNodeServiceURL.Replace("{transportnode-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TransportnodeId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = ResyncTransportNodeServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + RestoreParentClusterConfigurationRestoreClusterConfigServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + ResyncTransportNodeServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
+        public void RestoreParentClusterConfiguration(string TransportNodeId)
+        {
+            if (TransportNodeId == null) { throw new System.ArgumentNullException("TransportNodeId cannot be null"); }
+            
+            StringBuilder RestoreParentClusterConfigurationServiceURL = new StringBuilder("/transport-nodes/{transport-node-id}?action=restore_cluster_config");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.POST
+            };
+            request.AddHeader("Content-type", "application/json");
+            RestoreParentClusterConfigurationServiceURL.Replace("{transport-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TransportNodeId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = RestoreParentClusterConfigurationServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP POST operation to " + RestoreParentClusterConfigurationServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -218,50 +281,25 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void MigrateTransportNodeFromNvdsToVdsMigrateToVds(string TransportNodeId)
-        {
-            if (TransportNodeId == null) { throw new System.ArgumentNullException("TransportNodeId cannot be null"); }
-            
-            StringBuilder MigrateTransportNodeFromNvdsToVdsMigrateToVdsServiceURL = new StringBuilder("/transport-nodes/{transport-node-id}?action=migrate_to_vds");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.POST
-            };
-            request.AddHeader("Content-type", "application/json");
-            MigrateTransportNodeFromNvdsToVdsMigrateToVdsServiceURL.Replace("{transport-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TransportNodeId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = MigrateTransportNodeFromNvdsToVdsMigrateToVdsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP POST operation to " + MigrateTransportNodeFromNvdsToVdsMigrateToVdsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTTransportNodeType RedeployEdgeTransportNodeRedeploy(string NodeId, NSXTTransportNodeType TransportNode)
+        public NSXTTransportNodeType RedeployEdgeTransportNode(string NodeId, NSXTTransportNodeType TransportNode)
         {
             if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
             if (TransportNode == null) { throw new System.ArgumentNullException("TransportNode cannot be null"); }
             NSXTTransportNodeType returnValue = default(NSXTTransportNodeType);
-            StringBuilder RedeployEdgeTransportNodeRedeployServiceURL = new StringBuilder("/transport-nodes/{node-id}?action=redeploy");
+            StringBuilder RedeployEdgeTransportNodeServiceURL = new StringBuilder("/transport-nodes/{node-id}?action=redeploy");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            RedeployEdgeTransportNodeRedeployServiceURL.Replace("{node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeId, System.Globalization.CultureInfo.InvariantCulture)));
+            RedeployEdgeTransportNodeServiceURL.Replace("{node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(TransportNode, defaultSerializationSettings));
-            request.Resource = RedeployEdgeTransportNodeRedeployServiceURL.ToString();
+            request.Resource = RedeployEdgeTransportNodeServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + RedeployEdgeTransportNodeRedeployServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + RedeployEdgeTransportNodeServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
@@ -282,63 +320,26 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void EnableFlowCacheEnableFlowCache(string TransportNodeId)
+        public void EnableFlowCache(string TransportNodeId)
         {
             if (TransportNodeId == null) { throw new System.ArgumentNullException("TransportNodeId cannot be null"); }
             
-            StringBuilder EnableFlowCacheEnableFlowCacheServiceURL = new StringBuilder("/transport-nodes/{transport-node-id}?action=enable_flow_cache");
+            StringBuilder EnableFlowCacheServiceURL = new StringBuilder("/transport-nodes/{transport-node-id}?action=enable_flow_cache");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            EnableFlowCacheEnableFlowCacheServiceURL.Replace("{transport-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TransportNodeId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = EnableFlowCacheEnableFlowCacheServiceURL.ToString();
+            EnableFlowCacheServiceURL.Replace("{transport-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TransportNodeId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = EnableFlowCacheServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + EnableFlowCacheEnableFlowCacheServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + EnableFlowCacheServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTTransportNodeType ReapplyTnprofileOnDiscoveredNodeReapplyClusterConfig(string NodeExtId)
-        {
-            if (NodeExtId == null) { throw new System.ArgumentNullException("NodeExtId cannot be null"); }
-            NSXTTransportNodeType returnValue = default(NSXTTransportNodeType);
-            StringBuilder ReapplyTnprofileOnDiscoveredNodeReapplyClusterConfigServiceURL = new StringBuilder("/fabric/discovered-nodes/{node-ext-id}?action=reapply_cluster_config");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.POST
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReapplyTnprofileOnDiscoveredNodeReapplyClusterConfigServiceURL.Replace("{node-ext-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeExtId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReapplyTnprofileOnDiscoveredNodeReapplyClusterConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP POST operation to " + ReapplyTnprofileOnDiscoveredNodeReapplyClusterConfigServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTransportNodeType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTransportNodeType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
         }
         /// <summary>
         /// 
@@ -535,23 +536,23 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DisableFlowCacheDisableFlowCache(string TransportNodeId)
+        public void DisableFlowCache(string TransportNodeId)
         {
             if (TransportNodeId == null) { throw new System.ArgumentNullException("TransportNodeId cannot be null"); }
             
-            StringBuilder DisableFlowCacheDisableFlowCacheServiceURL = new StringBuilder("/transport-nodes/{transport-node-id}?action=disable_flow_cache");
+            StringBuilder DisableFlowCacheServiceURL = new StringBuilder("/transport-nodes/{transport-node-id}?action=disable_flow_cache");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            DisableFlowCacheDisableFlowCacheServiceURL.Replace("{transport-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TransportNodeId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DisableFlowCacheDisableFlowCacheServiceURL.ToString();
+            DisableFlowCacheServiceURL.Replace("{transport-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TransportNodeId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = DisableFlowCacheServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + DisableFlowCacheDisableFlowCacheServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + DisableFlowCacheServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             

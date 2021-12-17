@@ -17,6 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsRecord object")]
     public class NSXTALBDnsRecordType 
     {
+        public NSXTALBDnsRecordType()
+        {
+            Algorithm = test
+            NumRecordsInResponse = test
+        }
         /// <summary>
         /// Specifies the algorithm to pick the IP address(es) to be
         /// returned, when multiple entries are configured.
@@ -30,7 +35,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "algorithm")]
         [NSXTProperty(IsRequired: false, Description: @"Specifies the algorithm to pick the IP address(es) to bereturned, when multiple entries are configured.This does not apply if num_records_in_response is 0.Default is round-robin.Enum options - DNS_RECORD_RESPONSE_ROUND_ROBIN,DNS_RECORD_RESPONSE_CONSISTENT_HASH.Default value when not specified in API or module isinterpreted by ALB Controller asDNS_RECORD_RESPONSE_ROUND_ROBIN.")]
-        [NSXTDefaultProperty(Default: "DNS_RECORD_RESPONSE_ROUND_ROBIN")]
         public NSXTAlbdnsRecordAlgorithmEnumType? Algorithm { get; set; }
         /// <summary>
         /// Details of DNS record.
@@ -63,7 +67,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Specifies the number of records returned by the DNSservice.Enter 0 to return all records.Default is 0.Allowed values are 0-20.Special values are 0- &apos;Return all records&apos;.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(20)]
-        [NSXTDefaultProperty(Default: "")]
         public long? NumRecordsInResponse { get; set; }
         /// <summary>
         /// DNS record type.
@@ -87,10 +90,10 @@ namespace nsxtsdk.PolicyModels
         [System.ComponentModel.DataAnnotations.Required]
         public IList<string> Fqdn { get; set; }
         /// <summary>
-        /// Canonical name in CNAME record.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "cname")]
-        [NSXTProperty(IsRequired: false, Description: @"Canonical name in CNAME record.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBDnsCnameRdataType Cname { get; set; }
         /// <summary>
         /// Text record.

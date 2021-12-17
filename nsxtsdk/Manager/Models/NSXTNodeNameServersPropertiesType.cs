@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeNameServersPropertiesType : NSXTResourceType
     {
+        public NSXTNodeNameServersPropertiesType()
+        {
+        }
         /// <summary>
         /// Name servers
         /// </summary>

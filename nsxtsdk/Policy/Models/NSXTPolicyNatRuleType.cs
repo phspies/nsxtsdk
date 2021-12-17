@@ -17,6 +17,12 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyNatRuleType : NSXTPolicyConfigResourceType
     {
+        public NSXTPolicyNatRuleType()
+        {
+            Enabled = test
+            FirewallMatch = test
+            SequenceNumber = test
+        }
         /// <summary>
         /// This supports single IP address or comma separated list of single IP
         /// addresses or CIDR. This does not support IP range or IP sets.
@@ -63,7 +69,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "enabled")]
         [NSXTProperty(IsRequired: false, Description: @"The flag, which suggests whether the NAT rule is enabled ordisabled. The default is True.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// Please note, if there is service configured in this NAT rule, the translated_port
@@ -94,12 +99,12 @@ namespace nsxtsdk.PolicyModels
         public NSXTPolicyNatRuleActionEnumType Action { get; set; }
         /// <summary>
         /// Represents the array of policy paths of ProviderInterface or NetworkInterface or
-        /// labels of type ProviderInterface or NetworkInterface on which the NAT rule should
+        /// labels of type ProviderInterface or NetworkInterface or IPSecVpnSession on which the NAT rule should
         /// get enforced.
         /// The interfaces must belong to the same router for which the NAT Rule is created.
         /// </summary>
         [JsonProperty(PropertyName = "scope")]
-        [NSXTProperty(IsRequired: false, Description: @"Represents the array of policy paths of ProviderInterface or NetworkInterface orlabels of type ProviderInterface or NetworkInterface on which the NAT rule shouldget enforced.The interfaces must belong to the same router for which the NAT Rule is created.")]
+        [NSXTProperty(IsRequired: false, Description: @"Represents the array of policy paths of ProviderInterface or NetworkInterface orlabels of type ProviderInterface or NetworkInterface or IPSecVpnSession on which the NAT rule shouldget enforced.The interfaces must belong to the same router for which the NAT Rule is created.")]
         public IList<string> Scope { get; set; }
         /// <summary>
         /// It indicates how the firewall matches the address after NATing if firewall
@@ -127,7 +132,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "firewall_match")]
         [NSXTProperty(IsRequired: false, Description: @"It indicates how the firewall matches the address after NATing if firewallstage is not skipped.MATCH_EXTERNAL_ADDRESS indicates the firewall will be applied to external addressof a NAT rule. For SNAT, the external address is the translated source addressafter NAT is done. For DNAT, the external address is the original destinationaddress before NAT is done. For REFLEXIVE, to egress traffic, the firewallwill be applied to the translated source address after NAT is done; To ingresstraffic, the firewall will be applied to the original destination addressbefore NAT is done.MATCH_INTERNAL_ADDRESS indicates the firewall will be applied to internaladdress of a NAT rule. For SNAT, the internal address is the original sourceaddress before NAT is done. For DNAT, the internal address is the translateddestination address after NAT is done. For REFLEXIVE, to egress traffic, thefirewall will be applied to the original source address before NAT is done;To ingress traffic, the firewall will be applied to the translated destinationaddress after NAT is done.BYPASS indicates the firewall stage will be skipped.For NO_SNAT or NO_DNAT, it must be BYPASS or leave it unassigned")]
-        [NSXTDefaultProperty(Default: "MATCH_INTERNAL_ADDRESS")]
         public NSXTPolicyNatRuleFirewallMatchEnumType? FirewallMatch { get; set; }
         /// <summary>
         /// This supports single IP address or comma separated list of single IP
@@ -158,7 +162,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "sequence_number")]
         [NSXTProperty(IsRequired: false, Description: @"The sequence_number decides the rule_priority of a NAT rule.Sequence_number and rule_priority have 1:1 mapping.For each NAT section,there will be reserved rule_priority numbers.The valid range ofrule_priority number is from 0 to 2147483647(MAX_INT).1. INTERNAL section    rule_priority reserved from 0 - 1023 (1024 rules)    valid sequence_number range  0 - 10232. USER section   rule_priority reserved from 1024 - 2147482623 (2147481600 rules)   valid sequence_number range  0 - 21474815993. DEFAULT section   rule_priority reserved from 2147482624 - 2147483647 (1024 rules)   valid sequence_number range  0 - 1023")]
-        [NSXTDefaultProperty(Default: "")]
-        public long? SequenceNumber { get; set; }
+        public int? SequenceNumber { get; set; }
     }
 }

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPortConnectionLogicalSwitchType : NSXTPortConnectionEntityType
     {
+        public NSXTPortConnectionLogicalSwitchType()
+        {
+        }
         /// <summary>
         /// States of Logical Ports that are attached to a VIF/VM
         /// </summary>

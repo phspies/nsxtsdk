@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"OSPF router link state details.")]
     public class NSXTMpOspfExternalLinkStateType 
     {
+        public NSXTMpOspfExternalLinkStateType()
+        {
+        }
         /// <summary>
         /// LSA age
         /// </summary>

@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyNonCompliantConfigType 
     {
+        public NSXTPolicyNonCompliantConfigType()
+        {
+        }
         /// <summary>
-        /// Id and name of non compliant resource/service
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "reported_by")]
-        [NSXTProperty(IsRequired: false, Description: @"Id and name of non compliant resource/service")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTPolicyResourceReferenceType ReportedBy { get; set; }
         /// <summary>
         /// Resources/Services impacted by non compliant configuration

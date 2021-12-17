@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMigrationUnitType : NSXTResourceType
     {
+        public NSXTMigrationUnitType()
+        {
+        }
         /// <summary>
-        /// Info of the group to which this migration unit belongs
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "group")]
-        [NSXTProperty(IsRequired: false, Description: @"Info of the group to which this migration unit belongs")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType Group { get; set; }
         /// <summary>
         /// List of warnings indicating issues with the migration unit that may result in migration failure

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTMacDiscoveryProfileListResultType : NSXTListResultType
     {
+        public NSXTMacDiscoveryProfileListResultType()
+        {
+        }
         /// <summary>
         /// Mac Discovery profile list results
         /// </summary>

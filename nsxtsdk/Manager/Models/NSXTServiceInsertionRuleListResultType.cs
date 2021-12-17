@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceInsertionRuleListResultType : NSXTListResultType
     {
+        public NSXTServiceInsertionRuleListResultType()
+        {
+        }
         /// <summary>
         /// ServiceInsertion rule list result with pagination support.
         /// </summary>

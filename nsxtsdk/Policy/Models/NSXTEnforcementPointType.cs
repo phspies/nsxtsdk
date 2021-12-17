@@ -17,11 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTEnforcementPointType : NSXTPolicyConfigResourceType
     {
+        public NSXTEnforcementPointType()
+        {
+            AutoEnforce = test
+        }
         /// <summary>
-        /// Connection Info of the Enforcement Point.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "connection_info", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Connection Info of the Enforcement Point.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTEnforcementPointConnectionInfoType ConnectionInfo { get; set; }
         /// <summary>
@@ -39,7 +43,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "auto_enforce")]
         [NSXTProperty(IsRequired: false, Description: @"Auto enforce flag suggests whether the policy objects shall be automaticallyenforced on this enforcement point or not. When this flag is set to true,all policy objects will be automatically enforced on this enforcementpoint. If this flag is set to false, user shall rely on the usual meansof realization, i.e., deployment maps.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? AutoEnforce { get; set; }
     }
 }

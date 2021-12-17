@@ -30,25 +30,25 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNatRuleListType AddNatRulesCreateMultiple(string LogicalRouterId, NSXTNatRuleListType NatRuleList)
+        public NSXTNatRuleListType AddNatRules(string LogicalRouterId, NSXTNatRuleListType NatRuleList)
         {
             if (LogicalRouterId == null) { throw new System.ArgumentNullException("LogicalRouterId cannot be null"); }
             if (NatRuleList == null) { throw new System.ArgumentNullException("NatRuleList cannot be null"); }
             NSXTNatRuleListType returnValue = default(NSXTNatRuleListType);
-            StringBuilder AddNatRulesCreateMultipleServiceURL = new StringBuilder("/logical-routers/{logical-router-id}/nat/rules?action=create_multiple");
+            StringBuilder AddNatRulesServiceURL = new StringBuilder("/logical-routers/{logical-router-id}/nat/rules?action=create_multiple");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.POST
             };
             request.AddHeader("Content-type", "application/json");
-            AddNatRulesCreateMultipleServiceURL.Replace("{logical-router-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalRouterId, System.Globalization.CultureInfo.InvariantCulture)));
+            AddNatRulesServiceURL.Replace("{logical-router-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalRouterId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(NatRuleList, defaultSerializationSettings));
-            request.Resource = AddNatRulesCreateMultipleServiceURL.ToString();
+            request.Resource = AddNatRulesServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + AddNatRulesCreateMultipleServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + AddNatRulesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else

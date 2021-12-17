@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer WafExcludeListEntry object")]
     public class NSXTALBWafExcludeListEntryType 
     {
+        public NSXTALBWafExcludeListEntryType()
+        {
+        }
         /// <summary>
         /// URI Path to exclude for WAF rules.
         /// </summary>
@@ -30,22 +33,22 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Free-text comment about this exclusion.")]
         public string? Description { get; set; }
         /// <summary>
-        /// Criteria for URI matching.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "uri_match_criteria")]
-        [NSXTProperty(IsRequired: false, Description: @"Criteria for URI matching.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBWafExclusionTypeType UriMatchCriteria { get; set; }
         /// <summary>
-        /// Criteria for match_element matching.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "match_element_criteria")]
-        [NSXTProperty(IsRequired: false, Description: @"Criteria for match_element matching.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBWafExclusionTypeType MatchElementCriteria { get; set; }
         /// <summary>
-        /// Client IP Subnet to exclude for WAF rules.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "client_subnet")]
-        [NSXTProperty(IsRequired: false, Description: @"Client IP Subnet to exclude for WAF rules.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBIpAddrPrefixType ClientSubnet { get; set; }
         /// <summary>
         /// The match_element can be 'ARGS xxx', 'ARGS_GET xxx',

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTAbstractSpaceType : NSXTPolicyConfigResourceType
     {
+        public NSXTAbstractSpaceType()
+        {
+        }
         /// <summary>
         /// The connectivity strategy is deprecated. Use default layer3 rule,
         /// /infra/domains/default/security-policies/default-layer3-security-policy/rules/default-layer3-rule.

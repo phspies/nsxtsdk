@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildALBServerAutoScalePolicyType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildALBServerAutoScalePolicyType()
+        {
+        }
         /// <summary>
-        /// Contains the actual ALBServerAutoScalePolicy object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ALBServerAutoScalePolicy", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual ALBServerAutoScalePolicy object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBServerAutoScalePolicyType ALBServerAutoScalePolicy { get; set; }
     }

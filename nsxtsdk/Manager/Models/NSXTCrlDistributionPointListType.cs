@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTCrlDistributionPointListType : NSXTListResultType
     {
+        public NSXTCrlDistributionPointListType()
+        {
+        }
         /// <summary>
         /// CrlDistributionPoint list.
         /// </summary>

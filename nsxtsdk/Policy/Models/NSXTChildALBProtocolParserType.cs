@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildALBProtocolParserType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildALBProtocolParserType()
+        {
+        }
         /// <summary>
-        /// Contains the actual ALBProtocolParser object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ALBProtocolParser", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual ALBProtocolParser object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBProtocolParserType ALBProtocolParser { get; set; }
     }

@@ -18,6 +18,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Details of infrastructure hosting the container clustere.g. vSphere, AWS, VMC etc..")]
     public class NSXTContainerInfrastructureInfoType 
     {
+        public NSXTContainerInfrastructureInfoType()
+        {
+        }
         /// <summary>
         /// Type of the infrastructure.
         /// </summary>

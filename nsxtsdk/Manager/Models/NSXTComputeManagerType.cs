@@ -17,11 +17,16 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTComputeManagerType : NSXTManagedResourceType
     {
+        public NSXTComputeManagerType()
+        {
+            AccessLevelForOidc = test
+            ReverseProxyHttpsPort = test
+        }
         /// <summary>
-        /// Login credentials for the compute manager
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "credential")]
-        [NSXTProperty(IsRequired: false, Description: @"Login credentials for the compute manager")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLoginCredentialType Credential { get; set; }
         /// <summary>
         /// If the compute manager is VC and need to set set as OIDC provider for NSX then
@@ -37,7 +42,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "access_level_for_oidc")]
         [NSXTProperty(IsRequired: false, Description: @"Specifies the maximum access level allowed for calls from compute managerto NSX using the OIDC provider.")]
-        [NSXTDefaultProperty(Default: "FULL")]
         public NSXTComputeManagerAccessLevelForOidcEnumType? AccessLevelForOidc { get; set; }
         /// <summary>
         /// Specifies https port of the reverse proxy to connect to compute manager.
@@ -48,7 +52,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Specifies https port of the reverse proxy to connect to compute manager.For e.g. In case of VC, this port can be retrieved from this configfile /etc/vmware-rhttpproxy/config.xml.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [NSXTDefaultProperty(Default: "")]
         public long? ReverseProxyHttpsPort { get; set; }
         /// <summary>
         /// Enable this flag to create service account user on compute manager. This is

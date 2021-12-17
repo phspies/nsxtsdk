@@ -17,28 +17,26 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTVsphereDeploymentConfigType : NSXTDeploymentConfigType
     {
+        public NSXTVsphereDeploymentConfigType()
+        {
+        }
         /// <summary>
-        /// List of distributed portgroup or VLAN logical identifiers to which the
-        /// datapath serving vnics of edge node vm will be connected.
+        /// List of distributed portgroups, VLAN logical switch identifiers or segment
+        /// paths to which the datapath serving vnics of edge node vm will be connected.
+        /// If a VM network interface is not configured, it is disconnected and
+        /// represented as an empty string. Edge node supports three datapath vnics
+        /// only; other values are for internal use.
         /// </summary>
         [JsonProperty(PropertyName = "data_network_ids", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"List of distributed portgroup or VLAN logical identifiers to which thedatapath serving vnics of edge node vm will be connected.")]
+        [NSXTProperty(IsRequired: true, Description: @"List of distributed portgroups, VLAN logical switch identifiers or segmentpaths to which the datapath serving vnics of edge node vm will be connected.If a VM network interface is not configured, it is disconnected andrepresented as an empty string. Edge node supports three datapath vnicsonly; other values are for internal use.")]
         [System.ComponentModel.DataAnnotations.Required]
         public IList<string> DataNetworkIds { get; set; }
         /// <summary>
-        /// Allocation for memory and CPU resources.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "resource_allocation")]
-        [NSXTProperty(IsRequired: false, Description: @"Allocation for memory and CPU resources.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceAssignmentType ResourceAllocation { get; set; }
-        /// <summary>
-        /// List of DNS servers.
-        /// This field is deprecated. Use dns_servers property in EdgeNodeSettings
-        /// section when creating or updating transport nodes.
-        /// </summary>
-        [JsonProperty(PropertyName = "dns_servers")]
-        [NSXTProperty(IsRequired: false, Description: @"List of DNS servers.This field is deprecated. Use dns_servers property in EdgeNodeSettingssection when creating or updating transport nodes.")]
-        public IList<string> DnsServers { get; set; }
         /// <summary>
         /// The edge node vm will be deployed on the specified compute folder created in a datacenter,
         /// if compute folder is specified.
@@ -48,35 +46,15 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"The edge node vm will be deployed on the specified compute folder created in a datacenter,if compute folder is specified.Note - User must ensure that compute folder is accessible by specified cluster/host.")]
         public string? ComputeFolderId { get; set; }
         /// <summary>
-        /// List of domain names that are used to complete unqualified host names.
-        /// This field is deprecated. Use search_domains property in EdgeNodeSettings
-        /// section when creating or updating transport nodes.
+        /// Distributed portgroup identifier to which the management vnic of edge node vm
+        /// will be connected. This portgroup must have connectivity with MP and CCP. A
+        /// VLAN logical switch identifier may also be specified.
+        /// If VM network interface is not connected, it is represented as an empty string.
         /// </summary>
-        [JsonProperty(PropertyName = "search_domains")]
-        [NSXTProperty(IsRequired: false, Description: @"List of domain names that are used to complete unqualified host names.This field is deprecated. Use search_domains property in EdgeNodeSettingssection when creating or updating transport nodes.")]
-        public IList<string> SearchDomains { get; set; }
-        /// <summary>
-        /// Host name or FQDN for edge node.
-        /// </summary>
-        [JsonProperty(PropertyName = "hostname")]
-        [NSXTProperty(IsRequired: false, Description: @"Host name or FQDN for edge node.")]
-        public string? Hostname { get; set; }
-        /// <summary>
-        /// Enabling SSH service is not recommended for security reasons.
-        /// This field is deprecated. Use enable_ssh property in EdgeNodeSettings
-        /// section when creating or updating transport nodes.
-        /// </summary>
-        [JsonProperty(PropertyName = "enable_ssh")]
-        [NSXTProperty(IsRequired: false, Description: @"Enabling SSH service is not recommended for security reasons.This field is deprecated. Use enable_ssh property in EdgeNodeSettingssection when creating or updating transport nodes.")]
-        public bool? EnableSsh { get; set; }
-        /// <summary>
-        /// Allowing root SSH logins is not recommended for security reasons.
-        /// This field is deprecated. Use allow_ssh_root_login property in EdgeNodeSettings
-        /// section when creating transport nodes.
-        /// </summary>
-        [JsonProperty(PropertyName = "allow_ssh_root_login")]
-        [NSXTProperty(IsRequired: false, Description: @"Allowing root SSH logins is not recommended for security reasons.This field is deprecated. Use allow_ssh_root_login property in EdgeNodeSettingssection when creating transport nodes.")]
-        public bool? AllowSshRootLogin { get; set; }
+        [JsonProperty(PropertyName = "management_network_id", Required = Required.AllowNull)]
+        [NSXTProperty(IsRequired: true, Description: @"Distributed portgroup identifier to which the management vnic of edge node vmwill be connected. This portgroup must have connectivity with MP and CCP. AVLAN logical switch identifier may also be specified.If VM network interface is not connected, it is represented as an empty string.")]
+        [System.ComponentModel.DataAnnotations.Required]
+        public string ManagementNetworkId { get; set; }
         /// <summary>
         /// The edge node vm will be deployed on the specified cluster or resourcepool.
         /// Note - all the hosts must have nsx fabric prepared in the specified cluster.
@@ -86,18 +64,10 @@ namespace nsxtsdk.ManagerModels
         [System.ComponentModel.DataAnnotations.Required]
         public string ComputeId { get; set; }
         /// <summary>
-        /// List of NTP servers.
-        /// This field is deprecated. Use ntp_servers property in EdgeNodeSettings
-        /// section when creating or updating transport nodes.
-        /// </summary>
-        [JsonProperty(PropertyName = "ntp_servers")]
-        [NSXTProperty(IsRequired: false, Description: @"List of NTP servers.This field is deprecated. Use ntp_servers property in EdgeNodeSettingssection when creating or updating transport nodes.")]
-        public IList<string> NtpServers { get; set; }
-        /// <summary>
-        /// Resource reservation for memory and CPU resources.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "reservation_info")]
-        [NSXTProperty(IsRequired: false, Description: @"Resource reservation for memory and CPU resources.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTReservationInfoType ReservationInfo { get; set; }
         /// <summary>
         /// The vc specific identifiers will be resolved on this VC.
@@ -140,20 +110,12 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"The edge node vm will be deployed on the specified Host within the clusterif host_id is specified.Note - User must ensure that storage and specified networks are accessible by this host.")]
         public string? HostId { get; set; }
         /// <summary>
-        /// Array of additional specific properties for advanced or cloud-
-        /// specific deployments in key-value format.
+        /// This field is deprecated. EdgeNodeSettings field 'advanced_configuration'
+        /// must be used instead. Array of additional specific properties for
+        /// advanced or cloud-specific deployments in key-value format.
         /// </summary>
         [JsonProperty(PropertyName = "advanced_configuration")]
-        [NSXTProperty(IsRequired: false, Description: @"Array of additional specific properties for advanced or cloud-specific deployments in key-value format.")]
+        [NSXTProperty(IsRequired: false, Description: @"This field is deprecated. EdgeNodeSettings field &apos;advanced_configuration&apos;must be used instead. Array of additional specific properties foradvanced or cloud-specific deployments in key-value format.")]
         public IList<NSXTKeyValuePairType> AdvancedConfiguration { get; set; }
-        /// <summary>
-        /// Distributed portgroup identifier to which the management vnic of edge node vm
-        /// will be connected. This portgroup must have connectivity with MP and CCP. A
-        /// VLAN logical switch identifier may also be specified.
-        /// </summary>
-        [JsonProperty(PropertyName = "management_network_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Distributed portgroup identifier to which the management vnic of edge node vmwill be connected. This portgroup must have connectivity with MP and CCP. AVLAN logical switch identifier may also be specified.")]
-        [System.ComponentModel.DataAnnotations.Required]
-        public string ManagementNetworkId { get; set; }
     }
 }

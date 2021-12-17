@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpV6IpPoolType : NSXTDhcpV6InfoBaseType
     {
+        public NSXTDhcpV6IpPoolType()
+        {
+        }
         /// <summary>
         /// Ip address ranges to define dynamic ip allocation ranges.
         /// </summary>

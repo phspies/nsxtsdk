@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Service properties")]
     public class NSXTLoggingServicePropertiesType 
     {
+        public NSXTLoggingServicePropertiesType()
+        {
+        }
         /// <summary>
         /// Package logging levels
         /// </summary>

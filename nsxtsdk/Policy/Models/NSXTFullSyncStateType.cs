@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTFullSyncStateType : NSXTPolicyConfigResourceType
     {
+        public NSXTFullSyncStateType()
+        {
+        }
         /// <summary>
         /// Timestamp of last update, could be progress or success or error.
         /// </summary>

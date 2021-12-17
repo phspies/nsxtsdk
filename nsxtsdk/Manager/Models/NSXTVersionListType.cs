@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTVersionListType : NSXTManagedResourceType
     {
+        public NSXTVersionListType()
+        {
+        }
         /// <summary>
         /// List of component versions
         /// </summary>

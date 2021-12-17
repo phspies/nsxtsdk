@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPAddressElementListResultType : NSXTListResultType
     {
+        public NSXTIPAddressElementListResultType()
+        {
+        }
         /// <summary>
         /// IP address element list
         /// </summary>

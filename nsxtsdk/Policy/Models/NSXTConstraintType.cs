@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTConstraintType : NSXTPolicyConfigResourceType
     {
+        public NSXTConstraintType()
+        {
+        }
         /// <summary>
         /// User friendly message to be shown to users upon violation.
         /// </summary>
@@ -24,17 +27,17 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"User friendly message to be shown to users upon violation.")]
         public string? Message { get; set; }
         /// <summary>
-        /// Expression to constrain the target attribute value.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "constraint_expression", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Expression to constrain the target attribute value.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTConstraintExpressionType ConstraintExpression { get; set; }
         /// <summary>
-        /// Target resource attribute details.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "target", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Target resource attribute details.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTConstraintTargetType Target { get; set; }
     }

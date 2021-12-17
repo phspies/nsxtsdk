@@ -17,12 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTFederationNodeSummaryType : NSXTResourceType
     {
+        public NSXTFederationNodeSummaryType()
+        {
+        }
         /// <summary>
         /// Number of nodes of the type and at the component version.
         /// </summary>
         [JsonProperty(PropertyName = "node_count")]
         [NSXTProperty(IsRequired: false, Description: @"Number of nodes of the type and at the component version.")]
-        public long? NodeCount { get; set; }
+        public int? NodeCount { get; set; }
         /// <summary>
         /// Component version
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Node AAA provider vIDM properties")]
     public class NSXTNodeAuthProviderVidmPropertiesType 
     {
+        public NSXTNodeAuthProviderVidmPropertiesType()
+        {
+        }
         /// <summary>
         /// vIDM client secret
         /// </summary>

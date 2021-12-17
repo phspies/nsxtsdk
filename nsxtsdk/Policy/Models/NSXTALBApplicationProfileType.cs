@@ -17,18 +17,20 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBApplicationProfileType : NSXTPolicyConfigResourceType
     {
+        public NSXTALBApplicationProfileType()
+        {
+        }
         /// <summary>
-        /// Specifies the TCP application proxy profile parameters.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "tcp_app_profile")]
-        [NSXTProperty(IsRequired: false, Description: @"Specifies the TCP application proxy profile parameters.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBTCPApplicationProfileType TcpAppProfile { get; set; }
         /// <summary>
-        /// Specifies various DNS service related controls for virtual
-        /// service.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "dns_service_profile")]
-        [NSXTProperty(IsRequired: false, Description: @"Specifies various DNS service related controls for virtualservice.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBDnsServiceApplicationProfileType DnsServiceProfile { get; set; }
         /// <summary>
         /// Specifies which application layer proxy is enabled for the
@@ -38,33 +40,41 @@ namespace nsxtsdk.PolicyModels
         /// APPLICATION_PROFILE_TYPE_SYSLOG,
         /// APPLICATION_PROFILE_TYPE_DNS, APPLICATION_PROFILE_TYPE_SSL,
         /// APPLICATION_PROFILE_TYPE_SIP.
+        /// Allowed in Basic(Allowed values-
+        /// APPLICATION_PROFILE_TYPE_L4,APPLICATION_PROFILE_TYPE_HTTP)
+        /// edition, Essentials(Allowed values-
+        /// APPLICATION_PROFILE_TYPE_L4) edition, Enterprise edition.
         /// </summary>
         [JsonProperty(PropertyName = "type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Specifies which application layer proxy is enabled for thevirtual service.Enum options - APPLICATION_PROFILE_TYPE_L4,APPLICATION_PROFILE_TYPE_HTTP,APPLICATION_PROFILE_TYPE_SYSLOG,APPLICATION_PROFILE_TYPE_DNS, APPLICATION_PROFILE_TYPE_SSL,APPLICATION_PROFILE_TYPE_SIP.")]
+        [NSXTProperty(IsRequired: true, Description: @"Specifies which application layer proxy is enabled for thevirtual service.Enum options - APPLICATION_PROFILE_TYPE_L4,APPLICATION_PROFILE_TYPE_HTTP,APPLICATION_PROFILE_TYPE_SYSLOG,APPLICATION_PROFILE_TYPE_DNS, APPLICATION_PROFILE_TYPE_SSL,APPLICATION_PROFILE_TYPE_SIP.Allowed in Basic(Allowed values-APPLICATION_PROFILE_TYPE_L4,APPLICATION_PROFILE_TYPE_HTTP)edition, Essentials(Allowed values-APPLICATION_PROFILE_TYPE_L4) edition, Enterprise edition.")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTAlbapplicationProfileTypeEnumType Type { get; set; }
         /// <summary>
         /// Specifies if destination IP and port needs to be preserved
         /// for backend connection.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "preserve_dest_ip_port")]
-        [NSXTProperty(IsRequired: false, Description: @"Specifies if destination IP and port needs to be preservedfor backend connection.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"Specifies if destination IP and port needs to be preservedfor backend connection.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? PreserveDestIpPort { get; set; }
         /// <summary>
-        /// Specifies various SIP service related controls for virtual
-        /// service.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "sip_service_profile")]
-        [NSXTProperty(IsRequired: false, Description: @"Specifies various SIP service related controls for virtualservice.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBSipServiceApplicationProfileType SipServiceProfile { get; set; }
         /// <summary>
-        /// Name of the application profile creator.
+        /// List of labels to be used for granular RBAC.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
         /// </summary>
-        [JsonProperty(PropertyName = "created_by")]
-        [NSXTProperty(IsRequired: false, Description: @"Name of the application profile creator.")]
-        public string? CreatedBy { get; set; }
+        [JsonProperty(PropertyName = "markers")]
+        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
+        public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
         /// <summary>
         /// Specifies if we need to preserve client port while
         /// preserving client IP for backend connections.
@@ -82,18 +92,23 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Checksum of application profiles.Internally set by cloud connector.")]
         public string? CloudConfigCksum { get; set; }
         /// <summary>
-        /// Specifies the HTTP application proxy profile parameters.
+        /// Name of the application profile creator.
         /// </summary>
-        [JsonProperty(PropertyName = "http_profile")]
-        [NSXTProperty(IsRequired: false, Description: @"Specifies the HTTP application proxy profile parameters.")]
-        public NSXTALBHTTPApplicationProfileType HttpProfile { get; set; }
+        [JsonProperty(PropertyName = "created_by")]
+        [NSXTProperty(IsRequired: false, Description: @"Name of the application profile creator.")]
+        public string? CreatedBy { get; set; }
         /// <summary>
-        /// Specifies various security related controls for virtual
-        /// service.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "dos_rl_profile")]
-        [NSXTProperty(IsRequired: false, Description: @"Specifies various security related controls for virtualservice.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBDosRateLimitProfileType DosRlProfile { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "http_profile")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTALBHTTPApplicationProfileType HttpProfile { get; set; }
         /// <summary>
         /// Specifies if client IP needs to be preserved for backend
         /// connection.

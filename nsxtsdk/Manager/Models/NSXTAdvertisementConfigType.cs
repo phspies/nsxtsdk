@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAdvertisementConfigType : NSXTManagedResourceType
     {
+        public NSXTAdvertisementConfigType()
+        {
+        }
         /// <summary>
         /// Flag to advertise all connected routes
         /// </summary>

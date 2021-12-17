@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBServiceInstanceDetailPerStatusType 
     {
+        public NSXTLBServiceInstanceDetailPerStatusType()
+        {
+        }
         /// <summary>
         /// The type of load balancer instance status.
         /// </summary>

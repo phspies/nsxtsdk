@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTClusterNodeVMDeploymentRequestListType : NSXTListResultType
     {
+        public NSXTClusterNodeVMDeploymentRequestListType()
+        {
+        }
         /// <summary>
         /// Array of existing ClusterNodeVMDeploymentRequests
         /// </summary>

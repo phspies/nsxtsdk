@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVpnSessionStatisticsType : NSXTL3VpnStatisticsPerEnforcementPointType
     {
+        public NSXTIPSecVpnSessionStatisticsType()
+        {
+        }
         /// <summary>
         /// Timestamp when the data was last updated.
         /// </summary>
@@ -24,17 +27,16 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Timestamp when the data was last updated.")]
         public long? LastUpdateTimestamp { get; set; }
         /// <summary>
-        /// Traffic statistics for IPSec VPN Ike session.
-        /// Note - Not supported in this release.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ike_traffic_statistics")]
-        [NSXTProperty(IsRequired: false, Description: @"Traffic statistics for IPSec VPN Ike session.Note - Not supported in this release.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPSecVpnIkeTrafficStatisticsType IkeTrafficStatistics { get; set; }
         /// <summary>
-        /// Status for IPSec VPN Ike session UP/DOWN and fail reason if Ike session is down.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ike_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Status for IPSec VPN Ike session UP/DOWN and fail reason if Ike session is down.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPSecVpnIkeSessionStatusType IkeStatus { get; set; }
         /// <summary>
         /// Gives aggregate traffic statistics across all ipsec tunnels and individual tunnel
@@ -44,10 +46,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Gives aggregate traffic statistics across all ipsec tunnels and individual tunnelstatistics.")]
         public IList<NSXTIPSecVpnPolicyTrafficStatisticsType> PolicyStatistics { get; set; }
         /// <summary>
-        /// Aggregate traffic statistics across all ipsec tunnels.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "aggregate_traffic_counters")]
-        [NSXTProperty(IsRequired: false, Description: @"Aggregate traffic statistics across all ipsec tunnels.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPSecVpnTrafficCountersType AggregateTrafficCounters { get; set; }
     }
 }

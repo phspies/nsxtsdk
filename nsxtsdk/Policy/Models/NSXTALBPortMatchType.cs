@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer PortMatch object")]
     public class NSXTALBPortMatchType 
     {
+        public NSXTALBPortMatchType()
+        {
+        }
         /// <summary>
         /// Listening TCP port(s).
         /// Allowed values are 1-65535.

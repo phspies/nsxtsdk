@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpAddressAllocationListResultType : NSXTListResultType
     {
+        public NSXTIpAddressAllocationListResultType()
+        {
+        }
         /// <summary>
         /// List of IpAddressAllocations
         /// </summary>

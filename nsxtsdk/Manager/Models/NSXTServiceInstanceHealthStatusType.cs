@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Health Status of a third party partner VM.")]
     public class NSXTServiceInstanceHealthStatusType 
     {
+        public NSXTServiceInstanceHealthStatusType()
+        {
+        }
         /// <summary>
         /// Protocol version might be different in both Mux and SVA.
         /// </summary>

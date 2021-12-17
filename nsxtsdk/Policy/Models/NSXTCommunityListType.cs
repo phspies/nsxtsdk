@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTCommunityListType : NSXTPolicyConfigResourceType
     {
+        public NSXTCommunityListType()
+        {
+        }
         /// <summary>
         /// List of BGP community entries. Both standard and large communities
         /// are supported. Standard community format: aa:nn where aa and nn must

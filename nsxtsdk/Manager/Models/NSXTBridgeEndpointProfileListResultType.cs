@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBridgeEndpointProfileListResultType : NSXTListResultType
     {
+        public NSXTBridgeEndpointProfileListResultType()
+        {
+        }
         /// <summary>
         /// BridgeEndpointProfile Results
         /// </summary>

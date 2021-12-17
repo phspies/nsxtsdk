@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"List of VMs on which a particular signature was detected with the count.")]
     public class NSXTIdsVmStatsType 
     {
+        public NSXTIdsVmStatsType()
+        {
+        }
         /// <summary>
         /// Number of unique VMs on which a particular signature was detected.
         /// </summary>

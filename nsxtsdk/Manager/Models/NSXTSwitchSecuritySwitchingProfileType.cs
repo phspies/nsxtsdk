@@ -17,31 +17,33 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSwitchSecuritySwitchingProfileType : NSXTBaseSwitchingProfileType
     {
+        public NSXTSwitchSecuritySwitchingProfileType()
+        {
+            RaGuardEnabled = test
+        }
         /// <summary>
-        /// BPDU filtering is enabled by default. A pre-defined list of MAC addresses
-        /// are automatically excluded from BPDU filtering.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "bpdu_filter")]
-        [NSXTProperty(IsRequired: false, Description: @"BPDU filtering is enabled by default. A pre-defined list of MAC addressesare automatically excluded from BPDU filtering.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTBpduFilterType BpduFilter { get; set; }
         /// <summary>
-        /// Rate limiting is disabled by default
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "rate_limits")]
-        [NSXTProperty(IsRequired: false, Description: @"Rate limiting is disabled by default")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTRateLimitsType RateLimits { get; set; }
         /// <summary>
         /// RA Guard when enabled blocks unauthorized/rogue Router Advertisement (RA) packets.
         /// </summary>
         [JsonProperty(PropertyName = "ra_guard_enabled")]
         [NSXTProperty(IsRequired: false, Description: @"RA Guard when enabled blocks unauthorized/rogue Router Advertisement (RA) packets.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? RaGuardEnabled { get; set; }
         /// <summary>
-        /// DHCP server blocking is enabled and client blocking is disabled by default
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "dhcp_filter")]
-        [NSXTProperty(IsRequired: false, Description: @"DHCP server blocking is enabled and client blocking is disabled by default")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTDhcpFilterType DhcpFilter { get; set; }
         /// <summary>
         /// A flag to block all traffic except IP/(G)ARP/BPDU

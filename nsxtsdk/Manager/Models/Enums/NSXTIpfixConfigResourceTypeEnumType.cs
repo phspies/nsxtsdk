@@ -12,9 +12,7 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Supported IPFIX Config Types.")]
     public enum NSXTIpfixConfigResourceTypeEnumType
     {
-        [EnumMember(Value = "IPFIXSWITCHCONFIG")]
-        IpfixSwitchConfig = 1,
         [EnumMember(Value = "IPFIXDFWCONFIG")]
-        IpfixDfwConfig = 2,
+        IpfixDfwConfig = 1,
     }
 }

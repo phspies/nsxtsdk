@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalRouterIPTunnelPortType : NSXTLogicalRouterPortType
     {
+        public NSXTLogicalRouterIPTunnelPortType()
+        {
+        }
         /// <summary>
         /// Tunnel port subnets.
         /// </summary>

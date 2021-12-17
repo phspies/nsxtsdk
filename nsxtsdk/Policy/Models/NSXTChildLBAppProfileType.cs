@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildLBAppProfileType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildLBAppProfileType()
+        {
+        }
         /// <summary>
-        /// Contains the actual LBAppProfile object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "LBAppProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual LBAppProfile object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTLBAppProfileType LBAppProfile { get; set; }
     }

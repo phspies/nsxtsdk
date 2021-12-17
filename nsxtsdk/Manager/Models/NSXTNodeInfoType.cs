@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeInfoType : NSXTResourceType
     {
+        public NSXTNodeInfoType()
+        {
+        }
         /// <summary>
         /// Node type
         /// </summary>

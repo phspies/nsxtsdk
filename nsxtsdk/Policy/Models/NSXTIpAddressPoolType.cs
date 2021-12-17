@@ -17,11 +17,28 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpAddressPoolType : NSXTPolicyConfigResourceType
     {
+        public NSXTIpAddressPoolType()
+        {
+        }
+        /// <summary>
+        /// If an existing IpAddressPool is found that overlaps with the given IpAddressPool,
+        /// then a validation error would be thrown while realization.
+        /// It is false by default.
+        /// </summary>
+        [JsonProperty(PropertyName = "check_overlap_with_existing_pools")]
+        [NSXTProperty(IsRequired: false, Description: @"If an existing IpAddressPool is found that overlaps with the given IpAddressPool,then a validation error would be thrown while realization.It is false by default.")]
+        public bool? CheckOverlapWithExistingPools { get; set; }
         /// <summary>
         /// Delay in milliseconds, while releasing allocated IP address from IP pool (Default is 2 mins).
         /// </summary>
         [JsonProperty(PropertyName = "ip_release_delay")]
         [NSXTProperty(IsRequired: false, Description: @"Delay in milliseconds, while releasing allocated IP address from IP pool (Default is 2 mins).")]
         public long? IpReleaseDelay { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "pool_usage")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTPolicyPoolUsageType PoolUsage { get; set; }
     }
 }

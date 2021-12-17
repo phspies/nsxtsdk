@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"A shaper configuration entry that specifies type and metrics")]
     public class NSXTQosBaseRateShaperType 
     {
+        public NSXTQosBaseRateShaperType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

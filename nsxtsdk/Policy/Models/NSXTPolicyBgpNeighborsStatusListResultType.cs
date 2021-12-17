@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyBgpNeighborsStatusListResultType : NSXTListResultType
     {
+        public NSXTPolicyBgpNeighborsStatusListResultType()
+        {
+        }
         /// <summary>
         /// Status of BGP neighbors of the Tier0
         /// </summary>

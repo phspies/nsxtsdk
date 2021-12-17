@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTVniPoolType : NSXTManagedResourceType
     {
+        public NSXTVniPoolType()
+        {
+        }
         /// <summary>
         /// VNI range list results
         /// </summary>

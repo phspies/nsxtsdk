@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"OSPF router link state details.")]
     public class NSXTMpOspfRouterLinkStatesType 
     {
+        public NSXTMpOspfRouterLinkStatesType()
+        {
+        }
         /// <summary>
         /// Number of router links
         /// </summary>

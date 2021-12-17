@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Structured data entry in RFC5424 log format")]
     public class NSXTStructuredDataType 
     {
+        public NSXTStructuredDataType()
+        {
+        }
         /// <summary>
         /// Audit flag of the log
         /// </summary>

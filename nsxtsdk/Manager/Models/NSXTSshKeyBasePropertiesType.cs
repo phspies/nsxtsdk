@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSshKeyBasePropertiesType 
     {
+        public NSXTSshKeyBasePropertiesType()
+        {
+        }
         /// <summary>
         /// Current password for user (required for users root and admin)
         /// </summary>

@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTL2VpnSessionType : NSXTManagedResourceType
     {
+        public NSXTL2VpnSessionType()
+        {
+            Enabled = test
+        }
         /// <summary>
         /// List of transport tunnels for redundancy.
         /// </summary>
@@ -25,24 +29,22 @@ namespace nsxtsdk.ManagerModels
         [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTResourceReferenceType> TransportTunnels { get; set; }
         /// <summary>
-        /// Tunnel encapsulation config. For hub, this property should not be provided as it will be auto-generated. For spoke, this
-        /// property must be provided.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "tunnel_encapsulation")]
-        [NSXTProperty(IsRequired: false, Description: @"Tunnel encapsulation config. For hub, this property should not be provided as it will be auto-generated. For spoke, this property must be provided.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTL2VpnTunnelEncapsulationType TunnelEncapsulation { get; set; }
         /// <summary>
         /// Enable to extend all the associated logical switches.
         /// </summary>
         [JsonProperty(PropertyName = "enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Enable to extend all the associated logical switches.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enabled { get; set; }
         /// <summary>
-        /// L2VPN TCP MSS Clamping
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "l2vpn_tcp_mss_clamping")]
-        [NSXTProperty(IsRequired: false, Description: @"L2VPN TCP MSS Clamping")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTL2VpnTcpMssClampingType L2vpnTcpMssClamping { get; set; }
         /// <summary>
         /// L2VPN service id

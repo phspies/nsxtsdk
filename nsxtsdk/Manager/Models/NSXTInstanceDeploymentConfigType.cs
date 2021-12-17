@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"The Instance Deployment Config contains settings that is applied during install time.")]
     public class NSXTInstanceDeploymentConfigType 
     {
+        public NSXTInstanceDeploymentConfigType()
+        {
+        }
         /// <summary>
         /// Context Id or VCenter Id.
         /// </summary>

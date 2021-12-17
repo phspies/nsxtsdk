@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIntervalBackupScheduleType : NSXTBackupScheduleType
     {
+        public NSXTIntervalBackupScheduleType()
+        {
+            SecondsBetweenBackups = test
+        }
         /// <summary>
         /// Time interval in seconds between two consecutive automated backups
         /// </summary>
@@ -24,7 +28,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Time interval in seconds between two consecutive automated backups")]
         //[System.ComponentModel.DataAnnotations.MinLength(300)]
         //[System.ComponentModel.DataAnnotations.MaxLength(86400)]
-        [NSXTDefaultProperty(Default: "")]
         public long? SecondsBetweenBackups { get; set; }
     }
 }

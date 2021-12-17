@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"install-upgrade service properties")]
     public class NSXTInstallUpgradeServicePropertiesType 
     {
+        public NSXTInstallUpgradeServicePropertiesType()
+        {
+        }
         /// <summary>
         /// IP of manager on which install-upgrade is enabled
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Detailed information about static address for the port.")]
     public class NSXTPortAddressBindingEntryType 
     {
+        public NSXTPortAddressBindingEntryType()
+        {
+        }
         /// <summary>
         /// IP Address for port binding
         /// </summary>

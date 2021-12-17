@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildIPSecVpnDpdProfileType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildIPSecVpnDpdProfileType()
+        {
+        }
         /// <summary>
-        /// Contains the actual IPSecVpnDpdProfile object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "IPSecVpnDpdProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual IPSecVpnDpdProfile object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTIPSecVpnDpdProfileType IPSecVpnDpdProfile { get; set; }
     }

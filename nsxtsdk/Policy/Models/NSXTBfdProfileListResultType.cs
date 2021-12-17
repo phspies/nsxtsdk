@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTBfdProfileListResultType : NSXTListResultType
     {
+        public NSXTBfdProfileListResultType()
+        {
+        }
         /// <summary>
         /// Bfd Profile list results.
         /// </summary>

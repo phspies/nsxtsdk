@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTCentralNodeConfigProfileListResultType : NSXTListResultType
     {
+        public NSXTCentralNodeConfigProfileListResultType()
+        {
+        }
         /// <summary>
         /// Central Node Config profiles
         /// </summary>

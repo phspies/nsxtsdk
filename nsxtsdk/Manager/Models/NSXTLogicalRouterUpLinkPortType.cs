@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalRouterUpLinkPortType : NSXTLogicalRouterPortType
     {
+        public NSXTLogicalRouterUpLinkPortType()
+        {
+            UrpfMode = test
+        }
         /// <summary>
         /// Logical router port subnets
         /// </summary>
@@ -25,10 +29,10 @@ namespace nsxtsdk.ManagerModels
         [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTIPSubnetType> Subnets { get; set; }
         /// <summary>
-        /// Reference to the logical switch port to connect to
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "linked_logical_switch_port_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Reference to the logical switch port to connect to")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType LinkedLogicalSwitchPortId { get; set; }
         /// <summary>
         /// Configuration to override the neighbor discovery router advertisement
@@ -40,10 +44,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Configuration to override the neighbor discovery router advertisementprefix time parameters at the subnet level. Note that users are allowedto override the prefix time only for IPv6 subnets which are configuredon the port.")]
         public IList<NSXTNDRAPrefixConfigType> NdraPrefixConfig { get; set; }
         /// <summary>
-        /// Interface IGMP[Internet Group Management Protocol] local group config parameters.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "igmp_config")]
-        [NSXTProperty(IsRequired: false, Description: @"Interface IGMP[Internet Group Management Protocol] local group config parameters.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTInterfaceIgmpLocalGroupConfigType IgmpConfig { get; set; }
         /// <summary>
         /// Member index of the edge node on the cluster
@@ -57,7 +61,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "urpf_mode")]
         [NSXTProperty(IsRequired: false, Description: @"Unicast Reverse Path Forwarding mode")]
-        [NSXTDefaultProperty(Default: "STRICT")]
         public NSXTLogicalRouterUpLinkPortUrpfModeEnumType? UrpfMode { get; set; }
         /// <summary>
         /// MAC address
@@ -66,10 +69,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"MAC address")]
         public string? MacAddress { get; set; }
         /// <summary>
-        /// PIM[Protocol Independent Multicast] configuration parameters.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "pim_config")]
-        [NSXTProperty(IsRequired: false, Description: @"PIM[Protocol Independent Multicast] configuration parameters.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTInterfacePimConfigType PimConfig { get; set; }
         /// <summary>
         /// Identifier of Neighbor Discovery Router Advertisement profile

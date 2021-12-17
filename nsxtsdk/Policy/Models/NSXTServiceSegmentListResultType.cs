@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceSegmentListResultType : NSXTListResultType
     {
+        public NSXTServiceSegmentListResultType()
+        {
+        }
         /// <summary>
         /// Service Segment list results
         /// </summary>

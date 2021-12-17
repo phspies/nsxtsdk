@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTVtepLabelRangeType : NSXTResourceType
     {
+        public NSXTVtepLabelRangeType()
+        {
+        }
         /// <summary>
         /// Start value for virtual tunnel endpoint label range
         /// </summary>

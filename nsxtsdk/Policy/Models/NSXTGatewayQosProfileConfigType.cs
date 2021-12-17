@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Gateway QoS profile configuration")]
     public class NSXTGatewayQosProfileConfigType 
     {
+        public NSXTGatewayQosProfileConfigType()
+        {
+        }
         /// <summary>
         /// Policy path to gateway QoS profile in ingress direction.
         /// </summary>

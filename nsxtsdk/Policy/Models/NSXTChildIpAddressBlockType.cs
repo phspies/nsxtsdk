@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildIpAddressBlockType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildIpAddressBlockType()
+        {
+        }
         /// <summary>
-        /// Contains the actual IpAddressBlock object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "IpAddressBlock", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual IpAddressBlock object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTIpAddressBlockType IpAddressBlock { get; set; }
     }

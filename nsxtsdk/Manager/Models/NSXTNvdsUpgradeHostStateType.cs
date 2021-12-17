@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNvdsUpgradeHostStateType : NSXTManagedResourceType
     {
+        public NSXTNvdsUpgradeHostStateType()
+        {
+        }
         /// <summary>
         /// Details of the N-VDS upgrade state on the host
         /// </summary>

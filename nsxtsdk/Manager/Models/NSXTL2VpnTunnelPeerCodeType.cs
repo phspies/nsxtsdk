@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"L2Vpn tunnel peer code")]
     public class NSXTL2VpnTunnelPeerCodeType 
     {
+        public NSXTL2VpnTunnelPeerCodeType()
+        {
+        }
         /// <summary>
-        /// Transport tunnel
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "transport_tunnel", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Transport tunnel")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTResourceReferenceType TransportTunnel { get; set; }
         /// <summary>

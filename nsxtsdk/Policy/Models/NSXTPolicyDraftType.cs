@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyDraftType : NSXTPolicyConfigResourceType
     {
+        public NSXTPolicyDraftType()
+        {
+        }
         /// <summary>
         /// When specified, a manual draft will be created w.r.t. the specified
         /// draft. If not specified, manual draft will be created w.r.t. the
@@ -42,13 +45,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Indicates whether a draft should be locked. If the draft is locked byan user, then no other user would be able to modify or publish thisdraft. Once the user releases the lock, other users can then modifyor publish this draft.")]
         public bool? Locked { get; set; }
         /// <summary>
-        /// These are user defined configuration changes, which are applicable only
-        /// in case of manual drafts. During the publish of a draft, system_area
-        /// changes gets applied first, and then these changes.
-        /// The value must be in a hierarchical body format.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "user_area")]
-        [NSXTProperty(IsRequired: false, Description: @"These are user defined configuration changes, which are applicable onlyin case of manual drafts. During the publish of a draft, system_areachanges gets applied first, and then these changes.The value must be in a hierarchical body format.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTInfraType UserArea { get; set; }
         /// <summary>
         /// ID of the user who last modified the lock for a policy draft.
@@ -81,12 +81,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Policy draft locked/unlocked time in epoch milliseconds.")]
         public long? LockModifiedTime { get; set; }
         /// <summary>
-        /// Configuration changes against the current configuration,
-        /// tracked by the system.
-        /// The value is stored in a hierarchical body format.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "system_area")]
-        [NSXTProperty(IsRequired: false, Description: @"Configuration changes against the current configuration,tracked by the system.The value is stored in a hierarchical body format.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTInfraType SystemArea { get; set; }
         /// <summary>
         /// Flag to indicate whether draft is auto created.

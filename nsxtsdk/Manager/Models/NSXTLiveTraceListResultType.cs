@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLiveTraceListResultType : NSXTListResultType
     {
+        public NSXTLiveTraceListResultType()
+        {
+        }
         /// <summary>
         /// Livetrace status list
         /// </summary>

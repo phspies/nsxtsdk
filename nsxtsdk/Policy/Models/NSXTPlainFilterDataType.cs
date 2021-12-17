@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPlainFilterDataType : NSXTLiveTraceFilterDataType
     {
+        public NSXTPlainFilterDataType()
+        {
+        }
         /// <summary>
         /// Extended RCF rule for packet filter
         /// </summary>

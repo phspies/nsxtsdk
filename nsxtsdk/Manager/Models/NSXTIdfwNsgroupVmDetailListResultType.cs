@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdfwNsgroupVmDetailListResultType : NSXTListResultType
     {
+        public NSXTIdfwNsgroupVmDetailListResultType()
+        {
+        }
         /// <summary>
         /// NSGroup ID
         /// </summary>

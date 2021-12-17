@@ -17,6 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPacketDataType 
     {
+        public NSXTPacketDataType()
+        {
+            TransportType = test
+            FrameSize = test
+        }
         /// <summary>
         /// A flag, when set true, indicates that the traceflow packet is of L3 routing.
         /// </summary>
@@ -24,11 +29,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"A flag, when set true, indicates that the traceflow packet is of L3 routing.")]
         public bool? Routed { get; set; }
         /// <summary>
-        /// transport type of the traceflow packet
+        /// This type takes effect only for IP packet.
         /// </summary>
         [JsonProperty(PropertyName = "transport_type")]
-        [NSXTProperty(IsRequired: false, Description: @"transport type of the traceflow packet")]
-        [NSXTDefaultProperty(Default: "UNICAST")]
+        [NSXTProperty(IsRequired: false, Description: @"This type takes effect only for IP packet.")]
         public NSXTPacketDataTransportTypeEnumType? TransportType { get; set; }
         /// <summary>
         /// Packet configuration
@@ -45,7 +49,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"If the requested frame_size is too small (given the payload and traceflow metadata requirement of 16 bytes), the traceflow request will fail with an appropriate message.  The frame will be zero padded to the requested size.")]
         //[System.ComponentModel.DataAnnotations.MinLength(60)]
         //[System.ComponentModel.DataAnnotations.MaxLength(1000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? FrameSize { get; set; }
     }
 }

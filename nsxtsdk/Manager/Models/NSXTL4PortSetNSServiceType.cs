@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTL4PortSetNSServiceType : NSXTNSServiceElementType
     {
+        public NSXTL4PortSetNSServiceType()
+        {
+        }
         /// <summary>
         /// Number of values should not exceed 15, ranges count as 2 values.
         /// </summary>

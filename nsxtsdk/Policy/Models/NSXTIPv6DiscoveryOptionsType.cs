@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Contains IPv6 related discovery options.")]
     public class NSXTIPv6DiscoveryOptionsType 
     {
+        public NSXTIPv6DiscoveryOptionsType()
+        {
+        }
         /// <summary>
-        /// Indicates ND snooping options
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "nd_snooping_config")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicates ND snooping options")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTNdSnoopingConfigType NdSnoopingConfig { get; set; }
         /// <summary>
         /// Enable this method will snoop the DHCPv6 message transaction

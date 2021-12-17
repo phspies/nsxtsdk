@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDirectoryGroupListResultsType : NSXTListResultType
     {
+        public NSXTDirectoryGroupListResultsType()
+        {
+        }
         /// <summary>
         /// Directory group list
         /// </summary>

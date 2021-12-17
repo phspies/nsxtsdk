@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Nvds upgrade precheck ID")]
     public class NSXTNvdsUpgradePrecheckIdType 
     {
+        public NSXTNvdsUpgradePrecheckIdType()
+        {
+        }
         /// <summary>
         /// Tracking ID of nvds upgrade precheck
         /// </summary>

@@ -30,6 +30,43 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
+        public NSXTIpAddressPoolType ReadManagerIpPool(string ManagerIpPoolId)
+        {
+            if (ManagerIpPoolId == null) { throw new System.ArgumentNullException("ManagerIpPoolId cannot be null"); }
+            NSXTIpAddressPoolType returnValue = default(NSXTIpAddressPoolType);
+            StringBuilder ReadManagerIpPoolServiceURL = new StringBuilder("/infra/manager-ip-pools/{manager-ip-pool-id}");
+            var request = new RestRequest
+            {              
+                RequestFormat = DataFormat.Json,
+                Method = Method.GET
+            };
+            request.AddHeader("Content-type", "application/json");
+            ReadManagerIpPoolServiceURL.Replace("{manager-ip-pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ManagerIpPoolId, System.Globalization.CultureInfo.InvariantCulture)));
+            request.Resource = ReadManagerIpPoolServiceURL.ToString();
+            var response = restClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+			{
+                var message = "HTTP GET operation to " + ReadManagerIpPoolServiceURL.ToString() + " did not complete successfull";
+                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
+			}
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTIpAddressPoolType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTIpAddressPoolType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [NSXTProperty(Description: @"")]
         public NSXTIpAddressPoolSubnetType CreateOrReplaceIpAddressPoolSubnet(string IpPoolId, string IpSubnetId, NSXTIpAddressPoolSubnetType IpAddressPoolSubnet)
         {
             if (IpPoolId == null) { throw new System.ArgumentNullException("IpPoolId cannot be null"); }
@@ -337,125 +374,38 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIpAddressBlockType GlobalCreateOrReplaceIpAddressBlock(string IpBlockId, NSXTIpAddressBlockType IpAddressBlock)
+        public NSXTIpAddressPoolListResultType ListManagerIpPools(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
-            if (IpBlockId == null) { throw new System.ArgumentNullException("IpBlockId cannot be null"); }
-            if (IpAddressBlock == null) { throw new System.ArgumentNullException("IpAddressBlock cannot be null"); }
-            NSXTIpAddressBlockType returnValue = default(NSXTIpAddressBlockType);
-            StringBuilder CreateOrReplaceIpAddressBlockServiceURL = new StringBuilder("/global-infra/ip-blocks/{ip-block-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            CreateOrReplaceIpAddressBlockServiceURL.Replace("{ip-block-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpBlockId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(IpAddressBlock, defaultSerializationSettings));
-            request.Resource = CreateOrReplaceIpAddressBlockServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + CreateOrReplaceIpAddressBlockServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpAddressBlockType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpAddressBlockType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteIpAddressBlock(string IpBlockId)
-        {
-            if (IpBlockId == null) { throw new System.ArgumentNullException("IpBlockId cannot be null"); }
-            
-            StringBuilder DeleteIpAddressBlockServiceURL = new StringBuilder("/global-infra/ip-blocks/{ip-block-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteIpAddressBlockServiceURL.Replace("{ip-block-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpBlockId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteIpAddressBlockServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteIpAddressBlockServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalCreateOrPatchIpAddressBlock(string IpBlockId, NSXTIpAddressBlockType IpAddressBlock)
-        {
-            if (IpBlockId == null) { throw new System.ArgumentNullException("IpBlockId cannot be null"); }
-            if (IpAddressBlock == null) { throw new System.ArgumentNullException("IpAddressBlock cannot be null"); }
-            
-            StringBuilder CreateOrPatchIpAddressBlockServiceURL = new StringBuilder("/global-infra/ip-blocks/{ip-block-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            CreateOrPatchIpAddressBlockServiceURL.Replace("{ip-block-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpBlockId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(IpAddressBlock, defaultSerializationSettings));
-            request.Resource = CreateOrPatchIpAddressBlockServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + CreateOrPatchIpAddressBlockServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIpAddressBlockType GlobalReadIpAddressBlock(string IpBlockId)
-        {
-            if (IpBlockId == null) { throw new System.ArgumentNullException("IpBlockId cannot be null"); }
-            NSXTIpAddressBlockType returnValue = default(NSXTIpAddressBlockType);
-            StringBuilder ReadIpAddressBlockServiceURL = new StringBuilder("/global-infra/ip-blocks/{ip-block-id}");
+            NSXTIpAddressPoolListResultType returnValue = default(NSXTIpAddressPoolListResultType);
+            StringBuilder ListManagerIpPoolsServiceURL = new StringBuilder("/infra/manager-ip-pools");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            ReadIpAddressBlockServiceURL.Replace("{ip-block-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpBlockId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadIpAddressBlockServiceURL.ToString();
+            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
+            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
+            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
+            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
+            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
+            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
+            request.Resource = ListManagerIpPoolsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + ReadIpAddressBlockServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + ListManagerIpPoolsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
 			{
 				try
 				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpAddressBlockType>(response.Content, defaultSerializationSettings);
+					returnValue = JsonConvert.DeserializeObject<NSXTIpAddressPoolListResultType>(response.Content, defaultSerializationSettings);
 				}
 				catch (Exception ex)
 				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpAddressBlockType).FullName + ".";
+					var message = "Could not deserialize the response body string as " + typeof(NSXTIpAddressPoolListResultType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -601,185 +551,6 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIpAddressAllocationType GlobalCreateOrReplaceIpAddressPoolAllocation(string IpPoolId, string IpAllocationId, NSXTIpAddressAllocationType IpAddressAllocation)
-        {
-            if (IpPoolId == null) { throw new System.ArgumentNullException("IpPoolId cannot be null"); }
-            if (IpAllocationId == null) { throw new System.ArgumentNullException("IpAllocationId cannot be null"); }
-            if (IpAddressAllocation == null) { throw new System.ArgumentNullException("IpAddressAllocation cannot be null"); }
-            NSXTIpAddressAllocationType returnValue = default(NSXTIpAddressAllocationType);
-            StringBuilder CreateOrReplaceIpAddressPoolAllocationServiceURL = new StringBuilder("/global-infra/ip-pools/{ip-pool-id}/ip-allocations/{ip-allocation-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            CreateOrReplaceIpAddressPoolAllocationServiceURL.Replace("{ip-pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpPoolId, System.Globalization.CultureInfo.InvariantCulture)));
-            CreateOrReplaceIpAddressPoolAllocationServiceURL.Replace("{ip-allocation-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpAllocationId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(IpAddressAllocation, defaultSerializationSettings));
-            request.Resource = CreateOrReplaceIpAddressPoolAllocationServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + CreateOrReplaceIpAddressPoolAllocationServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpAddressAllocationType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpAddressAllocationType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIpAddressAllocationType GlobalReadIpAddressPoolAllocation(string IpPoolId, string IpAllocationId)
-        {
-            if (IpPoolId == null) { throw new System.ArgumentNullException("IpPoolId cannot be null"); }
-            if (IpAllocationId == null) { throw new System.ArgumentNullException("IpAllocationId cannot be null"); }
-            NSXTIpAddressAllocationType returnValue = default(NSXTIpAddressAllocationType);
-            StringBuilder ReadIpAddressPoolAllocationServiceURL = new StringBuilder("/global-infra/ip-pools/{ip-pool-id}/ip-allocations/{ip-allocation-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadIpAddressPoolAllocationServiceURL.Replace("{ip-pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpPoolId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReadIpAddressPoolAllocationServiceURL.Replace("{ip-allocation-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpAllocationId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadIpAddressPoolAllocationServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadIpAddressPoolAllocationServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpAddressAllocationType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpAddressAllocationType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalCreateOrPatchIpAddressPoolAllocation(string IpPoolId, string IpAllocationId, NSXTIpAddressAllocationType IpAddressAllocation)
-        {
-            if (IpPoolId == null) { throw new System.ArgumentNullException("IpPoolId cannot be null"); }
-            if (IpAllocationId == null) { throw new System.ArgumentNullException("IpAllocationId cannot be null"); }
-            if (IpAddressAllocation == null) { throw new System.ArgumentNullException("IpAddressAllocation cannot be null"); }
-            
-            StringBuilder CreateOrPatchIpAddressPoolAllocationServiceURL = new StringBuilder("/global-infra/ip-pools/{ip-pool-id}/ip-allocations/{ip-allocation-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            CreateOrPatchIpAddressPoolAllocationServiceURL.Replace("{ip-pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpPoolId, System.Globalization.CultureInfo.InvariantCulture)));
-            CreateOrPatchIpAddressPoolAllocationServiceURL.Replace("{ip-allocation-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpAllocationId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(IpAddressAllocation, defaultSerializationSettings));
-            request.Resource = CreateOrPatchIpAddressPoolAllocationServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + CreateOrPatchIpAddressPoolAllocationServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteIpAddressPoolAllocation(string IpPoolId, string IpAllocationId)
-        {
-            if (IpPoolId == null) { throw new System.ArgumentNullException("IpPoolId cannot be null"); }
-            if (IpAllocationId == null) { throw new System.ArgumentNullException("IpAllocationId cannot be null"); }
-            
-            StringBuilder DeleteIpAddressPoolAllocationServiceURL = new StringBuilder("/global-infra/ip-pools/{ip-pool-id}/ip-allocations/{ip-allocation-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteIpAddressPoolAllocationServiceURL.Replace("{ip-pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpPoolId, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteIpAddressPoolAllocationServiceURL.Replace("{ip-allocation-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpAllocationId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteIpAddressPoolAllocationServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteIpAddressPoolAllocationServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIpAddressPoolSubnetListResultType GlobalListIpAddressPoolSubnets(string IpPoolId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (IpPoolId == null) { throw new System.ArgumentNullException("IpPoolId cannot be null"); }
-            NSXTIpAddressPoolSubnetListResultType returnValue = default(NSXTIpAddressPoolSubnetListResultType);
-            StringBuilder ListIpAddressPoolSubnetsServiceURL = new StringBuilder("/global-infra/ip-pools/{ip-pool-id}/ip-subnets");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ListIpAddressPoolSubnetsServiceURL.Replace("{ip-pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpPoolId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListIpAddressPoolSubnetsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListIpAddressPoolSubnetsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpAddressPoolSubnetListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpAddressPoolSubnetListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTIpAddressAllocationListResultType ListIpAddressPoolAllocations(string IpPoolId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (IpPoolId == null) { throw new System.ArgumentNullException("IpPoolId cannot be null"); }
@@ -814,47 +585,6 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTIpAddressAllocationListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIpAddressPoolListResultType GlobalListIpAddressPools(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTIpAddressPoolListResultType returnValue = default(NSXTIpAddressPoolListResultType);
-            StringBuilder ListIpAddressPoolsServiceURL = new StringBuilder("/global-infra/ip-pools");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListIpAddressPoolsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListIpAddressPoolsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpAddressPoolListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpAddressPoolListResultType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -900,270 +630,6 @@ namespace nsxtapi.PolicyModules
 				}
 			}
 			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIpAddressPoolSubnetType GlobalCreateOrReplaceIpAddressPoolSubnet(string IpPoolId, string IpSubnetId, NSXTIpAddressPoolSubnetType IpAddressPoolSubnet)
-        {
-            if (IpPoolId == null) { throw new System.ArgumentNullException("IpPoolId cannot be null"); }
-            if (IpSubnetId == null) { throw new System.ArgumentNullException("IpSubnetId cannot be null"); }
-            if (IpAddressPoolSubnet == null) { throw new System.ArgumentNullException("IpAddressPoolSubnet cannot be null"); }
-            NSXTIpAddressPoolSubnetType returnValue = default(NSXTIpAddressPoolSubnetType);
-            StringBuilder CreateOrReplaceIpAddressPoolSubnetServiceURL = new StringBuilder("/global-infra/ip-pools/{ip-pool-id}/ip-subnets/{ip-subnet-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            CreateOrReplaceIpAddressPoolSubnetServiceURL.Replace("{ip-pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpPoolId, System.Globalization.CultureInfo.InvariantCulture)));
-            CreateOrReplaceIpAddressPoolSubnetServiceURL.Replace("{ip-subnet-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpSubnetId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(IpAddressPoolSubnet, defaultSerializationSettings));
-            request.Resource = CreateOrReplaceIpAddressPoolSubnetServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + CreateOrReplaceIpAddressPoolSubnetServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpAddressPoolSubnetType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpAddressPoolSubnetType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIpAddressPoolSubnetType GlobalReadIpAddressPoolSubnet(string IpPoolId, string IpSubnetId)
-        {
-            if (IpPoolId == null) { throw new System.ArgumentNullException("IpPoolId cannot be null"); }
-            if (IpSubnetId == null) { throw new System.ArgumentNullException("IpSubnetId cannot be null"); }
-            NSXTIpAddressPoolSubnetType returnValue = default(NSXTIpAddressPoolSubnetType);
-            StringBuilder ReadIpAddressPoolSubnetServiceURL = new StringBuilder("/global-infra/ip-pools/{ip-pool-id}/ip-subnets/{ip-subnet-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadIpAddressPoolSubnetServiceURL.Replace("{ip-pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpPoolId, System.Globalization.CultureInfo.InvariantCulture)));
-            ReadIpAddressPoolSubnetServiceURL.Replace("{ip-subnet-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpSubnetId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadIpAddressPoolSubnetServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadIpAddressPoolSubnetServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpAddressPoolSubnetType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpAddressPoolSubnetType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalCreateOrPatchIpAddressPoolSubnet(string IpPoolId, string IpSubnetId, NSXTIpAddressPoolSubnetType IpAddressPoolSubnet)
-        {
-            if (IpPoolId == null) { throw new System.ArgumentNullException("IpPoolId cannot be null"); }
-            if (IpSubnetId == null) { throw new System.ArgumentNullException("IpSubnetId cannot be null"); }
-            if (IpAddressPoolSubnet == null) { throw new System.ArgumentNullException("IpAddressPoolSubnet cannot be null"); }
-            
-            StringBuilder CreateOrPatchIpAddressPoolSubnetServiceURL = new StringBuilder("/global-infra/ip-pools/{ip-pool-id}/ip-subnets/{ip-subnet-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            CreateOrPatchIpAddressPoolSubnetServiceURL.Replace("{ip-pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpPoolId, System.Globalization.CultureInfo.InvariantCulture)));
-            CreateOrPatchIpAddressPoolSubnetServiceURL.Replace("{ip-subnet-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpSubnetId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(IpAddressPoolSubnet, defaultSerializationSettings));
-            request.Resource = CreateOrPatchIpAddressPoolSubnetServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + CreateOrPatchIpAddressPoolSubnetServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteIpAddressPoolSubnet(string IpPoolId, string IpSubnetId)
-        {
-            if (IpPoolId == null) { throw new System.ArgumentNullException("IpPoolId cannot be null"); }
-            if (IpSubnetId == null) { throw new System.ArgumentNullException("IpSubnetId cannot be null"); }
-            
-            StringBuilder DeleteIpAddressPoolSubnetServiceURL = new StringBuilder("/global-infra/ip-pools/{ip-pool-id}/ip-subnets/{ip-subnet-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteIpAddressPoolSubnetServiceURL.Replace("{ip-pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpPoolId, System.Globalization.CultureInfo.InvariantCulture)));
-            DeleteIpAddressPoolSubnetServiceURL.Replace("{ip-subnet-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpSubnetId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteIpAddressPoolSubnetServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteIpAddressPoolSubnetServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIpAddressPoolType GlobalCreateOrReplaceIpAddressPool(string IpPoolId, NSXTIpAddressPoolType IpAddressPool)
-        {
-            if (IpPoolId == null) { throw new System.ArgumentNullException("IpPoolId cannot be null"); }
-            if (IpAddressPool == null) { throw new System.ArgumentNullException("IpAddressPool cannot be null"); }
-            NSXTIpAddressPoolType returnValue = default(NSXTIpAddressPoolType);
-            StringBuilder CreateOrReplaceIpAddressPoolServiceURL = new StringBuilder("/global-infra/ip-pools/{ip-pool-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PUT
-            };
-            request.AddHeader("Content-type", "application/json");
-            CreateOrReplaceIpAddressPoolServiceURL.Replace("{ip-pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpPoolId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(IpAddressPool, defaultSerializationSettings));
-            request.Resource = CreateOrReplaceIpAddressPoolServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PUT operation to " + CreateOrReplaceIpAddressPoolServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpAddressPoolType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpAddressPoolType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalDeleteIpAddressPool(string IpPoolId)
-        {
-            if (IpPoolId == null) { throw new System.ArgumentNullException("IpPoolId cannot be null"); }
-            
-            StringBuilder DeleteIpAddressPoolServiceURL = new StringBuilder("/global-infra/ip-pools/{ip-pool-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.DELETE
-            };
-            request.AddHeader("Content-type", "application/json");
-            DeleteIpAddressPoolServiceURL.Replace("{ip-pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpPoolId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = DeleteIpAddressPoolServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP DELETE operation to " + DeleteIpAddressPoolServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIpAddressPoolType GlobalReadIpAddressPool(string IpPoolId)
-        {
-            if (IpPoolId == null) { throw new System.ArgumentNullException("IpPoolId cannot be null"); }
-            NSXTIpAddressPoolType returnValue = default(NSXTIpAddressPoolType);
-            StringBuilder ReadIpAddressPoolServiceURL = new StringBuilder("/global-infra/ip-pools/{ip-pool-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ReadIpAddressPoolServiceURL.Replace("{ip-pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpPoolId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ReadIpAddressPoolServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ReadIpAddressPoolServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpAddressPoolType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpAddressPoolType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void GlobalCreateOrPatchIpAddressPool(string IpPoolId, NSXTIpAddressPoolType IpAddressPool)
-        {
-            if (IpPoolId == null) { throw new System.ArgumentNullException("IpPoolId cannot be null"); }
-            if (IpAddressPool == null) { throw new System.ArgumentNullException("IpAddressPool cannot be null"); }
-            
-            StringBuilder CreateOrPatchIpAddressPoolServiceURL = new StringBuilder("/global-infra/ip-pools/{ip-pool-id}");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.PATCH
-            };
-            request.AddHeader("Content-type", "application/json");
-            CreateOrPatchIpAddressPoolServiceURL.Replace("{ip-pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpPoolId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.AddJsonBody(JsonConvert.SerializeObject(IpAddressPool, defaultSerializationSettings));
-            request.Resource = CreateOrPatchIpAddressPoolServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP PATCH operation to " + CreateOrPatchIpAddressPoolServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
         }
         /// <summary>
         /// 
@@ -1297,94 +763,10 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIpAddressAllocationListResultType GlobalListIpAddressPoolAllocations(string IpPoolId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            if (IpPoolId == null) { throw new System.ArgumentNullException("IpPoolId cannot be null"); }
-            NSXTIpAddressAllocationListResultType returnValue = default(NSXTIpAddressAllocationListResultType);
-            StringBuilder ListIpAddressPoolAllocationsServiceURL = new StringBuilder("/global-infra/ip-pools/{ip-pool-id}/ip-allocations");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            ListIpAddressPoolAllocationsServiceURL.Replace("{ip-pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpPoolId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListIpAddressPoolAllocationsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListIpAddressPoolAllocationsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpAddressAllocationListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpAddressAllocationListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
         public NSXTIpAddressBlockListResultType ListIpAddressBlocks(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTIpAddressBlockListResultType returnValue = default(NSXTIpAddressBlockListResultType);
             StringBuilder ListIpAddressBlocksServiceURL = new StringBuilder("/infra/ip-blocks");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            if (Cursor != null) { request.AddQueryParameter("cursor", Cursor.ToString()); }
-            if (IncludeMarkForDeleteObjects != null) { request.AddQueryParameter("include_mark_for_delete_objects", IncludeMarkForDeleteObjects.ToString()); }
-            if (IncludedFields != null) { request.AddQueryParameter("included_fields", IncludedFields.ToString()); }
-            if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
-            if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
-            if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
-            request.Resource = ListIpAddressBlocksServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + ListIpAddressBlocksServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpAddressBlockListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpAddressBlockListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIpAddressBlockListResultType GlobalListIpAddressBlocks(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
-        {
-            NSXTIpAddressBlockListResultType returnValue = default(NSXTIpAddressBlockListResultType);
-            StringBuilder ListIpAddressBlocksServiceURL = new StringBuilder("/global-infra/ip-blocks");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,

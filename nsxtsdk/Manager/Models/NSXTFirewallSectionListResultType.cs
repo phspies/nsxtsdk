@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFirewallSectionListResultType : NSXTDSSectionListResultType
     {
+        public NSXTFirewallSectionListResultType()
+        {
+        }
         /// <summary>
         /// List of the firewall sections. The list has to be homogenous.
         /// </summary>

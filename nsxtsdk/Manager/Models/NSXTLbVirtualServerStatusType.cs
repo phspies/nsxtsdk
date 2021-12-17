@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbVirtualServerStatusType 
     {
+        public NSXTLbVirtualServerStatusType()
+        {
+        }
         /// <summary>
         /// UP means that all primary members in default pool are in UP status.
         /// For L7 virtual server, if there is no default pool, the virtual server

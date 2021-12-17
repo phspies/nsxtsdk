@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTInterSiteBgpSummaryType 
     {
+        public NSXTInterSiteBgpSummaryType()
+        {
+        }
         /// <summary>
         /// Timestamp when the inter-site IBgp neighbors status was last updated.
         /// </summary>

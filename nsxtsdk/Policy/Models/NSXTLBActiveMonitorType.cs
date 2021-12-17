@@ -17,6 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBActiveMonitorType : NSXTLBMonitorProfileType
     {
+        public NSXTLBActiveMonitorType()
+        {
+            FallCount = test
+            Interval = test
+            RiseCount = test
+            Timeout = test
+        }
         /// <summary>
         /// Typically, monitors perform healthchecks to Group members using the
         /// member IP address and pool_port.
@@ -30,7 +37,7 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Typically, monitors perform healthchecks to Group members using themember IP address and pool_port.However, in some cases, customers prefer to run healthchecks against adifferent port than the pool member port which handles actualapplication traffic. In such cases, the port to run healthchecksagainst can be specified in the monitor_port value.For ICMP monitor, monitor_port is not required.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        public long? MonitorPort { get; set; }
+        public int? MonitorPort { get; set; }
         /// <summary>
         /// Only if a healthcheck fails consecutively for a specified number of
         /// times, given with fall_count, to a member will the member status be
@@ -40,7 +47,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Only if a healthcheck fails consecutively for a specified number oftimes, given with fall_count, to a member will the member status bemarked DOWN.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
-        [NSXTDefaultProperty(Default: "")]
         public long? FallCount { get; set; }
         /// <summary>
         /// Active healthchecks are initiated periodically, at a configurable
@@ -50,7 +56,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Active healthchecks are initiated periodically, at a configurableinterval (in seconds), to each member of the Group.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Interval { get; set; }
         /// <summary>
         /// Once a member is DOWN, a specified number of consecutive successful
@@ -61,7 +66,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Once a member is DOWN, a specified number of consecutive successfulhealthchecks specified by rise_count will bring the member back to UPstate.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
-        [NSXTDefaultProperty(Default: "")]
         public long? RiseCount { get; set; }
         /// <summary>
         /// Timeout specified in seconds.  After a healthcheck is initiated, if it
@@ -75,7 +79,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Timeout specified in seconds.  After a healthcheck is initiated, if itdoes not complete within a certain period, then also the healthcheckis considered to be unsuccessful. Completing a healthcheck withintimeout means establishing a connection (TCP or SSL), if applicable,sending the request and receiving the response, all within theconfigured timeout.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Timeout { get; set; }
     }
 }

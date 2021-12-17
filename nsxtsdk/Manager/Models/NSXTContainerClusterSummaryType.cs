@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTContainerClusterSummaryType : NSXTManagedResourceType
     {
+        public NSXTContainerClusterSummaryType()
+        {
+        }
         /// <summary>
         /// Display the container cluster name
         /// </summary>

@@ -15,13 +15,10 @@ namespace nsxtsdk.PolicyModels
     /// 
     /// </summary>
     [NSXTProperty(Description: @"")]
-    public class NSXTIdsSecurityPolicyType : NSXTPolicyType
+    public class NSXTIdsSecurityPolicyType : NSXTIdsPolicyType
     {
-        /// <summary>
-        /// IDS Rules that are a part of this SecurityPolicy
-        /// </summary>
-        [JsonProperty(PropertyName = "rules")]
-        [NSXTProperty(IsRequired: false, Description: @"IDS Rules that are a part of this SecurityPolicy")]
-        public IList<NSXTIdsRuleType> Rules { get; set; }
+        public NSXTIdsSecurityPolicyType()
+        {
+        }
     }
 }

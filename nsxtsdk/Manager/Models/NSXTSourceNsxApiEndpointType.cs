@@ -17,27 +17,28 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Details about an existing NSX manager to be migrated")]
     public class NSXTSourceNsxApiEndpointType 
     {
+        public NSXTSourceNsxApiEndpointType()
+        {
+            VcPort = test
+        }
         /// <summary>
         /// VC port that will be used to fetch details.
         /// </summary>
         [JsonProperty(PropertyName = "vc_port")]
         [NSXTProperty(IsRequired: false, Description: @"VC port that will be used to fetch details.")]
-        [NSXTDefaultProperty(Default: "")]
         public int? VcPort { get; set; }
         /// <summary>
         /// Username for connecting to VC.
         /// </summary>
-        [JsonProperty(PropertyName = "vc_username", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Username for connecting to VC.")]
-        [System.ComponentModel.DataAnnotations.Required]
-        public string VcUsername { get; set; }
+        [JsonProperty(PropertyName = "vc_username")]
+        [NSXTProperty(IsRequired: false, Description: @"Username for connecting to VC.")]
+        public string? VcUsername { get; set; }
         /// <summary>
         /// IP address or host name of VC.
         /// </summary>
-        [JsonProperty(PropertyName = "vc_ip", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IP address or host name of VC.")]
-        [System.ComponentModel.DataAnnotations.Required]
-        public string VcIp { get; set; }
+        [JsonProperty(PropertyName = "vc_ip")]
+        [NSXTProperty(IsRequired: false, Description: @"IP address or host name of VC.")]
+        public string? VcIp { get; set; }
         /// <summary>
         /// IP address or hostname of a source NSX API endpoint. This field is not applicable in case of vSphere network migration.
         /// </summary>

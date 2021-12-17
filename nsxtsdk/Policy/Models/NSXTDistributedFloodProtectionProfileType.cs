@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDistributedFloodProtectionProfileType : NSXTFloodProtectionProfileType
     {
+        public NSXTDistributedFloodProtectionProfileType()
+        {
+        }
         /// <summary>
         /// If set to true, rst spoofing will be enabled. Flag is used only for distributed firewall profiles.
         /// </summary>

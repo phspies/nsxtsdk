@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLiveTraceConfigListResultType : NSXTListResultType
     {
+        public NSXTLiveTraceConfigListResultType()
+        {
+        }
         /// <summary>
         /// LiveTraceConfig list results
         /// </summary>

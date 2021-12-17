@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildSegmentPortType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildSegmentPortType()
+        {
+        }
         /// <summary>
-        /// Contains the actual SegmentPort object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "SegmentPort", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual SegmentPort object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTSegmentPortType SegmentPort { get; set; }
     }

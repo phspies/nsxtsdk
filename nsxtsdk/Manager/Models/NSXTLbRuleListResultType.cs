@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbRuleListResultType : NSXTListResultType
     {
+        public NSXTLbRuleListResultType()
+        {
+        }
         /// <summary>
         /// paginated list of LB rules
         /// </summary>

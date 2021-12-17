@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HTTPResponsePolicy object")]
     public class NSXTALBHTTPResponsePolicyType 
     {
+        public NSXTALBHTTPResponsePolicyType()
+        {
+        }
         /// <summary>
         /// Add rules to the HTTP response policy.
         /// </summary>

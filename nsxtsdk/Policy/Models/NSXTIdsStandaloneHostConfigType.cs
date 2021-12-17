@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdsStandaloneHostConfigType : NSXTPolicyConfigResourceType
     {
+        public NSXTIdsStandaloneHostConfigType()
+        {
+        }
         /// <summary>
         /// If set to true, IDS is enabled on standalone hosts.
         /// </summary>

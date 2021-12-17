@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDADProfileListResultType : NSXTListResultType
     {
+        public NSXTDADProfileListResultType()
+        {
+        }
         /// <summary>
         /// Paginated list of DADProfile
         /// </summary>

@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildGeneralSecurityProfileBindingMapType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildGeneralSecurityProfileBindingMapType()
+        {
+        }
         /// <summary>
-        /// Contains the actual GeneralSecurityProfileBindingMap object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "GeneralSecurityProfileBindingMap", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual GeneralSecurityProfileBindingMap object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTGeneralSecurityProfileBindingMapType GeneralSecurityProfileBindingMap { get; set; }
     }

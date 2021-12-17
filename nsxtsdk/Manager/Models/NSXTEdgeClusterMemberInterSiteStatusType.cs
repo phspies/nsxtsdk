@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTEdgeClusterMemberInterSiteStatusType 
     {
+        public NSXTEdgeClusterMemberInterSiteStatusType()
+        {
+        }
         /// <summary>
-        /// Edge node details from where the status is being retrived.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "transport_node")]
-        [NSXTProperty(IsRequired: false, Description: @"Edge node details from where the status is being retrived.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType TransportNode { get; set; }
         /// <summary>
         /// Total number of current established inter-site IBGP sessions.

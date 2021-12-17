@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVPNTunnelProfileListResultType : NSXTListResultType
     {
+        public NSXTIPSecVPNTunnelProfileListResultType()
+        {
+        }
         /// <summary>
         /// IPSec Tunnel Profile list results
         /// </summary>

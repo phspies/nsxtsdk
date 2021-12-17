@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBSelectPoolActionType : NSXTLBRuleActionType
     {
+        public NSXTLBSelectPoolActionType()
+        {
+        }
         /// <summary>
         /// Path of load balancer pool.
         /// </summary>

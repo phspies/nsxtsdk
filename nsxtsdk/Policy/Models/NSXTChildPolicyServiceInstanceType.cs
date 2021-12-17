@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildPolicyServiceInstanceType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildPolicyServiceInstanceType()
+        {
+        }
         /// <summary>
-        /// Contains actual PolicyServiceInstance.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "PolicyServiceInstance", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains actual PolicyServiceInstance.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTPolicyServiceInstanceType PolicyServiceInstance { get; set; }
     }

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbHttpRequestMethodConditionType : NSXTLbRuleConditionType
     {
+        public NSXTLbHttpRequestMethodConditionType()
+        {
+        }
         /// <summary>
         /// Type of HTTP request method
         /// </summary>

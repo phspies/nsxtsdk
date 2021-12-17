@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALGTypeServiceEntryType : NSXTServiceEntryType
     {
+        public NSXTALGTypeServiceEntryType()
+        {
+        }
         /// <summary>
         /// The Application Layer Gateway (ALG) protocol.
         /// Please note, protocol NBNS_BROADCAST and NBDG_BROADCAST are  deprecated.

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceReferenceListResultType : NSXTListResultType
     {
+        public NSXTServiceReferenceListResultType()
+        {
+        }
         /// <summary>
         /// Service Reference list results
         /// </summary>

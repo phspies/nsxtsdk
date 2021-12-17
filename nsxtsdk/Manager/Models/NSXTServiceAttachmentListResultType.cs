@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceAttachmentListResultType : NSXTListResultType
     {
+        public NSXTServiceAttachmentListResultType()
+        {
+        }
         /// <summary>
         /// List of the Service Attachments.
         /// </summary>

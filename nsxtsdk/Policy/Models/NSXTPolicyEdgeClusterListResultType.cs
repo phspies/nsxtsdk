@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyEdgeClusterListResultType : NSXTListResultType
     {
+        public NSXTPolicyEdgeClusterListResultType()
+        {
+        }
         /// <summary>
         /// Edge Cluster list result.
         /// </summary>

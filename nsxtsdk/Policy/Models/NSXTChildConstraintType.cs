@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildConstraintType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildConstraintType()
+        {
+        }
         /// <summary>
-        /// Contains the actual Constraint object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "Constraint", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual Constraint object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTConstraintType Constraint { get; set; }
     }

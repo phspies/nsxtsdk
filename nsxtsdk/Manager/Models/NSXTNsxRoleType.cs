@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Role")]
     public class NSXTNsxRoleType 
     {
+        public NSXTNsxRoleType()
+        {
+        }
         /// <summary>
         /// This field represents the identifier of the role. With the introduction of custom roles, this field is no longer an
         /// enum.

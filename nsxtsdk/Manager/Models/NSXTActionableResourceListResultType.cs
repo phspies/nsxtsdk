@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTActionableResourceListResultType : NSXTListResultType
     {
+        public NSXTActionableResourceListResultType()
+        {
+        }
         /// <summary>
         /// List results
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTraceflowObservationDroppedLogicalType : NSXTTraceflowObservationDroppedType
     {
+        public NSXTTraceflowObservationDroppedLogicalType()
+        {
+        }
         /// <summary>
         /// The index of service path that is a chain of services
         /// represents the point where the traceflow packet was dropped.

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTVirtualPortgroupType : NSXTDiscoveredResourceType
     {
+        public NSXTVirtualPortgroupType()
+        {
+        }
         /// <summary>
         /// External id of the virtual portgroup
         /// </summary>

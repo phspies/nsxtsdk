@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpServerConfigListResultType : NSXTListResultType
     {
+        public NSXTDhcpServerConfigListResultType()
+        {
+        }
         /// <summary>
         /// DhcpServerConfig results
         /// </summary>

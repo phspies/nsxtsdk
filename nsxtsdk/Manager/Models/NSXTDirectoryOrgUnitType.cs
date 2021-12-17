@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Organization Unit")]
     public class NSXTDirectoryOrgUnitType 
     {
+        public NSXTDirectoryOrgUnitType()
+        {
+        }
         /// <summary>
         /// Distinguished name of the organization unit.
         /// </summary>

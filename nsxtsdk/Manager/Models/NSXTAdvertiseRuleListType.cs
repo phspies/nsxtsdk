@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAdvertiseRuleListType : NSXTManagedResourceType
     {
+        public NSXTAdvertiseRuleListType()
+        {
+        }
         /// <summary>
         /// List of advertisement rules
         /// </summary>

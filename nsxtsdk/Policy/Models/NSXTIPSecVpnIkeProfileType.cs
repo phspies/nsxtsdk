@@ -17,11 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVpnIkeProfileType : NSXTPolicyConfigResourceType
     {
+        public NSXTIPSecVpnIkeProfileType()
+        {
+            SaLifeTime = test
+            IkeVersion = test
+        }
         /// <summary>
-        /// Algorithm to be used for message digest during Internet Key Exchange(IKE) negotiation. Default is SHA2_256.
+        /// Algorithm to be used for message digest during Internet Key Exchange(IKE) negotiation. A default value of SHA2_256 will
+        /// be applied only when the supplied encryption algorithms contain either AES_128 or AES_256.
         /// </summary>
         [JsonProperty(PropertyName = "digest_algorithms")]
-        [NSXTProperty(IsRequired: false, Description: @"Algorithm to be used for message digest during Internet Key Exchange(IKE) negotiation. Default is SHA2_256.")]
+        [NSXTProperty(IsRequired: false, Description: @"Algorithm to be used for message digest during Internet Key Exchange(IKE) negotiation. A default value of SHA2_256 will be applied only when the supplied encryption algorithms contain either AES_128 or AES_256.")]
         public IList<string> DigestAlgorithms { get; set; }
         /// <summary>
         /// Encryption algorithm is used during Internet Key Exchange(IKE) negotiation. Default is AES_128.
@@ -42,14 +48,12 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Life time for security association. Default is 86400 seconds (1 day).")]
         //[System.ComponentModel.DataAnnotations.MinLength(21600)]
         //[System.ComponentModel.DataAnnotations.MaxLength(31536000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? SaLifeTime { get; set; }
         /// <summary>
         /// IKE protocol version to be used. IKE-Flex will initiate IKE-V2 and responds to both IKE-V1 and IKE-V2.
         /// </summary>
         [JsonProperty(PropertyName = "ike_version")]
         [NSXTProperty(IsRequired: false, Description: @"IKE protocol version to be used. IKE-Flex will initiate IKE-V2 and responds to both IKE-V1 and IKE-V2.")]
-        [NSXTDefaultProperty(Default: "IKE_V2")]
         public NSXTIpsecVpnIkeProfileIkeVersionEnumType? IkeVersion { get; set; }
     }
 }

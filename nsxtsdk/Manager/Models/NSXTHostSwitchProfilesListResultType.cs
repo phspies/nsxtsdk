@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTHostSwitchProfilesListResultType : NSXTListResultType
     {
+        public NSXTHostSwitchProfilesListResultType()
+        {
+        }
         /// <summary>
         /// HostSwitch Profile Results
         /// </summary>

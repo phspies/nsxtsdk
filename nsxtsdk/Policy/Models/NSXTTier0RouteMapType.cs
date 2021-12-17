@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTier0RouteMapType : NSXTPolicyConfigResourceType
     {
+        public NSXTTier0RouteMapType()
+        {
+        }
         /// <summary>
         /// Ordered list of route map entries.
         /// </summary>

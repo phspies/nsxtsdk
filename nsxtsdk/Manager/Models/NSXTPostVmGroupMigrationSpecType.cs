@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Migration spec for a VM group that will be used in post VM group migration step.")]
     public class NSXTPostVmGroupMigrationSpecType 
     {
+        public NSXTPostVmGroupMigrationSpecType()
+        {
+        }
         /// <summary>
         /// Flag to indicate whether to re-run the post migrate steps for the VM group if they are already run before.
         /// </summary>

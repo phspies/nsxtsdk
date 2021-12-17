@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMgmtConnStatusType 
     {
+        public NSXTMgmtConnStatusType()
+        {
+        }
         /// <summary>
         /// Indicates the controller node's MP channel connectivity status
         /// </summary>

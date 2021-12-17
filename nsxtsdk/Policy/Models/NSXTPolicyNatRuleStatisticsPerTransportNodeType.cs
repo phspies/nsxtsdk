@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyNatRuleStatisticsPerTransportNodeType : NSXTPolicyNATRuleCountersType
     {
+        public NSXTPolicyNatRuleStatisticsPerTransportNodeType()
+        {
+        }
         /// <summary>
         /// Timestamp when the data was last updated.
         /// </summary>

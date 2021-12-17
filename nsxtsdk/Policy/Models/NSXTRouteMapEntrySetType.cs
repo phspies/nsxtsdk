@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Set criteria for route map entry")]
     public class NSXTRouteMapEntrySetType 
     {
+        public NSXTRouteMapEntrySetType()
+        {
+            LocalPreference = test
+        }
         /// <summary>
         /// For incoming and import route_maps on receiving both v6 global
         /// and v6 link-local address for the route, prefer to use the global
@@ -34,7 +38,7 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Multi exit descriminator (MED) is a hint to BGP neighbors aboutthe preferred path into an autonomous system (AS) that has multipleentry points. A lower MED value is preferred over a higher value.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(4294967295)]
-        public long? Med { get; set; }
+        public int? Med { get; set; }
         /// <summary>
         /// Local preference indicates the degree of preference for one BGP route
         /// over other BGP routes. The path with highest local preference is
@@ -43,7 +47,6 @@ namespace nsxtsdk.PolicyModels
         [JsonProperty(PropertyName = "local_preference")]
         [NSXTProperty(IsRequired: false, Description: @"Local preference indicates the degree of preference for one BGP routeover other BGP routes. The path with highest local preference ispreferred.")]
         //[System.ComponentModel.DataAnnotations.MaxLength(4294967295)]
-        [NSXTDefaultProperty(Default: "")]
         public long? LocalPreference { get; set; }
         /// <summary>
         /// Weight is used to select a route when multiple routes are available
@@ -53,7 +56,7 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Weight is used to select a route when multiple routes are availableto the same network. Route with the highest weight is preferred.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        public long? Weight { get; set; }
+        public int? Weight { get; set; }
         /// <summary>
         /// AS path prepend to influence route selection.
         /// </summary>

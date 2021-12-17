@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTaskPropertiesType : NSXTResourceType
     {
+        public NSXTTaskPropertiesType()
+        {
+        }
         /// <summary>
         /// Current status of the task
         /// </summary>

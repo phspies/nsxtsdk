@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTContainerNetworkPolicyListResultType : NSXTListResultType
     {
+        public NSXTContainerNetworkPolicyListResultType()
+        {
+        }
         /// <summary>
         /// List of Container Network Policy specs
         /// </summary>

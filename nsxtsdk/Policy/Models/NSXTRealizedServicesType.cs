@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRealizedServicesType : NSXTPolicyRealizedResourceType
     {
+        public NSXTRealizedServicesType()
+        {
+        }
         /// <summary>
         /// List of realized services
         /// </summary>

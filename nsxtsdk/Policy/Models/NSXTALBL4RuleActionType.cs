@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer L4RuleAction object")]
     public class NSXTALBL4RuleActionType 
     {
+        public NSXTALBL4RuleActionType()
+        {
+        }
         /// <summary>
-        /// Indicates pool or pool-group selection on rule match.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "select_pool")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicates pool or pool-group selection on rule match.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBL4RuleActionSelectPoolType SelectPool { get; set; }
     }
 }

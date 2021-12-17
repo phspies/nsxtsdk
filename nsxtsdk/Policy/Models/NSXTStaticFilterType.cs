@@ -17,12 +17,28 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Static filters")]
     public class NSXTStaticFilterType 
     {
+        public NSXTStaticFilterType()
+        {
+        }
+        /// <summary>
+        /// Property value is shown in the drop down input box for a filter. If the value is not provided 'display_name' property
+        /// value is used.
+        /// </summary>
+        [JsonProperty(PropertyName = "short_display_name")]
+        [NSXTProperty(IsRequired: false, Description: @"Property value is shown in the drop down input box for a filter. If the value is not provided &apos;display_name&apos; property value is used.")]
+        public string? ShortDisplayName { get; set; }
         /// <summary>
         /// display name to be shown in the drop down for static filter.
         /// </summary>
         [JsonProperty(PropertyName = "display_name")]
         [NSXTProperty(IsRequired: false, Description: @"display name to be shown in the drop down for static filter.")]
         public string? DisplayName { get; set; }
+        /// <summary>
+        /// An additional key-value pair for static filter.
+        /// </summary>
+        [JsonProperty(PropertyName = "additional_value")]
+        [NSXTProperty(IsRequired: false, Description: @"An additional key-value pair for static filter.")]
+        public object? AdditionalValue { get; set; }
         /// <summary>
         /// Value of static filter inside dropdown filter.
         /// </summary>

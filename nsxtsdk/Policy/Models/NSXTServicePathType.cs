@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"An instance of service chain that consists of forward and reverse service paths.")]
     public class NSXTServicePathType 
     {
+        public NSXTServicePathType()
+        {
+        }
         /// <summary>
-        /// Reverse service path if available that applies to egress traffic.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "reverse_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Reverse service path if available that applies to egress traffic.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTUnidirectionalServicePathType ReversePath { get; set; }
         /// <summary>
         /// Uuid of a service chain.
@@ -30,10 +33,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Uuid of a service chain.")]
         public string? ServiceChainUuid { get; set; }
         /// <summary>
-        /// Forward service path if available that applies to ingress traffic.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "forward_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Forward service path if available that applies to ingress traffic.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTUnidirectionalServicePathType ForwardPath { get; set; }
         /// <summary>
         /// Unique identifier of a service path.

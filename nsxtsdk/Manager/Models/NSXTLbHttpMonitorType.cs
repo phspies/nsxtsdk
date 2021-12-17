@@ -17,6 +17,11 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbHttpMonitorType : NSXTLbActiveMonitorType
     {
+        public NSXTLbHttpMonitorType()
+        {
+            RequestMethod = test
+            RequestVersion = test
+        }
         /// <summary>
         /// The HTTP response status code should be a valid HTTP status code.
         /// </summary>
@@ -28,7 +33,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "request_method")]
         [NSXTProperty(IsRequired: false, Description: @"the health check method for HTTP monitor type")]
-        [NSXTDefaultProperty(Default: "GET")]
         public NSXTLbHttpMonitorRequestMethodEnumType? RequestMethod { get; set; }
         /// <summary>
         /// String to send as part of HTTP health check request body. Valid only
@@ -60,7 +64,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "request_version")]
         [NSXTProperty(IsRequired: false, Description: @"HTTP request version")]
-        [NSXTDefaultProperty(Default: "HTTP_VERSION_1_1")]
         public NSXTLbHttpMonitorRequestVersionEnumType? RequestVersion { get; set; }
         /// <summary>
         /// Array of HTTP request headers

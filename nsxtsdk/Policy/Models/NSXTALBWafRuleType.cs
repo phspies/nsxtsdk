@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer WafRule object")]
     public class NSXTALBWafRuleType 
     {
+        public NSXTALBWafRuleType()
+        {
+            Enable = test
+        }
         /// <summary>
         /// Exclude list for the WAF rule.
         /// The fields in the exclude list entry are logically and'ed
@@ -35,7 +39,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "enable")]
         [NSXTProperty(IsRequired: false, Description: @"Enable or disable WAF Rule Group.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enable { get; set; }
         /// <summary>
         /// User-friendly optional name for a rule.
@@ -45,11 +48,13 @@ namespace nsxtsdk.PolicyModels
         public string? Name { get; set; }
         /// <summary>
         /// Tags for WAF rule as per Modsec language.
-        /// They are extracted from the tag action in a ModSec rule.
+        /// They are extracted from the tag actions in a Modsec rule.
+        /// This field is generated from the rule itself and cannot be
+        /// set by the user.
         /// Maximum of 64 items allowed.
         /// </summary>
         [JsonProperty(PropertyName = "avi_tags")]
-        [NSXTProperty(IsRequired: false, Description: @"Tags for WAF rule as per Modsec language.They are extracted from the tag action in a ModSec rule.Maximum of 64 items allowed.")]
+        [NSXTProperty(IsRequired: false, Description: @"Tags for WAF rule as per Modsec language.They are extracted from the tag actions in a Modsec rule.This field is generated from the rule itself and cannot beset by the user.Maximum of 64 items allowed.")]
         public IList<string> AviTags { get; set; }
         /// <summary>
         /// Number of index.
@@ -79,12 +84,12 @@ namespace nsxtsdk.PolicyModels
         /// <summary>
         /// Identifier (id) for a rule per Modsec language.
         /// All SecRule and SecAction directives require an id.
-        /// It is extracted from the id action in a ModSec rule.
+        /// It is extracted from the id action in a Modsec rule.
         /// Rules within a single WAF Policy are required to have
         /// unique rule_ids.
         /// </summary>
         [JsonProperty(PropertyName = "rule_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifier (id) for a rule per Modsec language.All SecRule and SecAction directives require an id.It is extracted from the id action in a ModSec rule.Rules within a single WAF Policy are required to haveunique rule_ids.")]
+        [NSXTProperty(IsRequired: false, Description: @"Identifier (id) for a rule per Modsec language.All SecRule and SecAction directives require an id.It is extracted from the id action in a Modsec rule.Rules within a single WAF Policy are required to haveunique rule_ids.")]
         public string? RuleId { get; set; }
         /// <summary>
         /// Rule as per Modsec language.

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSegmentQoSProfileBindingMapListResultType : NSXTListResultType
     {
+        public NSXTSegmentQoSProfileBindingMapListResultType()
+        {
+        }
         /// <summary>
         /// Segment QoS Profile Binding Map list results
         /// </summary>

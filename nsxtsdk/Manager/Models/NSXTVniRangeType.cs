@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTVniRangeType : NSXTResourceType
     {
+        public NSXTVniRangeType()
+        {
+        }
         /// <summary>
         /// Start value for vni range to be used for virtual networks
         /// </summary>

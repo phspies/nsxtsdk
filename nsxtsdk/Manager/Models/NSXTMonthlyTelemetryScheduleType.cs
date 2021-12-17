@@ -17,6 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMonthlyTelemetryScheduleType : NSXTTelemetryScheduleType
     {
+        public NSXTMonthlyTelemetryScheduleType()
+        {
+            Minutes = test
+        }
         /// <summary>
         /// Minute at which data will be collected. Specify a value between 0 through 59.
         /// </summary>
@@ -24,7 +28,6 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Minute at which data will be collected. Specify a value between 0 through 59.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(59)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Minutes { get; set; }
         /// <summary>
         /// Day of month on which data will be collected. Specify a value between 1 through 31.

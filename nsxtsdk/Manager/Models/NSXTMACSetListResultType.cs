@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMACSetListResultType : NSXTListResultType
     {
+        public NSXTMACSetListResultType()
+        {
+        }
         /// <summary>
         /// Paged collection of MACSets
         /// </summary>

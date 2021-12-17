@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeUserPropertiesType : NSXTResourceType
     {
+        public NSXTNodeUserPropertiesType()
+        {
+        }
         /// <summary>
         /// User login name (must be "root" if userid is 0)
         /// </summary>
@@ -55,6 +58,12 @@ namespace nsxtsdk.ManagerModels
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(9999)]
         public long? PasswordChangeFrequency { get; set; }
+        /// <summary>
+        /// Boolean value that states if a password reset is required
+        /// </summary>
+        [JsonProperty(PropertyName = "password_reset_required")]
+        [NSXTProperty(IsRequired: false, Description: @"Boolean value that states if a password reset is required")]
+        public bool? PasswordResetRequired { get; set; }
         /// <summary>
         /// Password for the user (optionally specified on PUT, unspecified on GET)
         /// </summary>

@@ -17,6 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer OCSPConfig object")]
     public class NSXTALBOCSPConfigType 
     {
+        public NSXTALBOCSPConfigType()
+        {
+            UrlAction = test
+            OcspReqInterval = test
+            MaxTries = test
+            FailedOcspJobsRetryInterval = test
+        }
         /// <summary>
         /// Describes the type of action to take with the Responder
         /// URLs.
@@ -28,7 +35,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "url_action")]
         [NSXTProperty(IsRequired: false, Description: @"Describes the type of action to take with the ResponderURLs.Enum options - OCSP_RESPONDER_URL_FAILOVER,OCSP_RESPONDER_URL_OVERRIDE.Default value when not specified in API or module isinterpreted by ALB Controller asOCSP_RESPONDER_URL_FAILOVER.")]
-        [NSXTDefaultProperty(Default: "OCSP_RESPONDER_URL_FAILOVER")]
         public NSXTAlbocspconfigUrlActionEnumType? UrlAction { get; set; }
         /// <summary>
         /// Interval between the OCSP queries.
@@ -41,7 +47,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Interval between the OCSP queries.Allowed values are 60-31536000.Unit is SEC.Default value when not specified in API or module isinterpreted by ALB Controller as 86400.")]
         //[System.ComponentModel.DataAnnotations.MinLength(60)]
         //[System.ComponentModel.DataAnnotations.MaxLength(31536000)]
-        [NSXTDefaultProperty(Default: "")]
         public long? OcspReqInterval { get; set; }
         /// <summary>
         /// Time in seconds that the system waits for a reply from the
@@ -59,7 +64,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "max_tries")]
         [NSXTProperty(IsRequired: false, Description: @"Maximum number of times the failed OCSP jobs can bescheduled.Default value when not specified in API or module isinterpreted by ALB Controller as 10.")]
-        [NSXTDefaultProperty(Default: "")]
         public long? MaxTries { get; set; }
         /// <summary>
         /// Describes the Time Interval after which the next OCSP job
@@ -73,7 +77,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Describes the Time Interval after which the next OCSP jobneeds to be scheduled in case of the OCSP job failures.Allowed values are 60-86400.Unit is SEC.Default value when not specified in API or module isinterpreted by ALB Controller as 3600.")]
         //[System.ComponentModel.DataAnnotations.MinLength(60)]
         //[System.ComponentModel.DataAnnotations.MaxLength(86400)]
-        [NSXTDefaultProperty(Default: "")]
         public long? FailedOcspJobsRetryInterval { get; set; }
         /// <summary>
         /// List of Responder URLs configured by user to do

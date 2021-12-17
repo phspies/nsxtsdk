@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSegmentMonitoringProfileBindingMapType : NSXTMonitoringProfileBindingMapType
     {
+        public NSXTSegmentMonitoringProfileBindingMapType()
+        {
+        }
         /// <summary>
         /// PolicyPath of associated IPFIX L2 Profile
         /// </summary>

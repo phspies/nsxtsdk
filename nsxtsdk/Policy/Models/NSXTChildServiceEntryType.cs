@@ -17,18 +17,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildServiceEntryType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildServiceEntryType()
+        {
+        }
         /// <summary>
-        /// Contains the actual ServiceEntry object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ServiceEntry", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual ServiceEntry object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTServiceEntryType ServiceEntry { get; set; }
         /// <summary>
-        /// This is a deprecated property, Please use 'ServiceEntry' instead.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "Service")]
-        [NSXTProperty(IsRequired: false, Description: @"This is a deprecated property, Please use &apos;ServiceEntry&apos; instead.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTServiceEntryType Service { get; set; }
     }
 }

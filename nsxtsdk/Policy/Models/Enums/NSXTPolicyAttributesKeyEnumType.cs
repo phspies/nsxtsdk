@@ -20,5 +20,7 @@ namespace nsxtsdk.PolicyModels
         URLCATEGORY = 3,
         [EnumMember(Value = "URL_REPUTATION")]
         URLREPUTATION = 4,
+        [EnumMember(Value = "CUSTOM_URL")]
+        CUSTOMURL = 5,
     }
 }

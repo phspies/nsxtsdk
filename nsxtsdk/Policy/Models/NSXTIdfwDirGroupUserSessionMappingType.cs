@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Identity Firewall NSGorup to user mapping to link DirGroup to user session data.")]
     public class NSXTIdfwDirGroupUserSessionMappingType 
     {
+        public NSXTIdfwDirGroupUserSessionMappingType()
+        {
+        }
         /// <summary>
         /// User ID.
         /// </summary>

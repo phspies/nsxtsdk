@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRealizedNSGroupType : NSXTRealizedGroupType
     {
+        public NSXTRealizedNSGroupType()
+        {
+        }
         /// <summary>
         /// Reference to the evaluated members of the NSGroup.
         /// </summary>

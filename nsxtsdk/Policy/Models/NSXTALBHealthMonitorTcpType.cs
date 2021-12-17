@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HealthMonitorTcp object")]
     public class NSXTALBHealthMonitorTcpType 
     {
+        public NSXTALBHealthMonitorTcpType()
+        {
+        }
         /// <summary>
         /// Request data to send after completing the TCP handshake.
         /// </summary>
@@ -39,11 +42,14 @@ namespace nsxtsdk.PolicyModels
         /// This method is light-weight as it makes use of listener in
         /// server's kernel layer to measure the health and a child
         /// socket or user thread is not created on the server side.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "tcp_half_open")]
-        [NSXTProperty(IsRequired: false, Description: @"Configure TCP health monitor to use half-open TCPconnections to monitor the health of backend servers therebyavoiding consumption of a full fledged server sideconnection and the overhead and logs associated with it.This method is light-weight as it makes use of listener inserver&apos;s kernel layer to measure the health and a childsocket or user thread is not created on the server side.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"Configure TCP health monitor to use half-open TCPconnections to monitor the health of backend servers therebyavoiding consumption of a full fledged server sideconnection and the overhead and logs associated with it.This method is light-weight as it makes use of listener inserver&apos;s kernel layer to measure the health and a childsocket or user thread is not created on the server side.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? TcpHalfOpen { get; set; }
         /// <summary>
         /// Match for the desired keyword in the first 2Kb of the

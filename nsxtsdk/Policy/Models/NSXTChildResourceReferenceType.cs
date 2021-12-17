@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildResourceReferenceType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildResourceReferenceType()
+        {
+        }
         /// <summary>
         /// subtree for this type within policy tree containing nested elements.
         /// </summary>

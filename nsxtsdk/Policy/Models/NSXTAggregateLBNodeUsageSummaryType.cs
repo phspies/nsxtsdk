@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTAggregateLBNodeUsageSummaryType : NSXTAggregatePolicyRuntimeInfoType
     {
+        public NSXTAggregateLBNodeUsageSummaryType()
+        {
+        }
         /// <summary>
         /// LBNodeUsageSummary list results.
         /// </summary>

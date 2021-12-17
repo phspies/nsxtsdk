@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTL2ForwarderStatusPerNodeType 
     {
+        public NSXTL2ForwarderStatusPerNodeType()
+        {
+        }
         /// <summary>
-        /// Edge node details from where the router status is being retrieved.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "transport_node")]
-        [NSXTProperty(IsRequired: false, Description: @"Edge node details from where the router status is being retrieved.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType TransportNode { get; set; }
         /// <summary>
         /// High Availability status of a service router on the edge node.

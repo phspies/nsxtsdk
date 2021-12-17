@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPFIXDFWCollectorProfileType : NSXTPolicyConfigResourceType
     {
+        public NSXTIPFIXDFWCollectorProfileType()
+        {
+        }
         /// <summary>
         /// It accepts Multiple Collectors.
         /// </summary>

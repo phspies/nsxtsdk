@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSegmentPortMacTableEntryType 
     {
+        public NSXTSegmentPortMacTableEntryType()
+        {
+        }
         /// <summary>
         /// The type of the MAC address
         /// </summary>

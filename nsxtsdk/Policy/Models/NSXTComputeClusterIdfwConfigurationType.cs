@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTComputeClusterIdfwConfigurationType : NSXTPolicyConfigResourceType
     {
+        public NSXTComputeClusterIdfwConfigurationType()
+        {
+        }
         /// <summary>
-        /// Contains actual policy resource reference object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "member", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains actual policy resource reference object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTPolicyResourceReferenceType Member { get; set; }
         /// <summary>

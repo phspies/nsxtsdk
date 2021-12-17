@@ -17,6 +17,11 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSecurityGlobalConfigType : NSXTGlobalConfigsType
     {
+        public NSXTSecurityGlobalConfigType()
+        {
+            EkuCheckingEnabled = test
+            CrlCheckingEnabled = test
+        }
         /// <summary>
         /// When this flag is set to true, during certificate checking the Extended Key Usage extension is expected to be present,
         /// indicating whether the certificate is to be used a client certificate or server certificate. Setting this value to false
@@ -24,7 +29,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "eku_checking_enabled")]
         [NSXTProperty(IsRequired: false, Description: @"When this flag is set to true, during certificate checking the Extended Key Usage extension is expected to be present, indicating whether the certificate is to be used a client certificate or server certificate. Setting this value to false is not recommended as it leads to lower security and operational risk.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? EkuCheckingEnabled { get; set; }
         /// <summary>
         /// When this flag is set to true (for NDcPP compliance) only ca-signed certificates will be allowed to be applied as server
@@ -39,7 +43,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "crl_checking_enabled")]
         [NSXTProperty(IsRequired: false, Description: @"When this flag is set to true, during certificate checking the CRL is fetched and checked whether the certificate is revoked or not.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? CrlCheckingEnabled { get; set; }
     }
 }

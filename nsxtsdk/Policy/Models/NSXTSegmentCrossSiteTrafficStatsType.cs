@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSegmentCrossSiteTrafficStatsType 
     {
+        public NSXTSegmentCrossSiteTrafficStatsType()
+        {
+        }
         /// <summary>
-        /// Total sent data counters.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "tx_stats")]
-        [NSXTProperty(IsRequired: false, Description: @"Total sent data counters.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTInterSitePortCountersType TxStats { get; set; }
         /// <summary>
         /// Timestamp when the l2 forwarder statistics was last updated.
@@ -30,10 +33,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Timestamp when the l2 forwarder statistics was last updated.")]
         public long? LastUpdateTimestamp { get; set; }
         /// <summary>
-        /// Total received data counters.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "rx_stats")]
-        [NSXTProperty(IsRequired: false, Description: @"Total received data counters.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTInterSitePortCountersType RxStats { get; set; }
         /// <summary>
         /// Policy path of Segment to attach interface.

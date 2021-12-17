@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTnHyperbusStatusType 
     {
+        public NSXTTnHyperbusStatusType()
+        {
+        }
         /// <summary>
         /// Display the hyperbus status
         /// </summary>

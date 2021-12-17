@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Aggregate of DNS forwarder status across enforcement points.")]
     public class NSXTAggregateDNSForwarderStatusType 
     {
+        public NSXTAggregateDNSForwarderStatusType()
+        {
+        }
         /// <summary>
         /// List of DNS forwarder status per enforcement point.
         /// </summary>

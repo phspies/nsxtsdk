@@ -17,27 +17,30 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyUrlReputationSeverityType : NSXTPolicyConfigResourceType
     {
+        public NSXTPolicyUrlReputationSeverityType()
+        {
+        }
         /// <summary>
         /// The maximum reputation for the severity.
         /// </summary>
         [JsonProperty(PropertyName = "max_reputation", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"The maximum reputation for the severity.")]
         [System.ComponentModel.DataAnnotations.Required]
-        public long MaxReputation { get; set; }
+        public int MaxReputation { get; set; }
         /// <summary>
         /// The minimum reputation for the severity.
         /// </summary>
         [JsonProperty(PropertyName = "min_reputation", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"The minimum reputation for the severity.")]
         [System.ComponentModel.DataAnnotations.Required]
-        public long MinReputation { get; set; }
+        public int MinReputation { get; set; }
         /// <summary>
         /// The id of the reputation severity.
         /// </summary>
         [JsonProperty(PropertyName = "reputation_severity_id", Required = Required.AllowNull)]
         [NSXTProperty(IsRequired: true, Description: @"The id of the reputation severity.")]
         [System.ComponentModel.DataAnnotations.Required]
-        public long ReputationSeverityId { get; set; }
+        public int ReputationSeverityId { get; set; }
         /// <summary>
         /// The name of the severity.
         /// </summary>

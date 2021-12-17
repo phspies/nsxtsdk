@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTEndpointRuleType : NSXTPolicyConfigResourceType
     {
+        public NSXTEndpointRuleType()
+        {
+            SequenceNumber = test
+        }
         /// <summary>
         /// The policy paths of service profiles are listed here. It pecifies what
         /// services are applied on the group. Currently only one is allowed.
@@ -45,7 +49,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"This field is used to resolve conflicts between multipleentries under EndpointPolicy. It will be system default value when not specifiedby user.")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(499)]
-        [NSXTDefaultProperty(Default: "")]
-        public long? SequenceNumber { get; set; }
+        public int? SequenceNumber { get; set; }
     }
 }

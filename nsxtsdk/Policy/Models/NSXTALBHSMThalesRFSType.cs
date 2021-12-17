@@ -17,12 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HSMThalesRFS object")]
     public class NSXTALBHSMThalesRFSType 
     {
+        public NSXTALBHSMThalesRFSType()
+        {
+            Port = test
+        }
         /// <summary>
-        /// IP address of the RFS server from where to sync the Thales
-        /// encrypted private key.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ip", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IP address of the RFS server from where to sync the Thalesencrypted private key.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBIpAddrType Ip { get; set; }
         /// <summary>
@@ -36,7 +39,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Port at which the RFS server accepts the sync request fromclients for Thales encrypted private key.Allowed values are 1-65535.Default value when not specified in API or module isinterpreted by ALB Controller as 9004.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Port { get; set; }
     }
 }

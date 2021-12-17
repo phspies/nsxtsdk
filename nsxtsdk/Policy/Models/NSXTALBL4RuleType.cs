@@ -17,11 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer L4Rule object")]
     public class NSXTALBL4RuleType 
     {
+        public NSXTALBL4RuleType()
+        {
+            Enable = test
+        }
         /// <summary>
-        /// Action to be performed upon successful rule match.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "action")]
-        [NSXTProperty(IsRequired: false, Description: @"Action to be performed upon successful rule match.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBL4RuleActionType Action { get; set; }
         /// <summary>
         /// Index of the rule.
@@ -37,7 +41,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "enable")]
         [NSXTProperty(IsRequired: false, Description: @"Enable or disable the rule.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enable { get; set; }
         /// <summary>
         /// Name of the rule.
@@ -47,10 +50,10 @@ namespace nsxtsdk.PolicyModels
         [System.ComponentModel.DataAnnotations.Required]
         public string Name { get; set; }
         /// <summary>
-        /// Match criteria of the rule.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "match")]
-        [NSXTProperty(IsRequired: false, Description: @"Match criteria of the rule.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBL4RuleMatchTargetType Match { get; set; }
     }
 }

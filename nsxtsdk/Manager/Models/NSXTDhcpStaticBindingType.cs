@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpStaticBindingType : NSXTIpAllocationBaseType
     {
+        public NSXTDhcpStaticBindingType()
+        {
+        }
         /// <summary>
         /// The ip address to be assigned to the host.
         /// </summary>

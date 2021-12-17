@@ -12,28 +12,31 @@ using System.ComponentModel;
 namespace nsxtsdk.ManagerModels
 {
     /// <summary>
-    /// Contains a list of bundle-ids
+    /// Contains a list of bundle-ids.
     /// </summary>
-    [NSXTProperty(Description: @"Contains a list of bundle-ids")]
+    [NSXTProperty(Description: @"Contains a list of bundle-ids.")]
     public class NSXTBundleIdsType 
     {
+        public NSXTBundleIdsType()
+        {
+        }
         /// <summary>
-        /// Id of a bundle whose upload is successful
+        /// Id of a bundle whose upload is successful.
         /// </summary>
         [JsonProperty(PropertyName = "successful")]
-        [NSXTProperty(IsRequired: false, Description: @"Id of a bundle whose upload is successful")]
+        [NSXTProperty(IsRequired: false, Description: @"Id of a bundle whose upload is successful.")]
         public string? Successful { get; set; }
         /// <summary>
-        /// Id of a bundle whose upload was failed
+        /// Id of a bundle whose upload was failed.
         /// </summary>
         [JsonProperty(PropertyName = "failed")]
-        [NSXTProperty(IsRequired: false, Description: @"Id of a bundle whose upload was failed")]
+        [NSXTProperty(IsRequired: false, Description: @"Id of a bundle whose upload was failed.")]
         public string? Failed { get; set; }
         /// <summary>
-        /// Id of a bundle whose upload is in-progress
+        /// Id of a bundle whose upload is in-progress.
         /// </summary>
         [JsonProperty(PropertyName = "in_progress")]
-        [NSXTProperty(IsRequired: false, Description: @"Id of a bundle whose upload is in-progress")]
+        [NSXTProperty(IsRequired: false, Description: @"Id of a bundle whose upload is in-progress.")]
         public string? InProgress { get; set; }
     }
 }

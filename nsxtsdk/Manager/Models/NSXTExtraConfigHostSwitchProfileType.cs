@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTExtraConfigHostSwitchProfileType : NSXTBaseHostSwitchProfileType
     {
+        public NSXTExtraConfigHostSwitchProfileType()
+        {
+        }
         /// <summary>
         /// list of extra configs
         /// </summary>

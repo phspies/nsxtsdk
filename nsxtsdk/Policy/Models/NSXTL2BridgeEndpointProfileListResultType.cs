@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTL2BridgeEndpointProfileListResultType : NSXTListResultType
     {
+        public NSXTL2BridgeEndpointProfileListResultType()
+        {
+        }
         /// <summary>
         /// L2BridgeEndpointProfile list results
         /// </summary>

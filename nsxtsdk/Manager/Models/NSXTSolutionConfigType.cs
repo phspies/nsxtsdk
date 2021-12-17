@@ -17,11 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSolutionConfigType : NSXTManagedResourceType
     {
+        public NSXTSolutionConfigType()
+        {
+        }
         /// <summary>
-        /// The service to which the service profile belongs.
+        /// The service to which the solution config belongs.
         /// </summary>
         [JsonProperty(PropertyName = "service_id")]
-        [NSXTProperty(IsRequired: false, Description: @"The service to which the service profile belongs.")]
+        [NSXTProperty(IsRequired: false, Description: @"The service to which the solution config belongs.")]
         public string? ServiceId { get; set; }
         /// <summary>
         /// Partner needs to specify Solution Id assigned by VMware.

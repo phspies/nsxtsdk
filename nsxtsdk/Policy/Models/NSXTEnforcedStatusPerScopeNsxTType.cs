@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"NSX-T Detailed Realized Status Per Scope.")]
     public class NSXTEnforcedStatusPerScopeNsxTType 
     {
+        public NSXTEnforcedStatusPerScopeNsxTType()
+        {
+        }
         /// <summary>
         /// Enforced Realized Status Per Scope Resource Type.
         /// </summary>

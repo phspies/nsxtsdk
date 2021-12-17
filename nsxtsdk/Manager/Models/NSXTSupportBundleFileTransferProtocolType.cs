@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSupportBundleFileTransferProtocolType 
     {
+        public NSXTSupportBundleFileTransferProtocolType()
+        {
+        }
         /// <summary>
         /// SSH fingerprint of server
         /// </summary>
@@ -32,10 +35,10 @@ namespace nsxtsdk.ManagerModels
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTSupportBundleFileTransferProtocolNameEnumType Name { get; set; }
         /// <summary>
-        /// Scheme to authenticate if required
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "authentication_scheme", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Scheme to authenticate if required")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTSupportBundleFileTransferAuthenticationSchemeType AuthenticationScheme { get; set; }
     }

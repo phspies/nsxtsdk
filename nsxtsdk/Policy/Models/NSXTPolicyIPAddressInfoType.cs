@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Used to specify the display name and value of the IPv4Address.")]
     public class NSXTPolicyIPAddressInfoType 
     {
+        public NSXTPolicyIPAddressInfoType()
+        {
+        }
         /// <summary>
         /// Next hop used in auto-plumbing of static route. If a value is not
         /// provided, static route will not be auto-plumbed.

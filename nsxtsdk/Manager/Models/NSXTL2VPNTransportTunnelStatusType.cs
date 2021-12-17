@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Transport tunnel status.")]
     public class NSXTL2VPNTransportTunnelStatusType 
     {
+        public NSXTL2VPNTransportTunnelStatusType()
+        {
+        }
         /// <summary>
         /// Resource types of L2VPN Transport tunnels
         /// </summary>
@@ -25,10 +28,10 @@ namespace nsxtsdk.ManagerModels
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTL2VpntransportTunnelStatusResourceTypeEnumType ResourceType { get; set; }
         /// <summary>
-        /// Transport tunnel id.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "tunnel_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Transport tunnel id.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType TunnelId { get; set; }
     }
 }

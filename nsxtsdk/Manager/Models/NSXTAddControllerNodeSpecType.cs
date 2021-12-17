@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAddControllerNodeSpecType 
     {
+        public NSXTAddControllerNodeSpecType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -32,12 +35,10 @@ namespace nsxtsdk.ManagerModels
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTMsgClientInfoType HostMsgClientInfo { get; set; }
         /// <summary>
-        /// The details of the controller node required for cluster initialization or joining to an existing cluster.  If this
-        /// property is set, the node will be added to an existing cluster or used to create a new cluster.  Otherwise no clustering
-        /// operation/s will be performed.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "clustering_params")]
-        [NSXTProperty(IsRequired: false, Description: @"The details of the controller node required for cluster initialization or joining to an existing cluster.  If this property is set, the node will be added to an existing cluster or used to create a new cluster.  Otherwise no clustering operation/s will be performed.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTClusteringInfoType ClusteringParams { get; set; }
         /// <summary>
         /// Only use this if an id for the node already exists with MP. If not specified, then the node_id will be set to a random

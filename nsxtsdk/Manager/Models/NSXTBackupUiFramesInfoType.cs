@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBackupUiFramesInfoType 
     {
+        public NSXTBackupUiFramesInfoType()
+        {
+        }
         /// <summary>
         /// prefix to be used for api call
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTlsCertificateListType : NSXTListResultType
     {
+        public NSXTTlsCertificateListType()
+        {
+        }
         /// <summary>
         /// TlsCertificate list.
         /// </summary>

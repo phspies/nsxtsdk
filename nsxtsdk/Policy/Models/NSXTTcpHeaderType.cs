@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTcpHeaderType 
     {
+        public NSXTTcpHeaderType()
+        {
+        }
         /// <summary>
         /// TCP flags (9bits)
         /// </summary>

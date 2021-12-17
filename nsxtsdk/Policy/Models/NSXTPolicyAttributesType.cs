@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Policy Attributes data holder")]
     public class NSXTPolicyAttributesType 
     {
+        public NSXTPolicyAttributesType()
+        {
+            AttributeSource = test
+        }
         /// <summary>
         /// Reference to sub attributes for the attribute
         /// </summary>
@@ -28,7 +32,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "attribute_source")]
         [NSXTProperty(IsRequired: false, Description: @"Source of attribute value i.e whether system defined or custom value")]
-        [NSXTDefaultProperty(Default: "SYSTEM")]
         public NSXTPolicyAttributesAttributeSourceEnumType? AttributeSource { get; set; }
         /// <summary>
         /// Description for attribute value

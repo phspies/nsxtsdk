@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildReactionType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildReactionType()
+        {
+        }
         /// <summary>
-        /// Contains the actual Reaction object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "Reaction", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual Reaction object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTReactionType Reaction { get; set; }
     }

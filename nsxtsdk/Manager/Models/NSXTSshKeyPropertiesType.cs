@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSshKeyPropertiesType : NSXTSshKeyBasePropertiesType
     {
+        public NSXTSshKeyPropertiesType()
+        {
+        }
         /// <summary>
         /// SSH key type
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyFirewallSessionTimerProfileBindingMapListResultType : NSXTListResultType
     {
+        public NSXTPolicyFirewallSessionTimerProfileBindingMapListResultType()
+        {
+        }
         /// <summary>
         /// Firewall Session Timer Profile Binding Map list results
         /// </summary>

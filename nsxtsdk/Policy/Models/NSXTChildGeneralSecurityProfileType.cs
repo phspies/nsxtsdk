@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildGeneralSecurityProfileType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildGeneralSecurityProfileType()
+        {
+        }
         /// <summary>
-        /// Contains the actual GeneralSecurityProfile object
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "GeneralSecurityProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual GeneralSecurityProfile object")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTGeneralSecurityProfileType GeneralSecurityProfile { get; set; }
     }

@@ -52,30 +52,5 @@ namespace nsxtapi.ManagerModules
 			}
             
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public void ResyncTransportNodeResyncHostConfig(string TransportnodeId)
-        {
-            if (TransportnodeId == null) { throw new System.ArgumentNullException("TransportnodeId cannot be null"); }
-            
-            StringBuilder ResyncTransportNodeResyncHostConfigServiceURL = new StringBuilder("/transport-nodes/{transportnode-id}?action=resync_host_config");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.POST
-            };
-            request.AddHeader("Content-type", "application/json");
-            ResyncTransportNodeResyncHostConfigServiceURL.Replace("{transportnode-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TransportnodeId, System.Globalization.CultureInfo.InvariantCulture)));
-            request.Resource = ResyncTransportNodeResyncHostConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP POST operation to " + ResyncTransportNodeResyncHostConfigServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            
-        }
     }
 }

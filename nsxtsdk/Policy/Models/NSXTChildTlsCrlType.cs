@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildTlsCrlType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildTlsCrlType()
+        {
+        }
         /// <summary>
-        /// Contains the actual TlsCrl object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "TlsCrl", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual TlsCrl object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTTlsCrlType TlsCrl { get; set; }
     }

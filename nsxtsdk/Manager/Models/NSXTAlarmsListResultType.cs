@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAlarmsListResultType : NSXTListResultType
     {
+        public NSXTAlarmsListResultType()
+        {
+        }
         /// <summary>
         /// List of alarms known to the system
         /// </summary>

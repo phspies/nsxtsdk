@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpfixUpmProfileListResultType : NSXTListResultType
     {
+        public NSXTIpfixUpmProfileListResultType()
+        {
+        }
         /// <summary>
         /// IPFIX Profile List
         /// </summary>

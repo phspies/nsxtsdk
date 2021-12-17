@@ -17,6 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpServerConfigType : NSXTPolicyConfigResourceType
     {
+        public NSXTDhcpServerConfigType()
+        {
+            LeaseTime = test
+        }
         /// <summary>
         /// DHCP server address in CIDR format. Both IPv4 and IPv6 address families
         /// are supported.
@@ -48,7 +52,8 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"DHCP server address in CIDR format. Prefix length should be less thanor equal to 30. DHCP server is deployed as DHCP relay service.This property is deprecated, use server_addresses instead. Bothproperties cannot be specified together with different new values.")]
         public string? ServerAddress { get; set; }
         /// <summary>
-        /// Edge cluster path. Auto assigned if only one edge cluster is configured
+        /// The reference to the edge cluster using the policy path of the edge cluster.
+        /// Auto assigned if only one edge cluster is configured
         /// on enforcement-point.
         /// Modifying edge cluster will reallocate DHCP server to the new edge cluster.
         /// Please note that re-allocating edge-cluster will result in losing of all exisitng
@@ -58,7 +63,7 @@ namespace nsxtsdk.PolicyModels
         /// get new IP addresses.
         /// </summary>
         [JsonProperty(PropertyName = "edge_cluster_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Edge cluster path. Auto assigned if only one edge cluster is configuredon enforcement-point.Modifying edge cluster will reallocate DHCP server to the new edge cluster.Please note that re-allocating edge-cluster will result in losing of all exisitngDHCP lease information.Change edge cluster only when losing DHCP leases is not a real problem,e.g. cross-site migration or failover and all client hosts will be reboot andget new IP addresses.")]
+        [NSXTProperty(IsRequired: false, Description: @"The reference to the edge cluster using the policy path of the edge cluster.Auto assigned if only one edge cluster is configuredon enforcement-point.Modifying edge cluster will reallocate DHCP server to the new edge cluster.Please note that re-allocating edge-cluster will result in losing of all exisitngDHCP lease information.Change edge cluster only when losing DHCP leases is not a real problem,e.g. cross-site migration or failover and all client hosts will be reboot andget new IP addresses.")]
         public string? EdgeClusterPath { get; set; }
         /// <summary>
         /// IP address lease time in seconds.
@@ -67,7 +72,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"IP address lease time in seconds.")]
         //[System.ComponentModel.DataAnnotations.MinLength(60)]
         //[System.ComponentModel.DataAnnotations.MaxLength(4294967295)]
-        [NSXTDefaultProperty(Default: "")]
         public long? LeaseTime { get; set; }
     }
 }

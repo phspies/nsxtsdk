@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTCrlListType : NSXTListResultType
     {
+        public NSXTCrlListType()
+        {
+        }
         /// <summary>
         /// CRL list.
         /// </summary>

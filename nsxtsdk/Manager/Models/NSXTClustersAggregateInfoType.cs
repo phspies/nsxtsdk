@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTClustersAggregateInfoType 
     {
+        public NSXTClustersAggregateInfoType()
+        {
+        }
         /// <summary>
         /// Array of Management Nodes
         /// </summary>
@@ -32,10 +35,10 @@ namespace nsxtsdk.ManagerModels
         [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTControllerNodeAggregateInfoType> ControllerCluster { get; set; }
         /// <summary>
-        /// Status of all the cluster groups
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "cluster_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Status of all the cluster groups")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTAllClusterGroupStatusType ClusterStatus { get; set; }
     }
 }

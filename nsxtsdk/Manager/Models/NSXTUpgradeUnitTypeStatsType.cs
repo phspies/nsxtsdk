@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUpgradeUnitTypeStatsType 
     {
+        public NSXTUpgradeUnitTypeStatsType()
+        {
+        }
         /// <summary>
         /// Number of nodes with issues that may cause upgrade failure
         /// </summary>
@@ -41,5 +44,11 @@ namespace nsxtsdk.ManagerModels
         [JsonProperty(PropertyName = "type")]
         [NSXTProperty(IsRequired: false, Description: @"Type of upgrade unit")]
         public string? Type { get; set; }
+        /// <summary>
+        /// UpgradeUnit sub type
+        /// </summary>
+        [JsonProperty(PropertyName = "upgrade_unit_subtype")]
+        [NSXTProperty(IsRequired: false, Description: @"UpgradeUnit sub type")]
+        public NSXTUpgradeUnitTypeStatsUpgradeUnitSubtypeEnumType? UpgradeUnitSubtype { get; set; }
     }
 }

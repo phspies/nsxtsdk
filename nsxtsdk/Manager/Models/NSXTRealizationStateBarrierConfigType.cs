@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRealizationStateBarrierConfigType : NSXTRevisionedResourceType
     {
+        public NSXTRealizationStateBarrierConfigType()
+        {
+        }
         /// <summary>
         /// The interval in milliseconds used for auto incrementing the barrier number
         /// </summary>

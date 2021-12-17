@@ -17,6 +17,12 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBPKIProfileType : NSXTPolicyConfigResourceType
     {
+        public NSXTALBPKIProfileType()
+        {
+            ValidateOnlyLeafCrl = test
+            CrlCheck = test
+            IgnorePeerChain = test
+        }
         /// <summary>
         /// Certificate Revocation Lists.
         /// </summary>
@@ -28,13 +34,23 @@ namespace nsxtsdk.PolicyModels
         /// of the leaf certificate using CRL.
         /// To enable validation for the entire chain, disable this
         /// option and provide all the relevant CRLs.
+        /// Allowed in Basic(Allowed values- true) edition,
+        /// Essentials(Allowed values- true) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as true.
         /// </summary>
         [JsonProperty(PropertyName = "validate_only_leaf_crl")]
-        [NSXTProperty(IsRequired: false, Description: @"When enabled, Avi will only validate the revocation statusof the leaf certificate using CRL.To enable validation for the entire chain, disable thisoption and provide all the relevant CRLs.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
+        [NSXTProperty(IsRequired: false, Description: @"When enabled, Avi will only validate the revocation statusof the leaf certificate using CRL.To enable validation for the entire chain, disable thisoption and provide all the relevant CRLs.Allowed in Basic(Allowed values- true) edition,Essentials(Allowed values- true) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
         public bool? ValidateOnlyLeafCrl { get; set; }
+        /// <summary>
+        /// List of labels to be used for granular RBAC.
+        /// Allowed in Basic edition, Essentials edition, Enterprise
+        /// edition.
+        /// </summary>
+        [JsonProperty(PropertyName = "markers")]
+        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
+        public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
         /// <summary>
         /// List of Certificate Authorities (Root and Intermediate)
         /// trusted that is used for certificate validation.
@@ -50,7 +66,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "crl_check")]
         [NSXTProperty(IsRequired: false, Description: @"When enabled, Avi will verify via CRL checks thatcertificates in the trust chain have not been revoked.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? CrlCheck { get; set; }
         /// <summary>
         /// When enabled, Avi will not trust Intermediate and Root
@@ -58,11 +73,16 @@ namespace nsxtsdk.PolicyModels
         /// Instead, only the chain certs configured in the Certificate
         /// Authority section will be used to verify trust of the
         /// client's cert.
+        /// Allowed in Basic(Allowed values- true) edition,
+        /// Essentials(Allowed values- true) edition, Enterprise
+        /// edition.
+        /// Special default for Basic edition is true, Essentials
+        /// edition is true, Enterprise is False.
         /// Default value when not specified in API or module is
-        /// interpreted by ALB Controller as false.
+        /// interpreted by ALB Controller as true.
         /// </summary>
         [JsonProperty(PropertyName = "ignore_peer_chain")]
-        [NSXTProperty(IsRequired: false, Description: @"When enabled, Avi will not trust Intermediate and Rootcerts presented by a client.Instead, only the chain certs configured in the CertificateAuthority section will be used to verify trust of theclient&apos;s cert.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"When enabled, Avi will not trust Intermediate and Rootcerts presented by a client.Instead, only the chain certs configured in the CertificateAuthority section will be used to verify trust of theclient&apos;s cert.Allowed in Basic(Allowed values- true) edition,Essentials(Allowed values- true) edition, Enterpriseedition.Special default for Basic edition is true, Essentialsedition is true, Enterprise is False.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
         public bool? IgnorePeerChain { get; set; }
         /// <summary>
         /// This field describes the object's replication scope.

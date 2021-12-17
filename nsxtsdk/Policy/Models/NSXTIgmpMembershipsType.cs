@@ -12,11 +12,14 @@ using System.ComponentModel;
 namespace nsxtsdk.PolicyModels
 {
     /// <summary>
-    /// IGMP Memberships.
+    /// 
     /// </summary>
-    [NSXTProperty(Description: @"IGMP Memberships.")]
-    public class NSXTIgmpMembershipsType 
+    [NSXTProperty(Description: @"")]
+    public class NSXTIgmpMembershipsType : NSXTListResultType
     {
+        public NSXTIgmpMembershipsType()
+        {
+        }
         /// <summary>
         /// Policy path to Tier0 or Tier1 gateway.
         /// </summary>

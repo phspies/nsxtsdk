@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"SNMP v3 user properties")]
     public class NSXTSnmpV3UserType 
     {
+        public NSXTSnmpV3UserType()
+        {
+        }
         /// <summary>
         /// SNMP v3 user private password
         /// </summary>

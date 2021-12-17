@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBaseNodeAggregateInfoType 
     {
+        public NSXTBaseNodeAggregateInfoType()
+        {
+        }
         /// <summary>
         /// Array of Node interface statistic properties
         /// </summary>

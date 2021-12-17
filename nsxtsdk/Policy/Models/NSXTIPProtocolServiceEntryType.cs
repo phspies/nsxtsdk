@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPProtocolServiceEntryType : NSXTServiceEntryType
     {
+        public NSXTIPProtocolServiceEntryType()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

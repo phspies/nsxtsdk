@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"It represents the resource information which could identify resource.")]
     public class NSXTResourceInfoType 
     {
+        public NSXTResourceInfoType()
+        {
+        }
         /// <summary>
         /// It will represent resource identifiers. For example, policy objects will be
         /// represented with paths and virtual machine will be represented with external

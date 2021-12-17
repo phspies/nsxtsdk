@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRemainingSupportBundleNodeType 
     {
+        public NSXTRemainingSupportBundleNodeType()
+        {
+        }
         /// <summary>
         /// Status of node
         /// </summary>

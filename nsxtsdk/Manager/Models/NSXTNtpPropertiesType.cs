@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"This object contains the list of NTP servers used by NSX nodes.")]
     public class NSXTNtpPropertiesType 
     {
+        public NSXTNtpPropertiesType()
+        {
+        }
         /// <summary>
         /// List of NTP servers.
         /// </summary>

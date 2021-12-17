@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Used to specify subnets in L3Vpn rule.")]
     public class NSXTL3VpnSubnetType 
     {
+        public NSXTL3VpnSubnetType()
+        {
+        }
         /// <summary>
         /// Subnet used in L3Vpn Rule.
         /// </summary>

@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildLBServiceType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildLBServiceType()
+        {
+        }
         /// <summary>
-        /// Contains the actual LBService object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "LBService", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual LBService object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTLBServiceType LBService { get; set; }
     }

@@ -17,6 +17,12 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNatRuleType : NSXTManagedResourceType
     {
+        public NSXTNatRuleType()
+        {
+            RulePriority = test
+            Enabled = test
+            NatPass = test
+        }
         /// <summary>
         /// IP Address | CIDR | (null implies Any)
         /// </summary>
@@ -38,17 +44,12 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "rule_priority")]
         [NSXTProperty(IsRequired: false, Description: @"Ascending, valid range [0-2147483647]. If multiple rules have the samepriority, evaluation sequence is undefined.")]
-        [NSXTDefaultProperty(Default: "")]
         public long? RulePriority { get; set; }
         /// <summary>
-        /// A NSServiceElement that specifies the matching services of source
-        /// ports, destination ports, ip protocol version and number, sub protocol
-        /// version and number, ICMP type and code, etc.
-        /// The match_service can be one of IPProtocolNSService,L4PortSetNSService
-        /// or ICMPTypeNSService. REFLEXIVE NAT does not support match_service.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "match_service")]
-        [NSXTProperty(IsRequired: false, Description: @"A NSServiceElement that specifies the matching services of sourceports, destination ports, ip protocol version and number, sub protocolversion and number, ICMP type and code, etc.The match_service can be one of IPProtocolNSService,L4PortSetNSServiceor ICMPTypeNSService. REFLEXIVE NAT does not support match_service.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTNSServiceElementType MatchService { get; set; }
         /// <summary>
         /// Holds the list of LogicalRouterPort Ids that a NAT rule can be applied to. The LogicalRouterPort used must belong to the
@@ -64,7 +65,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Indicator to enable/disable the rule.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// Internal NAT rule uuid for debug used in Controller and backend.
@@ -127,7 +127,6 @@ namespace nsxtsdk.ManagerModels
         /// </summary>
         [JsonProperty(PropertyName = "nat_pass")]
         [NSXTProperty(IsRequired: false, Description: @"Default is true. If the nat_pass is set to true, the following firewallstage will be skipped. Please note, if action is NO_SNAT or NO_DNAT,then nat_pass must be set to true or omitted.Nat_pass was deprecated with an alternative firewall_match. Please stopusing nat_pass to specify whether firewall stage is skipped. if you wantto skip, please set firewall_match to BYPASS. If you do not want to skip,please set the firewall_match to MATCH_EXTERNAL_ADDRESS orMATCH_INTERNAL_ADDRESS.Please note, the firewall_match will take priority over the nat_pass.If both are provided, the nat_pass is ignored. If firewall_match is notprovided while the nat_pass is specified, the nat_pass will still bepicked up. In this case, if nat_pass is set to false, firewall rule willbe applied on internall address of a packet, i.e. MATCH_INTERNAL_ADDRESS.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? NatPass { get; set; }
         /// <summary>
         /// The logical router id which the nat rule runs on.

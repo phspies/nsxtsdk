@@ -30,10 +30,10 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalResetIdsRuleStatsReset(string? Category = null, string? EnforcementPointPath = null)
+        public void ResetIdsRuleStats(string? Category = null, string? ContainerClusterPath = null, string? EnforcementPointPath = null)
         {
             
-            StringBuilder ResetIdsRuleStatsResetServiceURL = new StringBuilder("/global-infra/settings/firewall/security/intrusion-services/stats?action=reset");
+            StringBuilder ResetIdsRuleStatsServiceURL = new StringBuilder("/infra/settings/firewall/security/intrusion-services/stats?action=reset");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
@@ -41,12 +41,13 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             if (Category != null) { request.AddQueryParameter("category", Category.ToString()); }
+            if (ContainerClusterPath != null) { request.AddQueryParameter("container_cluster_path", ContainerClusterPath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = ResetIdsRuleStatsResetServiceURL.ToString();
+            request.Resource = ResetIdsRuleStatsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + ResetIdsRuleStatsResetServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP POST operation to " + ResetIdsRuleStatsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             
@@ -55,32 +56,48 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void ResetIdsRuleStatsReset(string? Category = null, string? EnforcementPointPath = null)
+        public NSXTIdsSecurityPolicyStatisticsListResultType GetIdsGatewayPolicyStatistics(string DomainId, string PolicyId, string? ContainerClusterPath = null, string? EnforcementPointPath = null)
         {
-            
-            StringBuilder ResetIdsRuleStatsResetServiceURL = new StringBuilder("/infra/settings/firewall/security/intrusion-services/stats?action=reset");
+            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
+            if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
+            NSXTIdsSecurityPolicyStatisticsListResultType returnValue = default(NSXTIdsSecurityPolicyStatisticsListResultType);
+            StringBuilder GetIdsGatewayPolicyStatisticsServiceURL = new StringBuilder("/infra/domains/{domain-id}/intrusion-service-gateway-policies/{policy-id}/statistics");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
-                Method = Method.POST
+                Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            if (Category != null) { request.AddQueryParameter("category", Category.ToString()); }
+            GetIdsGatewayPolicyStatisticsServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetIdsGatewayPolicyStatisticsServiceURL.Replace("{policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PolicyId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (ContainerClusterPath != null) { request.AddQueryParameter("container_cluster_path", ContainerClusterPath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = ResetIdsRuleStatsResetServiceURL.ToString();
+            request.Resource = GetIdsGatewayPolicyStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP POST operation to " + ResetIdsRuleStatsResetServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GetIdsGatewayPolicyStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            
+            else
+			{
+				try
+				{
+					returnValue = JsonConvert.DeserializeObject<NSXTIdsSecurityPolicyStatisticsListResultType>(response.Content, defaultSerializationSettings);
+				}
+				catch (Exception ex)
+				{
+					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsSecurityPolicyStatisticsListResultType).FullName + ".";
+					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
+				}
+			}
+			return returnValue;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsRuleStatisticsListResultType GetIdsRuleStatistics(string DomainId, string IdsPolicyId, string RuleId, string? EnforcementPointPath = null)
+        public NSXTIdsRuleStatisticsListResultType GetIdsRuleStatistics(string DomainId, string IdsPolicyId, string RuleId, string? ContainerClusterPath = null, string? EnforcementPointPath = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (IdsPolicyId == null) { throw new System.ArgumentNullException("IdsPolicyId cannot be null"); }
@@ -96,6 +113,7 @@ namespace nsxtapi.PolicyModules
             GetIdsRuleStatisticsServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
             GetIdsRuleStatisticsServiceURL.Replace("{ids-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IdsPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             GetIdsRuleStatisticsServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (ContainerClusterPath != null) { request.AddQueryParameter("container_cluster_path", ContainerClusterPath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = GetIdsRuleStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
@@ -122,37 +140,40 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsSecurityPolicyStatisticsListResultType GlobalGetIdsSecurityPolicyStatistics(string DomainId, string IdsPolicyId, string? EnforcementPointPath = null)
+        public NSXTIdsRuleStatisticsListResultType GetIdsGatewayRuleStatistics(string DomainId, string PolicyId, string RuleId, string? ContainerClusterPath = null, string? EnforcementPointPath = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (IdsPolicyId == null) { throw new System.ArgumentNullException("IdsPolicyId cannot be null"); }
-            NSXTIdsSecurityPolicyStatisticsListResultType returnValue = default(NSXTIdsSecurityPolicyStatisticsListResultType);
-            StringBuilder GetIdsSecurityPolicyStatisticsServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/intrusion-service-policies/{ids-policy-id}/statistics");
+            if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
+            if (RuleId == null) { throw new System.ArgumentNullException("RuleId cannot be null"); }
+            NSXTIdsRuleStatisticsListResultType returnValue = default(NSXTIdsRuleStatisticsListResultType);
+            StringBuilder GetIdsGatewayRuleStatisticsServiceURL = new StringBuilder("/infra/domains/{domain-id}/intrusion-service-gateway-policies/{policy-id}/rules/{rule-id}/statistics");
             var request = new RestRequest
             {              
                 RequestFormat = DataFormat.Json,
                 Method = Method.GET
             };
             request.AddHeader("Content-type", "application/json");
-            GetIdsSecurityPolicyStatisticsServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetIdsSecurityPolicyStatisticsServiceURL.Replace("{ids-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IdsPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetIdsGatewayRuleStatisticsServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetIdsGatewayRuleStatisticsServiceURL.Replace("{policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PolicyId, System.Globalization.CultureInfo.InvariantCulture)));
+            GetIdsGatewayRuleStatisticsServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (ContainerClusterPath != null) { request.AddQueryParameter("container_cluster_path", ContainerClusterPath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = GetIdsSecurityPolicyStatisticsServiceURL.ToString();
+            request.Resource = GetIdsGatewayRuleStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
-                var message = "HTTP GET operation to " + GetIdsSecurityPolicyStatisticsServiceURL.ToString() + " did not complete successfull";
+                var message = "HTTP GET operation to " + GetIdsGatewayRuleStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
             else
 			{
 				try
 				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsSecurityPolicyStatisticsListResultType>(response.Content, defaultSerializationSettings);
+					returnValue = JsonConvert.DeserializeObject<NSXTIdsRuleStatisticsListResultType>(response.Content, defaultSerializationSettings);
 				}
 				catch (Exception ex)
 				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsSecurityPolicyStatisticsListResultType).FullName + ".";
+					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsRuleStatisticsListResultType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}
@@ -162,7 +183,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsSecurityPolicyStatisticsListResultType GetIdsSecurityPolicyStatistics(string DomainId, string IdsPolicyId, string? EnforcementPointPath = null)
+        public NSXTIdsSecurityPolicyStatisticsListResultType GetIdsSecurityPolicyStatistics(string DomainId, string IdsPolicyId, string? ContainerClusterPath = null, string? EnforcementPointPath = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (IdsPolicyId == null) { throw new System.ArgumentNullException("IdsPolicyId cannot be null"); }
@@ -176,6 +197,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetIdsSecurityPolicyStatisticsServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
             GetIdsSecurityPolicyStatisticsServiceURL.Replace("{ids-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IdsPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (ContainerClusterPath != null) { request.AddQueryParameter("container_cluster_path", ContainerClusterPath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = GetIdsSecurityPolicyStatisticsServiceURL.ToString();
             var response = restClient.Execute(request);
@@ -193,48 +215,6 @@ namespace nsxtapi.PolicyModules
 				catch (Exception ex)
 				{
 					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsSecurityPolicyStatisticsListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        [NSXTProperty(Description: @"")]
-        public NSXTIdsRuleStatisticsListResultType GlobalGetIdsRuleStatistics(string DomainId, string IdsPolicyId, string RuleId, string? EnforcementPointPath = null)
-        {
-            if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
-            if (IdsPolicyId == null) { throw new System.ArgumentNullException("IdsPolicyId cannot be null"); }
-            if (RuleId == null) { throw new System.ArgumentNullException("RuleId cannot be null"); }
-            NSXTIdsRuleStatisticsListResultType returnValue = default(NSXTIdsRuleStatisticsListResultType);
-            StringBuilder GetIdsRuleStatisticsServiceURL = new StringBuilder("/global-infra/domains/{domain-id}/intrusion-service-policies/{ids-policy-id}/rules/{rule-id}/statistics");
-            var request = new RestRequest
-            {              
-                RequestFormat = DataFormat.Json,
-                Method = Method.GET
-            };
-            request.AddHeader("Content-type", "application/json");
-            GetIdsRuleStatisticsServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetIdsRuleStatisticsServiceURL.Replace("{ids-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IdsPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
-            GetIdsRuleStatisticsServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
-            if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
-            request.Resource = GetIdsRuleStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-			{
-                var message = "HTTP GET operation to " + GetIdsRuleStatisticsServiceURL.ToString() + " did not complete successfull";
-                throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
-			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsRuleStatisticsListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsRuleStatisticsListResultType).FullName + ".";
 					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
 				}
 			}

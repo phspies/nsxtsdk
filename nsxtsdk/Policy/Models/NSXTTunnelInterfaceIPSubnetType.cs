@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTunnelInterfaceIPSubnetType 
     {
+        public NSXTTunnelInterfaceIPSubnetType()
+        {
+        }
         /// <summary>
         /// IPv4 Addresses
         /// </summary>

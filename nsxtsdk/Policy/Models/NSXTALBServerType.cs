@@ -17,6 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer Server object")]
     public class NSXTALBServerType 
     {
+        public NSXTALBServerType()
+        {
+            Enabled = test
+            Ratio = test
+        }
         /// <summary>
         /// If statically learned.
         /// Default value when not specified in API or module is
@@ -60,16 +65,16 @@ namespace nsxtsdk.PolicyModels
         public string? AvailabilityZone { get; set; }
         /// <summary>
         /// Name of autoscaling group this server belongs to.
+        /// Allowed in Essentials edition, Enterprise edition.
         /// </summary>
         [JsonProperty(PropertyName = "autoscaling_group_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Name of autoscaling group this server belongs to.")]
+        [NSXTProperty(IsRequired: false, Description: @"Name of autoscaling group this server belongs to.Allowed in Essentials edition, Enterprise edition.")]
         public string? AutoscalingGroupName { get; set; }
         /// <summary>
-        /// IP Address of the server.
-        /// Required if there is no resolvable host name.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ip", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IP Address of the server.Required if there is no resolvable host name.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBIpAddrType Ip { get; set; }
         /// <summary>
@@ -87,7 +92,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Enable, Disable or Graceful Disable determine if new orexisting connections to the server are allowed.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// MAC address of server.
@@ -121,19 +125,21 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"UUID identifying VM in OpenStack and other externalcompute.")]
         public string? ExternalUuid { get; set; }
         /// <summary>
-        /// (internal-use) Geographic location of the server.Currently
-        /// only for internal usage.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "location")]
-        [NSXTProperty(IsRequired: false, Description: @"(internal-use) Geographic location of the server.Currentlyonly for internal usage.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBGeoLocationType Location { get; set; }
         /// <summary>
         /// Auto resolve server's IP using DNS name.
+        /// Allowed in Basic(Allowed values- false) edition,
+        /// Essentials(Allowed values- false) edition, Enterprise
+        /// edition.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "resolve_server_by_dns")]
-        [NSXTProperty(IsRequired: false, Description: @"Auto resolve server&apos;s IP using DNS name.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
+        [NSXTProperty(IsRequired: false, Description: @"Auto resolve server&apos;s IP using DNS name.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? ResolveServerByDns { get; set; }
         /// <summary>
         /// Ratio of selecting eligible servers in the pool.
@@ -145,7 +151,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Ratio of selecting eligible servers in the pool.Allowed values are 1-20.Default value when not specified in API or module isinterpreted by ALB Controller as 1.")]
         //[System.ComponentModel.DataAnnotations.MinLength(1)]
         //[System.ComponentModel.DataAnnotations.MaxLength(20)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Ratio { get; set; }
         /// <summary>
         /// Rewrite incoming Host Header to server name.

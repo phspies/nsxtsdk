@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyUrlReputationSeverityListResultType : NSXTListResultType
     {
+        public NSXTPolicyUrlReputationSeverityListResultType()
+        {
+        }
         /// <summary>
         /// Reputation Severity list
         /// </summary>

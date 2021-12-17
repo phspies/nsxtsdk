@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeEntityInfoType 
     {
+        public NSXTNodeEntityInfoType()
+        {
+        }
         /// <summary>
         /// IP address of service provider
         /// </summary>

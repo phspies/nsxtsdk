@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRedistributionRuleListType : NSXTManagedResourceType
     {
+        public NSXTRedistributionRuleListType()
+        {
+        }
         /// <summary>
         /// List of redistribution rules.
         /// User needs to re-order rules to change the priority.

@@ -17,6 +17,12 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBServiceType : NSXTPolicyConfigResourceType
     {
+        public NSXTLBServiceType()
+        {
+            ErrorLogLevel = test
+            Enabled = test
+            Size = test
+        }
         /// <summary>
         /// Flag to enable access log
         /// </summary>
@@ -37,7 +43,6 @@ namespace nsxtsdk.PolicyModels
         /// </summary>
         [JsonProperty(PropertyName = "error_log_level")]
         [NSXTProperty(IsRequired: false, Description: @"Load balancer engine writes information about encountered issues ofdifferent severity levels to the error log. This setting is used todefine the severity level of the error log.")]
-        [NSXTDefaultProperty(Default: "INFO")]
         public NSXTLbserviceErrorLogLevelEnumType? ErrorLogLevel { get; set; }
         /// <summary>
         /// If relax_scale_validation is true, the scale validations for virtual
@@ -53,23 +58,26 @@ namespace nsxtsdk.PolicyModels
         /// performance consideration.
         /// If relax_scale_validation is false, scale numbers should be validated
         /// for load balancer service.
+        /// The property is deprecated as NSX-T Load Balancer is deprecated.
         /// </summary>
         [JsonProperty(PropertyName = "relax_scale_validation")]
-        [NSXTProperty(IsRequired: false, Description: @"If relax_scale_validation is true, the scale validations for virtualservers/pools/pool members/rules are relaxed for load balancer service.When load balancer service is deployed on edge nodes, the scale ofvirtual servers/pools/pool members for the load balancer service shouldnot exceed the scale number of the largest load balancer size whichcould be configured on a certain edge form factor. For example, thelargest load balancer size supported on a MEDIUM edge node is MEDIUM.So one SMALL load balancer deployed on MEDIUM edge nodes can supportthe scale number of MEDIUM load balancer. It is not recommended toenable active monitors if relax_scale_validation is true due toperformance consideration.If relax_scale_validation is false, scale numbers should be validatedfor load balancer service.")]
+        [NSXTProperty(IsRequired: false, Description: @"If relax_scale_validation is true, the scale validations for virtualservers/pools/pool members/rules are relaxed for load balancer service.When load balancer service is deployed on edge nodes, the scale ofvirtual servers/pools/pool members for the load balancer service shouldnot exceed the scale number of the largest load balancer size whichcould be configured on a certain edge form factor. For example, thelargest load balancer size supported on a MEDIUM edge node is MEDIUM.So one SMALL load balancer deployed on MEDIUM edge nodes can supportthe scale number of MEDIUM load balancer. It is not recommended toenable active monitors if relax_scale_validation is true due toperformance consideration.If relax_scale_validation is false, scale numbers should be validatedfor load balancer service.The property is deprecated as NSX-T Load Balancer is deprecated.")]
         public bool? RelaxScaleValidation { get; set; }
         /// <summary>
         /// Flag to enable the load balancer service.
         /// </summary>
         [JsonProperty(PropertyName = "enabled")]
         [NSXTProperty(IsRequired: false, Description: @"Flag to enable the load balancer service.")]
-        [NSXTDefaultProperty(Default: "")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// Load balancer service size.
+        /// The load balancer service sizes, SMALL, MEDIUM, LARGE and XLARGE are
+        /// all deprecated. Customers who are using this set of features are
+        /// advised to migrate to NSX Advanced Load Balancer (Avi) which provides
+        /// a superset of the NSX-T load balancing functionality.
         /// </summary>
         [JsonProperty(PropertyName = "size")]
-        [NSXTProperty(IsRequired: false, Description: @"Load balancer service size.")]
-        [NSXTDefaultProperty(Default: "SMALL")]
+        [NSXTProperty(IsRequired: false, Description: @"Load balancer service size.The load balancer service sizes, SMALL, MEDIUM, LARGE and XLARGE areall deprecated. Customers who are using this set of features areadvised to migrate to NSX Advanced Load Balancer (Avi) which providesa superset of the NSX-T load balancing functionality.")]
         public NSXTLbserviceSizeEnumType? Size { get; set; }
     }
 }

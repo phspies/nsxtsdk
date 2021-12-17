@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBVirtualServerStatisticsType : NSXTLBVirtualServerStatisticsPerEPType
     {
+        public NSXTLBVirtualServerStatisticsType()
+        {
+        }
         /// <summary>
         /// Timestamp when the data was last updated.
         /// </summary>
@@ -24,10 +27,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Timestamp when the data was last updated.")]
         public long? LastUpdateTimestamp { get; set; }
         /// <summary>
-        /// Virtual server statistics counter.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "statistics")]
-        [NSXTProperty(IsRequired: false, Description: @"Virtual server statistics counter.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLBStatisticsCounterType Statistics { get; set; }
         /// <summary>
         /// load balancer virtual server object path.

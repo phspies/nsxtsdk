@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"The response for DNS nslookup.")]
     public class NSXTDnsAnswerType 
     {
+        public NSXTDnsAnswerType()
+        {
+        }
         /// <summary>
         /// Dns server ip address and port, format is "ip address#port".
         /// </summary>

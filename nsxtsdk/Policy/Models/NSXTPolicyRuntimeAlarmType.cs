@@ -19,6 +19,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Alarm associated with the PolicyRuntimeInfoPerEP that exposespotential errors when retrieving runtime information from theenforcement point.")]
     public class NSXTPolicyRuntimeAlarmType 
     {
+        public NSXTPolicyRuntimeAlarmType()
+        {
+        }
         /// <summary>
         /// Alarm error id.
         /// </summary>
@@ -26,11 +29,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Alarm error id.")]
         public string? ErrorId { get; set; }
         /// <summary>
-        /// Detailed information about errors from an API call made to the
-        /// enforcement point, if any.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "error_details")]
-        [NSXTProperty(IsRequired: false, Description: @"Detailed information about errors from an API call made to theenforcement point, if any.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTPolicyApiErrorType ErrorDetails { get; set; }
         /// <summary>
         /// Error message describing the issue.

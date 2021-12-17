@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildALBIpAddrGroupType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildALBIpAddrGroupType()
+        {
+        }
         /// <summary>
-        /// Contains the actual ALBIpAddrGroup object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ALBIpAddrGroup", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual ALBIpAddrGroup object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBIpAddrGroupType ALBIpAddrGroup { get; set; }
     }

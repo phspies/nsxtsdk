@@ -17,18 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Logical port attachment")]
     public class NSXTLogicalPortAttachmentType 
     {
+        public NSXTLogicalPortAttachmentType()
+        {
+            AttachmentType = test
+        }
         /// <summary>
         /// Indicates the type of logical port attachment. By default it is Virtual Machine interface (VIF)
         /// </summary>
         [JsonProperty(PropertyName = "attachment_type")]
         [NSXTProperty(IsRequired: false, Description: @"Indicates the type of logical port attachment. By default it is Virtual Machine interface (VIF)")]
-        [NSXTDefaultProperty(Default: "VIF")]
         public NSXTLogicalPortAttachmentAttachmentTypeEnumType? AttachmentType { get; set; }
         /// <summary>
-        /// Extra context data for the attachment
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "context")]
-        [NSXTProperty(IsRequired: false, Description: @"Extra context data for the attachment")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTAttachmentContextType Context { get; set; }
         /// <summary>
         /// Identifier of the interface attached to the logical port

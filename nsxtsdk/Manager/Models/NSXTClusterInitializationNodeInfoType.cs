@@ -19,6 +19,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"The type provides the information of a non-running cluster node required for the initialization of a management cluster. The administrator needs to start this node for management cluster to initialize properly (or decommission it explicitly).")]
     public class NSXTClusterInitializationNodeInfoType 
     {
+        public NSXTClusterInitializationNodeInfoType()
+        {
+        }
         /// <summary>
         /// The (internal) disk-store ID of the member
         /// </summary>

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalPortMacTableEntryType 
     {
+        public NSXTLogicalPortMacTableEntryType()
+        {
+        }
         /// <summary>
         /// The type of the MAC address
         /// </summary>

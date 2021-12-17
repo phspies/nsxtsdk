@@ -17,11 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildCommunicationMapType : NSXTChildPolicyConfigResourceType
     {
+        public NSXTChildCommunicationMapType()
+        {
+        }
         /// <summary>
-        /// Contains the actual CommunicationMap object.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "CommunicationMap", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Contains the actual CommunicationMap object.")]
+        [NSXTProperty(IsRequired: true, Description: @"")]
         [System.ComponentModel.DataAnnotations.Required]
         public NSXTCommunicationMapType CommunicationMap { get; set; }
     }

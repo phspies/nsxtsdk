@@ -16,5 +16,9 @@ namespace nsxtsdk.PolicyModels
         NETWORKPOLICY = 1,
         [EnumMember(Value = "ASG")]
         ASG = 2,
+        [EnumMember(Value = "ACNP")]
+        ACNP = 3,
+        [EnumMember(Value = "ANP")]
+        ANP = 4,
     }
 }

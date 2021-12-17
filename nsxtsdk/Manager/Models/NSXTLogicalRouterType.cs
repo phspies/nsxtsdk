@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalRouterType : NSXTManagedResourceType
     {
+        public NSXTLogicalRouterType()
+        {
+        }
         /// <summary>
         /// For stateful services, the logical router should be associated with
         /// edge cluster. For TIER 1 logical router, for manual placement of
@@ -30,26 +33,23 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"For stateful services, the logical router should be associated withedge cluster. For TIER 1 logical router, for manual placement ofservice router within the cluster, edge cluster member indices needsto be provided else same will be auto-allocated. You can providemaximum two indices for HA ACTIVE_STANDBY. For TIER0 logical routerthis property is no use and placement is derived from logical routeruplink or loopback port.")]
         public long? EdgeClusterMemberIndices { get; set; }
         /// <summary>
-        /// IPv6Profiles captures IPv6 NDRA Profile and DAD Profile
-        /// id associated with the logical router.
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "ipv6_profiles")]
-        [NSXTProperty(IsRequired: false, Description: @"IPv6Profiles captures IPv6 NDRA Profile and DAD Profileid associated with the logical router.")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPv6ProfilesType Ipv6Profiles { get; set; }
-        /// <summary>
-        /// Configurations options to auto allocate edge cluster members for
-        /// logical router. Auto allocation is supported only for TIER1 and pick
-        /// least utilized member post current assignment for next allocation.
-        /// </summary>
-        [JsonProperty(PropertyName = "allocation_profile")]
-        [NSXTProperty(IsRequired: false, Description: @"Configurations options to auto allocate edge cluster members forlogical router. Auto allocation is supported only for TIER1 and pickleast utilized member post current assignment for next allocation.")]
-        public NSXTEdgeClusterMemberAllocationProfileType AllocationProfile { get; set; }
         /// <summary>
         /// List of Firewall sections related to Logical Router.
         /// </summary>
         [JsonProperty(PropertyName = "firewall_sections")]
         [NSXTProperty(IsRequired: false, Description: @"List of Firewall sections related to Logical Router.")]
         public IList<NSXTResourceReferenceType> FirewallSections { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "allocation_profile")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
+        public NSXTEdgeClusterMemberAllocationProfileType AllocationProfile { get; set; }
         /// <summary>
         /// Determines the behavior when a logical router instance restarts after
         /// a failure. If set to PREEMPTIVE, the preferred node will take over,
@@ -64,10 +64,10 @@ namespace nsxtsdk.ManagerModels
         [NSXTProperty(IsRequired: false, Description: @"Determines the behavior when a logical router instance restarts aftera failure. If set to PREEMPTIVE, the preferred node will take over,even if it causes another failure. If set to NON_PREEMPTIVE, then theinstance that restarted will remain secondary.This property must not be populated unless the high_availability_mode propertyis set to ACTIVE_STANDBY.If high_availability_mode property is set to ACTIVE_STANDBY and this propertyis not specified then default will be NON_PREEMPTIVE.")]
         public NSXTLogicalRouterFailoverModeEnumType? FailoverMode { get; set; }
         /// <summary>
-        /// Contains config properties for tier0 routers
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "advanced_config")]
-        [NSXTProperty(IsRequired: false, Description: @"Contains config properties for tier0 routers")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLogicalRouterConfigType AdvancedConfig { get; set; }
         /// <summary>
         /// TIER0 for external connectivity.

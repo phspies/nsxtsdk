@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalRouterRouteEntryType 
     {
+        public NSXTLogicalRouterRouteEntryType()
+        {
+        }
         /// <summary>
         /// Logical router component(Service Router/Distributed Router) id
         /// </summary>

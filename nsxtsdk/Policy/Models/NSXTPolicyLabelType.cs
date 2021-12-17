@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyLabelType : NSXTPolicyConfigResourceType
     {
+        public NSXTPolicyLabelType()
+        {
+        }
         /// <summary>
         /// Policy entity paths referred by the label instance
         /// </summary>

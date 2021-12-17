@@ -17,6 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIcmpEchoRequestHeaderType 
     {
+        public NSXTIcmpEchoRequestHeaderType()
+        {
+            Id = test
+            Sequence = test
+        }
         /// <summary>
         /// ICMP id
         /// </summary>
@@ -24,7 +29,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"ICMP id")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Id { get; set; }
         /// <summary>
         /// ICMP sequence number
@@ -33,7 +37,6 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"ICMP sequence number")]
         //[System.ComponentModel.DataAnnotations.MinLength(0)]
         //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [NSXTDefaultProperty(Default: "")]
         public long? Sequence { get; set; }
     }
 }

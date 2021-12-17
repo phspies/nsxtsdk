@@ -7,9 +7,9 @@ using nsxtsdk.Models;
 namespace nsxtsdk.ManagerModels
 {
     /// <summary>
-    /// The status of a live trace request.SUCCESS_DELIVERED - The request is delivered successfully.LCP_FAILURE - nsx-cfgagent fails to realize the request.INVALID_FILTER - filter data invalid.DATAPATH_FAILURE - DP fails to realize the request.TIMEOUT - The response to the request is not received within timeout.CONNECTION_ERROR - There is connection error with host component.UNKNOWN - The status of request cannot be determined.
+    /// The status of a Livetrace request.SUCCESS_DELIVERED - The request is delivered successfully.LCP_FAILURE - LCP agent fails to realize the request.INVALID_FILTER - Filter is invalid.DATAPATH_FAILURE - Dataplane fails to realize the request.TIMEOUT - The response to the request is not received within timeout.CONNECTION_ERROR - There is connection error between host components.UNKNOWN - The status of request cannot be determined.
     /// </summary>
-    [NSXTProperty(Description: @"The status of a live trace request.SUCCESS_DELIVERED - The request is delivered successfully.LCP_FAILURE - nsx-cfgagent fails to realize the request.INVALID_FILTER - filter data invalid.DATAPATH_FAILURE - DP fails to realize the request.TIMEOUT - The response to the request is not received within timeout.CONNECTION_ERROR - There is connection error with host component.UNKNOWN - The status of request cannot be determined.")]
+    [NSXTProperty(Description: @"The status of a Livetrace request.SUCCESS_DELIVERED - The request is delivered successfully.LCP_FAILURE - LCP agent fails to realize the request.INVALID_FILTER - Filter is invalid.DATAPATH_FAILURE - Dataplane fails to realize the request.TIMEOUT - The response to the request is not received within timeout.CONNECTION_ERROR - There is connection error between host components.UNKNOWN - The status of request cannot be determined.")]
     public enum NSXTLiveTraceStatusRequestStatusEnumType
     {
         [EnumMember(Value = "SUCCESS_DELIVERED")]

@@ -17,6 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUpgradeUnitGroupInfoType 
     {
+        public NSXTUpgradeUnitGroupInfoType()
+        {
+        }
         /// <summary>
         /// Name of the group
         /// </summary>

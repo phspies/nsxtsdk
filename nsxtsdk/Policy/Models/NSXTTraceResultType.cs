@@ -17,6 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTraceResultType 
     {
+        public NSXTTraceResultType()
+        {
+        }
         /// <summary>
         /// Direction of a trace
         /// </summary>
@@ -24,10 +27,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Direction of a trace")]
         public NSXTTraceResultDirectionEnumType? Direction { get; set; }
         /// <summary>
-        /// Observation counters for logical components
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "logical_counters")]
-        [NSXTProperty(IsRequired: false, Description: @"Observation counters for logical components")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTTraceflowObservationCountersType LogicalCounters { get; set; }
         /// <summary>
         /// Trace observation list
@@ -54,10 +57,10 @@ namespace nsxtsdk.PolicyModels
         [NSXTProperty(IsRequired: false, Description: @"Trace action result analysis notes")]
         public IList<string> Analysis { get; set; }
         /// <summary>
-        /// Observation counters
+        /// 
         /// </summary>
         [JsonProperty(PropertyName = "counters")]
-        [NSXTProperty(IsRequired: false, Description: @"Observation counters")]
+        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTTraceflowObservationCountersType Counters { get; set; }
     }
 }
