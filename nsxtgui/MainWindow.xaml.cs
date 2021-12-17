@@ -32,6 +32,8 @@ namespace nsxtgui
                 var status = nsxtClient.ManagerEngine.ClusterManagementModule.ReadClusterNodesAggregateStatus();
                 var cluster = nsxtClient.ManagerEngine.ClusterManagementModule.ReadClusterStatus();
                 var tnnodes = nsxtClient.ManagerEngine.TransportNodeLcmModule.ListTransportNodesWithDeploymentInfo();
+                var tier0s = nsxtClient.PolicyEngine.PolicyConnectivityModule.ListTier0s().Results;
+                var tier1s = nsxtClient.PolicyEngine.PolicyConnectivityModule.ListTier1().Results;
                 if (status != null || cluster != null || tnnodes != null)
                 {
                     string httpsLeader = cluster.DetailedClusterStatus.Groups.FirstOrDefault(x => x.GroupType == nsxtsdk.ManagerModels.NSXTClusterGroupStatusGroupTypeEnumType.HTTPS).Leaders.First().LeaderUuid;
@@ -56,6 +58,18 @@ namespace nsxtgui
                         statusListControl.Items.Add($"\tType: {thisnode.Item1.NodeDeploymentInfo.ResourceType}");
                         statusListControl.Items.Add($"\tStatus: {thisnode.Item2.NodeDeploymentState.State}");
                         statusListControl.Items.Add($"\tFailure Message: {thisnode.Item2.FailureMessage}");
+                    }
+                    foreach (var tier0 in tier0s)
+                    {
+                        statusListControl.Items.Add($"Tier 0: {tier0.DisplayName}");
+                        statusListControl.Items.Add($"\tHA Mode: {tier0.HaMode}");
+                    }
+                    foreach (var tier1 in tier1s)
+                    {
+                        statusListControl.Items.Add($"Tier 1: {tier1.DisplayName}");
+                        statusListControl.Items.Add($"\tTier 0 Path: {tier1.Tier0Path}");
+                        statusListControl.Items.Add($"\tFailover Mode: {tier1.FailoverMode}");
+                        statusListControl.Items.Add($"\tPool Allocation: {tier1.PoolAllocation}");
                     }
                     //Load Firewall Sections and rules
                     dfwSectionsControl.ItemsSource = nsxtClient.PolicyEngine.DfwSecurityPolicyModule.ListSecurityPoliciesForDomain("default").Results as List<NSXTSecurityPolicyType>;
