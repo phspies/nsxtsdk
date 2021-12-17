@@ -88,7 +88,6 @@ namespace nsxtgui
             {
 
             }
-            //dfwRulesControl.ItemsSource = nsxtClient.PolicyEngine.Polic.ReadFirewallSectionRealizedState("default",selectedSection.UniqueId) as List<NSXTRealizedFirewallSectionType>;
             Mouse.OverrideCursor = Cursors.Arrow;
         }
         private void dfwRulesControl_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -115,40 +114,6 @@ namespace nsxtgui
             NSXTInfraType infraObject = new NSXTInfraType();
             infraObject.Children.Add(new NSXTChildPolicyConfigResourceType() { ResourceType = "ChildDomain", Id = "default", });
             nsxtClient.PolicyEngine.PolicyModule.PatchInfra(infraObject);
-            //List<NSXTFirewallServiceType> serviceList = new List<NSXTFirewallServiceType>();
-            //serviceList.Add(new NSXTFirewallServiceType() { Service = new NSXTNSServiceElementType() { ResourceType = NSXTNsserviceElementResourceTypeEnumType.L4PortSetNsservice } });
-
-            //List<NSXTResourceReferenceType> sourceList = new List<NSXTResourceReferenceType>();
-            //sourceList.Add(new NSXTResourceReferenceType() { IsValid =  true, TargetDisplayName = "20.0.0.0/24", TargetId = "20.0.0.0/24", TargetType = "IPv4Address" });
-
-            //List<NSXTResourceReferenceType> desctinationList = new List<NSXTResourceReferenceType>();
-            //desctinationList.Add(new NSXTResourceReferenceType() { IsValid = true, TargetDisplayName = "30.0.0.0/24", TargetId = "30.0.0.0/24", TargetType = "IPv4Address" });
-
-            //NSXTFirewallRuleType newRule = new NSXTFirewallRuleType()
-            //{
-            //    Action = NSXTDsruleActionEnumType.DROP,
-            //    Description = "Test Rule from GUI",
-            //    DisplayName = "TestRule",
-            //    IpProtocol = NSXTDsruleIpProtocolEnumType.IPV4,
-            //    Direction = NSXTDsruleDirectionEnumType.INOUT,
-            //    SectionId = (dfwSectionsControl.SelectedItem as NSXTFirewallSectionType).Id,
-            //    Services = serviceList,
-            //    Sources = sourceList,
-            //    Destinations = desctinationList,
-            //    DestinationsExcluded = false,
-            //    Disabled = false
-
-
-            //};
-            //try
-            //{
-            //    var returnval = nsxtClient.ManagerEngine.FirewallModule.AddRuleInSection(newRule.SectionId, newRule);
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            //}
-
 
         }
     }
