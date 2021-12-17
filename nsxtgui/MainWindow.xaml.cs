@@ -1,4 +1,5 @@
-﻿using nsxtapi;
+﻿using Newtonsoft.Json;
+using nsxtapi;
 using nsxtsdk.PolicyModels;
 using System;
 using System.Collections.Concurrent;
@@ -97,9 +98,9 @@ namespace nsxtgui
             {
                 var selectedRule = e.AddedItems[0] as NSXTRuleType;
                 selectedDFWRule = nsxtClient.PolicyEngine.DfwSecurityPolicyModule.ReadSecurityRule("default", selectedRule.ParentPath.Split("/").Last(), selectedRule.Id);
-                //rawJsonView.Text = JsonConvert.SerializeObject(selectedDFWRule, Formatting.Indented);
-                var test = nsxtClient.PolicyEngine.PolicyModule.ReadInfra(selectedDFWRule.Path);
-      
+                rawJsonView.Text = JsonConvert.SerializeObject(selectedDFWRule, Formatting.Indented);
+
+
                 Mouse.OverrideCursor = Cursors.Arrow;
                 if (selectedDFWRule == null)
                 {

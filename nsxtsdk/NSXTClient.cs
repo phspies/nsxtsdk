@@ -17,13 +17,14 @@ namespace nsxtapi
         public string EndPoint { get; set; }
         public RestClient restClient { get; set; }
         JsonSerializerSettings defaultSerializationSettings;
-        public NSXTClient(string host, string Username, string Password, bool? remoteCertificateValidation = true, JsonSerializerSettings? DefaultSerializationSettings = null)
+        public NSXTClient(string host, string Username, string Password, bool? remoteCertificateValidation = true, JsonSerializerSettings? DefaultSerializationSettings = null, int Port = 443)
         {
-            if (host.Contains("http"))
+            var uri = new UriBuilder(host)
             {
-                throw new ArgumentException("Host string should not include https string");
-            }
-            restClient = new RestClient(new Uri($"https://{host}/api/v1"));
+                Scheme = Uri.UriSchemeHttps,
+                Port = Port
+            };
+            restClient = new RestClient(uri.Uri);
             if (remoteCertificateValidation == false)
             {
                 restClient.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
