@@ -27,7 +27,7 @@ namespace nsxtgui
             {
                 statusListControl.Items.Clear();
                 Mouse.OverrideCursor = Cursors.Wait;
-                nsxtClient = new NSXTClient(nsxtConnectionHost.Text, nsxtConnectionUsername.Text, nsxtConnectionPassword.Password, (bool)nsxtConnectionValidateCertificate.IsChecked);
+                nsxtClient = new NSXTClient(nsxtConnectionHost.Text, nsxtConnectionUsername.Text, nsxtConnectionPassword.Password, (bool)nsxtConnectionValidateCertificate.IsChecked, new Newtonsoft.Json.JsonSerializerSettings() {  Formatting = Newtonsoft.Json.Formatting.None });
                 var status = nsxtClient.ManagerEngine.ClusterManagementModule.ReadClusterNodesAggregateStatus();
                 var cluster = nsxtClient.ManagerEngine.ClusterManagementModule.ReadClusterStatus();
                 var tnnodes = nsxtClient.ManagerEngine.TransportNodeLcmModule.ListTransportNodesWithDeploymentInfo();
@@ -99,7 +99,7 @@ namespace nsxtgui
                 var selectedRule = e.AddedItems[0] as NSXTRuleType;
                 selectedDFWRule = nsxtClient.PolicyEngine.DfwSecurityPolicyModule.ReadSecurityRule("default", selectedRule.ParentPath.Split("/").Last(), selectedRule.Id);
                 //rawJsonView.Text = JsonConvert.SerializeObject(selectedDFWRule, Formatting.Indented);
-                var test = nsxtClient.PolicyEngine.PolicyModule.ReadInfra("/infra/domains/default");
+                var test = nsxtClient.PolicyEngine.PolicyModule.ReadInfra(selectedDFWRule.Path);
       
                 Mouse.OverrideCursor = Cursors.Arrow;
                 if (selectedDFWRule == null)
