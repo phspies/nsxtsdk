@@ -1,6 +1,6 @@
-# C# SDK for NSX-T 3.1
+# C# SDK for NSX-T 3.2
 
-SDK compatable with .net 6.0 for NSX-T 3.1 Manager and Policy engins. It uses RestSharp as the transport and uses Newtonsoft.Json for JSON handeling.
+SDK compatable with .net 6.0 for NSX-T 3.2 Manager and Policy engins. It uses RestSharp as the transport and uses Newtonsoft.Json for JSON handeling.
 
 ## Modules
 
